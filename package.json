@@ -1,0 +1,30 @@
+{
+  "name": "spartan-vue",
+  "version": "0.0.0",
+  "description": "spartan vue lib",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/spartan-vue.umd.js",
+  "module": "./dist/spartan-vue.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/spartan-vue.es.js",
+      "require": "./dist/spartan-vue.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/compiler-sfc": "^3.2.6",
+    "vite": "^2.5.2",
+    "vue": "^3.2.6"
+  }
+}
