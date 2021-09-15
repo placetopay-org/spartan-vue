@@ -10,6 +10,11 @@ npm config set "//npm.pkg.github.com/:_authToken" YourGithubPersonalAccessToken
 
 ```
 
+```
+npm install @placetopay-org/spartan-vue
+```
+
+
 # Generate your githubPersonal access token
 
 Verify you can read the repository https://github.com/placetopay-org/spartan-vue
