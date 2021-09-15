@@ -1,6 +1,6 @@
 {
-  "name": "spartan-vue",
-  "version": "0.0.0",
+  "name": "@placetopay-org/spartan-vue",
+  "version": "0.0.1",
   "description": "spartan vue lib",
   "files": [
     "dist"
@@ -12,6 +12,12 @@
       "import": "./dist/spartan-vue.es.js",
       "require": "./dist/spartan-vue.umd.js"
     }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "url": "https://github.com/placetopay-org/spartan-vue"
   },
   "scripts": {
     "dev": "vite",
