@@ -1,9 +1,10 @@
 {
   "name": "@placetopay-org/spartan-vue",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "spartan vue lib",
   "files": [
-    "dist"
+    "dist",
+    "src/tailwindcss.js"
   ],
   "main": "./dist/spartan-vue.umd.js",
   "module": "./dist/spartan-vue.es.js",
@@ -11,7 +12,8 @@
     ".": {
       "import": "./dist/spartan-vue.es.js",
       "require": "./dist/spartan-vue.umd.js"
-    }
+    },
+    "./src/tailwindcss.js": "./src/tailwindcss.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
