@@ -1,6 +1,6 @@
 module.exports = {
   presets: [
-    require('./src/tailwind.js')
+    require('./src/tailwindcss.js')
   ],
   variants: {
     extend: {},
