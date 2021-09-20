@@ -11,7 +11,7 @@ import Inputs from "./Inputs.vue";
 export default {
   components: {
     Buttons,
-    Inputs
+    Inputs,
   },
   setup() {
     const route = useRoute();
