@@ -14,3 +14,7 @@
 
 export { default as SButton } from './components/SButton.vue'
 export { default as SInput } from './components/SInput.vue'
+export { default as SInputError } from './components/SInputError.vue'
+export { default as SInputHelper } from './components/SInputHelper.vue'
+
+
