@@ -7,11 +7,13 @@ import { computed } from "vue";
 import { useRoute } from 'vue-router'
 import Buttons from "./Buttons.vue";
 import Inputs from "./Inputs.vue";
+import Sidebar from "./Sidebar.vue";
 
 export default {
   components: {
     Buttons,
     Inputs,
+    Sidebar
   },
   setup() {
     const route = useRoute();

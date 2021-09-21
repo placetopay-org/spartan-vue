@@ -15,7 +15,9 @@
                 </button>
               </div>
             </TransitionChild>
-            <slot></slot>
+            <div class="flex-1 flex flex-col pt-4 md:pt-5 pb-4 overflow-y-auto">
+              <slot></slot>
+            </div>
           </div>
         </TransitionChild>
         <div class="flex-shrink-0 w-14">
@@ -28,8 +30,10 @@
     <div class="hidden md:flex md:flex-shrink-0">
       <div class="flex flex-col w-64">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="flex-1 flex flex-col min-h-0 bg-white border-r-8">
-          <slot></slot>
+        <div class="flex-1 flex flex-col min-h-0 bg-white rounded-r-3xl shadow-xl border">
+          <div class="flex-1 flex flex-col pt-4 md:pt-5 pb-4 overflow-y-auto">
+            <slot></slot>
+          </div>
         </div>
       </div>
     </div>
@@ -43,7 +47,6 @@ import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 import useSidebar from "../composables/useSidebar";
 
 export default {
-  name: "Sidebar",
   components: {
     Dialog,
     DialogOverlay,
@@ -60,10 +63,5 @@ export default {
       closeSidebar
     }
   }
-
 }
 </script>
-
-<style scoped>
-
-</style>
