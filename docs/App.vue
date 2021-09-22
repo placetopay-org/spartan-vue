@@ -15,7 +15,7 @@
         </button>
       </div>
       <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none">
-        <div class="max-w-7xl mx-auto py-12 h-full">
+        <div class="max-w-7xl mx-auto h-full">
           <router-view></router-view>
         </div>
       </main>

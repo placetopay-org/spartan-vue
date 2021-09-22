@@ -1,5 +1,5 @@
 <template>
-    <p class="text-sm text-red-600 mt-2" v-show="message">
+    <p class="text-sm text-red-600" v-show="message">
         {{ message }}
     </p>
 </template>
