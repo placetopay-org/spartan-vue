@@ -34,6 +34,7 @@ const navigation = [
   { name: 'Buttons', href: '/components/buttons'},
   { name: 'Inputs', href: '/components/inputs'},
   { name: 'Sidebar', href: '/components/Sidebar'},
+  { name: 'Breadcrumbs', href: '/components/Breadcrumbs'},
 ]
 
 export default {

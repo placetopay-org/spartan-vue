@@ -8,12 +8,14 @@ import { useRoute } from 'vue-router'
 import Buttons from "./Buttons.vue";
 import Inputs from "./Inputs.vue";
 import Sidebar from "./Sidebar.vue";
+import Breadcrumbs from "./Breadcrumbs.vue";
 
 export default {
   components: {
     Buttons,
     Inputs,
-    Sidebar
+    Sidebar,
+    Breadcrumbs,
   },
   setup() {
     const route = useRoute();

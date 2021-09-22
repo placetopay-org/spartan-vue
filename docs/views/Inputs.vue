@@ -1,11 +1,6 @@
 <template>
     <div class="flex flex-col h-full flex-1 justify-center items-center">
 
-      <div class="w-full pb-3">
-        <h2 class="pb-6">Inputs</h2>
-        <table-component :data="dataDescription" />
-      </div>
-      
       <div class="w-full max-w-xs mx-auto">
         <div>
           <h3 class="pb-3">Simple</h3>

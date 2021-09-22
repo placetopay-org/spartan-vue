@@ -21,5 +21,6 @@ export { default as SSidebarLogo } from './components/SSidebarLogo.vue'
 export { default as SSidebarNavItem } from './components/SSidebarNavItem.vue'
 export { default as SSidebarNavTitle } from './components/SSidebarNavTitle.vue'
 export { default as SSidebarContent } from './components/SSidebarContent.vue'
+export { default as SBreadcrumbs } from './components/SBreadcrumbs.vue';
 
 
