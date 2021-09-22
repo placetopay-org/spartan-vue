@@ -6,7 +6,7 @@ on:
       - feature/adds-components
 jobs:
   release:
-    name: publish
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -16,5 +16,6 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - name: build
-        run: npm -v && node -v
+          
+      - run: npm ci
+      - run: npm run build
