@@ -23,7 +23,11 @@ export default {
       type: [Object, String],
       default: undefined
     },
-    active: {},
+    active: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   }
 }
 </script>
