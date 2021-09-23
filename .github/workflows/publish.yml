@@ -6,7 +6,7 @@ on:
       - main
 jobs:
   release:
-    name: build
+    name: build and publish
     runs-on: ubuntu-latest
     steps:
       - name: checkout

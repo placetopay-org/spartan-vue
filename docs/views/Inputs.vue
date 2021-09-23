@@ -1,19 +1,24 @@
 <template>
-    <div class="flex flex-col h-full flex-1 justify-center items-center">
+    <div class="flex flex-col h-full flex-1 justify-center items-center mt-10">
 
-      <div class="w-full max-w-xs mx-auto">
-        <div>
+      <div>
+        <div class="m-5">
+          <h2 class="mb-5">Inputs</h2>
+          <table-component :data="dataDescription"/>
+        </div>
+
+        <div class="m-5">
           <h3 class="pb-3">Simple</h3>
           <s-input :type="'email'" :name="name" :label="email" id="email" :placeholder="placeholder" />
         </div>
 
-        <div class="mt-8">
+        <div class="m-5">
           <h3 class="pb-3">With Error</h3>
           <s-input :name="name" :label="email" id="email" :placeholder="placeholder" />
           <s-input-error :message="error_message" />
         </div>
 
-        <div class="mt-8">
+        <div class="m-5">
           <h3 class="pb-3">With helper</h3>
           <s-input :name="name" :label="email" id="email" :placeholder="placeholder" />
           <s-input-helper :message="helper_message" />
