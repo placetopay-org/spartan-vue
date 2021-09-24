@@ -20,10 +20,14 @@
 export default {
   props: {
     icon: {
-      type: [Object, String],
+      type: [Object, Function],
       default: undefined
     },
-    active: {},
+    active: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   }
 }
 </script>

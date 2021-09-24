@@ -21,5 +21,12 @@ export { default as SSidebarLogo } from './components/SSidebarLogo.vue'
 export { default as SSidebarNavItem } from './components/SSidebarNavItem.vue'
 export { default as SSidebarNavTitle } from './components/SSidebarNavTitle.vue'
 export { default as SSidebarContent } from './components/SSidebarContent.vue'
+export { default as SBreadcrumbs } from './components/SBreadcrumbs.vue';
+export { default as SBreadcrumb } from './components/SBreadcrumb.vue';
+export { default as STopBar } from './components/STopBar.vue';
+export { default as SAvatar } from './components/SAvatar.vue';
+export { default as SAvatarMenu } from './components/SAvatarMenu.vue';
+export { default as SMenuItem } from './components/SMenuItem.vue';
+export { default as SRootLayout } from './components/SRootLayout.vue';
 
 

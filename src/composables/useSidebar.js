@@ -1,24 +1,27 @@
-import { ref } from 'vue'
+import { reactive } from 'vue'
 
-const sidebarOpen = ref(false)
+const sidebar = reactive({
+  mobile: { isOpen: false },
+  desktop: { isOpen: true },
+})
 
-export default function useSidebar() {
-  const toggleSidebar = () => {
-    sidebarOpen.value = !sidebarOpen.value;
+export default function useSidebar(name = 'desktop') {
+  const toggleSidebar = (name) => {
+    sidebar[name].isOpen = !sidebar[name].isOpen
   }
 
-  const openSidebar = () => {
-    sidebarOpen.value = true;
+  const openSidebar = (name) => {
+    sidebar[name].isOpen = true;
   }
 
-  const closeSidebar = () => {
-    sidebarOpen.value = false;
+  const closeSidebar = (name) => {
+    sidebar[name].isOpen = false;
   }
 
   return {
-    sidebarOpen,
-    toggleSidebar,
     openSidebar,
-    closeSidebar
+    closeSidebar,
+    toggleSidebar,
+    sidebar,
   }
 }
