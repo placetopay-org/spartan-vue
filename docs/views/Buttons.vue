@@ -2,20 +2,24 @@
   <div class="flex h-full flex-1 justify-center items-center">
 
     <div class="space-x-6">
-      <SButton color="primary">
-        Guardar
-      </SButton>
+      <s-button class="primary">
+        primary
+      </s-button>
 
-      <SButton color="default">
-        Cancelar
-      </SButton>
+      <s-button class="default">
+        default
+      </s-button>
+
+      <s-button class="danger">
+        danger
+      </s-button>
     </div>
 
   </div>
 </template>
 
 <script>
-import { SButton } from "../../dist/spartan-vue.es";
+import { SButton } from "../../src/index.js";
 
 export default {
   components: {
