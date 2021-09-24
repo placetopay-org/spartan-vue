@@ -1,20 +1,18 @@
 <template>
   <div class="flex h-full flex-1 justify-center items-center">
-
     <div class="space-x-6">
-      <s-button color="primary">
-        primary
-      </s-button>
+      <SButton color="primary">
+        Guardar
+      </SButton>
 
-      <s-button color="default">
-        default
-      </s-button>
+      <SButton color="default">
+        Cancelar
+      </SButton>
 
-      <s-button color="danger">
-        danger
-      </s-button>
+      <SButton color="danger">
+        Borrar
+      </SButton>
     </div>
-
   </div>
 </template>
 
