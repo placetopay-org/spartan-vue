@@ -1,7 +1,7 @@
 <template>
   <div class="md:flex md:flex-shrink-0">
-    <TransitionRoot as="template" :show="sidebarOpen">
-      <Dialog as="div" class="fixed inset-0 flex z-40 md:hidden" @close="closeSidebar">
+    <TransitionRoot as="template" :show="sidebar.mobile.isOpen">
+      <Dialog as="div" class="fixed inset-0 flex z-40 md:hidden" @close="closeSidebar('mobile')">
         <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100" leave-to="opacity-0">
           <DialogOverlay class="fixed inset-0 bg-gray-600 bg-opacity-75"/>
         </TransitionChild>
@@ -9,7 +9,7 @@
           <div class="relative max-w-xs w-full bg-white pt-5 pb-4 flex-1 flex flex-col">
             <TransitionChild as="template" enter="ease-in-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-300" leave-from="opacity-100" leave-to="opacity-0">
               <div class="absolute top-0 right-0 -mr-12 pt-2">
-                <button type="button" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" @click="closeSidebar">
+                <button type="button" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" @click="closeSidebar('mobile')">
                   <span class="sr-only">Close sidebar</span>
                   <XIcon class="h-6 w-6 text-white" aria-hidden="true"/>
                 </button>
@@ -27,16 +27,19 @@
     </TransitionRoot>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden md:flex md:flex-shrink-0">
-      <div class="flex flex-col w-64">
-        <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div class="flex-1 flex flex-col min-h-0 bg-white rounded-r-3xl shadow-xl border">
-          <div class="flex-1 flex flex-col pt-4 md:pt-5 pb-4 overflow-y-auto">
-            <slot></slot>
+    <TransitionRoot as="template" :show="sidebar.desktop.isOpen">
+      <TransitionChild as="template" enter="transition ease-in-out duration-300 transform" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="-translate-x-full">
+        <div class="hidden md:flex md:flex-shrink-0">
+          <div class="flex flex-col w-64">
+            <div class="flex-1 flex flex-col min-h-0 bg-white rounded-r-3xl shadow-xl border">
+              <div class="flex-1 flex flex-col pt-4 md:pt-5 pb-4 overflow-y-auto">
+                <slot></slot>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </TransitionChild>
+    </TransitionRoot>
   </div>
 </template>
 
@@ -56,11 +59,11 @@ export default {
     XIcon,
   },
   setup() {
-    const { sidebarOpen, closeSidebar } = useSidebar()
+    const { closeSidebar, sidebar } = useSidebar()
 
     return {
-      sidebarOpen,
-      closeSidebar
+      closeSidebar,
+      sidebar
     }
   }
 }
