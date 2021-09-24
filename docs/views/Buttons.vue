@@ -2,15 +2,15 @@
   <div class="flex h-full flex-1 justify-center items-center">
 
     <div class="space-x-6">
-      <s-button class="primary">
+      <s-button color="primary">
         primary
       </s-button>
 
-      <s-button class="default">
+      <s-button color="default">
         default
       </s-button>
 
-      <s-button class="danger">
+      <s-button color="danger">
         danger
       </s-button>
     </div>

@@ -11,14 +11,14 @@
 <script>
 export default {
   props: {
-    class: {
+    color: {
       default: 'default',
       type: String,
     },
   },
   data() {
     return {
-      classes: {
+      colorClass: {
         'primary': 'text-white bg-gray-900 hover:bg-gray-800',
         'danger': 'text-white bg-red-600 hover:bg-red-600',
         'default': 'text-gray-800 bg-gray-200 hover:bg-gray-300',
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     styles() {
-      return this.classes[this.class]
+      return this.colorClass[this.color]
     }
   }
 }
