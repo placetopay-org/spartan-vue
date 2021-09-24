@@ -20,7 +20,7 @@
 export default {
   props: {
     icon: {
-      type: [Function],
+      type: [Object, Function],
       default: undefined
     },
     active: {

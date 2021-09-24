@@ -27,5 +27,6 @@ export { default as STopBar } from './components/STopBar.vue';
 export { default as SAvatar } from './components/SAvatar.vue';
 export { default as SAvatarMenu } from './components/SAvatarMenu.vue';
 export { default as SMenuItem } from './components/SMenuItem.vue';
+export { default as SRootLayout } from './components/SRootLayout.vue';
 
 
