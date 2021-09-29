@@ -19,15 +19,31 @@
         </SButton>
       </div>
     </div>
+
+    <div class="mt-20">
+      <h2 class="mb-5">Component attributes</h2>
+      <table-component :data="dataDescription"/>
+    </div>
   </div>
 </template>
 
 <script>
 import { SButton } from "../../src/index.js";
+import TableComponent from "./components/TableComponent.vue";
+
+const dataDescription = [
+  { prop: 'color', description: 'button color', accepted: 'primary, danger, default', default: 'default' },
+]
 
 export default {
+  setup() {
+    return {
+      dataDescription,
+    }
+  },
   components: {
-    SButton
+    SButton,
+    TableComponent,
   }
 }
 </script>
