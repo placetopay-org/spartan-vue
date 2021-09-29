@@ -50,6 +50,11 @@
         </s-breadcrumbs>
       </div>
     </div>
+
+    <div class="mt-20">
+      <h2 class="mb-5">Component attributes</h2>
+      <table-component :data="dataDescription"/>
+    </div>
   </div>
 </template>
 
@@ -59,7 +64,9 @@ import TableComponent from "./components/TableComponent.vue";
 import { ChevronRightIcon, HomeIcon } from '@heroicons/vue/solid'
 
 const dataDescription = [
-  { prop: 'pages', description: 'array of pages', accepted: '-', default: "[]" },
+  { prop: 'href', description: 'route', accepted: 'String', default: "#" },
+  { prop: 'icon', description: 'icon component', accepted: 'Object', default: "undefined" },
+  { prop: 'active', description: 'status of link', accepted: 'bool', default: "false" },
 ]
 
 export default {
