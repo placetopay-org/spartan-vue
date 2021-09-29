@@ -1,5 +1,8 @@
 <template>
-  <div class="flex h-full flex-1 justify-center items-center">
+  <div class="flex flex-col h-full flex-1 justify-center items-center mt-10">
+    <div class="m-5">
+      <h2 class="mb-5">Avatars</h2>
+    </div>
 
     <div class="space-y-16">
       <div class="m-5">
