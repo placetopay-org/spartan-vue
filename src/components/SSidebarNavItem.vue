@@ -1,5 +1,6 @@
 <template>
-  <a
+  <component
+    :is="as"
     v-bind="$attrs"
     :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50']"
     class="group flex items-center px-3 py-3 text-base font-medium rounded-lg md:py-3.5 md:px-4 md:text-sm"
@@ -13,7 +14,7 @@
     <span class="flex-1">
       <slot></slot>
     </span>
-  </a>
+  </component>
 </template>
 
 <script>
@@ -22,6 +23,9 @@ export default {
     icon: {
       type: [Object, Function],
       default: undefined
+    },
+    as: {
+      default: 'a'
     },
     active: {
       type: Boolean,

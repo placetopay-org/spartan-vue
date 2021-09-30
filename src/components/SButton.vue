@@ -1,11 +1,12 @@
 <template>
-  <button
-    type="button"
-    :class="styles"
-    class="items-center px-4 py-3 border border-transparent text-sm font-medium rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition"
+  <component
+      :is="as"
+      type="button"
+      :class="styles"
+      class="items-center px-4 py-3 border border-transparent text-sm font-medium rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition"
   >
     <slot/>
-  </button>
+  </component>
 </template>
 
 <script>
@@ -14,6 +15,9 @@ export default {
     color: {
       default: 'default',
       type: String,
+    },
+    as: {
+      default: 'button'
     },
   },
   data() {
