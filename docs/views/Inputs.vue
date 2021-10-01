@@ -24,8 +24,7 @@
         </div>
 
         <div class="mt-20">
-          <h2 class="mb-5">API</h2>
-
+          <h2 class="mb-5">Component attributes</h2>
           <table-component :data="dataDescription"/>
         </div>
 
@@ -39,13 +38,12 @@ import { SInput, SInputError, SInputHelper } from "../../src/index.js";
 import TableComponent from "./components/TableComponent.vue";
 
 const dataDescription = [
-  { prop: 'label', description: 'label message', accepted: '-', default: "undefined" },
-  { prop: 'type', description: 'the input type', accepted: 'html input types', default: "text" },
-  { prop: 'name', description: 'input name attribute', accepted: '-', default: 'undefined' },
   { prop: 'id', description: 'input id attribute', accepted: '-', default: 'undefined' },
+  { prop: 'name', description: 'input name attribute', accepted: '-', default: 'undefined' },
+  { prop: 'type', description: 'the input type', accepted: 'html input types', default: "text" },
+  { prop: 'label', description: 'label message', accepted: '-', default: "undefined" },
   { prop: 'placeholder', description: 'input placeholder attribute', accepted: '-', default: 'undefined' },
   { prop: 'disabled', description: 'input disabled attribute', accepted: 'boolean', default: 'false' },
-  // More people...
 ]
 
 export default {

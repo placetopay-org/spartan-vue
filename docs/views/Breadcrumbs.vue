@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col h-full flex-1 justify-center items-center">
+  <div class="flex flex-col h-full flex-1 justify-center items-center mt-10">
+    <div class="m-5">
+      <h2 class="mb-5">Breadcrumbs</h2>
+    </div>
 
     <div class="w-full md:max-w-prose sm:max-w-xs mx-auto space-y-16">
       <div>
@@ -47,6 +50,11 @@
         </s-breadcrumbs>
       </div>
     </div>
+
+    <div class="mt-20">
+      <h2 class="mb-5">Component attributes</h2>
+      <table-component :data="dataDescription"/>
+    </div>
   </div>
 </template>
 
@@ -56,7 +64,9 @@ import TableComponent from "./components/TableComponent.vue";
 import { ChevronRightIcon, HomeIcon } from '@heroicons/vue/solid'
 
 const dataDescription = [
-  { prop: 'pages', description: 'array of pages', accepted: '-', default: "[]" },
+  { prop: 'href', description: 'route', accepted: 'String', default: "#" },
+  { prop: 'icon', description: 'icon component', accepted: 'Object', default: "undefined" },
+  { prop: 'active', description: 'status of link', accepted: 'bool', default: "false" },
 ]
 
 export default {

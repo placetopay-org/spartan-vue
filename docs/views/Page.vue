@@ -9,6 +9,7 @@ import Buttons from "./Buttons.vue";
 import Inputs from "./Inputs.vue";
 import Sidebar from "./Sidebar.vue";
 import Breadcrumbs from "./Breadcrumbs.vue";
+import Avatar from "./Avatar.vue";
 
 export default {
   components: {
@@ -16,6 +17,7 @@ export default {
     Inputs,
     Sidebar,
     Breadcrumbs,
+    Avatar,
   },
   setup() {
     const route = useRoute();
