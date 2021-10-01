@@ -10,7 +10,6 @@ import Inputs from "./Inputs.vue";
 import Sidebar from "./Sidebar.vue";
 import Breadcrumbs from "./Breadcrumbs.vue";
 import Avatar from "./Avatar.vue";
-import Switch from "./Switch.vue";
 
 export default {
   components: {
@@ -19,7 +18,6 @@ export default {
     Sidebar,
     Breadcrumbs,
     Avatar,
-    Switch
   },
   setup() {
     const route = useRoute();
