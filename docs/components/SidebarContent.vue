@@ -36,6 +36,7 @@ const navigation = [
   { name: 'Sidebar', href: '/components/Sidebar'},
   { name: 'Breadcrumbs', href: '/components/Breadcrumbs'},
   { name: 'Avatar', href: '/components/Avatar'},
+  { name: 'Modals', href: '/components/Modals'},
 ]
 
 export default {

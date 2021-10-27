@@ -10,6 +10,7 @@ import Inputs from "./Inputs.vue";
 import Sidebar from "./Sidebar.vue";
 import Breadcrumbs from "./Breadcrumbs.vue";
 import Avatar from "./Avatar.vue";
+import Modals from "./Modals.vue";
 
 export default {
   components: {
@@ -18,6 +19,7 @@ export default {
     Sidebar,
     Breadcrumbs,
     Avatar,
+    Modals
   },
   setup() {
     const route = useRoute();
