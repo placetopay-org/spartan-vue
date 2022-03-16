@@ -2,19 +2,19 @@
   <component
     :is="as"
     type="button"
-    :class="styles"
+    :class="classes"
     class="
       items-center
+      rounded-xl
+      border border-transparent
       px-6
       py-3
-      border border-transparent
       text-base
       font-semibold
-      rounded-xl
       shadow-sm
+      transition
       focus:outline-none
       focus:ring-2 focus:ring-offset-2
-      transition
     "
   >
     <slot />
@@ -45,7 +45,7 @@ export default {
     };
   },
   computed: {
-    styles() {
+    classes() {
       return this.colorClass[this.color];
     },
   },
