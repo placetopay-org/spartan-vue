@@ -1,16 +1,14 @@
-import MyButton from './Button.vue';
+import { SButton } from "./../index.js";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Button',
-  component: MyButton,
+  title: "Example/Button",
+  component: SButton,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' },
-    onClick: {},
-    size: {
-      control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+    color: {
+      control: { type: "select" },
+      options: ["primary", "default", "danger"],
     },
   },
 };
@@ -18,35 +16,36 @@ export default {
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { MyButton },
+  components: { SButton },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<my-button v-bind="args" />',
+  template: '<SButton v-bind="args">{{ args.label }}</SButton>',
 });
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Primary.args = {
-  primary: true,
-  label: 'Button',
+  color: "primary",
+  label: "Save",
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
+export const Default = Template.bind({});
+Default.args = {
+  color: "default",
+  label: "Cancel",
 };
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
+export const White = Template.bind({});
+White.args = {
+  color: "white",
+  label: "Cancel",
 };
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
+export const Danger = Template.bind({});
+Danger.args = {
+  color: "danger",
+  label: "Delete",
 };
