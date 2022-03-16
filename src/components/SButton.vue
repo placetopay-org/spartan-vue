@@ -3,6 +3,7 @@
     :is="as"
     type="button"
     :class="classes"
+    :disabled="disabled"
     class="
       items-center
       rounded-xl
@@ -31,6 +32,10 @@ export default {
     as: {
       default: "button",
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -40,13 +45,13 @@ export default {
         default:
           "text-gray-900 bg-gray-200 hover:bg-gray-300 focus:ring-gray-800",
         white:
-          "border-gray-300 text-gray-900 bg-white hover:bg-gray-300 focus:ring-gray-800",
+          "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-gray-800",
       },
     };
   },
   computed: {
     classes() {
-      return this.colorClass[this.color];
+      return [this.colorClass[this.color], this.disabled ? "opacity-60" : ""];
     },
   },
 };
