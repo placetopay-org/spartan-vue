@@ -22,13 +22,32 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `<SInput v-bind="args">{{ args.label }}</SInput>`,
 });
+const defaultArgs = {
+  label: "Nombre",
+  placeholder: "John Doe",
+  type: "text",
+  id: "field_name",
+  name: "field_name",
+};
 
 export const TextInput = Template.bind({});
-// More on args: https://storybook.js.org/docs/vue/writing-stories/args
 TextInput.args = {
+  ...defaultArgs,
+};
+
+export const EmailInput = Template.bind({});
+EmailInput.args = {
+  ...defaultArgs,
   label: "Correo electrónico",
   placeholder: "jhon@example.com",
   type: "email",
-  id: "email",
-  name: "email",
+};
+
+export const DisabledInput = Template.bind({});
+DisabledInput.args = {
+  ...defaultArgs,
+  label: "Correo electrónico",
+  placeholder: "jhon@example.com",
+  type: "email",
+  disabled: true,
 };
