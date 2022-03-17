@@ -8,8 +8,8 @@
           />
           <a
             :href="href"
-            class="text-sm font-medium text-gray-500 hover:text-gray-700"
-            :class="{'ml-4': !!icon}"
+            class="text-sm font-medium font-sans text-gray-500 hover:text-gray-700"
+            :class="[active ? 'text-gray-900' : undefined]"
             :aria-current="active ? 'page' : undefined"
           >
             <slot></slot>
@@ -29,7 +29,7 @@ export default {
       default: '#'
     },
     icon: {
-      type: [Object, String],
+      type: [Object, String, Function],
       default: undefined
     },
     active: {
