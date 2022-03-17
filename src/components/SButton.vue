@@ -4,7 +4,7 @@
     type="button"
     :class="classes"
     :disabled="disabled"
-    class="items-center rounded-xl border border-transparent px-6 py-3 text-base font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
+    class="items-center rounded-xl border border-transparent px-6 py-3 text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
   >
     <slot />
   </component>

@@ -1,62 +1,59 @@
-import { SButton } from "./../index.js";
+import { SAvatarMenu, SAvatar, SMenuItem } from "../index.js";
+import * as AvatarStories from "./Avatar.stories";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: "Example/Button",
-  component: SButton,
-  args: {
-    color: "primary",
-    default: "Button Text",
-  },
+  title: "Example/AvatarMenu",
+  component: SAvatarMenu,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
-    color: {
-      control: { type: "select" },
-      options: ["primary", "default", "danger", "white"],
-    },
     default: {
       control: { type: "text" },
     },
   },
+  decorators: [
+    () => ({
+      template:
+        '<div class="w-full max-w-sm flex justify-end pb-16"><story /></div>',
+    }),
+  ],
 };
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { SButton },
+  components: { SAvatarMenu, SAvatar, SMenuItem },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <SButton v-bind="args">
+    <SAvatarMenu>
       <template v-if="${"default" in args}" v-slot>${args.default}</template>
-    </SButton>
+
+      <template v-slot:menu-items>
+        <SMenuItem key="logout" href="/logout">
+          Settings
+        </SMenuItem>
+      </template>
+    </SAvatarMenu>
   `,
 });
 
-export const Primary = Template.bind({});
-Primary.args = {
-  color: "primary",
-};
+{
+  /* <SAvatar :name="args.name" :alt="args.alt"></SAvatar> */
+}
 
 export const Default = Template.bind({});
+console.log(AvatarStories.Default);
 Default.args = {
-  color: "default",
+  ...AvatarStories.default.args,
+  default: "hola",
 };
 
-export const White = Template.bind({});
-White.args = {
-  color: "white",
-};
+// export const WithText = Template.bind({});
 
-export const Danger = Template.bind({});
-Danger.args = {
-  color: "danger",
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
-};
+// Default.args = {
+//   ...AvatarStories.default.args,
+// };
