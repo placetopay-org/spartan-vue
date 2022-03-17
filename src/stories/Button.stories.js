@@ -22,30 +22,26 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<SButton v-bind="args">{{ args.label }}</SButton>',
+  template: '<SButton v-bind="args">Button Text</SButton>',
 });
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Primary.args = {
   color: "primary",
-  label: "Save",
 };
 
 export const Default = Template.bind({});
 Default.args = {
   color: "default",
-  label: "Cancel",
 };
 
 export const White = Template.bind({});
 White.args = {
   color: "white",
-  label: "Cancel",
 };
 
 export const Danger = Template.bind({});
 Danger.args = {
   color: "danger",
-  label: "Delete",
 };
