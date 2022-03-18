@@ -1,7 +1,7 @@
 import { SAvatar } from "../index.js";
 
 export default {
-  title: "Example/Avatar",
+  title: "Components/SAvatar",
   component: SAvatar,
   argTypes: {},
   decorators: [

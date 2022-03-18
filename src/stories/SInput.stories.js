@@ -1,7 +1,7 @@
 import { SInput } from "../index.js";
 
 export default {
-  title: "Example/Input",
+  title: "Components/SInput",
   component: SInput,
   argTypes: {},
   decorators: [
