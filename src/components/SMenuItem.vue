@@ -1,34 +1,32 @@
 <template>
   <MenuItem v-slot="{ active }">
-    <a                 
+    <a
       v-bind="$attrs"
-      :class="{'bg-gray-100': active }"
-      class="text-gray-700 group flex items-center px-2.5 py-2.5 text-sm"
+      :class="{ 'bg-gray-100': active }"
+      class="group flex cursor-pointer items-center px-2.5 py-2.5 text-sm text-gray-700"
     >
-      <component 
-        :is="icon" 
-        class="mr-2.5 h-5 w-5 text-gray-400 group-hover:text-gray-600" 
-        aria-hidden="true" 
-        />
+      <component
+        :is="icon"
+        class="mr-2.5 h-5 w-5 text-gray-400 group-hover:text-gray-600"
+        aria-hidden="true"
+      />
       <slot></slot>
     </a>
   </MenuItem>
 </template>
 
 <script>
-import {
-  MenuItem
-} from '@headlessui/vue'
+import { MenuItem } from "@headlessui/vue";
 
 export default {
-  components:{
-    MenuItem
+  components: {
+    MenuItem,
   },
   props: {
     icon: {
       type: [Function],
-      default: undefined
-    }
-  }
-}
+      default: undefined,
+    },
+  },
+};
 </script>
