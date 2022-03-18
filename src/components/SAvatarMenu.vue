@@ -26,7 +26,6 @@
   </Menu>
 </template>
 
-ad
 <script>
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 
