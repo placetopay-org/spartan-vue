@@ -1,7 +1,7 @@
 import { SButton } from "../index.js";
 
 export default {
-  title: "Example/Button",
+  title: "Components/SButton",
   component: SButton,
   args: {
     color: "primary",
