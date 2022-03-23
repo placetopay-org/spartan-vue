@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full flex-1 justify-center items-center mt-10">
+  <div class="mt-10 flex h-full flex-1 flex-col items-center justify-center">
     <div class="m-5">
       <h2 class="mb-5">Avatars</h2>
     </div>
@@ -15,10 +15,10 @@
           <SAvatar name="Jhon Ge" alt="John Ge Avatar"></SAvatar>
           <template v-slot:menu-items>
             <SMenuItem
-                v-for="item in userNavigation"
-                :key="item.name"
-                :icon="item.icon"
-                :href="item.href"
+              v-for="item in userNavigation"
+              :key="item.name"
+              :icon="item.icon"
+              :href="item.href"
             >
               {{ item.name }}
             </SMenuItem>
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import { SAvatar, SAvatarMenu, SMenuItem, } from "../../src/index.js";
+import { SAvatar, SAvatarMenu, SMenuItem } from "../../src/index.js";
 import {
   CogIcon,
   HomeIcon,
   LogoutIcon,
-  UserCircleIcon
+  UserCircleIcon,
 } from "@heroicons/vue/outline";
 
 export default {
@@ -56,9 +56,7 @@ export default {
       home: { name: "Inicio", href: "#", icon: HomeIcon(), current: false },
     };
   },
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

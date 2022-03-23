@@ -1,11 +1,12 @@
 <template>
   <component
-      :is="as"
-      type="button"
-      :class="styles"
-      class="items-center px-4 py-3 border border-transparent text-sm font-medium rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition"
+    :is="as"
+    type="button"
+    :class="classes"
+    :disabled="disabled"
+    class="items-center rounded-xl border border-transparent px-6 py-3 text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
   >
-    <slot/>
+    <slot />
   </component>
 </template>
 
@@ -13,29 +14,33 @@
 export default {
   props: {
     color: {
-      default: 'default',
+      default: "default",
       type: String,
     },
     as: {
-      default: 'button'
+      default: "button",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
     return {
       colorClass: {
-        'primary': 'text-white bg-gray-900 hover:bg-gray-800 focus:ring-gray-800',
-        'danger': 'text-white bg-red-600 hover:bg-red-700 focus:ring-red-500',
-        'default': 'text-gray-800 bg-gray-200 hover:bg-gray-300 focus:ring-gray-800 ',
-      }
-    }
+        primary: "text-white bg-gray-900 hover:bg-gray-800 focus:ring-gray-800",
+        danger: "text-white bg-red-600 hover:bg-red-700 focus:ring-red-500",
+        default:
+          "text-gray-900 bg-gray-200 hover:bg-gray-300 focus:ring-gray-800",
+        white:
+          "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-gray-800",
+      },
+    };
   },
   computed: {
-    styles() {
-      return this.colorClass[this.color]
-    }
-  }
-}
-
-
-
+    classes() {
+      return [this.colorClass[this.color], this.disabled ? "opacity-60" : ""];
+    },
+  },
+};
 </script>
