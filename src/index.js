@@ -33,6 +33,7 @@ export { default as SRootLayout } from "./components/SRootLayout.vue";
 export { default as SSidebarNavChild } from "./components/SSidebarNavChild.vue";
 export { default as SSidebarNavGroup } from "./components/SSidebarNavGroup.vue";
 export { default as SSidebarNavParent } from "./components/SSidebarNavParent.vue";
+export { default as STableLayout } from './components/STableLayout.vue';
 export { default as STable } from './components/STable.vue';
 export { default as STableHeader } from './components/STableHeader.vue';
 export { default as STableHeaderItem } from './components/STableHeaderItem.vue';

@@ -1,5 +1,5 @@
 <template>
-  <th :key="key" scope="col" class="px-4 py-3.5 text-left text-base font-semibold text-gray-900 sm:pl-6">
+  <th :key="key" scope="col" class="px-4 py-3.5 text-left text-base font-semibold text-gray-900">
     <slot/>
   </th>
 </template>

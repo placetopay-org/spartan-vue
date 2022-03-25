@@ -1,9 +1,9 @@
 <template>
-  <tfoot class="border border-gray-200 border-solid w-full">
-  <div>
-    <p class="py-4 px-6 text-sm font-normal text-gray-900 float-left" v-text="info"></p>
+  <tfoot class="flex flex-row py-4 items-center px-6 justify-between border border-gray-200 border-solid">
+    <div class="float-left">
+      <p class="text-sm font-normal text-gray-900 " v-text="info"></p>
+    </div>
     <slot/>
-  </div>
   </tfoot>
 </template>
 
