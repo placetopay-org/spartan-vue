@@ -1,30 +1,27 @@
-import {SBreadcrumbs, SBreadcrumb } from "../index";
+import { SBreadcrumbs, SBreadcrumb } from "../index";
 import { ChevronRightIcon, HomeIcon } from "@heroicons/vue/solid";
 
 export default {
-    title: "Components/SBreadcrumbs",
-    component: SBreadcrumbs,
-    subcomponents: { SBreadcrumb },
+  title: "Components/SBreadcrumbs",
+  component: SBreadcrumbs,
+  subcomponents: { SBreadcrumb },
 };
 
-const Template = ( pages ) => ({
-    components: { SBreadcrumbs, SBreadcrumb, HomeIcon },
-    setup() {
-        return { pages };
-    },
-    template: `
+const Template = (pages) => ({
+  components: { SBreadcrumbs, SBreadcrumb, HomeIcon },
+  setup() {
+    return { pages };
+  },
+  template: `
         <SBreadcrumbs>
             <SBreadcrumb
                 :href="pages.home.href"
                 :active="pages.home.active"
-            >
-                <div class="flex items-center">
-                    <HomeIcon class="flex-shrink-0 h-5 w-5" aria-hidden="true"/>
-                </div>
-            </SBreadcrumb>
+                :icon="pages.home.icon"
+                :separator="false"
+            > </SBreadcrumb>
             <SBreadcrumb
                 v-for="page in pages.content"
-                :icon="page.icon"
                 :href="page.href"
                 :active="page.active"
             >
@@ -35,9 +32,28 @@ const Template = ( pages ) => ({
 
 export const Breadcrumbs = Template.bind({});
 Breadcrumbs.args = {
-    home: { name: 'Home', href: '#', active: false },
-    content: {
-        projects: { name: 'Label', href: '#', icon: ChevronRightIcon, active: false },
-        checkout: { name: 'Label', href: '#', icon: ChevronRightIcon, active: true, separator: false },
-    }
-}
+  home: {
+    name: "Home",
+    href: "#",
+    active: false,
+    icon: HomeIcon,
+    separator: false,
+  },
+  content: {
+    projects: {
+      name: "Projects",
+      href: "#",
+      active: false,
+    },
+    core: {
+      name: "Core",
+      href: "#",
+      active: false,
+    },
+    checkout: {
+      name: "Checkout",
+      href: "#",
+      active: true,
+    },
+  },
+};
