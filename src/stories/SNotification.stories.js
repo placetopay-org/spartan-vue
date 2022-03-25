@@ -19,9 +19,9 @@ const Template = ( args ) => ({
       </SNotification>`,
 });
 
-export const Succesful = Template.bind({});
+export const Successful = Template.bind({});
 
-Succesful.args = {
+Successful.args = {
     label: 'Label',
     danger: false,
     show: true
