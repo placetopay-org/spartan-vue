@@ -6,7 +6,7 @@
       active
         ? 'rounded-xl bg-white text-gray-900 shadow-sm'
         : 'text-gray-600 hover:text-gray-900',
-      'flex-1 py-3 px-4 text-center text-sm font-semibold',
+      'flex-1 py-3 px-4 text-center text-sm font-medium',
     ]"
     :aria-current="active ? 'page' : undefined"
   >
