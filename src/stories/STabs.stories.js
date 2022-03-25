@@ -1,35 +1,39 @@
 import { STabs, STab } from "../index";
 
 export default {
-    title: "Components/STabs",
-    component: STabs,
-    subcomponents: { STab },
+  title: "Components/STabs",
+  component: STabs,
+  decorators: [
+    () => ({ template: '<div class="max-w-2xl border-none"><story /></div>' }),
+  ],
+  subcomponents: { STab },
 };
 
-const Template = ( args ) => ({
-    components: { STabs, STab },
-    setup() {
-        return { args };
-    },
-    template: `
-        <STabs>
-            <STab 
-                v-for="(tab, index) in args.tabs" 
-                :name="tab.name"
-                :href="tab.href"
-                :active="tab.active"
-            >
-            </STab>
-        </STabs>`,
+const Template = (args) => ({
+  components: { STabs, STab },
+  setup() {
+    return { args };
+  },
+  template: `
+    <STabs>
+        <STab 
+            v-for="(tab, index) in args.tabs" 
+            :name="tab.name"
+            :href="tab.href"
+            :active="tab.active"
+        >
+        </STab>
+    </STabs>
+  `,
 });
 
-export const Tabs = Template.bind({});
+export const Default = Template.bind({});
 
-Tabs.args = {
-    tabs: [
-        { name: 'My Account', href: '#', active: false },
-        { name: 'Company', href: '#', active: false },
-        { name: 'Team Members', href: '#', active: false },
-        { name: 'Billing', href: '#', active: true },
-    ]
-}
+Default.args = {
+  tabs: [
+    { name: "My Account", href: "#", active: false },
+    { name: "Company", href: "#", active: false },
+    { name: "Team Members", href: "#", active: true },
+    { name: "Billing", href: "#", active: false },
+  ],
+};
