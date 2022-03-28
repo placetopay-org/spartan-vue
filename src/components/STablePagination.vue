@@ -1,4 +1,3 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div>
     <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px float-right" aria-label="Pagination">
