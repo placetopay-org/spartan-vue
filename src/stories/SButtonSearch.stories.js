@@ -2,7 +2,7 @@ import { SButtonSearch } from "../index.js";
 import { SearchIcon } from '@heroicons/vue/outline'
 
 export default {
-    title: "Components/SInputSearch",
+    title: "Components/SButtonSearch",
     component: SButtonSearch,
     args: {
         color: "primary",

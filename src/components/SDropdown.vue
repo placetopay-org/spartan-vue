@@ -2,13 +2,13 @@
   <Menu as="div" class="relative inline-block text-left">
     <div>
       <MenuButton
-          class="inline-flex justify-center w-full rounded-xl border border-gray-300 items-center shadow-sm px-4 py-2 pr-3 pl-4 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-500"
+          :class="[search ? 'text-base rounded-l-xl py-2.5' : 'text-xs rounded-xl py-2 pr-3 pl-4']"
+          class="inline-flex justify-center w-full border border-gray-300 items-center shadow-sm px-4 bg-white font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-500"
       >
         {{ label }}
         <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
       </MenuButton>
     </div>
-    <slot/>
   </Menu>
 </template>
 
@@ -27,7 +27,11 @@ export default {
   props: {
     label: {
       type: String,
-      required: true,
+      required: false,
+    },
+    search: {
+      type: Boolean,
+      default: false,
     }
   }
 }

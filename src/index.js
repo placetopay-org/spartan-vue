@@ -17,6 +17,7 @@ export { default as SButtonSearch } from "./components/SButtonSearch.vue";
 export { default as SInput } from "./components/SInput.vue";
 export { default as SInputError } from "./components/SInputError.vue";
 export { default as SInputHelper } from "./components/SInputHelper.vue";
+export { default as SInputSearch } from "./components/SInputSearch.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
 export { default as SSidebarLogo } from "./components/SSidebarLogo.vue";
 export { default as SSidebarNavItem } from "./components/SSidebarNavItem.vue";

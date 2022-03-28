@@ -2,23 +2,25 @@
   <component
       type="button"
       :class="classes"
-      class="inline-flex flex-row gap-2 h-11 items-center rounded-r-xl border border-transparent pr-4 pl-3.5 py-2.5 text-base font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+      class="inline-flex flex-row gap-2 items-center rounded-r-xl border border-transparent pr-4 pl-3.5 py-2.5 text-base font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
   >
     <component
         :is="icon"
         class="h-4 w-4"
         aria-hidden="true"
     />
-    <slot/>
+    {{ label }}
   </component>
 </template>
 
 <script>
-import {SButton, SInput, SDropdown} from "../index";
 
 export default {
-  components: { SButton, SInput, SDropdown},
   props: {
+    label: {
+      type: String,
+      required: false,
+    },
     color: {
       type: String,
       default: "primary",
