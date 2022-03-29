@@ -3,6 +3,7 @@
     <slot/>
     <SInput v-bind="inputArgs"
             :class="[dropdown ? 'rounded-none' : ' rounded-none rounded-l-xl','px-2.5 !py-2.5']"
+            @input="$emit('update:modelValue', $event.target.value)"
     ></SInput>
     <SButtonSearch
         :icon="btnIcon"
