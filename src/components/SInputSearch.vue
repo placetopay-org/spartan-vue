@@ -6,7 +6,7 @@
     >
     </SDropdown>
     <SInput v-bind="inputArgs"
-            :class="[drop ? 'rounded-none' : ' rounded-none rounded-l-xl','px-2.5 py-2.5']"
+            :class="[drop ? 'rounded-none' : ' rounded-none rounded-l-xl','px-2.5 !py-2.5']"
     ></SInput>
     <SButtonSearch
         :icon="btnIcon"
@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { SButtonSearch, SDropdown, SInput } from "../index.js";
+import { SButtonSearch, SInput } from "../index.js";
+import { default as SDropdown } from "./SDropdown.vue";
 
 export default {
   components: {
