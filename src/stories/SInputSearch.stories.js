@@ -1,4 +1,4 @@
-import { SInputSearch } from "../index.js";
+import { SInputSearch, SDropdown, SDropdownMenu, SDropdownMenuSection, SDropdownMenuItem } from "../index.js";
 import { SearchIcon } from '@heroicons/vue/outline'
 
 export default {
@@ -7,24 +7,42 @@ export default {
 };
 
 const Template = (args) => ({
-    components: { SInputSearch },
+    components: { SInputSearch, SDropdown, SDropdownMenu, SDropdownMenuSection, SDropdownMenuItem },
     setup() {
         return { args, SearchIcon };
     },
     template: `
-      <SInputSearch
-          :drop="args.enabled"
-          :drop-label="args.dropLabel"
-          :input-args="args.input"
-          :btn-icon="args.button.icon"
-          :btn-label="args.button.label"
-      ></SInputSearch>
+        <SInputSearch
+            :dropdown="args.dropdown.enabled"
+            :input-args="args.input"
+            :btn-icon="args.button.icon"
+            :btn-label="args.button.label"
+        >
+            <SDropdown
+                v-if="args.dropdown.enabled"
+                :search="true"
+                :label="args.dropdown.label"
+            >
+                <SDropdownMenu>
+                    <SDropdownMenuSection>
+                        <SDropdownMenuItem
+                            v-for="item in args.dropdown.items"
+                            :href="item.href"
+                        >
+                          {{ item.name }}
+                        </SDropdownMenuItem>  
+                    </SDropdownMenuSection>
+                </SDropdownMenu>
+            </SDropdown>
+        </SInputSearch>
       `,
 });
 
 export const Primary = Template.bind({});
 Primary.args = {
-    enabled: false,
+    dropdown: {
+        enabled: false,
+    },
     input: {
         placeholder: "John Doe",
         type: "text",
@@ -39,8 +57,16 @@ Primary.args = {
 
 export const PrimaryWithDropdown = Template.bind({});
 PrimaryWithDropdown.args = {
-    enabled: true,
-    dropLabel: 'Options',
+    dropdown: {
+        enabled: true,
+        label: 'Options',
+        items: [
+            { name: 'Edit', href: '#'},
+            { name: 'Duplicate', href: '#'},
+            { name: 'Archive', href: '#'},
+            { name: 'Move', href: '#'},
+        ]
+    },
     input: {
         placeholder: "John Doe",
         type: "text",

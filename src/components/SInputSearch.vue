@@ -1,12 +1,8 @@
 <template>
   <div class="flex flex-row">
-    <SDropdown v-if="drop"
-               :search="true"
-               :label="dropLabel"
-    >
-    </SDropdown>
+    <slot/>
     <SInput v-bind="inputArgs"
-            :class="[drop ? 'rounded-none' : ' rounded-none rounded-l-xl','px-2.5 !py-2.5']"
+            :class="[dropdown ? 'rounded-none' : ' rounded-none rounded-l-xl','px-2.5 !py-2.5']"
     ></SInput>
     <SButtonSearch
         :icon="btnIcon"
@@ -18,22 +14,16 @@
 
 <script>
 import { SButtonSearch, SInput } from "../index.js";
-import { default as SDropdown } from "./SDropdown.vue";
 
 export default {
   components: {
     SButtonSearch,
-    SDropdown,
     SInput,
   },
   props: {
-    drop: {
+    dropdown: {
       type: Boolean,
       default: false,
-    },
-    dropLabel: {
-      type: String,
-      default: '',
     },
     inputArgs: {
       type: Object

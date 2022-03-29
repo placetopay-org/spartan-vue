@@ -14,15 +14,13 @@
 </template>
 
 <script>
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { Menu, MenuButton } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 
 export default {
   components: {
     Menu,
     MenuButton,
-    MenuItem,
-    MenuItems,
     ChevronDownIcon,
   },
   props: {
