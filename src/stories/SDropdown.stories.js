@@ -1,54 +1,82 @@
-import { SDropdown, SDropdownMenu, SDropdownMenuSection, SDropdownMenuItem } from "../index.js";
+import {
+  SDropdown,
+  SDropdownItem,
+  SAvatarMenuButton,
+  SDropdownButton,
+} from "../index.js";
+
+import { HomeIcon, CogIcon, UserIcon } from "@heroicons/vue/outline";
 
 export default {
-    title: "Components/SDropdown",
-    component: SDropdown,
-    subcomponents: { SDropdownMenuItem }
+  title: "Components/SDropdown",
+  component: SDropdown,
+  subcomponents: { SDropdownItem },
+  argTypes: {
+    default: {
+      control: { type: "text" },
+    },
+  },
+  decorators: [
+    () => ({
+      template:
+        '<div class="w-full max-w-md flex justify-end pb-36"><story /></div>',
+    }),
+  ],
 };
 
 const Template = (args) => ({
-    components: { SDropdown, SDropdownMenu, SDropdownMenuSection, SDropdownMenuItem },
-    setup() {
-        return { args };
-    },
-    template: `
-    <SDropdown
-        :label="args.label"
-    >
-        <SDropdownMenu>
-            <SDropdownMenuSection
-                v-for="section in args.sections"
-            >
-                <SDropdownMenuItem
-                    v-for="item in section"
-                    :href="item.href"
-                >
-                    {{ item.name }}
-                </SDropdownMenuItem>
-            </SDropdownMenuSection>
-        </SDropdownMenu>
+  components: {
+    SDropdown,
+    SDropdownItem,
+    SAvatarMenuButton,
+    SDropdownButton,
+  },
+
+  setup() {
+    return { args, HomeIcon, CogIcon, UserIcon };
+  },
+  template: `
+    <SDropdown v-bind="args">
+      <template v-slot>
+        <SAvatarMenuButton v-if="args.button === 'avatar'" name="John Doe"></SAvatarMenuBUtton>
+        <SDropdownButton v-if="args.button === 'button'" color="white">
+          Options
+        </SDropdownButton>
+      </template>
+
+      <template v-slot:menu-items>
+        <SDropdownItem v-for="item in args.items" :key="item.key" :icon="item.icon">{{ item.text }}</SDropdownItem>
+      </template>
     </SDropdown>
   `,
 });
 
-export const Dropdown = Template.bind({});
-Dropdown.args = {
-    label: 'Options',
-    sections: [
-        [
-            { name: 'Edit', href: '#'},
-            { name: 'Duplicate', href: '#'},
-        ],
-        [
-            { name: 'Archive', href: '#'},
-            { name: 'Move', href: '#'},
-        ],
-        [
-            { name: 'Share', href: '#'},
-            { name: 'Add to favorites', href: '#'},
-        ],
-        [
-            { name: 'Delete', href: '#'},
-        ]
-    ]
+export const Default = Template.bind({});
+Default.args = {
+  button: "button",
+  items: [
+    { key: "1", text: "Settings" },
+    { key: "2", text: "Home" },
+    { key: "4", text: "My Account" },
+  ],
+};
+
+export const WithAvatar = Template.bind({});
+WithAvatar.args = {
+  button: "avatar",
+  items: [
+    { key: "1", text: "Settings" },
+    { key: "2", text: "Home" },
+    { key: "4", text: "My Account" },
+  ],
+};
+
+export const ItemsWithIcons = Template.bind({});
+ItemsWithIcons.args = {
+  button: "button",
+  items: [
+    { key: "1", text: "Settings", icon: CogIcon },
+    { key: "2", text: "Home", icon: HomeIcon },
+    { key: "4", text: "My Account", icon: UserIcon },
+  ],
 };

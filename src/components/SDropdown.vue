@@ -1,37 +1,34 @@
 <template>
-  <Menu as="div" class="relative inline-block text-left">
+  <Menu as="div" class="relative ml-3">
     <div>
-      <MenuButton
-          :class="[search ? 'text-base rounded-l-xl py-2.5' : 'text-xs rounded-xl py-2 pr-3 pl-4']"
-          class="inline-flex justify-center w-full border border-gray-300 items-center shadow-sm px-4 bg-white font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-500"
-      >
-        {{ label }}
-        <ChevronDownIcon class="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-      </MenuButton>
+      <slot></slot>
     </div>
-   <slot/>
+    <transition
+      enter-active-class="transition ease-out duration-100"
+      enter-from-class="transform opacity-0 scale-95"
+      enter-to-class="transform opacity-100 scale-100"
+      leave-active-class="transition ease-in duration-75"
+      leave-from-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
+    >
+      <MenuItems
+        class="absolute right-0 mt-2 w-48 origin-top-right overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+      >
+        <slot name="menu-items"></slot>
+      </MenuItems>
+    </transition>
   </Menu>
 </template>
 
 <script>
-import { Menu, MenuButton } from '@headlessui/vue'
-import { ChevronDownIcon } from '@heroicons/vue/solid'
+import { Menu, MenuItems } from "@headlessui/vue";
 
 export default {
   components: {
     Menu,
-    MenuButton,
-    ChevronDownIcon,
+    MenuItems,
   },
-  props: {
-    label: {
-      type: String,
-      required: false,
-    },
-    search: {
-      type: Boolean,
-      default: false,
-    }
-  }
-}
+};
 </script>
+
+<style scoped></style>
