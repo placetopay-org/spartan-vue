@@ -13,7 +13,9 @@
 // export default { install }
 
 export { default as SButton } from "./components/SButton.vue";
+export { default as SDropdownButton } from "./components/SDropdownButton.vue";
 export { default as SInput } from "./components/SInput.vue";
+export { default as SInputAlt } from "./components/SInputAlt.vue";
 export { default as SInputError } from "./components/SInputError.vue";
 export { default as SInputHelper } from "./components/SInputHelper.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
@@ -27,10 +29,19 @@ export { default as STabs } from "./components/STabs.vue";
 export { default as STab } from "./components/STab.vue";
 export { default as STopBar } from "./components/STopBar.vue";
 export { default as SAvatar } from "./components/SAvatar.vue";
-export { default as SAvatarMenu } from "./components/SAvatarMenu.vue";
-export { default as SMenuItem } from "./components/SMenuItem.vue";
+export { default as SAvatarMenuButton } from "./components/SAvatarMenuButton.vue";
+export { default as SDropdownItem } from "./components/SDropdownItem.vue";
 export { default as SRootLayout } from "./components/SRootLayout.vue";
 export { default as SSidebarNavChild } from "./components/SSidebarNavChild.vue";
 export { default as SSidebarNavGroup } from "./components/SSidebarNavGroup.vue";
 export { default as SSidebarNavParent } from "./components/SSidebarNavParent.vue";
 export { default as SNotification } from "./components/SNotification.vue";
+export { default as SDropdown } from "./components/SDropdown.vue";
+export { default as STableLayout } from "./components/STableLayout.vue";
+export { default as STable } from "./components/STable.vue";
+export { default as STableHead } from "./components/STableHead.vue";
+export { default as STableHeadItem } from "./components/STableHeadItem.vue";
+export { default as STableBody } from "./components/STableBody.vue";
+export { default as STableRow } from "./components/STableRow.vue";
+export { default as STableRowItem } from "./components/STableRowItem.vue";
+export { default as STablePagination } from "./components/STablePagination.vue";

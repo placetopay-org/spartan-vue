@@ -1,13 +1,7 @@
 <template>
-  <!-- Profile dropdown -->
-  <Menu as="div" class="relative ml-3">
+  <Menu as="div" class="relative">
     <div>
-      <MenuButton
-        class="flex max-w-xs items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
-      >
-        <span class="sr-only">Open Menu</span>
-        <slot></slot>
-      </MenuButton>
+      <slot></slot>
     </div>
     <transition
       enter-active-class="transition ease-out duration-100"
@@ -27,13 +21,11 @@
 </template>
 
 <script>
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
+import { Menu, MenuItems } from "@headlessui/vue";
 
 export default {
   components: {
     Menu,
-    MenuButton,
-    MenuItem,
     MenuItems,
   },
 };
