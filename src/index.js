@@ -35,6 +35,7 @@ export { default as SRootLayout } from "./components/SRootLayout.vue";
 export { default as SSidebarNavChild } from "./components/SSidebarNavChild.vue";
 export { default as SSidebarNavGroup } from "./components/SSidebarNavGroup.vue";
 export { default as SSidebarNavParent } from "./components/SSidebarNavParent.vue";
+export { default as SNotification } from "./components/SNotification.vue";
 export { default as SDropdown } from "./components/SDropdown.vue";
 export { default as STableLayout } from "./components/STableLayout.vue";
 export { default as STable } from "./components/STable.vue";
