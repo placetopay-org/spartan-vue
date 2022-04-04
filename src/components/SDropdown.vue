@@ -1,5 +1,5 @@
 <template>
-  <Menu as="div" class="relative ml-3">
+  <Menu as="div" class="relative">
     <div>
       <slot></slot>
     </div>

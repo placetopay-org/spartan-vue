@@ -1,55 +1,58 @@
 import {
-  SInputSearch,
   SDropdown,
-  SDropdownMenu,
-  SDropdownMenuSection,
-  SDropdownMenuItem,
-  SInput2,
+  SDropdownButton,
+  SDropdownItem,
+  SInputAlt,
   SButtonInputRight,
+  SButton,
 } from "../index.js";
 import { SearchIcon } from "@heroicons/vue/outline";
 
 export default {
-  title: "Components/SInput2",
-  component: SInput2,
+  title: "Components/SInputAlt",
+  component: SInputAlt,
   decorators: [
-    () => ({ template: '<div class="max-w-md border-none"><story /></div>' }),
+    () => ({
+      template: '<div class="max-w-md mx-auto border-none"><story /></div>',
+    }),
   ],
 };
 
 const Template = (args) => ({
   components: {
-    SInputSearch,
     SDropdown,
-    SInput2,
-    SDropdownMenu,
-    SDropdownMenuSection,
-    SDropdownMenuItem,
+    SInputAlt,
+    SDropdownItem,
     SButtonInputRight,
+    SButton,
+    SDropdownButton,
   },
   setup() {
     return { args, SearchIcon };
   },
   template: `
-  <SInput2>
+  <SInputAlt>
     <template v-if="args.dropdown.enabled" #left>
       <SDropdown>
-        <SDropdownMenu>
-          <SDropdownMenuSection>
-            <SDropdownMenuItem>Name</SDropdownMenuItem>
-            <SDropdownMenuItem>Role</SDropdownMenuItem>
-            <SDropdownMenuItem>Email</SDropdownMenuItem>
-          </SDropdownMenuSection>
-        </SDropdownMenu>
+        <template v-slot>
+          <SDropdownButton color="white" :flat-right="true">
+            Options
+          </SDropdownButton>
+        </template>
+        <template v-slot:menu-items>
+          <SDropdownItem>Name</SDropdownItem>
+          <SDropdownItem>Role</SDropdownItem>
+          <SDropdownItem>Email</SDropdownItem>
+        </template>
       </SDropdown>
     </template>
 
     <template v-if="args.button.enabled" #right>
-      <SButtonInputRight :icon="args.button.icon">
+      <SButton :icon="args.button.icon" color="primary" flat-left>
         {{ args.button.label }}
-      </SButtonInputRight>
+      </SButton>
     </template>
-  </SInput2>
+  </SInputAlt>
       `,
 });
 

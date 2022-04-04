@@ -14,12 +14,10 @@
 
 export { default as SButton } from "./components/SButton.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
-export { default as SButtonInputRight } from "./components/SButtonInputRight.vue";
 export { default as SInput } from "./components/SInput.vue";
-export { default as SInput2 } from "./components/SInput2.vue";
+export { default as SInputAlt } from "./components/SInputAlt.vue";
 export { default as SInputError } from "./components/SInputError.vue";
 export { default as SInputHelper } from "./components/SInputHelper.vue";
-export { default as SInputSearch } from "./components/SInputSearch.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
 export { default as SSidebarLogo } from "./components/SSidebarLogo.vue";
 export { default as SSidebarNavItem } from "./components/SSidebarNavItem.vue";

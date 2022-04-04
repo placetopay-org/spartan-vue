@@ -4,9 +4,11 @@
     type="button"
     :class="classes"
     :disabled="disabled"
-    class="items-center rounded-xl border border-transparent px-6 py-3 text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
+    class="inline-flex items-center space-x-2 border border-transparent px-6 py-3 text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
   >
-    <slot />
+    <component :is="leftIcon || icon" class="h-5 w-5" aria-hidden="true" />
+    <span class="empty:hidden"><slot /></span>
+    <component :is="rightIcon" class="h-5 w-5" aria-hidden="true" />
   </component>
 </template>
 
@@ -24,6 +26,26 @@ export default {
       type: Boolean,
       default: false,
     },
+    flatLeft: {
+      type: Boolean,
+      default: false,
+    },
+    flatRight: {
+      type: Boolean,
+      default: false,
+    },
+    leftIcon: {
+      type: [Object, String, Function],
+      default: undefined,
+    },
+    rightIcon: {
+      type: [Object, String, Function],
+      default: undefined,
+    },
+    icon: {
+      type: [Object, String, Function],
+      default: undefined,
+    },
   },
   data() {
     return {
@@ -39,7 +61,12 @@ export default {
   },
   computed: {
     classes() {
-      return [this.colorClass[this.color], this.disabled ? "opacity-60" : ""];
+      return [
+        this.colorClass[this.color],
+        this.disabled ? "opacity-60" : "",
+        this.flatLeft ? "rounded-l-none" : "rounded-l-xl",
+        this.flatRight ? "rounded-r-none" : "rounded-r-xl",
+      ];
     },
   },
 };
