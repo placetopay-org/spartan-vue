@@ -1,12 +1,9 @@
 <template>
-  <nav class="flex" aria-label="Tabs">
-    <ol role="list" class="flex items-center bg-gray-100 rounded-xl h-14 p-1.5">
-      <slot></slot>
-    </ol>
+  <nav class="flex space-x-3 rounded-xl border p-1.5" aria-label="Tabs">
+    <slot></slot>
   </nav>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
