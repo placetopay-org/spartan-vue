@@ -1,40 +1,46 @@
 import { SCheckbox } from "../index";
 
 export default {
-    title: "Components/SCheckbox",
-    component: SCheckbox,
+  title: "Components/SCheckbox",
+  component: SCheckbox,
 };
 
-
-const Template = ( args ) => ({
-    components: { SCheckbox },
-    setup() {
-        return { args };
-    },
-    template: `
-        <SCheckbox
-            :id="args.id"
-            :label="args.label"
-            :description="args.description"
-            :leading="args.leading"
-        >
-        </SCheckbox>`,
+const Template = (args) => ({
+  components: { SCheckbox },
+  setup() {
+    return { args };
+  },
+  template: `
+    <SCheckbox v-bind="args">
+        {{ args.label}}
+        <template v-if="!!args.description" v-slot:description>
+          {{ args.description }}
+        </template>
+    </SCheckbox>
+    `,
 });
 
-export const Trailing = Template.bind({});
+export const Simple = Template.bind({});
 
-Trailing.args = {
-    id: 'comments',
-    label: 'Comment',
-    description: 'Get notified when someones posts a comment on a posting.',
-    leading: false,
-}
+Simple.args = {
+  id: "create-sites",
+  label: "Create Sites",
+  description: false,
+};
 
-export const Leading = Template.bind({});
+export const WithDescription = Template.bind({});
 
-Leading.args = {
-    id: 'comments',
-    label: 'Comment',
-    description: 'Get notified when someones posts a comment on a posting.',
-    leading: true,
-}
+WithDescription.args = {
+  id: "create-sites",
+  label: "Create Sites",
+  description: "User will be able to create new sites.",
+};
+
+export const InlineDescription = Template.bind({});
+
+InlineDescription.args = {
+  id: "create-sites",
+  label: "Create Sites",
+  description: "User will be able to create new sites.",
+  inlineDescription: true,
+};

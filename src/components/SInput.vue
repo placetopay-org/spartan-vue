@@ -13,7 +13,8 @@
       :disabled="disabled"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      class="block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:ring-0"
+      class="block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:
+      -0"
       autocomplete="off"
     />
   </div>
