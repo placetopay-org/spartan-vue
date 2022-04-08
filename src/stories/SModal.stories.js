@@ -11,11 +11,8 @@ const Template = (args) => ({
     return { args };
   },
   template: `
-    <SModal
-        :title="args.title"
-        :description="args.description"
-        :max-size="args.maxSize"
-    >
+    <SModal v-bind="args">
+      <SButton class="w-full  justify-center" color="white">Cancel</SButton>
       <SButton class="w-full  justify-center" color="primary">Deactivate</SButton>
     </SModal>
   `,
@@ -27,28 +24,14 @@ Modal.args = {
   title: 'Payment successful',
   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.',
   maxSize: false,
+  open: true,
 };
 
-const TemplateF = (args) => ({
-  components: { SModal, SButton },
-  setup() {
-    return { args };
-  },
-  template: `
-    <SModal
-        :title="args.title"
-        :description="args.description"
-        :max-size="args.maxSize"
-    >
-      <SButton class="w-full justify-center" color="white">Cancel</SButton>
-      <SButton class="w-full  justify-center" color="primary">Deactivate</SButton>
-    </SModal>
-  `,
-});
+export const ModalMax = Template.bind({});
 
-export const ModalMax = TemplateF.bind({});
 ModalMax.args = {
   title: 'Payment successful',
   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.',
   maxSize: true,
+  open: true,
 };

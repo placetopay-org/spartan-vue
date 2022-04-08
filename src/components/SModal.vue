@@ -28,10 +28,8 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 import { SButton} from "../index";
 import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { CheckIcon } from '@heroicons/vue/outline'
 
 export default {
   components: {
@@ -40,7 +38,6 @@ export default {
     DialogTitle,
     TransitionChild,
     TransitionRoot,
-    CheckIcon,
     SButton
   },
   props: {
@@ -54,14 +51,11 @@ export default {
     maxSize: {
       type: Boolean,
       default: false,
-    }
-  },
-  setup() {
-    const open = ref(true)
-
-    return {
-      open,
-    }
+    },
+    open: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
