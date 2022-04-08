@@ -17,7 +17,7 @@
                 </div>
               </div>
             </div>
-            <div class="flex w-full flex-row">
+            <div class="flex w-full flex-row gap-3">
               <slot/>
             </div>
           </div>
