@@ -18,6 +18,7 @@ export { default as SInput } from "./components/SInput.vue";
 export { default as SInputAlt } from "./components/SInputAlt.vue";
 export { default as SInputError } from "./components/SInputError.vue";
 export { default as SInputHelper } from "./components/SInputHelper.vue";
+export { default as SInputSelect } from "./components/SInputSelect.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
 export { default as SSidebarLogo } from "./components/SSidebarLogo.vue";
 export { default as SSidebarNavItem } from "./components/SSidebarNavItem.vue";
