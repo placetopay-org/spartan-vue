@@ -16,7 +16,7 @@
               {{ item.name }}
             </span>
 
-            <span v-if="selected" :class="[active ? 'text-white' : 'text-gray-900', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+              <span v-if="selected" :class="[active ? 'text-white' : 'text-gray-900', 'absolute inset-y-0 right-0 flex items-center pr-4']">
               <CheckIcon class="h-5 w-5" aria-hidden="true" />
             </span>
             </li>
@@ -44,11 +44,6 @@ export default {
     SelectorIcon,
   },
   props: {
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     items: {
       type: Object,
       required: true,
@@ -56,10 +51,15 @@ export default {
     label: {
       type: String,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     }
   },
   setup(props) {
-    const selected = ref({name: props.label})
+    const selected = ref({ name: props.label })
 
     return {
       selected,

@@ -1,4 +1,4 @@
-import { SInputSelect, SInputItem } from "../index.js";
+import { SInputSelect } from "../index.js";
 
 export default {
     title: "Components/SInputSelect",
@@ -10,25 +10,20 @@ export default {
 };
 
 const Template = (args) => ({
-    components: { SInputSelect, SInputItem },
+    components: { SInputSelect },
     setup() {
         return { args };
     },
     template: `
     <SInputSelect
-          :items="args.items"
-          :label="'Filtrar'"
+        v-bind="args"
     >
       
     </SInputSelect>`,
 });
 
 const defaultArgs = {
-    label: "Nombre",
-    placeholder: "John Doe",
-    type: "text",
-    id: "field_name",
-    name: "field_name",
+    label: "Filtrar",
     items: [
         { id: 1, name: 'Wade Cooper' },
         { id: 2, name: 'Arlene Mccoy' },
@@ -43,17 +38,9 @@ const defaultArgs = {
     ]
 };
 
-export const TextInput = Template.bind({});
-TextInput.args = {
+export const SelectInput = Template.bind({});
+SelectInput.args = {
     ...defaultArgs,
-};
-
-export const EmailInput = Template.bind({});
-EmailInput.args = {
-    ...defaultArgs,
-    label: "Correo electrónico",
-    placeholder: "jhon@example.com",
-    type: "email",
 };
 
 export const DisabledInput = Template.bind({});
