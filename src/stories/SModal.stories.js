@@ -1,37 +1,37 @@
-import { SModal, SButton } from "../index";
+import { SModalLayout, SButton } from "../index";
 
 export default {
   title: "Components/SModal",
-  component: SModal,
+  component: SModalLayout,
+  args: {
+    open: true,
+  },
 };
 
 const Template = (args) => ({
-  components: { SModal, SButton },
+  components: { SModalLayout, SButton },
   setup() {
     return { args };
   },
   template: `
-    <SModal v-bind="args">
-      <SButton class="w-full  justify-center" color="white">Cancel</SButton>
-      <SButton class="w-full  justify-center" color="primary">Deactivate</SButton>
-    </SModal>
+    <SModalLayout v-bind="args">
+      <div v-if="args.template === 'empty'" class="p-6">
+        <div class="h-64 border-gray-300 border-dashed border-2 rounded-2xl"></div>
+      </div>
+    </SModalLayout>
   `,
 });
 
 export const Modal = Template.bind({});
 
 Modal.args = {
-  title: 'Payment successful',
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.',
-  maxSize: false,
-  open: true,
+  size: "sm",
+  template: "empty",
 };
 
-export const ModalMax = Template.bind({});
+export const ModalLg = Template.bind({});
 
-ModalMax.args = {
-  title: 'Payment successful',
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.',
-  maxSize: true,
-  open: true,
+ModalLg.args = {
+  size: "lg",
+  template: "empty",
 };
