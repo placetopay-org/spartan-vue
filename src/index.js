@@ -46,3 +46,5 @@ export { default as STableBody } from "./components/STableBody.vue";
 export { default as STableRow } from "./components/STableRow.vue";
 export { default as STableRowItem } from "./components/STableRowItem.vue";
 export { default as STablePagination } from "./components/STablePagination.vue";
+export { default as SModalLayout } from "./components/SModalLayout.vue";
+export { default as SModalAction } from "./components/SModalAction.vue";
