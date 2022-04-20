@@ -6,7 +6,7 @@
       {{ label }}
     </label>
     <component
-      :is="component"
+      :is="as"
       :type="type"
       :name="name"
       :id="id"
@@ -14,7 +14,10 @@
       :disabled="disabled"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      :class="[component === 'textarea' ? 'h-24 resize-none' : '' ,'block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:ring-0']"
+      :class="[
+        'block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:ring-0',
+      ]"
+      :rows="rows"
       autocomplete="off"
     />
   </div>
@@ -52,10 +55,15 @@ const props = defineProps({
     required: false,
     default: false,
   },
-  component: {
+  rows: {
+    type: Number,
+    required: false,
+    default: undefined,
+  },
+  as: {
     type: String,
     required: false,
-    default: 'input',
+    default: "input",
   },
   modelValue: String,
 });

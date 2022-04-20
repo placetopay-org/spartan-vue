@@ -23,7 +23,7 @@ const defaultArgs = {
   type: "text",
   id: "field_name",
   name: "field_name",
-  component: 'input',
+  component: "input",
 };
 
 export const TextInput = Template.bind({});
@@ -45,8 +45,11 @@ DisabledInput.args = {
   disabled: true,
 };
 
-export const DescriptionInput = Template.bind({});
-DescriptionInput.args = {
+export const TextAreaInput = Template.bind({});
+TextAreaInput.args = {
   ...defaultArgs,
-  component: 'textarea',
+  label: "Description",
+  placeholder: null,
+  as: "textarea",
+  rows: 4,
 };
