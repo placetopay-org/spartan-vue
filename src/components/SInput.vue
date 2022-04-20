@@ -5,7 +5,8 @@
     <label :for="id" class="block text-xs font-semibold text-gray-900">
       {{ label }}
     </label>
-    <input
+    <component
+      :is="as"
       :type="type"
       :name="name"
       :id="id"
@@ -13,7 +14,10 @@
       :disabled="disabled"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      class="block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:ring-0"
+      :class="[
+        'block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:ring-0',
+      ]"
+      :rows="rows"
       autocomplete="off"
     />
   </div>
@@ -50,6 +54,16 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+  rows: {
+    type: Number,
+    required: false,
+    default: undefined,
+  },
+  as: {
+    type: String,
+    required: false,
+    default: "input",
   },
   modelValue: String,
 });
