@@ -14,7 +14,7 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<SInput v-bind="args">{{ args.label }}</SInput>`,
+  template: `<SInput v-bind="args"></SInput>`,
 });
 
 const defaultArgs = {
