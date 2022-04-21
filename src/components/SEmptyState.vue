@@ -1,26 +1,49 @@
 <template>
-  <div class="inline-flex flex-col items-center justify-center text-center bg-white p-6 gap-6 rounded-2xl shadow m-auto">
-    <div class="flex flex-col items-center">
-      <h3 class="text-lg font-semibold text-gray-900">{{ title }}</h3>
-      <p class="text-base font-normal text-gray-500">{{ description }}</p>
+  <SCard>
+    <div class="text-center">
+      <div
+        :class="[
+          'mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-300 text-gray-800',
+        ]"
+      >
+        <component :is="iconToUse" class="h-6 w-6" aria-hidden="true" />
+      </div>
+
+      <h3 class="mt-4 text-lg font-semibold text-gray-900">
+        <slot name="title" />
+      </h3>
+
+      <p class="mt-2 text-base text-gray-500">
+        <slot name="description" />
+      </p>
+
+      <div class="mt-6 empty:hidden">
+        <slot name="actions" />
+      </div>
     </div>
-    <div>
-      <slot/>
-    </div>
-  </div>
+  </SCard>
 </template>
 
 <script>
+import { SCard } from "./../index";
+
+import { ViewGridAddIcon } from "@heroicons/vue/outline";
 
 export default {
+  components: {
+    SCard,
+    ViewGridAddIcon,
+  },
   props: {
-    title: {
-      type: String,
-      required: true,
+    icon: {
+      type: [Object, String, Function],
+      default: undefined,
     },
-    description: {
-      type: String,
-    }
-  }
-}
+  },
+  computed: {
+    iconToUse() {
+      return this.icon || ViewGridAddIcon;
+    },
+  },
+};
 </script>
