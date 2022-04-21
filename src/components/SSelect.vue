@@ -1,25 +1,31 @@
 <template>
   <div
-    class="rounded-xl border border-gray-300 px-3 py-2 shadow focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900"
+    class="rounded-xl border border-gray-300 placeholder:shadow focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900"
   >
-    <label :for="id" class="block text-xs font-semibold text-gray-900">
+    <label
+      :for="id"
+      class="block px-3 pt-2 text-xs font-semibold text-gray-900"
+    >
       {{ label }}
     </label>
-    <component
-      :is="as"
-      :type="type"
+    <select
       :name="name"
       :id="id"
-      :placeholder="placeholder"
       :disabled="disabled"
       :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @change="$emit('update:modelValue', $event.target.value)"
       :class="[
-        'block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:ring-0',
+        '-mt-2 block w-full rounded-b-xl border-0 bg-[right_0.5rem_bottom_1rem] px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 focus:ring-0',
       ]"
-      :rows="rows"
-      autocomplete="off"
-    />
+    >
+      <option
+        :value="option.value"
+        :selected="modelValue === option.value"
+        v-for="option in options"
+      >
+        {{ option.label }}
+      </option>
+    </select>
   </div>
 </template>
 
@@ -60,11 +66,14 @@ const props = defineProps({
     required: false,
     default: undefined,
   },
-  as: {
-    type: String,
-    required: false,
-    default: "input",
+  modelValue: {
+    type: [String, Number],
+    default: null,
   },
-  modelValue: String,
+  options: {
+    type: Array,
+    required: false,
+    default: () => [],
+  },
 });
 </script>

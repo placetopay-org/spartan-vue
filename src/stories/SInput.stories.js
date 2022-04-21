@@ -14,7 +14,7 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: `<SInput v-bind="args">{{ args.label }}</SInput>`,
+  template: `<SInput v-bind="args"></SInput>`,
 });
 
 const defaultArgs = {
@@ -23,6 +23,7 @@ const defaultArgs = {
   type: "text",
   id: "field_name",
   name: "field_name",
+  component: "input",
 };
 
 export const TextInput = Template.bind({});
@@ -42,4 +43,13 @@ export const DisabledInput = Template.bind({});
 DisabledInput.args = {
   ...defaultArgs,
   disabled: true,
+};
+
+export const TextAreaInput = Template.bind({});
+TextAreaInput.args = {
+  ...defaultArgs,
+  label: "Description",
+  placeholder: null,
+  as: "textarea",
+  rows: 4,
 };

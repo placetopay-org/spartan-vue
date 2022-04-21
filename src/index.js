@@ -15,6 +15,7 @@
 export { default as SButton } from "./components/SButton.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
 export { default as SInput } from "./components/SInput.vue";
+export { default as SSelect } from "./components/SSelect.vue";
 export { default as SInputAlt } from "./components/SInputAlt.vue";
 export { default as SInputError } from "./components/SInputError.vue";
 export { default as SInputHelper } from "./components/SInputHelper.vue";
@@ -46,4 +47,5 @@ export { default as STableBody } from "./components/STableBody.vue";
 export { default as STableRow } from "./components/STableRow.vue";
 export { default as STableRowItem } from "./components/STableRowItem.vue";
 export { default as STablePagination } from "./components/STablePagination.vue";
-export { default as SEmptyState } from "./components/SEmptyState.vue";
+export { default as SModalLayout } from "./components/SModalLayout.vue";
+export { default as SModalAction } from "./components/SModalAction.vue";

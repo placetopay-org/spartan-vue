@@ -4,7 +4,7 @@
     type="button"
     :class="classes"
     :disabled="disabled"
-    class="inline-flex items-center space-x-2 border border-transparent px-6 py-3 text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
+    class="inline-flex items-center justify-center space-x-2 border border-transparent px-6 py-3 text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
   >
     <component :is="leftIcon || icon" class="h-5 w-5" aria-hidden="true" />
     <span class="empty:hidden"><slot /></span>
