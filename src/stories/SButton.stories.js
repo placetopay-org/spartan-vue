@@ -1,5 +1,5 @@
 import { SButton } from "../index.js";
-import { SearchIcon } from "@heroicons/vue/solid";
+import { SearchIcon, PlusIcon } from "@heroicons/vue/solid";
 
 export default {
   title: "Components/SButton",
@@ -80,4 +80,20 @@ export const onlyIcon = Template.bind({});
 onlyIcon.args = {
   text: false,
   icon: SearchIcon,
+};
+
+export const Circle = Template.bind({});
+Circle.args = {
+  text: false,
+  icon: PlusIcon,
+  type: "circle",
+};
+
+export const circleDanger = Template.bind({});
+circleDanger.args = {
+  text: false,
+  icon: PlusIcon,
+  type: "circle",
+  color: "danger",
+  size: "xl"
 };
