@@ -68,7 +68,6 @@ export default {
       style: {
         default: [
          'px-6 py-3',
-          this.disabled ? "opacity-60" : "",
           this.flatLeft ? "rounded-l-none" : "rounded-l-xl",
           this.flatRight ? "rounded-r-none" : "rounded-r-xl",
         ],
@@ -88,6 +87,7 @@ export default {
       return [
         this.colorClass[this.color],
         this.style[this.type],
+        this.disabled ? "opacity-60" : "",
         this.type === 'circle' ? this.sizes[this.size] :"",
       ];
     },
