@@ -24,8 +24,12 @@ const Template = (args) => ({
         :description="'lorem ipsum'"
     >
       <template v-slot:actions>
-        <PencilIcon class="h-5 w-5" />
-        <TrashIcon class="h-5 w-5 text-red-600" />
+        <button class="flex justify-center items-center h-11 w-11">
+          <PencilIcon class="h-5 w-5" />
+        </button>
+        <button class="flex justify-center items-center h-11 w-11">
+          <TrashIcon class="h-5 w-5 text-red-600" />
+        </button>
         <SButton color="primary">{{ args.actions.button }}</SButton>
       </template>
       <template v-slot:col-1>
