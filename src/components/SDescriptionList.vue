@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col px-6 pb-6 pt-3">
+    <div class="flex flex-col px-6 pb-6 pt-3 gap-8">
       <dl class="grid grid-cols-2">
         <div class="flex flex-col gap-8">
           <slot name="col-1"/>
