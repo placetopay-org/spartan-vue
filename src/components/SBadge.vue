@@ -1,10 +1,22 @@
 <template>
-  <span :class="[colorClass, 'inline-flex items-center justify-center']">
-    <slot/>
+  <span :class="classes">
+    <slot />
   </span>
 </template>
 
 <script>
+const colorOptions = {
+  gray: "bg-gray-100 text-gray-800",
+  green: "bg-green-100 text-green-800",
+  red: "bg-red-100 text-red-800",
+  yellow: "bg-yellow-100 text-yellow-800",
+};
+
+const sizeOptions = {
+  sm: "px-2.5 py-0.5 text-xs",
+  md: "px-3 py-0.5 text-sm",
+  lg: "px-3 py-1.5 text-sm",
+};
 
 export default {
   props: {
@@ -17,19 +29,14 @@ export default {
       default: "gray",
     },
   },
-  data() {
-    return {
-      style: {
-        sm: 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-' + this.color + '-100 text-' + this.color + '-800 ',
-        md: 'px-3 py-0.5 rounded-xl text-sm font-medium bg-' + this.color + '-100 text-' + this.color + '-800 ',
-        lg: 'px-2.5 py-2 w-9 rounded-xl text-sm font-semibold bg-' + this.color + '-200 text-' + this.color + '-500 ',
-      },
-    };
-  },
   computed: {
-    colorClass() {
-      return this.style[this.size]
-    }
-  }
-}
+    classes() {
+      return [
+        "inline-flex items-center px-2.5 py-0.5 rounded-full font-medium",
+        colorOptions[this.color],
+        sizeOptions[this.size],
+      ];
+    },
+  },
+};
 </script>

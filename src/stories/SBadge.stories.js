@@ -1,38 +1,46 @@
 import { SBadge } from "../index.js";
 
 export default {
-    title: "Components/SBadge",
-    component: SBadge,
+  title: "Components/SBadge",
+  argTypes: {
+    color: {
+      control: { type: "select" },
+      options: ["gray", "green", "red", "yellow"],
+    },
+    size: {
+      control: { type: "select" },
+      options: ["sm", "md", "lg"],
+    },
+  },
+  component: SBadge,
 };
 
 const Template = (args) => ({
-    components: { SBadge },
-    setup() {
-        return { args };
-    },
-    template: `<SBadge v-bind="args">{{ args.label }}</SBadge>`,
+  components: { SBadge },
+  setup() {
+    return { args };
+  },
+  template: `<SBadge v-bind="args">{{ args.label }}</SBadge>`,
 });
 
-export const Badge = Template.bind({});
+export const Default = Template.bind({});
 
-Badge.args = {
-    size: 'sm',
-    color: 'green',
-    label: 'Badge',
+Default.args = {
+  label: "Default",
 };
 
-export const BadgeMedium = Template.bind({});
+export const Medium = Template.bind({});
 
-BadgeMedium.args = {
-    size: 'md',
-    color: 'red',
-    label: 'Badge',
+Medium.args = {
+  size: "md",
+  color: "green",
+  label: "Approved",
 };
 
-export const BadgeLarge = Template.bind({});
+export const Large = Template.bind({});
 
-BadgeLarge.args = {
-    size: 'lg',
-    color: 'gray',
-    label: '12',
+Large.args = {
+  size: "lg",
+  color: "red",
+  label: "12",
 };
