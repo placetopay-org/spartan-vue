@@ -27,6 +27,7 @@ const Template = ( args ) => ({
         :current-page="1"
         :last-page="12"
     >
+      <p> {{ args.info }} </p>
     </STablePagination>
   `,
 });
@@ -36,4 +37,5 @@ export const Pagination = Template.bind({});
 Pagination.args = {
     currentPage: 1,
     lastPage: 12,
+    info: "Mostrando 01 a 10 de 14 resultados",
 }

@@ -86,6 +86,7 @@ const Template = (args) => ({
             :current-page="args.footer.currentPage"
             :last-page="args.footer.lastPage"
         >
+          <p> {{ args.footer.info }} </p>
         </STablePagination>
     </STableLayout>
   `,
