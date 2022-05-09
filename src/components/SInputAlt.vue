@@ -1,12 +1,11 @@
 <template>
-  <div
-    class="rounded-xl border border-gray-300 px-3 py-2 shadow focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900"
-  >
-    <label :for="id" class="block text-xs font-semibold text-gray-900">
+  <div class="flex">
+    <slot name="left"></slot>
+
+    <label :for="id" class="sr-only">
       {{ label }}
     </label>
-    <component
-      :is="as"
+    <input
       :type="type"
       :name="name"
       :id="id"
@@ -15,11 +14,13 @@
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       :class="[
-        'block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-500 focus:ring-0',
+        $slots.right ? 'rounded-r-0 -mr-px' : 'rounded-r-xl',
+        $slots.left ? 'rounded-l-0 -ml-px' : 'rounded-l-xl',
+        'block w-full border border-gray-300 px-3 py-2.5 text-base text-gray-900 placeholder-gray-500 focus-within:z-10 focus:border-gray-800 focus:ring-gray-800',
       ]"
-      :rows="rows"
-      autocomplete="off"
     />
+
+    <slot name="right"></slot>
   </div>
 </template>
 
@@ -54,16 +55,6 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false,
-  },
-  rows: {
-    type: Number,
-    required: false,
-    default: undefined,
-  },
-  as: {
-    type: String,
-    required: false,
-    default: "input",
   },
   modelValue: String,
 });

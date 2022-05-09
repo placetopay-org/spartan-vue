@@ -1,11 +1,12 @@
 import { SButton } from "../index.js";
+import { SearchIcon } from "@heroicons/vue/solid";
 
 export default {
   title: "Components/SButton",
   component: SButton,
   args: {
     color: "primary",
-    default: "Button Text",
+    text: "Button Text",
   },
   argTypes: {
     color: {
@@ -19,12 +20,14 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { SButton },
+  components: { SButton, SearchIcon },
   setup() {
     return { args };
   },
   template: `
-    <SButton v-bind="args">Button Text</SButton>
+    <SButton v-bind="args">
+      <template v-if="args.text">{{ args.text }}</template>
+    </SButton>
   `,
 });
 
@@ -51,4 +54,30 @@ Danger.args = {
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+};
+
+export const FlatLeft = Template.bind({});
+FlatLeft.args = {
+  flatLeft: true,
+};
+
+export const FlatRight = Template.bind({});
+FlatRight.args = {
+  flatRight: true,
+};
+
+export const withLeftIcon = Template.bind({});
+withLeftIcon.args = {
+  leftIcon: SearchIcon,
+};
+
+export const withRightIcon = Template.bind({});
+withRightIcon.args = {
+  rightIcon: SearchIcon,
+};
+
+export const onlyIcon = Template.bind({});
+onlyIcon.args = {
+  text: false,
+  icon: SearchIcon,
 };
