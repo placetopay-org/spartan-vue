@@ -53,4 +53,3 @@ export { default as SModalAction } from "./components/SModalAction.vue";
 export { default as SCard } from "./components/SCard.vue";
 export { default as SEmptyState } from "./components/SEmptyState.vue";
 export { default as SBadge } from "./components/SBadge.vue";
-export { default as SFormLayout } from "./components/SFormLayout.vue";
