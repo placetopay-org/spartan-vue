@@ -16,7 +16,7 @@
       :class="[
         $slots.right ? 'rounded-r-0 -mr-px' : 'rounded-r-xl',
         $slots.left ? 'rounded-l-0 -ml-px' : 'rounded-l-xl',
-        'block w-full border border-gray-300 px-3 py-2.5 text-base text-gray-900 placeholder-gray-500 focus-within:z-10 focus:border-gray-800 focus:ring-gray-800',
+        'block w-full border border-gray-300 px-3 py-2 text-base text-gray-900 placeholder-gray-500 focus-within:z-10 focus:border-gray-800 focus:ring-gray-800',
       ]"
     />
 
