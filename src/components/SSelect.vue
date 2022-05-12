@@ -1,32 +1,25 @@
 <template>
-  <div
-    class="rounded-xl border border-gray-300 placeholder:shadow focus-within:border-gray-900 focus-within:ring-1 focus-within:ring-gray-900"
+  <label :for="id" class="mb-1 block text-sm font-medium text-gray-700">
+    {{ label }}
+  </label>
+  <select
+    :name="name"
+    :id="id"
+    :disabled="disabled"
+    :value="modelValue"
+    @change="$emit('update:modelValue', $event.target.value)"
+    :class="[
+      'block w-full rounded-xl border border-gray-300 px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-gray-800 focus:ring-1 focus:ring-gray-800',
+    ]"
   >
-    <label
-      :for="id"
-      class="block px-3 pt-2 text-xs font-semibold text-gray-900"
+    <option
+      :value="option.value"
+      :selected="modelValue === option.value"
+      v-for="option in options"
     >
-      {{ label }}
-    </label>
-    <select
-      :name="name"
-      :id="id"
-      :disabled="disabled"
-      :value="modelValue"
-      @change="$emit('update:modelValue', $event.target.value)"
-      :class="[
-        '-mt-2 block w-full rounded-b-xl border-0 bg-[right_0.5rem_bottom_1rem] px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 focus:ring-0',
-      ]"
-    >
-      <option
-        :value="option.value"
-        :selected="modelValue === option.value"
-        v-for="option in options"
-      >
-        {{ option.label }}
-      </option>
-    </select>
-  </div>
+      {{ option.label }}
+    </option>
+  </select>
 </template>
 
 <script setup>
