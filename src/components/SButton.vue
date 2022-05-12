@@ -4,7 +4,6 @@
     type="button"
     :class="classes"
     :disabled="disabled"
-    class="inline-flex items-center justify-center space-x-2 border border-transparent px-6 py-2.5 text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
     class="inline-flex items-center justify-center space-x-2 border border-transparent text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
   >
     <component :is="leftIcon || icon" class="h-5 w-5" aria-hidden="true" />
@@ -54,7 +53,7 @@ export default {
     size: {
       type: String,
       default: "base",
-    }
+    },
   },
   data() {
     return {
@@ -68,7 +67,7 @@ export default {
       },
       style: {
         default: [
-         'px-6 py-3',
+          "px-6 py-2.5",
           this.flatLeft ? "rounded-l-none" : "rounded-l-xl",
           this.flatRight ? "rounded-r-none" : "rounded-r-xl",
         ],
@@ -80,7 +79,7 @@ export default {
         base: "p-2",
         l: "p-2.5",
         xl: "p-3",
-      }
+      },
     };
   },
   computed: {
@@ -89,7 +88,7 @@ export default {
         this.colorClass[this.color],
         this.style[this.type],
         this.disabled ? "opacity-60" : "",
-        this.type === 'circle' ? this.sizes[this.size] :"",
+        this.type === "circle" ? this.sizes[this.size] : "",
       ];
     },
   },
