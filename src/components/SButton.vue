@@ -1,11 +1,5 @@
 <template>
-  <component
-    :is="as"
-    type="button"
-    :class="classes"
-    :disabled="disabled"
-    class="inline-flex items-center justify-center space-x-2 border border-transparent text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2"
-  >
+  <component :is="as" type="button" :class="classes" :disabled="disabled">
     <component :is="leftIcon || icon" class="h-5 w-5" aria-hidden="true" />
     <span class="empty:hidden"><slot /></span>
     <component :is="rightIcon" class="h-5 w-5" aria-hidden="true" />
@@ -34,6 +28,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    roundedFull: {
+      type: Boolean,
+      default: false,
+    },
     leftIcon: {
       type: [Object, String, Function],
       default: undefined,
@@ -46,14 +44,6 @@ export default {
       type: [Object, String, Function],
       default: undefined,
     },
-    type: {
-      type: String,
-      default: "default",
-    },
-    size: {
-      type: String,
-      default: "base",
-    },
   },
   data() {
     return {
@@ -65,30 +55,19 @@ export default {
         white:
           "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-gray-800",
       },
-      style: {
-        default: [
-          "px-6 py-2.5",
-          this.flatLeft ? "rounded-l-none" : "rounded-l-xl",
-          this.flatRight ? "rounded-r-none" : "rounded-r-xl",
-        ],
-        circle: "rounded-full",
-      },
-      sizes: {
-        xs: "p-1",
-        sm: "p-1.5",
-        base: "p-2",
-        l: "p-2.5",
-        xl: "p-3",
-      },
     };
   },
   computed: {
     classes() {
       return [
         this.colorClass[this.color],
-        this.style[this.type],
-        this.disabled ? "opacity-60" : "",
-        this.type === "circle" ? this.sizes[this.size] : "",
+        this.disabled ? "opacity-50" : "",
+        this.flatLeft ? "rounded-l-none" : "",
+        this.flatRight ? "rounded-r-none" : "",
+        this.roundedFull
+          ? "rounded-full px-2.5 py-2.5"
+          : "rounded-xl py-2.5 px-6",
+        "inline-flex items-center justify-center space-x-2 border  border-transparent text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2",
       ];
     },
   },

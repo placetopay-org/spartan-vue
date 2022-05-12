@@ -86,14 +86,13 @@ export const Circle = Template.bind({});
 Circle.args = {
   text: false,
   icon: PlusIcon,
-  type: "circle",
+  roundedFull: true,
 };
 
 export const circleDanger = Template.bind({});
 circleDanger.args = {
   text: false,
   icon: PlusIcon,
-  type: "circle",
   color: "danger",
-  size: "xl"
+  roundedFull: true,
 };
