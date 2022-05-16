@@ -3,7 +3,6 @@ import {
   SDropdownButton,
   SDropdownItem,
   SInputAlt,
-  SButtonInputRight,
   SButton,
 } from "../index.js";
 import { SearchIcon } from "@heroicons/vue/outline";
@@ -23,7 +22,6 @@ const Template = (args) => ({
     SDropdown,
     SInputAlt,
     SDropdownItem,
-    SButtonInputRight,
     SButton,
     SDropdownButton,
   },
