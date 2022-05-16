@@ -13,7 +13,6 @@
 // export default { install }
 
 export { default as SButton } from "./components/SButton.vue";
-export { default as SButtonTitle } from "./components/SButtonTitle.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
 export { default as SInput } from "./components/SInput.vue";
 export { default as SSelect } from "./components/SSelect.vue";
