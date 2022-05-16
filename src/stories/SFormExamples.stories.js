@@ -1,4 +1,11 @@
-import { SInput, SButton, SCard, SSelect } from "../index";
+import {
+  SInput,
+  SButton,
+  SCard,
+  SSelect,
+  SSectionTitle,
+  SSectionDescription,
+} from "../index";
 
 export default {
   title: "Components/SFormExamples",
@@ -11,7 +18,14 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { SInput, SButton, SCard, SSelect },
+  components: {
+    SInput,
+    SButton,
+    SCard,
+    SSelect,
+    SSectionTitle,
+    SSectionDescription,
+  },
   setup() {
     return { args };
   },
@@ -19,12 +33,8 @@ const Template = (args) => ({
   <SCard class="max-w-2xl mx-auto">  
     <div class="grid gap-y-6 gap-x-4 grid-cols-6">
       <div class="col-span-6">
-          <h3 class="text-lg font-semibold text-gray-900"> 
-              {{ args.title }} 
-          </h3>
-          <p class="text-base font-normal text-gray-500 mt-1">
-            {{ args.description }} 
-          </p>
+          <SSectionTitle>{{ args.title }}</SSectionTitle>
+          <SSectionDescription>{{ args.description }}</SSectionDescription>
       </div>
 
       <div class="sm:col-span-3">
