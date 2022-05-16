@@ -3,7 +3,7 @@
     <Dialog
       as="div"
       class="fixed inset-0 z-10 overflow-y-auto"
-      @close="open = false"
+      @close="$emit('update:modelValue', false)"
     >
       <div
         class="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0"
