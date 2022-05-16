@@ -3,22 +3,24 @@
     <label :for="id" class="mb-1 block text-sm font-medium text-gray-700">
       {{ label }}
     </label>
-    <component
-      :is="as"
-      :type="type"
+    <select
       :name="name"
       :id="id"
-      :placeholder="placeholder"
       :disabled="disabled"
       :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @change="$emit('update:modelValue', $event.target.value)"
       :class="[
-        disabled ? 'opacity-50' : '',
-        'block w-full rounded-xl border-gray-300 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-gray-800 focus:ring-1 focus:ring-gray-800',
+        'block w-full rounded-xl border border-gray-300 px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-gray-800 focus:ring-1 focus:ring-gray-800',
       ]"
-      :rows="rows"
-      autocomplete="off"
-    />
+    >
+      <option
+        :value="option.value"
+        :selected="modelValue === option.value"
+        v-for="option in options"
+      >
+        {{ option.label }}
+      </option>
+    </select>
   </div>
 </template>
 
@@ -59,11 +61,14 @@ const props = defineProps({
     required: false,
     default: undefined,
   },
-  as: {
-    type: String,
-    required: false,
-    default: "input",
+  modelValue: {
+    type: [String, Number],
+    default: null,
   },
-  modelValue: String,
+  options: {
+    type: Array,
+    required: false,
+    default: () => [],
+  },
 });
 </script>
