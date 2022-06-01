@@ -44,3 +44,13 @@ InlineDescription.args = {
   description: "User will be able to create new sites.",
   inlineDescription: true,
 };
+
+export const InlineDescriptionRed = Template.bind({});
+
+InlineDescriptionRed.args = {
+  id: "create-sites",
+  label: "Create Sites",
+  description: "User will be able to create new sites.",
+  inlineDescription: true,
+  color: 'red',
+};

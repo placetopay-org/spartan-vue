@@ -11,10 +11,10 @@
       />
     </div>
     <div class="ml-3 text-sm">
-      <label :for="id" class="font-medium text-gray-900">
+      <label :for="id" :class="['font-medium', labelClass]">
         <slot />
       </label>
-      <p :class="['text-gray-500', inlineDescription ? 'inline' : '']">
+      <p :class="[descriptionClass, inlineDescription ? 'inline' : '']">
         <slot name="description" />
       </p>
     </div>
@@ -22,6 +22,17 @@
 </template>
 
 <script>
+const labelColor = {
+  gray: "text-gray-900",
+  red: "text-red-700",
+};
+
+const descriptionColor = {
+  gray: "text-gray-500",
+  red: "text-red-500",
+};
+
+
 export default {
   props: {
     id: {
@@ -40,6 +51,18 @@ export default {
     },
     modelValue: {
       default: false,
+    },
+    color: {
+      type: String,
+      default: 'gray'
+    }
+  },
+  computed: {
+    labelClass() {
+      return labelColor[this.color]
+    },
+    descriptionClass() {
+      return descriptionColor[this.color]
     },
   },
 };
