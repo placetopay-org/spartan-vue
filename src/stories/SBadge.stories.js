@@ -5,7 +5,7 @@ export default {
   argTypes: {
     color: {
       control: { type: "select" },
-      options: ["gray", "green", "red", "yellow"],
+      options: ["gray", "green", "red", "yellow", "blue"],
     },
     size: {
       control: { type: "select" },
