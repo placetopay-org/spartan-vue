@@ -10,7 +10,7 @@
       :value="modelValue"
       @change="$emit('update:modelValue', $event.target.value)"
       :class="[
-        'block w-full rounded-xl border border-gray-300 px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-gray-800 focus:ring-1 focus:ring-gray-800',
+        'focus:border-primary-300 focus:ring-primary-300 block w-full rounded-xl border border-gray-300 px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:ring',
       ]"
     >
       <option
