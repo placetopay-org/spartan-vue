@@ -49,13 +49,13 @@ export default {
     return {
       colorClass: {
         primary:
-          "text-white border-transparent bg-gray-900 hover:bg-gray-800 focus:ring-gray-800",
+          "text-white border-transparent bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 focus:border-primary-300",
         danger:
-          "text-white border-transparent bg-red-600 hover:bg-red-700 focus:ring-red-500",
+          "text-white border-transparent bg-red-600 hover:bg-red-700 focus:ring-red-300 focus:border-red-300",
         default:
-          "text-gray-900 border-transparent bg-gray-200 hover:bg-gray-300 focus:ring-gray-800",
+          "text-gray-900 border-transparent bg-gray-200 hover:bg-gray-300 focus:ring-primary-300 focus:border-primary-300",
         white:
-          "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-gray-800",
+          "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-primary-300 focus:border-primary-300",
       },
     };
   },
@@ -69,7 +69,7 @@ export default {
         this.roundedFull
           ? "rounded-full px-2.5 py-2.5"
           : "rounded-xl py-2.5 px-6",
-        "inline-flex items-center justify-center space-x-2 border text-sm font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-offset-2",
+        "inline-flex items-center justify-center space-x-2 border text-sm font-medium shadow-sm transition focus:outline-none focus:ring",
       ];
     },
   },

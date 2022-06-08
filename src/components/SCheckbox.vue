@@ -5,7 +5,7 @@
         :id="id"
         :name="name"
         type="checkbox"
-        class="h-4 w-4 rounded border-gray-300 text-gray-800 focus:ring-gray-900"
+        class="focus:ring-primary-300 focus:border-primary-300 text-primary-600 h-4 w-4 rounded border-gray-300 focus:ring focus:ring-offset-0"
         :checked="modelValue"
         @input="$emit('update:modelValue', $event.target.checked)"
       />

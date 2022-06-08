@@ -1,6 +1,6 @@
 <template>
   <MenuButton
-    class="flex max-w-xs items-center rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
+    class="focus:ring-primary-300 focus:border-primary-300 flex max-w-xs items-center rounded-full border-transparent text-sm focus:outline-none focus:ring"
   >
     <SAvatar v-bind="$attrs"></SAvatar>
   </MenuButton>
