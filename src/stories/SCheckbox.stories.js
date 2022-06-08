@@ -2,6 +2,12 @@ import { SCheckbox } from "../index";
 
 export default {
   title: "Components/SCheckbox",
+  argTypes: {
+    color: {
+      control: { type: "select" },
+      options: ["primary", "red"],
+    },
+  },
   component: SCheckbox,
 };
 
@@ -43,4 +49,14 @@ InlineDescription.args = {
   label: "Create Sites",
   description: "User will be able to create new sites.",
   inlineDescription: true,
+};
+
+export const RedColor = Template.bind({});
+
+RedColor.args = {
+  id: "create-sites",
+  label: "Create Sites",
+  description: "User will be able to create new sites.",
+  inlineDescription: true,
+  color: "red",
 };
