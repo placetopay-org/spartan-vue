@@ -11,7 +11,7 @@ import {
 import { PencilIcon, TrashIcon } from "@heroicons/vue/outline";
 
 export default {
-  title: "Components/SDescriptionCardExamples",
+  title: "Examples/SDescriptionCardExamples",
   component: SCard,
   decorators: [
     () => ({

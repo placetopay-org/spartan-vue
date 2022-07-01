@@ -14,7 +14,7 @@
       >
         <div
           v-if="show"
-          class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black ring-opacity-5"
+          class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-xl ring-1 ring-black ring-opacity-5"
         >
           <div :class="['border-l-4 p-4', wrapperClasses]">
             <div class="flex items-start">

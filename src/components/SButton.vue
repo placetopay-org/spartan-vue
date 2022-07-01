@@ -1,12 +1,18 @@
 <template>
   <component :is="as" type="button" :class="classes" :disabled="disabled">
-    <component :is="leftIcon || icon" class="h-5 w-5" aria-hidden="true" />
-    <span class="empty:hidden"><slot /></span>
-    <component :is="rightIcon" class="h-5 w-5" aria-hidden="true" />
+    <component
+      :is="leftIcon || icon"
+      :class="['h-5 w-5', hasDefaultSlot ? '-ml-1 mr-2' : '']"
+      aria-hidden="true"
+    />
+    <span v-if="hasDefaultSlot"><slot /></span>
+    <component :is="rightIcon" class="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
   </component>
 </template>
 
 <script>
+import { hasSlotContent } from "../utils/hasSlotContent";
+
 export default {
   props: {
     color: {
@@ -49,17 +55,20 @@ export default {
     return {
       colorClass: {
         primary:
-          "text-white border-transparent bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 focus:border-primary-300",
+          "text-white border-transparent bg-primary-600 hover:bg-primary-700 focus:ring-primary-100 focus:border-primary-300",
         danger:
-          "text-white border-transparent bg-red-600 hover:bg-red-700 focus:ring-red-300 focus:border-red-300",
+          "text-white border-transparent bg-red-600 hover:bg-red-700 focus:ring-red-100",
         default:
-          "text-gray-900 border-transparent bg-gray-200 hover:bg-gray-300 focus:ring-primary-300 focus:border-primary-300",
+          "text-gray-900 border-transparent bg-gray-200 hover:bg-gray-300 focus:ring-primary-100 focus:border-primary-300",
         white:
-          "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-primary-300 focus:border-primary-300",
+          "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-primary-100 focus:border-primary-300",
       },
     };
   },
   computed: {
+    hasDefaultSlot() {
+      return hasSlotContent(this.$slots.default);
+    },
     classes() {
       return [
         this.colorClass[this.color],
@@ -68,8 +77,8 @@ export default {
         this.flatRight ? "rounded-r-none" : "",
         this.roundedFull
           ? "rounded-full px-2.5 py-2.5"
-          : "rounded-xl py-2.5 px-6",
-        "inline-flex items-center justify-center space-x-2 border text-sm font-medium shadow-sm transition focus:outline-none focus:ring",
+          : "rounded-lg py-2.5 px-6",
+        "inline-flex items-center justify-center border text-sm font-medium shadow-sm transition focus:outline-none focus:ring",
       ];
     },
   },

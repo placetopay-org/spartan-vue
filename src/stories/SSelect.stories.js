@@ -6,7 +6,9 @@ export default {
   component: SSelect,
   argTypes: {},
   decorators: [
-    () => ({ template: '<div class="max-w-xs border-none"><story /></div>' }),
+    () => ({
+      template: '<div class="max-w-md mx-auto border-none"><story /></div>',
+    }),
   ],
 };
 
