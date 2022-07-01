@@ -8,7 +8,7 @@ import {
 } from "../index";
 
 export default {
-  title: "Components/SFormExamples",
+  title: "Examples/SFormExamples",
   component: SInput,
   decorators: [
     () => ({
@@ -30,7 +30,7 @@ const Template = (args) => ({
     return { args };
   },
   template: `
-  <SCard class="max-w-2xl mx-auto">  
+  <SCard class="max-w-2xl w-full mx-auto">  
     <div class="grid gap-y-6 gap-x-4 grid-cols-6">
       <div class="col-span-6">
           <SSectionTitle>{{ args.title }}</SSectionTitle>
@@ -57,7 +57,7 @@ const Template = (args) => ({
         <SInput as="textarea" rows="4" label="Bio"></SInput>
       </div>
 
-      <div>
+      <div class="col-span-6 flex justify-end">
         <SButton color="primary">Continue</SButton>
       </div>
     </div>

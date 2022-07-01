@@ -14,7 +14,7 @@
       @input="$emit('update:modelValue', $event.target.value)"
       :class="[
         disabled ? 'opacity-50' : '',
-        'focus:border-primary-300 focus:ring-primary-300 block w-full rounded-xl border-gray-300 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:ring',
+        'block w-full rounded-lg border-gray-300 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-300',
       ]"
       :rows="rows"
       autocomplete="off"

@@ -1,12 +1,18 @@
 <template>
   <component :is="as" type="button" :class="classes" :disabled="disabled">
-    <component :is="leftIcon || icon" class="h-5 w-5" aria-hidden="true" />
-    <span class="empty:hidden"><slot /></span>
-    <component :is="rightIcon" class="h-5 w-5" aria-hidden="true" />
+    <component
+      :is="leftIcon || icon"
+      :class="['h-5 w-5', hasDefaultSlot ? '-ml-1 mr-2' : '']"
+      aria-hidden="true"
+    />
+    <span v-if="hasDefaultSlot"><slot /></span>
+    <component :is="rightIcon" class="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
   </component>
 </template>
 
 <script>
+import { hasSlotContent } from "../utils/hasSlotContent";
+
 export default {
   props: {
     color: {
@@ -60,6 +66,9 @@ export default {
     };
   },
   computed: {
+    hasDefaultSlot() {
+      return hasSlotContent(this.$slots.default);
+    },
     classes() {
       return [
         this.colorClass[this.color],
@@ -68,8 +77,8 @@ export default {
         this.flatRight ? "rounded-r-none" : "",
         this.roundedFull
           ? "rounded-full px-2.5 py-2.5"
-          : "rounded-xl py-2.5 px-6",
-        "inline-flex items-center justify-center space-x-2 border text-sm font-medium shadow-sm transition focus:outline-none focus:ring",
+          : "rounded-lg py-2.5 px-6",
+        "inline-flex items-center justify-center border text-sm font-medium shadow-sm transition focus:outline-none focus:ring",
       ];
     },
   },
