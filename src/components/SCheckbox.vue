@@ -26,12 +26,12 @@ const colorOptions = {
   primary: {
     label: "text-gray-900",
     description: "text-gray-500",
-    input: "focus:ring-primary-300 focus:border-primary-300 text-primary-600",
+    input: "focus:ring-primary-100 focus:border-primary-300 text-primary-600",
   },
   red: {
     label: "text-red-600",
     description: "text-red-500",
-    input: "focus:ring-red-300 focus:border-red-300 text-red-600",
+    input: "focus:ring-red-100 focus:border-red-300 text-red-600",
   },
 };
 

@@ -3,7 +3,7 @@
     <div class="text-center">
       <div
         :class="[
-          'mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-300 text-gray-800',
+          'mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 text-primary-600',
         ]"
       >
         <component :is="iconToUse" class="h-6 w-6" aria-hidden="true" />
