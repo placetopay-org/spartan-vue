@@ -2,9 +2,9 @@
   <DisclosureButton
     :class="[
       active
-        ? 'border-gray-900 font-medium text-gray-900'
-        : 'font-regular border-gray-500 text-gray-500 hover:border-gray-900 hover:text-gray-900',
-      ' group ml-4 flex w-full cursor-pointer items-center border-l py-2 px-2.5 text-sm',
+        ? 'bg-primary-50 text-primary-600'
+        : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600',
+      'group flex w-full items-center rounded-md py-2 pr-1 pl-[42px] text-sm font-medium focus:outline-none focus:ring focus:ring-primary-100',
     ]"
   >
     <slot />

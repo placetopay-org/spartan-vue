@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center flex-shrink-0 px-4 md:px-5">
-    <img class="h-9 w-auto" :src="src" :alt="alt"/>
+  <div class="flex flex-shrink-0 items-center px-6">
+    <img class="h-8 w-auto" :src="src" :alt="alt" />
   </div>
 </template>
 
@@ -10,13 +10,13 @@ export default {
     src: {
       type: String,
       required: false,
-      default: 'https://static.placetopay.com/placetopay-logo.svg',
+      default: "https://static.placetopay.com/placetopay-logo.svg",
     },
     alt: {
       type: String,
       required: false,
-      default: 'Placetopay Logo'
-    }
-  }
-}
+      default: "Placetopay Logo",
+    },
+  },
+};
 </script>
