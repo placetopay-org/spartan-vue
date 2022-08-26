@@ -56,6 +56,11 @@ Disabled.args = {
   disabled: true,
 };
 
+export const IsLoading = Template.bind({});
+IsLoading.args = {
+  isLoading: true,
+};
+
 export const FlatLeft = Template.bind({});
 FlatLeft.args = {
   flatLeft: true,

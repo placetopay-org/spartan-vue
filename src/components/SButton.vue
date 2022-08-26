@@ -50,6 +50,10 @@ export default {
       type: [Object, String, Function],
       default: undefined,
     },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -71,6 +75,7 @@ export default {
     },
     classes() {
       return [
+        this.isLoading ? 'is-loading' : "",
         this.colorClass[this.color],
         this.disabled ? "opacity-50" : "",
         this.flatLeft ? "rounded-l-none" : "",
@@ -84,3 +89,37 @@ export default {
   },
 };
 </script>
+
+<style>
+.is-loading {
+  color: transparent !important;
+  pointer-events: none;
+  position: relative;
+}
+
+.is-loading::after {
+  animation: spinAround 500ms infinite linear;
+  border: 2px solid #dbdbdb;
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 1em;
+  width: 1em;
+  position: absolute;
+  left: calc(50% - (1em / 2));
+  top: calc(50% - (1em / 2));
+}
+
+@keyframes spinAround {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+</style>

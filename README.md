@@ -1,19 +1,33 @@
 
 # installing
 
+Configure Github npm packages
+
 ```
 npm config set "@placetopay-org:registry" https://npm.pkg.github.com/
 ```
 
+Generate your Github personal access token
+
 ```
 npm config set "//npm.pkg.github.com/:_authToken" YourGithubPersonalAccessToken
-
 ```
 
+Install Dependencies
+
 ```
-npm install @placetopay-org/spartan-vue
+npm install -D @placetopay-org/spartan-vue @tailwindcss/forms
 ```
 
+Configure your `tailwind.config.js` add the `presets` key
+
+```javascript
+module.exports = {
+    presets: [
+        require('@placetopay-org/spartan-vue/src/tailwindcss.js')
+    ],
+}
+```
 
 # Generate your githubPersonal access token
 
