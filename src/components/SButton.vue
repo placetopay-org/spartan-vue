@@ -66,6 +66,7 @@ export default {
           "text-gray-900 border-transparent bg-gray-200 hover:bg-gray-300 focus:ring-primary-100 focus:border-primary-300",
         white:
           "border-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:ring-primary-100 focus:border-primary-300",
+        transparent: "border-none shadow-none text-gray-800 bg-transparent hover:text-gray-900 focus:ring-0 focus:border-none focus:outline-none",
       },
     };
   },
