@@ -2,26 +2,8 @@
   <div
     class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
   >
-    <div class="flex flex-1 justify-between sm:hidden">
-      <a
-        href="#"
-        class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-      >
-        Previous
-      </a>
-
-      <a
-        href="#"
-        class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-      >
-        Next
-      </a>
-    </div>
-
-    <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-      <div>
-        <slot/>
-      </div>
+    <div class="flex flex-1 items-center justify-between">
+      <slot/>
     </div>
 
     <div>
@@ -30,8 +12,9 @@
         aria-label="Pagination"
       >
         <button
-          @click="currentPage > 1 ? changeCurrentPage(currentPage - 1) : ''"
-          class="relative inline-flex items-center rounded-l-xl border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
+          @click="changeCurrentPage(currentPage - 1)"
+          :disabled="currentPage <= 1"
+          class="relative inline-flex items-center rounded-l-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
         >
           <span class="sr-only">Previous</span>
           <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
@@ -39,15 +22,19 @@
         <button
           v-for="page in pages"
           @click="changeCurrentPage(page)"
-          class="inline-flex h-11 w-11 items-center border border-gray-300 px-4 py-2 text-sm font-medium text-gray-900"
+          :disabled="page === currentPage"
+          class="h-11 w-11 items-center border border-gray-300 px-4 py-2 text-sm font-medium text-gray-900 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          :class="{
+            'inline-flex': page === currentPage,
+            'hidden md:inline-flex disabled:bg-gray-50 disabled:text-gray-500': page !== currentPage,
+          }"
         >
           {{ page }}
         </button>
         <button
-          @click="
-            currentPage < lastPage ? changeCurrentPage(currentPage + 1) : ''
-          "
-          class="relative inline-flex items-center rounded-r-xl border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
+          @click="changeCurrentPage(currentPage + 1)"
+          :disabled="currentPage >= lastPage"
+          class="relative inline-flex items-center rounded-r-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
         >
           <span class="sr-only">Next</span>
           <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
