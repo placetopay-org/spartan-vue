@@ -6,7 +6,7 @@
       @close="$emit('update:modelValue', false)"
     >
       <div
-        class="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0"
+        class="flex min-h-screen items-center justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0"
       >
         <TransitionChild
           as="template"
