@@ -1,6 +1,6 @@
 <template>
   <SModalLayout v-bind="$attrs">
-    <div class="sm:p-6">
+    <div class="p-6">
       <div>
         <div
           :class="[
