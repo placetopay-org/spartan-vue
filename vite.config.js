@@ -6,6 +6,9 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [vue()],
   build: {
+    resolve: {
+      dedupe: ['vue']
+    },
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
       name: 'SpartanVue',
