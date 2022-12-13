@@ -61,3 +61,4 @@ export { default as SSectionTitle } from "./components/SSectionTitle.vue";
 export { default as SSectionDescription } from "./components/SSectionDescription.vue";
 export { default as SLink } from "./components/SLink.vue";
 export { default as SCardHeader } from "./components/SCardHeader";
+export * from "./components/sFilters";

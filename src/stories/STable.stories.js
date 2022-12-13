@@ -9,10 +9,10 @@ import {
   STablePagination,
 } from "../index";
 import {
-  QrcodeIcon,
+  QrCodeIcon,
   DocumentDuplicateIcon,
   TrashIcon,
-} from "@heroicons/vue/outline";
+} from "@heroicons/vue/24/outline";
 
 export default {
   title: "Components/STable",
@@ -42,7 +42,7 @@ const Template = (args) => ({
     STableRow,
     STableRowItem,
     STablePagination,
-    QrcodeIcon,
+    QrCodeIcon,
     DocumentDuplicateIcon,
     TrashIcon,
   },
@@ -75,7 +75,7 @@ const Template = (args) => ({
                         {{ row.role }}
                     </STableRowItem>
                     <STableRowItem>
-                        <QrcodeIcon class="mr-2.5 h-5 w-5"></QrcodeIcon>
+                        <QrCodeIcon class="mr-2.5 h-5 w-5"></QrCodeIcon>
                         <DocumentDuplicateIcon class="mr-2.5 h-5 w-5"></DocumentDuplicateIcon>
                         <TrashIcon class="mr-2.5 h-5 w-5 text-red-500"></TrashIcon>
                     </STableRowItem>

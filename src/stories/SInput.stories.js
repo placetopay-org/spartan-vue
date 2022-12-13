@@ -5,7 +5,7 @@ import {
   SDropdownItem,
   SButton,
 } from "../index.js";
-import { SearchIcon } from "@heroicons/vue/outline";
+import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
 
 export default {
   title: "Components/SInput",
@@ -21,7 +21,7 @@ export default {
 const Template = (args) => ({
   components: {
     SInput,
-    SearchIcon,
+    MagnifyingGlassIcon,
     SDropdown,
     SDropdownButton,
     SDropdownItem,
@@ -115,7 +115,7 @@ WithButtonRight.args = {
   button: {
     enabled: true,
     label: "Search",
-    icon: SearchIcon,
+    icon: MagnifyingGlassIcon,
   },
 };
 
@@ -127,6 +127,6 @@ WithDropdownLeft.args = {
     enabled: true,
   },
   button: {
-    icon: SearchIcon,
+    icon: MagnifyingGlassIcon,
   },
 };

@@ -27,12 +27,12 @@
 <script>
 import { SCard } from "./../index";
 
-import { ViewGridAddIcon } from "@heroicons/vue/outline";
+import { SquaresPlusIcon } from "@heroicons/vue/24/outline";
 
 export default {
   components: {
     SCard,
-    ViewGridAddIcon,
+    SquaresPlusIcon,
   },
   props: {
     icon: {
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     iconToUse() {
-      return this.icon || ViewGridAddIcon;
+      return this.icon || SquaresPlusIcon;
     },
   },
 };

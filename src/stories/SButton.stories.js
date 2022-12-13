@@ -1,5 +1,5 @@
 import { SButton } from "../index.js";
-import { SearchIcon, PlusIcon } from "@heroicons/vue/solid";
+import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/vue/24/solid";
 
 export default {
   title: "Components/SButton",
@@ -20,7 +20,7 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { SButton, SearchIcon },
+  components: { SButton, MagnifyingGlassIcon },
   setup() {
     return { args };
   },
@@ -73,18 +73,18 @@ FlatRight.args = {
 
 export const withLeftIcon = Template.bind({});
 withLeftIcon.args = {
-  leftIcon: SearchIcon,
+  leftIcon: MagnifyingGlassIcon,
 };
 
 export const withRightIcon = Template.bind({});
 withRightIcon.args = {
-  rightIcon: SearchIcon,
+  rightIcon: MagnifyingGlassIcon,
 };
 
 export const onlyIcon = Template.bind({});
 onlyIcon.args = {
   text: false,
-  icon: SearchIcon,
+  icon: MagnifyingGlassIcon,
 };
 
 export const Circle = Template.bind({});

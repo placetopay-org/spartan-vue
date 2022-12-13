@@ -46,7 +46,7 @@
 
 <script>
 import { computed } from "vue";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/solid";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 
 export default {
   components: {
