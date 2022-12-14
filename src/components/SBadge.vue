@@ -39,7 +39,7 @@ export default {
   computed: {
     classes() {
       return [
-        "inline-flex items-center px-2.5 py-0.5 rounded-full font-medium",
+        "inline-flex items-center rounded-full font-medium",
         colorOptions[this.color],
         sizeOptions[this.size],
       ];
