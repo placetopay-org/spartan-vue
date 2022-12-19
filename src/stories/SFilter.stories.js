@@ -1,21 +1,21 @@
 import { reactive } from 'vue';
-import { SFilter, SFilterItems, SFilterActions } from '../index';
+import { SFilter, SFilterItems, SFilterActions, SFilterOption } from '../index';
 
 export default {
   title: "Components/SFilter",
   component: SFilter,
   argTypes: { },
   decorators: [
-    () => ({ template: '<div class="max-w-lg border-none"><story /></div>' }),
+    () => ({ template: '<div class="max-w-2xl mx-auto border-none"><story /></div>' }),
   ],
 };
 
 const Template = (args) => ({
-  components: { SFilter, SFilterItems, SFilterActions },
+  components: { SFilter, SFilterItems, SFilterActions, SFilterOption },
   setup() {
     const filters = reactive([])
 
-    const applyFilters = (filterApplied) => console.log('[applyFilters] ejected', filterApplied);
+    const applyFilters = (filterApplied) => alert('[applyFilters] ejected: ' + JSON.stringify(filterApplied));
 
     return { filters, selectors: args.selectors, applyFilters };
   },
@@ -24,14 +24,18 @@ const Template = (args) => ({
       as="div"
       :filters="filters"
       :selectors="selectors"
-      class="flex flex-col gap-2 w-full"
+      class="flex flex-col gap-8 w-full"
       @apply-filters="applyFilters"
     >
-      <h1>Title Section</h1>
+      <div class="flex items-center justify-between">
+        <h1 class="text-3xl">Title Section</h1>
+
+        <SFilterOption />
+      </div>
       <div class="flex justify-between">
         <SFilterItems />
 
-        <SFilterActions />
+        <SFilterActions class="flex-wrap" />
       </div>
     </SFilter>
   `

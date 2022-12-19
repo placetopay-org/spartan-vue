@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :for="id" class="mb-1 block text-sm font-medium text-gray-700">
+    <label v-if="label" :for="id" class="mb-1 block text-sm font-medium text-gray-700">
       {{ label }}
     </label>
     <div class="flex rounded-lg shadow-sm">

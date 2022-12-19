@@ -1,5 +1,18 @@
-import { computed, defineComponent, Fragment, h, provide, reactive, ref } from "vue";
+import { defineComponent, Fragment, h, onMounted, provide, reactive, ref } from "vue";
 import { SFilterContext } from "./SFilterContext";
+/**
+ * 
+ * @param {string} key - Key to get the saved filters
+ * @param {string} userId - User id to get the saved filters
+ * @returns {Array} - Array of saved filters
+ */
+const getSavedFiltersByKey = (key, userId) => {
+  const savedFilters = localStorage.getItem(key);
+  if (!savedFilters) return [];
+
+  const savedFiltersByUser = JSON.parse(savedFilters)[userId];
+  return savedFiltersByUser ?? [];
+};
 
 export const SFilter = defineComponent({
   name: 'SFilter',
@@ -21,13 +34,18 @@ export const SFilter = defineComponent({
       type: String,
       default: 'Agregar Filtro',
     },
+    savedFiltersKey: {
+      type: String,
+      default: 'savedFilters',
+    },
+    userId: {
+      type: String,
+      default: 'userId',
+    },
   },
   emits: ['applyFilters'],
   setup(props, { slots, attrs, emit }) {
-    const addFilter = (filter) => props.filters.push({
-      id: window.btoa(JSON.stringify(filter) + props.filters.length),
-      ...filter
-    });
+    const savedFilters = reactive([]);
 
     let api = {
       addItemText: props.addItemText,
@@ -35,7 +53,10 @@ export const SFilter = defineComponent({
       selectors: props.selectors,
       addItemByTypeId: ref(null),
       findSelectorById: (id) => props.selectors.find(selector => selector.id === id),
-      addFilter,
+      addFilter: (filter) => props.filters.push({
+        id: window.btoa(JSON.stringify(filter) + props.filters.length),
+        ...filter
+      }),
       removeFilter: (filterId) => props.filters.splice(
         props.filters.findIndex((filterToFind) => filterToFind.id === filterId),
         1
@@ -50,10 +71,30 @@ export const SFilter = defineComponent({
       },
       applyFilters: () => emit('applyFilters', props.filters),
       removeFilters: () => props.filters.splice(0, props.filters.length),
+      savedFilters,
+      saveFilters: (name) => {
+        const savedFiltersTemp = JSON.parse(localStorage.getItem(props.savedFiltersKey)) ?? {};
+        const savedFiltersByUser = savedFiltersTemp[props.userId] ?? [];
+
+        savedFiltersByUser.push({ name, filters: props.filters });
+        savedFiltersTemp[props.userId] = savedFiltersByUser;
+
+        localStorage.setItem(props.savedFiltersKey, JSON.stringify(savedFiltersTemp));
+        savedFilters.push({ name, filters: props.filters });
+      },
+      applySavedFilter: (savedFilter) => {
+        props.filters.splice(0, props.filters.length, ...savedFilter.filters);
+      },
     };
 
     provide(SFilterContext, api);
 
-    return () => h(props.as === 'template' ? Fragment : props.as, { ...attrs }, slots);
+    onMounted(() => {
+      getSavedFiltersByKey(props.savedFiltersKey, props.userId).forEach(savedFilter => savedFilters.push(savedFilter));
+    });
+
+    const slotsToRender = slots.default ? slots.default() : [];
+
+    return () => h(props.as === 'template' ? Fragment : props.as, { ...attrs }, slotsToRender);
   }
 });
