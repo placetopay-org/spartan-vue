@@ -39,7 +39,7 @@ export const SFilter = defineComponent({
       default: 'savedFilters',
     },
     userId: {
-      type: String,
+      type: [String, Number],
       default: 'userId',
     },
   },
@@ -69,7 +69,7 @@ export const SFilter = defineComponent({
         const {id, ...filter} = props.filters.find((filterToFind) => filterToFind.id === filterId);
         addFilter(filter);
       },
-      applyFilters: () => emit('applyFilters', props.filters),
+      applyFilters: () => emit('applyFilters', props.filters.slice(0)),
       removeFilters: () => props.filters.splice(0, props.filters.length),
       savedFilters,
       saveFilters: (name) => {

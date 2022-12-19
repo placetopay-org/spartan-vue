@@ -13,7 +13,7 @@ const savedFilters = computed(() => api.savedFilters);
 <template>
     <Popover as="div" class="relative">
         <Menu as="div" class="relative inline-block text-left">
-            <MenuButton class="flex divide-x divide-gray-200 rounded-lg border border-gray-300 shadow">
+            <MenuButton class="bg-white flex divide-x divide-gray-200 rounded-lg border border-gray-300 shadow">
                 <div class="px-3 py-2 text-sm font-medium text-gray-900">
                     <FunnelIcon class="w-5 h-5 text-gray-400" />
                 </div>
@@ -32,7 +32,7 @@ const savedFilters = computed(() => api.savedFilters);
             >
                 <div>
                     <MenuItems
-                        class="absolute overflow-hidden right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        class="absolute z-20 overflow-hidden right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                         <div class="bg-gray-50 font-semibold text-sm py-3 px-4">
                             Mis filtros guardados

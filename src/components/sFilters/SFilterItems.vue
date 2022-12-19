@@ -9,7 +9,7 @@ const filters = computed(() => api.filters);
 </script>
 
 <template>
-    <ul class="flex gap-3 flex-wrap">
+    <ul class="flex items-center gap-3 flex-wrap">
         <li v-for="filter in filters" :key="filter.id">
             <SFilterItem :filter="filter"/>
         </li>

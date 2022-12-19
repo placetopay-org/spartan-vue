@@ -14,6 +14,7 @@ const operator = ref('eq');
 const handleAddFilter = () => {
     api.addFilter({
         label: addItemSelected.value.label,
+        key: addItemSelected.value.key,
         value: filterValue.value,
         operator: operator.value
     });

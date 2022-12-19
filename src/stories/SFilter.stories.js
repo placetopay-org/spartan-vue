@@ -45,7 +45,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   selectors: [
-    {id: 'selector-text', type: 'text', label: 'El label'},
-    {id: 'selector-text-2', type: 'text', label: 'El texto'},
+    {id: 'selector-text', type: 'text', label: 'El label', key: 'label'},
+    {id: 'selector-text-2', type: 'text', label: 'El texto', key: 'texto'},
   ],
 };
