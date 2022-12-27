@@ -6,10 +6,11 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [vue()],
   build: {
+    outDir: './dist',
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
       name: 'SpartanVue',
-      // fileName: (format) => `my-lib.${format}.js`
+      fileName: (format) => `spartan-vue.${format}.js`
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
