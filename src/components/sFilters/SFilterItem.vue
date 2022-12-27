@@ -1,20 +1,35 @@
 <script setup>
+import { computed } from 'vue';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import SBadge from '../SBadge.vue';
 import SFilterUpdateItemForm from './SFilterUpdateItemForm.vue';
+import { InputByType } from './SFilterSelectorConstant';
 
-defineProps({
+const props = defineProps({
     filter: {
         type: Object,
     },
 })
+
+const value = computed(() => {
+    const configByInputType = InputByType[props.filter.type];
+    if (configByInputType){
+        const configInputTypeByOperator = configByInputType[props.filter.operator];
+        if (configInputTypeByOperator && 'getValue' in configInputTypeByOperator) return configInputTypeByOperator.getValue(props.filter.value);
+
+        const defaultConfig = configByInputType.default;
+        if (defaultConfig && 'getValue' in defaultConfig) return defaultConfig.getValue(props.filter.value);
+    }
+
+    return props.filter.value;
+});
 </script>
 
 <template>
     <Popover class="relative">
         <SBadge :as="PopoverButton" color="white" size="sm" class="flex gap-1 px-3 py-1 border border-gray-200">
             {{ `${filter.label} | `}}
-            <span class="text-gray-600">{{ filter.value }}</span>
+            <span class="text-gray-600">{{ value }}</span>
         </SBadge>
 
         <transition
@@ -28,7 +43,7 @@ defineProps({
             <div>
                 <PopoverPanel
                     v-slot="{ close }"
-                    class="absolute left-0 z-10 mt-3 w-screen max-w-sm transform px-4 sm:px-0 lg:max-w-3xl"
+                    class="absolute left-0 z-10 w-screen max-w-sm px-4 mt-3 transform sm:px-0 lg:max-w-3xl"
                 >
                         <SFilterUpdateItemForm :filter="filter" @close="close" />
                 </PopoverPanel>

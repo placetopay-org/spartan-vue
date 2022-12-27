@@ -1,10 +1,13 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require('tailwindcss/colors');
+const path = require('path');
 
 module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
     "./docs/**/*.{vue,js,ts,jsx,tsx}",
+    path.resolve(__dirname, '../node_modules/litepie-datepicker-tw3/**/*.js'),
   ],
   theme: {
     extend: {
@@ -24,6 +27,10 @@ module.exports = {
           800: "#C03D11",
           900: "#A13815",
         },
+        'litepie-primary': {
+            500: '#FF7E29',
+        },
+        'litepie-secondary': colors.slate,
       },
     },
   },

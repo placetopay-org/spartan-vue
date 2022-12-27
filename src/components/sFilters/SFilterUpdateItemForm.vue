@@ -35,6 +35,7 @@ const handleDuplicateFilter = () => {
 <template>
     <SFilterItemForm
         :label="filter.label"
+        :input-type="filter.type"
         :value="value"
         :operator="operator"
         save-button-text="Guardar"

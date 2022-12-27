@@ -15,6 +15,7 @@ const handleAddFilter = () => {
     api.addFilter({
         label: addItemSelected.value.label,
         key: addItemSelected.value.key,
+        type: addItemSelected.value.type,
         value: filterValue.value,
         operator: operator.value
     });
@@ -26,6 +27,7 @@ const handleAddFilter = () => {
 <template>
     <SFilterItemForm
         :label="addItemSelected ? addItemSelected.label : ''"
+        :input-type="addItemSelected ? addItemSelected.type : 'text'"
         :value="filterValue"
         :operator="operator"
         :can-duplicate="false"

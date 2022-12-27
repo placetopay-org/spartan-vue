@@ -1,9 +1,9 @@
 <script setup>
 import { computed } from 'vue';
-import SInput from '../SInput.vue';
 import SButton from '../SButton.vue';
 import SFilterAddItemFormMenu from './SFilterAddItemFormMenu.vue';
 import SFilterAddItemOperator from './SFilterAddItemOperator.vue';
+import { InputByType } from './SFilterSelectorConstant';
 
 const emit = defineEmits([
     'delete',
@@ -35,10 +35,14 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    inputType: {
+        type: String,
+        required: true,
+    },
 })
 
 const modelValue = computed({
-    get: () => props.value,
+    get: () => input.value.formatter ? input.value.formatter(props.value) : props.value,
     set: (value) => emit('update:value', value),
 })
 
@@ -46,14 +50,32 @@ const modelOperator = computed({
     get: () => props.operator,
     set: (value) => emit('update:operator', value),
 });
+
+const input = computed(() => {
+    const inputComponent = InputByType[props.inputType]
+    const makeComponent = createPropertiesToComponent(inputComponent?.default);
+
+    const inputOperatorComponent = inputComponent[props.operator];
+    if (inputOperatorComponent) return makeComponent(inputOperatorComponent);
+
+    return makeComponent(inputComponent);
+});
+
+const createPropertiesToComponent = (defaultProperties = {}) => (objectComponent = {}) => ({
+    component: objectComponent.component ?? defaultProperties?.component,
+    props: {...(objectComponent.props ?? {}), ...(defaultProperties?.props ?? {})},
+    formatter: objectComponent.formatter ?? defaultProperties?.formatter ?? undefined,
+})
+
+const resetModelValue = () => modelValue.value = input.formatter?.() ?? '';
 </script>
 
 <template>
-   <div class="max-w-xs flex flex-col gap-4 bg-white p-4 shadow-2xl rounded-lg">
+   <div class="flex flex-col max-w-xs gap-4 p-4 bg-white rounded-lg shadow-2xl">
         <div class="flex justify-between">
             <div class="flex items-center gap-3">
                 <h4 class="text-base font-normal text-gray-800">{{ label }}</h4>
-                <SFilterAddItemOperator v-model="modelOperator" />
+                <SFilterAddItemOperator :type="inputType" v-model="modelOperator" @changed="resetModelValue" />
             </div>
 
             <SFilterAddItemFormMenu
@@ -63,9 +85,10 @@ const modelOperator = computed({
             />
         </div>
 
-        <SInput
+        <component
+            :is="input.component"
             v-model="modelValue"
-            placeholder="Escribe un valor"
+            v-bind="input.props"
         />
 
         <div class="flex gap-3">

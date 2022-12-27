@@ -14,11 +14,7 @@
 
 export { default as SButton } from "./components/SButton.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
-export { default as SInput } from "./components/SInput.vue";
 export { default as SSelect } from "./components/SSelect.vue";
-export { default as SInputAlt } from "./components/SInputAlt.vue";
-export { default as SInputError } from "./components/SInputError.vue";
-export { default as SInputHelper } from "./components/SInputHelper.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
 export { default as SSidebarLogo } from "./components/SSidebarLogo.vue";
 export { default as SSidebarNavItem } from "./components/SSidebarNavItem.vue";
@@ -61,4 +57,5 @@ export { default as SSectionTitle } from "./components/SSectionTitle.vue";
 export { default as SSectionDescription } from "./components/SSectionDescription.vue";
 export { default as SLink } from "./components/SLink.vue";
 export { default as SCardHeader } from "./components/SCardHeader";
+export * from "./components/sInputs";
 export * from "./components/sFilters";

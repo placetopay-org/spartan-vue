@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { PopoverPanel } from '@headlessui/vue';
-import SInput from '../SInput.vue';
-import SInputError from '../SInputError.vue';
+import { SInput, SInputError } from '../sInputs';
 import SButton from '../SButton.vue';
 import { useSFilterContext } from './SFilterContext';
 
@@ -49,7 +48,7 @@ const handleCancel = (close) => {
             leave-to-class="transform scale-95 opacity-0"
         >
             <div>
-                <PopoverPanel v-slot="{close}" class="p-4 absolute overflow-hidden flex flex-col gap-4 right-0 mt-2 max-w-xs md:max-w-md origin-bottom-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <PopoverPanel v-slot="{close}" class="absolute right-0 flex flex-col max-w-xs gap-4 p-4 mt-2 overflow-hidden origin-bottom-right bg-white rounded-lg shadow-lg md:max-w-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <label class="font-semibold leading-none">Nombre del filtro</label>
 
                     <div>
