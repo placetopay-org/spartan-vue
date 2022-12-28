@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label v-if="label" :for="id" class="mb-1 block text-sm font-medium text-gray-700">
+    <label v-if="label" :for="id" class="block mb-1 text-sm font-medium text-gray-700">
       {{ label }}
     </label>
     <div class="flex rounded-lg shadow-sm">
@@ -78,6 +78,6 @@ const props = defineProps({
     required: false,
     default: "input",
   },
-  modelValue: String,
+  modelValue: [String, Number],
 });
 </script>

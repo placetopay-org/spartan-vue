@@ -1,4 +1,4 @@
-import {SInput, SInputDate} from '../sInputs';
+import {SInput, SInputDate, SInputDropdown} from '../sInputs';
 
 export const OptionsByInputType = {
   text: [
@@ -15,11 +15,7 @@ export const OptionsByInputType = {
     {label: 'Despues de', value: 'afterAt'},
     {label: 'Esta en o antes', value: 'eqOrBeforeAt'},
     {label: 'Esta en o despues', value: 'eqOrAfterAt'},
-    {label: 'En los últimos', value: 'inTheLast', options: [
-      {label: 'Días', value: 'days'},
-      {label: 'Meses', value: 'months'},
-      {label: 'Años', value: 'years'},
-    ]},
+    {label: 'En los últimos', value: 'inTheLast'},
     {label: 'Entre', value: 'between'},
   ],
   amount: [
@@ -49,11 +45,16 @@ export const InputByType = {
   },
   date: {
     inTheLast: {
-      component: SInput,
+      component: SInputDropdown,
       formatter: (value) => Array.isArray(value) ? '' : value,
-      getValue: (value) => `${value} días`,
+      getValue: (value) => `${value.value} ${value.option.label}`,
       props: {
         type: 'number',
+        rows: [
+          {label: 'Días', value: 'days'},
+          {label: 'Meses', value: 'months'},
+          {label: 'Años', value: 'years'},
+        ],
       },
     },
     between: {
