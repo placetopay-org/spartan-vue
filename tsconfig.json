@@ -1,0 +1,12 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "compilerOptions": {
+        "allowJs": true,
+        "declaration": true,
+        "composite": true,
+        "outDir": "dist",
+        "sourceMap": true,
+    },
+    "include": ["env.d.ts", "src/**/*.vue", "src/**/*.js", "src/**/*.ts"],
+    "exclude": ["src/stories/**/*", "src/**/__tests__/*", "src/**/*.cy.ts"],
+}
