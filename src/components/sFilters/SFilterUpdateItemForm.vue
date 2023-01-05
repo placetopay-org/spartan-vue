@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useSFilterContext } from './SFilterContext';
 import SFilterItemForm from './SFilterItemForm.vue';
 
@@ -15,6 +15,8 @@ const api = useSFilterContext();
 
 const value = ref(props.filter.value);
 const operator = ref(props.filter.operator);
+
+const selectorSelected = computed(() => api.findSelectorByKey(props.filter.key));
 
 const handleUpdateFilter = () => {
     api.updateFilter(props.filter.id, {
@@ -34,8 +36,8 @@ const handleDuplicateFilter = () => {
 
 <template>
     <SFilterItemForm
-        :label="filter.label"
-        :input-type="filter.type"
+        v-if="selectorSelected"
+        :item-selector="selectorSelected"
         :value="value"
         :operator="operator"
         save-button-text="Guardar"

@@ -8,12 +8,13 @@ export type Filter = {
   value: string;
 };
 
-type FilterType = "text" | "date" | "amount" | "checkbox" | "radio";
+export type FilterType = "text" | "date" | "amount" | "checkbox" | "radio";
 
 export type SelectorFilter = {
   id: string;
   type: FilterType;
   label: string;
+  key: string;
 };
 
 export type SavedFilter = {
@@ -29,6 +30,7 @@ export type StateDefinition = {
   addItemByTypeId: Ref<SelectorFilter["id"] | null>;
   savedFilters: Array<SavedFilter>;
   findSelectorById: (id: SelectorFilter["id"]) => SelectorFilter | undefined;
+  findSelectorByKey: (id: SelectorFilter["key"]) => SelectorFilter | undefined;
   addFilter: (filter: Omit<Filter, "id">) => void;
   removeFilter: (filterId: Filter["id"]) => void;
   updateFilter: (filterId: Filter["id"], filter: Filter) => void;

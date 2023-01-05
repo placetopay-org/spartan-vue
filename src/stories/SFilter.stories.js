@@ -46,6 +46,10 @@ export const Default = Template.bind({});
 Default.args = {
   selectors: [
     {id: 'selector-text', type: 'text', label: 'El label', key: 'label'},
-    {id: 'selector-text-2', type: 'date', label: 'Creado en', key: 'createdAt'},
+    {id: 'selector-date', type: 'date', label: 'Creado en', key: 'createdAt'},
+    {id: 'selector-radio', type: 'radio', label: 'Tipo de documento', key: 'documentType', rows: [
+      {value: 'CC', label: 'Cedula de ciudadania'},
+      {value: 'CE', label: 'Cedula de extranjeria'},
+    ]},
   ],
 };

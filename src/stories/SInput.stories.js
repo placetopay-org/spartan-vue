@@ -1,5 +1,6 @@
 import {
   SInput,
+  SInputDropdown,
   SDropdown,
   SDropdownButton,
   SDropdownItem,
@@ -10,7 +11,13 @@ import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
 export default {
   title: "Components/SInput",
   component: SInput,
-  argTypes: {},
+  argTypes: {
+    direction: {
+      control: { type: "select" },
+      default: 'left',
+      options: ['left', 'right'],
+    },
+  },
   decorators: [
     () => ({
       template: '<div class="max-w-md mx-auto border-none"><story /></div>',
@@ -32,21 +39,6 @@ const Template = (args) => ({
   },
   template: `
     <SInput v-bind="args">
-      <template v-if="args.dropdown.enabled" #left>
-        <SDropdown>
-          <template v-slot>
-            <SDropdownButton color="white" :flat-right="true">
-              Options
-            </SDropdownButton>
-          </template>
-          <template v-slot:menu-items>
-            <SDropdownItem>Name</SDropdownItem>
-            <SDropdownItem>Role</SDropdownItem>
-            <SDropdownItem>Email</SDropdownItem>
-          </template>
-        </SDropdown>
-      </template>
-
       <template v-if="args.button.enabled" #right>
         <SButton :icon="args.button.icon" color="primary" flat-left>
           {{ args.button.label }}
@@ -56,6 +48,20 @@ const Template = (args) => ({
   `,
 });
 
+const TemplateWithDropdown = (args) => ({
+  components: {
+    SInputDropdown,
+  },
+  setup() {
+    return { args };
+  },
+  template: `
+    <SInputDropdown v-bind="args" />
+  `,
+});
+
+
+
 const defaultArgs = {
   label: "Nombre",
   placeholder: "John Doe",
@@ -63,9 +69,6 @@ const defaultArgs = {
   id: "field_name",
   name: "field_name",
   component: "input",
-  dropdown: {
-    enabled: false,
-  },
   button: {
     enabled: false,
   },
@@ -109,9 +112,6 @@ export const WithButtonRight = Template.bind({});
 WithButtonRight.args = {
   ...defaultArgs,
   label: undefined,
-  dropdown: {
-    enabled: false,
-  },
   button: {
     enabled: true,
     label: "Search",
@@ -119,14 +119,15 @@ WithButtonRight.args = {
   },
 };
 
-export const WithDropdownLeft = Template.bind({});
-WithDropdownLeft.args = {
-  ...defaultArgs,
-  label: undefined,
-  dropdown: {
-    enabled: true,
-  },
-  button: {
-    icon: MagnifyingGlassIcon,
-  },
+export const WithDropdownRight = TemplateWithDropdown.bind({});
+WithDropdownRight.args = {
+  label: "Tipo de documento",
+  type: "text",
+  id: "field_document_type",
+  name: "field_document_type",
+  component: "input",
+  rows: [
+    {label: 'Cedula de ciudadania', value: 'cc'},
+    {label: 'Cedula de extranjeria', value: 'ce'},
+  ],
 };

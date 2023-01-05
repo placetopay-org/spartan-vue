@@ -73,6 +73,8 @@ export const SFilter = defineComponent({
       addItemByTypeId: ref(null),
       findSelectorById: (id) =>
         props.selectors.find((selector) => selector.id === id),
+      findSelectorByKey: (key) =>
+        props.selectors.find((selector) => selector.key === key),
       addFilter,
       removeFilter: (filterId) =>
         props.filters.splice(
@@ -93,14 +95,15 @@ export const SFilter = defineComponent({
         );
         if (!filterFound) return;
 
-        const {id, ...filter} = filterFound;
+        const { id, ...filter } = filterFound;
         addFilter(filter);
       },
       applyFilters: () => emit("applyFilters", props.filters.slice(0)),
       removeFilters: () => props.filters.splice(0, props.filters.length),
       savedFilters,
       saveFilters: (name) => {
-        const localSavedFilters = localStorage.getItem(props.savedFiltersKey) ?? '{}';
+        const localSavedFilters =
+          localStorage.getItem(props.savedFiltersKey) ?? "{}";
         const savedFiltersTemp = JSON.parse(localSavedFilters);
         const savedFiltersByUser = savedFiltersTemp[props.userId] ?? [];
 
@@ -111,7 +114,11 @@ export const SFilter = defineComponent({
           props.savedFiltersKey,
           JSON.stringify(savedFiltersTemp)
         );
-        savedFilters.push({ id: generateId(savedFiltersTemp), name, filters: props.filters });
+        savedFilters.push({
+          id: generateId(savedFiltersTemp),
+          name,
+          filters: props.filters,
+        });
       },
       applySavedFilter: (savedFilter) => {
         props.filters.splice(0, props.filters.length, ...savedFilter.filters);

@@ -10,13 +10,16 @@ const props = withDefaults(defineProps<{
   type?: string;
   rows: Array<{label: string, value: string | number}>;
   modelValue: {value: string | number, option: {label: string, value: string | number}} | null;
+  direction?: "right" | "left";
 }>(), {
   type: "text",
+  direction: "right",
 });
 
 const inputValue = ref<string|number>(props.modelValue?.value ?? '');
-const optionSelected = ref<{label: string; value: string | number}>(props.rows[0]);
+const optionSelected = ref<{label: string; value: string | number}>(props.modelValue?.option ?? props.rows[0]);
 
+const isRight = computed(() => props.direction === "right");
 const inputProps = computed(() => {
   const { modelValue, rows, ...rest } = props;
   return rest;
@@ -29,16 +32,19 @@ watchEffect(() => {
 
 <template>
   <SInput v-model="inputValue" v-bind="inputProps" class="relative">
-    <template #right>
+    <template #[direction]>
       <Listbox v-model="optionSelected">
         <div class="relative inset-y-0">
-          <ListboxButton class="h-full flex items-center justify-center gap-1 border border-gray-300 px-2 rounded-r-lg max-w-[104px]">
+          <ListboxButton
+            class="h-full bg-white flex items-center justify-center gap-1 border border-gray-300 px-2 max-w-[104px]"
+            :class="isRight ? 'rounded-r-lg' : 'rounded-l-lg'"
+          >
             <span class="block truncate">{{ optionSelected.label }}</span>
             <ChevronDownIcon class="w-5 h-5 text-gray-800" />
           </ListboxButton>
 
           <ListboxOptions
-            class="absolute z-10 mt-1 overflow-auto text-base bg-white rounded-md sha dow-lg max-h-60 min-w-max ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            class="absolute z-10 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 min-w-max ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
           >
             <ListboxOption
               v-for="option in rows"

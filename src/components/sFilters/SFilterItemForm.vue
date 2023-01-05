@@ -15,16 +15,19 @@ const emit = defineEmits([
 ]);
 
 const props = defineProps({
-    label: {
-        type: String,
+    itemSelector: {
+        type: Object,
         required: true,
+        validator: (value) => {
+            return value.id && value.label && value.type;
+        }
     },
     canDuplicate: {
         type: Boolean,
         default: true,
     },
     value: {
-        type: [String, Object, Array],
+        type: [String, Object, Array, Number, null],
         required: true,
     },
     operator: {
@@ -32,10 +35,6 @@ const props = defineProps({
         required: true,
     },
     saveButtonText: {
-        type: String,
-        required: true,
-    },
-    inputType: {
         type: String,
         required: true,
     },
@@ -52,8 +51,10 @@ const modelOperator = computed({
 });
 
 const input = computed(() => {
-    const inputComponent = InputByType[props.inputType]
-    const makeComponent = createPropertiesToComponent(inputComponent?.default);
+    const makeComponentByInputType = createPropertiesToComponent(props.itemSelector);
+
+    const inputComponent = InputByType[props.itemSelector.type]
+    const makeComponent = makeComponentByInputType(inputComponent?.default);
 
     const inputOperatorComponent = inputComponent[props.operator];
     if (inputOperatorComponent) return makeComponent(inputOperatorComponent);
@@ -61,21 +62,30 @@ const input = computed(() => {
     return makeComponent(inputComponent);
 });
 
-const createPropertiesToComponent = (defaultProperties = {}) => (objectComponent = {}) => ({
+const createPropertiesToComponent = (selectorProperties = {}) => (defaultProperties = {}) => (objectComponent = {}) => ({
     component: objectComponent.component ?? defaultProperties?.component,
-    props: {...(objectComponent.props ?? {}), ...(defaultProperties?.props ?? {})},
+    props: {
+        ...(objectComponent.props ?? {}),
+        ...(defaultProperties?.props ?? {}),
+        id: `sFilter-form-item-${selectorProperties.id}`,
+        rows: objectComponent.rows ?? defaultProperties.rows ?? selectorProperties.rows ?? undefined,
+    },
     formatter: objectComponent.formatter ?? defaultProperties?.formatter ?? undefined,
 })
 
-const resetModelValue = () => modelValue.value = input.formatter?.() ?? '';
+const resetModelValue = () => {
+    if (!input.value?.isValid || input.value.isValid(props.value)) return;
+
+    modelValue.value = input.value.formatter?.() ?? ''
+};
 </script>
 
 <template>
    <div class="flex flex-col max-w-xs gap-4 p-4 bg-white rounded-lg shadow-2xl">
         <div class="flex justify-between">
             <div class="flex items-center gap-3">
-                <h4 class="text-base font-normal text-gray-800">{{ label }}</h4>
-                <SFilterAddItemOperator :type="inputType" v-model="modelOperator" @changed="resetModelValue" />
+                <h4 class="text-base font-normal text-gray-800">{{ itemSelector.label }}</h4>
+                <SFilterAddItemOperator :type="itemSelector.type" v-model="modelOperator" @changed="resetModelValue" />
             </div>
 
             <SFilterAddItemFormMenu

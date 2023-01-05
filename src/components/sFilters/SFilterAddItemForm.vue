@@ -26,8 +26,7 @@ const handleAddFilter = () => {
 
 <template>
     <SFilterItemForm
-        :label="addItemSelected ? addItemSelected.label : ''"
-        :input-type="addItemSelected ? addItemSelected.type : 'text'"
+        :item-selector="addItemSelected"
         :value="filterValue"
         :operator="operator"
         :can-duplicate="false"
