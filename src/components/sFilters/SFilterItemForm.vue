@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import SButton from '../SButton.vue';
 import SFilterAddItemFormMenu from './SFilterAddItemFormMenu.vue';
 import SFilterAddItemOperator from './SFilterAddItemOperator.vue';
-import { InputByType } from './SFilterSelectorConstant';
+import { InputByType, OptionsByInputType } from './SFilterSelectorConstant';
 
 const emit = defineEmits([
     'delete',
@@ -19,7 +19,7 @@ const props = defineProps({
         type: Object,
         required: true,
         validator: (value) => {
-            return value.id && value.label && value.type;
+            return value.id && value.label && value.type && (!value.operators || Array.isArray(value.operators));
         }
     },
     canDuplicate: {
@@ -62,6 +62,13 @@ const input = computed(() => {
     return makeComponent(inputComponent);
 });
 
+const operators = computed(() => {
+    let operatorsBySelectorType = OptionsByInputType[props.itemSelector.type]
+    if (operatorsBySelectorType) operatorsBySelectorType = operatorsBySelectorType.filter((operator) => operator.value === props.operator);
+
+    return operatorsBySelectorType ?? [];
+})
+
 const createPropertiesToComponent = (selectorProperties = {}) => (defaultProperties = {}) => (objectComponent = {}) => ({
     component: objectComponent.component ?? defaultProperties?.component,
     props: {
@@ -85,7 +92,7 @@ const resetModelValue = () => {
         <div class="flex justify-between">
             <div class="flex items-center gap-3">
                 <h4 class="text-base font-normal text-gray-800">{{ itemSelector.label }}</h4>
-                <SFilterAddItemOperator :type="itemSelector.type" v-model="modelOperator" @changed="resetModelValue" />
+                <SFilterAddItemOperator :options="operators" v-model="modelOperator" @changed="resetModelValue" />
             </div>
 
             <SFilterAddItemFormMenu

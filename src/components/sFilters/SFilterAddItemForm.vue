@@ -9,7 +9,7 @@ const api = useSFilterContext();
 const addItemSelected = computed(() => api.findSelectorById(api.addItemByTypeId.value));
 
 const filterValue = ref('');
-const operator = ref('eq');
+const operator = ref(addItemSelected.value?.operators ? addItemSelected.value?.operators[0] : 'eq');
 
 const handleAddFilter = () => {
     api.addFilter({

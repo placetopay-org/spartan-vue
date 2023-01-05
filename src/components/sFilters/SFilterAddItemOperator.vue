@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
-import { OptionsByInputType } from './SFilterSelectorConstant';
 
 const emit = defineEmits(['update:modelValue', 'changed']);
 const props = defineProps({
@@ -10,17 +9,16 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    type: {
-        type: String,
+    options: {
+        type: Array,
         required: true,
         validator(value) {
-            return Object.keys(OptionsByInputType).includes(value);
+            return value.every(option => option.value && option.label);
         },
     },
 })
 
-const options = computed(() => OptionsByInputType[props.type] ?? []);
-const optionSelected = computed(() => options.value.find(option => option.value === props.modelValue) ?? options.value[0]);
+const optionSelected = computed(() => props.options.find(option => option.value === props.modelValue) ?? props.options[0]);
 
 const operator = computed({
     get: () => props.modelValue,
