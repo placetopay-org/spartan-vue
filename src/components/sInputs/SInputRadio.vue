@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watchEffect } from 'vue';
-import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
+import { computed, ref, watchEffect } from 'vue';
+import { Combobox, ComboboxInput, ComboboxOption } from '@headlessui/vue';
 
 type Option = {label: string; value: string | number | boolean} | null;
 
@@ -35,10 +35,6 @@ watchEffect(() => {
         model.value = null;
     }
 });
-
-onMounted(() => {
-    console.log({model: model.value});
-})
 </script>
 
 <template>
