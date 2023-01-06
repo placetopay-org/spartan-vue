@@ -14,7 +14,8 @@
       "import": "./dist/spartan-vue.es.js",
       "require": "./dist/spartan-vue.umd.js"
     },
-    "./src/tailwindcss.js": "./src/tailwindcss.js"
+    "./src/tailwindcss.js": "./src/tailwindcss.js",
+    "./style.css": "./dist/style.css"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
