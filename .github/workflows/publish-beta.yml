@@ -45,7 +45,7 @@ jobs:
           echo "NEW_VERSION=$(npm --no-git-tag-version version $RELEASE_TYPE)" >> $GITHUB_ENV
           echo "RELEASE_TAG=latest" >> $GITHUB_ENV
         env:
-          RELEASE_TYPE: ${{ steps.release-type.outputs.RELEASE_TYPE }
+          RELEASE_TYPE: ${{ steps.release-type.outputs.RELEASE_TYPE }}
 
       - name: Bump pre-release version
         if: startsWith(steps.release-type.outputs.RELEASE_TYPE, 'pre')
