@@ -15,6 +15,7 @@ export type SelectorFilter = {
   type: FilterType;
   label: string;
   key: string;
+  operators?: Array<string>;
 };
 
 export type SavedFilter = {
