@@ -1,9 +1,12 @@
 name: "publish beta"
 on:
+  push:
+    branches:
+      - develop
   workflow_dispatch:
     inputs:
       release-type:
-        description: 'PRE Release type (one of): prepatch, preminor, premajor, prerelease'
+        description: 'PRE Release type (one of): patch, minor, major, prepatch, preminor, premajor, prerelease'
         required: true
         default: 'prerelease'
 jobs:
@@ -11,6 +14,12 @@ jobs:
     name: build and beta publish
     runs-on: ubuntu-latest
     steps:
+      - name: Set release type output
+        id: release-type
+        run: |
+          USER_INPUT=${{ github.event.inputs.release-type }}
+          echo "RELEASE_TYPE=${USER_INPUT:-"prerelease"}" >> $GITHUB_OUTPUT
+
       - name: checkout
         uses: actions/checkout@v2
         with:
@@ -30,11 +39,21 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
 
+      - name: Bump release version
+        if: startsWith(steps.release-type.outputs.RELEASE_TYPE, 'pre') != true
+        run: |
+          echo "NEW_VERSION=$(npm --no-git-tag-version version $RELEASE_TYPE)" >> $GITHUB_ENV
+          echo "RELEASE_TAG=latest" >> $GITHUB_ENV
+        env:
+          RELEASE_TYPE: ${{ steps.release-type.outputs.RELEASE_TYPE }
+
       - name: Bump pre-release version
+        if: startsWith(steps.release-type.outputs.RELEASE_TYPE, 'pre')
         run: |
           echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)" >> $GITHUB_ENV
+          echo "RELEASE_TAG=beta" >> $GITHUB_ENV
         env:
-          RELEASE_TYPE: ${{ github.event.inputs.release-type }}
+          RELEASE_TYPE: ${{ steps.release-type.outputs.RELEASE_TYPE }}
 
       # Update changelog unreleased section with new version
       - name: Update changelog
@@ -56,7 +75,7 @@ jobs:
         run: npm run build
 
       - name: Publish
-        run: npm publish --tag beta
+        run: npm publish --tag ${{ env.RELEASE_TAG }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -80,6 +99,6 @@ jobs:
         with:
           tag_name: ${{ env.NEW_VERSION }}
           body: ${{ steps.get-changelog.outputs.changelog }}
-          prerelease: true
+          prerelease: ${{ startsWith(steps.release-type.outputs.RELEASE_TYPE, 'pre') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
