@@ -11,6 +11,7 @@
 // }
 //
 // export default { install }
+import './css/palette-evertec.css'
 
 export { default as SButton } from "./components/SButton.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
