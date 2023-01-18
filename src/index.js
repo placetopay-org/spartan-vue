@@ -16,7 +16,6 @@ import './css/palette-evertec.css'
 export { default as SButton } from "./components/SButton.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
 export { default as SInput } from "./components/SInput.vue";
-export { default as SSelect } from "./components/SSelect.vue";
 export { default as SInputAlt } from "./components/SInputAlt.vue";
 export { default as SInputError } from "./components/SInputError.vue";
 export { default as SInputHelper } from "./components/SInputHelper.vue";
@@ -62,3 +61,4 @@ export { default as SSectionTitle } from "./components/SSectionTitle.vue";
 export { default as SSectionDescription } from "./components/SSectionDescription.vue";
 export { default as SLink } from "./components/SLink.vue";
 export { default as SCardHeader } from "./components/SCardHeader";
+export * from "./components/sSelects";
