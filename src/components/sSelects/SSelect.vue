@@ -30,7 +30,7 @@ withDefaults(defineProps<{
       :disabled="disabled"
       v-model="modelValue"
       :class="[
-        'block w-full rounded-lg border border-gray-300 px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-300',
+        'block w-full rounded-lg border border-gray-300 px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100',
       ]"
     >
       <option
