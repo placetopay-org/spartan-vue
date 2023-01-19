@@ -1,11 +1,10 @@
 <script setup lang="ts">
 defineEmits<{
-  "update:modelValue": (value: string | number) => void;
+  (e: "update:modelValue", value: string | number): void;
 }>();
 
-withDefaults(defineProps<{
+defineProps<{
   label?: string,
-  types?: string,
   name?: string,
   id?: string,
   placeholder?: string,
@@ -13,10 +12,7 @@ withDefaults(defineProps<{
   rows?: number,
   modelValue: string | number,
   options: Array<{label: string, value: string | number}>,
-}>(), {
-  types: "text",
-  disabled: false,
-});
+}>();
 </script>
 
 <template>
