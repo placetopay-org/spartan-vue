@@ -2,7 +2,7 @@
   <td
     :class="[
       primary ? 'font-medium text-gray-900' : 'text-gray-500',
-      'p-3.5 text-base first:pl-5',
+      'p-3.5 text-sm first:pl-5',
     ]"
   >
     <slot />
