@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { SSelect } from "../index.js";
 
 export default {
@@ -15,7 +15,10 @@ export default {
 const Template = (args) => ({
   components: { SSelect },
   setup() {
-    let model = ref("");
+    let model = ref(args.model);
+    watchEffect(() => {
+      console.log("changed", model.value);
+    })
     return { args, model };
   },
   template: `
@@ -27,13 +30,13 @@ const defaultArgs = {
   label: "Medio de pago",
   id: "payment_method",
   name: "payment_method",
+  placeholder: "Selecciona una opción",
   options: [
-    { value: "", label: "Selecciona una opción" },
     { value: "visa", label: "Visa" },
     { value: "master", label: "Mastercard" },
     { value: "aexpress", label: "American Express" },
   ],
-  model: null,
+  model: "visa",
 };
 
 export const Select = Template.bind({});
