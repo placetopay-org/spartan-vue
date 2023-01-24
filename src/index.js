@@ -54,11 +54,10 @@ export { default as SDescriptionItemLabel } from "./components/SDescriptionItemL
 export { default as SDescriptionItemValue } from "./components/SDescriptionItemValue.vue";
 export { default as SModalLayout } from "./components/SModalLayout.vue";
 export { default as SModalAction } from "./components/SModalAction.vue";
-export { default as SCard } from "./components/SCard.vue";
 export { default as SEmptyState } from "./components/SEmptyState.vue";
 export { default as SBadge } from "./components/SBadge.vue";
 export { default as SSectionTitle } from "./components/SSectionTitle.vue";
 export { default as SSectionDescription } from "./components/SSectionDescription.vue";
 export { default as SLink } from "./components/SLink.vue";
-export { default as SCardHeader } from "./components/SCardHeader";
 export * from "./components/sSelects";
+export * from "./components/sCards";
