@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
+    class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
   >
-    <div class="flex flex-1 items-center justify-between">
+    <div class="flex items-center justify-between flex-1">
       <slot/>
     </div>
 
@@ -14,16 +14,16 @@
         <button
           @click="changeCurrentPage(currentPage - 1)"
           :disabled="currentPage <= 1"
-          class="relative inline-flex items-center rounded-l-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
         >
           <span class="sr-only">Previous</span>
-          <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
+          <ChevronLeftIcon class="w-5 h-5" aria-hidden="true" />
         </button>
         <button
           v-for="page in pages"
           @click="changeCurrentPage(page)"
           :disabled="page === currentPage"
-          class="h-11 w-11 items-center border border-gray-300 px-4 py-2 text-sm font-medium text-gray-900 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          class="items-center px-4 py-2 text-sm font-medium text-gray-900 border border-gray-300 h-11 w-11 disabled:bg-gray-50 disabled:text-gray-500 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
           :class="{
             'inline-flex': page === currentPage,
             'hidden md:inline-flex disabled:bg-gray-50 disabled:text-gray-500': page !== currentPage,
@@ -34,10 +34,10 @@
         <button
           @click="changeCurrentPage(currentPage + 1)"
           :disabled="currentPage >= lastPage"
-          class="relative inline-flex items-center rounded-r-lg border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
         >
           <span class="sr-only">Next</span>
-          <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
+          <ChevronRightIcon class="w-5 h-5" aria-hidden="true" />
         </button>
       </nav>
     </div>

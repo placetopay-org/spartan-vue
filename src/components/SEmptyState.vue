@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import { SCard } from "./sCards";
+import { SquaresPlusIcon } from "@heroicons/vue/24/outline";
+
+const props = defineProps<{
+  icon?: Object | string | Function;
+}>();
+
+const iconToUse = computed(() => props.icon || SquaresPlusIcon);
+</script>
+
 <template>
   <SCard>
     <div class="text-center">
@@ -6,7 +18,7 @@
           'mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 text-primary-600',
         ]"
       >
-        <component :is="iconToUse" class="h-6 w-6" aria-hidden="true" />
+        <component :is="iconToUse" class="w-6 h-6" aria-hidden="true" />
       </div>
 
       <h3 class="mt-4 text-lg font-semibold text-gray-900">
@@ -23,27 +35,3 @@
     </div>
   </SCard>
 </template>
-
-<script>
-import { SCard } from "./../index";
-
-import { SquaresPlusIcon } from "@heroicons/vue/24/outline";
-
-export default {
-  components: {
-    SCard,
-    SquaresPlusIcon,
-  },
-  props: {
-    icon: {
-      type: [Object, String, Function],
-      default: undefined,
-    },
-  },
-  computed: {
-    iconToUse() {
-      return this.icon || SquaresPlusIcon;
-    },
-  },
-};
-</script>

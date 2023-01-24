@@ -15,7 +15,6 @@ import './css/palette-evertec.css'
 
 export { default as SButton } from "./components/SButton.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
-export { default as SSelect } from "./components/SSelect.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
 export { default as SSidebarLogo } from "./components/SSidebarLogo.vue";
 export { default as SSidebarNavItem } from "./components/SSidebarNavItem.vue";
@@ -51,12 +50,12 @@ export { default as SDescriptionItemLabel } from "./components/SDescriptionItemL
 export { default as SDescriptionItemValue } from "./components/SDescriptionItemValue.vue";
 export { default as SModalLayout } from "./components/SModalLayout.vue";
 export { default as SModalAction } from "./components/SModalAction.vue";
-export { default as SCard } from "./components/SCard.vue";
 export { default as SEmptyState } from "./components/SEmptyState.vue";
 export { default as SBadge } from "./components/SBadge.vue";
 export { default as SSectionTitle } from "./components/SSectionTitle.vue";
 export { default as SSectionDescription } from "./components/SSectionDescription.vue";
 export { default as SLink } from "./components/SLink.vue";
-export { default as SCardHeader } from "./components/SCardHeader";
+export * from "./components/sSelects";
+export * from "./components/sCards";
 export * from "./components/sInputs";
 export * from "./components/sFilters";
