@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue';
 import { computed } from 'vue';
+import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue';
+import { ChevronDownIcon } from '@heroicons/vue/outline';
+import { CheckIcon } from '@heroicons/vue/solid';
 
 const emits = defineEmits<{
   (e: "update:modelValue", value: string | number): void;
@@ -31,63 +33,65 @@ const model = computed({
 </script>
 
 <template>
-  <div class="relative">
-    <label :for="id" class="block mb-1 text-sm font-medium text-gray-700">
-      {{ label }}
-    </label>
+    <Listbox as="div" v-slot="{ open }" v-model="model" :disabled="disabled">
+        <ListboxLabel v-if="label && id" :for="id" class="block text-sm font-medium text-gray-700">
+            {{ label }}
+        </ListboxLabel>
 
-    <Listbox v-model="model" :disabled="disabled">
-        <ListboxButton
-            v-slot="{ value }"
-            type="button"
-            class="block w-full px-3 pt-2 pb-2 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-300"
-        >
-            {{ value }}
-        </ListboxButton>
-
-        <transition
-            enter-active-class="transition duration-100 ease-out"
-            enter-from-class="transform scale-95 opacity-0"
-            enter-to-class="transform scale-100 opacity-100"
-            leave-active-class="transition duration-75 ease-in"
-            leave-from-class="transform scale-100 opacity-100"
-            leave-to-class="transform scale-95 opacity-0"
-        >
-            <ListboxOptions
-                class="absolute left-0 z-40 w-full py-1 overflow-auto text-base bg-white rounded-md shadow-lg top-full max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+        <div class="relative mt-1">
+            <ListboxButton
+                class="flex items-center justify-between w-full px-3 pt-2 pb-2 text-base text-left text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg shadow-sm cursor-auto focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100 disabled:opacity-70"
             >
-                <li v-for="groupOption in options" :key="groupOption.label">
-                    <div class="pl-4 bg-gray-100">
-                        <span class="font-semibold text-gray-700">{{ groupOption.label }}</span>
-                    </div>
+                <span :class="['flex items-center truncate', model ? 'uppercase' : '']">{{ model ? model.value : placeholder }}</span>
 
-                    <ListboxOption
-                        v-for="option in groupOption.options"
-                        v-slot="{ active, selected }"
-                        :key="`${option.label}__${option.value}`"
-                        :value="option"
-                        as="ul"
-                    >
-                        <li
-                            :class="[
-                                active ? 'bg-primary bg-opacity-20' : 'text-gray-900',
-                                'relative cursor-default select-none py-1 pl-10 pr-4',
-                            ]"
-                        >
-                            <div class="flex gap-2" :class="selected ? 'font-medium' : 'font-normal'">
-                                <span class="block truncate">{{ option.label }}</span>
-                            </div>
-                            <span
-                                v-if="selected"
-                                class="absolute inset-y-0 left-0 flex items-center pl-3 text-primary"
+                <span class="flex items-center pointer-events-none">
+                    <ChevronDownIcon
+                        class="w-4 h-4 text-gray-500"
+                        :aria-hidden="open ? 'true' : 'false'"
+                    />
+                </span>
+            </ListboxButton>
+            
+            <transition
+                enter-active-class="transition duration-100 ease-out"
+                enter-from-class="transform scale-95 opacity-0"
+                enter-to-class="transform scale-100 opacity-100"
+                leave-active-class="transition duration-75 ease-in"
+                leave-from-class="transform scale-100 opacity-100"
+                leave-to-class="transform scale-95 opacity-0"
+            >
+                <ListboxOptions
+                    class="absolute w-full mt-1 overflow-auto text-base bg-white rounded-lg shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                >
+                    <li v-for="group in options" :key="group.label">
+                        <div v-if="group.label" class="px-4 py-1 bg-gray-100">
+                            <span class="font-semibold text-gray-700">{{ group.label }}</span>
+                        </div>
+
+                        <ul>
+                            <ListboxOption
+                                as="template"
+                                v-for="option in group.options"
+                                :key="option.value"
+                                :value="option"
+                                v-slot="{ active, selected }"
                             >
-                                <CheckIcon class="w-5 h-5" aria-hidden="true" />
-                            </span>
-                        </li>
-                    </ListboxOption>
-                </li>
-            </ListboxOptions>
-        </transition>
+                                <li :class="[active ? 'bg-gray-200 bg-opacity-20' : 'text-gray-900', 'relative cursor-default select-none py-2 px-4']">
+                                    <div class="flex items-center gap-1">
+                                        <span class="font-semibold uppercase">{{ option.value }}:</span>
+                                        <span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate']">{{ option.label }}</span>
+                                    </div>
+
+                                    
+                                    <span v-if="selected" class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-600">
+                                        <CheckIcon class="w-5 h-5" aria-hidden="true" />
+                                    </span>
+                                </li>
+                            </ListboxOption>
+                        </ul>
+                    </li>
+                </ListboxOptions>
+            </transition>
+        </div>
     </Listbox>
-  </div>
 </template>

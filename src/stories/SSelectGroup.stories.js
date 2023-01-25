@@ -15,7 +15,7 @@ export default {
 const Template = (args) => ({
   components: { SSelectGroup },
   setup() {
-    let model = ref("");
+    const model = ref("");
     return { args, model };
   },
   template: `
@@ -27,6 +27,7 @@ const defaultArgs = {
   label: "Medio de pago",
   id: "payment_method",
   name: "payment_method",
+  placeholder: "Seleccione un tipo de documento",
   options: [
     {
       label: "Colombia",
