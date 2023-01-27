@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.2.1-beta.10 - 2023-01-26
+### Added
+- Add support to simple paginate in STablePagination component
+
+### Changed
+- STables components with scoped folder
+
+## 0.2.1-beta.9 - 2023-01-26
+### Added
+- Add SSelectGroup component
+
 ## 0.2.1-beta.8 - 2023-01-24
 ### Changed
 - Add Ts support to Empty state component

@@ -31,9 +31,7 @@ const model = computed({
       :name="name"
       :id="id"
       :disabled="disabled"
-      :class="[
-        'block w-full rounded-lg border border-gray-300 px-3 pb-2 pt-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100',
-      ]"
+      class="block w-full px-3 pt-2 pb-2 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-lg shadow-sm focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100"
     >
       <option v-if="placeholder" disabled value="">{{ placeholder }}</option>
       <option
