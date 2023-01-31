@@ -2,7 +2,7 @@
 import { computed, ref, watchEffect } from 'vue';
 import { Combobox, ComboboxInput, ComboboxOption } from '@headlessui/vue';
 
-type Option = {label: string; value: string | number | boolean} | null;
+type Option = {label: string; value: string | number | boolean} | undefined;
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: Option): void,
@@ -32,7 +32,7 @@ const displayValue = (item: unknown) => (item as NonNullable<Option>)?.label;
 
 watchEffect(() => {
     if (filteredRows.value.length === 0) {
-        model.value = null;
+        model.value = undefined;
     }
 });
 </script>

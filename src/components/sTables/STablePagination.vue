@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useI18n } from 'vue-i18n'
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 
 const emits = defineEmits<{
@@ -11,6 +12,36 @@ const props = defineProps<{
     lastPage: number;
     simple?: boolean;
 }>();
+
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+      spartan: {
+        previous: 'Previous',
+        next: 'Next',
+      }
+    },
+    es: {
+      spartan: {
+        previous: 'Anterior',
+        next: 'Siguiente',
+      }
+    },
+    it: {
+      spartan: {
+        previous: 'Precedente',
+        next: 'Prossimo',
+      }
+    },
+    pt: {
+      spartan: {
+        previous: 'anterior',
+        next: 'Next',
+      }
+    },
+  }
+});
 
 const pages = computed(() => props.simple ? [] : getPages(props.lastPage, props.currentPage));
 
@@ -64,48 +95,51 @@ const changeCurrentPage = (page: number) => {
 
     <div>
       <nav
-        class="relative z-0 inline-flex -space-x-px rounded-md shadow-sm"
+        class="relative z-0 inline-flex"
+        :class="{
+          '-space-x-px shadow-sm rounded-md': !simple,
+          'gap-3': simple,
+        }"
         aria-label="Pagination"
       >
         <button
           @click="changeCurrentPage(currentPage - 1)"
           :disabled="currentPage <= 1"
-          class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-lg disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          :class="{
+            'rounded-lg': simple,
+            'rounded-l-lg': !simple,
+          }"
         >
-          <span class="sr-only">Previous</span>
-          <ChevronLeftIcon class="w-5 h-5" aria-hidden="true" />
+          <span :class="{ 'sr-only': !simple }">{{ t('spartan.previous') }}</span>
+          <ChevronLeftIcon v-if="!simple" class="w-5 h-5" aria-hidden="true" />
         </button>
 
-        <template v-if="simple">
-          <button
-            disabled
-            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 border border-gray-300 h-11 w-11 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
-          >
-            {{ currentPage }}
-          </button>
-        </template>
-        <template v-else>
-          <button
-            v-for="page in pages"
-            @click="typeof page === 'string' ? undefined : changeCurrentPage(page)"
-            :disabled="page === currentPage"
-            class="items-center px-4 py-2 text-sm font-medium text-gray-900 border border-gray-300 h-11 w-11 disabled:bg-gray-50 disabled:text-gray-500 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
-            :class="{
-              'inline-flex': page === currentPage,
-              'hidden md:inline-flex disabled:bg-gray-50 disabled:text-gray-500': page !== currentPage,
-            }"
-          >
-            {{ page }}
-          </button>
-        </template>
+        <button
+          v-if="!simple"
+          v-for="page in pages"
+          @click="typeof page === 'string' ? undefined : changeCurrentPage(page)"
+          :disabled="page === currentPage"
+          class="items-center px-4 py-2 text-sm font-medium text-gray-900 border border-gray-300 h-11 w-11 disabled:bg-gray-50 disabled:text-gray-500 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          :class="{
+            'inline-flex': page === currentPage,
+            'hidden md:inline-flex disabled:bg-gray-50 disabled:text-gray-500': page !== currentPage,
+          }"
+        >
+          {{ page }}
+        </button>
 
         <button
           @click="changeCurrentPage(currentPage + 1)"
           :disabled="currentPage >= lastPage"
-          class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-lg disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 disabled:bg-gray-50 disabled:text-gray-500 hover:bg-gray-50 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
+          :class="{
+            'rounded-lg': simple,
+            'rounded-r-lg': !simple,
+          }"
         >
-          <span class="sr-only">Next</span>
-          <ChevronRightIcon class="w-5 h-5" aria-hidden="true" />
+          <span :class="{ 'sr-only': !simple }">{{ t('spartan.next') }}</span>
+          <ChevronRightIcon v-if="!simple" class="w-5 h-5" aria-hidden="true" />
         </button>
       </nav>
     </div>

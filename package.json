@@ -1,6 +1,6 @@
 {
   "name": "@placetopay-org/spartan-vue",
-  "version": "0.2.1-beta.10",
+  "version": "0.2.1-beta.11",
   "description": "spartan vue lib",
   "files": [
     "dist",
@@ -71,6 +71,7 @@
     "vue-tsc": "^1.0.18"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.0.13"
+    "@heroicons/vue": "^2.0.13",
+    "vue-i18n": "^9.2.2"
   }
 }
