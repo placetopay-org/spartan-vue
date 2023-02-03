@@ -41,7 +41,7 @@ const props = defineProps({
     default: undefined,
   },
   as: {
-    type: Object,
+    type: [String, Object],
     required: false,
     default: "input",
   },
