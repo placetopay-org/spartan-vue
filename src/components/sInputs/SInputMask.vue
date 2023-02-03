@@ -19,9 +19,9 @@ const props = defineProps<{
 
 const maskComputed = computed(() => {
   if (props.mask instanceof Array) {
-    return props.mask;
+    return props.mask.length ? props.mask : Number;
   }
-  return [props.mask];
+  return props.mask ? [props.mask] : Number;
 });
 
 const { el, masked } = useIMask(
