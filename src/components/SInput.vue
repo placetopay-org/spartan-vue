@@ -1,12 +1,14 @@
 <template>
   <div>
-    <label :for="id" class="mb-1 block text-sm font-medium text-gray-700">
+    <label :for="id" class="block mb-1 text-sm font-medium text-gray-700">
       {{ label }}
     </label>
     <div class="flex rounded-lg shadow-sm">
       <slot name="left"></slot>
       <component
         :is="as"
+        v-bind="inputProps"
+        v-on="inputEvents"
         :type="type"
         :name="name"
         :id="id"
@@ -74,10 +76,20 @@ const props = defineProps({
     default: undefined,
   },
   as: {
-    type: String,
+    type: Object,
     required: false,
     default: "input",
   },
   modelValue: String,
+  inputProps: {
+    type: Object,
+    required: false,
+    default: undefined,
+  },
+  inputEvents: {
+    type: Object,
+    required: false,
+    default: undefined,
+  },
 });
 </script>
