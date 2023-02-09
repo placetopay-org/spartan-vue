@@ -52,3 +52,4 @@ export * from "./components/sCards";
 export * from "./components/sInputs";
 export * from "./components/sFilters";
 export * from "./components/sTables";
+export * from "./components/sInputs";
