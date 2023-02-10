@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
 import { useSFilterContext } from "./SFilterContext";
 import { CheckIcon } from '@heroicons/vue/24/solid';
@@ -20,6 +21,32 @@ const handleNewFilterSelected = (selector) => {
     if (selector.id.trim() === '') return;
     api.addItemByTypeId.value = selector.id;
 }
+
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+        spartan: {
+            filterBy: 'Filter by'
+        },
+    },
+    es: {
+        spartan: {
+            filterBy: 'Filtrar por'
+        },
+    },
+    it: {
+        spartan: {
+            filterBy: 'Filtra per'
+        },
+    },
+    pt: {
+        spartan: {
+            filterBy: 'Filtrar por'
+        },
+    },
+  },
+});
 </script>
 
 <template>
@@ -29,7 +56,7 @@ const handleNewFilterSelected = (selector) => {
                 @change="query = $event.target.value"
                 :display-value="(selector) => selector.label"
                 class="w-full bg-white placeholder:text-gray-300 border rounded-lg block border-gray-300 text-base text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100"
-                placeholder="Filtrar por"
+                :placeholder="t('spartan.filterBy')"
             />
 
             <ComboboxOptions static class="space-y-3">

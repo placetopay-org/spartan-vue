@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useSFilterContext } from './SFilterContext';
 import SFilterItemForm from './SFilterItemForm.vue';
 
@@ -22,6 +23,33 @@ const handleAddFilter = () => {
     api.addItemByTypeId.value = null;
     emit('added');
 };
+
+
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+        spartan: {
+            add: 'Add',
+        }
+    },
+    es: {
+        spartan: {
+            add: 'Agregar',
+        }
+    },
+    it: {
+        spartan: {
+            add: 'Aggiungere',
+        }
+    },
+    pt: {
+        spartan: {
+            add: 'Adicionar',
+        }
+    },
+  },
+});
 </script>
 
 <template>
@@ -30,7 +58,7 @@ const handleAddFilter = () => {
         :value="filterValue"
         :operator="operator"
         :can-duplicate="false"
-        save-button-text="Agregar"
+        :save-button-text="t('spartan.add')"
         @update:value="filterValue = $event"
         @update:operator="operator = $event"
         @delete="api.addItemByTypeId.value = null"

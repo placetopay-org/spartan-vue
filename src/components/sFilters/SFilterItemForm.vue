@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import SButton from '../SButton.vue';
 import SFilterAddItemFormMenu from './SFilterAddItemFormMenu.vue';
 import SFilterAddItemOperator from './SFilterAddItemOperator.vue';
@@ -85,6 +86,33 @@ const resetModelValue = () => {
 
     modelValue.value = input.value.formatter?.() ?? ''
 };
+
+
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+        spartan: {
+            cancel: 'Cancel',
+        }
+    },
+    es: {
+        spartan: {
+            cancel: 'Cancelar',
+        }
+    },
+    it: {
+        spartan: {
+            cancel: 'Annulla',
+        }
+    },
+    pt: {
+        spartan: {
+            cancel: 'Cancelar',
+        }
+    }
+  }
+});
 </script>
 
 <template>
@@ -109,7 +137,7 @@ const resetModelValue = () => {
         />
 
         <div class="flex gap-3">
-            <SButton color="white" class="w-full" @click="$emit('cancel')">Cancelar</SButton>
+            <SButton color="white" class="w-full" @click="$emit('cancel')">{{t('spartan.cancel')}}</SButton>
             <SButton color="primary" class="w-full" @click="$emit('save')">{{ saveButtonText }}</SButton>
         </div>
     </div>

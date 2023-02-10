@@ -5,9 +5,41 @@ import { ChevronDownIcon, InboxArrowDownIcon } from '@heroicons/vue/20/solid';
 import { useSFilterContext } from './SFilterContext';
 import { computed } from 'vue';
 import SFilterOptionForm from './SFilterOptionForm.vue';
+import { useI18n } from 'vue-i18n';
 
 const api = useSFilterContext();
 const savedFilters = computed(() => api.savedFilters);
+
+
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+        spartan: {
+            mySavedFilters: 'My saved filters',
+            saveFilter: 'Save filter',
+        }
+    },
+    es: {
+        spartan: {
+            mySavedFilters: 'Mis filtros guardados',
+            saveFilter: 'Guardar filtro',
+        }
+    },
+    it: {
+        spartan: {
+            mySavedFilters: 'I miei filtri salvati',
+            saveFilter: 'Salva filtro',
+        }
+    },
+    pt: {
+        spartan: {
+            mySavedFilters: 'Meus filtros salvos',
+            saveFilter: 'Salvar filtro',
+        }
+    },
+  },
+});
 </script>
 
 <template>
@@ -35,7 +67,7 @@ const savedFilters = computed(() => api.savedFilters);
                         class="absolute z-20 overflow-hidden right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                         <div class="bg-gray-50 font-semibold text-sm py-3 px-4">
-                            Mis filtros guardados
+                            {{t('spartan.mySavedFilters')}}
                         </div>
 
                         <ul>
@@ -54,7 +86,7 @@ const savedFilters = computed(() => api.savedFilters);
 
                         <PopoverButton class="w-full text-left bg-primary-600 text-white cursor-pointer p-3 text-sm font-medium">
                             <InboxArrowDownIcon class="w-5 h-5 inline-block mr-3" />
-                            Guardar filtro
+                            {{t('spartan.saveFilter')}}
                         </PopoverButton>
                     </MenuItems>
                 </div>

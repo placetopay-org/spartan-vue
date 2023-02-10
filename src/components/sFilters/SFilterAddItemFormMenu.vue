@@ -1,4 +1,5 @@
 <script setup>
+import { useI18n } from 'vue-i18n';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { DocumentDuplicateIcon, TrashIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { EllipsisHorizontalIcon } from '@heroicons/vue/24/solid';
@@ -11,6 +12,37 @@ defineProps({
         default: false,
     },
 })
+
+
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+        spartan: {
+            delete: 'Delete',
+            duplicate: 'Duplicate',
+        }
+    },
+    es: {
+        spartan: {
+            delete: 'Eliminar',
+            duplicate: 'Duplicar',
+        }
+    },
+    it: {
+        spartan: {
+            delete: 'Eliminare',
+            duplicate: 'Duplicare',
+        }
+    },
+    pt: {
+        spartan: {
+            delete: 'Excluir',
+            duplicate: 'Duplicar',
+        }
+    },
+  },
+});
 </script>
 
 <template>
@@ -44,7 +76,7 @@ defineProps({
                             :class="active ? 'text-white' : 'text-gray-400'"
                             aria-hidden="true"
                         />
-                        Eliminar
+                        {{t('spartan.delete')}}
                     </button>
                 </MenuItem>
                 <MenuItem v-if="duplicate" v-slot="{ active }">
@@ -60,7 +92,7 @@ defineProps({
                             :class="active ? 'text-white' : 'text-gray-400'"
                             aria-hidden="true"
                         />
-                        Duplicar
+                        {{t('spartan.delete')}}
                     </button>
                 </MenuItem>
             </MenuItems>

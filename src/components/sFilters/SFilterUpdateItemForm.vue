@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useSFilterContext } from './SFilterContext';
 import SFilterItemForm from './SFilterItemForm.vue';
 
@@ -32,6 +33,32 @@ const handleDuplicateFilter = () => {
     api.duplicateFilter(props.filter.id);
     emit('close');
 };
+
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+        spartan: {
+            save: 'Save',
+        }
+    },
+    es: {
+        spartan: {
+            save: 'Guardar',
+        }
+    },
+    it: {
+        spartan: {
+            save: 'Salvare',
+        }
+    },
+    pt: {
+        spartan: {
+            save: 'Salvar',
+        }
+    },
+  },
+});
 </script>
 
 <template>
@@ -40,7 +67,7 @@ const handleDuplicateFilter = () => {
         :item-selector="selectorSelected"
         :value="value"
         :operator="operator"
-        save-button-text="Guardar"
+        :save-button-text="t('spartan.save')"
         @update:value="value = $event"
         @update:operator="operator = $event"
         @duplicate="handleDuplicateFilter"
