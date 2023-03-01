@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
+import { InputTranslations } from './SFilterSelectorConstant';
 
 const emit = defineEmits(['update:modelValue', 'changed']);
 const props = defineProps({

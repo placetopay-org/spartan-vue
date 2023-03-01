@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import SButton from '../SButton.vue';
 import SFilterAddItemFormMenu from './SFilterAddItemFormMenu.vue';
 import SFilterAddItemOperator from './SFilterAddItemOperator.vue';
-import { InputByType, OptionsByInputType } from './SFilterSelectorConstant';
+import { InputByType, OptionsByInputType, InputTranslations } from './SFilterSelectorConstant';
 
 const emit = defineEmits([
     'delete',
@@ -41,6 +41,44 @@ const props = defineProps({
     },
 })
 
+const { t } = useI18n({
+  useScope: 'local',
+  messages: {
+    en: {
+        spartan: {
+            cancel: 'Cancel',
+            inputs: {
+                ...InputTranslations.en,
+            }
+        }
+    },
+    es: {
+        spartan: {
+            cancel: 'Cancelar',
+            inputs: {
+                ...InputTranslations.es,
+            }
+        }
+    },
+    it: {
+        spartan: {
+            cancel: 'Annulla',
+            inputs: {
+                ...InputTranslations.it,
+            }
+        }
+    },
+    pt: {
+        spartan: {
+            cancel: 'Cancelar',
+            inputs: {
+                ...InputTranslations.pt,
+            }
+        }
+    }
+  }
+});
+
 const modelValue = computed({
     get: () => input.value.formatter ? input.value.formatter(props.value) : props.value,
     set: (value) => emit('update:value', value),
@@ -65,7 +103,10 @@ const input = computed(() => {
 
 const operators = computed(() => {
     let operatorsBySelectorType = OptionsByInputType[props.itemSelector.type]
-    if (operatorsBySelectorType) operatorsBySelectorType = operatorsBySelectorType.filter((operator) => operator.value === props.operator);
+    if (operatorsBySelectorType) {
+        operatorsBySelectorType = operatorsBySelectorType.filter((operator) => operator.value === props.operator)
+            .map((operator) => ({ ...operator, label: t(`spartan.inputs.${props.itemSelector.type}.${operator.value}`) }));
+    }
 
     return operatorsBySelectorType ?? [];
 })
@@ -86,33 +127,6 @@ const resetModelValue = () => {
 
     modelValue.value = input.value.formatter?.() ?? ''
 };
-
-
-const { t } = useI18n({
-  useScope: 'local',
-  messages: {
-    en: {
-        spartan: {
-            cancel: 'Cancel',
-        }
-    },
-    es: {
-        spartan: {
-            cancel: 'Cancelar',
-        }
-    },
-    it: {
-        spartan: {
-            cancel: 'Annulla',
-        }
-    },
-    pt: {
-        spartan: {
-            cancel: 'Cancelar',
-        }
-    }
-  }
-});
 </script>
 
 <template>
