@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { SCard } from "./sCards";
-import { ViewGridAddIcon } from "@heroicons/vue/outline";
+import { SquaresPlusIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps<{
   icon?: Object | string | Function;
 }>();
 
-const iconToUse = computed(() => props.icon || ViewGridAddIcon);
+const iconToUse = computed(() => props.icon || SquaresPlusIcon);
 </script>
 
 <template>

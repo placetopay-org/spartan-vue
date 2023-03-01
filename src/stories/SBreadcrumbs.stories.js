@@ -1,5 +1,5 @@
 import { SBreadcrumbs, SBreadcrumb } from "../index";
-import { ChevronRightIcon, HomeIcon } from "@heroicons/vue/solid";
+import { ChevronRightIcon, HomeIcon } from "@heroicons/vue/24/solid";
 
 export default {
   title: "Components/SBreadcrumbs",

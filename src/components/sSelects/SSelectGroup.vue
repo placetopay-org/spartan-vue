@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue';
-import { ChevronDownIcon } from '@heroicons/vue/outline';
-import { CheckIcon } from '@heroicons/vue/solid';
+import { ChevronDownIcon } from '@heroicons/vue/24/outline';
+import { CheckIcon } from '@heroicons/vue/24/solid';
 
 const emits = defineEmits<{
   (e: "update:modelValue", value: string | number): void;

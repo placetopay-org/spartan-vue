@@ -61,7 +61,7 @@
 <script>
 import { SBreadcrumbs, SBreadcrumb } from "../../src/index.js";
 import TableComponent from "./components/TableComponent.vue";
-import { ChevronRightIcon, HomeIcon } from '@heroicons/vue/solid'
+import { ChevronRightIcon, HomeIcon } from '@heroicons/vue/24/solid'
 
 const dataDescription = [
   { prop: 'href', description: 'route', accepted: 'String', default: "#" },

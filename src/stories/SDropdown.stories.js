@@ -5,7 +5,7 @@ import {
   SDropdownButton,
 } from "../index.js";
 
-import { HomeIcon, CogIcon, UserIcon } from "@heroicons/vue/outline";
+import { HomeIcon, CogIcon, UserIcon } from "@heroicons/vue/24/outline";
 
 export default {
   title: "Components/SDropdown",

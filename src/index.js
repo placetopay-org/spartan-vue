@@ -49,5 +49,7 @@ export { default as SSectionDescription } from "./components/SSectionDescription
 export { default as SLink } from "./components/SLink.vue";
 export * from "./components/sSelects";
 export * from "./components/sCards";
+export * from "./components/sInputs";
+export * from "./components/sFilters";
 export * from "./components/sTables";
 export * from "./components/sInputs";

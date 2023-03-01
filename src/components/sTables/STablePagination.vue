@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useI18n } from 'vue-i18n'
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/solid";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 
 const emits = defineEmits<{
   (e: "changeCurrentPage", page: number): void;

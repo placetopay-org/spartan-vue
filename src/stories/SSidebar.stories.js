@@ -14,8 +14,8 @@ import {
   HomeIcon,
   UserIcon,
   LockOpenIcon,
-  CollectionIcon,
-} from "@heroicons/vue/outline";
+  RectangleStackIcon,
+} from "@heroicons/vue/24/outline";
 
 export default {
   title: "Components/SSidebar",
@@ -40,7 +40,7 @@ const Template = (args) => ({
     SSidebar,
     SSidebarLogo,
     SSidebarContent,
-    CollectionIcon,
+    RectangleStackIcon,
     SRootLayout,
   },
   setup() {
@@ -94,7 +94,7 @@ const groups = [
   },
   {
     name: "Clientes",
-    icon: CollectionIcon,
+    icon: RectangleStackIcon,
     active: true,
     children: [
       { name: "Comercios" },
