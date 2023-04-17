@@ -11,7 +11,7 @@
     </div>
 
     <div v-if="configuration.search.enable" class="float-right m-2">
-        <SInput :placeholder="configuration.search.placeholder" :model-value="querySearch" />
+        <SInput :placeholder="configuration.search.placeholder" v-model="querySearch" @input="simpleSearch" />
     </div>
 
     <STable>
@@ -118,6 +118,7 @@ export default {
             perPage: 10,
             totalPages: 1,
             querySearch: this.config.search.value ?? '',
+            searchDelay: null
         };
     },
     methods: {
@@ -127,6 +128,7 @@ export default {
                     ...{
                         enable: true,
                         placeholder: 'Search',
+                        delay: 400,
                     },
                     ...this.config.search ?? {},
                 },
@@ -164,11 +166,18 @@ export default {
             this.totalPages = Math.ceil(this.count / this.perPage);
             const recordsCount = this.records.length;
             this.recordTo = this.currentPage === this.totalPages ? this.count : this.currentPage * recordsCount;
-            this.recordFrom = this.recordTo - recordsCount + 1;
+            this.recordFrom = recordsCount > 0 ? this.recordTo - recordsCount + 1 : 0;
         },
         changePage(page) {
             this.currentPage = page;
             this.fetch();
+        },
+        simpleSearch() {
+            clearTimeout(this.searchDelay);
+
+            this.searchDelay = setTimeout(() => {
+                this.fetch();
+            }, this.configuration.search.delay);
         }
     },
     mounted() {

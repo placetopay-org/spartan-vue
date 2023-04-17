@@ -94,6 +94,7 @@ Table.args = {
   config: {
     search: {
       placeholder: 'Search... ',
+      delay: 500,
     },
     ordering: {
       by: 'name',
