@@ -12,6 +12,8 @@ import {
   TrashIcon,
 } from "@heroicons/vue/outline";
 
+import MyServerTableFilter from "./MyServerTableFilter.vue";
+
 export default {
   title: "Components/SServerTable",
   component: STableLayout,
@@ -40,27 +42,32 @@ const Template = (args) => ({
     QrcodeIcon,
     DocumentDuplicateIcon,
     TrashIcon,
+    MyServerTableFilter
   },
   setup() {
     return { args };
   },
   template: `        
-      <SServerTable :columns="args.columns" :config="args.config" url="http://spartan-mock.loc:2020/api/users">
+      <div>
+        <MyServerTableFilter></MyServerTableFilter>
 
-        <template #item(first_name)="{ value, record }">            
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ value }}</a>
-        </template>
-        
-        <template #item(gender)="{ value, record }">
-          <SBadge v-if="value === 'Male'" color="green">{{ value }}</SBadge>
-          <SBadge v-else color="yellow">{{ value }}</SBadge>
-        </template>
-
-        <template #item(action)="{ value, record }">
-          <SButton>Edit</SButton>
-        </template>
-        
-      </SServerTable>    
+        <SServerTable ref="usersTable" :columns="args.columns" :config="args.config" url="http://spartan-mock.loc:2020/api/users">
+  
+          <template #item(first_name)="{ value, record }">
+            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ value }}</a>
+          </template>
+  
+          <template #item(gender)="{ value, record }">
+            <SBadge v-if="value === 'Male'" color="green">{{ value }}</SBadge>
+            <SBadge v-else color="yellow">{{ value }}</SBadge>
+          </template>
+  
+          <template #item(action)="{ value, record }">
+            <SButton>Edit</SButton>
+          </template>
+  
+        </SServerTable>
+      </div>    
   `,
 });
 

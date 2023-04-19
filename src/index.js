@@ -49,6 +49,7 @@ export { default as STableRow } from "./components/STableRow.vue";
 export { default as STableRowItem } from "./components/STableRowItem.vue";
 export { default as STablePagination } from "./components/STablePagination.vue";
 export { default as SServerTable } from "./components/SServerTable.vue";
+export { default as SServerTableFilter } from "./components/SServerTableFilter.vue";
 export { default as SDescriptionList } from "./components/SDescriptionList.vue";
 export { default as SDescriptionItem } from "./components/SDescriptionItem.vue";
 export { default as SDescriptionItemLabel } from "./components/SDescriptionItemLabel.vue";

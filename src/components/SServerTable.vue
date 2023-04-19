@@ -1,6 +1,5 @@
 <template>
 <STableLayout>
-
     <div class="float-left m-2">
         <label>Records per page</label>
         <select v-model="perPage" @change="fetch">
@@ -69,6 +68,7 @@ import STableRowItem from "./STableRowItem.vue";
 import STableLayout from "./STableLayout.vue";
 import STablePagination from "./STablePagination.vue";
 import SInput from "./SInput.vue";
+import {eventBus} from "../utils/eventBus";
 
 export default {
     name: "SServerTable",
@@ -118,7 +118,8 @@ export default {
             perPage: 10,
             totalPages: 1,
             querySearch: this.config.search.value ?? '',
-            searchDelay: null
+            searchDelay: null,
+            filters: {},
         };
     },
     methods: {
@@ -146,13 +147,7 @@ export default {
             axios.request({
                 method: this.method,
                 url: this.url,
-                params: {
-                    query: this.querySearch,
-                    limit: this.perPage,
-                    page: this.currentPage,
-                    sortBy: null,
-                    sortDir: null,
-                }
+                params: this.makeRequestParams()
             }).then((response) => {
                 this.records = response.data.data;
                 this.count = response.data.total;
@@ -178,14 +173,34 @@ export default {
             this.searchDelay = setTimeout(() => {
                 this.fetch();
             }, this.configuration.search.delay);
+        },
+        makeRequestParams() {
+            let params = {
+                limit: this.perPage,
+                page: this.currentPage,
+                sortBy: null,
+                sortDir: null,
+            };
+
+            if (this.querySearch.trim() !== '') {
+                params.query = this.querySearch;
+            }
+
+            return {
+                ...params,
+                ...this.filters
+            };
+        },
+        sendFilters(filters) {
+            this.filters = filters;
+            this.fetch();
         }
+    },
+    created() {
+        eventBus.on('sserver-table-filter', this.sendFilters);
     },
     mounted() {
         this.fetch();
     }
 }
 </script>
-
-<style scoped>
-
-</style>
