@@ -21,11 +21,20 @@
             >
                 <div class="flex items-center">
                     {{ column.label }}
-                    <a v-if="column.sortable" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
-                            <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/>
-                        </svg>
-                    </a>
+                    <div v-if="column.orderable" class="ml-3">
+                        <ChevronUpIcon
+                                class="h-4 w-4 cursor-pointer"
+                                :class="shouldOrderByAsc(column.name) ? 'text-gray-800' : 'text-gray-300'"
+                                aria-hidden="true"
+                                @click="orderByAsc(column.name)"
+                        />
+                        <ChevronDownIcon
+                                class="h-4 w-4 cursor-pointer"
+                                :class="shouldOrderByDesc(column.name) ? 'text-gray-800' : 'text-gray-300'"
+                                aria-hidden="true"
+                                @click="orderByDesc(column.name)"
+                        />
+                    </div>
                 </div>
             </STableHeadItem>
         </STableHead>
@@ -69,6 +78,10 @@ import STableLayout from "./STableLayout.vue";
 import STablePagination from "./STablePagination.vue";
 import SInput from "./SInput.vue";
 import {eventBus} from "../utils/eventBus";
+import {ChevronUpIcon, ChevronDownIcon} from "@heroicons/vue/outline";
+
+const OrderAsc = 'asc';
+const OrderDesc = 'desc';
 
 export default {
     name: "SServerTable",
@@ -81,7 +94,9 @@ export default {
         STableRow,
         STableRowItem,
         STablePagination,
-        SInput
+        SInput,
+        ChevronUpIcon,
+        ChevronDownIcon
     },
     props: {
         columns: {
@@ -117,12 +132,25 @@ export default {
             currentPage: 1,
             perPage: 10,
             totalPages: 1,
-            querySearch: this.config.search.value ?? '',
+            querySearch: null,
             searchDelay: null,
             filters: {},
+            orderBy: null,
+            orderDir: null,
+            orderMap: {},
         };
     },
     methods: {
+        initialize() {
+            this.querySearch = this.configuration.search.value;
+            this.orderBy = this.configuration.ordering.by;
+            this.orderDir = this.configuration.ordering.dir;
+            this.columns.forEach((column) => {
+                if (column.orderable) {
+                    this.orderMap[column.name] = column.name === this.orderBy ? this.orderDir : null;
+                }
+            });
+        },
         normalizeConfiguration() {
             return {
                 search: {
@@ -130,6 +158,7 @@ export default {
                         enable: true,
                         placeholder: 'Search',
                         delay: 400,
+                        value: '',
                     },
                     ...this.config.search ?? {},
                 },
@@ -178,8 +207,10 @@ export default {
             let params = {
                 limit: this.perPage,
                 page: this.currentPage,
-                sortBy: null,
-                sortDir: null,
+                order: {
+                    by: this.orderBy,
+                    dir: this.orderDir,
+                }
             };
 
             if (this.querySearch.trim() !== '') {
@@ -194,12 +225,34 @@ export default {
         sendFilters(filters) {
             this.filters = filters;
             this.fetch();
+        },
+        shouldOrderByAsc(column) {
+            return this.orderMap[column] === OrderAsc;
+        },
+        shouldOrderByDesc(column) {
+            return this.orderMap[column] === OrderDesc;
+        },
+        orderByAsc(column) {
+            this.changeOrder(column, OrderAsc);
+        },
+        orderByDesc(column) {
+            this.changeOrder(column, OrderDesc);
+        },
+        changeOrder(column, dir) {
+            if (this.orderBy !== null) {
+                this.orderMap[this.orderBy] = null;
+            }
+            this.orderBy = column;
+            this.orderDir = dir;
+            this.orderMap[this.orderBy] = this.orderDir;
+            this.fetch();
         }
     },
     created() {
         eventBus.on('sserver-table-filter', this.sendFilters);
     },
     mounted() {
+        this.initialize();
         this.fetch();
     }
 }

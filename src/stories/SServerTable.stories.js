@@ -78,11 +78,12 @@ Table.args = {
     {
       name: "first_name",
       label: "First name",
-      sortable: true,
+      orderable: true,
     },
     {
       name: "last_name",
       label: "Last name",
+      orderable: true,
     },
     {
       name: "email",
@@ -95,7 +96,6 @@ Table.args = {
     {
       name: "action",
       label: "Action",
-      mapped: false
     }
   ],
   config: {
@@ -104,7 +104,7 @@ Table.args = {
       delay: 500,
     },
     ordering: {
-      by: 'name',
+      by: 'first_name',
       dir: 'asc'
     },
     pagination: {
