@@ -46,33 +46,41 @@ const { t } = useI18n({
   messages: {
     en: {
         spartan: {
-            cancel: 'Cancel',
-            inputs: {
-                ...InputTranslations.en,
+            sfilters: {
+                cancel: 'Cancel',
+                inputs: {
+                    ...InputTranslations.en,
+                }
             }
         }
     },
     es: {
         spartan: {
-            cancel: 'Cancelar',
-            inputs: {
-                ...InputTranslations.es,
+            sfilters: {
+                cancel: 'Cancelar',
+                inputs: {
+                    ...InputTranslations.es,
+                }
             }
         }
     },
     it: {
         spartan: {
-            cancel: 'Annulla',
-            inputs: {
-                ...InputTranslations.it,
+            sfilters: {
+                cancel: 'Annulla',
+                inputs: {
+                    ...InputTranslations.it,
+                }
             }
         }
     },
     pt: {
         spartan: {
-            cancel: 'Cancelar',
-            inputs: {
-                ...InputTranslations.pt,
+            sfilters: {
+                cancel: 'Cancelar',
+                inputs: {
+                    ...InputTranslations.pt,
+                }
             }
         }
     }
@@ -151,7 +159,7 @@ const resetModelValue = () => {
         />
 
         <div class="flex gap-3">
-            <SButton color="white" class="w-full" @click="$emit('cancel')">{{t('spartan.cancel')}}</SButton>
+            <SButton color="white" class="w-full" @click="$emit('cancel')">{{t('spartan.sfilters.cancel')}}</SButton>
             <SButton color="primary" class="w-full" @click="$emit('save')">{{ saveButtonText }}</SButton>
         </div>
     </div>

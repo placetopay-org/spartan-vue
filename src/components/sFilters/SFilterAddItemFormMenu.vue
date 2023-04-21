@@ -19,26 +19,34 @@ const { t } = useI18n({
   messages: {
     en: {
         spartan: {
-            delete: 'Delete',
-            duplicate: 'Duplicate',
+            sfilters: {
+                delete: 'Delete',
+                duplicate: 'Duplicate',
+            }
         }
     },
     es: {
         spartan: {
-            delete: 'Eliminar',
-            duplicate: 'Duplicar',
+            sfilters: {
+                delete: 'Eliminar',
+                duplicate: 'Duplicar',
+            }
         }
     },
     it: {
         spartan: {
-            delete: 'Eliminare',
-            duplicate: 'Duplicare',
+            sfilters: {
+                delete: 'Eliminare',
+                duplicate: 'Duplicare',
+            }
         }
     },
     pt: {
         spartan: {
-            delete: 'Excluir',
-            duplicate: 'Duplicar',
+            sfilters: {
+                delete: 'Excluir',
+                duplicate: 'Duplicar',
+            }
         }
     },
   },
@@ -76,7 +84,7 @@ const { t } = useI18n({
                             :class="active ? 'text-white' : 'text-gray-400'"
                             aria-hidden="true"
                         />
-                        {{t('spartan.delete')}}
+                        {{t('spartan.sfilters.delete')}}
                     </button>
                 </MenuItem>
                 <MenuItem v-if="duplicate" v-slot="{ active }">
@@ -92,7 +100,7 @@ const { t } = useI18n({
                             :class="active ? 'text-white' : 'text-gray-400'"
                             aria-hidden="true"
                         />
-                        {{t('spartan.delete')}}
+                        {{t('spartan.sfilters.delete')}}
                     </button>
                 </MenuItem>
             </MenuItems>

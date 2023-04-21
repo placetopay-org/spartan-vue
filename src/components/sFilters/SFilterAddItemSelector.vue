@@ -27,22 +27,30 @@ const { t } = useI18n({
   messages: {
     en: {
         spartan: {
-            filterBy: 'Filter by'
+            sfilters: {
+                filterBy: 'Filter by'
+            }
         },
     },
     es: {
         spartan: {
-            filterBy: 'Filtrar por'
+            sfilters: {
+                filterBy: 'Filtrar por'
+            }
         },
     },
     it: {
         spartan: {
-            filterBy: 'Filtra per'
+            sfilters: {
+                filterBy: 'Filtra per'
+            }
         },
     },
     pt: {
         spartan: {
-            filterBy: 'Filtrar por'
+            sfilters: {
+                filterBy: 'Filtrar por'
+            }
         },
     },
   },
@@ -56,7 +64,7 @@ const { t } = useI18n({
                 @change="query = $event.target.value"
                 :display-value="(selector) => selector.label"
                 class="w-full bg-white placeholder:text-gray-300 border rounded-lg block border-gray-300 text-base text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100"
-                :placeholder="t('spartan.filterBy')"
+                :placeholder="t('spartan.sfilters.filterBy')"
             />
 
             <ComboboxOptions static class="space-y-3">

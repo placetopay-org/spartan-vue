@@ -12,12 +12,12 @@ const messageValidation = ref(null);
 
 const validate = () => {
     if (!name.value) {
-        messageValidation.value = 'spartan.filterNameIsRequired';
+        messageValidation.value = 'spartan.sfilters.filterNameIsRequired';
         return false;
     }
 
     if (api.filters.length === 0) {
-        messageValidation.value = 'spartan.noFiltersSelected';
+        messageValidation.value = 'spartan.sfilters.noFiltersSelected';
         return false;
     }
 
@@ -43,38 +43,46 @@ const { t } = useI18n({
   messages: {
     en: {
         spartan: {
-            filterNameIsRequired: 'Filter name is required',
-            noFiltersSelected: 'No filters selected',
-            filterName: 'Filter name',
-            cancel: 'Cancel',
-            save: 'Save',
+            sfilters: {
+                filterNameIsRequired: 'Filter name is required',
+                noFiltersSelected: 'No filters selected',
+                filterName: 'Filter name',
+                cancel: 'Cancel',
+                save: 'Save',
+            }
         }
     },
     es: {
         spartan: {
-            filterNameIsRequired: 'El nombre del filtro es requerido',
-            noFiltersSelected: 'No hay filtros seleccionados',
-            filterName: 'Nombre del filtro',
-            cancel: 'Cancelar',
-            save: 'Guardar',
+            sfilters: {
+                filterNameIsRequired: 'El nombre del filtro es requerido',
+                noFiltersSelected: 'No hay filtros seleccionados',
+                filterName: 'Nombre del filtro',
+                cancel: 'Cancelar',
+                save: 'Guardar',
+            }
         }
     },
     it: {
         spartan: {
-            filterNameIsRequired: 'Il nome del filtro è obbligatorio',
-            noFiltersSelected: 'Nessun filtro selezionato',
-            filterName: 'Nome del filtro',
-            cancel: 'Annulla',
-            save: 'Salva',
+            sfilters: {
+                filterNameIsRequired: 'Il nome del filtro è obbligatorio',
+                noFiltersSelected: 'Nessun filtro selezionato',
+                filterName: 'Nome del filtro',
+                cancel: 'Annulla',
+                save: 'Salva',
+            }
         }
     },
     pt: {
         spartan: {
-            filterNameIsRequired: 'O nome do filtro é obrigatório',
-            noFiltersSelected: 'Nenhum filtro selecionado',
-            filterName: 'Nome do filtro',
-            cancel: 'Cancelar',
-            save: 'Salvar',
+            sfilters: {
+                filterNameIsRequired: 'O nome do filtro é obrigatório',
+                noFiltersSelected: 'Nenhum filtro selecionado',
+                filterName: 'Nome do filtro',
+                cancel: 'Cancelar',
+                save: 'Salvar',
+            }
         }
     },
   },
@@ -92,7 +100,7 @@ const { t } = useI18n({
         >
             <div>
                 <PopoverPanel v-slot="{close}" class="absolute right-0 flex flex-col max-w-xs gap-4 p-4 mt-2 overflow-hidden origin-bottom-right bg-white rounded-lg shadow-lg md:max-w-md ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <label class="font-semibold leading-none">{{ t('spartan.filterName') }}</label>
+                    <label class="font-semibold leading-none">{{ t('spartan.sfilters.filterName') }}</label>
 
                     <div>
                         <SInput v-model="name" :invalid="Boolean(messageValidation)" />
@@ -100,8 +108,8 @@ const { t } = useI18n({
                     </div>
 
                     <div class="flex gap-3">
-                        <SButton color="white" @click="handleCancel(close)">{{t('spartan.cancel')}}</SButton>
-                        <SButton color="primary" @click="handleSaveFilter(close)">{{t('spartan.save')}}</SButton>
+                        <SButton color="white" @click="handleCancel(close)">{{t('spartan.sfilters.cancel')}}</SButton>
+                        <SButton color="primary" @click="handleSaveFilter(close)">{{t('spartan.sfilters.save')}}</SButton>
                     </div>
                 </PopoverPanel>
             </div>
