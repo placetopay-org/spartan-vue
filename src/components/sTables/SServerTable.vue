@@ -1,7 +1,7 @@
 <template>
 <STableLayout>
     <div class="float-left m-2">
-        <label>Records per page</label>
+        <label>{{ t('spartan.sServerTable.recordsPerPage') }}</label>
         <select v-model="perPage" @change="fetch">
             <option v-for="recordsPerPage in configuration.pagination.menu" >
                 {{ recordsPerPage }}
@@ -10,7 +10,7 @@
     </div>
 
     <div v-if="configuration.search.enable" class="float-right m-2">
-        <SInput :placeholder="configuration.search.placeholder" v-model="querySearch" @input="simpleSearch" />
+        <SInput :placeholder="t('spartan.sServerTable.search')" v-model="querySearch" @input="simpleSearch" />
     </div>
 
     <STable>
@@ -59,7 +59,7 @@
         :last-page="totalPages"
         @changeCurrentPage="changePage"
     >
-        <p>Showing {{ recordFrom }} to {{ recordTo}} of {{ count }} records </p>
+        <p>{{ t('spartan.sServerTable.recordsVerbose', { from: recordFrom, to: recordTo, count: count}) }}</p>
     </STablePagination>
 
 </STableLayout>
@@ -79,6 +79,7 @@ import STablePagination from "./STablePagination.vue";
 import SInput from "../sInputs/SInput.vue";
 import {eventBus} from "../../utils/eventBus";
 import {ChevronUpIcon, ChevronDownIcon} from "@heroicons/vue/24/outline";
+import {useI18n} from "vue-i18n";
 
 const OrderAsc = 'asc';
 const OrderDesc = 'desc';
@@ -123,6 +124,57 @@ export default {
         }
     },
     data() {
+        const { t } = useI18n({
+            useScope: 'local',
+            messages: {
+                en: {
+                    spartan: {
+                        sServerTable: {
+                            recordsPerPage: 'Records per page',
+                            recordsVerbose: 'Showing {from} to {to} of {count} records',
+                            search: 'Search'
+                        }
+                    }
+                },
+                es: {
+                    spartan: {
+                        sServerTable: {
+                            recordsPerPage: 'Registros por página',
+                            recordsVerbose: 'Mostrando {from} a {to} de {count} registros',
+                            search: 'Buscar'
+                        }
+                    }
+                },
+                it: {
+                    spartan: {
+                        sServerTable: {
+                            recordsPerPage: 'Record per pagina',
+                            recordsVerbose: 'Visualizzazione da {from} a {to} di 20 {count} record',
+                            search: 'Ricerca'
+                        }
+                    }
+                },
+                pt: {
+                    spartan: {
+                        sServerTable: {
+                            recordsPerPage: 'Registros por página',
+                            recordsVerbose: 'Mostrando {from} a {to} de {count} registros',
+                            search: 'Procurar'
+                        }
+                    }
+                },
+                fr: {
+                    spartan: {
+                        sServerTable: {
+                            recordsPerPage: 'Enregistrements par page',
+                            recordsVerbose: 'Affichage de {from} à {to} sur 20 {count}',
+                            search: 'Recherche'
+                        }
+                    }
+                },
+            }
+        });
+
         return {
             configuration: this.normalizeConfiguration(),
             records: [],
@@ -138,6 +190,7 @@ export default {
             orderBy: null,
             orderDir: null,
             orderMap: {},
+            t: t,
         };
     },
     methods: {
@@ -156,7 +209,6 @@ export default {
                 search: {
                     ...{
                         enable: true,
-                        placeholder: 'Search',
                         delay: 400,
                         value: '',
                     },
