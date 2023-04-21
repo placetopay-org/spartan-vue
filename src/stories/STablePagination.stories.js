@@ -6,6 +6,7 @@ export default {
     args: {
         currentPage: "1",
         lastPage: "12",
+        simple: false,
     },
     argTypes: {
         currentPage: {
@@ -13,6 +14,9 @@ export default {
         },
         lastPage: {
             control: { type: "number" },
+        },
+        simple: {
+            control: { type: "boolean" },
         },
     },
 };
@@ -26,6 +30,7 @@ const Template = ( args ) => ({
     <STablePagination
         :current-page="1"
         :last-page="12"
+        :simple="args.simple"
     >
       <p> {{ args.info }} </p>
     </STablePagination>

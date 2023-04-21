@@ -36,7 +36,7 @@ import {
   HomeIcon,
   LogoutIcon,
   UserCircleIcon,
-} from "@heroicons/vue/outline";
+} from "@heroicons/vue/24/outline";
 
 export default {
   name: "Avatar",

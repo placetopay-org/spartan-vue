@@ -6,11 +6,6 @@ import {
   SInput,
   SCard
 } from "../index";
-import {
-  QrcodeIcon,
-  DocumentDuplicateIcon,
-  TrashIcon,
-} from "@heroicons/vue/outline";
 
 import MyServerTableFilter from "./MyServerTableFilter.vue";
 
@@ -39,9 +34,6 @@ const Template = (args) => ({
     SBadge,
     SInput,
     SCard,
-    QrcodeIcon,
-    DocumentDuplicateIcon,
-    TrashIcon,
     MyServerTableFilter
   },
   setup() {

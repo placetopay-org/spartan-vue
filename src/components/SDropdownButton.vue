@@ -7,7 +7,7 @@
 <script>
 import { MenuButton } from "@headlessui/vue";
 import { SButton } from "./../index";
-import { ChevronDownIcon } from "@heroicons/vue/solid";
+import { ChevronDownIcon } from "@heroicons/vue/24/solid";
 
 export default {
   components: {

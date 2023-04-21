@@ -1,7 +1,7 @@
 <template>
-  <span :class="classes">
+  <component :is="as" :class="classes">
     <slot />
-  </span>
+  </component>
 </template>
 
 <script>
@@ -11,6 +11,8 @@ const colorOptions = {
   red: "bg-red-100 text-red-800",
   yellow: "bg-yellow-100 text-yellow-800",
   blue: "bg-blue-100 text-blue-800",
+  white: "bg-white text-gray-900",
+  transparent: "bg-transparent text-gray-400",
 };
 
 const sizeOptions = {
@@ -21,6 +23,10 @@ const sizeOptions = {
 
 export default {
   props: {
+    as: {
+      type: [Object, String],
+      default: 'span'
+    },
     size: {
       type: String,
       default: "sm",
@@ -33,7 +39,7 @@ export default {
   computed: {
     classes() {
       return [
-        "inline-flex items-center px-2.5 py-0.5 rounded-full font-medium",
+        "inline-flex items-center rounded-full font-medium",
         colorOptions[this.color],
         sizeOptions[this.size],
       ];

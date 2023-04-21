@@ -68,17 +68,17 @@
 <script>
 
 import axios from "axios";
-import STable from "./STable.vue";
-import STableHead from "./STableHead.vue";
-import STableHeadItem from "./STableHeadItem.vue";
-import STableBody from "./STableBody.vue";
-import STableRow from "./STableRow.vue";
-import STableRowItem from "./STableRowItem.vue";
-import STableLayout from "./STableLayout.vue";
-import STablePagination from "./STablePagination.vue";
-import SInput from "./SInput.vue";
+import STable from "./sTables/STable.vue";
+import STableHead from "./sTables/STableHead.vue";
+import STableHeadItem from "./sTables/STableHeadItem.vue";
+import STableBody from "./sTables/STableBody.vue";
+import STableRow from "./sTables/STableRow.vue";
+import STableRowItem from "./sTables/STableRowItem.vue";
+import STableLayout from "./sTables/STableLayout.vue";
+import STablePagination from "./sTables/STablePagination.vue";
+import SInput from "./sInputs/SInput.vue";
 import {eventBus} from "../utils/eventBus";
-import {ChevronUpIcon, ChevronDownIcon} from "@heroicons/vue/outline";
+import {ChevronUpIcon, ChevronDownIcon} from "@heroicons/vue/24/outline";
 
 const OrderAsc = 'asc';
 const OrderDesc = 'desc';

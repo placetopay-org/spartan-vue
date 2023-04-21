@@ -11,7 +11,7 @@
           @click="openSidebar"
         >
           <span class="sr-only">Open sidebar</span>
-          <MenuIcon class="h-6 w-6" aria-hidden="true" />
+          <Bars3Icon class="h-6 w-6" aria-hidden="true" />
         </button>
       </div>
       <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none">
@@ -25,7 +25,7 @@
 
 <script>
 import { SButton, SInput } from "../src/index.js";
-import { MenuIcon } from '@heroicons/vue/outline'
+import { Bars3Icon } from '@heroicons/vue/24/outline';
 import Sidebar from "./components/Sidebar.vue";
 import useSidebar from "./composables/useSidebar";
 import SidebarContent from "./components/SidebarContent.vue";
@@ -36,7 +36,7 @@ export default {
     SButton,
     SInput,
     Sidebar,
-    MenuIcon,
+    Bars3Icon,
     SidebarContent
   },
   setup() {

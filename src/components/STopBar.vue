@@ -6,7 +6,7 @@
         @click="toggleSidebar('mobile')"
       >
         <span class="sr-only">Open sidebar</span>
-        <MenuIcon class="h-6 w-6" aria-hidden="true" />
+        <Bars3Icon class="h-6 w-6" aria-hidden="true" />
       </button>
 
       <button
@@ -15,7 +15,7 @@
         @click="toggleSidebar('desktop')"
       >
         <span class="sr-only">Toggle Sidebar</span>
-        <MenuIcon class="h-6 w-6" aria-hidden="true" />
+        <Bars3Icon class="h-6 w-6" aria-hidden="true" />
       </button>
       <div class="flex-1 px-4 flex justify-between">
         <div class="flex-1 flex">
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import {MenuIcon} from '@heroicons/vue/outline'
+import {Bars3Icon} from '@heroicons/vue/24/outline'
 import useSidebar from "../composables/useSidebar";
 
 export default {
   components: {
-    MenuIcon
+    Bars3Icon
   },
   setup() {
     const { toggleSidebar } = useSidebar()
