@@ -18,26 +18,34 @@ const { t } = useI18n({
   messages: {
     en: {
       spartan: {
-        previous: 'Previous',
-        next: 'Next',
+        sfilters: {
+          previous: 'Previous',
+          next: 'Next',
+        }
       }
     },
     es: {
       spartan: {
-        previous: 'Anterior',
-        next: 'Siguiente',
+        sfilters: {
+          previous: 'Anterior',
+          next: 'Siguiente',
+        }
       }
     },
     it: {
       spartan: {
-        previous: 'Precedente',
-        next: 'Prossimo',
+        sfilters: {
+          previous: 'Precedente',
+          next: 'Prossimo',
+        }
       }
     },
     pt: {
       spartan: {
-        previous: 'anterior',
-        next: 'Next',
+        sfilters: {
+          previous: 'anterior',
+          next: 'Next',
+        }
       }
     },
   }
@@ -111,7 +119,7 @@ const changeCurrentPage = (page: number) => {
             'rounded-l-lg': !simple,
           }"
         >
-          <span :class="{ 'sr-only': !simple }">{{ t('spartan.previous') }}</span>
+          <span :class="{ 'sr-only': !simple }">{{ t('spartan.sfilters.previous') }}</span>
           <ChevronLeftIcon v-if="!simple" class="w-5 h-5" aria-hidden="true" />
         </button>
 
@@ -138,7 +146,7 @@ const changeCurrentPage = (page: number) => {
             'rounded-r-lg': !simple,
           }"
         >
-          <span :class="{ 'sr-only': !simple }">{{ t('spartan.next') }}</span>
+          <span :class="{ 'sr-only': !simple }">{{ t('spartan.sfilters.next') }}</span>
           <ChevronRightIcon v-if="!simple" class="w-5 h-5" aria-hidden="true" />
         </button>
       </nav>

@@ -39,22 +39,30 @@ const { t } = useI18n({
   messages: {
     en: {
         spartan: {
-            save: 'Save',
+            sfilters: {
+                save: 'Save',
+            }
         }
     },
     es: {
         spartan: {
-            save: 'Guardar',
+            sfilters: {
+                save: 'Guardar',
+            }
         }
     },
     it: {
         spartan: {
-            save: 'Salvare',
+            sfilters: {
+                save: 'Salvare',
+            }
         }
     },
     pt: {
         spartan: {
-            save: 'Salvar',
+            sfilters: {
+                save: 'Salvar',
+            }
         }
     },
   },
@@ -67,7 +75,7 @@ const { t } = useI18n({
         :item-selector="selectorSelected"
         :value="value"
         :operator="operator"
-        :save-button-text="t('spartan.save')"
+        :save-button-text="t('spartan.sfilters.save')"
         @update:value="value = $event"
         @update:operator="operator = $event"
         @duplicate="handleDuplicateFilter"

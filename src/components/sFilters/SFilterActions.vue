@@ -10,26 +10,34 @@ const { t } = useI18n({
   messages: {
     en: {
       spartan: {
-        applyFilters: 'Apply filters',
-        deleteFilters: 'Delete filters',
+        sfilters: {
+          applyFilters: 'Apply filters',
+          deleteFilters: 'Delete filters',
+        },
       }
     },
     es: {
       spartan: {
-        applyFilters: 'Aplicar filtros',
-        deleteFilters: 'Borrar filtros',
+        sfilters: {
+          applyFilters: 'Aplicar filtros',
+          deleteFilters: 'Borrar filtros',
+        },
       }
     },
     it: {
       spartan: {
-        applyFilters: 'Applica filtri',
-        deleteFilters: 'Elimina filtri',
+        sfilters: {
+          applyFilters: 'Applica filtri',
+          deleteFilters: 'Elimina filtri',
+        },
       }
     },
     pt: {
       spartan: {
-        applyFilters: 'Aplicar filtros',
-        deleteFilters: 'Excluir filtros',
+        sfilters: {
+          applyFilters: 'Aplicar filtros',
+          deleteFilters: 'Excluir filtros',
+        },
       }
     },
   }
@@ -38,7 +46,7 @@ const { t } = useI18n({
 
 <template>
     <div class="flex flex-row gap-1">
-        <SBadge as="button" size="lg" color="primary" class="bg-primary-500 px-6 text-white" @click="api.applyFilters">{{ t('spartan.applyFilters') }}</SBadge>
-        <SBadge as="button" size="lg" class="px-6 border border-gray-300" color="white" @click="api.removeFilters">{{ t('spartan.deleteFilters') }}</SBadge>
+        <SBadge as="button" size="lg" color="primary" class="bg-primary-500 px-6 text-white" @click="api.applyFilters">{{ t('spartan.sfilters.applyFilters') }}</SBadge>
+        <SBadge as="button" size="lg" class="px-6 border border-gray-300" color="white" @click="api.removeFilters">{{ t('spartan.sfilters.deleteFilters') }}</SBadge>
     </div>
 </template>

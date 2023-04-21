@@ -16,26 +16,34 @@ const { t } = useI18n({
   messages: {
     en: {
         spartan: {
-            mySavedFilters: 'My saved filters',
-            saveFilter: 'Save filter',
+            sfilters: {
+                mySavedFilters: 'My saved filters',
+                saveFilter: 'Save filter',
+            }
         }
     },
     es: {
         spartan: {
-            mySavedFilters: 'Mis filtros guardados',
-            saveFilter: 'Guardar filtro',
+            sfilters: {
+                mySavedFilters: 'Mis filtros guardados',
+                saveFilter: 'Guardar filtro',
+            }
         }
     },
     it: {
         spartan: {
-            mySavedFilters: 'I miei filtri salvati',
-            saveFilter: 'Salva filtro',
+            sfilters: {
+                mySavedFilters: 'I miei filtri salvati',
+                saveFilter: 'Salva filtro',
+            }
         }
     },
     pt: {
         spartan: {
-            mySavedFilters: 'Meus filtros salvos',
-            saveFilter: 'Salvar filtro',
+            sfilters: {
+                mySavedFilters: 'Meus filtros salvos',
+                saveFilter: 'Salvar filtro',
+            }
         }
     },
   },
@@ -67,7 +75,7 @@ const { t } = useI18n({
                         class="absolute z-20 overflow-hidden right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                         <div class="bg-gray-50 font-semibold text-sm py-3 px-4">
-                            {{t('spartan.mySavedFilters')}}
+                            {{t('spartan.sfilters.mySavedFilters')}}
                         </div>
 
                         <ul>
@@ -86,7 +94,7 @@ const { t } = useI18n({
 
                         <PopoverButton class="w-full text-left bg-primary-600 text-white cursor-pointer p-3 text-sm font-medium">
                             <InboxArrowDownIcon class="w-5 h-5 inline-block mr-3" />
-                            {{t('spartan.saveFilter')}}
+                            {{t('spartan.sfilters.saveFilter')}}
                         </PopoverButton>
                     </MenuItems>
                 </div>

@@ -30,22 +30,30 @@ const { t } = useI18n({
   messages: {
     en: {
         spartan: {
-            add: 'Add',
+            sfilters: {
+                add: 'Add',
+            }
         }
     },
     es: {
         spartan: {
-            add: 'Agregar',
+            sfilters: {
+                add: 'Agregar',
+            }
         }
     },
     it: {
         spartan: {
-            add: 'Aggiungere',
+            sfilters: {
+                add: 'Aggiungere',
+            }
         }
     },
     pt: {
         spartan: {
-            add: 'Adicionar',
+            sfilters: {
+                add: 'Adicionar',
+            }
         }
     },
   },
@@ -58,7 +66,7 @@ const { t } = useI18n({
         :value="filterValue"
         :operator="operator"
         :can-duplicate="false"
-        :save-button-text="t('spartan.add')"
+        :save-button-text="t('spartan.sfilters.add')"
         @update:value="filterValue = $event"
         @update:operator="operator = $event"
         @delete="api.addItemByTypeId.value = null"
