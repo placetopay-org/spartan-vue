@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import SServerTableFilter from "../components/SServerTableFilter.vue";
+import SServerTableFilter from "../components/sTables/SServerTableFilter.vue";
 import SInput from "../components/sInputs/SInput.vue";
 import SButton from "../components/SButton.vue";
 
