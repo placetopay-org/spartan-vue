@@ -1,6 +1,6 @@
 import { SEmptyState, SButton } from "../index";
-import { PlusIcon } from "@heroicons/vue/solid";
-import { ExclamationIcon } from "@heroicons/vue/outline";
+import { PlusIcon } from "@heroicons/vue/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/vue/24/outline";
 
 export default {
   title: "Components/SEmptyState",
@@ -20,7 +20,7 @@ export default {
 const Template = (args) => ({
   components: { SEmptyState, SButton },
   setup() {
-    return { args, PlusIcon, ExclamationIcon };
+    return { args, PlusIcon, ExclamationCircleIcon };
   },
   template: `
     <SEmptyState v-bind="args" class="mx-auto w-full max-w-lg">
@@ -46,7 +46,7 @@ Default.args = {
 export const CustomIcon = Template.bind({});
 CustomIcon.args = {
   cta1: false,
-  icon: ExclamationIcon,
+  icon: ExclamationCircleIcon,
 };
 
 export const WithCTA = Template.bind({});

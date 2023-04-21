@@ -1,5 +1,5 @@
 import { SCard, SButton, SCardHeader } from "../index";
-import { PlusIcon } from "@heroicons/vue/solid";
+import { PlusIcon } from "@heroicons/vue/24/solid";
 
 export default {
   title: "Components/SCard",

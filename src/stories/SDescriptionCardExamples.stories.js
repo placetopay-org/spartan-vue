@@ -8,7 +8,7 @@ import {
   SSectionDescription,
   SLink,
 } from "../index";
-import { PencilIcon, TrashIcon } from "@heroicons/vue/outline";
+import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline";
 
 export default {
   title: "Examples/SDescriptionCardExamples",

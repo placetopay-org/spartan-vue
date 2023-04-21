@@ -43,9 +43,9 @@ import {
 
 import {
   CheckIcon,
-  ExclamationIcon,
-  AnnotationIcon,
-} from "@heroicons/vue/outline";
+  ExclamationCircleIcon,
+  ChatBubbleBottomCenterTextIcon,
+} from "@heroicons/vue/24/outline";
 
 const options = {
   success: {
@@ -54,11 +54,11 @@ const options = {
   },
   danger: {
     iconWrapperClasses: "bg-red-100 text-red-600",
-    icon: ExclamationIcon,
+    icon: ExclamationCircleIcon,
   },
   default: {
     iconWrapperClasses: "bg-gray-300 text-gray-800",
-    icon: AnnotationIcon,
+    icon: ChatBubbleBottomCenterTextIcon,
   },
 };
 
