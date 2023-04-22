@@ -1,12 +1,13 @@
 <template>
 <STableLayout>
     <div class="float-left m-2">
-        <label>{{ t('spartan.sServerTable.recordsPerPage') }}</label>
-        <select v-model="perPage" @change="fetch">
-            <option v-for="recordsPerPage in configuration.pagination.menu" >
-                {{ recordsPerPage }}
-            </option>
-        </select>
+        <SSelect
+                :id="'sPerPage' + Date.now()"
+                :label="t('spartan.sServerTable.recordsPerPage')"
+                :options="configuration.pagination.menu"
+                v-model="perPage"
+                @change="fetch"
+        />
     </div>
 
     <div v-if="configuration.search.enable" class="float-right m-2">
@@ -83,6 +84,7 @@ import STableRowItem from "./STableRowItem.vue";
 import STableLayout from "./STableLayout.vue";
 import STablePagination from "./STablePagination.vue";
 import SInput from "../sInputs/SInput.vue";
+import SSelect from "../sSelects/SSelect.vue";
 import {eventBus} from "../../utils/eventBus";
 import {ChevronUpIcon, ChevronDownIcon} from "@heroicons/vue/24/outline";
 import {useI18n} from "vue-i18n";
@@ -102,6 +104,7 @@ export default {
         STableRowItem,
         STablePagination,
         SInput,
+        SSelect,
         ChevronUpIcon,
         ChevronDownIcon
     },
@@ -217,7 +220,7 @@ export default {
             });
         },
         normalizeConfiguration() {
-            return {
+            let configuration = {
                 search: {
                     ...{
                         enable: true,
@@ -235,6 +238,15 @@ export default {
                     ...this.config.pagination ?? {},
                 },
             };
+
+            configuration.pagination.menu = configuration.pagination.menu.map((recordsPerPage) => {
+                return {
+                    value: recordsPerPage,
+                    label: recordsPerPage
+                };
+            });
+
+            return configuration;
         },
         fetch() {
             this.startLoading();
