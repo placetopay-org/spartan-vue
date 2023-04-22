@@ -40,7 +40,7 @@
         </STableHead>
 
         <STableBody>
-            <STableRow v-for="record in records">
+            <STableRow v-if="!loading" v-for="record in records">
                 <STableRowItem v-for="column in columns">
                     <slot
                         :name="`item(${column.name})`"
@@ -51,10 +51,16 @@
                     </slot>
                 </STableRowItem>
             </STableRow>
+            <STableRow v-else>
+                <STableRowItem :colspan="columns.length">
+                    <div class="w-full text-center">{{ t('spartan.sServerTable.processing') }}</div>
+                </STableRowItem>
+            </STableRow>
         </STableBody>
     </STable>
 
     <STablePagination
+        v-if="!loading"
         :current-page="currentPage"
         :last-page="totalPages"
         @changeCurrentPage="changePage"
@@ -132,7 +138,8 @@ export default {
                         sServerTable: {
                             recordsPerPage: 'Records per page',
                             recordsVerbose: 'Showing {from} to {to} of {count} records',
-                            search: 'Search'
+                            search: 'Search',
+                            processing: 'Processing...'
                         }
                     }
                 },
@@ -141,7 +148,8 @@ export default {
                         sServerTable: {
                             recordsPerPage: 'Registros por página',
                             recordsVerbose: 'Mostrando {from} a {to} de {count} registros',
-                            search: 'Buscar'
+                            search: 'Buscar',
+                            processing: 'Procesando...'
                         }
                     }
                 },
@@ -150,7 +158,8 @@ export default {
                         sServerTable: {
                             recordsPerPage: 'Record per pagina',
                             recordsVerbose: 'Visualizzazione da {from} a {to} di 20 {count} record',
-                            search: 'Ricerca'
+                            search: 'Ricerca',
+                            processing: 'in lavorazione...'
                         }
                     }
                 },
@@ -159,7 +168,8 @@ export default {
                         sServerTable: {
                             recordsPerPage: 'Registros por página',
                             recordsVerbose: 'Mostrando {from} a {to} de {count} registros',
-                            search: 'Procurar'
+                            search: 'Procurar',
+                            processing: 'Em processamento...'
                         }
                     }
                 },
@@ -168,7 +178,8 @@ export default {
                         sServerTable: {
                             recordsPerPage: 'Enregistrements par page',
                             recordsVerbose: 'Affichage de {from} à {to} sur 20 {count}',
-                            search: 'Recherche'
+                            search: 'Recherche',
+                            processing: 'Traitement...'
                         }
                     }
                 },
@@ -190,6 +201,7 @@ export default {
             orderBy: null,
             orderDir: null,
             orderMap: {},
+            loading: false,
             t: t,
         };
     },
@@ -225,6 +237,8 @@ export default {
             };
         },
         fetch() {
+            this.startLoading();
+
             axios.request({
                 method: this.method,
                 url: this.url,
@@ -233,7 +247,7 @@ export default {
                 this.records = response.data.data;
                 this.count = response.data.total;
                 this.updatePagination();
-            });
+            }).finally(this.stopLoading);
         },
         itemValue(record, columnName) {
             return record.hasOwnProperty(columnName) ? record[columnName] : '';
@@ -298,6 +312,12 @@ export default {
             this.orderDir = dir;
             this.orderMap[this.orderBy] = this.orderDir;
             this.fetch();
+        },
+        startLoading() {
+            this.loading = true;
+        },
+        stopLoading() {
+            this.loading = false;
         }
     },
     created() {
