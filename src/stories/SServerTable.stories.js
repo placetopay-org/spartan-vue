@@ -1,43 +1,32 @@
 import {
-  STableLayout,
   SServerTable,
   SButton,
   SBadge,
-  SInput,
-  SCard
 } from "../index";
 
+import {PencilSquareIcon, TrashIcon} from "@heroicons/vue/24/outline";
 import MyServerTableFilter from "./MyServerTableFilter.vue";
 
 export default {
   title: "Components/SServerTable",
-  component: STableLayout,
-  args: {
-    currentPage: "1",
-    default: "1",
-  },
+  component: SServerTable,
   argTypes: {
-    currentPage: {
-      control: { type: "number" },
-    },
-    default: {
-      control: { type: "text" },
-    },
-  },
-  subcomponents: { SServerTable },
+  }
 };
 const Template = (args) => ({
   components: {
-    STableLayout,
     SServerTable,
     SButton,
     SBadge,
-    SInput,
-    SCard,
+    PencilSquareIcon,
+    TrashIcon,
     MyServerTableFilter
   },
   setup() {
-    return { args };
+    const editRecord = (record) => alert('Editing record:  ' + record.first_name);
+    const removeRecord = (record) => alert('Removing record:  ' + record.first_name);
+
+    return { args, editRecord, removeRecord };
   },
   template: `        
       <div>
@@ -55,7 +44,13 @@ const Template = (args) => ({
           </template>
   
           <template #item(action)="{ value, record }">
-            <SButton>Edit</SButton>
+            <SButton color="primary" @click="editRecord(record)">
+              <PencilSquareIcon class="h-5 w-5 text-white" />
+            </SButton>
+
+            <SButton color="white" class="ml-2" @click="removeRecord(record)">
+              <TrashIcon class="h-5 w-5 text-red-600" />
+            </SButton>
           </template>
   
         </SServerTable>
@@ -63,9 +58,9 @@ const Template = (args) => ({
   `,
 });
 
-export const Table = Template.bind({});
+export const Default = Template.bind({});
 
-Table.args = {
+Default.args = {
   columns: [
     {
       name: "first_name",
@@ -79,20 +74,25 @@ Table.args = {
     },
     {
       name: "email",
-      label: "Email"
+      label: "Email",
+      orderable: false,
     },
     {
       name: "gender",
       label: "Gender",
+      orderable: false,
     },
     {
       name: "action",
       label: "Action",
+      orderable: false,
     }
   ],
   config: {
     search: {
+      enable: true,
       delay: 500,
+      value: ''
     },
     ordering: {
       by: 'first_name',
@@ -100,6 +100,7 @@ Table.args = {
     },
     pagination: {
       perPage: 10,
+      menu: [10 , 20, 50, 100]
     }
   }
 };
