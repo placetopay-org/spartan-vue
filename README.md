@@ -64,17 +64,23 @@ SpartanVue is a vue component library that contains the components used in the P
     ```shell
     npm install
     ```
+   
+4. Create env file
 
-4. Run the project
+    ```shell
+    cp .env.example .env
+    ```
+
+5. Run the project
 
     ```shell
     npm run dev:storybook
     ```
 
-5. Open the project in your browser
+6. Open the project in your browser
 
     ```shell
     http://localhost:6006
     ```
 
-6. Happy coding!
+7. Happy coding!

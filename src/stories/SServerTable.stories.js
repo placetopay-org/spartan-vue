@@ -32,7 +32,7 @@ const Template = (args) => ({
       <div>
         <MyServerTableFilter></MyServerTableFilter>
 
-        <SServerTable ref="usersTable" :columns="args.columns" :config="args.config" url="http://spartan-mock.loc:2020/api/users">
+        <SServerTable ref="usersTable" :columns="args.columns" :config="args.config" :url="args.url">
   
           <template #item(first_name)="{ value, record }">
             <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ value }}</a>
@@ -61,6 +61,7 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 
 Default.args = {
+  url: process.env.STORYBOOK_MOCK_URL,
   columns: [
     {
       name: "first_name",
