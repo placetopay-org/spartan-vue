@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Update storybook to 7.0.15
 
+## 0.2.2-beta.0 - 2023-05-23
+
 ## 0.2.1 - 2023-04-21
 ## 0.2.1-beta.19 - 2023-04-21
 ### Changed
