@@ -47,6 +47,7 @@ export { default as SBadge } from "./components/SBadge.vue";
 export { default as SSectionTitle } from "./components/SSectionTitle.vue";
 export { default as SSectionDescription } from "./components/SSectionDescription.vue";
 export { default as SLink } from "./components/SLink.vue";
+export { default as STabsLine } from "./components/STabsLine.vue";
 export * from "./components/sSelects";
 export * from "./components/sCards";
 export * from "./components/sInputs";
