@@ -1,6 +1,6 @@
 {
   "name": "@placetopay-org/spartan-vue",
-  "version": "0.2.2-beta.1",
+  "version": "0.2.2-beta.2",
   "description": "spartan vue lib",
   "files": [
     "dist",
@@ -84,6 +84,5 @@
     "url": "https://github.com/placetopay-org/spartan-vue/issues"
   },
   "readme": "ERROR: No README data found!",
-  "homepage": "https://github.com/placetopay-org/spartan-vue#readme",
-  "_id": "@placetopay-org/spartan-vue@0.2.2-beta.1"
+  "homepage": "https://github.com/placetopay-org/spartan-vue#readme"
 }
