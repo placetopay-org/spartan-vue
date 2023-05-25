@@ -1,7 +1,7 @@
 name: "Chromatic"
 on:
   workflow_run:
-    workflows: ["publish beta", "publish"]
+    workflows: [publish beta, publish]
     types:
       - completed
 jobs:
