@@ -74,7 +74,6 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.13",
-    "mitt": "^3.0.0",
     "vue-i18n": "^9.2.2"
   }
 }

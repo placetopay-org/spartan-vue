@@ -7,5 +7,4 @@ export { default as STableRow } from "./STableRow.vue";
 export { default as STableRowItem } from "./STableRowItem.vue";
 export { default as STablePagination } from "./STablePagination.vue";
 export { default as SServerTable } from "./SServerTable.vue";
-export { default as SServerTableFilter } from "./SServerTableFilter.vue";
 export { default as SDataTable } from "./SDataTable.vue";

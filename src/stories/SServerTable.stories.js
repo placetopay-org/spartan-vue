@@ -5,7 +5,7 @@ import {
 } from "../index";
 
 import {PencilSquareIcon, TrashIcon} from "@heroicons/vue/24/outline";
-import MyServerTableFilter from "./MyServerTableFilter.vue";
+import axios from "axios";
 
 export default {
   title: "Components/SServerTable",
@@ -19,8 +19,7 @@ const Template = (args) => ({
     SButton,
     SBadge,
     PencilSquareIcon,
-    TrashIcon,
-    MyServerTableFilter
+    TrashIcon
   },
   setup() {
     const editRecord = (record) => alert('Editing record:  ' + record.first_name);
@@ -28,40 +27,30 @@ const Template = (args) => ({
 
     return { args, editRecord, removeRecord };
   },
-  template: `        
-      <div>
-        <MyServerTableFilter></MyServerTableFilter>
+  template: `
+      <SServerTable :columns="args.columns" :options="args.options" :fetch="args.fetch">
 
-        <SServerTable ref="usersTable" :columns="args.columns" :config="args.config" :url="args.url">
-  
-          <template #item(first_name)="{ value, record }">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ value }}</a>
-          </template>
-  
-          <template #item(gender)="{ value, record }">
-            <SBadge v-if="value === 'Male'" color="green">{{ value }}</SBadge>
-            <SBadge v-else color="yellow">{{ value }}</SBadge>
-          </template>
-  
-          <template #item(action)="{ value, record }">
-            <SButton color="primary" @click="editRecord(record)">
-              <PencilSquareIcon class="h-5 w-5 text-white" />
-            </SButton>
+        <template #item(first_name)="{ value, record }">
+          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ value }}</a>
+        </template>
 
-            <SButton color="white" class="ml-2" @click="removeRecord(record)">
-              <TrashIcon class="h-5 w-5 text-red-600" />
-            </SButton>
-          </template>
-  
-        </SServerTable>
-      </div>    
+        <template #item(action)="{ value, record }">
+          <SButton color="primary" @click="editRecord(record)">
+            <PencilSquareIcon class="h-5 w-5 text-white" />
+          </SButton>
+
+          <SButton color="white" class="ml-2" @click="removeRecord(record)">
+            <TrashIcon class="h-5 w-5 text-red-600" />
+          </SButton>
+        </template>
+
+      </SServerTable>      
   `,
 });
 
 export const Default = Template.bind({});
 
 Default.args = {
-  url: process.env.STORYBOOK_MOCK_URL,
   columns: [
     {
       name: "first_name",
@@ -89,7 +78,7 @@ Default.args = {
       orderable: false,
     }
   ],
-  config: {
+  options: {
     search: {
       enable: true,
       delay: 500,
@@ -103,5 +92,30 @@ Default.args = {
       perPage: 10,
       menu: [10 , 20, 50, 100]
     }
+  },
+  fetch: async (event) => {
+    let params = {
+      limit: event.pagination.perPage,
+      page: event.pagination.currentPage,
+      order: {
+        by: event.ordering.by,
+        dir: event.ordering.dir,
+      }
+    };
+
+    if (event.searchValue) {
+      params.query = event.searchValue;
+    }
+
+    let response = await axios.request({
+      method: 'get',
+      url: process.env.STORYBOOK_MOCK_URL,
+      params: params
+    });
+
+    return {
+      records: response.data.data,
+      totalRecords: response.data.total,
+    };
   }
 };
