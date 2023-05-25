@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.3.0-beta.0 - 2023-05-25
+
 ## 0.2.2-beta.3 - 2023-05-24
 ### Added
 - Chromatic continuous integration workflow to deploy storybook docs to chromatic.com
