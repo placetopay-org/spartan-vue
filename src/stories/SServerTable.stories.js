@@ -109,7 +109,7 @@ Default.args = {
 
     let response = await axios.request({
       method: 'get',
-      url: process.env.STORYBOOK_MOCK_URL,
+      url: import.meta.env.STORYBOOK_MOCK_URL,
       params: params
     });
 
