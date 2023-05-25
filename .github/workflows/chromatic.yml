@@ -4,6 +4,7 @@ on:
     workflows: [publish beta, publish]
     types:
       - completed
+  workflow_dispatch:
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
