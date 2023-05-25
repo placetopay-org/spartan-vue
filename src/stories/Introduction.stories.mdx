@@ -1,16 +1,19 @@
-import { Meta } from '@storybook/addon-docs';
-import Code from './assets/code-brackets.svg';
-import Colors from './assets/colors.svg';
-import Comments from './assets/comments.svg';
-import Direction from './assets/direction.svg';
-import Flow from './assets/flow.svg';
-import Plugin from './assets/plugin.svg';
-import Repo from './assets/repo.svg';
-import StackAlt from './assets/stackalt.svg';
+import { Meta } from "@storybook/blocks";
+import Code from "./assets/code-brackets.svg";
+import Colors from "./assets/colors.svg";
+import Comments from "./assets/comments.svg";
+import Direction from "./assets/direction.svg";
+import Flow from "./assets/flow.svg";
+import Plugin from "./assets/plugin.svg";
+import Repo from "./assets/repo.svg";
+import StackAlt from "./assets/stackalt.svg";
+import Cover from "./assets/cover.jpg";
+import figma from "./assets/figma.png";
 
-<Meta title="Example/Introduction" />
+<Meta title="Introduction/Overview" />
 
-<style>{`
+<style>
+  {`
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
@@ -86,126 +89,55 @@ import StackAlt from './assets/stackalt.svg';
     line-height: 20px;
   }
 
-  .tip {
-    display: inline-block;
-    border-radius: 1em;
-    font-size: 11px;
-    line-height: 12px;
-    font-weight: 700;
-    background: #E7FDD8;
-    color: #66BF3C;
-    padding: 4px 12px;
-    margin-right: 10px;
-    vertical-align: top;
-  }
-
-  .tip-wrapper {
-    font-size: 13px;
-    line-height: 20px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
-
-  .tip-wrapper code {
-    font-size: 12px;
-    display: inline-block;
+  .title {
+    font-size: 24px;
+    padding-top: 32px;
+    display: block;
   }
 
   
-`}</style>
+  `}
+</style>
 
-# Welcome to Storybook
+<img src={Cover} alt="Build" />
 
-Storybook helps you build UI components in isolation from your app's business logic, data, and context.
-That makes it easy to develop hard-to-reach states. Save these UI states as **stories** to revisit during development, testing, or QA.
+# Desing System
 
-Browse example stories now by navigating to them in the sidebar.
-View their code in the `src/stories` directory to learn how they work.
-We recommend building UIs with a [**component-driven**](https://componentdriven.org) process starting with atomic components and ending with pages.
+Hemos desarrollado un innovador sistema de diseño llamado  <strong>"Spartan"</strong> que se utiliza tanto en proyectos actuales como en futuros.
 
-<div className="subheading">Configure</div>
+Nuestro objetivo al crear este sistema fue unificar la línea gráfica en todos los proyectos. En nuestro proceso de diseño y desarrollo, nos basamos en el framework llamado [**Tailwind**](https://tailwindui.com/), que cuenta con sus propios componentes.
 
-<div className="link-list">
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/addons/addon-types"
-    target="_blank"
-  >
-    <img src={Plugin} alt="plugin" />
-    <span>
-      <strong>Presets for popular tools</strong>
-      Easy setup for TypeScript, SCSS and more.
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/webpack"
-    target="_blank"
-  >
-    <img src={StackAlt} alt="Build" />
-    <span>
-      <strong>Build configuration</strong>
-      How to customize webpack and Babel
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/styling-and-css"
-    target="_blank"
-  >
-    <img src={Colors} alt="colors" />
-    <span>
-      <strong>Styling</strong>
-      How to load and configure CSS libraries
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/get-started/setup#configure-storybook-for-your-stack"
-    target="_blank"
-  >
-    <img src={Flow} alt="flow" />
-    <span>
-      <strong>Data</strong>
-      Providers and mocking for data libraries
-    </span>
-  </a>
-</div>
+Esto nos permitió ahorrar mucho tiempo en el desarrollo de nuestro propio sistema de diseño, ya que utilizamos este framework como base para crear uno más personalizado.
 
-<div className="subheading">Learn</div>
+<strong className="title">Diseño</strong>
+
+Nuestro sistema de diseño viene ya diseñado desde la plataforma [**figma**](https://www.figma.com/) el cual pueden visualizarlo en un navegador o [**instalar el software de manera gratuita**](https://www.figma.com/downloads/)
+
+
+
+<div className="subheading">Archivos</div>
 
 <div className="link-list">
-  <a className="link-item" href="https://storybook.js.org/docs" target="_blank">
-    <img src={Repo} alt="repo" />
+  <a
+    className="link-item"
+    href="https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=0%3A1&t=V9epUvhbpmJR5icZ-1"
+    target="_blank"
+  >
+    <img src={figma} alt="placetopay" />
     <span>
-      <strong>Storybook documentation</strong>
-      Configure, customize, and extend
+      <strong>Spartan</strong>
+      Sistema de diseño para todos los proyectos, esta en constante actualización
     </span>
   </a>
-  <a className="link-item" href="https://storybook.js.org/tutorials/" target="_blank">
-    <img src={Direction} alt="direction" />
+  <a
+    className="link-item"
+    href="https://www.figma.com/file/UIzkf2Ot20xpg7kJmPx65L/Panel-v2?type=design&node-id=0%3A1&t=QGGIyonzBEM4ICDz-1"
+    target="_blank"
+  >
+    <img src={figma} alt="placetopay" />
     <span>
-      <strong>In-depth guides</strong>
-      Best practices from leading teams
+      <strong>Panel v2</strong>
+      Es el nuevo proyecto del nuevo panel para la administración de comercios
     </span>
   </a>
-  <a className="link-item" href="https://github.com/storybookjs/storybook" target="_blank">
-    <img src={Code} alt="code" />
-    <span>
-      <strong>GitHub project</strong>
-      View the source and add issues
-    </span>
-  </a>
-  <a className="link-item" href="https://discord.gg/storybook" target="_blank">
-    <img src={Comments} alt="comments" />
-    <span>
-      <strong>Discord chat</strong>
-      Chat with maintainers and the community
-    </span>
-  </a>
-</div>
-
-<div className="tip-wrapper">
-  <span className="tip">Tip</span>Edit the Markdown in{' '}
-  <code>src/stories/Introduction.stories.mdx</code>
 </div>

@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import { SToggle } from "../index";
 
 export default {
@@ -8,10 +9,11 @@ export default {
 const Template = (args) => ({
   components: { SToggle },
   setup() {
-    return { args };
+    const model = ref(args.modelValue);
+    return { args, model };
   },
   template: `
-    <SToggle v-model=""></SToggle>
+    <SToggle v-model="model"></SToggle>
     `,
 });
 
