@@ -2,6 +2,14 @@
 
 SpartanVue is a vue component library that contains the components used in the PlacetoPay web applications based in [TailwindCSS](https://tailwindcss.com/).
 
+## Desing system
+
+You can find the documentation and components of this design system by clicking [here.](https://646e732a14dfaa707ad59b33-gmuixqrsag.chromatic.com/?path=/docs/introduction-overview--docs)
+
+If you have any doubts or difficulties accessing Storybook to view the design system, you can send an email requesting access to the engineer.
+
+Engineer's email: meiyer.jaimes@evertecinc.com 
+
 ## installing
 
 1. Requirements
