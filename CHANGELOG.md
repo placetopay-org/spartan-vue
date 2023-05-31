@@ -6,10 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-
-## 0.3.0-beta.1 - 2023-05-25
-
-## 0.3.0-beta.0 - 2023-05-25
+### Added
+- Tabs with a bottom line design and possibility to add icons and a number of tab notifications
 
 ## 0.2.2-beta.3 - 2023-05-24
 ### Added
@@ -19,10 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Update storybook to 7.0.15
 
-## 0.2.2-beta.0 - 2023-05-23
-
 ## 0.2.1 - 2023-04-21
-
 ## 0.2.1-beta.19 - 2023-04-21
 ### Changed
 - Scope to filter component translations
