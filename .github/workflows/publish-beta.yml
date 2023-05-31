@@ -30,7 +30,6 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          registry-url: https://npm.pkg.github.com/
           node-version: 16
           
       - name: Install dependencies
@@ -77,9 +76,7 @@ jobs:
         run: npm run build
 
       - name: Publish
-        run: npm publish --tag ${{ env.RELEASE_TAG }}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: npm publish --tag ${{ env.RELEASE_TAG }} --access public
 
       - name: Push changes to repository
         env:
