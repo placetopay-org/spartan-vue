@@ -6,22 +6,14 @@ export default {
   component: SToggle,
 };
 
-const Template = (args) => ({
+const Template = ({ modelValue, ...rest }) => ({
   components: { SToggle },
   setup() {
-    const model = ref(args.modelValue);
-    return { args, model };
+    const model = ref(modelValue);
+    return { args: rest, model };
   },
   template: `
-    <SToggle v-bind="args">
-     <template v-if="!!args.title" v-slot:title>
-      {{ args.title }}
-     </template>
-
-     <tem plate v-if="!!args.description" v-slot:description>
-      {{ args.description }}
-     </template>
-    </SToggle>
+    <SToggle v-bind="args" v-model="model" />
     `,
 });
 
