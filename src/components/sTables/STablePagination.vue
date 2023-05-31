@@ -58,7 +58,8 @@ const getPages = (last: number, current: number) => {
   let arr = [];
 
   if (last <= size) {
-    return last;
+    const total = last < size ? last : size;
+    return Array.from({ length: total }, (value, index) => index + 1 );
   }
 
   if (last - current > 2 && current > 3) {
@@ -130,7 +131,7 @@ const changeCurrentPage = (page: number) => {
           :disabled="page === currentPage"
           class="items-center px-4 py-2 text-sm font-medium text-gray-900 border border-gray-300 h-11 w-11 disabled:bg-gray-50 disabled:text-gray-500 focus:z-10 active:z-10 focus:border-primary-300 active:bg-primary-50 active:text-primary-600 focus:ring-2 active:ring-2 focus:ring-primary-100 active:ring-primary-100 focus-visible:outline-none"
           :class="{
-            'inline-flex': page === currentPage,
+            'inline-flex bg-neutral-200': page === currentPage,
             'hidden md:inline-flex disabled:bg-gray-50 disabled:text-gray-500': page !== currentPage,
           }"
         >
