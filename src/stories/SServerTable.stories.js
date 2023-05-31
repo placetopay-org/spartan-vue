@@ -1,17 +1,11 @@
-import {
-  SServerTable,
-  SButton,
-  SBadge,
-} from "../index";
+import { SServerTable, SButton, SBadge } from "../index";
 
-import {PencilSquareIcon, TrashIcon} from "@heroicons/vue/24/outline";
-import axios from "axios";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 
 export default {
   title: "Components/SServerTable",
   component: SServerTable,
-  argTypes: {
-  }
+  argTypes: {},
 };
 const Template = (args) => ({
   components: {
@@ -19,11 +13,13 @@ const Template = (args) => ({
     SButton,
     SBadge,
     PencilSquareIcon,
-    TrashIcon
+    TrashIcon,
   },
   setup() {
-    const editRecord = (record) => alert('Editing record:  ' + record.first_name);
-    const removeRecord = (record) => alert('Removing record:  ' + record.first_name);
+    const editRecord = (record) =>
+      alert("Editing record:  " + record.first_name);
+    const removeRecord = (record) =>
+      alert("Removing record:  " + record.first_name);
 
     return { args, editRecord, removeRecord };
   },
@@ -53,6 +49,11 @@ export const Default = Template.bind({});
 Default.args = {
   columns: [
     {
+      name: "id",
+      label: "#",
+      orderable: true,
+    },
+    {
       name: "first_name",
       label: "First name",
       orderable: true,
@@ -76,46 +77,105 @@ Default.args = {
       name: "action",
       label: "Action",
       orderable: false,
-    }
+    },
   ],
   options: {
     search: {
       enable: true,
       delay: 500,
-      value: ''
+      value: "",
     },
     ordering: {
-      by: 'first_name',
-      dir: 'asc'
+      by: "first_name",
+      dir: "asc",
     },
     pagination: {
-      perPage: 10,
-      menu: [10 , 20, 50, 100]
-    }
+      perPage: 2,
+      menu: [2, 3, 5],
+    },
   },
   fetch: async (event) => {
-    let params = {
-      limit: event.pagination.perPage,
-      page: event.pagination.currentPage,
-      order: {
-        by: event.ordering.by,
-        dir: event.ordering.dir,
-      }
-    };
+    const data = [
+      {
+        id: 1,
+        email: "george.bluth@reqres.in",
+        first_name: "George",
+        last_name: "Bluth",
+        gender: "Male",
+        avatar: "https://reqres.in/img/faces/1-image.jpg",
+      },
+      {
+        id: 2,
+        email: "janet.weaver@reqres.in",
+        first_name: "Janet",
+        last_name: "Weaver",
+        gender: "Female",
+        avatar: "https://reqres.in/img/faces/2-image.jpg",
+      },
+      {
+        id: 3,
+        email: "emma.wong@reqres.in",
+        first_name: "Emma",
+        last_name: "Wong",
+        gender: "Female",
+        avatar: "https://reqres.in/img/faces/3-image.jpg",
+      },
+      {
+        id: 4,
+        email: "eve.holt@reqres.in",
+        first_name: "Eve",
+        last_name: "Holt",
+        gender: "Male",
+        avatar: "https://reqres.in/img/faces/4-image.jpg",
+      },
+      {
+        id: 5,
+        email: "charles.morris@reqres.in",
+        first_name: "Charles",
+        last_name: "Morris",
+        gender: "Male",
+        avatar: "https://reqres.in/img/faces/5-image.jpg",
+      },
+      {
+        id: 6,
+        email: "tracey.ramos@reqres.in",
+        first_name: "Tracey",
+        last_name: "Ramos",
+        gender: "Male",
+        avatar: "https://reqres.in/img/faces/6-image.jpg",
+      },
+    ];
 
+    const currentPage = event.pagination.currentPage ?? 1;
+    const perPage = event.pagination.perPage ?? 10;
+
+    const startDataIdx = (currentPage - 1) * perPage;
+    const endDataIdx = startDataIdx + perPage;
+
+    let responseFiltered = data;
     if (event.searchValue) {
-      params.query = event.searchValue;
+      responseFiltered = data.filter((item) => {
+        return (
+          item.first_name
+            .toLowerCase()
+            .includes(event.searchValue.toLowerCase()) ||
+          item.last_name.toLowerCase().includes(event.searchValue.toLowerCase()) ||
+          item.email.toLowerCase().includes(event.searchValue.toLowerCase())
+        );
+      });
     }
 
-    let response = await axios.request({
-      method: 'get',
-      url: import.meta.env.STORYBOOK_MOCK_URL,
-      params: params
+    const response = responseFiltered.slice(startDataIdx, endDataIdx).sort((a, b) => {
+      if (event.ordering.dir === "asc") {
+        return a[event.ordering.by] > b[event.ordering.by] ? 1 : -1;
+      } else {
+        return a[event.ordering.by] < b[event.ordering.by] ? 1 : -1;
+      }
     });
 
     return {
-      records: response.data.data,
-      totalRecords: response.data.total,
+      records: response,
+      totalRecords: responseFiltered.length,
     };
-  }
+  },
 };
