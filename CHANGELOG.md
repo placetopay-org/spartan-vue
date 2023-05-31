@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- Tabs with a bottom line design and possibility to add icons and a number of tab notifications
+- Vertical Steps component to use in a wizard or a step-by-step form
+- Tabs Component with a bottom line design and possibility to add icons and a number of tab notifications
 
 ## 0.2.2-beta.3 - 2023-05-24
 ### Added
