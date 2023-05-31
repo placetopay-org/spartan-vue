@@ -3,7 +3,7 @@
     <ol role="list" class="overflow-hidden">
       <li v-for="(step, stepIdx) in steps" :key="step.name" :class="[stepIdx !== steps.length - 1 ? 'pb-10' : '', 'relative']">
 
-        <template v-if="step.status === 'complete'">
+        <template v-if="step.status === 'completed'">
           <div v-if="stepIdx !== steps.length - 1" class="absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5 bg-primary-500" aria-hidden="true"
           />
           <a :href="step.href" class="group relative flex items-start">
@@ -20,7 +20,7 @@
           </a>
         </template>
 
-        <template v-else-if="step.status === 'current'" condition="step.status === 'current'">
+        <template v-else-if="step.status === 'current'">
           <div v-if="stepIdx !== steps.length - 1" class="absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5 bg-gray-300" aria-hidden="true" />
           <a :href="step.href" class="group relative flex items-start" aria-current="step">
             <span class="flex h-9 items-center" aria-hidden="true">
@@ -64,7 +64,7 @@ defineProps<{
     name: string;
     href: string;
     description: string;
-    status: string;
+    status: 'completed' | 'current' | 'upcoming';
   }>;
 }>();
 </script>
