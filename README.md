@@ -2,6 +2,14 @@
 
 SpartanVue is a vue component library that contains the components used in the PlacetoPay web applications based in [TailwindCSS](https://tailwindcss.com/).
 
+## Desing system
+
+You can find the documentation and components of this design system by clicking [here.](https://646e732a14dfaa707ad59b33-gmuixqrsag.chromatic.com/?path=/docs/introduction-overview--docs)
+
+If you have any doubts or difficulties accessing Storybook to view the design system, you can send an email requesting access to the engineer.
+
+Engineer's email: meiyer.jaimes@evertecinc.com 
+
 ## installing
 
 1. Requirements
@@ -10,34 +18,19 @@ SpartanVue is a vue component library that contains the components used in the P
    - [NPM](https://www.npmjs.com/) ^7
    - Github personal access token with "read:packages" permissions
 
-2. Configure Github npm packages
+2. Install in the consumer project
 
-    ```shell
-    npm config set "@placetopay-org:registry" https://npm.pkg.github.com/
-    ```
+   ```shell
+   npm install -D @placetopay/spartan-vue @tailwindcss/forms
+   ```
 
-3. [Generate your Github personal access token](#generate-your-githubpersonal-access-token)
+3. Configure your `tailwind.config.js` add the `presets` key
 
-4. Set your Github personal access token
-    ```shell
-    npm config set "//npm.pkg.github.com/:_authToken" {YourGithubPersonalAccessToken}
-    ```
-
-5. Install in the consumer project
-
-    ```shell
-    npm install -D @placetopay-org/spartan-vue @tailwindcss/forms
-    ```
-
-6. Configure your `tailwind.config.js` add the `presets` key
-
-    ```javascript
-    module.exports = {
-        presets: [
-            require('@placetopay-org/spartan-vue/src/tailwindcss.js')
-        ],
-    }
-    ```
+   ```javascript
+   module.exports = {
+     presets: [require("@placetopay/spartan-vue/src/tailwindcss.js")],
+   };
+   ```
 
 ### Generate your githubPersonal access token
 
@@ -55,17 +48,15 @@ SpartanVue is a vue component library that contains the components used in the P
 
 2. Clone the repository
 
-    ```shell
-    git clone git@github.com:placetopay-org/spartan-vue.git
-    ```
+   ```shell
+   git clone git@github.com:placetopay-org/spartan-vue.git
+   ```
 
 3. Install dependencies
 
-    ```shell
-    npm install
-    ```
-   
-4. Create env file
+   ```shell
+   npm install
+   ```
 
     ```shell
     cp .env.example .env
@@ -73,14 +64,14 @@ SpartanVue is a vue component library that contains the components used in the P
 
 5. Run the project
 
-    ```shell
-    npm run dev:storybook
-    ```
+   ```shell
+   npm run dev:storybook
+   ```
 
 6. Open the project in your browser
 
-    ```shell
-    http://localhost:6006
-    ```
+   ```shell
+   http://localhost:6006
+   ```
 
 7. Happy coding!
