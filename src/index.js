@@ -11,7 +11,7 @@
 // }
 //
 // export default { install }
-import './css/palette-evertec.css'
+import "./css/palette-evertec.css";
 
 export { default as SButton } from "./components/SButton.vue";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
@@ -47,6 +47,9 @@ export { default as SBadge } from "./components/SBadge.vue";
 export { default as SSectionTitle } from "./components/SSectionTitle.vue";
 export { default as SSectionDescription } from "./components/SSectionDescription.vue";
 export { default as SLink } from "./components/SLink.vue";
+export { default as STabsLine } from "./components/STabsLine.vue";
+export { default as SSteps } from "./components/SSteps.vue";
+export { default as SRadioGroups } from "./components/SRadioGroups.vue";
 export * from "./components/sSelects";
 export * from "./components/sCards";
 export * from "./components/sInputs";
