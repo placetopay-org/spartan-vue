@@ -1,5 +1,5 @@
 {
-  "name": "@placetopay-org/spartan-vue",
+  "name": "@placetopay/spartan-vue",
   "version": "0.3.0-beta.1",
   "description": "spartan vue lib",
   "files": [
@@ -16,9 +16,6 @@
     },
     "./src/tailwindcss.js": "./src/tailwindcss.js",
     "./style.css": "./dist/style.css"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "url": "git+https://github.com/placetopay-org/spartan-vue.git"
