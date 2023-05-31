@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.3.0-beta.3 - 2023-05-31
+
 ## 0.3.0-beta.2 - 2023-05-31
 ### Added
 - Vertical Steps component to use in a wizard or a step-by-step form
