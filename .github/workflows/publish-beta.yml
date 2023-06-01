@@ -78,9 +78,9 @@ jobs:
         run: npm run build
 
       - name: Publish
-        run: npm publish --tag=${{ env.RELEASE_TAG }} --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag=${{ env.RELEASE_TAG }} --access=public
 
       - name: Push changes to repository
         env:
