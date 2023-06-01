@@ -8,9 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - Table component to list data, filter and paginate data from a simple request
-
-## 0.3.0-beta.2 - 2023-05-31
-### Added
 - Vertical Steps component to use in a wizard or a step-by-step form
 - Tabs Component with a bottom line design and possibility to add icons and a number of tab notifications
 
