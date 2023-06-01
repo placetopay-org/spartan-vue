@@ -1,9 +1,7 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <SwitchGroup as="div" class="flex items-center justify-between">
     <Switch v-model="modelValue"
       :class="[modelValue ? 'bg-primary-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out mr-4 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2']">
-      <span class="sr-only">Use setting</span>
       <span
         :class="[modelValue ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']">
         <span
@@ -24,7 +22,7 @@
         </span>
       </span>
     </Switch>
-    <span class="flex flex-grow flex-col">
+    <span v-if="labels !== undefined" class="flex flex-grow flex-col">
       <SwitchLabel as="span" class="text-sm font-semibold leading-6 text-gray-900" passive>
         {{ title }}
       </SwitchLabel>
@@ -35,25 +33,14 @@
   </SwitchGroup>
 </template>
 
-<script>
+<script setup lang="ts">
 import { Switch, SwitchGroup, SwitchLabel, SwitchDescription } from "@headlessui/vue";
 
-export default {
-  components: {
-    Switch, SwitchGroup, SwitchDescription, SwitchLabel
-  },
-  props: {
-    modelValue: {
-      default: false,
-    },
-    title: {
-      type: String,
-      required: false,
-    },
-    description: {
-      type: String,
-      required: false,
-    },
-  },
-};
+const props = defineProps<{
+  labels?: boolean;
+  modelValue: boolean;
+  title?: string;
+  description?: string;
+}>();
+
 </script>

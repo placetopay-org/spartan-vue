@@ -26,14 +26,12 @@ Simple.args = {
 export const WithTitle = Template.bind({});
 
 WithTitle.args = {
-  modelValue: true,
   title: "Create Sites",
 };
 
 export const WithDescription = Template.bind({});
 
 WithDescription.args = {
-  modelValue: true,
   title: "Create Sites",
   description: "User will be able to create new sites.",
 };
