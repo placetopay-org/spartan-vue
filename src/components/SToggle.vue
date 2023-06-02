@@ -22,11 +22,11 @@
         </span>
       </span>
     </Switch>
-    <span v-if="labels !== undefined" class="flex flex-grow flex-col">
-      <SwitchLabel as="span" class="text-sm font-semibold leading-6 text-gray-900" passive>
+    <span v-if="title || description" class="flex flex-grow flex-col">
+      <SwitchLabel v-if="title" as="span" class="text-sm font-semibold leading-6 text-gray-900" passive>
         {{ title }}
       </SwitchLabel>
-      <SwitchDescription as="span" class="text-sm text-gray-400">
+      <SwitchDescription v-if="description" as="span" class="text-sm text-gray-400">
         {{ description }}
       </SwitchDescription>
     </span>
@@ -36,8 +36,7 @@
 <script setup lang="ts">
 import { Switch, SwitchGroup, SwitchLabel, SwitchDescription } from "@headlessui/vue";
 
-const props = defineProps<{
-  labels?: boolean;
+defineProps<{
   modelValue: boolean;
   title?: string;
   description?: string;
