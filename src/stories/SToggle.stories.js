@@ -6,14 +6,14 @@ export default {
   component: SToggle,
 };
 
-const Template = (args) => ({
+const Template = ({ modelValue, ...rest }) => ({
   components: { SToggle },
   setup() {
-    const model = ref(args.modelValue);
-    return { args, model };
+    const model = ref(modelValue);
+    return { args: rest, model };
   },
   template: `
-    <SToggle v-model="model"></SToggle>
+    <SToggle v-bind="args" v-model="model" />
     `,
 });
 
@@ -21,4 +21,17 @@ export const Simple = Template.bind({});
 
 Simple.args = {
   modelValue: true,
+};
+
+export const WithTitle = Template.bind({});
+
+WithTitle.args = {
+  title: "Create Sites",
+};
+
+export const WithDescription = Template.bind({});
+
+WithDescription.args = {
+  title: "Create Sites",
+  description: "User will be able to create new sites.",
 };
