@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.2.1-beta.19 - 2023-06-05
+### Changed
+- Fixed radio groups functionality and code
+
 ## 0.2.1 - 2023-04-21
 
 ## 0.2.1-beta.19 - 2023-04-21
