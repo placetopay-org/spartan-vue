@@ -6,10 +6,6 @@ SpartanVue is a vue component library that contains the components used in the P
 
 You can find the documentation and components of this design system by clicking [here.](https://646e732a14dfaa707ad59b33-gmuixqrsag.chromatic.com/?path=/docs/introduction-overview--docs)
 
-If you have any doubts or difficulties accessing Storybook to view the design system, you can send an email requesting access to the engineer.
-
-Engineer's email: meiyer.jaimes@evertecinc.com 
-
 ## installing
 
 1. Requirements
@@ -31,12 +27,6 @@ Engineer's email: meiyer.jaimes@evertecinc.com
      presets: [require("@placetopay/spartan-vue/src/tailwindcss.js")],
    };
    ```
-
-### Generate your githubPersonal access token
-
-1. Verify you can read [this repository](https://github.com/placetopay-org/spartan-vue) with your Github account. If you can't read the repository, you must be added as a collaborator.
-
-2. [Generate your token](https://github.com/settings/tokens/new) with "read:packages" permissions.
 
 ## Developing
 
