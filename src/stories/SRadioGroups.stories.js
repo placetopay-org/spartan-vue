@@ -19,7 +19,7 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 
 Default.args = {
-  radioGroups: [
+  options: [
     {
       id: "Name",
       title: "Name",
