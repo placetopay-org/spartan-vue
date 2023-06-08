@@ -25,7 +25,7 @@
             aria-hidden="true"
           />
           <span class="px-2">{{ tab.name }}</span>
-          <SBadge color="orange" v-if="tab.number !== undefined">
+          <SBadge color="primary" v-if="tab.number !== undefined">
             {{ tab.number }}
           </SBadge>
         </a>

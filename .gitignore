@@ -4,3 +4,6 @@ dist
 dist-ssr
 *.local
 .idea
+storybook-static
+build-storybook.log
+.env
