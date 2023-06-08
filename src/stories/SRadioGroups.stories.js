@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import { SRadioGroups } from "../index";
 
 export default {
@@ -9,10 +10,11 @@ export default {
 const Template = (args) => ({
   components: { SRadioGroups },
   setup() {
-    return { args };
+    const model = ref(null);
+    return { args, model };
   },
   template: `
-      <SRadioGroups v-bind="args"/>
+      <SRadioGroups v-model="model" v-bind="args" />
       `,
 });
 
@@ -21,23 +23,24 @@ export const Default = Template.bind({});
 Default.args = {
   options: [
     {
-      id: "Name",
+      id: "name",
       title: "Name",
     },
     {
-      id: "Last Name",
+      id: "last_name",
       title: "Last Name",
     },
     {
-      id: "Password",
+      id: "password",
       title: "Password",
       description: "User will be able to create new sites.",
     },
     {
-      id: "Theme",
+      id: "theme",
       title: "Theme",
       description: "User will be able to create new sites.",
     },
   ],
+  name: 'example_options'
 };
 
