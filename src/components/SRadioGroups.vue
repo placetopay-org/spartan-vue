@@ -1,39 +1,49 @@
 <template>
-  <div>
-    <label class="text-base font-medium text-gray-900">Notifications</label>
-    <p class="text-sm leading-5 text-gray-500">
-      How do you prefer to receive notifications?
-    </p>
-    <fieldset class="mt-4">
-      <legend class="sr-only">Notification method</legend>
-      <div class="space-y-4">
-        <div
-          v-for="notificationMethod in notificationMethods"
-          :key="notificationMethod.id"
-          class="flex items-center"
-        >
-          <input
-            :id="notificationMethod.id"
-            name="notification-method"
-            type="radio"
-            :checked="notificationMethod.id === 'email'"
-            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-          />
+  <fieldset>
+    <div class="space-y-6">
+      <div
+        v-for="option in options"
+        :key="`${name}_${option.id}_option_radio`"
+        class="flex items-start"
+      >
+        <input
+          :id="`${name}_${option.id}_option_radio`"
+          :name="name"
+          type="radio"
+          :value="option.id"
+          :checked="modelValue === option.id"
+          class="mt-1 h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-600"
+          @change="$emit('update:modelValue', option.id)"
+        />
+
+        <div>
           <label
-            :for="notificationMethod.id"
-            class="ml-3 block text-sm font-medium text-gray-700"
-            >{{ notificationMethod.title }}</label
+            :for="`${name}_${option.id}_option_radio`"
+            class="ml-3 block text-sm font-semibold leading-6 text-gray-900"
           >
+            {{ option.title }}
+          </label>
+          <p
+            v-if="option.description"
+            class="font-regular ml-3 block text-sm leading-6 text-gray-400"
+          >
+            {{ option.description }}
+          </p>
         </div>
       </div>
-    </fieldset>
-  </div>
+    </div>
+  </fieldset>
 </template>
 
-<script setup>
-const notificationMethods = [
-  { id: "email", title: "Email" },
-  { id: "sms", title: "Phone (SMS)" },
-  { id: "push", title: "Push notification" },
-];
+<script setup lang="ts">
+defineEmits(['update:modelValue']);
+defineProps<{
+  options: Array<{
+    id: string;
+    title: string;
+    description?: string;
+  }>;
+  name: string;
+  modelValue: any;
+}>();
 </script>

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 0.3.2-beta.3 - 2023-06-08
+### Changed
+- Fixed radio groups functionality and code
+
+## 0.3.2-beta.2 - 2023-06-07
+### Changed
+- Removed data from public access in the README file
+
 ## 0.3.1 - 2023-06-01
 ### Added
 - Table component to list data, filter and paginate data from a simple request
