@@ -1,11 +1,5 @@
 name: "publish beta"
 on:
-  pull_request:
-    branches:
-      - develop
-      - main
-    types:
-      - closed
   workflow_dispatch:
     inputs:
       release-type:
