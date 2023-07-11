@@ -7,24 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 0.3.2-beta.7 - 2023-07-11
+## 0.4.0 - 2023-07-11
 ### Added
 - More installation instructions to the README file
 
-## 0.3.2-beta.6 - 2023-07-11
-
-## 0.3.2-beta.5 - 2023-07-11
-
-## 0.3.2-beta.4 - 2023-07-11
 ### Changed
 - Version of `@heroicons/vue` to `2.0.18`
-
-## 0.3.2-beta.3 - 2023-06-08
-### Changed
 - Fixed radio groups functionality and code
-
-## 0.3.2-beta.2 - 2023-06-07
-### Changed
 - Removed data from public access in the README file
 
 ## 0.3.1 - 2023-06-01
