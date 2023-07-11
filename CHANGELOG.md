@@ -6,21 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-
-## 0.3.2-beta.7 - 2023-07-11
 ### Added
 - More installation instructions to the README file
 
-## 0.3.2-beta.4 - 2023-07-11
 ### Changed
 - Version of `@heroicons/vue` to `2.0.18`
-
-## 0.3.2-beta.3 - 2023-06-08
-### Changed
 - Fixed radio groups functionality and code
-
-## 0.3.2-beta.2 - 2023-06-07
-### Changed
 - Removed data from public access in the README file
 
 ## 0.3.1 - 2023-06-01
