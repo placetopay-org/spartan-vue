@@ -1,4 +1,5 @@
 import { SBadge } from "../index.js";
+import { withDesign } from 'storybook-addon-designs';
 
 export default {
   title: "Components/SBadge",
@@ -11,23 +12,33 @@ export default {
       control: { type: "select" },
       options: ["sm", "md", "lg"],
     },
+    decorators: [withDesign],
   },
   component: SBadge,
 };
 
-const Template = (args) => ({
+const Template = (args, parameters) => ({
   components: { SBadge },
   setup() {
-    return { args };
+    return { args, parameters };
   },
   template: `<SBadge v-bind="args">{{ args.label }}</SBadge>`,
+
 });
 
 export const Default = Template.bind({});
 
+
 Default.args = {
   label: "Default",
 };
+
+Default.parameters ={
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2314&mode=design&t=2M2dC9vkSMAsks1E-4',
+  },
+}
 
 export const Medium = Template.bind({});
 
@@ -37,6 +48,13 @@ Medium.args = {
   label: "Approved",
 };
 
+Medium.parameters ={
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2298&mode=design&t=2M2dC9vkSMAsks1E-4',
+  },
+}
+
 export const Large = Template.bind({});
 
 Large.args = {
@@ -44,3 +62,9 @@ Large.args = {
   color: "red",
   label: "12",
 };
+Large.parameters ={
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=2565-6277&mode=design&t=2M2dC9vkSMAsks1E-4',
+  },
+}
