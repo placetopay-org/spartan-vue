@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-mdx-gfm",
     "storybook-dark-mode",
+    '@storybook/addon-designs'
   ],
   framework: {
     name: "@storybook/vue3-vite",
