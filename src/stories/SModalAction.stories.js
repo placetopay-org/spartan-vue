@@ -1,5 +1,4 @@
 import { SModalAction, SButton } from "../index";
-import { ExclamationIcon } from "@heroicons/vue/24/outline";
 
 export default {
   title: "Components/SModalAction",
