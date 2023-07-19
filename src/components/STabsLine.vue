@@ -41,7 +41,7 @@ defineProps<{
   tabs: Array<{
     name: string;
     href: string;
-    icon?: Object | string | Function;
+    icon?: Object | string;
     number?: number;
     current: boolean;
   }>;
