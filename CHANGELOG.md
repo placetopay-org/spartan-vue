@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Adds storybook plugin for inspecting elements with figma.
 
+### Changed
+- Multiple dependencies in the package.json were updated, including:
+  - Upgrade of @storybook/addon-actions, @storybook/addon-docs, @storybook/addon-essentials, @storybook/addon-links, @storybook/addon-mdx-gfm, @storybook/vue3, and @storybook/vue3-vite to version ^7.1.0.
+  - Upgrade of @types/node to version ^20.4.2.
+  - Upgrade of @vue/tsconfig to version ^0.4.0.
+  - Upgrade of prettier to version ^3.0.0 and prettier-plugin-tailwindcss to version ^0.4.1.
+  - Upgrade of typescript to version ^5.1.6.
+  - Upgrade of vue-imask to version ^7.1.3.
+  - And other minor updates.
+
+
+- Component Changes:
+  - STabsLine.vue: A correction was made in the property definition.
+  - SToggle.vue: The use of v-model for the Switch component was corrected.
+  - SFilter.ts: A correction was made in the property definition.
+  - SModalAction.stories.js: An unused import was removed.
+
 ## 0.4.0 - 2023-07-11
 ### Added
 - More installation instructions to the README file

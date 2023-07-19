@@ -137,7 +137,7 @@ export const SFilter = defineComponent({
 
     return () =>
       h(
-        props.as === "template" ? Fragment : props.as,
+        props.as === "template" ? Fragment : props.as as Object,
         { ...attrs },
         slotsToRender
       );
