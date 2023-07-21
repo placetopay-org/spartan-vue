@@ -25,7 +25,7 @@
     "dev:storybook": "storybook dev -p 6006",
     "build": "vite build && npm run build:types",
     "build:storybook": "storybook build",
-    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist && mv dist/src dist/types",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "serve": "vite preview",
     "typecheck": "vue-tsc --noEmit"
   },

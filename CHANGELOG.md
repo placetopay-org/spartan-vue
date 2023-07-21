@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- Modified the `build:types` script in `package.json` to change the output directory for type declarations.
+- Adjusted the `SInputMask.vue` component to include a `@ts-ignore` comment above the mask definition.
+
+### Removed
+- Deleted the file `src/env.d.ts` which contained a reference to `vite/client`.
+- Deleted the file `src/vue-imask.d.ts` which declared the module 'vue-imask'.
+
+### Fixed
+- Updated `tsconfig.json`:
+  - Removed the `declaration`, `composite`, and `sourceMap` options under `compilerOptions`.
+  - Modified the `include` and `exclude` arrays, removing references to certain files and directories.
 
 ## 0.4.1 - 2023-07-19
 ### Added
