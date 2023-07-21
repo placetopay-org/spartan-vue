@@ -8,11 +8,12 @@
   ],
   "main": "./dist/spartan-vue.umd.js",
   "module": "./dist/spartan-vue.es.js",
-  "types": "dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/spartan-vue.es.js",
-      "require": "./dist/spartan-vue.umd.js"
+      "require": "./dist/spartan-vue.umd.js",
+      "types": "./dist/types/index.d.ts"
     },
     "./src/tailwindcss.js": "./src/tailwindcss.js",
     "./style.css": "./dist/style.css"
