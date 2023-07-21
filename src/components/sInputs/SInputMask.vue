@@ -26,6 +26,7 @@ const maskComputed = computed(() => {
 
 const { el, masked } = useIMask(
   {
+    // @ts-ignore
     mask: maskComputed.value,
   },
   {
