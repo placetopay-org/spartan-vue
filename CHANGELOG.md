@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Import root color styles in index file.
+
 ### Added
 - Created a new Storybook documentation template `DocumentationTemplate.mdx`.
 - Added @storybook/addon-a11y.
