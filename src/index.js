@@ -1,19 +1,5 @@
-// import SButton from './components/SButton.vue'
-
-// const components = {
-//   SButton,
-// }
-
-// function install(App) {
-//   for (const component in components) {
-//     Vue.component(components[component].name, components[component])
-//   }
-// }
-//
-// export default { install }
-import "./css/palette-evertec.css";
-
 export { SButton } from "./components/SButton";
+
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
 export { default as SSidebarLogo } from "./components/SSidebarLogo.vue";
