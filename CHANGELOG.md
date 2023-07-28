@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## Added
+- Created a new Storybook documentation template `DocumentationTemplate.mdx`.
+- Added @storybook/addon-a11y.
+- Imported additional styles from palette-evertec.css in storybook preview.
+- The SButton component now supports new styles and appearances.
+- Added additional utility styles for better UI consistency on SButton.
+
+## Changed
+- Introduced a new version of SButton component with TypeScript integration and improved styles.
+- Improve features like disabled, loading, rounded buttons at SButton component.
+- Minor updates in package-lock.json to include latest resolved versions and dependencies.
+- Refactored references of the old SButton.vue component in various files.
 
 ## 0.5.0 - 2023-07-21
 

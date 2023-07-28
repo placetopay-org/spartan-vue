@@ -13,7 +13,7 @@
 // export default { install }
 import "./css/palette-evertec.css";
 
-export { default as SButton } from "./components/SButton.vue";
+export { SButton } from "./components/SButton";
 export { default as SDropdownButton } from "./components/SDropdownButton.vue";
 export { default as SSidebar } from "./components/SSidebar.vue";
 export { default as SSidebarLogo } from "./components/SSidebarLogo.vue";

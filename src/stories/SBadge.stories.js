@@ -1,5 +1,4 @@
 import { SBadge } from "../index.js";
-import { withDesign } from 'storybook-addon-designs';
 
 export default {
   title: "Components/SBadge",
@@ -12,7 +11,6 @@ export default {
       control: { type: "select" },
       options: ["sm", "md", "lg"],
     },
-    decorators: [withDesign],
   },
   component: SBadge,
 };

@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import SButton from '../SButton.vue';
+import { SButton } from '../SButton';
 import SFilterAddItemFormMenu from './SFilterAddItemFormMenu.vue';
 import SFilterAddItemOperator from './SFilterAddItemOperator.vue';
 import { InputByType, OptionsByInputType, InputTranslations } from './SFilterSelectorConstant';

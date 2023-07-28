@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { PopoverPanel } from '@headlessui/vue';
 import { SInput, SInputError } from '../sInputs';
-import SButton from '../SButton.vue';
+import { SButton } from '../SButton';
 import { useSFilterContext } from './SFilterContext';
 
 const api = useSFilterContext();

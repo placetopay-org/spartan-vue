@@ -1,4 +1,6 @@
 import "./../docs/assets/css/index.css";
+import "../src/css/palette-evertec.css";
+import DocumentationTemplate from "./DocumentationTemplate.mdx";
 
 import { type Preview, setup } from "@storybook/vue3";
 import type { App } from "vue";
@@ -6,6 +8,9 @@ import { createI18n } from "vue-i18n";
 
 const preview: Preview = {
   parameters: {
+    docs: {
+      page: DocumentationTemplate,
+    },
     backgrounds: {
       default: "light",
     },
