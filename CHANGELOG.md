@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Introduced `buildDesign` helper function to simplify Figma design references.
+
 ### Changed
 - SBadge component has been restructured, introduced various features:
   - Badge can have different colors including `blue`, `gray`, `green`, `indigo`, `primary`, `red`, and `yellow`.

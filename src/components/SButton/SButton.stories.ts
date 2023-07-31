@@ -2,6 +2,7 @@ import SButton from './SButton.vue';
 import { PlusIcon, MagnifyingGlassIcon, PencilIcon } from '@heroicons/vue/24/solid';
 import type { SourceProps } from '@storybook/blocks';
 import { action } from '@storybook/addon-actions';
+import { buildDesign } from '../../helpers';
 
 export default {
   component: SButton,
@@ -69,6 +70,8 @@ export default {
   },
 };
 
+const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=146-240');
+
 export const Default = {
   render: (args: any) => ({
     components: { SButton, PlusIcon, MagnifyingGlassIcon, PencilIcon },
@@ -83,10 +86,7 @@ export const Default = {
     template: '<SButton v-bind="args" :icon="getIcon(args.icon)" @click="onClick"> {{ args.default }} </SButton>',
   }),
   parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=146-240&mode=design&t=QxbbEscvKyQw6gj0-0',
-    },
+    design,
     docs: {
       description: {
         story: 'Standard button presentation.',
@@ -144,10 +144,7 @@ const createVariation = (template: string) => ({
     template,
   }),
   parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=146-240&mode=design&t=QxbbEscvKyQw6gj0-0',
-    },
+    design,
     controls: { disable: true },
     actions: { disable: true },
     docs: {
