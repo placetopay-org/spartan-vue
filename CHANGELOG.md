@@ -18,9 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Some prop names in the SButton component were changed:
   - `small` to `sm` and `medium` to `md` for the size.
   - `circle` to `full` for the rounded prop.
-  
+
 ### Fixed
 - Import root color styles in index file.
+
+### Removed
+- Unhelpful story descriptions
 
 ## 1.0.0-beta.0 - 2023-07-28
 ### Added

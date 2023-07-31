@@ -106,7 +106,7 @@ export const Default = {
   },
 };
 
-const createVariation = (description: string, template: string) => ({
+const createVariation = (template: string) => ({
   decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
   render: () => ({
     components: { SBadge },
@@ -120,9 +120,6 @@ const createVariation = (description: string, template: string) => ({
     controls: { disable: true },
     actions: { disable: true },
     docs: {
-      description: {
-        story: description,
-      },
       source: {
         code: template,
         language: 'html',
@@ -132,7 +129,6 @@ const createVariation = (description: string, template: string) => ({
 });
 
 export const Size = createVariation(
-  'Showcases the badge with different sizes.',
   `
 <SBadge color="blue" size="sm"> Small </SBadge>
 <SBadge color="blue" size="md"> Medium </SBadge>
@@ -141,7 +137,6 @@ export const Size = createVariation(
 );
 
 export const Color = createVariation(
-  'Showcases the badge with different colors.',
   `
 <SBadge color="primary"> Primary </SBadge>
 <SBadge color="gray"> Gray </SBadge>
@@ -154,7 +149,6 @@ export const Color = createVariation(
 );
 
 export const Outline = createVariation(
-  'Showcases the badge with an outline.',
   `
 <SBadge color="primary" outline> Primary </SBadge>
 <SBadge color="gray" outline> Gray </SBadge>
@@ -167,7 +161,6 @@ export const Outline = createVariation(
 );
 
 export const Pill = createVariation(
-  'Showcases the badge with a pill shape.',
   `
 <SBadge color="primary" pill> Primary </SBadge>
 <SBadge color="gray" pill> Gray </SBadge>
@@ -180,7 +173,6 @@ export const Pill = createVariation(
 );
 
 export const Dot = createVariation(
-  'Showcases the badge with a dot.',
   `
 <SBadge color="primary" dot> Primary </SBadge>
 <SBadge color="gray" dot> Gray </SBadge>
@@ -193,7 +185,6 @@ export const Dot = createVariation(
 );
 
 export const Removable = createVariation(
-  'Showcases the badge with a remove button.',
   `
 <SBadge color="primary" show="true"> Primary </SBadge>
 <SBadge color="gray" show="true"> Gray </SBadge>
@@ -206,7 +197,6 @@ export const Removable = createVariation(
 );
 
 export const Customize = createVariation(
-  '',
   `
 <SBadge color="primary" dot show="true"> Primary </SBadge>
 <SBadge color="gray" outline dot pill> Gray </SBadge>

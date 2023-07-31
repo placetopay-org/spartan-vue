@@ -134,7 +134,7 @@ export const Default = {
   },
 };
 
-const createVariation = (description: string, template: string) => ({
+const createVariation = (template: string) => ({
   decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
   render: () => ({
     components: { SButton, PlusIcon, MagnifyingGlassIcon, PencilIcon },
@@ -151,9 +151,6 @@ const createVariation = (description: string, template: string) => ({
     controls: { disable: true },
     actions: { disable: true },
     docs: {
-      description: {
-        story: description,
-      },
       source: {
         code: template,
         language: 'html',
@@ -163,7 +160,6 @@ const createVariation = (description: string, template: string) => ({
 });
 
 export const Variant = createVariation(
-  'Showcases the button in various visual styles.',
   `
 <SButton variant="primary"> Primary </SButton>
 <SButton variant="secondary"> Secondary </SButton>
@@ -174,7 +170,6 @@ export const Variant = createVariation(
 );
 
 export const Rounded = createVariation(
-  'Displays the button with different corner treatments.',
   `
 <SButton rounded="both"> Both </SButton>
 <SButton rounded="left"> Left </SButton>
@@ -185,7 +180,6 @@ export const Rounded = createVariation(
 );
 
 export const Sizes = createVariation(
-  'Displays the button in different sizes.',
   `
 <SButton size="sm"> Small </SButton>
 <SButton> Medium </SButton>
@@ -193,7 +187,6 @@ export const Sizes = createVariation(
 );
 
 export const Disabled = createVariation(
-  'Displays the button in its active and inactive states.',
   `
 <SButton> Enabled </SButton>
 <SButton disabled> Disabled </SButton>
@@ -201,14 +194,12 @@ export const Disabled = createVariation(
 );
 
 export const Loading = createVariation(
-  'Displays the button when it is in a loading state.',
   `
 <SButton loading> Loading </SButton>
 `
 );
 
 export const OnlyIcon = createVariation(
-  'A button that solely displays an icon.',
   `
 <SButton :icon="PencilIcon"/>
 <SButton :icon="MagnifyingGlassIcon" rounded="circle"/>
@@ -217,7 +208,6 @@ export const OnlyIcon = createVariation(
 );
 
 export const IconWithText = createVariation(
-  'Combines both icon and text within the button.',
   `
 <SButton :icon="MagnifyingGlassIcon">Search</SButton>
 <SButton :icon="PlusIcon" endIcon>Create QR</SButton>
