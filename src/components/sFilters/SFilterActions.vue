@@ -1,6 +1,6 @@
 <script setup>
 import { useI18n } from 'vue-i18n';
-import SBadge from '../SBadge.vue';
+import { SBadge } from '../SBadge';
 import { useSFilterContext } from './SFilterContext';
 
 const api = useSFilterContext();

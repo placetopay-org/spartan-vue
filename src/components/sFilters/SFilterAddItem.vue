@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { PlusIcon } from "@heroicons/vue/24/solid";
 import { useSFilterContext } from './SFilterContext';
-import SBadge from "../SBadge.vue";
+import { SBadge } from "../SBadge";
 import SFilterAddItemForm from "./SFilterAddItemForm.vue";
 import SFilterAddItemSelector from "./SFilterAddItemSelector.vue";
 

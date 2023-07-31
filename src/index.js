@@ -1,6 +1,7 @@
 import './css/palette-evertec.css';
 
 export { SButton } from './components/SButton';
+export { SBadge } from './components/SBadge';
 
 export { default as SDropdownButton } from './components/SDropdownButton.vue';
 export { default as SSidebar } from './components/SSidebar.vue';
@@ -31,7 +32,6 @@ export { default as SDescriptionItemValue } from './components/SDescriptionItemV
 export { default as SModalLayout } from './components/SModalLayout.vue';
 export { default as SModalAction } from './components/SModalAction.vue';
 export { default as SEmptyState } from './components/SEmptyState.vue';
-export { default as SBadge } from './components/SBadge.vue';
 export { default as SSectionTitle } from './components/SSectionTitle.vue';
 export { default as SSectionDescription } from './components/SSectionDescription.vue';
 export { default as SLink } from './components/SLink.vue';

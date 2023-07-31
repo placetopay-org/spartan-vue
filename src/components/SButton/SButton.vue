@@ -16,11 +16,11 @@ const props = withDefaults(
     Partial<{
       as: string;
       disabled: boolean;
-      size: 'small' | 'medium';
+      size: keyof typeof sizeClass;
       loading: boolean;
       type: 'button' | 'submit';
-      variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'link';
-      rounded: 'left' | 'right' | 'both' | 'none' | 'circle';
+      variant: keyof typeof variantClass;
+      rounded: keyof typeof roundedClass;
       endIcon: boolean;
       icon: FunctionalComponent;
     }>
@@ -28,7 +28,7 @@ const props = withDefaults(
   {
     as: 'button',
     disabled: false,
-    size: 'medium',
+    size: 'sm',
     loading: false,
     type: 'button',
     variant: 'primary',
@@ -49,14 +49,22 @@ const variantClass = {
 };
 
 const sizeClass = {
-  text: {
-    small: 'py-2 px-3 text-xs',
-    medium: 'py-3 px-6 text-sm',
+  sm: {
+    text: 'py-2 px-3 text-xs',
+    noText: 'p-1',
   },
-  noText: {
-    small: 'p-1',
-    medium: 'p-3',
+  md: {
+    text: 'py-3 px-6 text-sm',
+    noText: 'p-3',
   },
+};
+
+const roundedClass = {
+  left: 'rounded-l-lg',
+  right: 'rounded-r-lg',
+  both: 'rounded-lg',
+  none: '',
+  full: 'rounded-full',
 };
 
 const buttonClasses = computed(() => [
@@ -64,11 +72,8 @@ const buttonClasses = computed(() => [
   props.disabled && 'pointer-events-none opacity-50',
   props.loading && 'loading',
   props.endIcon && 'flex-row-reverse',
-  slots.default?.()[0].children ? sizeClass.text[props.size] : sizeClass.noText[props.size],
-  props.rounded === 'left' && 'rounded-l-lg',
-  props.rounded === 'right' && 'rounded-r-lg',
-  props.rounded === 'both' && 'rounded-lg',
-  props.rounded === 'circle' && 'rounded-full',
+  slots.default?.()[0].children ? sizeClass[props.size].text : sizeClass[props.size].noText,
+  roundedClass[props.rounded],
   variantClass[props.variant],
 ]);
 

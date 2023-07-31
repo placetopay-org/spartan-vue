@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
-import SBadge from '../SBadge.vue';
+import { SBadge } from '../SBadge';
 import SFilterUpdateItemForm from './SFilterUpdateItemForm.vue';
 import { InputByType } from './SFilterSelectorConstant';
 

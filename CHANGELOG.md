@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- SBadge component has been restructured, introduced various features:
+  - Badge can have different colors including `blue`, `gray`, `green`, `indigo`, `primary`, `red`, and `yellow`.
+  - Badge can come in different sizes: `sm`, `md`, and `lg`.
+  - Additional styles for badges including `pill`, `dot`, `outline`, and `show` features.
+  - Introduced Storybook stories to showcase badge variations such as `Default`, `Size`, `Color`, `Outline`, `Pill`, `Dot`, `Removable`, and `Customize`.
+  - Badge linked with Figma design via Storybook's.
+
+- Some prop names in the SButton component were changed:
+  - `small` to `sm` and `medium` to `md` for the size.
+  - `circle` to `full` for the rounded prop.
+  
 ### Fixed
 - Import root color styles in index file.
 

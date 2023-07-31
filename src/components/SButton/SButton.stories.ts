@@ -30,9 +30,9 @@ export default {
     },
     size: {
       control: 'inline-radio',
-      options: ['small', 'medium'],
+      options: ['sm', 'md'],
       description: 'Sets the size of the button.',
-      table: { type: { summary: 'small | medium' } },
+      table: { type: { summary: 'sm | md' } },
     },
     loading: {
       description: 'If **true**, the button will display a loading spinner.',
@@ -52,9 +52,9 @@ export default {
     },
     rounded: {
       control: 'inline-radio',
-      options: ['left', 'right', 'both', 'none', 'circle'],
+      options: ['left', 'right', 'both', 'none', 'full'],
       description: `Specifies which corners should be rounded.`,
-      table: { type: { summary: 'left | right | both | none | circle' } },
+      table: { type: { summary: 'left | right | both | none | full' } },
     },
     icon: {
       control: 'select',
@@ -124,7 +124,7 @@ export const Default = {
     default: 'Click me',
     as: 'button',
     disabled: false,
-    size: 'medium',
+    size: 'md',
     loading: false,
     type: 'button',
     variant: 'primary',
@@ -180,14 +180,14 @@ export const Rounded = createVariation(
 <SButton rounded="left"> Left </SButton>
 <SButton rounded="right"> Right </SButton>
 <SButton rounded="none"> None </SButton>
-<SButton rounded="circle"> Circle </SButton>
+<SButton rounded="full"> Full </SButton>
 `
 );
 
 export const Sizes = createVariation(
   'Displays the button in different sizes.',
   `
-<SButton size="small"> Small </SButton>
+<SButton size="sm"> Small </SButton>
 <SButton> Medium </SButton>
 `
 );
