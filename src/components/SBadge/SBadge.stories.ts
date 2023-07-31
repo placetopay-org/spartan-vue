@@ -8,7 +8,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'BADGE',
+        component: 'A customizable and interactive badge component is easily integrated. Allows you to embed content and offers extensive appearance features.',
       },
     },
   },
@@ -16,7 +16,7 @@ export default {
     removed: {
       control: { type: 'text' },
       table: { type: { summary: null }, category: 'Events' },
-      description: 'Emitted when the button is removed',
+      description: `This event is emitted when the badge's remove button is clicked.`,
     },
     default: {
       control: 'text',
@@ -26,30 +26,30 @@ export default {
     color: {
       control: { type: 'select' },
       options: ['blue', 'gray', 'green', 'indigo', 'primary', 'red', 'yellow'],
-      description: 'BADGE',
+      description: `Determines the badge's color theme`,
       table: { type: { summary: 'VNode | VNode Array' } },
     },
     size: {
       control: { type: 'inline-radio' },
       options: ['sm', 'md', 'lg'],
-      description: 'BADGE',
+      description: 'Dictates the size of the badge.',
       table: { type: { summary: 'VNode | VNode Array' } },
     },
     pill: {
-      description: 'BADGE',
+      description: 'If set to `true`, the badge will have fully rounded corners. Otherwise, it will have slightly rounded corners.',
       table: { type: { summary: 'boolean' } },
     },
     dot: {
-      description: 'BADGE',
+      description: 'If `true`, a dot will be displayed inside the badge.',
       table: { type: { summary: 'boolean' } },
     },
     outline: {
-      description: 'BADGE',
+      description: `If true, the badge will be outlined with its color theme. Otherwise, it'll have a solid background of its color theme.`,
       table: { type: { summary: 'boolean' } },
     },
     show: {
       control: { type: 'boolean' },
-      description: 'BADGE',
+      description: 'If provided and is `true`, the badge will be displayed. If `false`, the badge will not be displayed. If not provided (`undefined`), the badge will be displayed by default.',
       table: { type: { summary: 'boolean' } },
     },
   },
