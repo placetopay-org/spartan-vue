@@ -14,21 +14,42 @@ export default {
     },
   },
   argTypes: {
+    // Events
     removed: {
       control: { type: 'text' },
       table: { type: { summary: null }, category: 'Events' },
-      description: `This event is emitted when the badge's remove button is clicked.`,
+      description: "This event is emitted when the badge's remove button is clicked.",
     },
+
+    // Slots
     default: {
       control: 'text',
       description: 'Default slot for badge content.',
       table: { type: { summary: 'VNode | VNode Array' } },
     },
+
+    // Props
     color: {
       control: { type: 'select' },
       options: ['blue', 'gray', 'green', 'indigo', 'primary', 'red', 'yellow'],
-      description: `Determines the badge's color theme`,
+      description: "Determines the badge's color theme.",
       table: { type: { summary: 'VNode | VNode Array' } },
+    },
+    dot: {
+      description: 'If `true`, a dot will be displayed inside the badge.',
+      table: { type: { summary: 'boolean' } },
+    },
+    outline: {
+      description: 'If `true`, the badge will be outlined with its color theme. Otherwise, it\'ll have a solid background of its color theme.',
+      table: { type: { summary: 'boolean' } },
+    },
+    pill: {
+      description: 'If set to `true`, the badge will have fully rounded corners. Otherwise, it will have slightly rounded corners.',
+      table: { type: { summary: 'boolean' } },
+    },
+    removable: {
+      description: 'If `true`, a remove button will be displayed inside the badge.',
+      table: { type: { summary: 'boolean' } },
     },
     size: {
       control: { type: 'inline-radio' },
@@ -36,21 +57,9 @@ export default {
       description: 'Dictates the size of the badge.',
       table: { type: { summary: 'VNode | VNode Array' } },
     },
-    pill: {
-      description: 'If set to `true`, the badge will have fully rounded corners. Otherwise, it will have slightly rounded corners.',
-      table: { type: { summary: 'boolean' } },
-    },
-    dot: {
-      description: 'If `true`, a dot will be displayed inside the badge.',
-      table: { type: { summary: 'boolean' } },
-    },
-    outline: {
-      description: `If true, the badge will be outlined with its color theme. Otherwise, it'll have a solid background of its color theme.`,
-      table: { type: { summary: 'boolean' } },
-    },
     visible: {
       control: { type: 'boolean' },
-      description: 'If provided and is `true`, the badge will be displayed. If `false`, the badge will not be displayed. If not provided (`undefined`), the badge will be displayed by default.',
+      description: 'If `true`, the badge will be visible. **Animates in and out.**',
       table: { type: { summary: 'boolean' } },
     },
   },
@@ -64,9 +73,9 @@ export const Default = {
     setup() {
       const removed = (e: any) => {
         action('removed')(e);
-        args.show = false;
+        args.visible = false;
         setTimeout(() => {
-          args.show = true;
+          args.visible = true;
         }, 350);
       };
       return { args, removed };
@@ -85,8 +94,10 @@ export const Default = {
           storyContext.args.color && storyContext.args.color !== 'gray' ? `color="${storyContext.args.color}"` : ''
         } ${storyContext.args.size && storyContext.args.size !== 'md' ? `size="${storyContext.args.size}"` : ''} ${
           storyContext.args.pill ? 'pill' : ''
+        } ${
+          storyContext.args.removable ? 'removable' : ''
         } ${storyContext.args.dot ? 'dot' : ''} ${
-          storyContext.args.visible !== undefined ? (storyContext.args.visible ? 'visible="true"' : 'visible="false"') : ''
+          !storyContext.args.visible ? 'visible="false"' : ''
         } ${storyContext.args.removed ? `@removed="${storyContext.args.removed.replace(/ /g, '')}"` : ''}> ${
           storyContext.args.default
         } </SBadge>
@@ -99,10 +110,12 @@ export const Default = {
   args: {
     default: 'Badge',
     color: 'gray',
-    size: 'md',
-    pill: false,
     dot: false,
     outline: false,
+    pill: false,
+    removable: false,
+    size: 'md',
+    visible: true,
   },
 };
 
@@ -183,24 +196,24 @@ export const Dot = createVariation(
 
 export const Removable = createVariation(
   `
-<SBadge color="primary" show="true"> Primary </SBadge>
-<SBadge color="gray" show="true"> Gray </SBadge>
-<SBadge color="red" show="true"> Red </SBadge>
-<SBadge color="blue" show="true"> Blue </SBadge>
-<SBadge color="green" show="true"> Green </SBadge>
-<SBadge color="yellow" show="true"> Yellow </SBadge>
-<SBadge color="indigo" show="true"> Indigo </SBadge>
+<SBadge color="primary" removable> Primary </SBadge>
+<SBadge color="gray" removable> Gray </SBadge>
+<SBadge color="red" removable> Red </SBadge>
+<SBadge color="blue" removable> Blue </SBadge>
+<SBadge color="green" removable> Green </SBadge>
+<SBadge color="yellow" removable> Yellow </SBadge>
+<SBadge color="indigo" removable> Indigo </SBadge>
 `
 );
 
 export const Customize = createVariation(
   `
-<SBadge color="primary" dot show="true"> Primary </SBadge>
+<SBadge color="primary" dot removable> Primary </SBadge>
 <SBadge color="gray" outline dot pill> Gray </SBadge>
 <SBadge color="red" dot size="sm"> Red </SBadge>
 <SBadge color="blue" outline dot> Blue </SBadge>
 <SBadge color="green" outline dot size="lg"> Green </SBadge>
-<SBadge color="yellow" size="lg" show="true"> Yellow </SBadge>
-<SBadge color="indigo" outline dot show="true"> Indigo </SBadge>
+<SBadge color="yellow" size="lg" removable> Yellow </SBadge>
+<SBadge color="indigo" outline dot removable> Indigo </SBadge>
 `
 );
