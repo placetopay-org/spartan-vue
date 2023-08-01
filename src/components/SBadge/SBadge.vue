@@ -11,7 +11,7 @@ const props = withDefaults(
       pill: boolean;
       dot: boolean;
       outline: boolean;
-      show: boolean;
+      visible: boolean;
     }>
   >(),
   {
@@ -20,7 +20,7 @@ const props = withDefaults(
     pill: false,
     dot: false,
     outline: false,
-    show: undefined,
+    visible: undefined,
   }
 );
 
@@ -100,13 +100,13 @@ const classes = computed(() => [
 
 <template>
   <Transition :name="pill ? 'badge-circle' : 'badge-square'">
-    <span v-if="show || show === undefined" :class="classes">
+    <span v-if="visible || visible === undefined" :class="classes">
       <svg v-if="dot" class="h-2 w-2 mr-1.5" :class="colorOption[props.color].dotClass" viewBox="0 0 8 8" aria-hidden="true">
         <circle cx="4" cy="4" r="4" />
       </svg>
       <slot />
       <button
-        v-if="show !== undefined"
+        v-if="visible !== undefined"
         @click="$emit('removed')"
         type="button"
         class="group relative ml-0.5 -mr-1 h-4 w-4 rounded-sm hover:bg-gray-500/20"

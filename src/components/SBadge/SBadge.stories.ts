@@ -48,7 +48,7 @@ export default {
       description: `If true, the badge will be outlined with its color theme. Otherwise, it'll have a solid background of its color theme.`,
       table: { type: { summary: 'boolean' } },
     },
-    show: {
+    visible: {
       control: { type: 'boolean' },
       description: 'If provided and is `true`, the badge will be displayed. If `false`, the badge will not be displayed. If not provided (`undefined`), the badge will be displayed by default.',
       table: { type: { summary: 'boolean' } },
@@ -86,7 +86,7 @@ export const Default = {
         } ${storyContext.args.size && storyContext.args.size !== 'md' ? `size="${storyContext.args.size}"` : ''} ${
           storyContext.args.pill ? 'pill' : ''
         } ${storyContext.args.dot ? 'dot' : ''} ${
-          storyContext.args.show !== undefined ? (storyContext.args.show ? 'show="true"' : 'show="false"') : ''
+          storyContext.args.visible !== undefined ? (storyContext.args.visible ? 'visible="true"' : 'visible="false"') : ''
         } ${storyContext.args.removed ? `@removed="${storyContext.args.removed.replace(/ /g, '')}"` : ''}> ${
           storyContext.args.default
         } </SBadge>
