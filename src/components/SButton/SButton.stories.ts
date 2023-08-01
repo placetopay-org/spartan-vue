@@ -2,7 +2,7 @@ import SButton from './SButton.vue';
 import { PlusIcon, MagnifyingGlassIcon, PencilIcon } from '@heroicons/vue/24/solid';
 import type { SourceProps } from '@storybook/blocks';
 import { action } from '@storybook/addon-actions';
-import { buildDesign } from '../../helpers';
+import { buildDesign, buildSourceBinding } from '../../helpers';
 
 export default {
   component: SButton,
@@ -72,6 +72,11 @@ export default {
 
 const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=146-240');
 
+const sourceBinding = buildSourceBinding({
+  check: ['disabled', 'loading', 'endIcon'],
+  prop: { as: 'button', size: 'md', type: 'button', variant: 'primary', rounded: 'both' },
+});
+
 export const Default = {
   render: (args: any) => ({
     components: { SButton, PlusIcon, MagnifyingGlassIcon, PencilIcon },
@@ -99,20 +104,8 @@ export const Default = {
         `
             : ''
         }
-        <SButton ${storyContext.args.as && storyContext.args.as !== 'button' ? `as="${storyContext.args.as}"` : ''} ${
-          storyContext.args.disabled ? 'disabled' : ''
-        } ${storyContext.args.size && storyContext.args.size !== 'medium' ? `size="${storyContext.args.size}"` : ''} ${storyContext.args.loading ? 'loading' : ''} ${
-          storyContext.args.type && storyContext.args.type !== 'button' ? `type="${storyContext.args.type}"` : ''
-        } ${
-          storyContext.args.variant && storyContext.args.variant !== 'primary'
-            ? `variant="${storyContext.args.variant}"`
-            : ''
-        } ${
-          storyContext.args.rounded && storyContext.args.rounded !== 'both'
-            ? `rounded="${storyContext.args.rounded}"`
-            : ''
-        } ${storyContext.args.icon ? `:icon="${storyContext.args.icon}"` : ''} ${
-          storyContext.args.endIcon ? 'endIcon' : ''
+        <SButton ${sourceBinding(storyContext.args)} ${
+          storyContext.args.icon ? `:icon="${storyContext.args.icon}"` : ''
         }> ${storyContext.args.default} </SButton>
         `) as SourceProps['transform'],
         type: 'dynamic',
@@ -198,9 +191,9 @@ export const Loading = createVariation(
 
 export const OnlyIcon = createVariation(
   `
-<SButton :icon="PencilIcon"/>
-<SButton :icon="MagnifyingGlassIcon" rounded="circle"/>
-<SButton :icon="PlusIcon" small/>
+<SButton :icon="MagnifyingGlassIcon" rounded="right"/>
+<SButton :icon="PencilIcon" size="sm" rounded="none"/>
+<SButton :icon="PlusIcon" size="sm" rounded="full"/>
 `
 );
 

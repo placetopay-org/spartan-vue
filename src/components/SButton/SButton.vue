@@ -28,7 +28,7 @@ const props = withDefaults(
   {
     as: 'button',
     disabled: false,
-    size: 'sm',
+    size: 'md',
     loading: false,
     type: 'button',
     variant: 'primary',
