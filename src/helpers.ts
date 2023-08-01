@@ -5,19 +5,26 @@ export const buildDesign = (url: string) => ({
 
 type TBindings = {
   check: string[];
-  prop: Record<string, string>;
+  prop: Record<string, string | boolean>;
+  emit?: string[];
 }
 
 export const buildSourceBinding = (bindings: TBindings) => (args: any) => {
   let result = '';
 
-  bindings.check.forEach((binding) => {
-    if (args[binding]) result += `${binding}`;
-  });
-
   Object.keys(bindings.prop).forEach((prop) => {
-    if (args[prop] && args[prop] !== bindings.prop[prop]) result += `${prop}="${args[prop]}"`;
+    if (args[prop] && args[prop] !== bindings.prop[prop]) result += `${prop}="${args[prop]}" `;
   });
 
-  return result;
+  bindings.check.forEach((binding) => {
+    if (args[binding]) result += `${binding} `;
+  });
+
+  if (bindings.emit) {
+    bindings.emit.forEach((emit) => {
+      if (args[emit]) result += `@${emit}="${args[emit].replace(/ /g, '')}" `;
+    });
+  }
+
+  return result.trim();
 }

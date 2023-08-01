@@ -16,25 +16,25 @@ const props = withDefaults(
     Partial<{
       as: string;
       disabled: boolean;
-      size: keyof typeof sizeClass;
-      loading: boolean;
-      type: 'button' | 'submit';
-      variant: keyof typeof variantClass;
-      rounded: keyof typeof roundedClass;
       endIcon: boolean;
       icon: FunctionalComponent;
+      loading: boolean;
+      rounded: keyof typeof roundedClass;
+      size: keyof typeof sizeClass;
+      type: 'button' | 'submit';
+      variant: keyof typeof variantClass;
     }>
   >(),
   {
     as: 'button',
     disabled: false,
-    size: 'md',
-    loading: false,
-    type: 'button',
-    variant: 'primary',
-    rounded: 'both',
     endIcon: false,
     icon: undefined,
+    loading: false,
+    rounded: 'both',
+    size: 'md',
+    type: 'button',
+    variant: 'primary',
   }
 );
 

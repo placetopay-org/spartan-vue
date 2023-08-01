@@ -15,11 +15,14 @@ export default {
     },
   },
   argTypes: {
+    // Slots
     default: {
       control: 'text',
       description: 'Default slot for button content.',
       table: { type: { summary: 'VNode | VNode Array' } },
     },
+
+    // Props
     as: {
       control: 'text',
       description: 'Defines the HTML element tag type to be used for the component.',
@@ -29,15 +32,31 @@ export default {
       description: 'If **true**, the button will be disabled and non-interactive.',
       table: { type: { summary: 'boolean' } },
     },
+    endIcon: {
+      description: 'If **true**, the icon will be displayed at the end of the button content.',
+      table: { type: { summary: 'boolean' } },
+    },
+    icon: {
+      control: 'select',
+      options: ['PlusIcon', 'MagnifyingGlassIcon', 'PencilIcon'],
+      description: `A Vue functional component to be used as the button's icon.`,
+      table: { type: { summary: 'FunctionalComponent' } },
+    },
+    loading: {
+      description: 'If **true**, the button will display a loading spinner.',
+      table: { type: { summary: 'boolean' } },
+    },
+    rounded: {
+      control: 'inline-radio',
+      options: ['left', 'right', 'both', 'none', 'full'],
+      description: `Specifies which corners should be rounded.`,
+      table: { type: { summary: 'left | right | both | none | full' } },
+    },
     size: {
       control: 'inline-radio',
       options: ['sm', 'md'],
       description: 'Sets the size of the button.',
       table: { type: { summary: 'sm | md' } },
-    },
-    loading: {
-      description: 'If **true**, the button will display a loading spinner.',
-      table: { type: { summary: 'boolean' } },
     },
     type: {
       control: 'inline-radio',
@@ -50,22 +69,6 @@ export default {
       options: ['primary', 'secondary', 'danger', 'outline', 'link'],
       description: `Defines the button's appearance variant.`,
       table: { type: { summary: 'primary | secondary | danger | outline | link' } },
-    },
-    rounded: {
-      control: 'inline-radio',
-      options: ['left', 'right', 'both', 'none', 'full'],
-      description: `Specifies which corners should be rounded.`,
-      table: { type: { summary: 'left | right | both | none | full' } },
-    },
-    icon: {
-      control: 'select',
-      options: ['PlusIcon', 'MagnifyingGlassIcon', 'PencilIcon'],
-      description: `A Vue functional component to be used as the button's icon.`,
-      table: { type: { summary: 'FunctionalComponent' } },
-    },
-    endIcon: {
-      description: 'If **true**, the icon will be displayed at the end of the button content.',
-      table: { type: { summary: 'boolean' } },
     },
   },
 };
@@ -117,13 +120,13 @@ export const Default = {
     default: 'Click me',
     as: 'button',
     disabled: false,
-    size: 'md',
+    endIcon: false,
+    icon: undefined,
     loading: false,
+    rounded: 'both',
+    size: 'md',
     type: 'button',
     variant: 'primary',
-    rounded: 'both',
-    icon: undefined,
-    endIcon: false,
   },
 };
 

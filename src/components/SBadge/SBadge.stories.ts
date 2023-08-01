@@ -1,7 +1,7 @@
 import SBadge from './SBadge.vue';
 import type { SourceProps } from '@storybook/blocks';
 import { action } from '@storybook/addon-actions';
-import { buildDesign } from '../../helpers';
+import { buildDesign, buildSourceBinding } from '../../helpers';
 
 export default {
   component: SBadge,
@@ -39,6 +39,10 @@ export default {
       description: 'If `true`, a dot will be displayed inside the badge.',
       table: { type: { summary: 'boolean' } },
     },
+    hidden: {
+      description: 'If `true`, the badge will be hidden. **Animates in and out.**',
+      table: { type: { summary: 'boolean' } },
+    },
     outline: {
       description: 'If `true`, the badge will be outlined with its color theme. Otherwise, it\'ll have a solid background of its color theme.',
       table: { type: { summary: 'boolean' } },
@@ -57,15 +61,16 @@ export default {
       description: 'Dictates the size of the badge.',
       table: { type: { summary: 'VNode | VNode Array' } },
     },
-    visible: {
-      control: { type: 'boolean' },
-      description: 'If `true`, the badge will be visible. **Animates in and out.**',
-      table: { type: { summary: 'boolean' } },
-    },
   },
 };
 
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2083')
+const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2083');
+
+const sourceBinding = buildSourceBinding({
+  check: ['dot', 'hidden', 'outline', 'pill', 'removable'],
+  prop: { color: 'gray', size: 'md' },
+  emit: ['removed'],
+});
 
 export const Default = {
   render: (args: any) => ({
@@ -90,15 +95,7 @@ export const Default = {
       },
       source: {
         transform: ((_, storyContext) => `
-        <SBadge ${
-          storyContext.args.color && storyContext.args.color !== 'gray' ? `color="${storyContext.args.color}"` : ''
-        } ${storyContext.args.size && storyContext.args.size !== 'md' ? `size="${storyContext.args.size}"` : ''} ${
-          storyContext.args.pill ? 'pill' : ''
-        } ${
-          storyContext.args.removable ? 'removable' : ''
-        } ${storyContext.args.dot ? 'dot' : ''} ${
-          !storyContext.args.visible ? 'visible="false"' : ''
-        } ${storyContext.args.removed ? `@removed="${storyContext.args.removed.replace(/ /g, '')}"` : ''}> ${
+        <SBadge ${sourceBinding(storyContext.args)}> ${
           storyContext.args.default
         } </SBadge>
         `) as SourceProps['transform'],
@@ -111,11 +108,11 @@ export const Default = {
     default: 'Badge',
     color: 'gray',
     dot: false,
+    hidden: false,
     outline: false,
     pill: false,
     removable: false,
     size: 'md',
-    visible: true,
   },
 };
 

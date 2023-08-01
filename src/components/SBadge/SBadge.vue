@@ -8,21 +8,21 @@ const props = withDefaults(
     Partial<{
       color: keyof typeof colorOption;
       dot: boolean;
+      hidden: boolean;
       outline: boolean;
       pill: boolean;
       removable: boolean;
       size: keyof typeof sizeOptions;
-      visible: boolean;
     }>
   >(),
   {
     color: 'gray',
     dot: false,
+    hidden: false,
     outline: false,
     pill: false,
     removable: false,
     size: 'md',
-    visible: true,
   }
 );
 
@@ -102,7 +102,7 @@ const classes = computed(() => [
 
 <template>
   <Transition :name="pill ? 'badge-circle' : 'badge-square'">
-    <span v-if="visible" :class="classes">
+    <span v-if="!hidden" :class="classes">
       <svg v-if="dot" class="h-2 w-2 mr-1.5" :class="colorOption[props.color].dotClass" viewBox="0 0 8 8" aria-hidden="true">
         <circle cx="4" cy="4" r="4" />
       </svg>
