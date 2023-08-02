@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- SAvatar component has been restructured, introduced various features:
+  - Avatar can have different sizes including `xs`, `sm`, `md`, `lg`, `xl`, and `2xl`.
+  - Avatar can have a indicator in different positions including `top-left`, `top-right`, `bottom-left`, and `bottom-right`.
+  - Avatar can have image providing a `src` prop.
+  - Avatar can come borderless using `borderless` prop.
+  - Avatar can display the name initials calculating from `name` prop.
+  - Avatar linked with Figma design via Storybook's.
+- New stories for SAvatar component.
+- Storybook addon for pseudo states (`storybook-addon-pseudo-states`).
 - Introduced `buildDesign` helper function to simplify Figma design references.
 
 ### Changed

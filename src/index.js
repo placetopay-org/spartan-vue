@@ -1,5 +1,6 @@
 import './css/palette-evertec.css';
 
+export { SAvatar } from './components/SAvatar';
 export { SButton } from './components/SButton';
 export { SBadge } from './components/SBadge';
 
@@ -14,7 +15,6 @@ export { default as SBreadcrumb } from './components/SBreadcrumb.vue';
 export { default as STabs } from './components/STabs.vue';
 export { default as STab } from './components/STab.vue';
 export { default as STopBar } from './components/STopBar.vue';
-export { default as SAvatar } from './components/SAvatar.vue';
 export { default as SAvatarMenuButton } from './components/SAvatarMenuButton.vue';
 export { default as SDropdownItem } from './components/SDropdownItem.vue';
 export { default as SRootLayout } from './components/SRootLayout.vue';

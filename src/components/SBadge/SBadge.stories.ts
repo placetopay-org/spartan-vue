@@ -90,9 +90,6 @@ export const Default = {
   parameters: {
     design,
     docs: {
-      description: {
-        story: 'Standard badge presentation.',
-      },
       source: {
         transform: ((_, storyContext) => `
         <SBadge ${sourceBinding(storyContext.args)}> ${

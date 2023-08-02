@@ -96,9 +96,6 @@ export const Default = {
   parameters: {
     design,
     docs: {
-      description: {
-        story: 'Standard button presentation.',
-      },
       source: {
         transform: ((_, storyContext) => `
         ${
