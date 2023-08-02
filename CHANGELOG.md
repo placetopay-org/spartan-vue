@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.0.0-beta.1 - 2023-08-02
 ### Added
 - SAvatar component has been restructured, introduced various features:
   - Avatar can have different sizes including `xs`, `sm`, `md`, `lg`, `xl`, and `2xl`.
@@ -26,16 +27,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Additional styles for badges including `pill`, `dot`, `outline`, and `hidden` features.
   - Introduced Storybook stories to showcase badge variations such as `Default`, `Size`, `Color`, `Outline`, `Pill`, `Dot`, `Removable`, and `Customize`.
   - Badge linked with Figma design via Storybook's.
-
 - Some prop names in the SButton component were changed:
   - `small` to `sm` and `medium` to `md` for the size.
   - `circle` to `full` for the rounded prop.
 
-### Fixed
-- Import root color styles in index file.
-
 ### Removed
 - Unhelpful story descriptions
+
+### Fixed
+- Import root color styles in index file.
 
 ## 1.0.0-beta.0 - 2023-07-28
 ### Added
