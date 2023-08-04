@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Initial implementation of `SButtonGroup` component.
+- Props including `active`, `disabled`, `endIcon`, `first`, `icon`, `last`, `next`, and `prev`.
+- Storybook documentation and examples.
+
+### Removed
+- Active scale effect on `SButton` component.
+
 ## 1.0.0-beta.1 - 2023-08-02
 ### Added
 - SAvatar component has been restructured, introduced various features:

@@ -50,9 +50,8 @@ export default {
 const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=200-1795');
 
 const sourceBinding = buildSourceBinding({
-  check: [],
-  prop: {},
-  emit: [],
+  check: ['borderless', 'indicator'],
+  prop: { indicatorPosition: 'right-top', name: '?', size: 'md', src: undefined },
 });
 
 export const Default = {

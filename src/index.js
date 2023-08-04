@@ -2,6 +2,7 @@ import './css/palette-evertec.css';
 
 export { SAvatar } from './components/SAvatar';
 export { SButton } from './components/SButton';
+export { SButtonGroup } from './components/SButtonGroup';
 export { SBadge } from './components/SBadge';
 
 export { default as SDropdownButton } from './components/SDropdownButton.vue';

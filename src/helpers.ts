@@ -5,7 +5,7 @@ export const buildDesign = (url: string) => ({
 
 type TBindings = {
   check: string[];
-  prop: Record<string, string | boolean>;
+  prop: Record<string, string | boolean | undefined>;
   emit?: string[];
 }
 
