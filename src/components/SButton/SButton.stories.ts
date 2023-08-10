@@ -78,6 +78,7 @@ const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Sp
 const sourceBinding = buildSourceBinding({
   check: ['disabled', 'loading', 'endIcon'],
   prop: { as: 'button', size: 'md', type: 'button', variant: 'primary', rounded: 'both' },
+  custom: { icon: true },
 });
 
 export const Default = {
@@ -104,9 +105,7 @@ export const Default = {
         `
             : ''
         }
-        <SButton ${sourceBinding(storyContext.args)} ${
-          storyContext.args.icon ? `:icon="${storyContext.args.icon}"` : ''
-        }> ${storyContext.args.default} </SButton>
+        <SButton ${sourceBinding(storyContext.args)}> ${storyContext.args.default} </SButton>
         `) as SourceProps['transform'],
         type: 'dynamic',
         language: 'tsx',

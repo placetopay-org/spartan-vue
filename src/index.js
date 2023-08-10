@@ -4,8 +4,8 @@ export { SAvatar } from './components/SAvatar';
 export { SButton } from './components/SButton';
 export { SButtonGroup } from './components/SButtonGroup';
 export { SBadge } from './components/SBadge';
+export { SDropdown, SDropdownItem } from './components/SDropdown';
 
-export { default as SDropdownButton } from './components/SDropdownButton.vue';
 export { default as SSidebar } from './components/SSidebar.vue';
 export { default as SSidebarLogo } from './components/SSidebarLogo.vue';
 export { default as SSidebarNavItem } from './components/SSidebarNavItem.vue';
@@ -17,7 +17,6 @@ export { default as STabs } from './components/STabs.vue';
 export { default as STab } from './components/STab.vue';
 export { default as STopBar } from './components/STopBar.vue';
 export { default as SAvatarMenuButton } from './components/SAvatarMenuButton.vue';
-export { default as SDropdownItem } from './components/SDropdownItem.vue';
 export { default as SRootLayout } from './components/SRootLayout.vue';
 export { default as SSidebarNavChild } from './components/SSidebarNavChild.vue';
 export { default as SSidebarNavGroup } from './components/SSidebarNavGroup.vue';
@@ -25,7 +24,6 @@ export { default as SSidebarNavParent } from './components/SSidebarNavParent.vue
 export { default as SCheckbox } from './components/SCheckbox.vue';
 export { default as SToggle } from './components/SToggle.vue';
 export { default as SNotification } from './components/SNotification.vue';
-export { default as SDropdown } from './components/SDropdown.vue';
 export { default as SDescriptionList } from './components/SDescriptionList.vue';
 export { default as SDescriptionItem } from './components/SDescriptionItem.vue';
 export { default as SDescriptionItemLabel } from './components/SDescriptionItemLabel.vue';

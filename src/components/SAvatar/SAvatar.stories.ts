@@ -1,6 +1,8 @@
 import SAvatar from './SAvatar.vue';
+import { SDropdown, SDropdownItem } from '../SDropdown';
 import type { SourceProps } from '@storybook/blocks';
 import { buildDesign, buildSourceBinding } from '../../helpers';
+import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
 
 export default {
   component: SAvatar,
@@ -83,15 +85,28 @@ export const Default = {
   },
 };
 
-const createVariation = (template: string, focusVisible?: boolean) => ({
-  decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
+const createVariation = (
+  template: string,
+  options?: {
+    focusVisible?: boolean;
+    decorators?: (() => {
+      template: string;
+    })[];
+  }
+) => ({
+  decorators: options?.decorators ?? [
+    () => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' }),
+  ],
   render: () => ({
-    components: { SAvatar },
+    components: { SAvatar, SDropdown, SDropdownItem, ArrowLeftOnRectangleIcon },
+    setup() {
+      return { ArrowLeftOnRectangleIcon };
+    },
     template,
   }),
   parameters: {
     design,
-    pseudo: { focusVisible },
+    pseudo: { focusVisible: options?.focusVisible },
     controls: { disable: true },
     actions: { disable: true },
     docs: {
@@ -103,19 +118,16 @@ const createVariation = (template: string, focusVisible?: boolean) => ({
   },
 });
 
-export const Size = createVariation(
-  `
+export const Size = createVariation(`
 <SAvatar name="John Doe" size="xs" />
 <SAvatar name="John Doe" size="sm" />
 <SAvatar name="John Doe" size="md" />
 <SAvatar name="John Doe" size="lg" />
 <SAvatar name="John Doe" size="xl" />
 <SAvatar name="John Doe" size="2xl" />
-`
-);
+`);
 
-export const Name = createVariation(
-  `
+export const Name = createVariation(`
 <!-- separators: ' ' - _ . , ; : | \ -->
 <SAvatar name="John Doe" size="2xl" />
 <SAvatar name="richard-poe" size="2xl" />
@@ -123,16 +135,13 @@ export const Name = createVariation(
 <SAvatar name="emmet:goe" size="2xl" />
 <SAvatar name="roy" size="2xl" />
 <SAvatar name="by" size="2xl" />
-`
-);
+`);
 
-export const Src = createVariation(
-  `
-  <SAvatar size="2xl" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=256&h=256" />
-  <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
+export const Src = createVariation(`
+<SAvatar size="2xl" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=256&h=256" />
+<SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
 <SAvatar size="2xl" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=256&h=256" />
-`
-);
+`);
 
 export const Focus = createVariation(
   `
@@ -140,22 +149,39 @@ export const Focus = createVariation(
 <SAvatar name="John Doe" size="2xl" />
 <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
 `,
-  true
+  { focusVisible: true }
 );
 
-export const Borderless = createVariation(
-  `
+export const Borderless = createVariation(`
 <SAvatar name="John Doe" size="2xl" borderless />
 <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" borderless />
-`
-);
+`);
 
-export const Indicator = createVariation(
-  `
+export const Indicator = createVariation(`
 <SAvatar name="John Doe" size="2xl" indicator />
 <SAvatar name="John Doe" size="2xl" indicator indicatorPosition="left-top" />
 <SAvatar name="John Doe" size="2xl" indicator indicatorPosition="left-bottom" />
 <SAvatar name="John Doe" size="2xl" indicator indicatorPosition="right-top" />
 <SAvatar name="John Doe" size="2xl" indicator indicatorPosition="right-bottom" />
-`
+`);
+
+export const WithDropdown = createVariation(
+  `
+<SDropdown leftToRight>
+  <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
+
+  <template #items>
+    <!-- Info Item -->
+    <SDropdownItem static>
+      <div class="flex flex-col items-start">
+        <span class="font-normal"> Signed in as </span>
+        <span> tom@example.com </span>
+      </div>
+    </SDropdownItem>
+
+    <SDropdownItem :icon="ArrowLeftOnRectangleIcon"> Logout </SDropdownItem>
+  </template>
+</SDropdown>
+`,
+  { decorators: [() => ({ template: '<div style="padding-bottom: 200px;"><story/></div>' })] }
 );

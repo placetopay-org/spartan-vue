@@ -8,9 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Initial implementation of `SDropdown` component.
+- `SDropdownItem` component to be used inside `SDropdown`.
 - Initial implementation of `SButtonGroup` component.
-- Props including `active`, `disabled`, `endIcon`, `first`, `icon`, `last`, `next`, and `prev`.
-- Storybook documentation and examples.
+- SButtonGroup props including `active`, `disabled`, `endIcon`, `first`, `icon`, `last`, `next`, and `prev`.
+- Storybook documentation and examples for SButtonGroup and SDropdown.
 
 ### Removed
 - Active scale effect on `SButton` component.

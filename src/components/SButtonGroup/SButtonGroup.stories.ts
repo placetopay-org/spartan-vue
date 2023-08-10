@@ -1,4 +1,5 @@
 import SButtonGroup from './SButtonGroup.vue';
+import { SDropdown, SDropdownItem } from '../SDropdown';
 import type { SourceProps } from '@storybook/blocks';
 import { action } from '@storybook/addon-actions';
 import { buildDesign, buildSourceBinding } from '../../helpers';
@@ -64,8 +65,7 @@ const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Sp
 
 const sourceBinding = buildSourceBinding({
   check: ['active', 'disabled', 'endIcon', 'first', 'last', 'next', 'prev'],
-  prop: {},
-  emit: [],
+  custom: { icon: true },
 });
 
 export const Default = {
@@ -108,10 +108,26 @@ export const Default = {
   },
 };
 
-const createVariation = (template: string) => ({
-  decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
+const createVariation = (
+  template: string,
+  decorators?: (() => {
+    template: string;
+  })[]
+) => ({
+  decorators: decorators ?? [
+    () => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' }),
+  ],
   render: () => ({
-    components: { SButtonGroup, BookmarkIcon, PlusIcon, PencilIcon, ChevronDownIcon, UserCircleIcon },
+    components: {
+      SButtonGroup,
+      SDropdown,
+      SDropdownItem,
+      BookmarkIcon,
+      PlusIcon,
+      PencilIcon,
+      ChevronDownIcon,
+      UserCircleIcon,
+    },
     setup() {
       return {
         BookmarkIcon,
@@ -136,38 +152,31 @@ const createVariation = (template: string) => ({
   },
 });
 
-export const Group = createVariation(
-  `
+export const Group = createVariation(`
 <span class="s-button-group">
   <SButtonGroup> one </SButtonGroup>
   <SButtonGroup> two </SButtonGroup>
   <SButtonGroup> three </SButtonGroup>
 </span>
-`
-);
+`);
 
-export const GroupRounded = createVariation(
-  `
+export const GroupRounded = createVariation(`
 <span class="s-button-group">
   <SButtonGroup first> red </SButtonGroup>
   <SButtonGroup> green </SButtonGroup>
   <SButtonGroup last> blue </SButtonGroup>
 </span>
-`
-);
+`);
 
-export const GroupWithNav = createVariation(
-  `
+export const GroupWithNav = createVariation(`
 <span class="s-button-group">
   <SButtonGroup prev />
   <SButtonGroup v-for="i in ['day', 'week', 'month', 'year']">{{ i }}</SButtonGroup>
   <SButtonGroup next />
 </span>
-`
-);
+`);
 
-export const GroupWithActiveItem = createVariation(
-  `
+export const GroupWithActiveItem = createVariation(`
 <span class="s-button-group">
   <SButtonGroup active first>Page 1</SButtonGroup>
   <SButtonGroup>Page 2</SButtonGroup>
@@ -175,49 +184,49 @@ export const GroupWithActiveItem = createVariation(
   <SButtonGroup>...</SButtonGroup>
   <SButtonGroup next last />
 </span>
-`
-);
+`);
 
-export const GroupWithDisableItem = createVariation(
-  `
+export const GroupWithDisableItem = createVariation(`
 <span class="s-button-group">
   <SButtonGroup v-for="(i, index) in 5" :disabled="index === 3">{{ \`\${i + 28}. Section\` }}</SButtonGroup>
   <SButtonGroup next last />
 </span>
-`
-);
+`);
 
-export const GroupWithIcons = createVariation(
-  `
+export const GroupWithIcons = createVariation(`
 <span class="s-button-group">
   <SButtonGroup :icon="UserCircleIcon" first>John Doe</SButtonGroup>
   <SButtonGroup :icon="UserCircleIcon">Mark Moe</SButtonGroup>
   <SButtonGroup :icon="PlusIcon" last/>
 </span>
-`
-);
+`);
 
-export const GroupWithDropdown = createVariation(
-  `
+export const GroupWithDropdown = createVariation(`
 <span class="s-button-group">
   <SButtonGroup first>Save changes</SButtonGroup>
-  <SButtonGroup :icon="ChevronDownIcon" last />
+  <SDropdown>
+    <SButtonGroup :icon="ChevronDownIcon" last />
+
+    <template #items>
+      <SDropdownItem :icon="UserCircleIcon"> My Profile </SDropdownItem>
+      <SDropdownItem :icon="PencilIcon"> Edit </SDropdownItem>
+      <SDropdownItem :icon="PlusIcon"> Add </SDropdownItem>
+    </template>
+  </SDropdown>
 </span>
-`
+`,
+  [() => ({ template: '<div style="padding-bottom: 200px; padding-left: 32px;"><story/></div>' })]
 );
 
-export const Pagination = createVariation(
-  `
+export const Pagination = createVariation(`
 <span class="s-button-group">
   <SButtonGroup prev first />
   <SButtonGroup v-for="(i, index) in 9" :active="index === 4">{{ i }}</SButtonGroup>
   <SButtonGroup next last />
 </span>
-`
-);
+`);
 
-export const Customize = createVariation(
-  `
+export const Customize = createVariation(`
 <span class="s-button-group">
   <SButtonGroup prev first />
   <SButtonGroup>Days</SButtonGroup>
@@ -229,5 +238,4 @@ export const Customize = createVariation(
   <SButtonGroup :icon="ChevronDownIcon" endIcon>Menu</SButtonGroup>
   <SButtonGroup next last />
 </span>
-`
-);
+`);
