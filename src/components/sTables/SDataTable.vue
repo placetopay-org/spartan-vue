@@ -66,8 +66,8 @@ import STableHeadItem from "./STableHeadItem.vue";
 import STableRow from "./STableRow.vue";
 import STableRowItem from "./STableRowItem.vue";
 import SDataTablePagination from "./SDataTablePagination.vue";
-import SSelect from "../sSelects/SSelect.vue";
-import {useI18n} from "vue-i18n";
+import { SSelect } from "../SSelect";
+import { useI18n } from "vue-i18n";
 import SInput from "../sInputs/SInput.vue";
 
 const messages = {

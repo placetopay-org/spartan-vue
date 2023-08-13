@@ -74,7 +74,7 @@ export default {
   },
 };
 
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4565%3A14705');
+const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4813%3A18985');
 
 const sourceBinding = buildSourceBinding({
   check: ['leftToRight'],

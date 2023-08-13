@@ -19,7 +19,7 @@
 
 <script>
 import SDataTable from "./SDataTable.vue";
-import SSelect from "../sSelects/SSelect.vue";
+import { SSelect } from "../SSelect";
 
 export default {
     name: "SServerTable",
