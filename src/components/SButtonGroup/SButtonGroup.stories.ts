@@ -85,6 +85,7 @@ export const Default = {
   parameters: {
     design,
     docs: {
+      canvas: { layout: 'centered' },
       source: {
         transform: ((_, storyContext) =>
           `<SButtonGroup ${sourceBinding(storyContext.args)}>${

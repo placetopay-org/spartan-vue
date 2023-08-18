@@ -2,7 +2,6 @@ import {
   SInput,
   SInputDropdown,
   SDropdown,
-  SDropdownButton,
   SDropdownItem,
   SButton,
 } from "../index.js";
@@ -30,7 +29,6 @@ const Template = (args) => ({
     SInput,
     MagnifyingGlassIcon,
     SDropdown,
-    SDropdownButton,
     SDropdownItem,
     SButton,
   },

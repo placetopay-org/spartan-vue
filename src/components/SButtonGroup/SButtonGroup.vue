@@ -35,7 +35,7 @@ const iconClass = computed(() => ['w-5 h-5 text-gray-900 group-active:text-prima
     :disabled="disabled"
     type="button"
     :class="[
-      'group text-sm font-medium inline-flex items-center justify-center gap-2 group relative group py-2 px-3 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:z-20 focus:ring focus:ring-primary-100 focus:outline-primary-300 active:bg-primary-50 active:text-primary-600',
+      'group text-sm font-medium inline-flex items-center justify-center gap-2 group relative group py-2 px-3 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:z-20 s-focus-primary focus:outline-primary-300 active:bg-primary-50 active:text-primary-600',
       active ? 'bg-primary-50 text-primary-600 outline-primary-300 z-10' : 'bg-white hover:bg-gray-50',
       endIcon && 'flex-row-reverse',
       disabled && 'opacity-50 pointer-events-none',

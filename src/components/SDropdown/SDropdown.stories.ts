@@ -66,9 +66,9 @@ export default {
       description: `A Vue functional component to be used as the item's icon.`,
       table: { type: { summary: 'FunctionalComponent' }, category: 'Item - Props' },
     },
-    itemPropStatic: {
-      name: 'static',
-      description: 'If **true**, the item will be static and non-interactive.',
+    itemPropDisabled: {
+      name: 'disabled',
+      description: 'If **true**, the item will be disabled and non-interactive.',
       table: { type: { summary: 'boolean' }, category: 'Item - Props' },
     },
   },
@@ -81,7 +81,7 @@ const sourceBinding = buildSourceBinding({
 });
 
 const itemsSourceBinding = buildSourceBinding({
-  check: ['static'],
+  check: ['disabled'],
   custom: { icon: true },
 }, 'item');
 
@@ -101,7 +101,7 @@ export const Default = {
     <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
 
     <template #items>
-      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :static="args.itemPropStatic">
+      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
         {{ args.itemSlotDefault }}
         
         <template #description>
@@ -109,7 +109,7 @@ export const Default = {
         </template>
       </SDropdownItem>
 
-      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :static="args.itemPropStatic">
+      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
         {{ args.itemSlotDefault }}
         
         <template #description>
@@ -117,7 +117,7 @@ export const Default = {
         </template>
       </SDropdownItem>
 
-      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :static="args.itemPropStatic">
+      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
         {{ args.itemSlotDefault }}
         
         <template #description>
@@ -130,6 +130,7 @@ export const Default = {
   parameters: {
     design,
     docs: {
+      canvas: { layout: 'centered' },
       source: {
         transform: ((_, storyContext) => `
 <SDropdown ${sourceBinding(storyContext.args)}>
@@ -171,7 +172,7 @@ export const Default = {
     itemSlotDefault: 'Title',
     itemSlotDescription: 'Description',
     itemPropIcon: undefined,
-    itemPropStatic: false,
+    itemPropDisabled: false,
   },
 };
 
@@ -267,7 +268,7 @@ export const WithInfoItem = createVariation(`
 
   <template #items>
     <!-- Info Item -->
-    <SDropdownItem static>
+    <SDropdownItem disabled>
       <div class="flex flex-col items-start">
         <span class="font-normal"> Signed in as </span>
         <span> tom@example.com </span>
@@ -286,7 +287,7 @@ export const OnAvatarElement = createVariation(`
 
   <template #items>
     <!-- Info Item -->
-    <SDropdownItem static>
+    <SDropdownItem disabled>
       <div class="flex flex-col items-start">
         <span class="font-normal"> Signed in as </span>
         <span> tom@example.com </span>

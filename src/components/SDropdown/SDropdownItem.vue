@@ -4,23 +4,23 @@ import type { FunctionalComponent } from 'vue';
 withDefaults(
   defineProps<
     Partial<{
+      disabled: boolean;
       icon: FunctionalComponent;
-      static: boolean;
     }>
   >(),
   {
+    disabled: false,
     icon: undefined,
-    static: false,
   }
 );
 </script>
 
 <template>
-  <MenuItem v-slot="{ active }" :disabled="static">
+  <MenuItem v-slot="{ active }" :disabled="disabled">
     <button
       type="button"
       v-bind="$attrs"
-      :class="[active && 'bg-gray-50', static && 'cursor-default select-text']"
+      :class="[active && 'bg-gray-50', disabled && 'cursor-default select-text']"
       class="group flex w-full items-center px-3 py-3 gap-3 text-sm text-gray-700"
     >
       <component :is="icon" class="h-5 w-5 text-gray-400" aria-hidden="true" />

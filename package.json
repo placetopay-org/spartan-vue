@@ -38,6 +38,7 @@
     "vue": "3.3.4"
   },
   "devDependencies": {
+    "@floating-ui/vue": "^1.0.2",
     "@headlessui/vue": "1.7.15",
     "@heroicons/vue": "2.0.18",
     "@storybook/addon-a11y": "7.1.1",

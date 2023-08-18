@@ -10,3 +10,7 @@
 html {
   @apply antialiased;
 }
+
+.s-focus-primary {
+  @apply focus:ring-primary-100 focus:ring;
+}

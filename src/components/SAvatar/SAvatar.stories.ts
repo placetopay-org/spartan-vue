@@ -67,6 +67,7 @@ export const Default = {
   parameters: {
     design,
     docs: {
+      canvas: { layout: 'centered' },
       source: {
         transform: ((_, storyContext) => `
         <SAvatar ${sourceBinding(storyContext.args)} />

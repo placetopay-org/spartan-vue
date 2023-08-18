@@ -96,6 +96,7 @@ export const Default = {
   parameters: {
     design,
     docs: {
+      canvas: { layout: 'centered' },
       source: {
         transform: ((_, storyContext) => `<SSelect ${sourceBinding(storyContext.args)}>
   <option value="visa">visa</option> 
