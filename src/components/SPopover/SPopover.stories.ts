@@ -89,8 +89,8 @@ export const Default = {
     <div class="flex w-max">
       <div class="w-96 h-px"/>
       <SPopover :placement="args.placement" :offset="args.offset" :static="args.static">
-        <template #reference="{ display }">
-          <button class="bg-blue-300 w-40 h-12 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center" @click="display">Any Element!</button>
+        <template #reference="{ open }">
+          <button class="bg-blue-300 w-40 h-12 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center" @click="open">Any Element!</button>
         </template>
 
         <div class="bg-yellow-300 w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">Any Element Too!</div>
@@ -101,8 +101,8 @@ export const Default = {
     </div>
 
   <SPopover v-else :placement="args.placement" :offset="args.offset" :static="args.static">
-    <template #reference="{ display }">
-      <button class="bg-blue-300 w-40 h-12 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center" @click="display">Any Element!</button>
+    <template #reference="{ open }">
+      <button class="bg-blue-300 w-40 h-12 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center" @click="open">Any Element!</button>
     </template>
 
     <div class="bg-yellow-300 w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">Any Element Too!</div>

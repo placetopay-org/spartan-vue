@@ -2,7 +2,7 @@ import SFilter from './SFilter.vue';
 import { action } from '@storybook/addon-actions';
 import { buildDesign, buildSourceBinding } from '../../helpers';
 import type { SourceProps } from '@storybook/blocks';
-import { COND, type TFilter } from './types';
+import { Oper, type TFilter } from './types';
 
 export default {
   component: SFilter,
@@ -37,7 +37,7 @@ const sourceBinding = buildSourceBinding({
 });
 
 export const Default = {
-  decorators: [() => ({ template: '<div style="padding: 0 4px; padding-bottom: 300px;"><story/></div>' })],
+  decorators: [() => ({ template: '<div style="padding: 0 4px; padding-bottom: 500px;"><story/></div>' })],
   render: (args: any) => ({
     components: { SFilter },
     setup() {
@@ -58,62 +58,76 @@ export const Default = {
   },
   args: {
     customFilters: false,
-    filters: [
+    data: [
       {
         field: 'Brand',
+        type: 'enum',
+        options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
         filter: {
-          condition: COND.IN,
+          operator: Oper.IN,
           value: ['Nike', 'Adidas'],
         }
       },
       {
         field: 'Description',
-        filter: {
-          condition: COND.CONTAINS,
-          value: 'sport',
-        }
+        type: 'string',
+        // filter: {
+        //   operator: Oper.CONTAINS,
+        //   value: 'sport',
+        // }
       },
       {
         field: 'Seller',
-        filter: {
-          condition: COND.IN,
-          value: ['Amazon'],
-        }
+        type: 'enum',
+        options: ['Amazon', 'Ebay', 'Walmart', 'Target', 'Best Buy'],
+        // filter: {
+        //   operator: Oper.IN,
+        //   value: ['Amazon'],
+        // }
       },
       {
         field: 'Price',
-        filter: {
-          condition: COND.BETWEEN,
-          value: [0, 100],
-        }
+        type: 'number',
+        // filter: {
+        //   operator: Oper.BETWEEN,
+        //   value: [0, 100],
+        // }
+      },
+      {
+        field: 'Date',
+        type: 'date',
+        // filter: {
+        //   operator: Oper.BETWEEN,
+        //   value: [0, 100],
+        // }
       },
     ] as TFilter[],
   },
 };
 
-const createVariation = (template: string) => ({
-  decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
-  render: () => ({
-    components: { SFilter },
-    template,
-  }),
-  parameters: {
-    design,
-    controls: { disable: true },
-    actions: { disable: true },
-    docs: {
-      source: {
-        code: template,
-        language: 'html',
-      },
-    },
-  },
-});
+// const createVariation = (template: string) => ({
+//   decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
+//   render: () => ({
+//     components: { SFilter },
+//     template,
+//   }),
+//   parameters: {
+//     design,
+//     controls: { disable: true },
+//     actions: { disable: true },
+//     docs: {
+//       source: {
+//         code: template,
+//         language: 'html',
+//       },
+//     },
+//   },
+// });
 
-export const Size = createVariation(
-  `
-<SFilter color="blue" size="sm"> Small </SFilter>
-<SFilter color="blue" size="md"> Medium </SFilter>
-<SFilter color="blue" size="lg"> Large </SFilter>
-`
-);
+// export const Size = createVariation(
+//   `
+// <SFilter color="blue" size="sm"> Small </SFilter>
+// <SFilter color="blue" size="md"> Medium </SFilter>
+// <SFilter color="blue" size="lg"> Large </SFilter>
+// `
+// );

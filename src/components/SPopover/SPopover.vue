@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import { useFloating, autoUpdate, flip, offset, type Placement } from '@floating-ui/vue';
-import { useFloatingGate } from '../../hooks/useFloatingGate';
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick } from 'vue';
+
+const emit = defineEmits(['close']);
 
 const props = withDefaults(
   defineProps<{
     static?: boolean;
     offset?: number;
     placement?: Placement;
+    preventClose?: boolean;
   }>(),
   {
     static: false,
     offset: 0,
     placement: 'bottom-start',
+    preventClose: false,
   }
 );
 
-const reference = ref(null);
-const floating = ref(null);
+const isOpen = ref(false);
+const reference = ref<HTMLElement | null>(null);
+const floating = ref<HTMLElement | null>(null);
 
 const middleware = computed(() => {
   const group = [];
@@ -27,20 +31,50 @@ const middleware = computed(() => {
   return group;
 });
 
-const { isDisplayed, display, focusout } = useFloatingGate(reference, floating);
 const { floatingStyles } = useFloating(reference, floating, {
   transform: false,
   placement: computed(() => props.placement),
   middleware: middleware,
   whileElementsMounted: autoUpdate,
 });
+
+const open = () => {
+  isOpen.value = true;
+  nextTick(() => {
+    floating.value?.focus();
+  });
+};
+
+const close = () => (isOpen.value = false);
+
+const toggle = () => {
+  if (isOpen.value) close();
+  else open();
+};
+
+const focusout = () => {
+  requestAnimationFrame(() => {
+    if (document.activeElement === floating.value) return;
+    if (reference.value?.contains(document.activeElement)) return;
+    if (floating.value?.contains(document.activeElement)) return;
+
+    if (!props.preventClose) close();
+    emit('close');
+  });
+};
+
+defineExpose({
+  open,
+  close,
+  toggle,
+});
 </script>
 
 <template>
-  <div ref="reference">
-    <slot name="reference" :display="display" />
+  <div ref="reference" tabindex="-1">
+    <slot name="reference" :open="open" :close="close" :toggle="toggle" />
   </div>
-  <div class="relative">
+  <div class="absolute">
     <Transition
       enter-active-class="transition duration-200 ease-out"
       leave-active-class="transition duration-150 ease-in"
@@ -49,8 +83,8 @@ const { floatingStyles } = useFloating(reference, floating, {
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="-translate-y-2 opacity-0"
     >
-      <div v-if="isDisplayed" ref="floating" :style="floatingStyles" @focusout="focusout" tabindex="-1">
-        <slot />
+      <div v-if="isOpen" ref="floating" :style="floatingStyles" @focusout="focusout" tabindex="-1">
+        <slot :open="open" :close="close" :toggle="toggle" />
       </div>
     </Transition>
   </div>

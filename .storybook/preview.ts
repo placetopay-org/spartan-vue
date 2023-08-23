@@ -1,9 +1,8 @@
-import "../src/css/main.css";
-import DocumentationTemplate from "./DocumentationTemplate.mdx";
-
-import { type Preview, setup } from "@storybook/vue3";
-import type { App } from "vue";
-import { createI18n } from "vue-i18n";
+import '../src/css/main.css';
+import DocumentationTemplate from './DocumentationTemplate.mdx';
+import { type Preview, setup } from '@storybook/vue3';
+import type { App } from 'vue';
+import { createI18n } from 'vue-i18n';
 
 const preview: Preview = {
   parameters: {
@@ -11,9 +10,9 @@ const preview: Preview = {
       page: DocumentationTemplate,
     },
     backgrounds: {
-      default: "light",
+      default: 'light',
     },
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -25,8 +24,8 @@ const preview: Preview = {
 
 const i18n = createI18n({
   legacy: false,
-  locale: "es",
-  fallbackLocale: "en",
+  locale: 'es',
+  fallbackLocale: 'en',
   globalInjection: true,
 });
 

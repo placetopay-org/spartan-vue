@@ -6,6 +6,7 @@ export { SButtonGroup } from './components/SButtonGroup';
 export { SBadge } from './components/SBadge';
 export { SDropdown, SDropdownItem } from './components/SDropdown';
 export { SSelect } from "./components/SSelect";
+export { SPopover } from "./components/SPopover";
 
 export { default as SSidebar } from './components/SSidebar.vue';
 export { default as SSidebarLogo } from './components/SSidebarLogo.vue';
