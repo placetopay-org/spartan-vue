@@ -18,7 +18,7 @@ const value = computed(() => {
 
   if (filter.operator === Oper.EX) return;
   if (filter.operator === Oper.NEX) return `no existe`;
-  if (filter.operator === Oper.EQ) return filter.value;
+  if (filter.operator === Oper.EQ) {return filter.value;}
   if (filter.operator === Oper.NEQ) return `no es ${filter.value}`;
   if (filter.operator === Oper.IN) return filter.value.slice(0, 2).join(', ');
   if (filter.operator === Oper.NIN) return `no es ${filter.value.slice(0, 2).join(', ')}`;

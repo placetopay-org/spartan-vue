@@ -43,7 +43,7 @@ const model = computed({
     <input
       :class="[
         'border border-gray-300 bg-white placeholder:text-gray-400 s-focus-primary transition focus:border-primary-300',
-        type === 'checkbox' ? 'w-4 h-4 rounded text-primary-600' : 'px-3 py-2 w-full rounded-lg',
+        type === 'checkbox' ? 'w-4 h-4 rounded text-primary-600 cursor-pointer' : 'px-3 py-2 w-full rounded-lg',
         disabled && 'opacity-50 pointer-events-none',
       ]"
       :disabled="disabled"

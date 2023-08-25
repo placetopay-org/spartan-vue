@@ -79,7 +79,7 @@ export const Default = {
       {
         field: 'Seller',
         type: 'enum',
-        options: ['Amazon', 'Ebay', 'Walmart', 'Target', 'Best Buy'],
+        options: ['Amazon', 'Ebay', 'Walmart', 'Target', 'Best Buy', 'Another 1', 'Another 2', 'Another 3', 'Another 4', 'Another 5', 'Another 6', 'Another 7', 'Another 8', 'Another 9', 'Another 10', 'Another 11', 'Another 12'],
         // filter: {
         //   operator: Oper.IN,
         //   value: ['Amazon'],
@@ -100,6 +100,58 @@ export const Default = {
         //   operator: Oper.BETWEEN,
         //   value: [0, 100],
         // }
+      },
+      {
+        field: 'Another',
+        type: 'string',
+      },
+      {
+        field: 'Another 1',
+        type: 'string',
+      },
+      {
+        field: 'Another 2',
+        type: 'string',
+      },
+      {
+        field: 'Another 3',
+        type: 'string',
+      },
+      {
+        field: 'Another 4',
+        type: 'string',
+      },
+      {
+        field: 'Another 5',
+        type: 'string',
+      },
+      {
+        field: 'Another 6',
+        type: 'string',
+      },
+      {
+        field: 'Another 7',
+        type: 'string',
+      },
+      {
+        field: 'Another 8',
+        type: 'string',
+      },
+      {
+        field: 'Another 9',
+        type: 'string',
+      },
+      {
+        field: 'Another 10',
+        type: 'string',
+      },
+      {
+        field: 'Another 11',
+        type: 'string',
+      },
+      {
+        field: 'Another 12',
+        type: 'string',
       },
     ] as TFilter[],
   },

@@ -18,7 +18,7 @@ const searchedFilters = computed(
 </script>
 
 <template>
-  <div class="bg-white shadow-2xl rounded-lg flex flex-col min-w-[255px]">
+  <div class="bg-white shadow-2xl rounded-lg flex flex-col min-w-[255px] max-h-96 overflow-y-auto scrollbar-hide">
     <div class="px-4 pt-4 pb-3">
       <SInput v-model="field" placeholder="Filtrar por" />
     </div>
@@ -30,3 +30,21 @@ const searchedFilters = computed(
     </ul>
   </div>
 </template>
+
+<style scoped>
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ff6c0c;
+  border-radius: 16px;
+}
+</style>

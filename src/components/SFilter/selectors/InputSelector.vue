@@ -12,12 +12,12 @@ const props = defineProps<{
 
 const value = computed({
   get() {
-    return props.modelValue
+    return props.modelValue;
   },
   set(value) {
-    emit('update:modelValue', value)
-  }
-})
+    emit('update:modelValue', value);
+  },
+});
 
 const inputType = computed(() => {
   if (props.filter.type === 'number') return 'number';
@@ -27,9 +27,5 @@ const inputType = computed(() => {
 </script>
 
 <template>
-  <SInput
-    v-model="value"
-    :type="inputType"
-    placeholder="Escribe un valor"
-  />
+  <SInput v-model="value" :type="inputType" placeholder="Escribe un valor" />
 </template>

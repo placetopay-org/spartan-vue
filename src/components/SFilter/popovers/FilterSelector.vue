@@ -70,7 +70,7 @@ const activeOperator = ref(operators[0]);
 
 const filterComponent = computed(() => operatorGroup[activeOperator.value as keyof typeof operatorGroup]);
 
-const selectCondition = (selection: Oper, closeCallback: () => void) => {
+const selectOperator = (selection: Oper, closeCallback: () => void) => {
   activeOperator.value = selection;
   closeCallback();
 };
@@ -87,7 +87,7 @@ const add = () => {
 </script>
 
 <template>
-  <div class="bg-white shadow-2xl rounded-lg flex flex-col gap-4 p-4 min-w-[370px]">
+  <div class="bg-white shadow-2xl rounded-lg flex flex-col gap-4 p-4 min-w-[370px] max-h-96">
     <div class="flex items-center gap-3">
       <span>{{ filter.field }}</span>
       <SPopover :offset="8">
@@ -100,12 +100,12 @@ const add = () => {
 
         <template #default="{ close }">
           <ul class="bg-white shadow-2xl border border-gray-100 rounded-lg divide-y divide-gray-100">
-            <li v-for="condition in operators">
+            <li v-for="operator in operators">
               <button
-                @click="selectCondition(condition, close)"
+                @click="selectOperator(operator, close)"
                 class="w-full text-left p-3 hover:bg-gray-50 text-sm font-medium text-gray-800"
               >
-                {{ condition }}
+                {{ operator }}
               </button>
             </li>
           </ul>
