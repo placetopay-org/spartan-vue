@@ -100,10 +100,11 @@ export const Default = {
       {
         name: 'Date',
         type: 'date',
-        // filter: {
-        //   operator: Oper.BETWEEN,
-        //   value: [0, 100],
-        // }
+        required: true,
+        filter: {
+          operator: Oper.BETWEEN,
+          value: ['2023-08-01', '2023-08-02'],
+        }
       },
       {
         name: 'Gender',

@@ -16,6 +16,8 @@ const props = defineProps<{
   filterIdx: number;
 }>();
 
+const removable = computed(() => props.field.required !== true);
+
 const value = computed(() => {
   const { filter, type, unique } = props.field;
 
@@ -63,7 +65,7 @@ const toggle = () => {
   <SPopover ref="popover" v-if="field.filter" :offset="12" prevent-close>
     <template #reference>
       <button @click="toggle">
-        <SBadge color="gray" class="whitespace-nowrap" pill removable @removed="emit('remove', field)">
+        <SBadge color="gray" class="whitespace-nowrap" pill :removable="removable" @removed="emit('remove', field)">
           <span class="font-bold max-w-[144px]">{{ `${field.name} |&nbsp;` }}</span>
           <span class="truncate max-w-[144px]">{{ value }}</span>
         </SBadge>

@@ -33,6 +33,7 @@ type TFieldLayout<T, F> = {
   options?: string[];
   filter?: F;
   unique?: boolean;
+  required?: boolean;
 }
 
 export enum FieldType {
