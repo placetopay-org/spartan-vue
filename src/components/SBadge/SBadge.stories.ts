@@ -78,9 +78,9 @@ export const Default = {
     setup() {
       const removed = (e: any) => {
         action('removed')(e);
-        args.visible = false;
+        args.hidden = false;
         setTimeout(() => {
-          args.visible = true;
+          args.hidden = true;
         }, 350);
       };
       return { args, removed };

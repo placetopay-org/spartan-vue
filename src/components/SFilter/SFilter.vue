@@ -67,6 +67,7 @@ const clean = () => {
     <div class="pl-1 flex flex-wrap gap-3">
       <FieldFilter
         v-for="filter in fields"
+        :key="filter.name"
         :field="filter"
         :filterIdx="fields.indexOf(filter)"
         @update="updateFilter"
@@ -94,7 +95,12 @@ const clean = () => {
           leave-to-class="opacity-0"
         >
           <FieldSelector v-if="isState(0)" :fields="fields.filter((data) => !data.filter)" @select="selectField" />
-          <FilterSelector v-else-if="isState(1) && activeField" :field="activeField" @add="updateFilter" @cancel="reset" />
+          <FilterSelector
+            v-else-if="isState(1) && activeField"
+            :field="activeField"
+            @add="updateFilter"
+            @cancel="reset"
+          />
         </Transition>
       </SPopover>
     </div>

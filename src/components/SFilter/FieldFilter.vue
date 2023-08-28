@@ -17,18 +17,18 @@ const props = defineProps<{
 }>();
 
 const value = computed(() => {
-  const { filter, type } = props.field;
+  const { filter, type, unique } = props.field;
 
   if (!filter) return;
 
   if (filter.operator === Oper.EX) return;
   if (filter.operator === Oper.NEX) return `no existe`;
   if (filter.operator === Oper.EQ) {
-    if (type === FieldType.ENUM) return filter.value.join(', ');
+    if (type === FieldType.ENUM && !unique) return filter.value.join(', ');
     return filter.value;
   }
   if (filter.operator === Oper.NEQ) {
-    if (type === FieldType.ENUM) return `no es ${filter.value.join(', ')}`;
+    if (type === FieldType.ENUM && !unique) return `no es ${filter.value.join(', ')}`;
     return `no es ${filter.value}`;
   }
   if (filter.operator === Oper.GT) return `mayor que ${filter.value}`;

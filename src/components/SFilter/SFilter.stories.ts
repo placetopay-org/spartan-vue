@@ -106,6 +106,16 @@ export const Default = {
         // }
       },
       {
+        name: 'Gender',
+        type: 'enum',
+        unique: true,
+        options: ['men', 'women', 'kids', 'unisex'],
+      },
+      {
+        name: 'New',
+        type: 'boolean',
+      },
+      {
         name: 'Another',
         type: 'string',
       },

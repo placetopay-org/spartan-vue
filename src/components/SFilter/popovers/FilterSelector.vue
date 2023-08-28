@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { SButton } from '../../SButton';
-import { InputSelector, TwoInputSelector, InputWithCheckboxes } from '../selectors';
+import { InputSelector, TwoInputSelector, OptionsSelector } from '../selectors';
 import { SPopover } from '../../SPopover';
 import { Oper, FieldType, type TField } from '../types';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
@@ -19,7 +19,7 @@ const conditionMap = {
   [FieldType.BOOLEAN]: {
     [Oper.EX]: null,
     [Oper.NEX]: null,
-    [Oper.EQ]: null,
+    [Oper.EQ]: OptionsSelector,
   },
   [FieldType.STRING]: {
     [Oper.EX]: null,
@@ -57,8 +57,8 @@ const conditionMap = {
   [FieldType.ENUM]: {
     [Oper.EX]: null,
     [Oper.NEX]: null,
-    [Oper.EQ]: InputWithCheckboxes,
-    [Oper.NEQ]: InputWithCheckboxes,
+    [Oper.EQ]: OptionsSelector,
+    [Oper.NEQ]: OptionsSelector,
   },
 };
 
@@ -128,7 +128,7 @@ onMounted(() => {
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="-translate-y-2 opacity-0"
     >
-      <component v-if="filterComponent" :is="filterComponent" v-model="value" :filter="props.field" />
+      <component v-if="filterComponent" :is="filterComponent" v-model="value" :field="props.field" />
     </Transition>
 
     <div class="flex gap-3">
