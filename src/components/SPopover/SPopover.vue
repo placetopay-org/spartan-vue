@@ -63,18 +63,21 @@ const focusout = () => {
   });
 };
 
-defineExpose({
+const handlers = {
+  isOpen,
   open,
   close,
   toggle,
-});
+};
+
+defineExpose(handlers);
 </script>
 
 <template>
   <div ref="reference" tabindex="-1">
-    <slot name="reference" :open="open" :close="close" :toggle="toggle" />
+    <slot name="reference" v-bind="handlers" />
   </div>
-  <div class="absolute">
+  <div class="absolute z-40">
     <Transition
       enter-active-class="transition duration-200 ease-out"
       leave-active-class="transition duration-150 ease-in"
@@ -84,7 +87,7 @@ defineExpose({
       leave-to-class="-translate-y-2 opacity-0"
     >
       <div v-if="isOpen" ref="floating" :style="floatingStyles" @focusout="focusout" tabindex="-1">
-        <slot :open="open" :close="close" :toggle="toggle" />
+        <slot v-bind="handlers" />
       </div>
     </Transition>
   </div>

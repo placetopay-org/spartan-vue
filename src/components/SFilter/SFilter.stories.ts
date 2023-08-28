@@ -2,7 +2,7 @@ import SFilter from './SFilter.vue';
 import { action } from '@storybook/addon-actions';
 import { buildDesign, buildSourceBinding } from '../../helpers';
 import type { SourceProps } from '@storybook/blocks';
-import { Oper, type TFilter } from './types';
+import { Oper, type TField } from './types';
 
 export default {
   component: SFilter,
@@ -41,9 +41,13 @@ export const Default = {
   render: (args: any) => ({
     components: { SFilter },
     setup() {
-      return { args };
+      const show = (value: string) => {
+        console.log(JSON.parse(JSON.stringify(value)));
+      }
+
+      return { args, show };
     },
-    template: '<SFilter v-bind="args" />',
+    template: '<SFilter v-bind="args" @apply="show" />',
   }),
   parameters: {
     design,
@@ -58,35 +62,35 @@ export const Default = {
   },
   args: {
     customFilters: false,
-    data: [
+    fields: [
       {
-        field: 'Brand',
+        name: 'Brand',
         type: 'enum',
         options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
         filter: {
-          operator: Oper.IN,
+          operator: Oper.EQ,
           value: ['Nike', 'Adidas'],
         }
       },
       {
-        field: 'Description',
+        name: 'Description',
         type: 'string',
-        // filter: {
-        //   operator: Oper.CONTAINS,
-        //   value: 'sport',
-        // }
+        filter: {
+          operator: Oper.CONTAINS,
+          value: 'sport',
+        }
       },
       {
-        field: 'Seller',
+        name: 'Seller',
         type: 'enum',
         options: ['Amazon', 'Ebay', 'Walmart', 'Target', 'Best Buy', 'Another 1', 'Another 2', 'Another 3', 'Another 4', 'Another 5', 'Another 6', 'Another 7', 'Another 8', 'Another 9', 'Another 10', 'Another 11', 'Another 12'],
         // filter: {
-        //   operator: Oper.IN,
+        //   operator: Oper.EQ,
         //   value: ['Amazon'],
         // }
       },
       {
-        field: 'Price',
+        name: 'Price',
         type: 'number',
         // filter: {
         //   operator: Oper.BETWEEN,
@@ -94,7 +98,7 @@ export const Default = {
         // }
       },
       {
-        field: 'Date',
+        name: 'Date',
         type: 'date',
         // filter: {
         //   operator: Oper.BETWEEN,
@@ -102,58 +106,58 @@ export const Default = {
         // }
       },
       {
-        field: 'Another',
+        name: 'Another',
         type: 'string',
       },
       {
-        field: 'Another 1',
+        name: 'Another 1',
         type: 'string',
       },
       {
-        field: 'Another 2',
+        name: 'Another 2',
         type: 'string',
       },
       {
-        field: 'Another 3',
+        name: 'Another 3',
         type: 'string',
       },
       {
-        field: 'Another 4',
+        name: 'Another 4',
         type: 'string',
       },
       {
-        field: 'Another 5',
+        name: 'Another 5',
         type: 'string',
       },
       {
-        field: 'Another 6',
+        name: 'Another 6',
         type: 'string',
       },
       {
-        field: 'Another 7',
+        name: 'Another 7',
         type: 'string',
       },
       {
-        field: 'Another 8',
+        name: 'Another 8',
         type: 'string',
       },
       {
-        field: 'Another 9',
+        name: 'Another 9',
         type: 'string',
       },
       {
-        field: 'Another 10',
+        name: 'Another 10',
         type: 'string',
       },
       {
-        field: 'Another 11',
+        name: 'Another 11',
         type: 'string',
       },
       {
-        field: 'Another 12',
+        name: 'Another 12',
         type: 'string',
       },
-    ] as TFilter[],
+    ] as TField[],
   },
 };
 

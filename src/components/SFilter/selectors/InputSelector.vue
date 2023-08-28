@@ -6,7 +6,7 @@ import type { TFilter } from '../types';
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
-  modelValue: string;
+  modelValue?: string;
   filter: TFilter;
 }>();
 

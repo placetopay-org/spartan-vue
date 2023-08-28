@@ -13,34 +13,22 @@ export enum Oper {
   NCONTAINS = 'notContains',
   STARTSWITH = 'startsWith',
   ENDSWITH = 'endsWith',
-  IN = 'in',
-  NIN = 'notIn',
 }
 
-type TVoidFilter<C> = {
-  operator: C;
+type TFilter<O, V> = {
+  operator: O;
+  value: V
 };
 
-type TOneFilter<C, V> = {
-  operator: C;
-  value: V;
-};
+type TExistsFilter = TFilter<Oper.EX | Oper.NEX, null>;
+type TEqualOrNotFilter<T> = TFilter<Oper.EQ | Oper.NEQ, T>;
+type TContainsOrNotFilter = TFilter<Oper.CONTAINS | Oper.NCONTAINS, string>;
+type TStartsOrEndsFilter = TFilter<Oper.STARTSWITH | Oper.ENDSWITH, string>;
+type TGtOrLtFilter<T> = TFilter<Oper.GT | Oper.GTE | Oper.LT | Oper.LTE, T>;
+type TBetweenOrNotFilter<T> = TFilter<Oper.BETWEEN | Oper.NBETWEEN, [T, T]>;
 
-type TTwoFilter<C, V> = {
-  operator: C;
-  value: [V, V];
-};
-
-type TExistsFilter = TVoidFilter<Oper.EX | Oper.NEX>;
-type TEqualOrNotFilter<T> = TOneFilter<Oper.EQ | Oper.NEQ, T>;
-type TContainsOrNotFilter = TOneFilter<Oper.CONTAINS | Oper.NCONTAINS, string>;
-type TStartsOrEndsFilter = TOneFilter<Oper.STARTSWITH | Oper.ENDSWITH, string>;
-type TGtOrLtFilter<T> = TOneFilter<Oper.GT | Oper.GTE | Oper.LT | Oper.LTE, T>;
-type TBetweenOrNotFilter<T> = TTwoFilter<Oper.BETWEEN | Oper.NBETWEEN, T>;
-type TInOrNotFilter = TOneFilter<Oper.IN | Oper.NIN, string[]>;
-
-type TFilterLayout<T, F> = {
-  field: string;
+type TFieldLayout<T, F> = {
+  name: string;
   type: T;
   options?: string[];
   filter?: F;
@@ -54,10 +42,10 @@ export enum FieldType {
   ENUM = 'enum',
 }
 
-type TFilterBoolean = TFilterLayout<FieldType.BOOLEAN, TExistsFilter | TOneFilter<Oper.EQ, boolean>>
-type TFilterString = TFilterLayout<FieldType.STRING, TExistsFilter | TEqualOrNotFilter<string> | TContainsOrNotFilter | TStartsOrEndsFilter>;
-type TFilterNumber = TFilterLayout<FieldType.NUMBER, TExistsFilter | TEqualOrNotFilter<number> | TGtOrLtFilter<number> | TBetweenOrNotFilter<number>>;
-type TFilterDate = TFilterLayout<FieldType.DATE, TExistsFilter | TEqualOrNotFilter<Date> | TGtOrLtFilter<Date> | TBetweenOrNotFilter<Date>>;
-type TFilterEnum = TFilterLayout<FieldType.ENUM, TExistsFilter | TInOrNotFilter>;
+type TFieldBoolean = TFieldLayout<FieldType.BOOLEAN, TExistsFilter | TFilter<Oper.EQ, boolean>>
+type TFieldString = TFieldLayout<FieldType.STRING, TExistsFilter | TEqualOrNotFilter<string> | TContainsOrNotFilter | TStartsOrEndsFilter>;
+type TFieldNumber = TFieldLayout<FieldType.NUMBER, TExistsFilter | TEqualOrNotFilter<number> | TGtOrLtFilter<number> | TBetweenOrNotFilter<number>>;
+type TFieldDate = TFieldLayout<FieldType.DATE, TExistsFilter | TEqualOrNotFilter<Date> | TGtOrLtFilter<Date> | TBetweenOrNotFilter<Date>>;
+type TFieldEnum = TFieldLayout<FieldType.ENUM, TExistsFilter | TEqualOrNotFilter<string[]>>;
 
-export type TFilter = TFilterBoolean | TFilterString | TFilterNumber | TFilterDate | TFilterEnum;
+export type TField = TFieldBoolean | TFieldString | TFieldNumber | TFieldDate | TFieldEnum;

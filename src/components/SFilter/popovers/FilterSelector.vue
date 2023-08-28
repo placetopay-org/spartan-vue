@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { SButton } from '../../SButton';
 import { InputSelector, TwoInputSelector, InputWithCheckboxes } from '../selectors';
 import { SPopover } from '../../SPopover';
-import { Oper, FieldType, type TFilter } from '../types';
+import { Oper, FieldType, type TField } from '../types';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 
 const emit = defineEmits<{
-  (event: 'add', value: { index: number; data: TFilter['filter'] }): void;
+  (event: 'add', value: { index: number; filter: TField['filter'] }): void;
   (event: 'cancel'): void;
 }>();
 
 const props = defineProps<{
-  filter: TFilter;
-  filterIdx: number;
+  field: TField;
+  fieldIdx: number;
 }>();
 
 const conditionMap = {
@@ -64,7 +64,7 @@ const conditionMap = {
 };
 
 const value = ref();
-const operatorGroup = conditionMap[props.filter.type];
+const operatorGroup = conditionMap[props.field.type];
 const operators = Object.keys(operatorGroup) as Oper[];
 const activeOperator = ref(operators[0]);
 
@@ -77,19 +77,26 @@ const selectOperator = (selection: Oper, closeCallback: () => void) => {
 
 const add = () => {
   emit('add', {
-    index: props.filterIdx,
-    data: {
+    index: props.fieldIdx,
+    filter: {
         operator: activeOperator.value,
         value: value.value,
-      } as TFilter['filter'],
+      } as TField['filter'],
   });
 };
+
+onMounted(() => {
+  if (props.field.filter) {
+    activeOperator.value = props.field.filter.operator;
+    value.value = props.field.filter.value;
+  }
+});
 </script>
 
 <template>
   <div class="bg-white shadow-2xl rounded-lg flex flex-col gap-4 p-4 min-w-[370px] max-h-96">
     <div class="flex items-center gap-3">
-      <span>{{ filter.field }}</span>
+      <span>{{ field.name }}</span>
       <SPopover :offset="8">
         <template #reference="{ toggle }">
           <button @click="toggle" class="bg-gray-100 pl-3 pr-2 py-1 rounded-lg flex items-center gap-1.5 text-gray-800">
@@ -122,7 +129,7 @@ const add = () => {
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="-translate-y-2 opacity-0"
     >
-      <component v-if="filterComponent" :is="filterComponent" v-model="value" :filter="props.filter" />
+      <component v-if="filterComponent" :is="filterComponent" v-model="value" :filter="props.field" />
     </Transition>
 
     <div class="flex gap-3">
