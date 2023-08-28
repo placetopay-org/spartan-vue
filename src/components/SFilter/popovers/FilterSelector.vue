@@ -7,13 +7,12 @@ import { Oper, FieldType, type TField } from '../types';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 
 const emit = defineEmits<{
-  (event: 'add', value: { index: number; filter: TField['filter'] }): void;
+  (event: 'add', value: { field: TField; filter: TField['filter'] }): void;
   (event: 'cancel'): void;
 }>();
 
 const props = defineProps<{
   field: TField;
-  fieldIdx: number;
 }>();
 
 const conditionMap = {
@@ -77,7 +76,7 @@ const selectOperator = (selection: Oper, closeCallback: () => void) => {
 
 const add = () => {
   emit('add', {
-    index: props.fieldIdx,
+    field: props.field,
     filter: {
         operator: activeOperator.value,
         value: value.value,

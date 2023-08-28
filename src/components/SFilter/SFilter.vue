@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SFieldFilter from './SFieldFilter.vue';
+import FieldFilter from './FieldFilter.vue';
 import FieldSelector from './popovers/FieldSelector.vue';
 import FilterSelector from './popovers/FilterSelector.vue';
 import { SButton } from '../SButton';
@@ -41,9 +41,9 @@ const selectField = (filter: TField) => {
   preventClose.value = true;
 };
 
-const addFilter = (value: { index: number; filter: TField['filter'] }) => {
-  fields[value.index].filter = value.filter;
-  reset();
+const updateFilter = ({ field, filter }: { field: TField; filter: TField['filter'] }) => {
+  field.filter = filter;
+  closeActivePopover.value();
 };
 
 const removeFilter = (field: TField) => {
@@ -65,10 +65,11 @@ const clean = () => {
 <template>
   <div class="flex w-full justify-between gap-8 pr-1">
     <div class="pl-1 flex flex-wrap gap-3">
-      <SFieldFilter
+      <FieldFilter
         v-for="filter in fields"
         :field="filter"
         :filterIdx="fields.indexOf(filter)"
+        @update="updateFilter"
         @remove="removeFilter"
       />
 
@@ -93,13 +94,7 @@ const clean = () => {
           leave-to-class="opacity-0"
         >
           <FieldSelector v-if="isState(0)" :fields="fields.filter((data) => !data.filter)" @select="selectField" />
-          <FilterSelector
-            v-else-if="isState(1) && activeField"
-            :field="activeField"
-            :fieldIdx="fields.indexOf(activeField)"
-            @add="addFilter"
-            @cancel="reset"
-          />
+          <FilterSelector v-else-if="isState(1) && activeField" :field="activeField" @add="updateFilter" @cancel="reset" />
         </Transition>
       </SPopover>
     </div>

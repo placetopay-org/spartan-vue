@@ -8,6 +8,7 @@ import { closeActivePopover } from './globalStore';
 
 const emit = defineEmits<{
   (event: 'remove', field: TField): void;
+  (event: 'update', value: { field: TField; filter: TField['filter'] }): void;
 }>();
 
 const props = defineProps<{
@@ -44,10 +45,6 @@ const value = computed(() => {
   return '';
 });
 
-const update = (value: { index: number; filter: TField['filter'] }) => {
-  console.log('update', value);
-};
-
 const popover = ref<InstanceType<typeof SPopover> | null>(null);
 
 const toggle = () => {
@@ -73,6 +70,11 @@ const toggle = () => {
       </button>
     </template>
 
-    <FilterSelector :field="field" :field-idx="filterIdx" @add="update" @cancel="popover?.close" />
+    <FilterSelector
+      :field="field"
+      :field-idx="filterIdx"
+      @add="(value) => $emit('update', value)"
+      @cancel="popover?.close"
+    />
   </SPopover>
 </template>
