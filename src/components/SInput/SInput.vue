@@ -8,7 +8,7 @@ const props = withDefaults(
       disabled: boolean;
       id: string;
       label: string;
-      modelValue: string | string[] | boolean;
+      modelValue: string | string[] | boolean | number;
       name: string;
       placeholder: string;
       type: string;

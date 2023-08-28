@@ -70,6 +70,14 @@ const activeOperator = ref(operators[0]);
 const filterComponent = computed(() => operatorGroup[activeOperator.value as keyof typeof operatorGroup]);
 
 const selectOperator = (selection: Oper, closeCallback: () => void) => {
+  if (
+    selection === Oper.BETWEEN ||
+    selection === Oper.NBETWEEN ||
+    activeOperator.value === Oper.BETWEEN ||
+    activeOperator.value === Oper.NBETWEEN
+  ) {
+    value.value = undefined;
+  }
   activeOperator.value = selection;
   closeCallback();
 };
@@ -78,11 +86,25 @@ const add = () => {
   emit('add', {
     field: props.field,
     filter: {
-        operator: activeOperator.value,
-        value: value.value,
-      } as TField['filter'],
+      operator: activeOperator.value,
+      value: value.value,
+    } as TField['filter'],
   });
 };
+
+const disabled = computed(() => {
+  if (activeOperator.value === Oper.EX || activeOperator.value === Oper.NEX) return false;
+
+  const isValid = (value: string | number | boolean | null | undefined) => {
+    if (value === 0) return true;
+    return !!(value && String(value).trim());
+  };
+
+  if (Array.isArray(value.value)) {
+    return !value.value.every((item) => isValid(item));
+  }
+  return !isValid(value.value);
+});
 
 onMounted(() => {
   if (props.field.filter) {
@@ -133,7 +155,9 @@ onMounted(() => {
 
     <div class="flex gap-3">
       <SButton class="w-full" variant="secondary" @click="$emit('cancel')">Cancelar</SButton>
-      <SButton class="w-full" @click="add">Agregar</SButton>
+      <SButton :class="['w-full', disabled && 'opacity-50 pointer-events-none']" @click="add" :disabled="disabled"
+        >Agregar</SButton
+      >
     </div>
   </div>
 </template>

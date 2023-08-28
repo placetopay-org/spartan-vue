@@ -6,7 +6,7 @@ import type { TField } from '../types';
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
-  modelValue?: string;
+  modelValue?: string[] | number[];
   field: TField;
 }>();
 

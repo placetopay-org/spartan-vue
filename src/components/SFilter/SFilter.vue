@@ -58,7 +58,7 @@ const reset = () => {
 };
 
 const clean = () => {
-  fields.forEach((filter) => (filter.filter = undefined));
+  fields.forEach((filter) => !filter.required && (filter.filter = undefined));
 };
 </script>
 
