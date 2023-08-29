@@ -10,22 +10,29 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'DOC',
+        component: '-',
       },
     },
   },
   argTypes: {
     // Events
-    removed: {
-      control: { type: 'text' },
+    apply: {
+      control: { type: null },
       table: { type: { summary: null }, category: 'Events' },
-      description: "DOC",
+      description: "-",
+    },
+    removed: {
+      control: { type: null },
+      table: { type: { summary: null }, category: 'Events' },
+      description: "-",
     },
 
     // Props
     customFilters: {
-      description: 'DOC',
-      table: { type: { summary: 'boolean' } },
+      description: '-',
+    },
+    fields: {
+      description: '-',
     },
   },
 };

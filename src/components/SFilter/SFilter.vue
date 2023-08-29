@@ -29,6 +29,10 @@ const state = ref(0);
 const isState = (stateIdx: number) => state.value === stateIdx;
 const nextState = () => state.value++;
 
+const openCustomFilters = () => {
+  // TODO: Open custom filters
+}
+
 const openFieldSelector = () => {
   popover.value?.open();
   if (closeActivePopover.value && closeActivePopover.value !== reset) closeActivePopover.value();
@@ -106,7 +110,14 @@ const clean = () => {
     </div>
 
     <div class="flex gap-3">
-      <SButton v-if="customFilters" variant="outline" rounded="full" class="!py-0.5" :icon="FunnelIcon" />
+      <SButton
+        v-if="customFilters"
+        variant="outline"
+        rounded="full"
+        class="!py-0.5"
+        :icon="FunnelIcon"
+        @click="openCustomFilters"
+      />
       <SButton
         rounded="full"
         class="whitespace-nowrap !py-0.5"
