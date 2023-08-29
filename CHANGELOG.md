@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Initial implementation of `SRadioGroup` component.
+- `SRadioGroupItem` component to be used inside `SRadioGroup`.
+- Initial implementation of `SFilter` component.
+- Initial implementation of `SPopover` component.
 - Initial implementation of `SDropdown` component.
 - `SDropdownItem` component to be used inside `SDropdown`.
 - Initial implementation of `SButtonGroup` component.
