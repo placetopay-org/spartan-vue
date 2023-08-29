@@ -1,13 +1,12 @@
-import SRadioGroup from './SRadioGroup.vue';
-import SRadioGroupItem from './SRadioGroupItem.vue';
+import SSwitch from './SSwitch.vue';
 import { SDropdown, SDropdownItem } from '../SDropdown';
 import type { SourceProps } from '@storybook/blocks';
 import { buildDesign, buildSourceBinding } from '../../helpers';
 import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
 
 export default {
-  component: SRadioGroup,
-  title: 'new/RadioGroup',
+  component: SSwitch,
+  title: 'new/Switch',
   parameters: {
     docs: {
       description: {
@@ -45,53 +44,11 @@ const sourceBinding = buildSourceBinding({});
 
 export const Default = {
   render: (args: any) => ({
-    components: { SRadioGroup, SRadioGroupItem },
+    components: { SSwitch },
     setup() {
       return { args };
     },
-    template: `<SRadioGroup v-bind="args" v-model="args.modelValue" class="grid grid-cols-3 gap-4">
-    <SRadioGroupItem value="startup">
-      <template #title>
-        <span>Startup</span>
-      </template>
-
-      <template #description>
-        <span>A new business or company</span>
-      </template>
-
-      <template #footer>
-        <span>high risk</span>
-      </template>
-    </SRadioGroupItem>
-
-    <SRadioGroupItem value="business">
-      <template #title>
-        <span>Business</span>
-      </template>
-
-      <template #description>
-        <span>A business with up to 50 employees or turnover of up to £5m</span>
-      </template>
-
-      <template #footer>
-        <span>Medium risk</span>
-      </template>
-    </SRadioGroupItem>
-
-    <SRadioGroupItem value="corporate">
-      <template #title>
-        <span>Corporate</span>
-      </template>
-
-      <template #description>
-        <span>A business with more than 50 employees or turnover of more than £5m</span>
-      </template>
-
-      <template #footer>
-        <span>Low risk</span>
-      </template>
-    </SRadioGroupItem>
-    </SRadioGroup>`,
+    template: `<SSwitch v-bind="args" v-model="args.modelValue"/>`,
   }),
   parameters: {
     design,
@@ -99,7 +56,7 @@ export const Default = {
       canvas: { layout: 'centered' },
       source: {
         transform: ((_, storyContext) => `
-        <SRadioGroup ${sourceBinding(storyContext.args)} />
+        <SSwitch ${sourceBinding(storyContext.args)} />
         `) as SourceProps['transform'],
         type: 'dynamic',
         language: 'html',
@@ -107,7 +64,7 @@ export const Default = {
     },
   },
   args: {
-    modelValue: 'startup',
+    modelValue: true,
   },
 };
 
@@ -124,7 +81,7 @@ const createVariation = (
     () => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' }),
   ],
   render: () => ({
-    components: { SRadioGroup, SDropdown, SDropdownItem, ArrowLeftOnRectangleIcon },
+    components: { SSwitch, SDropdown, SDropdownItem, ArrowLeftOnRectangleIcon },
     setup() {
       return { ArrowLeftOnRectangleIcon };
     },
@@ -145,10 +102,10 @@ const createVariation = (
 });
 
 // export const Size = createVariation(`
-// <SRadioGroup name="John Doe" size="xs" />
-// <SRadioGroup name="John Doe" size="sm" />
-// <SRadioGroup name="John Doe" size="md" />
-// <SRadioGroup name="John Doe" size="lg" />
-// <SRadioGroup name="John Doe" size="xl" />
-// <SRadioGroup name="John Doe" size="2xl" />
+// <SSwitch name="John Doe" size="xs" />
+// <SSwitch name="John Doe" size="sm" />
+// <SSwitch name="John Doe" size="md" />
+// <SSwitch name="John Doe" size="lg" />
+// <SSwitch name="John Doe" size="xl" />
+// <SSwitch name="John Doe" size="2xl" />
 // `);

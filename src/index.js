@@ -1,12 +1,14 @@
 import './css/palette-evertec.css';
 
 export { SAvatar } from './components/SAvatar';
+export { SInput } from './components/SInput';
 export { SButton } from './components/SButton';
 export { SButtonGroup } from './components/SButtonGroup';
 export { SBadge } from './components/SBadge';
 export { SDropdown, SDropdownItem } from './components/SDropdown';
 export { SSelect } from "./components/SSelect";
 export { SPopover } from "./components/SPopover";
+export { SRadioGroup, SRadioGroupItem } from "./components/SRadioGroup";
 
 export { default as SSidebar } from './components/SSidebar.vue';
 export { default as SSidebarLogo } from './components/SSidebarLogo.vue';
@@ -42,6 +44,5 @@ export { default as SRadioGroups } from './components/SRadioGroups.vue';
 export * from './components/sSelects';
 export * from './components/sCards';
 export * from './components/sInputs';
-export * from './components/sFilters';
 export * from './components/sTables';
 export * from './components/sInputs';

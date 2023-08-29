@@ -3,30 +3,9 @@ import { computed } from 'vue';
 import { RadioGroup } from '@headlessui/vue';
 
 const emit = defineEmits(['update:modelValue']);
-const props = withDefaults(
-  defineProps<
-    Partial<{
-      disabled: boolean;
-      id: string;
-      label: string;
-      modelValue: string | string[] | boolean | number;
-      name: string;
-      placeholder: string;
-      type: string;
-      value: string;
-    }>
-  >(),
-  {
-    disabled: false,
-    id: undefined,
-    label: undefined,
-    modelValue: undefined,
-    name: undefined,
-    placeholder: undefined,
-    type: 'text',
-    value: undefined,
-  }
-);
+const props = defineProps<{
+  modelValue: string;
+}>();
 
 const model = computed({
   get() {

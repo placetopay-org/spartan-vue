@@ -4,7 +4,7 @@ import {
   SDropdown,
   SDropdownItem,
   SButton,
-} from "../index.js";
+} from "../components/sInputs";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
 
 export default {
