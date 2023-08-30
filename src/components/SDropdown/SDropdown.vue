@@ -30,7 +30,7 @@ withDefaults(
     >
       <MenuItems
       :class="[leftToRight ? 'origin-top-left left-0' : 'origin-top-right right-0 ']"
-        class="absolute mt-1 min-w-[192px] overflow-hidden rounded-md bg-white shadow-2xl divide-y divide-gray-100 ring-1 ring-gray-100 focus:outline-none"
+        class="absolute z-40 mt-1 min-w-[192px] overflow-hidden rounded-md bg-white shadow-2xl divide-y divide-gray-100 ring-1 ring-gray-100 focus:outline-none"
       >
         <slot name="items" />
       </MenuItems>

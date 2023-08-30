@@ -22,7 +22,7 @@ defineProps<{
             <slot name="title"/>
           </RadioGroupLabel>
 
-          <RadioGroupDescription as="span" class="mt-1 mb-6 flex items-center text-sm text-gray-500">
+          <RadioGroupDescription as="span" class="mt-1 flex items-center text-sm text-gray-500">
             <slot name="description"/>
           </RadioGroupDescription>
           

@@ -8,6 +8,7 @@ export { SBadge } from './components/SBadge';
 export { SDropdown, SDropdownItem } from './components/SDropdown';
 export { SSelect } from "./components/SSelect";
 export { SPopover } from "./components/SPopover";
+export { SSwitch } from "./components/SSwitch";
 export { SRadioGroup, SRadioGroupItem } from "./components/SRadioGroup";
 
 export { default as SSidebar } from './components/SSidebar.vue';
