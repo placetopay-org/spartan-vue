@@ -4,7 +4,7 @@ import { computed, onMounted, ref, watch, type WatchStopHandle } from 'vue';
 import { SBadge } from '../SBadge';
 import { FieldType, Oper, type TField } from './types';
 import { SPopover } from '../SPopover';
-import { closeActivePopover } from './globalStore';
+import { closeActivePopover } from './helpers';
 
 const emit = defineEmits<{
   (event: 'remove', field: TField): void;
@@ -80,3 +80,4 @@ const toggle = () => {
     />
   </SPopover>
 </template>
+./helpers

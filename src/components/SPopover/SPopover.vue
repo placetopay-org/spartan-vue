@@ -38,10 +38,14 @@ const { floatingStyles } = useFloating(reference, floating, {
   whileElementsMounted: autoUpdate,
 });
 
+const focus = () => {
+  floating.value?.focus();
+}
+
 const open = () => {
   isOpen.value = true;
   nextTick(() => {
-    floating.value?.focus();
+    focus();
   });
 };
 
@@ -68,27 +72,30 @@ const handlers = {
   open,
   close,
   toggle,
+  focus,
 };
 
 defineExpose(handlers);
 </script>
 
 <template>
-  <div ref="reference" tabindex="-1">
-    <slot name="reference" v-bind="handlers" />
-  </div>
-  <div class="absolute z-40">
-    <Transition
-      enter-active-class="transition duration-200 ease-out"
-      leave-active-class="transition duration-150 ease-in"
-      enter-from-class="-translate-y-2 opacity-0"
-      enter-to-class="translate-y-0 opacity-100"
-      leave-from-class="translate-y-0 opacity-100"
-      leave-to-class="-translate-y-2 opacity-0"
-    >
-      <div v-if="isOpen" ref="floating" :style="floatingStyles" @focusout="focusout" tabindex="-1">
-        <slot v-bind="handlers" />
-      </div>
-    </Transition>
+  <div>
+    <div ref="reference" tabindex="-1">
+      <slot name="reference" v-bind="handlers" />
+    </div>
+    <div class="absolute z-40">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        leave-active-class="transition duration-150 ease-in"
+        enter-from-class="-translate-y-2 opacity-0"
+        enter-to-class="translate-y-0 opacity-100"
+        leave-from-class="translate-y-0 opacity-100"
+        leave-to-class="-translate-y-2 opacity-0"
+      >
+        <div v-if="isOpen" ref="floating" :style="floatingStyles" @focusout="focusout" tabindex="-1">
+          <slot v-bind="handlers" />
+        </div>
+      </Transition>
+    </div>
   </div>
 </template>

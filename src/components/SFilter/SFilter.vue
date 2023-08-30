@@ -2,13 +2,15 @@
 import FieldFilter from './FieldFilter.vue';
 import FieldSelector from './popovers/FieldSelector.vue';
 import FilterSelector from './popovers/FilterSelector.vue';
+import { SInput } from '../SInput';
 import { SButton } from '../SButton';
-import { FunnelIcon } from '@heroicons/vue/24/outline';
-import { PlusIcon } from '@heroicons/vue/20/solid';
-import type { TField } from './types';
-import { reactive, ref } from 'vue';
+import { FunnelIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
+import { PlusIcon, InboxArrowDownIcon } from '@heroicons/vue/20/solid';
+import { reactive, ref, computed, watchEffect } from 'vue';
 import { SPopover } from '../SPopover';
-import { closeActivePopover } from './globalStore';
+import { closeActivePopover, customFilterManager } from './helpers';
+import { useStep } from '../../hooks';
+import type { TField } from './types';
 
 defineEmits<{
   (event: 'apply', fields: TField[]): void;
@@ -19,51 +21,84 @@ const props = defineProps<{
   fields: TField[];
 }>();
 
-const fields = reactive(props.fields);
+const fields = ref(props.fields);
 
-const popover = ref<InstanceType<typeof SPopover> | null>(null);
+const filterName = ref<string>();
+const addFilterPop = ref<InstanceType<typeof SPopover> | null>(null);
+const customFilterPop = ref<InstanceType<typeof SPopover> | null>(null);
 const preventClose = ref(false);
 const activeField = ref<TField>();
+const customFilterComputed = ref<{ name: string; data: TField[] }[]>([]);
+const enableCustomFilter = computed(() => fields.value.some((filter) => filter.filter));
 
-const state = ref(0);
-const isState = (stateIdx: number) => state.value === stateIdx;
-const nextState = () => state.value++;
+watchEffect(() => {
+  if (props.customFilters) {
+    customFilterComputed.value = customFilterManager.get();
+  }
+})
 
-const openCustomFilters = () => {
-  // TODO: Open custom filters
-}
+const { step: addFilterPopState, is: isAddFilterPopState, next: nextAddFilterPopState } = useStep();
+const { step: customFilterPopState, is: isCustomFilterPopState, next: nextCustomFilterPopState } = useStep();
 
-const openFieldSelector = () => {
-  popover.value?.open();
-  if (closeActivePopover.value && closeActivePopover.value !== reset) closeActivePopover.value();
-  closeActivePopover.value = reset;
+const switchPopover = (open?: () => void, close?: () => void) => {
+  closeActivePopover.value?.();
+  open?.();
+  closeActivePopover.value = close;
 };
+
+const openCustomFilters = () => switchPopover(customFilterPop.value?.open, resetCustomFilter);
+
+const createCustomFilter = () => {
+  nextCustomFilterPopState();
+  preventClose.value = true;
+  customFilterPop.value?.focus();
+};
+
+const saveCustomFilter = () => {
+  customFilterManager.add(
+    filterName.value!,
+    fields.value.filter((filter) => filter.filter)
+  );
+  customFilterComputed.value = customFilterManager.get();
+  resetCustomFilter();
+};
+
+const selectCustomFilter = (savedFields: TField[]) => {
+  fields.value = JSON.parse(JSON.stringify(savedFields)) as TField[];
+  resetCustomFilter();
+};
+
+const openFieldSelector = () => switchPopover(addFilterPop.value?.open, resetAddFilter);
 
 const selectField = (filter: TField) => {
   activeField.value = filter;
-  nextState();
+  nextAddFilterPopState();
   preventClose.value = true;
 };
 
 const updateFilter = ({ field, filter }: { field: TField; filter: TField['filter'] }) => {
   field.filter = filter;
-  closeActivePopover.value();
+  closeActivePopover.value?.();
 };
 
 const removeFilter = (field: TField) => {
   field.filter = undefined;
 };
 
-const reset = () => {
+const resetAddFilter = () => {
   activeField.value = undefined;
-  state.value = 0;
+  addFilterPopState.value = 0;
   preventClose.value = false;
-  popover.value?.close();
+  addFilterPop.value?.close();
 };
 
-const clean = () => {
-  fields.forEach((filter) => !filter.required && (filter.filter = undefined));
+const resetCustomFilter = () => {
+  customFilterPopState.value = 0;
+  preventClose.value = false;
+  customFilterPop.value?.close();
 };
+
+const clean = () => fields.value.forEach((filter) => !filter.required && (filter.filter = undefined));
 </script>
 
 <template>
@@ -78,7 +113,7 @@ const clean = () => {
         @remove="removeFilter"
       />
 
-      <SPopover ref="popover" :preventClose="preventClose" :offset="8">
+      <SPopover ref="addFilterPop" :preventClose="preventClose" :offset="8">
         <template #reference>
           <button
             @click="openFieldSelector"
@@ -98,26 +133,84 @@ const clean = () => {
           leave-from-class="opacity-100"
           leave-to-class="opacity-0"
         >
-          <FieldSelector v-if="isState(0)" :fields="fields.filter((data) => !data.filter)" @select="selectField" />
+          <FieldSelector
+            v-if="isAddFilterPopState(0)"
+            :fields="fields.filter((data) => !data.filter)"
+            @select="selectField"
+          />
           <FilterSelector
-            v-else-if="isState(1) && activeField"
+            v-else-if="isAddFilterPopState(1) && activeField"
             :field="activeField"
             @add="updateFilter"
-            @cancel="reset"
+            @cancel="resetAddFilter"
           />
         </Transition>
       </SPopover>
     </div>
 
     <div class="flex gap-3">
-      <SButton
-        v-if="customFilters"
-        variant="outline"
-        rounded="full"
-        class="!py-0.5"
-        :icon="FunnelIcon"
-        @click="openCustomFilters"
-      />
+      <SPopover ref="customFilterPop" v-if="customFilters" :preventClose="preventClose">
+        <template #reference>
+          <SButton variant="outline" rounded="full" class="!py-0.5" :icon="FunnelIcon" @click="openCustomFilters" />
+        </template>
+
+        <Transition
+          mode="out-in"
+          enter-active-class="duration-150 ease-out"
+          leave-active-class="duration-150 ease-in"
+          enter-from-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
+        >
+          <div
+            v-if="isCustomFilterPopState(0)"
+            class="bg-white shadow-2xl rounded-lg border-gray-100 border overflow-hidden min-w-[220px]"
+          >
+            <ul class="w-full">
+              <li class="px-4 py-3 text-sm font-semibold text-gray-900 bg-gray-50 whitespace-nowrap">
+                Mis filtros guardados
+              </li>
+              <li class="hover:text-primary-600 hover:bg-gray-50 rounded-lg" v-for="item in customFilterComputed">
+                <button @click="selectCustomFilter(item.data)" class="w-full text-left px-4 py-2">{{ item.name }}</button>
+              </li>
+              <li v-if="!customFilterComputed.length" class="px-4 py-2 text-gray-400 text-sm font-medium flex gap-3">
+                <div><InformationCircleIcon class="w-5 h-5" /></div>
+                <span>No se encontraron filtros gruadados</span>
+              </li>
+              <li>
+                <button
+                  @click="createCustomFilter"
+                  :disabled="!enableCustomFilter"
+                  :class="[
+                    !enableCustomFilter && 'opacity-50',
+                    'px-4 py-3 text-sm font-semibold text-gray-50 bg-primary-600 flex gap-3 whitespace-nowrap w-full hover:bg-primary-700',
+                  ]"
+                >
+                  <InboxArrowDownIcon class="w-5 h-5" />
+                  <span>Guardar filtro</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div
+            v-else-if="isCustomFilterPopState(1)"
+            class="bg-white shadow-2xl rounded-lg border-gray-100 border overflow-hidden p-4 w-80"
+          >
+            <SInput v-model="filterName" id="filterName" label="Nombre del filtro" />
+            <div class="flex gap-3 mt-4">
+              <SButton class="w-full" variant="secondary" @click="resetCustomFilter">Cancelar</SButton>
+              <SButton
+                :class="['w-full', !filterName?.trim() && 'opacity-50 pointer-events-none']"
+                @click="saveCustomFilter"
+                :disabled="!filterName?.trim()"
+              >
+                Guardar
+              </SButton>
+            </div>
+          </div>
+        </Transition>
+      </SPopover>
       <SButton
         rounded="full"
         class="whitespace-nowrap !py-0.5"
@@ -136,3 +229,4 @@ const clean = () => {
     </div>
   </div>
 </template>
+./helpers

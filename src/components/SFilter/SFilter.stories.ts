@@ -107,7 +107,7 @@ export const Default = {
       {
         name: 'Date',
         type: 'date',
-        required: true,
+        // required: true,
         filter: {
           operator: Oper.BETWEEN,
           value: ['2023-08-01', '2023-08-02'],
