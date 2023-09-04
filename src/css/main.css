@@ -11,6 +11,6 @@ html {
   @apply antialiased;
 }
 
-.s-focus-primary {
+.s-focus {
   @apply focus:ring-primary-100 focus:ring;
 }

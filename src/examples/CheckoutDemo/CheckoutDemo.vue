@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SDropdown, SDropdownItem, SButton, SRadioGroup, SRadioGroupItem, SSwitch } from '../../';
-import { ChevronDownIcon } from '@heroicons/vue/24/outline';
+import { SSelect, SButton, SRadioGroup, SRadioGroupItem, SSwitch } from '../../';
 
+const lang = ref('es');
 const useCase = ref('payment');
 const allowPartialPayments = ref(false);
 const startARecurringPayment = ref(false);
@@ -14,15 +14,12 @@ const dispersion = ref(false);
   <div class="bg-white">
     <header class="flex items-center justify-between mb-8">
       <h1 class="text-xl font-semibold">Checkout Demo</h1>
-      <SDropdown>
-        <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>ES</SButton>
-
-        <template #items>
-          <SDropdownItem> Español </SDropdownItem>
-          <SDropdownItem> Inglés </SDropdownItem>
-          <SDropdownItem> Portugués </SDropdownItem>
-        </template>
-      </SDropdown>
+      <SSelect v-model="lang">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+        <option value="it">IT</option>
+        <option value="pt">PT</option>
+      </SSelect>
     </header>
 
     <section>
@@ -41,24 +38,24 @@ const dispersion = ref(false);
     </section>
 
     <section class="mt-6 flex flex-col gap-6">
-      <SSwitch v-model="allowPartialPayments" passive>
+      <SSwitch v-model="allowPartialPayments" passive reverse>
         <template #label> Permitir pagos parciales </template>
         <template #description> Permite al usuario completar el pago en varias transacciones. </template>
       </SSwitch>
 
-      <SSwitch v-model="startARecurringPayment" passive>
+      <SSwitch v-model="startARecurringPayment" passive reverse>
         <template #label> Iniciar un pago recurrente </template>
         <template #description>
           Además del pago principal, se iniciará un pago recurrente cada mes durante 3 meses.
         </template>
       </SSwitch>
 
-      <SSwitch v-model="allowSubscription" passive>
+      <SSwitch v-model="allowSubscription" passive reverse>
         <template #label> Permitir suscripción </template>
         <template #description> Permite que el usuario guarde el medio de pago para compartirlo al comercio. </template>
       </SSwitch>
 
-      <SSwitch v-model="dispersion" passive>
+      <SSwitch v-model="dispersion" passive reverse>
         <template #label> Dispersión </template>
         <template #description> Permite que el usuario guarde el medio de pago para compartirlo al comercio. </template>
       </SSwitch>

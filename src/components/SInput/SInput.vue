@@ -39,18 +39,18 @@ const model = computed({
 const inputTypeStyle = computed(() => {
   if (props.type !== 'checkbox' && props.type !== 'radio') return 'px-3 py-2 w-full rounded-lg';
   return (
-    'w-4 h-4 text-primary-600 accent-primary-600 cursor-pointer' +
+    'w-4 h-4 text-primary-600 accent-primary-600 cursor-pointer ' +
     (props.type === 'checkbox' ? 'rounded' : 'rounded-full')
   );
 });
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <label v-if="id && label" :for="id" class="block text-sm font-medium text-gray-700 mb-1">{{ label }}</label>
     <input
       :class="[
-        'border border-gray-300 bg-white placeholder:text-gray-400 s-focus-primary transition focus:border-primary-300',
+        'border border-gray-300 bg-white placeholder:text-gray-400 s-focus transition focus:border-primary-300',
         inputTypeStyle,
         disabled && 'opacity-50 pointer-events-none',
       ]"

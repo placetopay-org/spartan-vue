@@ -41,7 +41,7 @@ const props = withDefaults(
 const slots = useSlots();
 
 const variantClass = {
-  primary: 'text-white bg-primary-600 hover:bg-primary-700 s-focus-primary shadow-sm',
+  primary: 'text-white bg-primary-600 hover:bg-primary-700 s-focus shadow-sm',
   secondary: 'text-gray-900 bg-white border-ring-gray-300 hover:bg-gray-50 focus:ring-primary-100 shadow-sm',
   danger: 'text-white bg-red-500 hover:bg-red-600 focus:ring-red-300 focus:ring shadow-sm',
   outline: 'text-primary-600 bg-white border-ring-primary-600 hover:bg-primary-50 focus:ring-primary-100 shadow-sm',

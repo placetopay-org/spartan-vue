@@ -117,7 +117,7 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
         <template #reference>
           <button
             @click="openFieldSelector"
-            class="group py-0.5 px-3 text-sm gap-2 flex items-center whitespace-nowrap border border-dashed border-gray-400 hover:border-gray-500 rounded-full text-gray-400 hover:text-gray-600 s-focus-primary"
+            class="group py-0.5 px-3 text-sm gap-2 flex items-center whitespace-nowrap border border-dashed border-gray-400 hover:border-gray-500 rounded-full text-gray-400 hover:text-gray-600 s-focus"
           >
             <PlusIcon class="w-4 h-4" />
             <span>Agregar filtro</span>

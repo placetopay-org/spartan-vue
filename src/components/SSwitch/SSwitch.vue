@@ -6,6 +6,7 @@ const emit = defineEmits(['update:modelValue']);
 const props = defineProps<{
   modelValue: boolean;
   passive?: boolean;
+  reverse?: boolean;
 }>();
 
 const model = computed({
@@ -16,18 +17,16 @@ const model = computed({
     emit('update:modelValue', value);
   },
 });
+
+const toggle = () => {
+  if (!props.passive) {
+    model.value = !model.value;
+  }
+};
 </script>
 
 <template>
-  <SwitchGroup as="div" class="flex items-center justify-between">
-    <span>
-      <SwitchLabel as="span" class="text-sm font-medium text-gray-700 flex flex-col" :passive="passive">
-        <slot name="label" />
-        <SwitchDescription as="span" class="text-sm text-gray-500">
-          <slot name="description" />
-        </SwitchDescription>
-      </SwitchLabel>
-    </span>
+  <SwitchGroup as="div" :class="['flex items-center', reverse ? 'flex-row-reverse justify-between' : 'gap-3']">
     <Switch
       v-model="model"
       :class="[
@@ -43,5 +42,13 @@ const model = computed({
         ]"
       />
     </Switch>
+    <span>
+      <SwitchLabel as="span" class="text-sm font-medium text-gray-700 flex flex-col" :passive="passive">
+        <slot name="label" />
+      </SwitchLabel>
+      <SwitchDescription as="span" class="text-sm text-gray-500" @click="toggle">
+        <slot name="description" />
+      </SwitchDescription>
+    </span>
   </SwitchGroup>
 </template>

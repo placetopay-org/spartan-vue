@@ -8,38 +8,31 @@ defineProps<{
 </script>
 
 <template>
-  <RadioGroupOption as="template" v-slot="{ checked, active }" :value="value" >
+  <RadioGroupOption as="template" v-slot="{ checked }" :value="value">
     <div
       :class="[
-        checked ? 'border-transparent' : 'border-gray-300',
-        active ? 'ring-2 ring-primary-600' : '',
-        'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none',
+        checked ? 'border-primary-600 outline outline-1 -outline-offset-2 outline-primary-600' : 'border-gray-300',
+        'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm s-focus focus:border-primary-300',
       ]"
     >
       <span class="flex flex-1">
-        <span class="flex flex-col">
-          <RadioGroupLabel as="span" class="block text-sm font-medium text-gray-900">
-            <slot name="title"/>
-          </RadioGroupLabel>
+        <span class="flex flex-col justify-between">
+          <div>
+            <RadioGroupLabel v-if="$slots.title" as="span" class="block text-sm font-medium text-gray-900">
+              <slot name="title" />
+            </RadioGroupLabel>
 
-          <RadioGroupDescription as="span" class="mt-1 flex items-center text-sm text-gray-500">
-            <slot name="description"/>
-          </RadioGroupDescription>
-          
-          <RadioGroupDescription as="span" class="mt-auto text-sm font-medium text-gray-900">
-            <slot name="footer"/>
+            <RadioGroupDescription v-if="$slots.description" as="span" class="mt-1 flex items-center text-sm text-gray-500">
+              <slot name="description" />
+            </RadioGroupDescription>
+          </div>
+
+          <RadioGroupDescription v-if="$slots.footer" as="span" class="mt-6 text-sm font-medium text-gray-900">
+            <slot name="footer" />
           </RadioGroupDescription>
         </span>
       </span>
       <CheckCircleIcon :class="['h-5 w-5 text-primary-600', !checked && 'opacity-0']" :aria-hidden="!checked" />
-      <span
-        :class="[
-          active ? 'border' : 'border-2',
-          checked ? 'border-primary-600' : 'border-transparent',
-          'pointer-events-none absolute -inset-px rounded-lg',
-        ]"
-        aria-hidden="true"
-      />
     </div>
   </RadioGroupOption>
 </template>
