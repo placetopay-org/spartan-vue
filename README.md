@@ -6,7 +6,7 @@ SpartanVue is a vue component library that contains the components used in the P
 
 You can find the documentation and components of this design system by clicking [here.](https://646e732a14dfaa707ad59b33-gmuixqrsag.chromatic.com/?path=/docs/introduction-overview--docs)
 
-## installing
+## Installing
 
 1. Requirements
 
@@ -26,13 +26,13 @@ You can find the documentation and components of this design system by clicking 
    module.exports = {
       content: [
          //...
-         "node_modules/@placetopay/spartan-vue/src/**/*.js",
+         "node_modules/@placetopay/spartan-vue/dist/*.js",
       ]
-      presets: [require("@placetopay/spartan-vue/src/tailwindcss.js")],
+      presets: [require("@placetopay/spartan-vue/tailwindcss.js")],
    };
    ```
 
-4. modify your app.css to look like this
+4. :odify your app.css to look like this
 
    ```css
    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');

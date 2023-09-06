@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import SBadge from "./SBadge.vue";
+import { SBadge } from "./SBadge";
 
 defineProps<{
   tabs: Array<{

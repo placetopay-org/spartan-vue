@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { SInputMask } from "../index.js";
+import { SInputMask } from "../index.ts";
 
 export default {
   title: "Components/SInputMask",

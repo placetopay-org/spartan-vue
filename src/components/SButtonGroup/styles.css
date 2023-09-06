@@ -1,0 +1,3 @@
+.s-button-group {
+    @apply isolate inline-flex rounded-md shadow-sm -space-x-px;
+}
