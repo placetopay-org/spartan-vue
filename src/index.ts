@@ -45,6 +45,15 @@ export { default as SLink } from './components/SLink.vue';
 export { default as STabsLine } from './components/STabsLine.vue';
 export { default as SSteps } from './components/SSteps.vue';
 export { default as SRadioGroups } from './components/SRadioGroups.vue';
+export {
+  SInputAlt,
+  SInputDate,
+  SInputDropdown,
+  SInputError,
+  SInputHelper,
+  SInputMask,
+  SInputRadio,
+} from './components/sInputs';
 export * from './components/sSelects';
 export * from './components/sCards';
 export * from './components/sTables';
