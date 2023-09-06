@@ -39,10 +39,6 @@ export default {
       description: 'If `true`, a dot will be displayed inside the badge.',
       table: { type: { summary: 'boolean' } },
     },
-    hidden: {
-      description: 'If `true`, the badge will be hidden. **Animates in and out.**',
-      table: { type: { summary: 'boolean' } },
-    },
     outline: {
       description: 'If `true`, the badge will be outlined with its color theme. Otherwise, it\'ll have a solid background of its color theme.',
       table: { type: { summary: 'boolean' } },
@@ -67,7 +63,7 @@ export default {
 const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2083');
 
 const sourceBinding = buildSourceBinding({
-  check: ['dot', 'hidden', 'outline', 'pill', 'removable'],
+  check: ['dot', 'outline', 'pill', 'removable'],
   prop: { color: 'gray', size: 'md' },
   emit: ['removed'],
 });
@@ -106,7 +102,6 @@ export const Default = {
     default: 'Badge',
     color: 'gray',
     dot: false,
-    hidden: false,
     outline: false,
     pill: false,
     removable: false,

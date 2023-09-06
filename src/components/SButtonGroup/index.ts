@@ -1,1 +1,0 @@
-export { default as SButtonGroup } from "./SButtonGroup.vue";

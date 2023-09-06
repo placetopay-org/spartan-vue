@@ -17,9 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial implementation of `SPopover` component.
 - Initial implementation of `SDropdown` component.
 - `SDropdownItem` component to be used inside `SDropdown`.
-- Initial implementation of `SButtonGroup` component.
-- SButtonGroup props including `active`, `disabled`, `endIcon`, `first`, `icon`, `last`, `next`, and `prev`.
-- Storybook documentation and examples for SButtonGroup and SDropdown.
 - SAvatar component has been restructured, introduced various features:
   - Avatar can have different sizes including `xs`, `sm`, `md`, `lg`, `xl`, and `2xl`.
   - Avatar can have a indicator in different positions including `top-left`, `top-right`, `bottom-left`, and `bottom-right`.
@@ -40,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SBadge component has been restructured, introduced various features:
   - Badge can have different colors including `blue`, `gray`, `green`, `indigo`, `primary`, `red`, and `yellow`.
   - Badge can come in different sizes: `sm`, `md`, and `lg`.
-  - Additional styles for badges including `pill`, `dot`, `outline`, and `hidden` features.
+  - Additional styles for badges including `pill`, `dot`, and `outline` features.
   - Introduced Storybook stories to showcase badge variations such as `Default`, `Size`, `Color`, `Outline`, `Pill`, `Dot`, `Removable`, and `Customize`.
   - Badge linked with Figma design via Storybook's.
 - Some prop names in the SButton component were changed:
