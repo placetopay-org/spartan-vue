@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.0.0-beta.2 - 2023-09-06
 ### Added
 - Translations for `SFilter` component (es, en, it, pt).
 - I18n support globally and for each component.
