@@ -1,5 +1,6 @@
 import SFilter from './SFilter.vue';
 import { action } from '@storybook/addon-actions';
+import StoryPanel from '../../examples/StoryPanel.vue';
 import { buildDesign, buildSourceBinding } from '../../helpers';
 import type { SourceProps } from '@storybook/blocks';
 import { Oper, type TField } from './types';
@@ -46,7 +47,7 @@ const sourceBinding = buildSourceBinding({
 export const Default = {
   decorators: [() => ({ template: '<div style="padding: 0 4px; padding-bottom: 500px;"><story/></div>' })],
   render: (args: any) => ({
-    components: { SFilter },
+    components: { SFilter, StoryPanel },
     setup() {
       const show = (value: string) => {
         console.log(JSON.parse(JSON.stringify(value)));
@@ -54,7 +55,7 @@ export const Default = {
 
       return { args, show };
     },
-    template: '<SFilter v-bind="args" @apply="show" />',
+    template: '<StoryPanel /><SFilter v-bind="args" @apply="show" />',
   }),
   parameters: {
     design,

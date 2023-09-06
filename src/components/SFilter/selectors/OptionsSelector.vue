@@ -4,6 +4,7 @@ import { SInput } from '../../SInput';
 import { SBadge } from '../../SBadge';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { FieldType, type TField } from '../types';
+import { translator } from '../../../helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -11,6 +12,8 @@ const props = defineProps<{
   modelValue?: string[];
   field: TField
 }>();
+
+const { t } = translator('filter');
 
 const unique = computed(() => props.field.unique || props.field.type === FieldType.BOOLEAN);
 
@@ -45,7 +48,7 @@ const clear = () => {
     <SInput
       v-if="unique && computedOptions.length > 5"
       v-model="search"
-      placeholder="Escribe un valor"
+      :placeholder="t('inputSelectorPlaceholder')"
     />
     <div
       v-if="!unique"
@@ -71,7 +74,7 @@ const clear = () => {
           id="input-search"
           type="text"
           v-model="search"
-          :placeholder="checked.length ? '' : 'Selecciona una o varias opciones'"
+          :placeholder="checked.length ? '' : t('optionsSelectorPlaceholder')"
           class="text-sm w-full p-0 border-0 placeholder:text-gray-400 focus:ring-0 focus:outline-0"
         />
       </div>

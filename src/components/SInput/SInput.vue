@@ -46,7 +46,7 @@ const inputTypeStyle = computed(() => {
 </script>
 
 <template>
-  <div class="w-full">
+  <div>
     <label v-if="id && label" :for="id" class="block text-sm font-medium text-gray-700 mb-1">{{ label }}</label>
     <input
       :class="[

@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { SInput } from '../../SInput';
 import type { TField } from '../types';
+import { translator } from '../../../helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -9,6 +10,8 @@ const props = defineProps<{
   modelValue?: string[] | number[];
   field: TField;
 }>();
+
+const { t } = translator('filter');
 
 const value1 = ref(props.modelValue?.[0]);
 const value2 = ref(props.modelValue?.[1]);
@@ -26,7 +29,7 @@ const inputType = computed(() => {
 
 <template>
   <div class="flex gap-4">
-    <SInput v-model="value1" :type="inputType" placeholder="Escribe un valor" />
-    <SInput v-model="value2" :type="inputType" placeholder="Escribe un valor" />
+    <SInput class="w-48" v-model="value1" :type="inputType" :placeholder="t('inputSelectorPlaceholder')" />
+    <SInput class="w-48" v-model="value2" :type="inputType" :placeholder="t('inputSelectorPlaceholder')" />
   </div>
 </template>

@@ -4,6 +4,7 @@ import { SButton } from '../../SButton';
 import { InputSelector, TwoInputSelector, OptionsSelector } from '../selectors';
 import { SPopover } from '../../SPopover';
 import { Oper, FieldType, type TField } from '../types';
+import { translator } from '../../../helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 
 const emit = defineEmits<{
@@ -62,6 +63,7 @@ const conditionMap = {
   },
 };
 
+const { t } = translator('filter');
 const value = ref();
 const operatorGroup = conditionMap[props.field.type];
 const operators = Object.keys(operatorGroup) as Oper[];
@@ -122,7 +124,7 @@ onMounted(() => {
       <SPopover :offset="8">
         <template #reference="{ toggle }">
           <button @click="toggle" class="bg-gray-100 pl-3 pr-2 py-1 rounded-lg flex items-center gap-1.5 text-gray-800">
-            <span>{{ activeOperator }}</span>
+            <span>{{ t('oper.' + activeOperator) }}</span>
             <ChevronDownIcon class="h-5 w-5 text-gray-600" />
           </button>
         </template>
@@ -132,9 +134,9 @@ onMounted(() => {
             <li v-for="operator in operators">
               <button
                 @click="selectOperator(operator, close)"
-                class="w-full text-left p-3 hover:bg-gray-50 text-sm font-medium text-gray-800"
+                class="w-full text-left p-3 hover:bg-gray-50 text-sm font-medium text-gray-800 whitespace-nowrap"
               >
-                {{ operator }}
+                {{ t('oper.' + operator) }}
               </button>
             </li>
           </ul>
@@ -155,10 +157,10 @@ onMounted(() => {
     </Transition>
 
     <div class="flex gap-3">
-      <SButton class="w-full" variant="secondary" @click="$emit('cancel')">Cancelar</SButton>
-      <SButton :class="['w-full', disabled && 'opacity-50 pointer-events-none']" @click="add" :disabled="disabled"
-        >Agregar</SButton
-      >
+      <SButton class="w-full" variant="secondary" @click="$emit('cancel')">{{ t('cancelBtn') }}</SButton>
+      <SButton :class="['w-full', disabled && 'opacity-50 pointer-events-none']" @click="add" :disabled="disabled">
+        {{ t('addBtn') }}
+      </SButton>
     </div>
   </div>
 </template>

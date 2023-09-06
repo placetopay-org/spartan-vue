@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Translations for `SFilter` component (es, en, it, pt).
+- I18n support globally and for each component.
 - New example view: `Checkout Demo`.
 - Initial implementation of `SSwitch` component.
 - Initial implementation of `SRadioGroup` component.

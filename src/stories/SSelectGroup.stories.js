@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { SSelectGroup } from "../index.js";
+import { SSelectGroup } from "../index.ts";
 
 export default {
   title: "Components/SSelectGroup",

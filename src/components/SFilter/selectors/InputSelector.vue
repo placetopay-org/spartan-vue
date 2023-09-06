@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { SInput } from '../../SInput';
 import type { TField } from '../types';
+import { translator } from '../../../helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -9,6 +10,8 @@ const props = defineProps<{
   modelValue?: string | number;
   field: TField;
 }>();
+
+const { t } = translator('filter');
 
 const value = computed({
   get() {
@@ -27,5 +30,5 @@ const inputType = computed(() => {
 </script>
 
 <template>
-  <SInput v-model="value" :type="inputType" placeholder="Escribe un valor" />
+  <SInput v-model="value" :type="inputType" :placeholder="t('inputSelectorPlaceholder')" />
 </template>

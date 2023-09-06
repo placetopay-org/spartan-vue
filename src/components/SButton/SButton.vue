@@ -41,11 +41,11 @@ const props = withDefaults(
 const slots = useSlots();
 
 const variantClass = {
-  primary: 'text-white bg-primary-600 hover:bg-primary-700 s-focus shadow-sm',
-  secondary: 'text-gray-900 bg-white border-ring-gray-300 hover:bg-gray-50 focus:ring-primary-100 shadow-sm',
-  danger: 'text-white bg-red-500 hover:bg-red-600 focus:ring-red-300 focus:ring shadow-sm',
-  outline: 'text-primary-600 bg-white border-ring-primary-600 hover:bg-primary-50 focus:ring-primary-100 shadow-sm',
-  link: 'text-primary-600 bg-transparent hover:text-primary-700 focus:ring-primary-100 focus:ring',
+  primary: 'text-white bg-primary-600 border-primary-600 hover:bg-primary-700 shadow-sm',
+  secondary: 'text-gray-900 bg-white border-gray-300 hover:bg-gray-50 focus:ring-gray-300 shadow-sm',
+  danger: 'text-white bg-red-500 border-red-300 hover:bg-red-600 focus:ring-red-300 shadow-sm',
+  outline: 'text-primary-600 bg-white border-primary-600 hover:bg-primary-50 shadow-sm',
+  link: 'text-primary-600 bg-transparent hover:text-primary-700',
 };
 
 const sizeClass = {
@@ -68,7 +68,7 @@ const roundedClass = {
 };
 
 const buttonClasses = computed(() => [
-  'inline-flex items-center justify-center h-fit w-fit border-0 font-medium transition focus:outline-none gap-2',
+  'inline-flex items-center justify-center h-fit w-fit s-focus border font-medium transition focus:outline-none gap-2',
   props.disabled && 'pointer-events-none opacity-50',
   props.loading && 'loading',
   props.endIcon && 'flex-row-reverse',

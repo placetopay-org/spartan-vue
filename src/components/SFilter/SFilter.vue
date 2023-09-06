@@ -6,18 +6,21 @@ import { SInput } from '../SInput';
 import { SButton } from '../SButton';
 import { FunnelIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
 import { PlusIcon, InboxArrowDownIcon } from '@heroicons/vue/20/solid';
-import { reactive, ref, computed, watchEffect } from 'vue';
+import { ref, computed, watchEffect } from 'vue';
 import { SPopover } from '../SPopover';
 import { closeActivePopover, customFilterManager } from './helpers';
 import { useStep } from '../../hooks';
+import { translator } from '../../helpers';
 import type { TField } from './types';
+
+const { t } = translator('filter');
 
 defineEmits<{
   (event: 'apply', fields: TField[]): void;
 }>();
 
 const props = defineProps<{
-  customFilters: boolean;
+  customFilters?: boolean;
   fields: TField[];
 }>();
 
@@ -35,7 +38,7 @@ watchEffect(() => {
   if (props.customFilters) {
     customFilterComputed.value = customFilterManager.get();
   }
-})
+});
 
 const { step: addFilterPopState, is: isAddFilterPopState, next: nextAddFilterPopState } = useStep();
 const { step: customFilterPopState, is: isCustomFilterPopState, next: nextCustomFilterPopState } = useStep();
@@ -120,7 +123,7 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
             class="group py-0.5 px-3 text-sm gap-2 flex items-center whitespace-nowrap border border-dashed border-gray-400 hover:border-gray-500 rounded-full text-gray-400 hover:text-gray-600 s-focus"
           >
             <PlusIcon class="w-4 h-4" />
-            <span>Agregar filtro</span>
+            <span>{{ t('addFilterBtn') }}</span>
           </button>
         </template>
 
@@ -169,14 +172,16 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
           >
             <ul class="w-full">
               <li class="px-4 py-3 text-sm font-semibold text-gray-900 bg-gray-50 whitespace-nowrap">
-                Mis filtros guardados
+                {{ t('savedFiltersText') }}
               </li>
               <li class="hover:text-primary-600 hover:bg-gray-50 rounded-lg" v-for="item in customFilterComputed">
-                <button @click="selectCustomFilter(item.data)" class="w-full text-left px-4 py-2">{{ item.name }}</button>
+                <button @click="selectCustomFilter(item.data)" class="w-full text-left px-4 py-2">
+                  {{ item.name }}
+                </button>
               </li>
               <li v-if="!customFilterComputed.length" class="px-4 py-2 text-gray-400 text-sm font-medium flex gap-3">
                 <div><InformationCircleIcon class="w-5 h-5" /></div>
-                <span>No se encontraron filtros gruadados</span>
+                <span>{{ t('notFoundFieldText') }}</span>
               </li>
               <li>
                 <button
@@ -188,7 +193,7 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
                   ]"
                 >
                   <InboxArrowDownIcon class="w-5 h-5" />
-                  <span>Guardar filtro</span>
+                  <span>{{ t('customSaveBtn') }}</span>
                 </button>
               </li>
             </ul>
@@ -205,7 +210,7 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
                 @click="saveCustomFilter"
                 :disabled="!filterName?.trim()"
               >
-                Guardar
+                {{ t('saveBtn') }}
               </SButton>
             </div>
           </div>
@@ -221,12 +226,11 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
           )
         "
       >
-        Aplicar filtros
+        {{ t('applyBtn') }}
       </SButton>
-      <SButton @click="clean" variant="secondary" rounded="full" class="whitespace-nowrap !py-0.5"
-        >Borrar filtros</SButton
-      >
+      <SButton @click="clean" variant="secondary" rounded="full" class="whitespace-nowrap !py-0.5">
+        {{ t('clearBtn') }}
+      </SButton>
     </div>
   </div>
 </template>
-./helpers

@@ -1,8 +1,9 @@
-import '../src/css/main.css';
+import '../src/css/style.css';
 import DocumentationTemplate from './DocumentationTemplate.mdx';
 import { type Preview, setup } from '@storybook/vue3';
 import type { App } from 'vue';
 import { createI18n } from 'vue-i18n';
+import messages from '@intlify/unplugin-vue-i18n/messages';
 
 const preview: Preview = {
   parameters: {
@@ -25,8 +26,8 @@ const preview: Preview = {
 const i18n = createI18n({
   legacy: false,
   locale: 'es',
+  messages,
   fallbackLocale: 'en',
-  globalInjection: true,
 });
 
 setup((app: App) => {

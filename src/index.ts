@@ -1,15 +1,18 @@
-import './css/palette-evertec.css';
+import './css/style.css';
 
-export { SAvatar } from './components/SAvatar';
-export { SInput } from './components/SInput';
-export { SButton } from './components/SButton';
-export { SButtonGroup } from './components/SButtonGroup';
-export { SBadge } from './components/SBadge';
-export { SDropdown, SDropdownItem } from './components/SDropdown';
-export { SSelect } from "./components/SSelect";
-export { SPopover } from "./components/SPopover";
-export { SSwitch } from "./components/SSwitch";
-export { SRadioGroup, SRadioGroupItem } from "./components/SRadioGroup";
+export * from './expose';
+
+export * from './components/SAvatar';
+export * from './components/SInput';
+export * from './components/SButton';
+export * from './components/SButtonGroup';
+export * from './components/SBadge';
+export * from './components/SDropdown';
+export * from './components/SSelect';
+export * from './components/SPopover';
+export * from './components/SSwitch';
+export * from './components/SFilter';
+export * from './components/SRadioGroup';
 
 export { default as SSidebar } from './components/SSidebar.vue';
 export { default as SSidebarLogo } from './components/SSidebarLogo.vue';
@@ -44,6 +47,4 @@ export { default as SSteps } from './components/SSteps.vue';
 export { default as SRadioGroups } from './components/SRadioGroups.vue';
 export * from './components/sSelects';
 export * from './components/sCards';
-export * from './components/sInputs';
 export * from './components/sTables';
-export * from './components/sInputs';

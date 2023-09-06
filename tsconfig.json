@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowJs": true,
     "outDir": "dist",
+    "types": ["@intlify/unplugin-vue-i18n/messages"],
     "paths": {
       "vue-i18n": ["./node_modules/vue-i18n/dist/vue-i18n.d.ts"]
     }
