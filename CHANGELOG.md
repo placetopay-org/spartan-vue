@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 1.0.0 - 2023-09-06
 ### Added
 - Translations for `SFilter` component (es, en, it, pt).
 - I18n support globally and for each component.
@@ -48,13 +50,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minor updates in package-lock.json to include latest resolved versions and dependencies.
 - Refactored references of the old SButton.vue component in various files.
 
-### Fixed
-- Export alternative classic inputs
-- Import root color styles in index file.
-
 ### Removed
 - Unhelpful story descriptions
 - Active scale effect on `SButton` component.
+
+### Fixed
+- Export alternative classic inputs
+- Import root color styles in index file.
 
 ## 1.0.0-beta.3 - 2023-09-06
 
