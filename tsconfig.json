@@ -1,12 +1,13 @@
 {
-    "extends": "@vue/tsconfig/tsconfig.web.json",
-    "compilerOptions": {
-        "allowJs": true,
-        "declaration": true,
-        "composite": true,
-        "outDir": "dist",
-        "sourceMap": true,
-    },
-    "include": ["env.d.ts", "src/**/*.vue", "src/**/*.js", "src/**/*.ts"],
-    "exclude": ["src/stories/**/*", "src/**/__tests__/*", "src/**/*.cy.ts"],
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "outDir": "dist",
+    "types": ["@intlify/unplugin-vue-i18n/messages"],
+    "paths": {
+      "vue-i18n": ["./node_modules/vue-i18n/dist/vue-i18n.d.ts"]
+    }
+  },
+  "include": ["src/**/*.vue", "src/**/*.js", "src/**/*.ts"],
+  "exclude": ["src/stories/**/*"]
 }

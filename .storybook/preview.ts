@@ -1,15 +1,19 @@
-import "./../docs/assets/css/index.css";
-
-import { type Preview, setup } from "@storybook/vue3";
-import type { App } from "vue";
-import { createI18n } from "vue-i18n";
+import '../src/css/style.css';
+import DocumentationTemplate from './DocumentationTemplate.mdx';
+import { type Preview, setup } from '@storybook/vue3';
+import type { App } from 'vue';
+import { createI18n } from 'vue-i18n';
+import messages from '@intlify/unplugin-vue-i18n/messages';
 
 const preview: Preview = {
   parameters: {
-    backgrounds: {
-      default: "light",
+    docs: {
+      page: DocumentationTemplate,
     },
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    backgrounds: {
+      default: 'light',
+    },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -21,9 +25,9 @@ const preview: Preview = {
 
 const i18n = createI18n({
   legacy: false,
-  locale: "es",
-  fallbackLocale: "en",
-  globalInjection: true,
+  locale: 'es',
+  messages,
+  fallbackLocale: 'en',
 });
 
 setup((app: App) => {

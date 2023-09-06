@@ -1,0 +1,35 @@
+{
+  "$spartan": {
+    "filter": {
+      "addBtn": "Adicionar",
+      "addFilterBtn": "Adicionar filtro",
+      "applyBtn": "Aplicar",
+      "cancelBtn": "Cancelar",
+      "clearBtn": "Limpar filtros",
+      "customSaveBtn": "Salvar filtro",
+      "fieldSelectorNotResults": "Nenhum campo encontrado",
+      "fieldSelectorPlaceholder": "Selecionar um campo",
+      "inputSelectorPlaceholder": "Escreva um valor",
+      "notFoundFieldText": "Nenhum filtro salvo encontrado",
+      "optionsSelectorPlaceholder": "Selecione uma ou mais opções",
+      "saveBtn": "Salvar",
+      "savedFiltersText": "Meus filtros salvos",
+      "oper": {
+        "ex": "Existe",
+        "nex": "Não existe",
+        "eq": "É igual a",
+        "neq": "Não é igual a",
+        "gt": "É maior que",
+        "gte": "É maior ou igual a",
+        "lt": "É menor que",
+        "lte": "É menor ou igual a",
+        "between": "Está entre",
+        "notBetween": "Não está entre",
+        "contains": "Contém",
+        "notContains": "Não contém",
+        "startsWith": "Começa com",
+        "endsWith": "Termina com"
+      }
+    }
+  }
+}

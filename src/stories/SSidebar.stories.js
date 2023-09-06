@@ -7,7 +7,7 @@ import {
   SSidebarContent,
   SSidebarNavItem,
   SRootLayout,
-} from "../index.js";
+} from "../index.ts";
 
 import {
   CogIcon,

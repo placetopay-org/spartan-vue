@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { SAvatar } from "./../index.js";
+import { SAvatar } from "./SAvatar";
 import { MenuButton } from "@headlessui/vue";
 
 export default {

@@ -35,13 +35,13 @@
 </template>
 
 <script setup lang="ts">
-import SBadge from "./SBadge.vue";
+import { SBadge } from "./SBadge";
 
 defineProps<{
   tabs: Array<{
     name: string;
     href: string;
-    icon?: Object | string | Function;
+    icon?: Object | string;
     number?: number;
     current: boolean;
   }>;

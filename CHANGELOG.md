@@ -7,6 +7,115 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.0.0-beta.3 - 2023-09-06
+### Fixed
+- Export alternative classic inputs
+
+## 1.0.0-beta.2 - 2023-09-06
+### Added
+- Translations for `SFilter` component (es, en, it, pt).
+- I18n support globally and for each component.
+- New example view: `Checkout Demo`.
+- Initial implementation of `SSwitch` component.
+- Initial implementation of `SRadioGroup` component.
+- `SRadioGroupItem` component to be used inside `SRadioGroup`.
+- Initial implementation of `SFilter` component.
+- Initial implementation of `SPopover` component.
+- Initial implementation of `SDropdown` component.
+- `SDropdownItem` component to be used inside `SDropdown`.
+- Initial implementation of `SButtonGroup` component.
+- SButtonGroup props including `active`, `disabled`, `endIcon`, `first`, `icon`, `last`, `next`, and `prev`.
+- Storybook documentation and examples for SButtonGroup and SDropdown.
+
+### Removed
+- Active scale effect on `SButton` component.
+
+## 1.0.0-beta.1 - 2023-08-02
+### Added
+- SAvatar component has been restructured, introduced various features:
+  - Avatar can have different sizes including `xs`, `sm`, `md`, `lg`, `xl`, and `2xl`.
+  - Avatar can have a indicator in different positions including `top-left`, `top-right`, `bottom-left`, and `bottom-right`.
+  - Avatar can have image providing a `src` prop.
+  - Avatar can come borderless using `borderless` prop.
+  - Avatar can display the name initials calculating from `name` prop.
+  - Avatar linked with Figma design via Storybook's.
+- New stories for SAvatar component.
+- Storybook addon for pseudo states (`storybook-addon-pseudo-states`).
+- Introduced `buildDesign` helper function to simplify Figma design references.
+
+### Changed
+- SBadge component has been restructured, introduced various features:
+  - Badge can have different colors including `blue`, `gray`, `green`, `indigo`, `primary`, `red`, and `yellow`.
+  - Badge can come in different sizes: `sm`, `md`, and `lg`.
+  - Additional styles for badges including `pill`, `dot`, `outline`, and `hidden` features.
+  - Introduced Storybook stories to showcase badge variations such as `Default`, `Size`, `Color`, `Outline`, `Pill`, `Dot`, `Removable`, and `Customize`.
+  - Badge linked with Figma design via Storybook's.
+- Some prop names in the SButton component were changed:
+  - `small` to `sm` and `medium` to `md` for the size.
+  - `circle` to `full` for the rounded prop.
+
+### Removed
+- Unhelpful story descriptions
+
+### Fixed
+- Import root color styles in index file.
+
+## 1.0.0-beta.0 - 2023-07-28
+### Added
+- Created a new Storybook documentation template `DocumentationTemplate.mdx`.
+- Added @storybook/addon-a11y.
+- Imported additional styles from palette-evertec.css in storybook preview.
+- The SButton component now supports new styles and appearances.
+- Added additional utility styles for better UI consistency on SButton.
+
+### Changed
+- Introduced a new version of SButton component with TypeScript integration and improved styles.
+- Improve features like disabled, loading, rounded buttons at SButton component.
+- Minor updates in package-lock.json to include latest resolved versions and dependencies.
+- Refactored references of the old SButton.vue component in various files.
+
+## 0.5.0 - 2023-07-21
+
+## 0.5.0-beta.1 - 2023-07-21
+### Added
+- Added `types` field to the exports section in `package.json`.
+
+### Fixed
+- Corrected the path for the `types` property in `package.json`.
+
+## 0.5.0-beta.0 - 2023-07-21
+### Changed
+- Modified the `build:types` script in `package.json` to change the output directory for type declarations.
+- Adjusted the `SInputMask.vue` component to include a `@ts-ignore` comment above the mask definition.
+
+### Removed
+- Deleted the file `src/env.d.ts` which contained a reference to `vite/client`.
+- Deleted the file `src/vue-imask.d.ts` which declared the module 'vue-imask'.
+
+### Fixed
+- Updated `tsconfig.json`:
+  - Removed the `declaration`, `composite`, and `sourceMap` options under `compilerOptions`.
+  - Modified the `include` and `exclude` arrays, removing references to certain files and directories.
+
+## 0.4.1 - 2023-07-19
+### Added
+- Adds storybook plugin for inspecting elements with figma.
+
+### Changed
+- Multiple dependencies in the package.json were updated, including:
+  - Upgrade of @storybook/addon-actions, @storybook/addon-docs, @storybook/addon-essentials, @storybook/addon-links, @storybook/addon-mdx-gfm, @storybook/vue3, and @storybook/vue3-vite to version ^7.1.0.
+  - Upgrade of @types/node to version ^20.4.2.
+  - Upgrade of @vue/tsconfig to version ^0.4.0.
+  - Upgrade of prettier to version ^3.0.0 and prettier-plugin-tailwindcss to version ^0.4.1.
+  - Upgrade of typescript to version ^5.1.6.
+  - Upgrade of vue-imask to version ^7.1.3.
+  - And other minor updates.
+- Component Changes:
+  - STabsLine.vue: A correction was made in the property definition.
+  - SToggle.vue: The use of v-model for the Switch component was corrected.
+  - SFilter.ts: A correction was made in the property definition.
+  - SModalAction.stories.js: An unused import was removed.
+
 ## 0.4.0 - 2023-07-11
 ### Added
 - More installation instructions to the README file
