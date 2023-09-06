@@ -19,7 +19,7 @@ export default {
     'update:modelValue': {
       control: { type: null },
       table: { type: { summary: null }, category: 'Events' },
-      description: "DOC",
+      description: 'DOC',
     },
 
     // Props
@@ -39,13 +39,19 @@ export default {
     },
     modelValue: {
       control: { type: 'text' },
-      description: "DOC",
+      description: 'DOC',
       table: { type: { summary: 'Ref<string>' } },
     },
     name: {
       control: 'text',
       description: 'DOC',
       table: { type: { summary: 'string' } },
+    },
+    rounded: {
+      control: 'inline-radio',
+      options: ['left', 'right', 'both', 'none'],
+      description: `Specifies which corners should be rounded.`,
+      table: { type: { summary: 'left | right | both | none | full' } },
     },
     placeholder: {
       control: 'text',
@@ -62,7 +68,9 @@ export default {
 
 const design = buildDesign('');
 
-const sourceBinding = buildSourceBinding({});
+const sourceBinding = buildSourceBinding({
+  prop: { rounded: 'both' },
+});
 
 export const Default = {
   render: (args: any) => ({
@@ -87,6 +95,7 @@ export const Default = {
   },
   args: {
     disabled: false,
+    rounded: 'both',
     type: 'text',
   },
 };
