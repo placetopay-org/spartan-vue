@@ -28,7 +28,7 @@ You can find the documentation and components of this design system by clicking 
          //...
          "node_modules/@placetopay/spartan-vue/dist/*.js",
       ]
-      presets: [require("@placetopay/spartan-vue/src/tailwindcss.js")],
+      presets: [require("@placetopay/spartan-vue/tailwindcss.js")],
    };
    ```
 
