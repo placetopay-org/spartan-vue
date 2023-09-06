@@ -29,7 +29,7 @@ export default {
     },
 
     // Props
-    customFilters: {
+    savedFilters: {
       description: '-',
     },
     fields: {
@@ -41,7 +41,7 @@ export default {
 const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=5253%3A20873');
 
 const sourceBinding = buildSourceBinding({
-  check: ['customFilters'],
+  check: ['savedFilters'],
 });
 
 export const Default = {
@@ -69,7 +69,7 @@ export const Default = {
     },
   },
   args: {
-    customFilters: false,
+    savedFilters: false,
     fields: [
       {
         name: 'Brand',

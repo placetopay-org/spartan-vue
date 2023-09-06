@@ -7,11 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 1.0.0-beta.3 - 2023-09-06
-### Fixed
-- Export alternative classic inputs
-
-## 1.0.0-beta.2 - 2023-09-06
+## 1.0.0 - 2023-09-06
 ### Added
 - Translations for `SFilter` component (es, en, it, pt).
 - I18n support globally and for each component.
@@ -23,15 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial implementation of `SPopover` component.
 - Initial implementation of `SDropdown` component.
 - `SDropdownItem` component to be used inside `SDropdown`.
-- Initial implementation of `SButtonGroup` component.
-- SButtonGroup props including `active`, `disabled`, `endIcon`, `first`, `icon`, `last`, `next`, and `prev`.
-- Storybook documentation and examples for SButtonGroup and SDropdown.
-
-### Removed
-- Active scale effect on `SButton` component.
-
-## 1.0.0-beta.1 - 2023-08-02
-### Added
 - SAvatar component has been restructured, introduced various features:
   - Avatar can have different sizes including `xs`, `sm`, `md`, `lg`, `xl`, and `2xl`.
   - Avatar can have a indicator in different positions including `top-left`, `top-right`, `bottom-left`, and `bottom-right`.
@@ -42,26 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New stories for SAvatar component.
 - Storybook addon for pseudo states (`storybook-addon-pseudo-states`).
 - Introduced `buildDesign` helper function to simplify Figma design references.
-
-### Changed
-- SBadge component has been restructured, introduced various features:
-  - Badge can have different colors including `blue`, `gray`, `green`, `indigo`, `primary`, `red`, and `yellow`.
-  - Badge can come in different sizes: `sm`, `md`, and `lg`.
-  - Additional styles for badges including `pill`, `dot`, `outline`, and `hidden` features.
-  - Introduced Storybook stories to showcase badge variations such as `Default`, `Size`, `Color`, `Outline`, `Pill`, `Dot`, `Removable`, and `Customize`.
-  - Badge linked with Figma design via Storybook's.
-- Some prop names in the SButton component were changed:
-  - `small` to `sm` and `medium` to `md` for the size.
-  - `circle` to `full` for the rounded prop.
-
-### Removed
-- Unhelpful story descriptions
-
-### Fixed
-- Import root color styles in index file.
-
-## 1.0.0-beta.0 - 2023-07-28
-### Added
 - Created a new Storybook documentation template `DocumentationTemplate.mdx`.
 - Added @storybook/addon-a11y.
 - Imported additional styles from palette-evertec.css in storybook preview.
@@ -69,10 +36,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added additional utility styles for better UI consistency on SButton.
 
 ### Changed
+- SBadge component has been restructured, introduced various features:
+  - Badge can have different colors including `blue`, `gray`, `green`, `indigo`, `primary`, `red`, and `yellow`.
+  - Badge can come in different sizes: `sm`, `md`, and `lg`.
+  - Additional styles for badges including `pill`, `dot`, and `outline` features.
+  - Introduced Storybook stories to showcase badge variations such as `Default`, `Size`, `Color`, `Outline`, `Pill`, `Dot`, `Removable`, and `Customize`.
+  - Badge linked with Figma design via Storybook's.
+- Some prop names in the SButton component were changed:
+  - `small` to `sm` and `medium` to `md` for the size.
+  - `circle` to `full` for the rounded prop.
 - Introduced a new version of SButton component with TypeScript integration and improved styles.
 - Improve features like disabled, loading, rounded buttons at SButton component.
 - Minor updates in package-lock.json to include latest resolved versions and dependencies.
 - Refactored references of the old SButton.vue component in various files.
+
+### Removed
+- Unhelpful story descriptions
+- Active scale effect on `SButton` component.
+
+### Fixed
+- Export alternative classic inputs
+- Import root color styles in index file.
+
+## 1.0.0-beta.3 - 2023-09-06
+
+## 1.0.0-beta.2 - 2023-09-06
+
+## 1.0.0-beta.1 - 2023-08-02
+
+## 1.0.0-beta.0 - 2023-07-28
 
 ## 0.5.0 - 2023-07-21
 

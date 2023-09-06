@@ -1,8 +1,6 @@
 @import url('https://rsms.me/inter/inter.css');
 @import url('./palette-evertec.css');
 
-@import url('../components/SButtonGroup/styles.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

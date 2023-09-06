@@ -5,7 +5,6 @@ export * from './expose';
 export * from './components/SAvatar';
 export * from './components/SInput';
 export * from './components/SButton';
-export * from './components/SButtonGroup';
 export * from './components/SBadge';
 export * from './components/SDropdown';
 export * from './components/SSelect';

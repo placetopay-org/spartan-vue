@@ -20,7 +20,7 @@ defineEmits<{
 }>();
 
 const props = defineProps<{
-  customFilters?: boolean;
+  savedFilters?: boolean;
   fields: TField[];
 }>();
 
@@ -35,7 +35,7 @@ const customFilterComputed = ref<{ name: string; data: TField[] }[]>([]);
 const enableCustomFilter = computed(() => fields.value.some((filter) => filter.filter));
 
 watchEffect(() => {
-  if (props.customFilters) {
+  if (props.savedFilters) {
     customFilterComputed.value = customFilterManager.get();
   }
 });
@@ -152,7 +152,7 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
     </div>
 
     <div class="flex gap-3">
-      <SPopover ref="customFilterPop" v-if="customFilters" :preventClose="preventClose">
+      <SPopover ref="customFilterPop" v-if="savedFilters" :preventClose="preventClose">
         <template #reference>
           <SButton variant="outline" rounded="full" class="!py-0.5" :icon="FunnelIcon" @click="openCustomFilters" />
         </template>
