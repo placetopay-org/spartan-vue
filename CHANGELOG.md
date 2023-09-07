@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.1.1 - 2023-09-07
+### Changed
+- Moves custom styles from style.css to tailwind.config.js preset.
+
+## 1.1.0 - 2023-09-07
+### Added
+- SInput rounded props available `left`, `right`, `none`, and `both` as default.
+
 ## 1.0.0 - 2023-09-06
 ### Added
 - Translations for `SFilter` component (es, en, it, pt).

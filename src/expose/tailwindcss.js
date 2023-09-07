@@ -3,6 +3,7 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import colors from 'tailwindcss/colors';
 import tailwindForms from '@tailwindcss/forms';
+import plugin from 'tailwindcss/plugin';
 
 const withOpacityValue =
   (variable) =>
@@ -47,5 +48,32 @@ export default {
       },
     },
   },
-  plugins: [tailwindForms],
+  plugins: [
+    tailwindForms,
+    plugin(function ({ addBase, addComponents, addUtilities, theme }) {
+      addBase({
+        ":root": {
+          "--color-primary-50": "255 246 234",
+          "--color-primary-100": "255 227 188",
+          "--color-primary-200": "255 204 141",
+          "--color-primary-300": "255 179 98",
+          "--color-primary-400": "255 148 64",
+          "--color-primary-500": "255 126 41",
+          "--color-primary-600": "255 108 12",
+          "--color-primary-700": "218 90 13",
+          "--color-primary-800": "192 61 17",
+          "--color-primary-900": "161 56 21"
+        },
+        'html': {
+          "@apply antialiased": {},
+        },
+        "@import url('https://rsms.me/inter/inter.css')": true
+      })
+      addUtilities({
+        '.s-focus': {
+          "@apply focus:ring-primary-100 focus:ring": {},
+        }
+      })
+    })
+  ],
 };
