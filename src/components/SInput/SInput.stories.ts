@@ -2,7 +2,13 @@ import SInput from './SInput.vue';
 import { SDropdown, SDropdownItem } from '../SDropdown';
 import type { SourceProps } from '@storybook/blocks';
 import { buildDesign, buildSourceBinding } from '../../helpers';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
+import {
+  ArrowLeftOnRectangleIcon,
+  InformationCircleIcon,
+  CurrencyDollarIcon,
+  MapPinIcon,
+} from '@heroicons/vue/24/outline';
+import { EnvelopeIcon, KeyIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
 export default {
   component: SInput,
@@ -74,11 +80,11 @@ const sourceBinding = buildSourceBinding({
 
 export const Default = {
   render: (args: any) => ({
-    components: { SInput },
+    components: { SInput, EnvelopeIcon },
     setup() {
-      return { args };
+      return { args, EnvelopeIcon };
     },
-    template: '<SInput v-bind="args" v-model="args.modelValue" />',
+    template: '<SInput :endIcon="EnvelopeIcon" v-bind="args" v-model="args.modelValue" />',
   }),
   parameters: {
     design,
@@ -113,9 +119,28 @@ const createVariation = (
     () => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' }),
   ],
   render: () => ({
-    components: { SInput, SDropdown, SDropdownItem, ArrowLeftOnRectangleIcon },
+    components: {
+      SInput,
+      SDropdown,
+      SDropdownItem,
+      ArrowLeftOnRectangleIcon,
+      EnvelopeIcon,
+      KeyIcon,
+      InformationCircleIcon,
+      ChatBubbleLeftEllipsisIcon,
+      CurrencyDollarIcon,
+      MapPinIcon,
+    },
     setup() {
-      return { ArrowLeftOnRectangleIcon };
+      return {
+        ArrowLeftOnRectangleIcon,
+        EnvelopeIcon,
+        KeyIcon,
+        InformationCircleIcon,
+        ChatBubbleLeftEllipsisIcon,
+        CurrencyDollarIcon,
+        MapPinIcon,
+      };
     },
     template,
   }),
@@ -138,6 +163,18 @@ export const Rounded = createVariation(`
 <SInput rounded="left" placeholder="left" />
 <SInput rounded="none" placeholder="none" />
 <SInput rounded="right" placeholder="right" />
+`);
+
+export const WithIcon = createVariation(`
+<SInput :icon="EnvelopeIcon" placeholder="Email" />
+<SInput :icon="KeyIcon" placeholder="Password" />
+<SInput :icon="InformationCircleIcon" />
+`);
+
+export const WithEndIcon = createVariation(`
+<SInput :endIcon="ChatBubbleLeftEllipsisIcon" placeholder="Comment" />
+<SInput :endIcon="CurrencyDollarIcon" placeholder="Amount" />
+<SInput :endIcon="MapPinIcon" placeholder="Location" />
 `);
 
 /* import {

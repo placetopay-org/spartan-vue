@@ -71,7 +71,7 @@ export default {
       })
       addUtilities({
         '.s-focus': {
-          "@apply focus:ring-primary-100 focus:ring": {},
+          "@apply duration-150 focus:ring focus:ring-primary-100 focus:border-primary-300": {},
         }
       })
     })
