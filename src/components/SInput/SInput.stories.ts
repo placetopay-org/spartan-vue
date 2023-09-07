@@ -133,13 +133,11 @@ const createVariation = (
   },
 });
 
-export const Size = createVariation(`
-<SInput name="John Doe" size="xs" />
-<SInput name="John Doe" size="sm" />
-<SInput name="John Doe" size="md" />
-<SInput name="John Doe" size="lg" />
-<SInput name="John Doe" size="xl" />
-<SInput name="John Doe" size="2xl" />
+export const Rounded = createVariation(`
+<SInput rounded="both" placeholder="both (default)" />
+<SInput rounded="left" placeholder="left" />
+<SInput rounded="none" placeholder="none" />
+<SInput rounded="right" placeholder="right" />
 `);
 
 /* import {
