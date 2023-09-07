@@ -15,6 +15,8 @@ const props = withDefaults(
       rounded: keyof typeof roundedClass;
       name: string;
       placeholder: string;
+      prefix: string;
+      suffix: string;
       type: string;
       value: string;
     }>
@@ -29,6 +31,8 @@ const props = withDefaults(
     rounded: 'both',
     name: undefined,
     placeholder: undefined,
+    prefix: undefined,
+    suffix: undefined,
     type: 'text',
     value: undefined,
   }
@@ -43,8 +47,6 @@ const model = computed({
   },
 });
 
-const inputIsFocused = ref();
-
 const roundedClass = {
   left: 'rounded-l-lg',
   right: 'rounded-r-lg',
@@ -52,44 +54,37 @@ const roundedClass = {
   none: '',
 };
 
-// const inputTypeStyle = computed(() => {
-//   if (props.type !== 'checkbox' && props.type !== 'radio') return 'px-3 py-2 w-full';
-//   return (
-//     'w-4 h-4 text-primary-600 accent-primary-600 cursor-pointer ' +
-//     (props.type === 'checkbox' ? 'rounded' : 'rounded-full')
-//   );
-// });
+const leftContent = computed(() => props.icon || props.prefix);
+const rightContent = computed(() => props.endIcon || props.suffix);
 
 if (props.type === 'checkbox') {
-  console.warn(
+  console.error(
     'The <SCheckbox /> component should be used instead of the <SInput /> with the property type="checkbox"'
   );
 }
 
 if (props.type === 'radio') {
-  console.warn('The <SRadio /> component should be used instead of the <SInput /> with the property type="radio"');
+  console.error('The <SRadio /> component should be used instead of the <SInput /> with the property type="radio"');
 }
 </script>
 
 <template>
-  <div class="relative">
-    <component
-      v-if="icon"
-      :is="icon"
-      :class="['absolute left-3 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-500', inputIsFocused && 'text-primary-500']"
-    />
-    <component
-      v-if="endIcon"
-      :is="endIcon"
-      :class="['absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-500', inputIsFocused && 'text-primary-500']"
-    />
+  <div
+    :class="[
+      'relative flex items-center w-full overflow-hidden border border-gray-300 bg-white placeholder:text-gray-400 s-focus-within',
+      roundedClass[rounded],
+    ]"
+  >
+    <div v-if="leftContent">
+      <span v-if="prefix" class="ml-3 text-gray-500">{{ prefix }}</span>
+      <component v-else-if="icon" :is="icon" class="ml-3 h-6 w-6 text-gray-500" />
+    </div>
     <input
       v-model="model"
       :class="[
-        'w-full border border-gray-300 bg-white placeholder:text-gray-400 s-focus',
-        roundedClass[rounded],
-        icon && 'pl-10',
-        endIcon && 'pr-10',
+        'w-full border-none focus:ring-0',
+        leftContent && 'pl-2',
+        rightContent && 'pr-2',
         disabled && 'opacity-50 pointer-events-none',
       ]"
       :disabled="disabled"
@@ -99,8 +94,10 @@ if (props.type === 'radio') {
       :placeholder="placeholder"
       :type="type"
       :value="value ?? modelValue"
-      @focus="inputIsFocused = true"
-      @blur="inputIsFocused = false"
     />
+    <div v-if="rightContent">
+      <span v-if="suffix" class="mr-3 text-gray-500">{{ suffix }}</span>
+      <component v-else-if="endIcon" :is="endIcon" class="mr-3 h-6 w-6 text-gray-500" />
+    </div>
   </div>
 </template>

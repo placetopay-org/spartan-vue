@@ -84,7 +84,7 @@ export const Default = {
     setup() {
       return { args, EnvelopeIcon };
     },
-    template: '<SInput :endIcon="EnvelopeIcon" v-bind="args" v-model="args.modelValue" />',
+    template: '<SInput prefix="$" v-bind="args" v-model="args.modelValue" />',
   }),
   parameters: {
     design,
@@ -175,6 +175,18 @@ export const WithEndIcon = createVariation(`
 <SInput :endIcon="ChatBubbleLeftEllipsisIcon" placeholder="Comment" />
 <SInput :endIcon="CurrencyDollarIcon" placeholder="Amount" />
 <SInput :endIcon="MapPinIcon" placeholder="Location" />
+`);
+
+export const WithPrefix = createVariation(`
+<SInput prefix="$" type="number" placeholder="100.000" />
+<SInput prefix="https://" />
+<SInput prefix="name" />
+`);
+
+export const WithSuffix = createVariation(`
+<SInput suffix=".com" />
+<SInput suffix="USD" />
+<SInput suffix="optional" />
 `);
 
 /* import {
