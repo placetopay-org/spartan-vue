@@ -9,6 +9,7 @@ const props = withDefaults(
       id: string;
       label: string;
       modelValue: string | string[] | boolean | number;
+      rounded: keyof typeof roundedClass;
       name: string;
       placeholder: string;
       type: string;
@@ -20,6 +21,7 @@ const props = withDefaults(
     id: undefined,
     label: undefined,
     modelValue: undefined,
+    rounded: 'both',
     name: undefined,
     placeholder: undefined,
     type: 'text',
@@ -36,8 +38,15 @@ const model = computed({
   },
 });
 
+const roundedClass = {
+  left: 'rounded-l-lg',
+  right: 'rounded-r-lg',
+  both: 'rounded-lg',
+  none: '',
+};
+
 const inputTypeStyle = computed(() => {
-  if (props.type !== 'checkbox' && props.type !== 'radio') return 'px-3 py-2 w-full rounded-lg';
+  if (props.type !== 'checkbox' && props.type !== 'radio') return 'px-3 py-2 w-full';
   return (
     'w-4 h-4 text-primary-600 accent-primary-600 cursor-pointer ' +
     (props.type === 'checkbox' ? 'rounded' : 'rounded-full')
@@ -52,6 +61,7 @@ const inputTypeStyle = computed(() => {
       :class="[
         'border border-gray-300 bg-white placeholder:text-gray-400 s-focus transition focus:border-primary-300',
         inputTypeStyle,
+        roundedClass[rounded],
         disabled && 'opacity-50 pointer-events-none',
       ]"
       :disabled="disabled"
