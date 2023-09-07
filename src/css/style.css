@@ -1,14 +1,3 @@
-@import url('https://rsms.me/inter/inter.css');
-@import url('./palette-evertec.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html {
-  @apply antialiased;
-}
-
-.s-focus {
-  @apply focus:ring-primary-100 focus:ring;
-}
