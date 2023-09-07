@@ -31,20 +31,7 @@ You can find the documentation and components of this design system by clicking 
       presets: [require("@placetopay/spartan-vue/tailwindcss.js")],
    };
    ```
-
-4. :odify your app.css to look like this
-
-   ```css
-   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-   @import '@placetopay/spartan-vue/style.css';
-   @import 'tailwindcss/base';
-   @import 'tailwindcss/components';
-   @import 'tailwindcss/utilities';
-
-   /* Your custom styles */
-   ```
-
+   
 ## Developing
 
 1. Requirements
