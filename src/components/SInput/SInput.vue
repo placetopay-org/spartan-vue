@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, type FunctionalComponent } from 'vue';
+import { computed, type FunctionalComponent, useSlots, ref } from 'vue';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -38,6 +38,8 @@ const props = withDefaults(
   }
 );
 
+const slots = useSlots();
+
 const model = computed({
   get() {
     return props.modelValue;
@@ -47,6 +49,8 @@ const model = computed({
   },
 });
 
+const inputHasFocus = ref(false);
+
 const roundedClass = {
   left: 'rounded-l-lg',
   right: 'rounded-r-lg',
@@ -54,8 +58,16 @@ const roundedClass = {
   none: '',
 };
 
+const isRightRounded = computed(() => {
+  return props.rounded === 'right' || props.rounded === 'both';
+});
+
+const isLeftRounded = computed(() => {
+  return props.rounded === 'left' || props.rounded === 'both';
+});
+
 const leftContent = computed(() => props.icon || props.prefix);
-const rightContent = computed(() => props.endIcon || props.suffix);
+const rightContent = computed(() => props.endIcon || props.suffix || slots.options);
 
 if (props.type === 'checkbox') {
   console.error(
@@ -71,11 +83,12 @@ if (props.type === 'radio') {
 <template>
   <div
     :class="[
-      'relative flex items-center w-full overflow-hidden border border-gray-300 bg-white placeholder:text-gray-400 s-focus-within',
+      'relative flex w-full border border-gray-300 bg-white placeholder:text-gray-400',
+      inputHasFocus && 's-ring',
       roundedClass[rounded],
     ]"
   >
-    <div v-if="leftContent">
+    <div v-if="leftContent" :class="['flex items-center', isLeftRounded && 'rounded-l-lg']">
       <span v-if="prefix" class="ml-3 text-gray-500">{{ prefix }}</span>
       <component v-else-if="icon" :is="icon" class="ml-3 h-6 w-6 text-gray-500" />
     </div>
@@ -86,6 +99,7 @@ if (props.type === 'radio') {
         leftContent && 'pl-2',
         rightContent && 'pr-2',
         disabled && 'opacity-50 pointer-events-none',
+        roundedClass[rounded],
       ]"
       :disabled="disabled"
       :id="id"
@@ -94,9 +108,14 @@ if (props.type === 'radio') {
       :placeholder="placeholder"
       :type="type"
       :value="value ?? modelValue"
+      @focus="inputHasFocus = true"
+      @blur="inputHasFocus = false"
     />
-    <div v-if="rightContent">
-      <span v-if="suffix" class="mr-3 text-gray-500">{{ suffix }}</span>
+    <div v-if="rightContent" :class="['focus-within:s-ring -m-px border border-transparent flex items-center', isRightRounded && 'rounded-r-lg']">
+      <select v-if="$slots.options" class="text-gray-500 text-sm border-none focus:ring-0 rounded-lg">
+        <slot name="options" />
+      </select>
+      <span v-else-if="suffix" class="mr-3 text-gray-500">{{ suffix }}</span>
       <component v-else-if="endIcon" :is="endIcon" class="mr-3 h-6 w-6 text-gray-500" />
     </div>
   </div>

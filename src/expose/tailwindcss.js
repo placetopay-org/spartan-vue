@@ -73,8 +73,8 @@ export default {
         '.s-focus': {
           "@apply duration-150 focus:ring focus:ring-primary-100 focus:border-primary-300": {},
         },
-        '.s-focus-within': {
-          "@apply duration-150 focus-within:ring focus-within:ring-primary-100 focus-within:border-primary-300": {},
+        '.s-ring': {
+          "@apply duration-150 ring ring-primary-100 border-primary-300": {},
         }
       })
     })
