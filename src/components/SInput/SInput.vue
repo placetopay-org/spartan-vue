@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed, type FunctionalComponent, useSlots, ref } from 'vue';
+import { computed, type FunctionalComponent, useSlots, ref, watchEffect } from 'vue';
+
+defineOptions({ inheritAttrs: false });
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -8,44 +10,44 @@ const props = withDefaults(
     Partial<{
       disabled: boolean;
       endIcon: FunctionalComponent;
-      icon: FunctionalComponent;
+      error: boolean;
       id: string;
-      label: string;
+      icon: FunctionalComponent;
       modelValue: string | string[] | boolean | number;
-      rounded: keyof typeof roundedClass;
       name: string;
       placeholder: string;
       prefix: string;
+      rounded: keyof typeof roundedClass;
       suffix: string;
       type: string;
-      value: string;
     }>
   >(),
   {
     disabled: false,
     endIcon: undefined,
-    icon: undefined,
+    error: false,
     id: undefined,
-    label: undefined,
+    icon: undefined,
     modelValue: undefined,
-    rounded: 'both',
     name: undefined,
     placeholder: undefined,
     prefix: undefined,
+    rounded: 'both',
     suffix: undefined,
     type: 'text',
-    value: undefined,
   }
 );
 
 const slots = useSlots();
 
+const value = ref(props.modelValue);
 const model = computed({
   get() {
-    return props.modelValue;
+    return props.modelValue ?? value.value;
   },
-  set(value) {
-    emit('update:modelValue', value);
+  set(newValue) {
+    value.value = newValue;
+    emit('update:modelValue', newValue);
   },
 });
 
@@ -58,6 +60,12 @@ const roundedClass = {
   none: '',
 };
 
+const errorClass = computed(() => {
+  return props.error
+    ? `border-red-500 ${inputHasFocus.value && 's-ring-error'}`
+    : `border-gray-300 ${inputHasFocus.value && 's-ring'}`;
+});
+
 const isRightRounded = computed(() => {
   return props.rounded === 'right' || props.rounded === 'both';
 });
@@ -69,23 +77,24 @@ const isLeftRounded = computed(() => {
 const leftContent = computed(() => props.icon || props.prefix);
 const rightContent = computed(() => props.endIcon || props.suffix || slots.options);
 
-if (props.type === 'checkbox') {
-  console.error(
-    'The <SCheckbox /> component should be used instead of the <SInput /> with the property type="checkbox"'
-  );
-}
+const message = (component: string, type: string) => {
+  return `The <${component} /> component should be used instead of the <SInput type="${type}"/>`;
+};
 
-if (props.type === 'radio') {
-  console.error('The <SRadio /> component should be used instead of the <SInput /> with the property type="radio"');
-}
+watchEffect(() => {
+  if (props.type === 'checkbox' || props.type === 'radio') {
+    console.error(message(`S${props.type.charAt(0).toUpperCase() + props.type.slice(1)}`, props.type));
+  }
+});
 </script>
 
 <template>
   <div
     :class="[
-      'relative flex w-full border border-gray-300 bg-white placeholder:text-gray-400',
-      inputHasFocus && 's-ring',
+      'relative flex w-full border bg-white placeholder:text-gray-400',
+      errorClass,
       roundedClass[rounded],
+      disabled && 'opacity-50 pointer-events-none',
     ]"
   >
     <div v-if="leftContent" :class="['flex items-center', isLeftRounded && 'rounded-l-lg']">
@@ -93,25 +102,24 @@ if (props.type === 'radio') {
       <component v-else-if="icon" :is="icon" class="ml-3 h-6 w-6 text-gray-500" />
     </div>
     <input
-      v-model="model"
-      :class="[
-        'w-full border-none focus:ring-0',
-        leftContent && 'pl-2',
-        rightContent && 'pr-2',
-        disabled && 'opacity-50 pointer-events-none',
-        roundedClass[rounded],
-      ]"
+      :class="['w-full border-none focus:ring-0', leftContent && 'pl-2', rightContent && 'pr-2', roundedClass[rounded]]"
       :disabled="disabled"
       :id="id"
-      :label="label"
       :name="name"
       :placeholder="placeholder"
       :type="type"
-      :value="value ?? modelValue"
+      v-model="model"
+      v-bind="$attrs"
       @focus="inputHasFocus = true"
       @blur="inputHasFocus = false"
     />
-    <div v-if="rightContent" :class="['focus-within:s-ring -m-px border border-transparent flex items-center', isRightRounded && 'rounded-r-lg']">
+    <div
+      v-if="rightContent"
+      :class="[
+        'focus-within:s-ring -m-px border border-transparent flex items-center',
+        isRightRounded && 'rounded-r-lg',
+      ]"
+    >
       <select v-if="$slots.options" class="text-gray-500 text-sm border-none focus:ring-0 rounded-lg">
         <slot name="options" />
       </select>

@@ -1,4 +1,6 @@
 import SInput from './SInput.vue';
+import { ref } from 'vue';
+import { SButton } from '../SButton';
 import { SDropdown, SDropdownItem } from '../SDropdown';
 import type { SourceProps } from '@storybook/blocks';
 import { buildDesign, buildSourceBinding } from '../../helpers';
@@ -7,6 +9,7 @@ import {
   InformationCircleIcon,
   CurrencyDollarIcon,
   MapPinIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/vue/24/outline';
 import { EnvelopeIcon, KeyIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
@@ -33,18 +36,43 @@ export default {
       description: 'DOC',
       table: { type: { summary: 'boolean' } },
     },
+    endIcon: {
+      control: 'select',
+      options: [
+        'EnvelopeIcon',
+        'MagnifyingGlassIcon',
+        'MapPinIcon',
+        'InformationCircleIcon',
+        'CurrencyDollarIcon',
+        'ChatBubbleLeftEllipsisIcon',
+      ],
+      description: `A Vue functional component to be used as the input's icon.`,
+      table: { type: { summary: 'FunctionalComponent' } },
+    },
+    error: {
+      description: 'DOC',
+      table: { type: { summary: 'boolean' } },
+    },
+    icon: {
+      control: 'select',
+      options: [
+        'EnvelopeIcon',
+        'MagnifyingGlassIcon',
+        'MapPinIcon',
+        'InformationCircleIcon',
+        'CurrencyDollarIcon',
+        'ChatBubbleLeftEllipsisIcon',
+      ],
+      description: `A Vue functional component to be used as the input's icon.`,
+      table: { type: { summary: 'FunctionalComponent' } },
+    },
     id: {
       control: 'text',
       description: 'DOC',
       table: { type: { summary: 'string' } },
     },
-    label: {
-      control: 'text',
-      description: 'DOC',
-      table: { type: { summary: 'string' } },
-    },
     modelValue: {
-      control: { type: 'text' },
+      control: { type: null },
       description: 'DOC',
       table: { type: { summary: 'Ref<string>' } },
     },
@@ -64,6 +92,16 @@ export default {
       description: 'DOC',
       table: { type: { summary: 'string' } },
     },
+    prefix: {
+      control: 'text',
+      description: 'DOC',
+      table: { type: { summary: 'string' } },
+    },
+    suffix: {
+      control: 'text',
+      description: 'DOC',
+      table: { type: { summary: 'string' } },
+    },
     type: {
       control: 'text',
       description: 'DOC',
@@ -75,16 +113,62 @@ export default {
 const design = buildDesign('');
 
 const sourceBinding = buildSourceBinding({
-  prop: { rounded: 'both' },
+  prop: {
+    rounded: 'both',
+    id: undefined,
+    name: undefined,
+    placeholder: undefined,
+    prefix: undefined,
+    suffix: undefined,
+    type: 'text',
+  },
+  check: ['disabled', 'error'],
+  custom: { icon: true },
 });
 
 export const Default = {
   render: (args: any) => ({
-    components: { SInput, EnvelopeIcon },
-    setup() {
-      return { args, EnvelopeIcon };
+    components: {
+      SInput,
+      EnvelopeIcon,
+      MagnifyingGlassIcon,
+      MapPinIcon,
+      InformationCircleIcon,
+      CurrencyDollarIcon,
+      ChatBubbleLeftEllipsisIcon,
     },
-    template: '<SInput prefix="$" v-bind="args" v-model="args.modelValue" />',
+    setup() {
+      const value = ref('');
+      const getIcon = (
+        icon:
+          | 'EnvelopeIcon'
+          | 'MagnifyingGlassIcon'
+          | 'MapPinIcon'
+          | 'InformationCircleIcon'
+          | 'CurrencyDollarIcon'
+          | 'ChatBubbleLeftEllipsisIcon'
+      ) => {
+        if (icon === 'EnvelopeIcon') return EnvelopeIcon;
+        if (icon === 'MagnifyingGlassIcon') return MagnifyingGlassIcon;
+        if (icon === 'MapPinIcon') return MapPinIcon;
+        if (icon === 'InformationCircleIcon') return InformationCircleIcon;
+        if (icon === 'CurrencyDollarIcon') return CurrencyDollarIcon;
+        if (icon === 'ChatBubbleLeftEllipsisIcon') return ChatBubbleLeftEllipsisIcon;
+      };
+
+      return {
+        args,
+        getIcon,
+        value,
+        EnvelopeIcon,
+        MagnifyingGlassIcon,
+        MapPinIcon,
+        InformationCircleIcon,
+        CurrencyDollarIcon,
+        ChatBubbleLeftEllipsisIcon,
+      };
+    },
+    template: '<SInput v-bind="args" :icon="getIcon(args.icon)" :endIcon="getIcon(args.endIcon)" v-model="value" />',
   }),
   parameters: {
     design,
@@ -101,6 +185,12 @@ export const Default = {
   },
   args: {
     disabled: false,
+    error: false,
+    id: 'test-id',
+    name: 'test-name',
+    placeholder: 'Placeholder',
+    prefix: '',
+    suffix: '',
     rounded: 'both',
     type: 'text',
   },
@@ -110,17 +200,16 @@ const createVariation = (
   template: string,
   options?: {
     focusVisible?: boolean;
-    decorators?: (() => {
-      template: string;
-    })[];
+    containerClass?: string;
   }
 ) => ({
-  decorators: options?.decorators ?? [
-    () => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' }),
+  decorators: [
+    () => ({ template: `<div style="${options?.containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>` }),
   ],
   render: () => ({
     components: {
       SInput,
+      SButton,
       SDropdown,
       SDropdownItem,
       ArrowLeftOnRectangleIcon,
@@ -132,7 +221,11 @@ const createVariation = (
       MapPinIcon,
     },
     setup() {
+      const email = ref('');
+
       return {
+        email,
+        SButton,
         ArrowLeftOnRectangleIcon,
         EnvelopeIcon,
         KeyIcon,
@@ -158,8 +251,16 @@ const createVariation = (
   },
 });
 
+export const Disabled = createVariation(`<SInput disabled placeholder="placeholder" />`, {
+  containerClass: 'width: 200px',
+});
+
+export const Error = createVariation(`<SInput error placeholder="placeholder" />`, {
+  containerClass: 'width: 200px',
+});
+
 export const Rounded = createVariation(`
-<SInput rounded="both" placeholder="both (default)" />
+<SInput placeholder="both (default)" />
 <SInput rounded="left" placeholder="left" />
 <SInput rounded="none" placeholder="none" />
 <SInput rounded="right" placeholder="right" />
@@ -199,104 +300,8 @@ export const WithOptionsEmbedded = createVariation(`
 </SInput>
 `);
 
-/* import {
-  SInput,
-  SInputDropdown,
-  SDropdown,
-  SDropdownItem,
-  SButton,
-} from "../components/sInputs";
-import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
+/* 
 
-export default {
-  title: "Components/SInput",
-  component: SInput,
-  argTypes: {
-    direction: {
-      control: { type: "select" },
-      default: 'left',
-      options: ['left', 'right'],
-    },
-  },
-  decorators: [
-    () => ({
-      template: '<div class="max-w-md mx-auto border-none"><story /></div>',
-    }),
-  ],
-};
-
-const Template = (args) => ({
-  components: {
-    SInput,
-    MagnifyingGlassIcon,
-    SDropdown,
-    SDropdownItem,
-    SButton,
-  },
-  setup() {
-    return { args };
-  },
-  template: `
-    <SInput v-bind="args">
-      <template v-if="args.button.enabled" #right>
-        <SButton :icon="args.button.icon" color="primary" flat-left>
-          {{ args.button.label }}
-        </SButton>
-      </template>
-    </SInput>
-  `,
-});
-
-const TemplateWithDropdown = (args) => ({
-  components: {
-    SInputDropdown,
-  },
-  setup() {
-    return { args };
-  },
-  template: `
-    <SInputDropdown v-bind="args" />
-  `,
-});
-
-
-
-const defaultArgs = {
-  label: "Nombre",
-  placeholder: "John Doe",
-  type: "text",
-  id: "field_name",
-  name: "field_name",
-  component: "input",
-  button: {
-    enabled: false,
-  },
-};
-
-export const TextInput = Template.bind({});
-TextInput.args = {
-  ...defaultArgs,
-};
-
-export const EmailInput = Template.bind({});
-EmailInput.args = {
-  ...defaultArgs,
-  label: "Correo electrónico",
-  placeholder: "jhon@example.com",
-  type: "email",
-};
-
-export const WithErrors = Template.bind({});
-WithErrors.args = {
-  ...defaultArgs,
-  invalid: true,
-};
-
-export const DisabledInput = Template.bind({});
-DisabledInput.args = {
-  ...defaultArgs,
-  disabled: true,
-};
 
 export const TextAreaInput = Template.bind({});
 TextAreaInput.args = {

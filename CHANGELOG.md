@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- Input forms example section.
 - Options inside input support for `SInput` component.
 - SInput icon support for `right` and `left` positions with `icon` and `end-icon` props respectively.
 

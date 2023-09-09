@@ -52,31 +52,31 @@ export default {
     tailwindForms,
     plugin(function ({ addBase, addComponents, addUtilities, theme }) {
       addBase({
-        ":root": {
-          "--color-primary-50": "255 246 234",
-          "--color-primary-100": "255 227 188",
-          "--color-primary-200": "255 204 141",
-          "--color-primary-300": "255 179 98",
-          "--color-primary-400": "255 148 64",
-          "--color-primary-500": "255 126 41",
-          "--color-primary-600": "255 108 12",
-          "--color-primary-700": "218 90 13",
-          "--color-primary-800": "192 61 17",
-          "--color-primary-900": "161 56 21"
+        ':root': {
+          '--color-primary-50': '255 246 234',
+          '--color-primary-100': '255 227 188',
+          '--color-primary-200': '255 204 141',
+          '--color-primary-300': '255 179 98',
+          '--color-primary-400': '255 148 64',
+          '--color-primary-500': '255 126 41',
+          '--color-primary-600': '255 108 12',
+          '--color-primary-700': '218 90 13',
+          '--color-primary-800': '192 61 17',
+          '--color-primary-900': '161 56 21',
         },
-        'html': {
-          "@apply antialiased": {},
+        html: {
+          '@apply antialiased': {},
         },
-        "@import url('https://rsms.me/inter/inter.css')": true
-      })
+        "@import url('https://rsms.me/inter/inter.css')": true,
+      });
       addUtilities({
-        '.s-focus': {
-          "@apply duration-150 focus:ring focus:ring-primary-100 focus:border-primary-300": {},
-        },
         '.s-ring': {
-          "@apply duration-150 ring ring-primary-100 border-primary-300": {},
-        }
-      })
-    })
+          '@apply duration-150 ring ring-primary-100 border-primary-300 z-10': {},
+        },
+        '.s-ring-error': {
+          '@apply duration-150 ring ring-red-300 border-red-500 z-10': {},
+        },
+      });
+    }),
   ],
 };
