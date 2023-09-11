@@ -1,42 +1,39 @@
 <script setup lang="ts">
 import { computed, type FunctionalComponent, useSlots, ref, watchEffect } from 'vue';
 
+export type TInputProps = {
+  disabled: boolean;
+  endIcon: FunctionalComponent;
+  error: boolean;
+  id: string;
+  icon: FunctionalComponent;
+  modelValue: string | number;
+  name: string;
+  placeholder: string;
+  prefix: string;
+  rounded: keyof typeof roundedClass;
+  suffix: string;
+  type: string;
+};
+
 defineOptions({ inheritAttrs: false });
 
 const emit = defineEmits(['update:modelValue']);
 
-const props = withDefaults(
-  defineProps<
-    Partial<{
-      disabled: boolean;
-      endIcon: FunctionalComponent;
-      error: boolean;
-      id: string;
-      icon: FunctionalComponent;
-      modelValue: string | string[] | boolean | number;
-      name: string;
-      placeholder: string;
-      prefix: string;
-      rounded: keyof typeof roundedClass;
-      suffix: string;
-      type: string;
-    }>
-  >(),
-  {
-    disabled: false,
-    endIcon: undefined,
-    error: false,
-    id: undefined,
-    icon: undefined,
-    modelValue: undefined,
-    name: undefined,
-    placeholder: undefined,
-    prefix: undefined,
-    rounded: 'both',
-    suffix: undefined,
-    type: 'text',
-  }
-);
+const props = withDefaults(defineProps<Partial<TInputProps>>(), {
+  disabled: false,
+  endIcon: undefined,
+  error: false,
+  id: undefined,
+  icon: undefined,
+  modelValue: undefined,
+  name: undefined,
+  placeholder: undefined,
+  prefix: undefined,
+  rounded: 'both',
+  suffix: undefined,
+  type: 'text',
+});
 
 const slots = useSlots();
 
@@ -74,8 +71,8 @@ const isLeftRounded = computed(() => {
   return props.rounded === 'left' || props.rounded === 'both';
 });
 
-const leftContent = computed(() => props.icon || props.prefix);
-const rightContent = computed(() => props.endIcon || props.suffix || slots.options);
+const leftContent = computed(() => Boolean(props.icon || props.prefix));
+const rightContent = computed(() => Boolean(props.endIcon || props.suffix || slots.options));
 
 const message = (component: string, type: string) => {
   return `The <${component} /> component should be used instead of the <SInput type="${type}"/>`;
