@@ -21,18 +21,19 @@ const postalCode = ref('');
 
     <form class="bg-white border border-gray-100 shadow-sm rounded-xl p-8">
       <section class="grid gap-6 grid-cols-6">
-        <SInput v-model="firstName" id="firstName" label="Nombre" class="col-span-3" />
-        <SInput v-model="lastName" id="lastName" label="Apellido" class="col-span-3" />
-        <SInput v-model="email" id="email" label="Correo electrónico" class="col-span-6 max-w-sm" />
+        <div class="col-span-3"><SInput v-model="firstName" id="firstName" label="Nombre" /></div>
+        <div class="col-span-3"><SInput v-model="lastName" id="lastName" label="Apellido" /></div>
+        <div class="col-span-6 max-w-sm"><SInput v-model="email" id="email" label="Correo electrónico" /></div>
+
         <SSelect v-model="country" id="country" label="País" class="col-span-6 max-w-sm">
           <option value="colombia">Colombia</option>
           <option value="puertoRico">Puerto Rico</option>
           <option value="ecuador">Ecuador</option>
         </SSelect>
-        <SInput v-model="streetAddress" id="streetAddress" label="Dirección" class="col-span-6" />
-        <SInput v-model="city" id="city" label="Ciudad" class="col-span-2" />
-        <SInput v-model="state" id="state" label="Estado / Provincia" class="col-span-2" />
-        <SInput v-model="postalCode" id="postalCode" label="Código postal" class="col-span-2" />
+        <div class="col-span-6"><SInput v-model="streetAddress" id="streetAddress" label="Dirección" /></div>
+        <div class="col-span-2"><SInput v-model="city" id="city" label="Ciudad" /></div>
+        <div class="col-span-2"><SInput v-model="state" id="state" label="Estado / Provincia" /></div>
+        <div class="col-span-2"><SInput v-model="postalCode" id="postalCode" label="Código postal" /></div>
       </section>
 
       <hr class="my-8" />

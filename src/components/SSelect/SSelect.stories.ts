@@ -19,7 +19,7 @@ export default {
     'update:modelValue': {
       control: { type: null },
       table: { type: { summary: null }, category: 'Events' },
-      description: "DOC",
+      description: 'DOC',
     },
 
     // Slots
@@ -31,41 +31,31 @@ export default {
 
     // Props
     disabled: {
-      description: "DOC",
+      description: 'DOC',
       table: { type: { summary: 'boolean' } },
     },
     error: {
-      description: "DOC",
+      description: 'DOC',
       table: { type: { summary: 'boolean' } },
     },
     id: {
       control: { type: 'text' },
-      description: "DOC",
+      description: 'DOC',
       table: { type: { summary: 'string' } },
-    },
-    label: {
-      control: { type: 'text' },
-      description: "DOC",
-      table: { type: { summary: 'boolean' } },
     },
     modelValue: {
       control: { type: 'text' },
-      description: "DOC",
+      description: 'DOC',
       table: { type: { summary: 'Ref<string>' } },
     },
     name: {
       control: { type: 'text' },
-      description: "DOC",
+      description: 'DOC',
       table: { type: { summary: 'string' } },
     },
     placeholder: {
       control: { type: 'text' },
-      description: "DOC",
-      table: { type: { summary: 'string' } },
-    },
-    tag: {
-      control: { type: 'text' },
-      description: "DOC",
+      description: 'DOC',
       table: { type: { summary: 'string' } },
     },
   },
@@ -82,15 +72,12 @@ export const Default = {
     setup() {
       return { args };
     },
-    template: 
-`
+    template: `
 <SSelect v-bind="args" v-model="args.modelValue">
   <option value="visa">visa</option> 
   <option value="mastercard">mastercard</option> 
   <option value="american express">american express</option>
 </SSelect>
-
-<pre>{{ value }}</pre>
 `,
   }),
   parameters: {
@@ -112,21 +99,19 @@ export const Default = {
     disabled: false,
     error: false,
     id: 'test-id',
-    label: 'Payment method',
     modelValue: '',
     name: 'payment_method',
     placeholder: 'Select an option',
-    tag: 'As it appears in your document',
   },
 };
 
-const createVariation = (template: string) => ({
-  decorators: [() => ({ template: '<div style="gap: 20px; display: flex;"><story/></div>' })],
+const createVariation = (template: string, placeholder?: boolean) => ({
+  decorators: [() => ({ template: '<div style="gap: 20px; display: flex; max-width: 200px"><story/></div>' })],
   render: () => ({
     components: { SSelect },
     template,
     setup() {
-      const value = ref('option');
+      const value = ref(placeholder ? '' : 'option');
       return { value };
     },
   }),
@@ -147,14 +132,23 @@ export const Placeholder = createVariation(
   `
 <SSelect v-model="value" placeholder="Select an option">
   <option value="option">option</option>
+  <option value="option2">option2</option>
+  <option value="option3">option3</option>
+  <option value="option4">option4</option>
+  <option value="option5">option5</option>
 </SSelect>
-`
+`,
+  true
 );
 
 export const Disabled = createVariation(
   `
 <SSelect v-model="value" disabled>
   <option value="option">option</option>
+  <option value="option2">option2</option>
+  <option value="option3">option3</option>
+  <option value="option4">option4</option>
+  <option value="option5">option5</option>
 </SSelect>
 `
 );
@@ -163,30 +157,10 @@ export const Error = createVariation(
   `
 <SSelect v-model="value" error>
   <option value="option">option</option>
-</SSelect>
-`
-);
-
-export const Label = createVariation(
-  `
-<SSelect v-model="value" label="Custom label" id="test-id">
-  <option value="option">option</option>
-</SSelect>
-`
-);
-
-export const Tag = createVariation(
-  `
-<SSelect v-model="value" tag="Custom tag">
-  <option value="option">option</option>
-</SSelect>
-`
-);
-
-export const ErrorWithTag = createVariation(
-  `
-<SSelect v-model="value" tag="Custom tag" error>
-  <option value="option">option</option>
+  <option value="option2">option2</option>
+  <option value="option3">option3</option>
+  <option value="option4">option4</option>
+  <option value="option5">option5</option>
 </SSelect>
 `
 );

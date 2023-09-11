@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- InputBlock component, groups the SInput, label, help text and error text.
+- Input forms example section.
+- Options inside input support for `SInput` component.
+- SInput icon support for `right` and `left` positions with `icon` and `end-icon` props respectively.
 
 ## 1.1.1 - 2023-09-07
 ### Changed

@@ -12,7 +12,7 @@ defineProps<{
     <div
       :class="[
         checked ? 'border-primary-600 outline outline-1 -outline-offset-2 outline-primary-600' : 'border-gray-300',
-        'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm s-focus focus:border-primary-300',
+        'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:s-ring focus:border-primary-300',
       ]"
     >
       <span class="flex flex-1">

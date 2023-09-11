@@ -68,7 +68,7 @@ const roundedClass = {
 };
 
 const buttonClasses = computed(() => [
-  'inline-flex items-center justify-center h-fit w-fit s-focus border font-medium transition focus:outline-none gap-2',
+  'inline-flex items-center justify-center h-fit w-fit focus:s-ring border font-medium transition focus:outline-none gap-2',
   props.disabled && 'pointer-events-none opacity-50',
   props.loading && 'loading',
   props.endIcon && 'flex-row-reverse',

@@ -40,3 +40,40 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
 
   return result.trim();
 };
+
+export const createVariation = ({
+  components,
+  setup,
+  template,
+  design,
+  focusVisible,
+  containerClass,
+}: {
+  template: string;
+  setup?: () => any;
+  components?: Record<string, any>;
+  design?: any;
+  focusVisible?: boolean;
+  containerClass?: string;
+}) => ({
+  decorators: [
+    () => ({ template: `<div style="${containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>` }),
+  ],
+  render: () => ({
+    components,
+    setup,
+    template,
+  }),
+  parameters: {
+    design,
+    pseudo: { focusVisible },
+    controls: { disable: true },
+    actions: { disable: true },
+    docs: {
+      source: {
+        code: template,
+        language: 'html',
+      },
+    },
+  },
+});
