@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, useSlots, ref } from 'vue';
-import { SInput, type TInputProps } from '../../';
+import { computed } from 'vue';
+import { SInput, SLabel, type TInputProps } from '../../';
 
 defineOptions({ inheritAttrs: false });
 
@@ -22,7 +22,7 @@ const inputProps = computed(() => {
 
 <template>
   <div>
-    <label v-if="label" :for="id" class="block text-sm font-medium text-gray-700 mb-1">{{ label }}</label>
+    <SLabel v-if="label" :for="id">{{ label }}</SLabel>
     <SInput v-bind="inputProps" />
     <div class="flex flex-col">
       <span v-if="helpText" class="text-gray-500 text-xs font-normal mt-1">{{ helpText }}</span>

@@ -20,9 +20,9 @@ export default {
     },
 
     // Props
-    id: {
+    for: {
       control: 'text',
-      description: 'The id of the label.',
+      description: 'The id of the form element the label is for.',
       table: { type: { summary: 'string' } },
     },
     srOnly: {
@@ -35,7 +35,7 @@ export default {
 
 const sourceBinding = buildSourceBinding({
   check: ['srOnly'],
-  prop: { id: undefined },
+  prop: { for: undefined },
 });
 
 export const Default = createDefault({
@@ -44,7 +44,7 @@ export const Default = createDefault({
   transform: (args) => `<SLabel ${sourceBinding(args)}> ${args.default} </SLabel>`,
   args: {
     default: 'Label text',
-    id: 'test-id',
+    for: 'test-id',
     srOnly: false,
   },
 });

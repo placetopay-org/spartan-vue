@@ -13,6 +13,7 @@ export * from './components/SSwitch';
 export * from './components/SFilter';
 export * from './components/SRadioGroup';
 export * from './components/SLabel';
+export * from './components/SInputBlock';
 
 export { default as SSidebar } from './components/SSidebar.vue';
 export { default as SSidebarLogo } from './components/SSidebarLogo.vue';
