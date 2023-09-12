@@ -1,3 +1,7 @@
+import type { SourceProps } from '@storybook/blocks';
+import type { StoryObj } from '@storybook/vue3';
+import { computed } from 'vue';
+
 export const buildDesign = (url: string) => ({
   type: 'figma',
   url,
@@ -41,6 +45,48 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
   return result.trim();
 };
 
+export const createDefault = ({
+  components,
+  setup,
+  args,
+  transform,
+  template,
+  containerClass,
+}: {
+  template: string;
+  setup?: () => any;
+  args: Record<string, any>;
+  transform?: (args: any) => string;
+  components?: Record<string, any>;
+  containerClass?: string;
+}): StoryObj => ({
+  decorators: [() => ({ template: `<div style="${containerClass}"><story/></div>` })],
+  render: (args: any) => ({
+    components,
+    setup:
+      setup ||
+      (() => {
+        const argsWithoutSlots = computed(() => {
+          const { default: def, ...rest } = args;
+          return rest;
+        });
+        return { args, argsWithoutSlots };
+      }),
+    template,
+  }),
+  parameters: {
+    docs: {
+      canvas: { layout: 'centered' },
+      source: {
+        transform: transform && ((_, storyContext) => transform(storyContext.args)) as SourceProps['transform'],
+        type: 'dynamic',
+        language: 'html',
+      },
+    },
+  },
+  args,
+});
+
 export const createVariation = ({
   components,
   setup,
@@ -56,9 +102,7 @@ export const createVariation = ({
   focusVisible?: boolean;
   containerClass?: string;
 }) => ({
-  decorators: [
-    () => ({ template: `<div style="${containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>` }),
-  ],
+  decorators: [() => ({ template: `<div style="${containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>` })],
   render: () => ({
     components,
     setup,
