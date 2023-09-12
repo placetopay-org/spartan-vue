@@ -1,6 +1,5 @@
 import SSelect from './SSelect.vue';
 import type { SourceProps } from '@storybook/blocks';
-import { action } from '@storybook/addon-actions';
 import { buildDesign, buildSourceBinding } from '../../helpers';
 import { ref } from 'vue';
 
@@ -10,7 +9,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'DOC',
+        component: 'The select component is used to create a dropdown list of options.',
       },
     },
   },
@@ -19,44 +18,50 @@ export default {
     'update:modelValue': {
       control: { type: null },
       table: { type: { summary: null }, category: 'Events' },
-      description: 'DOC',
+      description: 'The event emitted when the input value changes.',
     },
 
     // Slots
     default: {
       control: { type: null },
-      description: 'DOC',
+      description: 'The content to be rendered inside the select.',
       table: { type: { summary: 'VNode | VNode Array' } },
     },
 
     // Props
     disabled: {
-      description: 'DOC',
+      description: 'Whether the select is disabled.',
       table: { type: { summary: 'boolean' } },
     },
     error: {
-      description: 'DOC',
+      description: 'Whether the select has an error.',
       table: { type: { summary: 'boolean' } },
     },
     id: {
       control: { type: 'text' },
-      description: 'DOC',
+      description: 'The id of the select.',
       table: { type: { summary: 'string' } },
     },
     modelValue: {
-      control: { type: 'text' },
-      description: 'DOC',
+      control: { type: null },
+      description: 'The value of the select.',
       table: { type: { summary: 'Ref<string>' } },
     },
     name: {
       control: { type: 'text' },
-      description: 'DOC',
+      description: 'The name of the select.',
       table: { type: { summary: 'string' } },
     },
     placeholder: {
       control: { type: 'text' },
-      description: 'DOC',
+      description: 'The placeholder of the select.',  
       table: { type: { summary: 'string' } },
+    },
+    rounded: {
+      control: 'inline-radio',
+      options: ['left', 'right', 'both', 'none'],
+      description: `Specifies which corners should be rounded.`,
+      table: { type: { summary: 'left | right | both | none | full' } },
     },
   },
 };
@@ -99,9 +104,10 @@ export const Default = {
     disabled: false,
     error: false,
     id: 'test-id',
-    modelValue: '',
+    modelValue: undefined,
     name: 'payment_method',
     placeholder: 'Select an option',
+    rounded: 'both',
   },
 };
 
@@ -111,7 +117,7 @@ const createVariation = (template: string, placeholder?: boolean) => ({
     components: { SSelect },
     template,
     setup() {
-      const value = ref(placeholder ? '' : 'option');
+      const value = ref(placeholder ? undefined : 'option');
       return { value };
     },
   }),

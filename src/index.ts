@@ -14,6 +14,8 @@ export * from './components/SFilter';
 export * from './components/SRadioGroup';
 export * from './components/SLabel';
 export * from './components/SInputBlock';
+export * from './components/SCheckbox';
+export * from './components/SRadio';
 
 export { default as SSidebar } from './components/SSidebar.vue';
 export { default as SSidebarLogo } from './components/SSidebarLogo.vue';
@@ -30,7 +32,6 @@ export { default as SRootLayout } from './components/SRootLayout.vue';
 export { default as SSidebarNavChild } from './components/SSidebarNavChild.vue';
 export { default as SSidebarNavGroup } from './components/SSidebarNavGroup.vue';
 export { default as SSidebarNavParent } from './components/SSidebarNavParent.vue';
-export { default as SCheckbox } from './components/SCheckbox.vue';
 export { default as SToggle } from './components/SToggle.vue';
 export { default as SNotification } from './components/SNotification.vue';
 export { default as SDescriptionList } from './components/SDescriptionList.vue';

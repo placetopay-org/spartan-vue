@@ -5,6 +5,7 @@ import { SBadge } from '../../SBadge';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { FieldType, type TField } from '../types';
 import { translator } from '../../../helpers';
+import { SCheckbox, SRadio } from '../../..';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -86,7 +87,10 @@ const clear = () => {
     </div>
     <div class="overflow-y-auto max-h-32 scroll-primary pl-1.5 pb-1.5">
       <div class="flex gap-2 items-center" v-for="option in computedOptions" :key="option">
-        <SInput :id="option" v-model="checked" :value="option" :type="unique ? 'radio' : 'checkbox'" />
+        <!-- <SInput :id="option" v-model="checked" :value="option" :type="unique ? 'radio' : 'checkbox'" /> -->
+        <!-- <component :is="unique ? SRadio : SCheckbox" :id="option" v-model="checked" :value="option"/> -->
+        <SRadio :id="option" :value="option"/>
+        <SCheckbox :id="option" :value="option"/>
         <label :for="option" class="text-sm text-gray-900 font-medium">{{ option }}</label>
       </div>
     </div>
