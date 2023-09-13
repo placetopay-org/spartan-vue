@@ -102,7 +102,7 @@ export const createVariation = ({
   focusVisible?: boolean;
   containerClass?: string;
 }) => ({
-  decorators: [() => ({ template: `<div style="${containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>` })],
+  decorators: [() => ({ template: `<div class="${containerClass ?? 'flex gap-5'}"><story/></div>` })],
   render: () => ({
     components,
     setup,
