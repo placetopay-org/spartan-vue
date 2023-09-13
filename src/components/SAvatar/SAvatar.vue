@@ -66,14 +66,14 @@ const initials = computed(() => {
 });
 
 const classes = computed(() => [
-  'rounded-full group-focus-visible:ring-4 group-focus-visible:ring-gray-200',
+  'rounded-full',
   sizeClass[props.size],
   !props.borderless && 'outline outline-1 outline-gray-800/20 -outline-offset-1',
 ]);
 </script>
 
 <template>
-  <div class="relative group focus-visible:outline-none" tabindex="0">
+  <div class="relative group focus-visible:outline-none">
     <img v-if="src" :class="classes" :src="src" :alt="initials || 'avatar'" class="object-cover" />
     <div v-else :class="classes" class="relative bg-gray-100 text-gray-600">
       <span class="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2" :class="fontClass[size]">
