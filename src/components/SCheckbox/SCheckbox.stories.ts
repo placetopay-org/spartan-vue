@@ -19,6 +19,18 @@ export default {
       description: 'The event emitted when the checkbox is checked.',
     },
 
+    // Slots
+    default: {
+      control: 'text',
+      description: 'Default slot for checkbox label content.',
+      table: { type: { summary: 'VNode | VNode Array' } },
+    },
+    description: {
+      control: 'text',
+      description: 'Slot for checkbox description.',
+      table: { type: { summary: 'VNode | VNode Array' } },
+    },
+
     // Props
     disabled: {
       control: 'boolean',
@@ -26,9 +38,14 @@ export default {
       table: { type: { summary: 'boolean' } },
     },
     id: {
-      control: 'string',
+      control: 'text',
       description: 'The id of the checkbox.',
       table: { type: { summary: 'string' } },
+    },
+    inline: {
+      control: 'boolean',
+      description: 'Whether the checkbox is inline.',
+      table: { type: { summary: 'boolean' } },
     },
     modelValue: {
       control: { type: null },
@@ -36,9 +53,14 @@ export default {
       table: { type: { summary: 'Ref<boolean>' } },
     },
     name: {
-      control: 'string',
+      control: 'text',
       description: 'The name of the checkbox.',
       table: { type: { summary: 'string' } },
+    },
+    reverse: {
+      control: 'boolean',
+      description: 'Whether the checkbox is reversed.',
+      table: { type: { summary: 'boolean' } },
     },
   },
 };
@@ -61,11 +83,14 @@ export const Default = createDefault({
   </SCheckbox>`,
   transform: (args) => `<SCheckbox ${sourceBinding(args)} />`,
   args: {
-    // default: 'Label text',
-    // description: 'Checkbox description',
+    default: '',
+    description: '',
     disabled: false,
     id: 'test-id',
+    inline: false,
     name: 'test-name',
+    reverse: false,
+    value: 'test-value',
   },
 });
 
@@ -77,7 +102,7 @@ export const WithDescription = createVariation({
   components: { SCheckbox },
   template: `<SCheckbox>
   <template #description>
-    Get notified when someones posts a comment on a posting.
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
   </template>
 </SCheckbox>`,
 });
@@ -90,34 +115,20 @@ export const WithLabelAndDescription = createVariation({
   </template>
 
   <template #description>
-    Get notified when someones posts a comment on a posting.
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
   </template>
 </SCheckbox>`,
 });
 
-export const WithLabelReversed = createVariation({
+export const WithLabelAndDescriptionInline = createVariation({
   components: { SCheckbox },
-  template: '<SCheckbox reverse>Remember me</SCheckbox>',
-});
-
-export const WithDescriptionReversed = createVariation({
-  components: { SCheckbox },
-  template: `<SCheckbox reverse>
-  <template #description>
-    Get notified when someones posts a comment on a posting.
-  </template>
-</SCheckbox>`,
-});
-
-export const WithLabelAndDescriptionReversed = createVariation({
-  components: { SCheckbox },
-  template: `<SCheckbox reverse>
+  template: `<SCheckbox inline>
   <template #default>
     Comments
   </template>
 
   <template #description>
-    Get notified when someones posts a comment on a posting.
+    get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
   </template>
 </SCheckbox>`,
 });
@@ -131,7 +142,7 @@ export const Reversed = createVariation({
 
 <SCheckbox reverse>
   <template #description>
-    Get notified when someones posts a comment on a posting.
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
   </template>
 </SCheckbox>
 
@@ -143,7 +154,7 @@ export const Reversed = createVariation({
   </template>
 
   <template #description>
-    Get notified when someones posts a comment on a posting.
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
   </template>
 </SCheckbox>`,
 });
