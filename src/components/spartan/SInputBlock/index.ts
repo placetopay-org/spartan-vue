@@ -1,1 +1,1 @@
-export { default as SInputBlock } from "./SInputBlock.vue";
+export { default as SInputBlock } from './SInputBlock.vue';

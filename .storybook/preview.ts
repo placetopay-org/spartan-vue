@@ -6,32 +6,32 @@ import { createI18n } from 'vue-i18n';
 import messages from '@intlify/unplugin-vue-i18n/messages';
 
 const preview: Preview = {
-  parameters: {
-    docs: {
-      page: DocumentationTemplate,
+    parameters: {
+        docs: {
+            page: DocumentationTemplate,
+        },
+        backgrounds: {
+            default: 'light',
+        },
+        actions: { argTypesRegex: '^on[A-Z].*' },
+        controls: {
+            matchers: {
+                color: /(background|color)$/i,
+                date: /Date$/,
+            },
+        },
     },
-    backgrounds: {
-      default: 'light',
-    },
-    actions: { argTypesRegex: '^on[A-Z].*' },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
-      },
-    },
-  },
 };
 
 const i18n = createI18n({
-  legacy: false,
-  locale: 'es',
-  messages,
-  fallbackLocale: 'en',
+    legacy: false,
+    locale: 'es',
+    messages,
+    fallbackLocale: 'en',
 });
 
 setup((app: App) => {
-  app.use(i18n);
+    app.use(i18n);
 });
 
 export default preview;

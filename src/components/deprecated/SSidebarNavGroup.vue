@@ -1,30 +1,30 @@
 <template>
-  <Disclosure as="div" :default-open="defaultOpen">
-    <slot />
-    <DisclosurePanel class="mt-1 space-y-1">
-      <slot name="items-list"></slot>
-    </DisclosurePanel>
-  </Disclosure>
+    <Disclosure as="div" :default-open="defaultOpen">
+        <slot />
+        <DisclosurePanel class="mt-1 space-y-1">
+            <slot name="items-list"></slot>
+        </DisclosurePanel>
+    </Disclosure>
 </template>
 
 <script>
-import { DisclosurePanel, Disclosure } from "@headlessui/vue";
+import { DisclosurePanel, Disclosure } from '@headlessui/vue';
 
 export default {
-  components: {
-    DisclosurePanel,
-    Disclosure,
-  },
-  props: {
-    defaultOpen: {
-      type: Boolean,
-      required: false,
-      default: false,
+    components: {
+        DisclosurePanel,
+        Disclosure,
     },
-  },
-  data() {
-    return {};
-  },
-  computed: {},
+    props: {
+        defaultOpen: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+    data() {
+        return {};
+    },
+    computed: {},
 };
 </script>

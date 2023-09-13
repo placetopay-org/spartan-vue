@@ -1,5 +1,5 @@
 <template>
-    <p class="text-sm text-red-600" v-show="message">
+    <p v-show="message" class="text-sm text-red-600">
         {{ message }}
     </p>
 </template>
@@ -9,7 +9,7 @@ const props = defineProps({
     message: {
         type: String,
         required: false,
-        default: undefined
-    }
+        default: undefined,
+    },
 });
 </script>

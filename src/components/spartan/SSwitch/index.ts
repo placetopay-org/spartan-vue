@@ -1,1 +1,1 @@
-export { default as SSwitch } from "./SSwitch.vue";
+export { default as SSwitch } from './SSwitch.vue';

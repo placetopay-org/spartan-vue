@@ -31,12 +31,4 @@ export { default as SRadioGroups } from './SRadioGroups.vue';
 export * from './sSelects';
 export * from './sCards';
 export * from './sTables';
-export {
-  SInputAlt,
-  SInputDate,
-  SInputDropdown,
-  SInputError,
-  SInputHelper,
-  SInputMask,
-  SInputRadio,
-} from './sInputs';
+export { SInputAlt, SInputDate, SInputDropdown, SInputError, SInputHelper, SInputMask, SInputRadio } from './sInputs';

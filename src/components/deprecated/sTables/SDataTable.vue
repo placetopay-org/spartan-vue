@@ -3,15 +3,19 @@
         <div class="float-left m-2">
             <SSelect
                 :id="'sPerPage' + Date.now()"
+                v-model="pagination.perPage"
                 :label="t('spartan.sDataTable.recordsPerPage')"
                 :options="pagination.menu"
-                v-model="pagination.perPage"
                 @change="dispatchEvent('update:perPage')"
             />
         </div>
 
         <div v-if="searching.enable" class="float-right m-2">
-            <SInput :placeholder="t('spartan.sDataTable.search')" v-model="searching.value" @input="dispatchEvent('update:search')" />
+            <SInput
+                v-model="searching.value"
+                :placeholder="t('spartan.sDataTable.search')"
+                @input="dispatchEvent('update:search')"
+            />
         </div>
 
         <STable>
@@ -27,20 +31,18 @@
             </STableHead>
 
             <STableBody>
-                <STableRow v-if="!loading" v-for="record in records">
+                <STableRow v-for="record in records" v-if="!loading">
                     <STableRowItem v-for="column in columns">
-                        <slot
-                            :name="`item(${column.name})`"
-                            :value="itemValue(record, column.name)"
-                            :record="record"
-                        >
+                        <slot :name="`item(${column.name})`" :value="itemValue(record, column.name)" :record="record">
                             {{ itemValue(record, column.name) }}
                         </slot>
                     </STableRowItem>
                 </STableRow>
                 <STableRow v-else>
                     <STableRowItem :colspan="columns.length">
-                        <div class="w-full text-center">{{ t('spartan.sDataTable.processing') }}</div>
+                        <div class="w-full text-center">
+                            {{ t('spartan.sDataTable.processing') }}
+                        </div>
                     </STableRowItem>
                 </STableRow>
             </STableBody>
@@ -56,19 +58,18 @@
     </STableLayout>
 </template>
 <script>
-
-import STableLayout from "./STableLayout.vue";
-import STable from "./STable.vue";
-import STableHead from "./STableHead.vue";
-import SDataTableHeadItem from "./SDataTableHeadItem.vue";
-import STableBody from "./STableBody.vue";
-import STableHeadItem from "./STableHeadItem.vue";
-import STableRow from "./STableRow.vue";
-import STableRowItem from "./STableRowItem.vue";
-import SDataTablePagination from "./SDataTablePagination.vue";
-import { SSelect } from "@spartan";
-import { useI18n } from "vue-i18n";
-import SInput from "../sInputs/SInput.vue";
+import STableLayout from './STableLayout.vue';
+import STable from './STable.vue';
+import STableHead from './STableHead.vue';
+import SDataTableHeadItem from './SDataTableHeadItem.vue';
+import STableBody from './STableBody.vue';
+import STableHeadItem from './STableHeadItem.vue';
+import STableRow from './STableRow.vue';
+import STableRowItem from './STableRowItem.vue';
+import SDataTablePagination from './SDataTablePagination.vue';
+import { SSelect } from '@spartan';
+import { useI18n } from 'vue-i18n';
+import SInput from '../sInputs/SInput.vue';
 
 const messages = {
     en: {
@@ -76,50 +77,50 @@ const messages = {
             sDataTable: {
                 recordsPerPage: 'Records per page',
                 search: 'Search',
-                processing: 'Processing...'
-            }
-        }
+                processing: 'Processing...',
+            },
+        },
     },
     es: {
         spartan: {
             sDataTable: {
                 recordsPerPage: 'Registros por página',
                 search: 'Buscar',
-                processing: 'Procesando...'
-            }
-        }
+                processing: 'Procesando...',
+            },
+        },
     },
     it: {
         spartan: {
             sDataTable: {
                 recordsPerPage: 'Record per pagina',
                 search: 'Ricerca',
-                processing: 'in lavorazione...'
-            }
-        }
+                processing: 'in lavorazione...',
+            },
+        },
     },
     pt: {
         spartan: {
             sDataTable: {
                 recordsPerPage: 'Registros por página',
                 search: 'Procurar',
-                processing: 'Em processamento...'
-            }
-        }
+                processing: 'Em processamento...',
+            },
+        },
     },
     fr: {
         spartan: {
             sDataTable: {
                 recordsPerPage: 'Enregistrements par page',
                 search: 'Recherche',
-                processing: 'Traitement...'
-            }
-        }
+                processing: 'Traitement...',
+            },
+        },
     },
 };
 
 export default {
-    name: "SDataTable",
+    name: 'SDataTable',
     components: {
         SInput,
         SSelect,
@@ -152,13 +153,13 @@ export default {
         loading: {
             type: Boolean,
             default: false,
-        }
+        },
     },
     emits: ['load', 'update:orderBy', 'update:page', 'update:perPage', 'update:search'],
     data() {
         const { t } = useI18n({
             useScope: 'local',
-            messages: messages
+            messages: messages,
         });
 
         return {
@@ -167,9 +168,12 @@ export default {
             pagination: this.normalizePaginationOptions(),
             searching: {
                 enable: this.options.search?.enable === undefined ? true : this.options.search.enable,
-                value: this.options.search?.value
+                value: this.options.search?.value,
             },
-        }
+        };
+    },
+    mounted() {
+        this.dispatchEvent('load');
     },
     methods: {
         normalizeOrderingOptions() {
@@ -186,22 +190,22 @@ export default {
             return ordering;
         },
         normalizePaginationOptions() {
-           let pagination  = {
-               ...{
-                   perPage: 10,
-                   currentPage: 1,
-                   menu: [10 , 20, 50, 100],
-               },
-               ...this.options.pagination ?? {},
-           };
-           pagination.menu = pagination.menu.map((recordsPerPage) => {
-               return {
-                   value: recordsPerPage,
-                   label: recordsPerPage
-               };
-           });
+            let pagination = {
+                ...{
+                    perPage: 10,
+                    currentPage: 1,
+                    menu: [10, 20, 50, 100],
+                },
+                ...(this.options.pagination ?? {}),
+            };
+            pagination.menu = pagination.menu.map((recordsPerPage) => {
+                return {
+                    value: recordsPerPage,
+                    label: recordsPerPage,
+                };
+            });
 
-           return pagination;
+            return pagination;
         },
         itemValue(record, columnName) {
             return record.hasOwnProperty(columnName) ? record[columnName] : '';
@@ -221,16 +225,13 @@ export default {
             this.pagination.currentPage = page;
             this.dispatchEvent('update:page');
         },
-        dispatchEvent(eventName,) {
+        dispatchEvent(eventName) {
             this.$emit(eventName, {
                 ordering: this.ordering,
                 pagination: this.pagination,
                 searchValue: this.searching.value,
             });
-        }
+        },
     },
-    mounted() {
-        this.dispatchEvent('load');
-    }
-}
+};
 </script>

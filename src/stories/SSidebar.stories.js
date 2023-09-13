@@ -1,52 +1,46 @@
 import {
-  SSidebarNavChild,
-  SSidebarNavParent,
-  SSidebarNavGroup,
-  SSidebar,
-  SSidebarLogo,
-  SSidebarContent,
-  SSidebarNavItem,
-  SRootLayout,
-} from "../index.ts";
-
-import {
-  CogIcon,
-  HomeIcon,
-  UserIcon,
-  LockOpenIcon,
-  RectangleStackIcon,
-} from "@heroicons/vue/24/outline";
-
-export default {
-  title: "Components/SSidebar",
-  component: SSidebarNavGroup,
-  argTypes: {
-    active: {
-      control: { type: "boolean" },
-    },
-  },
-  parameters: {
-    layout: "fullscreen",
-  },
-  subcomponents: { SSidebarNavChild, SSidebarNavParent },
-};
-
-const Template = (args) => ({
-  components: {
-    SSidebarNavGroup,
     SSidebarNavChild,
     SSidebarNavParent,
-    SSidebarNavItem,
+    SSidebarNavGroup,
     SSidebar,
     SSidebarLogo,
     SSidebarContent,
-    RectangleStackIcon,
+    SSidebarNavItem,
     SRootLayout,
-  },
-  setup() {
-    return { args };
-  },
-  template: `
+} from '../index.ts';
+
+import { CogIcon, HomeIcon, UserIcon, LockOpenIcon, RectangleStackIcon } from '@heroicons/vue/24/outline';
+
+export default {
+    title: 'Components/SSidebar',
+    component: SSidebarNavGroup,
+    argTypes: {
+        active: {
+            control: { type: 'boolean' },
+        },
+    },
+    parameters: {
+        layout: 'fullscreen',
+    },
+    subcomponents: { SSidebarNavChild, SSidebarNavParent },
+};
+
+const Template = (args) => ({
+    components: {
+        SSidebarNavGroup,
+        SSidebarNavChild,
+        SSidebarNavParent,
+        SSidebarNavItem,
+        SSidebar,
+        SSidebarLogo,
+        SSidebarContent,
+        RectangleStackIcon,
+        SRootLayout,
+    },
+    setup() {
+        return { args };
+    },
+    template: `
     <SRootLayout>
       <template v-slot:sidebar>
         <SSidebar>
@@ -80,54 +74,39 @@ const Template = (args) => ({
 });
 
 const groups = [
-  {
-    name: "Dashboard",
-    icon: HomeIcon,
-    active: false,
-    href: "#",
-  },
-  {
-    name: "Accounts",
-    icon: UserIcon,
-    active: false,
-    href: "#",
-  },
-  {
-    name: "Clientes",
-    icon: RectangleStackIcon,
-    active: true,
-    children: [
-      { name: "Comercios" },
-      { name: "Sucursales", active: true },
-      { name: "Sitios" },
-      { name: "ACL" },
-    ],
-  },
-  {
-    name: "Security",
-    icon: LockOpenIcon,
-    active: false,
-    children: [
-      { name: "Roles" },
-      { name: "Permisos" },
-      { name: "Usuarios" },
-      { name: "ACL" },
-    ],
-  },
-  {
-    name: "Settings",
-    icon: CogIcon,
-    active: false,
-    children: [
-      { name: "Roles" },
-      { name: "Permisos" },
-      { name: "Usuarios" },
-      { name: "ACL" },
-    ],
-  },
+    {
+        name: 'Dashboard',
+        icon: HomeIcon,
+        active: false,
+        href: '#',
+    },
+    {
+        name: 'Accounts',
+        icon: UserIcon,
+        active: false,
+        href: '#',
+    },
+    {
+        name: 'Clientes',
+        icon: RectangleStackIcon,
+        active: true,
+        children: [{ name: 'Comercios' }, { name: 'Sucursales', active: true }, { name: 'Sitios' }, { name: 'ACL' }],
+    },
+    {
+        name: 'Security',
+        icon: LockOpenIcon,
+        active: false,
+        children: [{ name: 'Roles' }, { name: 'Permisos' }, { name: 'Usuarios' }, { name: 'ACL' }],
+    },
+    {
+        name: 'Settings',
+        icon: CogIcon,
+        active: false,
+        children: [{ name: 'Roles' }, { name: 'Permisos' }, { name: 'Usuarios' }, { name: 'ACL' }],
+    },
 ];
 
 export const Default = Template.bind({});
 Default.args = {
-  groups,
+    groups,
 };

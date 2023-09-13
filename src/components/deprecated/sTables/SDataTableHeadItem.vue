@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import STableHeadItem from "./STableHeadItem.vue";
-import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/vue/24/outline";
+import STableHeadItem from './STableHeadItem.vue';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline';
 
-export default{
-    name: "SDataTableHeadItem",
+export default {
+    name: 'SDataTableHeadItem',
     components: {
         ChevronUpIcon,
         ChevronDownIcon,
@@ -34,38 +34,38 @@ export default{
     props: {
         name: {
             type: String,
-            required: true
+            required: true,
         },
         label: {
             type: String,
-            required: true
+            required: true,
         },
         orderable: {
             type: Boolean,
-            default: false
+            default: false,
         },
         orderDir: {
-            type: [String, null]
-        }
+            type: [String, null],
+        },
     },
+    emits: ['changeOrder'],
     computed: {
         ordering() {
             return {
                 active: this.orderDir !== null,
                 isAsc: this.orderDir === 'asc',
             };
-        }
+        },
     },
-    emits: ['changeOrder'],
     methods: {
         changeOrder(by, dir) {
             this.ordering.active = true;
             this.ordering.isAsc = dir === 'asc';
             this.$emit('changeOrder', {
                 by: by,
-                dir: dir
+                dir: dir,
             });
-        }
-    }
-}
+        },
+    },
+};
 </script>

@@ -6,97 +6,115 @@ import { action } from '@storybook/addon-actions';
 import { buildDesign, buildSourceBinding } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import {
-  Cog8ToothIcon,
-  PuzzlePieceIcon,
-  PencilIcon,
-  ArrowLeftOnRectangleIcon,
-  UserCircleIcon,
-  PlusIcon,
+    Cog8ToothIcon,
+    PuzzlePieceIcon,
+    PencilIcon,
+    ArrowLeftOnRectangleIcon,
+    UserCircleIcon,
+    PlusIcon,
 } from '@heroicons/vue/24/outline';
 
 export default {
-  component: SDropdown,
-  title: 'new/Dropdown',
-  parameters: {
-    docs: {
-      description: {
-        component: 'A versatile button component with multiple styles and appearances.',
-      },
+    component: SDropdown,
+    title: 'new/Dropdown',
+    parameters: {
+        docs: {
+            description: {
+                component: 'A versatile button component with multiple styles and appearances.',
+            },
+        },
     },
-  },
-  argTypes: {
-    // Slots
-    default: {
-      control: { type: null },
-      description: 'Default slot for dropdown content.',
-      table: { type: { summary: 'VNode | VNode Array' } },
-    },
-    items: {
-      control: { type: null },
-      description: 'Slot for dropdown items.',
-      table: { type: { summary: 'VNode | VNode Array' } },
-    },
+    argTypes: {
+        // Slots
+        default: {
+            control: { type: null },
+            description: 'Default slot for dropdown content.',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
+        items: {
+            control: { type: null },
+            description: 'Slot for dropdown items.',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
 
-    // Props
-    leftToRight: {
-      description: 'If **true**, the dropdown will open from left to right.',
-      table: { type: { summary: 'boolean' } },
-    },
+        // Props
+        leftToRight: {
+            description: 'If **true**, the dropdown will open from left to right.',
+            table: { type: { summary: 'boolean' } },
+        },
 
-    // Item - Slots
-    itemSlotDefault: {
-      name: 'default',
-      control: 'text',
-      description: 'Default slot for item content.',
-      table: { type: { summary: 'VNode | VNode Array' }, category: 'Item - Slots' },
-    },
-    itemSlotDescription: {
-      name: 'description',
-      control: 'text',
-      description: 'Slot for item description.',
-      table: { type: { summary: 'VNode | VNode Array' }, category: 'Item - Slots' },
-    },
+        // Item - Slots
+        itemSlotDefault: {
+            name: 'default',
+            control: 'text',
+            description: 'Default slot for item content.',
+            table: {
+                type: { summary: 'VNode | VNode Array' },
+                category: 'Item - Slots',
+            },
+        },
+        itemSlotDescription: {
+            name: 'description',
+            control: 'text',
+            description: 'Slot for item description.',
+            table: {
+                type: { summary: 'VNode | VNode Array' },
+                category: 'Item - Slots',
+            },
+        },
 
-    // Item - Props
-    itemPropIcon: {
-      name: 'icon',
-      control: 'select',
-      options: ['PuzzlePieceIcon', 'ArrowLeftOnRectangleIcon', 'PencilIcon'],
-      description: `A Vue functional component to be used as the item's icon.`,
-      table: { type: { summary: 'FunctionalComponent' }, category: 'Item - Props' },
+        // Item - Props
+        itemPropIcon: {
+            name: 'icon',
+            control: 'select',
+            options: ['PuzzlePieceIcon', 'ArrowLeftOnRectangleIcon', 'PencilIcon'],
+            description: `A Vue functional component to be used as the item's icon.`,
+            table: {
+                type: { summary: 'FunctionalComponent' },
+                category: 'Item - Props',
+            },
+        },
+        itemPropDisabled: {
+            name: 'disabled',
+            description: 'If **true**, the item will be disabled and non-interactive.',
+            table: { type: { summary: 'boolean' }, category: 'Item - Props' },
+        },
     },
-    itemPropDisabled: {
-      name: 'disabled',
-      description: 'If **true**, the item will be disabled and non-interactive.',
-      table: { type: { summary: 'boolean' }, category: 'Item - Props' },
-    },
-  },
 };
 
 const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4813%3A18985');
 
 const sourceBinding = buildSourceBinding({
-  check: ['leftToRight'],
+    check: ['leftToRight'],
 });
 
-const itemsSourceBinding = buildSourceBinding({
-  check: ['disabled'],
-  custom: { icon: true },
-}, 'item');
+const itemsSourceBinding = buildSourceBinding(
+    {
+        check: ['disabled'],
+        custom: { icon: true },
+    },
+    'item',
+);
 
 export const Default = {
-  decorators: [() => ({ template: '<div style="padding-bottom: 200px;"><story/></div>' })],
-  render: (args: any) => ({
-    components: { SDropdown, SDropdownItem, SButton, ChevronDownIcon, PuzzlePieceIcon },
-    setup() {
-      const getIcon = (icon: 'PuzzlePieceIcon' | 'ArrowLeftOnRectangleIcon' | 'PencilIcon') => {
-        if (icon === 'PuzzlePieceIcon') return PuzzlePieceIcon;
-        if (icon === 'ArrowLeftOnRectangleIcon') return ArrowLeftOnRectangleIcon;
-        if (icon === 'PencilIcon') return PencilIcon;
-      };
-      return { args, getIcon, onClick: action('onClick'), ChevronDownIcon };
-    },
-    template: `<SDropdown v-bind="args">
+    decorators: [() => ({ template: '<div style="padding-bottom: 200px;"><story/></div>' })],
+    render: (args: any) => ({
+        components: {
+            SDropdown,
+            SDropdownItem,
+            SButton,
+            ChevronDownIcon,
+            PuzzlePieceIcon,
+        },
+        setup() {
+            const getIcon = (icon: 'PuzzlePieceIcon' | 'ArrowLeftOnRectangleIcon' | 'PencilIcon') => {
+                if (icon === 'PuzzlePieceIcon') return PuzzlePieceIcon;
+                if (icon === 'ArrowLeftOnRectangleIcon') return ArrowLeftOnRectangleIcon;
+                if (icon === 'PencilIcon') return PencilIcon;
+            };
+            return { args, getIcon, onClick: action('onClick'), ChevronDownIcon };
+        },
+        template: `<SDropdown v-bind="args">
     <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
 
     <template #items>
@@ -125,13 +143,13 @@ export const Default = {
       </SDropdownItem>
     </template>
   </SDropdown>`,
-  }),
-  parameters: {
-    design,
-    docs: {
-      canvas: { layout: 'centered' },
-      source: {
-        transform: ((_, storyContext) => `
+    }),
+    parameters: {
+        design,
+        docs: {
+            canvas: { layout: 'centered' },
+            source: {
+                transform: ((_, storyContext) => `
 <SDropdown ${sourceBinding(storyContext.args)}>
   <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
   
@@ -161,59 +179,59 @@ export const Default = {
     </SDropdownItem>
   </template>
 </SDropdown>`) as SourceProps['transform'],
-        type: 'dynamic',
-        language: 'html',
-      },
+                type: 'dynamic',
+                language: 'html',
+            },
+        },
     },
-  },
-  args: {
-    leftToRight: false,
-    itemSlotDefault: 'Title',
-    itemSlotDescription: 'Description',
-    itemPropIcon: undefined,
-    itemPropDisabled: false,
-  },
+    args: {
+        leftToRight: false,
+        itemSlotDefault: 'Title',
+        itemSlotDescription: 'Description',
+        itemPropIcon: undefined,
+        itemPropDisabled: false,
+    },
 };
 
 const createVariation = (template: string) => ({
-  decorators: [() => ({ template: '<div style="padding-bottom: 200px;"><story/></div>' })],
-  render: () => ({
-    components: {
-      SDropdown,
-      SDropdownItem,
-      SButton,
-      SAvatar,
-      ChevronDownIcon,
-      PuzzlePieceIcon,
-      ArrowLeftOnRectangleIcon,
-      UserCircleIcon,
-      PlusIcon,
-      Cog8ToothIcon,
+    decorators: [() => ({ template: '<div style="padding-bottom: 200px;"><story/></div>' })],
+    render: () => ({
+        components: {
+            SDropdown,
+            SDropdownItem,
+            SButton,
+            SAvatar,
+            ChevronDownIcon,
+            PuzzlePieceIcon,
+            ArrowLeftOnRectangleIcon,
+            UserCircleIcon,
+            PlusIcon,
+            Cog8ToothIcon,
+        },
+        setup() {
+            return {
+                ChevronDownIcon,
+                PuzzlePieceIcon,
+                ArrowLeftOnRectangleIcon,
+                UserCircleIcon,
+                PlusIcon,
+                PencilIcon,
+                Cog8ToothIcon,
+            };
+        },
+        template,
+    }),
+    parameters: {
+        design,
+        controls: { disable: true },
+        actions: { disable: true },
+        docs: {
+            source: {
+                code: template,
+                language: 'html',
+            },
+        },
     },
-    setup() {
-      return {
-        ChevronDownIcon,
-        PuzzlePieceIcon,
-        ArrowLeftOnRectangleIcon,
-        UserCircleIcon,
-        PlusIcon,
-        PencilIcon,
-        Cog8ToothIcon,
-      };
-    },
-    template,
-  }),
-  parameters: {
-    design,
-    controls: { disable: true },
-    actions: { disable: true },
-    docs: {
-      source: {
-        code: template,
-        language: 'html',
-      },
-    },
-  },
 });
 
 export const LeftToRight = createVariation(`

@@ -1,5 +1,5 @@
 <template>
-    <span class="text-gray-400 text-xs">
+    <span class="text-xs text-gray-400">
         {{ message }}
     </span>
 </template>
@@ -9,7 +9,7 @@ const props = defineProps({
     message: {
         type: String,
         required: false,
-        default: undefined
-    }
+        default: undefined,
+    },
 });
 </script>

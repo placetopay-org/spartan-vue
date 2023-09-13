@@ -1,1 +1,1 @@
-export { default as SRadio } from "./SRadio.vue";
+export { default as SRadio } from './SRadio.vue';

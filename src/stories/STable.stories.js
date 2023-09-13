@@ -1,39 +1,4 @@
 import {
-  STableLayout,
-  STable,
-  STableHead,
-  STableHeadItem,
-  STableBody,
-  STableRow,
-  STableRowItem,
-  STablePagination,
-} from "../index";
-import {
-  QrCodeIcon,
-  DocumentDuplicateIcon,
-  TrashIcon,
-} from "@heroicons/vue/24/outline";
-
-export default {
-  title: "Components/STable",
-  component: STableLayout,
-  args: {
-    currentPage: "1",
-    default: "1",
-  },
-  argTypes: {
-    currentPage: {
-      control: { type: "number" },
-    },
-    default: {
-      control: { type: "text" },
-    },
-  },
-  subcomponents: { STablePagination },
-};
-
-const Template = (args) => ({
-  components: {
     STableLayout,
     STable,
     STableHead,
@@ -42,14 +7,45 @@ const Template = (args) => ({
     STableRow,
     STableRowItem,
     STablePagination,
-    QrCodeIcon,
-    DocumentDuplicateIcon,
-    TrashIcon,
-  },
-  setup() {
-    return { args };
-  },
-  template: `
+} from '../index';
+import { QrCodeIcon, DocumentDuplicateIcon, TrashIcon } from '@heroicons/vue/24/outline';
+
+export default {
+    title: 'Components/STable',
+    component: STableLayout,
+    args: {
+        currentPage: '1',
+        default: '1',
+    },
+    argTypes: {
+        currentPage: {
+            control: { type: 'number' },
+        },
+        default: {
+            control: { type: 'text' },
+        },
+    },
+    subcomponents: { STablePagination },
+};
+
+const Template = (args) => ({
+    components: {
+        STableLayout,
+        STable,
+        STableHead,
+        STableHeadItem,
+        STableBody,
+        STableRow,
+        STableRowItem,
+        STablePagination,
+        QrCodeIcon,
+        DocumentDuplicateIcon,
+        TrashIcon,
+    },
+    setup() {
+        return { args };
+    },
+    template: `
     <STableLayout>
         <STable>
             <STableHead>
@@ -95,48 +91,48 @@ const Template = (args) => ({
 export const Table = Template.bind({});
 
 Table.args = {
-  columns: ["Name", "Title", "Email", "Role", ""],
-  rows: [
-    {
-      name: "Lindsay Walton",
-      title: "Front-end Developer",
-      email: "lindsay.walton@example.com",
-      role: "Member",
+    columns: ['Name', 'Title', 'Email', 'Role', ''],
+    rows: [
+        {
+            name: 'Lindsay Walton',
+            title: 'Front-end Developer',
+            email: 'lindsay.walton@example.com',
+            role: 'Member',
+        },
+        {
+            name: 'Jhon Connor',
+            title: 'Back-end Developer',
+            email: 'jhon.connor@example.com',
+            role: 'Member',
+        },
+        {
+            name: 'Jhon Connor',
+            title: 'Back-end Developer',
+            email: 'jhon.connor@example.com',
+            role: 'Member',
+        },
+        {
+            name: 'Jhon Connor',
+            title: 'Back-end Developer',
+            email: 'jhon.connor@example.com',
+            role: 'Member',
+        },
+        {
+            name: 'Jhon Connor',
+            title: 'Back-end Developer',
+            email: 'jhon.connor@example.com',
+            role: 'Member',
+        },
+        {
+            name: 'Jhon Connor',
+            title: 'Back-end Developer',
+            email: 'jhon.connor@example.com',
+            role: 'Member',
+        },
+    ],
+    footer: {
+        info: 'Mostrando 01 a 10 de 14 resultados',
+        currentPage: 1,
+        lastPage: 12,
     },
-    {
-      name: "Jhon Connor",
-      title: "Back-end Developer",
-      email: "jhon.connor@example.com",
-      role: "Member",
-    },
-    {
-      name: "Jhon Connor",
-      title: "Back-end Developer",
-      email: "jhon.connor@example.com",
-      role: "Member",
-    },
-    {
-      name: "Jhon Connor",
-      title: "Back-end Developer",
-      email: "jhon.connor@example.com",
-      role: "Member",
-    },
-    {
-      name: "Jhon Connor",
-      title: "Back-end Developer",
-      email: "jhon.connor@example.com",
-      role: "Member",
-    },
-    {
-      name: "Jhon Connor",
-      title: "Back-end Developer",
-      email: "jhon.connor@example.com",
-      role: "Member",
-    },
-  ],
-  footer: {
-    info: "Mostrando 01 a 10 de 14 resultados",
-    currentPage: 1,
-    lastPage: 12,
-  },
 };

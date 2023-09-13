@@ -2,17 +2,17 @@
 import { computed, ref, watchEffect } from 'vue';
 import { Combobox, ComboboxInput, ComboboxOption } from '@headlessui/vue';
 
-type Option = {label: string; value: string | number | boolean} | undefined;
+type Option = { label: string; value: string | number | boolean } | undefined;
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: Option): void,
+    (e: 'update:modelValue', value: Option): void;
 }>();
 
 const props = defineProps<{
     id: string;
-    modelValue: Option,
-    rows: Array<NonNullable<Option>>,
-}>()
+    modelValue: Option;
+    rows: Array<NonNullable<Option>>;
+}>();
 
 const query = ref<string>('');
 const model = computed({
@@ -40,20 +40,24 @@ watchEffect(() => {
 <template>
     <Combobox v-model="model">
         <ComboboxInput
+            :display-value="displayValue"
+            class="block w-full rounded-lg border-gray-300 text-base text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100"
             @change="query = $event.target.value"
-            :displayValue="displayValue"
-            class="block w-full text-base text-gray-900 placeholder-gray-500 border-gray-300 rounded-lg focus:z-10 focus:border-primary-300 focus:ring focus:ring-primary-100"
         />
 
         <ComboboxOption
-            as="template"
             v-for="row in filteredRows"
             :key="`${id}-option-${row.label.replace(' ', '-')}-${row.value}`"
+            as="template"
             :value="row"
         >
             <template #default="{ selected }">
                 <label :for="`${id}-option-${row.label.replace(' ', '-')}-${row.value}`">
-                    <input type="radio" :id="`${id}-option-${row.label.replace(' ', '-')}-${row.value}`" :checked="selected">
+                    <input
+                        :id="`${id}-option-${row.label.replace(' ', '-')}-${row.value}`"
+                        type="radio"
+                        :checked="selected"
+                    />
                     {{ row.label }}
                 </label>
             </template>
@@ -61,5 +65,4 @@ watchEffect(() => {
     </Combobox>
 </template>
 
-<style>
-</style>
+<style></style>

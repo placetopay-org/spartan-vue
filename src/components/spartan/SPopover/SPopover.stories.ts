@@ -7,84 +7,87 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { watch, nextTick } from 'vue';
 
 export default {
-  component: SPopover,
-  title: 'new/Popover',
-  parameters: {
-    docs: {
-      description: {
-        component: 'DOC',
-      },
+    component: SPopover,
+    title: 'new/Popover',
+    parameters: {
+        docs: {
+            description: {
+                component: 'DOC',
+            },
+        },
     },
-  },
-  argTypes: {
-    // Test
-    testScroll: {
-      description: 'DOC',
-      table: { type: { summary: 'boolean' } },
-    },
+    argTypes: {
+        // Test
+        testScroll: {
+            description: 'DOC',
+            table: { type: { summary: 'boolean' } },
+        },
 
-    // Slots
-    default: {
-      control: { type: null },
-      description: 'DOC',
-      table: { type: { summary: 'VNode | VNode Array' } },
-    },
+        // Slots
+        default: {
+            control: { type: null },
+            description: 'DOC',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
 
-    // Props
-    offset: {
-      control: 'number',
-      description: 'DOC',
-      table: { type: { summary: 'VNode | VNode Array' } },
+        // Props
+        offset: {
+            control: 'number',
+            description: 'DOC',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
+        placement: {
+            control: 'select',
+            options: [
+                'top',
+                'right',
+                'bottom',
+                'left',
+                'top-start',
+                'top-end',
+                'right-start',
+                'right-end',
+                'bottom-start',
+                'bottom-end',
+                'left-start',
+                'left-end',
+            ],
+            description: `DOC`,
+            table: { type: { summary: 'button | submit' } },
+        },
+        static: {
+            description: 'DOC',
+            table: { type: { summary: 'boolean' } },
+        },
     },
-    placement: {
-      control: 'select',
-      options: [
-        'top',
-        'right',
-        'bottom',
-        'left',
-        'top-start',
-        'top-end',
-        'right-start',
-        'right-end',
-        'bottom-start',
-        'bottom-end',
-        'left-start',
-        'left-end',
-      ],
-      description: `DOC`,
-      table: { type: { summary: 'button | submit' } },
-    },
-    static: {
-      description: 'DOC',
-      table: { type: { summary: 'boolean' } },
-    },
-  },
 };
 
 const design = buildDesign('');
 
 const sourceBinding = buildSourceBinding({
-  prop: { placement: 'bottom-start', offset: '0' },
-  check: ['static'],
+    prop: { placement: 'bottom-start', offset: '0' },
+    check: ['static'],
 });
 
 export const Default = {
-  decorators: [
-    () => ({ template: '<div class="h-[500px] w-[500px] flex justify-center items-center"><story/></div>' }),
-  ],
-  render: (args: any) => ({
-    components: { SPopover, SButton, ChevronDownIcon },
-    setup() {
-      watch(
-        () => args.testScroll,
-        () => {
-          if (args.testScroll) nextTick(() => document.getElementById('popoverDecorator')?.scrollTo(280, 280));
-        }
-      );
-      return { args, ChevronDownIcon, onClick: action('onClick') };
-    },
-    template: `<div v-if="args.testScroll" id="popoverDecorator" class="h-[500px] w-[500px] relative border-red-500 border-4 overflow-scroll">
+    decorators: [
+        () => ({
+            template: '<div class="h-[500px] w-[500px] flex justify-center items-center"><story/></div>',
+        }),
+    ],
+    render: (args: any) => ({
+        components: { SPopover, SButton, ChevronDownIcon },
+        setup() {
+            watch(
+                () => args.testScroll,
+                () => {
+                    if (args.testScroll)
+                        nextTick(() => document.getElementById('popoverDecorator')?.scrollTo(280, 280));
+                },
+            );
+            return { args, ChevronDownIcon, onClick: action('onClick') };
+        },
+        template: `<div v-if="args.testScroll" id="popoverDecorator" class="h-[500px] w-[500px] relative border-red-500 border-4 overflow-scroll">
     <div class="h-96"/>
     <div class="flex w-max">
       <div class="w-96 h-px"/>
@@ -108,13 +111,13 @@ export const Default = {
     <div class="bg-yellow-300 w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">Any Element Too!</div>
   </SPopover>
     `,
-  }),
-  parameters: {
-    design,
-    docs: {
-      canvas: { layout: 'centered' },
-      source: {
-        transform: ((_, storyContext) => `
+    }),
+    parameters: {
+        design,
+        docs: {
+            canvas: { layout: 'centered' },
+            source: {
+                transform: ((_, storyContext) => `
 <SPopover ${sourceBinding(storyContext.args)}>
   <template #reference="{ display }">
     <button class="blue-element" @click="display">Any Element!</button>
@@ -122,17 +125,17 @@ export const Default = {
 
   <div class="yellow-element">Any Element Too!</div>
 </SPopover>`) as SourceProps['transform'],
-        type: 'dynamic',
-        language: 'html',
-      },
+                type: 'dynamic',
+                language: 'html',
+            },
+        },
     },
-  },
-  args: {
-    testScroll: false,
-    offset: 0,
-    placement: 'bottom-start',
-    static: false,
-  },
+    args: {
+        testScroll: false,
+        offset: 0,
+        placement: 'bottom-start',
+        static: false,
+    },
 };
 
 // const createVariation = (template: string) => ({

@@ -11,19 +11,19 @@
         @update:per-page="loadRecords"
         @update:search="searchWithDelay"
     >
-        <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
+        <template v-for="(_, name) in $slots" #[name]="slotData">
             <slot :name="name" v-bind="slotData" />
         </template>
     </SDataTable>
 </template>
 
 <script>
-import SDataTable from "./SDataTable.vue";
-import { SSelect } from "@spartan";
+import SDataTable from './SDataTable.vue';
+import { SSelect } from '@spartan';
 
 export default {
-    name: "SServerTable",
-    components: {SSelect, SDataTable},
+    name: 'SServerTable',
+    components: { SSelect, SDataTable },
     props: {
         columns: {
             type: Array,
@@ -34,8 +34,8 @@ export default {
             required: true,
         },
         options: {
-            type: Object
-        }
+            type: Object,
+        },
     },
     data() {
         return {
@@ -62,7 +62,7 @@ export default {
             this.searchDelay = setTimeout(() => {
                 this.loadRecords(event);
             }, this.options.search?.delay ?? 400);
-        }
-    }
-}
+        },
+    },
+};
 </script>

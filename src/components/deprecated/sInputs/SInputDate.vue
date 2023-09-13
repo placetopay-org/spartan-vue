@@ -7,8 +7,8 @@ const props = defineProps({
     modelValue: {
         type: [String, Array],
         required: true,
-    }
-})
+    },
+});
 
 const model = computed({
     get: () => props.modelValue,
@@ -17,7 +17,5 @@ const model = computed({
 </script>
 
 <template>
-    <LitepieDatepicker
-        v-model="model"
-    />
+    <LitepieDatepicker v-model="model" />
 </template>

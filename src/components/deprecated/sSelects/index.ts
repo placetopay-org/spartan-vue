@@ -1,1 +1,1 @@
-export { default as SSelectGroup } from "./SSelectGroup.vue";
+export { default as SSelectGroup } from './SSelectGroup.vue';

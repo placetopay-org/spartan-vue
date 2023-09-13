@@ -1,1 +1,1 @@
-export { default as SLabel } from "./SLabel.vue";
+export { default as SLabel } from './SLabel.vue';
