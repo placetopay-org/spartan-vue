@@ -1,19 +1,19 @@
-import { SModalAction, SButton } from "../index";
+import { SModalAction, SButton } from '../index';
 
 export default {
-  title: "Components/SModalAction",
-  component: SModalAction,
-  args: {
-    open: true,
-  },
+    title: 'Components/SModalAction',
+    component: SModalAction,
+    args: {
+        open: true,
+    },
 };
 
 const Template = (args) => ({
-  components: { SModalAction, SButton },
-  setup() {
-    return { args };
-  },
-  template: `
+    components: { SModalAction, SButton },
+    setup() {
+        return { args };
+    },
+    template: `
     <SModalAction v-bind="args">
       <template v-slot:title>{{ args.title }}</template>
       <template v-slot:description>{{ args.description }}</template>
@@ -31,34 +31,31 @@ const Template = (args) => ({
 export const ModalSucessSm = Template.bind({});
 
 ModalSucessSm.args = {
-  size: "sm",
-  type: "success",
-  title: "Purchase Completed",
-  description:
-    "Your purchase has been completed, a receipt will be sent to your email account.",
-  darkButton: "Go back to dashboard",
+    size: 'sm',
+    type: 'success',
+    title: 'Purchase Completed',
+    description: 'Your purchase has been completed, a receipt will be sent to your email account.',
+    darkButton: 'Go back to dashboard',
 };
 
 export const ModalConfirmation = Template.bind({});
 
 ModalConfirmation.args = {
-  size: "lg",
-  template: "empty",
-  type: "danger",
-  title: "Delete User",
-  description:
-    "Are you sure you want to delete the user 'Jhon Doe'? This action cannot be undone.",
-  whiteButton: "Cancel",
-  dangerButton: "Borrar",
+    size: 'lg',
+    template: 'empty',
+    type: 'danger',
+    title: 'Delete User',
+    description: "Are you sure you want to delete the user 'Jhon Doe'? This action cannot be undone.",
+    whiteButton: 'Cancel',
+    dangerButton: 'Borrar',
 };
 
 export const DefaultActions = Template.bind({});
 
 DefaultActions.args = {
-  size: "sm",
-  type: "default",
-  title: "Trial Plan",
-  description:
-    "You don't have access to this feature, please upgrade your plan",
-  darkButton: "Go to billing",
+    size: 'sm',
+    type: 'default',
+    title: 'Trial Plan',
+    description: "You don't have access to this feature, please upgrade your plan",
+    darkButton: 'Go to billing',
 };

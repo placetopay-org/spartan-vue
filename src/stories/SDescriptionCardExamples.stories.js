@@ -1,44 +1,44 @@
 import {
-  SCard,
-  SDescriptionItem,
-  SDescriptionItemLabel,
-  SDescriptionItemValue,
-  SButton,
-  SSectionTitle,
-  SSectionDescription,
-  SLink,
-} from "../index";
-import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline";
-
-export default {
-  title: "Examples/SDescriptionCardExamples",
-  component: SCard,
-  decorators: [
-    () => ({
-      template: '<div class="flex bg-gray-100 py-12 px-8"><story /></div>',
-    }),
-  ],
-  subcomponents: { SDescriptionItem },
-};
-
-const Template = (args) => ({
-  components: {
-    SDescriptionItem,
-    SButton,
-    PencilIcon,
-    TrashIcon,
-    SSectionTitle,
-    SSectionDescription,
     SCard,
     SDescriptionItem,
     SDescriptionItemLabel,
     SDescriptionItemValue,
+    SButton,
+    SSectionTitle,
+    SSectionDescription,
     SLink,
-  },
-  setup() {
-    return { args };
-  },
-  template: `
+} from '../index';
+import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
+
+export default {
+    title: 'Examples/SDescriptionCardExamples',
+    component: SCard,
+    decorators: [
+        () => ({
+            template: '<div class="flex bg-gray-100 py-12 px-8"><story /></div>',
+        }),
+    ],
+    subcomponents: { SDescriptionItem },
+};
+
+const Template = (args) => ({
+    components: {
+        SDescriptionItem,
+        SButton,
+        PencilIcon,
+        TrashIcon,
+        SSectionTitle,
+        SSectionDescription,
+        SCard,
+        SDescriptionItem,
+        SDescriptionItemLabel,
+        SDescriptionItemValue,
+        SLink,
+    },
+    setup() {
+        return { args };
+    },
+    template: `
     <SCard class="mx-auto max-w-4xl w-full">
       <div class="flex justify-between">
         <div>
@@ -101,20 +101,19 @@ const Template = (args) => ({
 
 export const DescriptionList = Template.bind({});
 DescriptionList.args = {
-  actions: {
-    button: "Editar",
-  },
-  col1: [
-    { label: "País", value: "Colombia" },
-    { label: "Slug", value: "UI UX" },
-  ],
-  col2: [
-    { label: "Idioma", value: "Español" },
-    { label: "Moneda", value: "Peso colombiano" },
-  ],
-  footer: {
-    label: "Descripción",
-    value:
-      "Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.",
-  },
+    actions: {
+        button: 'Editar',
+    },
+    col1: [
+        { label: 'País', value: 'Colombia' },
+        { label: 'Slug', value: 'UI UX' },
+    ],
+    col2: [
+        { label: 'Idioma', value: 'Español' },
+        { label: 'Moneda', value: 'Peso colombiano' },
+    ],
+    footer: {
+        label: 'Descripción',
+        value: 'Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.',
+    },
 };

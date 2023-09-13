@@ -4,15 +4,15 @@ import { createVariation } from '../../helpers';
 import { EnvelopeIcon, MagnifyingGlassIcon, PlusIcon, TagIcon } from '@heroicons/vue/20/solid';
 
 export default {
-  title: 'examples/InputForms',
+    title: 'examples/InputForms',
 };
 
 export const InputWithSubmitButton = createVariation({
-  components: { SInput, SButton },
-  setup() {
-    return { EnvelopeIcon, MagnifyingGlassIcon, PlusIcon, TagIcon };
-  },
-  template: `
+    components: { SInput, SButton },
+    setup() {
+        return { EnvelopeIcon, MagnifyingGlassIcon, PlusIcon, TagIcon };
+    },
+    template: `
 <form @submit.prevent class="flex -space-x-px">
   <SInput placeholder="example@email.com" :icon="EnvelopeIcon" type="email" rounded="left" required />
   <SButton type="submit" rounded="right">Invite</SButton>
@@ -31,27 +31,31 @@ export const InputWithSubmitButton = createVariation({
 });
 
 export const Test = createVariation({
-  components: { SInput, SButton, SSelect },
-  setup() {
-    const currency = ref('JPY');
+    components: { SInput, SButton, SSelect },
+    setup() {
+        const currency = ref('JPY');
 
-    const prefix = computed(() => {
-      if (currency.value === 'COP') return '$';
-      if (currency.value === 'USD') return '$';
-      if (currency.value === 'JPY') return '¥';
-      if (currency.value === 'EUR') return '€';
-    });
+        const prefix = computed(() => {
+            if (currency.value === 'COP') return '$';
+            if (currency.value === 'USD') return '$';
+            if (currency.value === 'JPY') return '¥';
+            if (currency.value === 'EUR') return '€';
 
-    const placeholder = computed(() => {
-      if (currency.value === 'COP') return '100.000,00';
-      if (currency.value === 'USD') return '100,000.00';
-      if (currency.value === 'JPY') return '100,000.00';
-      if (currency.value === 'EUR') return '100,000.00';
-    });
+            return undefined;
+        });
 
-    return { currency, placeholder, prefix };
-  },
-  template: `
+        const placeholder = computed(() => {
+            if (currency.value === 'COP') return '100.000,00';
+            if (currency.value === 'USD') return '100,000.00';
+            if (currency.value === 'JPY') return '100,000.00';
+            if (currency.value === 'EUR') return '100,000.00';
+
+            return undefined;
+        });
+
+        return { currency, placeholder, prefix };
+    },
+    template: `
 <script>
   setup() {
     const currency = ref('JPY');

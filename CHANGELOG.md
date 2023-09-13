@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SCheckbox` and `SRadio` component implementation, with support for internal `label`, `description`, `inline` and `reverse` feature.
+- `SLabel` component implementation.
 - InputBlock component, groups the SInput, label, help text and error text.
 - Input forms example section.
 - Options inside input support for `SInput` component.
