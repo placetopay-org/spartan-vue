@@ -12,6 +12,13 @@ export default defineConfig({
       include: [resolve(__dirname, './src/locales/**')],
     }),
   ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+      '@spartan': resolve(__dirname, './src/components/spartan'),
+      '@internal': resolve(__dirname, './src/components/internal'),
+    },
+  },
   build: {
     outDir: './dist',
     lib: {
