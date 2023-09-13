@@ -66,7 +66,7 @@ export default {
 };
 
 const sourceBinding = buildSourceBinding({
-    check: ['disabled'],
+    check: ['disabled', 'inline', 'reverse'],
     prop: { id: undefined, name: undefined },
 });
 

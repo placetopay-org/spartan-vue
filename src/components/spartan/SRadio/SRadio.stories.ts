@@ -1,6 +1,5 @@
 import SRadio from './SRadio.vue';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { ref } from 'vue';
 
 export default {
     component: SRadio,
@@ -20,6 +19,18 @@ export default {
             description: 'The event emitted when the radio is checked.',
         },
 
+        // Slots
+        default: {
+            control: 'text',
+            description: 'Default slot for checkbox label content.',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
+        description: {
+            control: 'text',
+            description: 'Slot for checkbox description.',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
+
         // Props
         disabled: {
             control: 'boolean',
@@ -27,9 +38,14 @@ export default {
             table: { type: { summary: 'boolean' } },
         },
         id: {
-            control: 'string',
+            control: 'text',
             description: 'The id of the radio.',
             table: { type: { summary: 'string' } },
+        },
+        inline: {
+            control: 'boolean',
+            description: 'Whether the radio is inline.',
+            table: { type: { summary: 'boolean' } },
         },
         modelValue: {
             control: { type: null },
@@ -37,40 +53,114 @@ export default {
             table: { type: { summary: 'Ref<boolean>' } },
         },
         name: {
-            control: 'string',
+            control: 'text',
             description: 'The name of the radio.',
             table: { type: { summary: 'string' } },
+        },
+        reverse: {
+            control: 'boolean',
+            description: 'Whether the radio is reversed.',
+            table: { type: { summary: 'boolean' } },
         },
     },
 };
 
 const sourceBinding = buildSourceBinding({
-    check: ['disabled'],
+    check: ['disabled', 'inline', 'reverse'],
     prop: { id: undefined, name: undefined },
 });
 
 export const Default = createDefault({
     components: { SRadio },
+    template: `<SRadio v-bind="argsWithoutSlots">
+  <template #default>
+    {{ args.default }}
+  </template>
+
+  <template #description>
+    {{ args.description }}
+  </template>
+  </SRadio>`,
     transform: (args) => `<SRadio ${sourceBinding(args)} />`,
-    template: '<SRadio v-bind="argsWithoutSlots" />',
     args: {
+        default: '',
+        description: '',
         disabled: false,
         id: 'test-id',
+        inline: false,
         name: 'test-name',
+        reverse: false,
+        value: 'test-value',
     },
 });
 
-export const Example = createVariation({
+export const OnlyCheckbox = createVariation({
     components: { SRadio },
-    setup: () => {
-        const value = ref('male');
+    template: '<SRadio />',
+});
 
-        return { value };
-    },
-    template: `<div>
-  <h1>Selection: {{ value }}</h1>
-  <div><SRadio v-model="value" value="male" /> <span>Male</span></div>
-  <div><SRadio v-model="value" value="female" /> <span>Female</span></div>
-  <div><SRadio v-model="value" value="other" /> <span>Other</span></div>
-</div>`,
+export const WithLabel = createVariation({
+    components: { SRadio },
+    template: '<SRadio>Remember me</SRadio>',
+});
+
+export const WithDescription = createVariation({
+    components: { SRadio },
+    template: `<SRadio>
+  <template #description>
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
+  </template>
+</SRadio>`,
+});
+
+export const WithLabelAndDescription = createVariation({
+    components: { SRadio },
+    template: `<SRadio>
+  <template #default>
+    Comments
+  </template>
+
+  <template #description>
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
+  </template>
+</SRadio>`,
+});
+
+export const WithLabelAndDescriptionInline = createVariation({
+    components: { SRadio },
+    template: `<SRadio inline>
+  <template #default>
+    Comments
+  </template>
+
+  <template #description>
+    get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
+  </template>
+</SRadio>`,
+});
+
+export const Reversed = createVariation({
+    components: { SRadio },
+    containerClass: 'flex flex-col gap-4',
+    template: `<SRadio reverse>Remember me</SRadio>
+
+<hr/>
+
+<SRadio reverse>
+  <template #description>
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
+  </template>
+</SRadio>
+
+<hr/>
+
+<SRadio reverse>
+  <template #default>
+    Comments
+  </template>
+
+  <template #description>
+    Get notified when someones posts a comment on a posting. Send a notification once a day if there are new comments.
+  </template>
+</SRadio>`,
 });

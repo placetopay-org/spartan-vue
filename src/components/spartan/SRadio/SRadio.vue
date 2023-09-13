@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
-import { ref, computed } from 'vue';
 import { hasSlotContent } from '@/helpers';
+
+defineOptions({ inheritAttrs: false });
 
 const emit = defineEmits<{
     (event: 'update:modelValue', value: boolean): void;
