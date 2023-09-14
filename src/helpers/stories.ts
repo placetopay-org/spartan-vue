@@ -59,7 +59,7 @@ export const createDefault = ({
     transform?: (args: any) => string;
     components?: Record<string, any>;
     containerClass?: string;
-}): StoryObj => ({
+}) => ({
     decorators: [() => ({ template: `<div style="${containerClass}"><story/></div>` })],
     render: (args: any) => ({
         components,
