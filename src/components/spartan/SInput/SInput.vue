@@ -88,7 +88,7 @@ watchEffect(() => {
 <template>
     <div
         :class="[
-            'relative flex w-full border bg-white placeholder:text-gray-400',
+            'relative flex w-full border border-gray-300 bg-white placeholder:text-gray-400',
             errorClass,
             roundedClass[rounded],
             disabled && 'pointer-events-none opacity-50',
