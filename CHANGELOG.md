@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.1.2 - 2023-09-14
+### Added
+- `SCheckbox` and `SRadio` component implementation, with support for internal `label`, `description`, `inline` and `reverse` feature.
+- `SLabel` component implementation.
+- InputBlock component, groups the SInput, label, help text and error text.
+- Input forms example section.
+- Options inside input support for `SInput` component.
+- SInput icon support for `right` and `left` positions with `icon` and `end-icon` props respectively.
+
 ## 1.1.1 - 2023-09-07
 ### Changed
 - Moves custom styles from style.css to tailwind.config.js preset.

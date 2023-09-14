@@ -1,18 +1,18 @@
-import { ref } from "vue";
-import { SToggle } from "../index";
+import { ref } from 'vue';
+import { SToggle } from '../index';
 
 export default {
-  title: "Components/SToggle",
-  component: SToggle,
+    title: 'Components/SToggle',
+    component: SToggle,
 };
 
 const Template = ({ modelValue, ...rest }) => ({
-  components: { SToggle },
-  setup() {
-    const model = ref(modelValue);
-    return { args: rest, model };
-  },
-  template: `
+    components: { SToggle },
+    setup() {
+        const model = ref(modelValue);
+        return { args: rest, model };
+    },
+    template: `
     <SToggle v-bind="args" v-model="model" />
     `,
 });
@@ -20,18 +20,18 @@ const Template = ({ modelValue, ...rest }) => ({
 export const Simple = Template.bind({});
 
 Simple.args = {
-  modelValue: true,
+    modelValue: true,
 };
 
 export const WithTitle = Template.bind({});
 
 WithTitle.args = {
-  title: "Create Sites",
+    title: 'Create Sites',
 };
 
 export const WithDescription = Template.bind({});
 
 WithDescription.args = {
-  title: "Create Sites",
-  description: "User will be able to create new sites.",
+    title: 'Create Sites',
+    description: 'User will be able to create new sites.',
 };

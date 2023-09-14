@@ -1,18 +1,18 @@
-import { SBreadcrumbs, SBreadcrumb } from "../index";
-import { ChevronRightIcon, HomeIcon } from "@heroicons/vue/24/solid";
+import { SBreadcrumbs, SBreadcrumb } from '../index';
+import { ChevronRightIcon, HomeIcon } from '@heroicons/vue/24/solid';
 
 export default {
-  title: "Components/SBreadcrumbs",
-  component: SBreadcrumbs,
-  subcomponents: { SBreadcrumb },
+    title: 'Components/SBreadcrumbs',
+    component: SBreadcrumbs,
+    subcomponents: { SBreadcrumb },
 };
 
 const Template = (pages) => ({
-  components: { SBreadcrumbs, SBreadcrumb, HomeIcon },
-  setup() {
-    return { pages };
-  },
-  template: `
+    components: { SBreadcrumbs, SBreadcrumb, HomeIcon },
+    setup() {
+        return { pages };
+    },
+    template: `
         <SBreadcrumbs>
             <SBreadcrumb
                 :href="pages.home.href"
@@ -32,28 +32,28 @@ const Template = (pages) => ({
 
 export const Breadcrumbs = Template.bind({});
 Breadcrumbs.args = {
-  home: {
-    name: "Home",
-    href: "#",
-    active: false,
-    icon: HomeIcon,
-    separator: false,
-  },
-  content: {
-    projects: {
-      name: "Projects",
-      href: "#",
-      active: false,
+    home: {
+        name: 'Home',
+        href: '#',
+        active: false,
+        icon: HomeIcon,
+        separator: false,
     },
-    core: {
-      name: "Core",
-      href: "#",
-      active: false,
+    content: {
+        projects: {
+            name: 'Projects',
+            href: '#',
+            active: false,
+        },
+        core: {
+            name: 'Core',
+            href: '#',
+            active: false,
+        },
+        checkout: {
+            name: 'Checkout',
+            href: '#',
+            active: true,
+        },
     },
-    checkout: {
-      name: "Checkout",
-      href: "#",
-      active: true,
-    },
-  },
 };

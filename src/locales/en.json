@@ -1,35 +1,35 @@
 {
-  "$spartan": {
-    "filter": {
-      "addBtn": "Add",
-      "addFilterBtn": "Add filter",
-      "applyBtn": "Apply",
-      "cancelBtn": "Cancel",
-      "clearBtn": "Clear filters",
-      "customSaveBtn": "Save filter",
-      "fieldSelectorNotResults": "No fields found",
-      "fieldSelectorPlaceholder": "Select a field",
-      "inputSelectorPlaceholder": "Write a value",
-      "notFoundFieldText": "No saved filters found",
-      "optionsSelectorPlaceholder": "Select one or more options",
-      "saveBtn": "Save",
-      "savedFiltersText": "My saved filters",
-      "oper": {
-        "ex": "Exists",
-        "nex": "Does not exist",
-        "eq": "Is equal to",
-        "neq": "Is not equal to",
-        "gt": "Is greater than",
-        "gte": "Is greater or equal to",
-        "lt": "Is less than",
-        "lte": "Is less or equal to",
-        "between": "Is between",
-        "notBetween": "Is not between",
-        "contains": "Contains",
-        "notContains": "Does not contain",
-        "startsWith": "Starts with",
-        "endsWith": "Ends with"
-      }
+    "$spartan": {
+        "filter": {
+            "addBtn": "Add",
+            "addFilterBtn": "Add filter",
+            "applyBtn": "Apply",
+            "cancelBtn": "Cancel",
+            "clearBtn": "Clear filters",
+            "customSaveBtn": "Save filter",
+            "fieldSelectorNotResults": "No fields found",
+            "fieldSelectorPlaceholder": "Select a field",
+            "inputSelectorPlaceholder": "Write a value",
+            "notFoundFieldText": "No saved filters found",
+            "optionsSelectorPlaceholder": "Select one or more options",
+            "saveBtn": "Save",
+            "savedFiltersText": "My saved filters",
+            "oper": {
+                "ex": "Exists",
+                "nex": "Does not exist",
+                "eq": "Is equal to",
+                "neq": "Is not equal to",
+                "gt": "Is greater than",
+                "gte": "Is greater or equal to",
+                "lt": "Is less than",
+                "lte": "Is less or equal to",
+                "between": "Is between",
+                "notBetween": "Is not between",
+                "contains": "Contains",
+                "notContains": "Does not contain",
+                "startsWith": "Starts with",
+                "endsWith": "Ends with"
+            }
+        }
     }
-  }
 }

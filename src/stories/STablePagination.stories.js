@@ -1,27 +1,27 @@
-import { STablePagination } from "../index";
+import { STablePagination } from '../index';
 
 export default {
-    title: "Components/STablePagination",
+    title: 'Components/STablePagination',
     component: STablePagination,
     args: {
-        currentPage: "1",
-        lastPage: "12",
+        currentPage: '1',
+        lastPage: '12',
         simple: false,
     },
     argTypes: {
         currentPage: {
-            control: { type: "number" },
+            control: { type: 'number' },
         },
         lastPage: {
-            control: { type: "number" },
+            control: { type: 'number' },
         },
         simple: {
-            control: { type: "boolean" },
+            control: { type: 'boolean' },
         },
     },
 };
 
-const Template = ( args ) => ({
+const Template = (args) => ({
     components: { STablePagination },
     setup() {
         return { args };
@@ -42,5 +42,5 @@ export const Pagination = Template.bind({});
 Pagination.args = {
     currentPage: 1,
     lastPage: 12,
-    info: "Mostrando 01 a 10 de 14 resultados",
-}
+    info: 'Mostrando 01 a 10 de 14 resultados',
+};

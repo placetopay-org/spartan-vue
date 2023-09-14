@@ -1,31 +1,30 @@
 import CheckoutDemo from './CheckoutDemo.vue';
-import { buildDesign, buildSourceBinding } from '../../helpers';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
+import { buildDesign } from '../../helpers';
 
 export default {
-  component: CheckoutDemo,
-  title: 'examples/CheckoutDemo',
+    component: CheckoutDemo,
+    title: 'examples/CheckoutDemo',
 };
 
-const design = buildDesign('https://www.figma.com/file/B6y8dDM2ZwDiJTiOE48sYk/WebCheckout-4?type=design&node-id=13448-36364');
+const design = buildDesign(
+    'https://www.figma.com/file/B6y8dDM2ZwDiJTiOE48sYk/WebCheckout-4?type=design&node-id=13448-36364',
+);
 
 export const Default = {
-  decorators: [
-    () => ({ template: '<div style="width: 512px;"><story/></div>' }),
-  ],
-  render: (args: any) => ({
-    components: { CheckoutDemo },
-    setup() {
-      return { args };
-    },
-    template: `<CheckoutDemo v-bind="args" v-model="args.modelValue"/>`,
-  }),
-  parameters: {
-    design,
-    docs: {
-      canvas: { layout: 'centered' },
-      source: {
-        code: `<script setup lang="ts">
+    decorators: [() => ({ template: '<div style="width: 512px;"><story/></div>' })],
+    render: (args: any) => ({
+        components: { CheckoutDemo },
+        setup() {
+            return { args };
+        },
+        template: `<CheckoutDemo v-bind="args" v-model="args.modelValue"/>`,
+    }),
+    parameters: {
+        design,
+        docs: {
+            canvas: { layout: 'centered' },
+            source: {
+                code: `<script setup lang="ts">
         import { ref } from 'vue';
         import { SDropdown, SDropdownItem, SButton, SRadioGroup, SRadioGroupItem, SSwitch } from '../../';
         import { ChevronDownIcon } from '@heroicons/vue/24/outline';
@@ -98,12 +97,12 @@ export const Default = {
           </div>
         </template>
         `,
-        type: 'dynamic',
-        language: 'html',
-      },
+                type: 'dynamic',
+                language: 'html',
+            },
+        },
     },
-  },
-  args: {
-    modelValue: true,
-  },
+    args: {
+        modelValue: true,
+    },
 };

@@ -1,35 +1,35 @@
 {
-  "$spartan": {
-    "filter": {
-      "addBtn": "Aggiungi",
-      "addFilterBtn": "Aggiungi filtro",
-      "applyBtn": "Applica",
-      "cancelBtn": "Annulla",
-      "clearBtn": "Cancella filtri",
-      "customSaveBtn": "Salva filtri",
-      "fieldSelectorNotResults": "Nessun campo trovato",
-      "fieldSelectorPlaceholder": "Seleziona un campo",
-      "inputSelectorPlaceholder": "Scrivere un valore",
-      "notFoundFieldText": "Nessun filtro salvato trovato",
-      "optionsSelectorPlaceholder": "Seleziona una o più opzioni",
-      "saveBtn": "Salva",
-      "savedFiltersText": "I miei filtri salvati",
-      "oper": {
-        "ex": "Esiste",
-        "nex": "Non esiste",
-        "eq": "È uguale a",
-        "neq": "Non è uguale a",
-        "gt": "È maggiore di",
-        "gte": "È maggiore o uguale a",
-        "lt": "È minore di",
-        "lte": "È minore o uguale a",
-        "between": "È tra",
-        "notBetween": "Non è tra",
-        "contains": "Contiene",
-        "notContains": "Non contiene",
-        "startsWith": "Inizia con",
-        "endsWith": "Finisce con"
-      }
+    "$spartan": {
+        "filter": {
+            "addBtn": "Aggiungi",
+            "addFilterBtn": "Aggiungi filtro",
+            "applyBtn": "Applica",
+            "cancelBtn": "Annulla",
+            "clearBtn": "Cancella filtri",
+            "customSaveBtn": "Salva filtri",
+            "fieldSelectorNotResults": "Nessun campo trovato",
+            "fieldSelectorPlaceholder": "Seleziona un campo",
+            "inputSelectorPlaceholder": "Scrivere un valore",
+            "notFoundFieldText": "Nessun filtro salvato trovato",
+            "optionsSelectorPlaceholder": "Seleziona una o più opzioni",
+            "saveBtn": "Salva",
+            "savedFiltersText": "I miei filtri salvati",
+            "oper": {
+                "ex": "Esiste",
+                "nex": "Non esiste",
+                "eq": "È uguale a",
+                "neq": "Non è uguale a",
+                "gt": "È maggiore di",
+                "gte": "È maggiore o uguale a",
+                "lt": "È minore di",
+                "lte": "È minore o uguale a",
+                "between": "È tra",
+                "notBetween": "Non è tra",
+                "contains": "Contiene",
+                "notContains": "Non contiene",
+                "startsWith": "Inizia con",
+                "endsWith": "Finisce con"
+            }
+        }
     }
-  }
 }

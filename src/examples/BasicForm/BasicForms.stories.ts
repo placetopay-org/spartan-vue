@@ -1,31 +1,28 @@
-import PersonalInformation from './PersonalInformation.vue';
-import Notifications from './Notifications.vue';
-import { buildDesign, buildSourceBinding } from '../../helpers';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
+import PersonalInformationForm from './PersonalInformationForm.vue';
+import NotificationsForm from './NotificationsForm.vue';
+import { buildDesign } from '../../helpers';
 
 export default {
-  title: 'examples/BasicForms',
+    title: 'examples/BasicForms',
 };
 
 const design = buildDesign('');
 
-export const PersonalInformationForm = {
-  decorators: [
-    () => ({ template: '<div style="width: 720px;"><story/></div>' }),
-  ],
-  render: (args: any) => ({
-    components: { PersonalInformation },
-    setup() {
-      return { args };
-    },
-    template: `<PersonalInformation v-bind="args" v-model="args.modelValue"/>`,
-  }),
-  parameters: {
-    design,
-    docs: {
-      canvas: { layout: 'centered' },
-      source: {
-        code: `<script setup lang="ts">
+export const PersonalInformation = {
+    decorators: [() => ({ template: '<div style="width: 720px;"><story/></div>' })],
+    render: (args: any) => ({
+        components: { PersonalInformationForm },
+        setup() {
+            return { args };
+        },
+        template: `<PersonalInformationForm v-bind="args" v-model="args.modelValue"/>`,
+    }),
+    parameters: {
+        design,
+        docs: {
+            canvas: { layout: 'centered' },
+            source: {
+                code: `<script setup lang="ts">
         import { ref } from 'vue';
         import { SButton, SInput, SSelect } from '../../';
         
@@ -72,30 +69,28 @@ export const PersonalInformationForm = {
           </div>
         </template>
         `,
-        type: 'dynamic',
-        language: 'html',
-      },
+                type: 'dynamic',
+                language: 'html',
+            },
+        },
     },
-  },
 };
 
-export const NotificationsForm = {
-  decorators: [
-    () => ({ template: '<div style="width: 720px;"><story/></div>' }),
-  ],
-  render: (args: any) => ({
-    components: { Notifications },
-    setup() {
-      return { args };
-    },
-    template: `<Notifications v-bind="args" v-model="args.modelValue"/>`,
-  }),
-  parameters: {
-    design,
-    docs: {
-      canvas: { layout: 'centered' },
-      source: {
-        code: `<script setup lang="ts">
+export const Notifications = {
+    decorators: [() => ({ template: '<div style="width: 720px;"><story/></div>' })],
+    render: (args: any) => ({
+        components: { NotificationsForm },
+        setup() {
+            return { args };
+        },
+        template: `<NotificationsForm v-bind="args" v-model="args.modelValue"/>`,
+    }),
+    parameters: {
+        design,
+        docs: {
+            canvas: { layout: 'centered' },
+            source: {
+                code: `<script setup lang="ts">
         import { ref } from 'vue';
         import { SButton, SInput } from '../../';
         
@@ -164,9 +159,9 @@ export const NotificationsForm = {
           </div>
         </template>
         `,
-        type: 'dynamic',
-        language: 'html',
-      },
+                type: 'dynamic',
+                language: 'html',
+            },
+        },
     },
-  },
 };

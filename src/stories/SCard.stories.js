@@ -1,22 +1,22 @@
-import { SCard, SButton, SCardHeader } from "../index";
-import { PlusIcon } from "@heroicons/vue/24/solid";
+import { SCard, SButton, SCardHeader } from '../index';
+import { PlusIcon } from '@heroicons/vue/24/solid';
 
 export default {
-  title: "Components/SCard",
-  component: SCard,
-  decorators: [
-    () => ({
-      template: '<div class="flex bg-gray-100 py-12 px-8"><story /></div>',
-    }),
-  ],
+    title: 'Components/SCard',
+    component: SCard,
+    decorators: [
+        () => ({
+            template: '<div class="flex bg-gray-100 py-12 px-8"><story /></div>',
+        }),
+    ],
 };
 
 const Template = (args) => ({
-  components: { SCard, SButton, SCardHeader },
-  setup() {
-    return { args, PlusIcon };
-  },
-  template: `
+    components: { SCard, SButton, SCardHeader },
+    setup() {
+        return { args, PlusIcon };
+    },
+    template: `
     <SCard class="w-full max-w-sm mx-auto">
       <div v-if="!args.header" class="h-64 border-gray-300 border-dashed border-2 rounded-2xl"></div>
       <template v-else>
@@ -28,10 +28,10 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  header: false
+    header: false,
 };
 
 export const WithHeader = Template.bind({});
 WithHeader.args = {
-  header: true
+    header: true,
 };
