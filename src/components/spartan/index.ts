@@ -2,6 +2,7 @@ export * from './SAvatar';
 export * from './SBadge';
 export * from './SButton';
 export * from './SCheckbox';
+export * from './SCombobox';
 export * from './SDropdown';
 export * from './SFilter';
 export * from './SInput';

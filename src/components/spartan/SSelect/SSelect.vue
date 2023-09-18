@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { roundedClass, type TRounded } from '@/helpers';
 
 export type TSelectProps = {
     disabled: boolean;
@@ -8,7 +9,7 @@ export type TSelectProps = {
     modelValue: string;
     name: string;
     placeholder: string;
-    rounded: keyof typeof roundedClass;
+    rounded: TRounded;
 };
 
 const emit = defineEmits<{
@@ -35,13 +36,6 @@ const model = computed({
         emit('update:modelValue', newValue);
     },
 });
-
-const roundedClass = {
-    left: 'rounded-l-lg',
-    right: 'rounded-r-lg',
-    both: 'rounded-lg',
-    none: '',
-};
 </script>
 
 <template>

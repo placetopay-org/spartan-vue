@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.1.3 - 2023-09-18
+### Added
+- `SCombobox` component implementation.
+
 ## 1.1.2 - 2023-09-14
 ### Added
 - `SCheckbox` and `SRadio` component implementation, with support for internal `label`, `description`, `inline` and `reverse` feature.
