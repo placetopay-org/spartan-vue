@@ -1,6 +1,5 @@
 import spartanMessages from '@intlify/unplugin-vue-i18n/messages';
-import merge from 'lodash.merge';
-import clone from 'lodash.clonedeep';
+import { merge, clone } from 'lodash';
 export { spartanMessages };
 
 const addSpartanMessages = (locale: string, baseMessages: any) => {
