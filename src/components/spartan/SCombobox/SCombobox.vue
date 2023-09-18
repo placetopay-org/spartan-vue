@@ -2,7 +2,7 @@
 import { Listbox, ListboxButton, ListboxOptions, ListboxLabel } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { currentSelection, type TOption } from './api';
-import { roundedClass, type TRounded } from '@/helpers';
+import { hasSlotContent, roundedClass, type TRounded } from '@/helpers';
 import { computed } from 'vue';
 import { HelpAndErrorTexts } from '@internal';
 import { SLabel } from '@spartan';
@@ -18,7 +18,6 @@ const props = withDefaults(
             helpText: string;
             label: string;
             modelValue: TOption;
-            placeholder: string;
             rounded: TRounded;
         }>
     >(),
@@ -29,7 +28,6 @@ const props = withDefaults(
         helpText: undefined,
         label: undefined,
         modelValue: undefined,
-        placeholder: undefined,
         rounded: 'both',
     },
 );
@@ -65,8 +63,10 @@ const errorClass = computed(() => {
                         roundedClass[rounded],
                     ]"
                 >
-                    <span v-if="model" class="block truncate">{{ model.label }}</span>
-                    <span v-else class="block truncate text-gray-500">{{ placeholder || '&nbsp;' }}</span>
+                    <span v-if="hasSlotContent($slots.button)" class="block truncate">
+                        <slot name="button" />
+                    </span>
+                    <span v-else> &nbsp;</span>
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>

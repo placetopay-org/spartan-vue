@@ -99,6 +99,10 @@ export const Default = createDefault({
         rounded: 'both',
     },
     template: `<SCombobox class="w-24" v-bind="args" v-model="args.modelValue">
+    <template #button>
+        {{ (args.modelValue?.label) ?? '-' }}
+    </template>
+
     <SComboboxOptionGroup label="Colombia">
         <SComboboxOption label="CC" value="CC"><span class="font-bold">CC</span> Cédula de ciudadanía</SComboboxOption>
         <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
@@ -122,7 +126,9 @@ export const Default = createDefault({
         <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
     </SComboboxOptionGroup>
     </SCombobox>`,
-    transform: (args) => `<SCombobox ${sourceBinding(args)}>
+    transform: (args) => `<SCombobox ${sourceBinding(args)} v-model="value">
+    <template #button>{{ value?.value ?? '-' }}</template>
+
     <SComboboxOptionGroup label="Colombia">
         <SComboboxOption label="CC" value="CC">Cédula de ciudadanía</SComboboxOption>
         <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
