@@ -1,6 +1,8 @@
 import SCombobox from './SCombobox.vue';
+import SComboboxOption from './SComboboxOption.vue';
+import SComboboxOptionGroup from './SComboboxOptionGroup.vue';
 import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
+import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
 
 export default {
@@ -37,6 +39,14 @@ export default {
             description: 'Whether the select has an error.',
             table: { type: { summary: 'boolean' } },
         },
+        errorText: {
+            description: 'The error text to be displayed.',
+            table: { type: { summary: 'string' } },
+        },
+        helpText: {
+            description: 'The help text to be displayed.',
+            table: { type: { summary: 'string' } },
+        },
         id: {
             control: { type: 'text' },
             description: 'The id of the select.',
@@ -50,6 +60,11 @@ export default {
         name: {
             control: { type: 'text' },
             description: 'The name of the select.',
+            table: { type: { summary: 'string' } },
+        },
+        label: {
+            control: { type: 'text' },
+            description: 'The label of the select.',
             table: { type: { summary: 'string' } },
         },
         placeholder: {
@@ -68,119 +83,84 @@ export default {
 
 // const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
 
-// const sourceBinding = buildSourceBinding({});
+const sourceBinding = buildSourceBinding({
+    prop: { rounded: 'both', errorText: undefined, helpText: undefined, placeholder: undefined },
+    check: ['disabled', 'error'],
+});
 
 export const Default = createDefault({
     containerClass: 'h-96',
-    components: { SCombobox },
-    template: '<SCombobox v-bind="args" v-model="args.modelValue" />',
-    args: {},
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    args: {
+        disabled: false,
+        error: false,
+        errorText: '',
+        helpText: '',
+        label: 'Select',
+        placeholder: '',
+        rounded: 'both',
+    },
+    template: `<SCombobox class="w-24" v-bind="args" v-model="args.modelValue">
+    <SComboboxOptionGroup label="Colombia">
+        <SComboboxOption label="CC" value="CC"><span class="font-bold">CC</span> Cédula de ciudadanía</SComboboxOption>
+        <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
+        <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
+        <SComboboxOption label="NIT" value="NIT">NIT</SComboboxOption>
+    </SComboboxOptionGroup>
+
+    <SComboboxOptionGroup label="United States">
+        <SComboboxOption label="SSN" value="SSN">Social Security Number</SComboboxOption>
+        <SComboboxOption label="ITIN" value="ITIN">Individual Taxpayer Identification Number</SComboboxOption>
+        <SComboboxOption label="EIN" value="EIN">Employer Identification Number</SComboboxOption>
+    </SComboboxOptionGroup>
+
+    <SComboboxOptionGroup label="United Kingdom">
+        <SComboboxOption label="NINO" value="NINO">National Insurance Number</SComboboxOption>
+        <SComboboxOption label="UTR" value="UTR">Unique Taxpayer Reference</SComboboxOption>
+    </SComboboxOptionGroup>
+
+    <SComboboxOptionGroup label="Other">
+        <SComboboxOption label="PA" value="PA">Pasaporte</SComboboxOption>
+        <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
+    </SComboboxOptionGroup>
+    </SCombobox>`,
+    transform: (args) => `<SCombobox ${sourceBinding(args)}>
+    <SComboboxOptionGroup label="Colombia">
+        <SComboboxOption label="CC" value="CC">Cédula de ciudadanía</SComboboxOption>
+        <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
+        <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
+        <SComboboxOption label="NIT" value="NIT">NIT</SComboboxOption>
+    </SComboboxOptionGroup>
+
+    <SComboboxOptionGroup label="United States">
+        <SComboboxOption label="SSN" value="SSN">Social Security Number</SComboboxOption>
+        <SComboboxOption label="ITIN" value="ITIN">Individual Taxpayer Identification Number</SComboboxOption>
+        <SComboboxOption label="EIN" value="EIN">Employer Identification Number</SComboboxOption>
+    </SComboboxOptionGroup>
+
+    <SComboboxOptionGroup label="United Kingdom">
+        <SComboboxOption label="NINO" value="NINO">National Insurance Number</SComboboxOption>
+        <SComboboxOption label="UTR" value="UTR">Unique Taxpayer Reference</SComboboxOption>
+    </SComboboxOptionGroup>
+
+    <SComboboxOptionGroup label="Other">
+        <SComboboxOption label="PA" value="PA">Pasaporte</SComboboxOption>
+        <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
+    </SComboboxOptionGroup>
+</SCombobox>`,
 });
 
-// export const Default = {
-//     decorators: [
-//         () => ({
-//             template: '<div style="gap: 20px; display: flex;"><story/></div>',
-//         }),
-//     ],
-//     render: (args: any) => ({
-//         components: { SCombobox },
-//         setup() {
-//             return { args };
-//         },
-//         template: `
-// <SCombobox v-bind="args" v-model="args.modelValue">
-//   <SCombobox.group label="Colombia">
-//     <SCombobox.option value="bogota">Bogotá</SCombobox.option>
-//     <SCombobox.option value="medellin">Medellín</SCombobox.option>
-//     <SCombobox.option value="cali">Cali</SCombobox.option>
-//     <SCombobox.option value="barranquilla">Barranquilla</SCombobox.option>
-//   </SCombobox.group>
+// export const Disabled = createVariation({
+//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+//     setup: () => {
+//         const value = ref('CC');
 
-//   <SCombobox.group label="United States">
-//     <SCombobox.option value="new york">New York</SCombobox.option>
-//     <SCombobox.option value="los angeles">Los Angeles</SCombobox.option>
-//     <SCombobox.option value="chicago">Chicago</SCombobox.option>
-//     <SCombobox.option value="houston">Houston</SCombobox.option>
-//   </SCombobox.group>
-
-//   <SCombobox.group label="United Kingdom">
-//     <SCombobox.option value="london">London</SCombobox.option>
-//     <SCombobox.option value="birmingham">Birmingham</SCombobox.option>
-//     <SCombobox.option value="liverpool">Liverpool</SCombobox.option>
-//     <SCombobox.option value="manchester">Manchester</SCombobox.option>
-//   </SCombobox.group>
-// </SCombobox>
-// `,
-//     }),
-//     parameters: {
-//         design,
-//         docs: {
-//             canvas: { layout: 'centered' },
-//             source: {
-//                 transform: ((_, storyContext) => `<SCombobox ${sourceBinding(storyContext.args)}>
-//     <SComboboxGroup label="Colombia">
-//         <SComboboxOption value="bogota">Bogotá</SComboboxOption>
-//         <SComboboxOption value="medellin">Medellín</SComboboxOption>
-//         <SComboboxOption value="cali">Cali</SComboboxOption>
-//         <SComboboxOption value="barranquilla">Barranquilla</SComboboxOption>
-//     </SComboboxGroup>
-
-//     <SComboboxGroup label="United States">
-//         <SComboboxOption value="new york">New York</SComboboxOption>
-//         <SComboboxOption value="los angeles">Los Angeles</SComboboxOption>
-//         <SComboboxOption value="chicago">Chicago</SComboboxOption>
-//         <SComboboxOption value="houston">Houston</SComboboxOption>
-//     </SComboboxGroup>
-
-//     <SComboboxGroup label="United Kingdom">
-//         <SComboboxOption value="london">London</SComboboxOption>
-//         <SComboboxOption value="birmingham">Birmingham</SComboboxOption>
-//         <SComboboxOption value="liverpool">Liverpool</SComboboxOption>
-//         <SComboboxOption value="manchester">Manchester</SComboboxOption>
-//     </SComboboxGroup>
-// </SCombobox>`) as SourceProps['transform'],
-//                 type: 'dynamic',
-//                 language: 'html',
-//             },
-//         },
+//         return { value };
 //     },
-//     args: {
-//         disabled: false,
-//         error: false,
-//         id: 'test-id',
-//         modelValue: undefined,
-//         name: 'payment_method',
-//         placeholder: 'Select an option',
-//         rounded: 'both',
-//     },
-// };
-
-// const createVariation = (template: string, placeholder?: boolean) => ({
-//     decorators: [
-//         () => ({
-//             template: '<div style="gap: 20px; display: flex; max-width: 200px"><story/></div>',
-//         }),
-//     ],
-//     render: () => ({
-//         components: { SCombobox },
-//         template,
-//         setup() {
-//             const value = ref(placeholder ? undefined : 'option');
-//             return { value };
-//         },
-//     }),
-//     parameters: {
-//         design,
-//         controls: { disable: true },
-//         actions: { disable: true },
-//         docs: {
-//             source: {
-//                 code: template,
-//                 language: 'html',
-//             },
-//         },
-//     },
+//     template: `<SCombobox class="w-24" v-model="value" disabled>
+//     <SComboboxOption label="CC" value="CC">Cédula de ciudadanía</SComboboxOption>
+//     <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
+// </SCombobox>`,
 // });
 
 // export const Placeholder = createVariation(

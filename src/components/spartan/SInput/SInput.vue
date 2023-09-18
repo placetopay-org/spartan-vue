@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, type FunctionalComponent, useSlots, ref, watchEffect } from 'vue';
+import { roundedClass, type TRounded } from '@/helpers';
 
 export type TInputProps = {
     disabled: boolean;
@@ -11,7 +12,7 @@ export type TInputProps = {
     name: string;
     placeholder: string;
     prefix: string;
-    rounded: keyof typeof roundedClass;
+    rounded: TRounded;
     suffix: string;
     type: string;
 };
@@ -49,13 +50,6 @@ const model = computed({
 });
 
 const inputHasFocus = ref(false);
-
-const roundedClass = {
-    left: 'rounded-l-lg',
-    right: 'rounded-r-lg',
-    both: 'rounded-lg',
-    none: '',
-};
 
 const errorClass = computed(() => {
     return props.error
