@@ -1,9 +1,7 @@
 import SCombobox from './SCombobox.vue';
 import SComboboxOption from './SComboboxOption.vue';
 import SComboboxOptionGroup from './SComboboxOptionGroup.vue';
-import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { ref } from 'vue';
+import { buildSourceBinding, createDefault } from '@/helpers';
 
 export default {
     component: SCombobox,
@@ -97,7 +95,7 @@ export const Default = createDefault({
         errorText: '',
         helpText: '',
         label: 'Select',
-        placeholder: '',
+        placeholder: undefined,
         rounded: 'both',
     },
     template: `<SCombobox class="w-24" v-bind="args" v-model="args.modelValue">
