@@ -4,7 +4,11 @@ import { isEqual } from 'lodash';
 import { currentSelection, type TOption } from './api';
 import { computed } from 'vue';
 
-const props = defineProps<TOption>();
+const props = defineProps<
+    {
+        class?: string;
+    } & TOption
+>();
 
 const computedValue = computed(() => ({
     label: props.label,
@@ -22,7 +26,7 @@ const isSelected = computed(() => isEqual(currentSelection?.value, computedValue
                 'relative cursor-default select-none px-3 py-1',
             ]"
         >
-            <span :class="[isSelected ? 'font-medium' : 'font-normal', 'block truncate']">
+            <span :class="[isSelected ? 'font-medium' : 'font-normal', 'block truncate', props.class]">
                 <slot />
             </span>
         </li>
