@@ -1,5 +1,4 @@
 import type { SourceProps } from '@storybook/blocks';
-import type { StoryObj } from '@storybook/vue3';
 import { computed } from 'vue';
 
 export const buildDesign = (url: string) => ({

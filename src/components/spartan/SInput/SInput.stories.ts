@@ -2,7 +2,7 @@ import SInput from './SInput.vue';
 import { ref } from 'vue';
 import { SButton, SDropdown, SDropdownItem } from '@spartan';
 import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding } from '@/helpers';
+import { buildDesign, buildSourceBinding, createVariation } from '@/helpers';
 import {
     ArrowLeftOnRectangleIcon,
     InformationCircleIcon,
@@ -18,7 +18,7 @@ export default {
     parameters: {
         docs: {
             description: {
-                component: 'DOC',
+                component: 'Input component with slots for icons, prefix, suffix, and other content.',
             },
         },
     },
@@ -27,12 +27,34 @@ export default {
         'update:modelValue': {
             control: { type: null },
             table: { type: { summary: null }, category: 'Events' },
-            description: 'DOC',
+            description: 'The event emitted when the input value changes.',
+        },
+
+        // Slots
+        left: {
+            control: { type: null },
+            table: { type: { summary: null }, category: 'Slots' },
+            description: 'The content to be displayed on the left side of the input.',
+        },
+        right: {
+            control: { type: null },
+            table: { type: { summary: null }, category: 'Slots' },
+            description: 'The content to be displayed on the right side of the input.',
         },
 
         // Props
+        class: {
+            control: { type: null },
+            table: { type: { summary: null } },
+            description: 'The class to apply to the input container.',
+        },
+        inputClass: {
+            control: { type: null },
+            table: { type: { summary: null } },
+            description: 'The class to apply to the input element.',
+        },
         disabled: {
-            description: 'DOC',
+            description: 'The disabled state of the input.',
             table: { type: { summary: 'boolean' } },
         },
         endIcon: {
@@ -49,7 +71,7 @@ export default {
             table: { type: { summary: 'FunctionalComponent' } },
         },
         error: {
-            description: 'DOC',
+            description: 'The error state of the input.',
             table: { type: { summary: 'boolean' } },
         },
         icon: {
@@ -67,17 +89,32 @@ export default {
         },
         id: {
             control: 'text',
-            description: 'DOC',
+            description: 'The id of the input element.',
             table: { type: { summary: 'string' } },
         },
         modelValue: {
             control: { type: null },
-            description: 'DOC',
+            description: 'The value of the input.',
             table: { type: { summary: 'Ref<string>' } },
+        },
+        options: {
+            control: { type: null },
+            description: 'The options to be displayed in the dropdown.',
+            table: { type: { summary: '{ label: string, value: string }[]' } },
+        },
+        leftOrderSlots: {
+            control: 'text',
+            description: 'The order of the slots on the left side of the input.',
+            table: { type: { summary: 'string' } },
+        },
+        rightOrderSlots: {
+            control: 'text',
+            description: 'The order of the slots on the right side of the input.',
+            table: { type: { summary: 'string' } },
         },
         name: {
             control: 'text',
-            description: 'DOC',
+            description: 'The name of the input element.',
             table: { type: { summary: 'string' } },
         },
         rounded: {
@@ -88,22 +125,22 @@ export default {
         },
         placeholder: {
             control: 'text',
-            description: 'DOC',
+            description: 'The placeholder of the input.',
             table: { type: { summary: 'string' } },
         },
         prefix: {
             control: 'text',
-            description: 'DOC',
+            description: 'The text to be displayed before the input value.',
             table: { type: { summary: 'string' } },
         },
         suffix: {
             control: 'text',
-            description: 'DOC',
+            description: 'The text to be displayed after the input value.',
             table: { type: { summary: 'string' } },
         },
         type: {
             control: 'text',
-            description: 'DOC',
+            description: 'The type of the input element.',
             table: { type: { summary: 'string' } },
         },
     },
@@ -167,8 +204,7 @@ export const Default = {
                 ChatBubbleLeftEllipsisIcon,
             };
         },
-        template:
-            '<SInput v-bind="args" :icon="getIcon(args.icon)" :endIcon="getIcon(args.endIcon)" v-model="value" />',
+        template: `<SInput v-bind="args" :icon="getIcon(args.icon)" :endIcon="getIcon(args.endIcon)" v-model="value" />`,
     }),
     parameters: {
         design,
@@ -188,6 +224,8 @@ export const Default = {
         error: false,
         id: 'test-id',
         name: 'test-name',
+        leftOrderSlots: 'text,icon',
+        rightOrderSlots: 'icon,text,selector',
         placeholder: 'Placeholder',
         prefix: '',
         suffix: '',
@@ -196,19 +234,22 @@ export const Default = {
     },
 };
 
-const createVariation = (
-    template: string,
-    options?: {
-        focusVisible?: boolean;
-        containerClass?: string;
-    },
-) => ({
-    decorators: [
-        () => ({
-            template: `<div style="${options?.containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>`,
-        }),
-    ],
-    render: () => ({
+const createCustomVariation = ({ template, containerClass }: { template: string; containerClass?: string }) =>
+    createVariation({
+        template,
+        setup: () => {
+            return {
+                SButton,
+                ArrowLeftOnRectangleIcon,
+                EnvelopeIcon,
+                KeyIcon,
+                InformationCircleIcon,
+                ChatBubbleLeftEllipsisIcon,
+                CurrencyDollarIcon,
+                MapPinIcon,
+            };
+        },
+        containerClass,
         components: {
             SInput,
             SButton,
@@ -222,119 +263,88 @@ const createVariation = (
             CurrencyDollarIcon,
             MapPinIcon,
         },
-        setup() {
-            const email = ref('');
+    });
 
-            return {
-                email,
-                SButton,
-                ArrowLeftOnRectangleIcon,
-                EnvelopeIcon,
-                KeyIcon,
-                InformationCircleIcon,
-                ChatBubbleLeftEllipsisIcon,
-                CurrencyDollarIcon,
-                MapPinIcon,
-            };
-        },
-        template,
-    }),
-    parameters: {
-        design,
-        pseudo: { focusVisible: options?.focusVisible },
-        controls: { disable: true },
-        actions: { disable: true },
-        docs: {
-            source: {
-                code: template,
-                language: 'html',
-            },
-        },
-    },
+export const Disabled = createCustomVariation({
+    template: `<SInput disabled placeholder="placeholder" />`,
+    containerClass: 'w-52',
 });
 
-export const Disabled = createVariation(`<SInput disabled placeholder="placeholder" />`, {
-    containerClass: 'width: 200px',
+export const Error = createCustomVariation({
+    template: `<SInput error placeholder="placeholder" />`,
+    containerClass: 'w-52',
 });
 
-export const Error = createVariation(`<SInput error placeholder="placeholder" />`, {
-    containerClass: 'width: 200px',
+export const Rounded = createCustomVariation({
+    template: `
+    <SInput placeholder="both (default)" />
+    <SInput rounded="left" placeholder="left" />
+    <SInput rounded="none" placeholder="none" />
+    <SInput rounded="right" placeholder="right" />
+    `,
 });
 
-export const Rounded = createVariation(`
-<SInput placeholder="both (default)" />
-<SInput rounded="left" placeholder="left" />
-<SInput rounded="none" placeholder="none" />
-<SInput rounded="right" placeholder="right" />
-`);
+export const WithIcon = createCustomVariation({
+    template: `
+    <SInput :icon="EnvelopeIcon" placeholder="Email" />
+    <SInput :icon="KeyIcon" placeholder="Password" />
+    <SInput :icon="InformationCircleIcon" />
+    `,
+});
 
-export const WithIcon = createVariation(`
-<SInput :icon="EnvelopeIcon" placeholder="Email" />
-<SInput :icon="KeyIcon" placeholder="Password" />
-<SInput :icon="InformationCircleIcon" />
-`);
+export const WithEndIcon = createCustomVariation({
+    template: `
+    <SInput :endIcon="ChatBubbleLeftEllipsisIcon" placeholder="Comment" />
+    <SInput :endIcon="CurrencyDollarIcon" placeholder="Amount" />
+    <SInput :endIcon="MapPinIcon" placeholder="Location" />
+    `,
+});
 
-export const WithEndIcon = createVariation(`
-<SInput :endIcon="ChatBubbleLeftEllipsisIcon" placeholder="Comment" />
-<SInput :endIcon="CurrencyDollarIcon" placeholder="Amount" />
-<SInput :endIcon="MapPinIcon" placeholder="Location" />
-`);
+export const WithPrefix = createCustomVariation({
+    template: `
+    <SInput prefix="$" type="number" placeholder="100.000" />
+    <SInput prefix="https://" />
+    <SInput prefix="name" />
+    `,
+});
 
-export const WithPrefix = createVariation(`
-<SInput prefix="$" type="number" placeholder="100.000" />
-<SInput prefix="https://" />
-<SInput prefix="name" />
-`);
+export const WithSuffix = createCustomVariation({
+    template: `
+    <SInput suffix=".com" />
+    <SInput suffix="USD" />
+    <SInput suffix="optional" />
+    `,
+});
 
-export const WithSuffix = createVariation(`
-<SInput suffix=".com" />
-<SInput suffix="USD" />
-<SInput suffix="optional" />
-`);
+export const WithOptionsEmbedded = createCustomVariation({
+    template: `
+    <SInput :options="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
+    `,
+    containerClass: 'w-52',
+});
 
-export const WithOptionsEmbedded = createVariation(`
-<SInput>
-  <template #options :name="currency">
-    <option value="usd">USD</option>
-    <option value="cop">COP</option>
-    <option value="eur">EUR</option>
-  </template>
-</SInput>
-`);
+export const OrderPrecastSlots = createCustomVariation({
+    template: `
+        <SInput :icon="MapPinIcon" :endIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" />
+        
+        <SInput :icon="MapPinIcon" :endIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" leftOrderSlots="icon,text" rightOrderSlots="text,icon" />
+        `,
+    containerClass: 'w-[700px] flex gap-5',
+});
 
-/* 
-
-
-export const TextAreaInput = Template.bind({});
-TextAreaInput.args = {
-  ...defaultArgs,
-  label: "Description",
-  placeholder: null,
-  as: "textarea",
-  rows: 4,
-};
-
-export const WithButtonRight = Template.bind({});
-WithButtonRight.args = {
-  ...defaultArgs,
-  label: undefined,
-  button: {
-    enabled: true,
-    label: "Search",
-    icon: MagnifyingGlassIcon,
-  },
-};
-
-export const WithDropdownRight = TemplateWithDropdown.bind({});
-WithDropdownRight.args = {
-  label: "Tipo de documento",
-  type: "text",
-  id: "field_document_type",
-  name: "field_document_type",
-  component: "input",
-  rows: [
-    {label: 'Cedula de ciudadania', value: 'cc'},
-    {label: 'Cedula de extranjeria', value: 'ce'},
-  ],
-};
- */
+export const PrecastAndCustomSlots = createCustomVariation({
+    template: `
+        <SInput :icon="MapPinIcon" :endIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" leftOrderSlots="slot,icon,text">
+            <template #left>
+                <div class="flex items-center">
+                    <span class="font-bold">Required</span>
+                </div>
+            </template>
+        
+            <template #right>
+                <SButton rounded="none">Send</SButton>
+            </template>
+        </SInput>
+        `,
+    containerClass: 'w-[700px] flex gap-5',
+});
