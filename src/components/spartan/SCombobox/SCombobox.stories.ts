@@ -76,6 +76,10 @@ export default {
             description: `Specifies which corners should be rounded.`,
             table: { type: { summary: 'left | right | both | none | full' } },
         },
+        search: {
+            description: 'Whether the select should be searchable.',
+            table: { type: { summary: 'boolean' } },
+        },
     },
 };
 
@@ -97,10 +101,14 @@ export const Default = createDefault({
         label: 'Select',
         placeholder: undefined,
         rounded: 'both',
+        modelValue: undefined,
+        search: false,
     },
-    template: `<SCombobox class="w-24" v-bind="args" v-model="args.modelValue">
+    template: `<pre>{{
+        JSON.stringify(value, null, 2)
+    }}</pre> <SCombobox class="w-24" v-bind="args" v-model="value">
     <template #button>
-        {{ (args.modelValue?.label) ?? '-' }}
+        {{ (value?.label) ?? '-' }}
     </template>
 
     <SComboboxOptionGroup label="Colombia">
@@ -114,16 +122,6 @@ export const Default = createDefault({
         <SComboboxOption label="SSN" value="SSN">Social Security Number</SComboboxOption>
         <SComboboxOption label="ITIN" value="ITIN">Individual Taxpayer Identification Number</SComboboxOption>
         <SComboboxOption label="EIN" value="EIN">Employer Identification Number</SComboboxOption>
-    </SComboboxOptionGroup>
-
-    <SComboboxOptionGroup label="United Kingdom">
-        <SComboboxOption label="NINO" value="NINO">National Insurance Number</SComboboxOption>
-        <SComboboxOption label="UTR" value="UTR">Unique Taxpayer Reference</SComboboxOption>
-    </SComboboxOptionGroup>
-
-    <SComboboxOptionGroup label="Other">
-        <SComboboxOption label="PA" value="PA">Pasaporte</SComboboxOption>
-        <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
     </SComboboxOptionGroup>
     </SCombobox>`,
     transform: (args) => `<SCombobox ${sourceBinding(args)} v-model="value">
@@ -153,6 +151,62 @@ export const Default = createDefault({
     </SComboboxOptionGroup>
 </SCombobox>`,
 });
+
+// <SCombobox class="w-24" v-bind="args" v-model="args.modelValue">
+//     <template #button>
+//         {{ (args.modelValue?.label) ?? '-' }}
+//     </template>
+
+//     <SComboboxOptionGroup label="Colombia">
+//         <SComboboxOption label="CC" value="CC"><span class="font-bold">CC</span> - Cédula de ciudadanía</SComboboxOption>
+//         <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
+//         <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
+//         <SComboboxOption label="NIT" value="NIT">NIT</SComboboxOption>
+//     </SComboboxOptionGroup>
+
+//     <SComboboxOptionGroup label="United States">
+//         <SComboboxOption label="SSN" value="SSN">Social Security Number</SComboboxOption>
+//         <SComboboxOption label="ITIN" value="ITIN">Individual Taxpayer Identification Number</SComboboxOption>
+//         <SComboboxOption label="EIN" value="EIN">Employer Identification Number</SComboboxOption>
+//     </SComboboxOptionGroup>
+
+//     <SComboboxOptionGroup label="United Kingdom">
+//         <SComboboxOption label="NINO" value="NINO">National Insurance Number</SComboboxOption>
+//         <SComboboxOption label="UTR" value="UTR">Unique Taxpayer Reference</SComboboxOption>
+//     </SComboboxOptionGroup>
+
+//     <SComboboxOptionGroup label="Other">
+//         <SComboboxOption label="PA" value="PA">Pasaporte</SComboboxOption>
+//         <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
+//     </SComboboxOptionGroup>
+//     </SCombobox> <SCombobox search class="w-24" v-bind="args" v-model="args.modelValue">
+//     <template #button>
+//         {{ (args.modelValue?.label) ?? '-' }}
+//     </template>
+
+//     <SComboboxOptionGroup label="Colombia">
+//         <SComboboxOption label="CC" value="CC"><span class="font-bold">CC</span> - Cédula de ciudadanía</SComboboxOption>
+//         <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
+//         <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
+//         <SComboboxOption label="NIT" value="NIT">NIT</SComboboxOption>
+//     </SComboboxOptionGroup>
+
+//     <SComboboxOptionGroup label="United States">
+//         <SComboboxOption label="SSN" value="SSN">Social Security Number</SComboboxOption>
+//         <SComboboxOption label="ITIN" value="ITIN">Individual Taxpayer Identification Number</SComboboxOption>
+//         <SComboboxOption label="EIN" value="EIN">Employer Identification Number</SComboboxOption>
+//     </SComboboxOptionGroup>
+
+//     <SComboboxOptionGroup label="United Kingdom">
+//         <SComboboxOption label="NINO" value="NINO">National Insurance Number</SComboboxOption>
+//         <SComboboxOption label="UTR" value="UTR">Unique Taxpayer Reference</SComboboxOption>
+//     </SComboboxOptionGroup>
+
+//     <SComboboxOptionGroup label="Other">
+//         <SComboboxOption label="PA" value="PA">Pasaporte</SComboboxOption>
+//         <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
+//     </SComboboxOptionGroup>
+//     </SCombobox>
 
 // export const Disabled = createVariation({
 //     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },

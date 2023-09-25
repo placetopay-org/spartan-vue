@@ -1,5 +1,5 @@
 import type { SourceProps } from '@storybook/blocks';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
@@ -66,7 +66,8 @@ export const createDefault = ({
             setup ||
             (() => {
                 const argsWithoutSlots = computed(() => ({ ...args, default: undefined }));
-                return { args, argsWithoutSlots };
+                const value = ref(args.modelValue);
+                return { args, argsWithoutSlots, value };
             }),
         template,
     }),

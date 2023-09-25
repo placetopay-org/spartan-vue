@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { ListboxOption } from '@headlessui/vue';
+import { ListboxOption, ComboboxOption } from '@headlessui/vue';
 import { isEqual } from 'lodash';
-import { currentSelection, type TOption } from './api';
+import { useSComboboxContext } from './api';
 import { computed } from 'vue';
+import type { TOption } from './types';
 
 const props = defineProps<
     {
         class?: string;
     } & TOption
 >();
+
+const { props: globalProps, currentSelection } = useSComboboxContext('SComboboxOption');
 
 const computedValue = computed(() => ({
     label: props.label,
@@ -19,7 +22,12 @@ const isSelected = computed(() => isEqual(currentSelection?.value, computedValue
 </script>
 
 <template>
-    <ListboxOption v-slot="{ active }" :value="computedValue" as="template">
+    <component
+        :is="globalProps.search ? ComboboxOption : ListboxOption"
+        v-slot="{ active }"
+        :value="computedValue"
+        as="template"
+    >
         <li
             :class="[
                 active ? 'bg-primary-100 text-primary-900' : 'text-gray-900',
@@ -30,5 +38,5 @@ const isSelected = computed(() => isEqual(currentSelection?.value, computedValue
                 <slot />
             </span>
         </li>
-    </ListboxOption>
+    </component>
 </template>
