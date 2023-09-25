@@ -9,19 +9,20 @@ type TOption = {
 export type TInputProps = {
     class: string;
     disabled: boolean;
-    endIcon: FunctionalComponent;
     error: boolean;
     id: string;
-    options: TOption[];
-    icon: FunctionalComponent;
     inputClass: string;
     modelValue: string | number;
     name: string;
-    rightOrderSlots: string;
-    leftOrderSlots: string;
     placeholder: string;
     prefix: string;
-    rounded: TRounded;
     suffix: string;
+    rounded: TRounded;
     type: string;
+    rightIcon: FunctionalComponent;
+    leftIcon: FunctionalComponent;
+    rightOptions: TOption[];
+    leftOptions: TOption[];
+    rightOrderSlots: string;
+    leftOrderSlots: string;
 };

@@ -1,27 +1,31 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SInput, SLabel, type TInputProps } from '@spartan';
-
-defineOptions({ inheritAttrs: false });
+import { HelpAndErrorTexts } from '@/components/internal';
 
 const props = withDefaults(
-    defineProps<Partial<{ error: string; helpText: string; label: string }> & Omit<Partial<TInputProps>, 'error'>>(),
+    defineProps<
+        Partial<{ errorText: string; helpText: string; label: string }> & Omit<Partial<TInputProps>, 'error'>
+    >(),
     {
-        error: undefined,
+        errorText: undefined,
+        helpText: undefined,
         label: undefined,
     },
 );
 
-const inputProps = computed(() => ({ ...props, error: Boolean(props.error), helpText: undefined, label: undefined }));
+const inputProps = computed(() => ({
+    ...props,
+    error: Boolean(props.errorText),
+    helpText: undefined,
+    label: undefined,
+}));
 </script>
 
 <template>
     <div>
         <SLabel v-if="label" :for="id">{{ label }}</SLabel>
         <SInput v-bind="inputProps" />
-        <div class="flex flex-col">
-            <span v-if="helpText" class="mt-1 text-xs font-normal text-gray-500">{{ helpText }}</span>
-            <span v-if="error" class="mt-1 text-xs font-normal text-red-500">{{ error }}</span>
-        </div>
+        <HelpAndErrorTexts :error="errorText" :help="helpText" />
     </div>
 </template>

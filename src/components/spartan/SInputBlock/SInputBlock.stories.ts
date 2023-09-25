@@ -56,7 +56,7 @@ export default {
                 subcategory: 'Input',
             },
         },
-        endIcon: {
+        leftIcon: {
             control: 'select',
             options: [
                 'EnvelopeIcon',
@@ -66,14 +66,14 @@ export default {
                 'CurrencyDollarIcon',
                 'ChatBubbleLeftEllipsisIcon',
             ],
-            description: `A Vue functional component to be used as the input's icon.`,
+            description: `A Vue functional component to be used as the left icon.`,
             table: {
                 type: { summary: 'FunctionalComponent' },
                 category: 'Props',
                 subcategory: 'Input',
             },
         },
-        icon: {
+        rightIcon: {
             control: 'select',
             options: [
                 'EnvelopeIcon',
@@ -83,7 +83,7 @@ export default {
                 'CurrencyDollarIcon',
                 'ChatBubbleLeftEllipsisIcon',
             ],
-            description: `A Vue functional component to be used as the input's icon.`,
+            description: `A Vue functional component to be used as the right icon.`,
             table: {
                 type: { summary: 'FunctionalComponent' },
                 category: 'Props',
@@ -225,7 +225,7 @@ export const Default = {
             };
         },
         template:
-            '<SInputBlock v-bind="args" :icon="getIcon(args.icon)" :endIcon="getIcon(args.endIcon)" v-model="value" />',
+            '<SInputBlock v-bind="args" :right-icon="getIcon(args.rightIcon)" :left-icon="getIcon(args.leftIcon)" v-model="value" />',
     }),
     parameters: {
         design,
@@ -244,6 +244,8 @@ export const Default = {
         disabled: false,
         error: '',
         helpText: 'Help text',
+        rightIcon: undefined,
+        leftIcon: undefined,
         id: 'test-id',
         label: 'Label',
         name: 'test-name',

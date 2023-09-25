@@ -57,7 +57,7 @@ export default {
             description: 'The disabled state of the input.',
             table: { type: { summary: 'boolean' } },
         },
-        endIcon: {
+        leftIcon: {
             control: 'select',
             options: [
                 'EnvelopeIcon',
@@ -67,25 +67,25 @@ export default {
                 'CurrencyDollarIcon',
                 'ChatBubbleLeftEllipsisIcon',
             ],
-            description: `A Vue functional component to be used as the input's icon.`,
+            description: `A Vue functional component to be used as the left side input's icon.`,
+            table: { type: { summary: 'FunctionalComponent' } },
+        },
+        rightIcon: {
+            control: 'select',
+            options: [
+                'EnvelopeIcon',
+                'MagnifyingGlassIcon',
+                'MapPinIcon',
+                'InformationCircleIcon',
+                'CurrencyDollarIcon',
+                'ChatBubbleLeftEllipsisIcon',
+            ],
+            description: `A Vue functional component to be used as the right side input's icon.`,
             table: { type: { summary: 'FunctionalComponent' } },
         },
         error: {
             description: 'The error state of the input.',
             table: { type: { summary: 'boolean' } },
-        },
-        icon: {
-            control: 'select',
-            options: [
-                'EnvelopeIcon',
-                'MagnifyingGlassIcon',
-                'MapPinIcon',
-                'InformationCircleIcon',
-                'CurrencyDollarIcon',
-                'ChatBubbleLeftEllipsisIcon',
-            ],
-            description: `A Vue functional component to be used as the input's icon.`,
-            table: { type: { summary: 'FunctionalComponent' } },
         },
         id: {
             control: 'text',
@@ -97,9 +97,14 @@ export default {
             description: 'The value of the input.',
             table: { type: { summary: 'Ref<string>' } },
         },
-        options: {
-            control: { type: null },
-            description: 'The options to be displayed in the dropdown.',
+        leftOptions: {
+            control: { type: 'object' },
+            description: 'The options to be displayed in the dropdown on the left side of the input.',
+            table: { type: { summary: '{ label: string, value: string }[]' } },
+        },
+        rightOptions: {
+            control: { type: 'object' },
+            description: 'The options to be displayed in the dropdown on the right side of the input.',
             table: { type: { summary: '{ label: string, value: string }[]' } },
         },
         leftOrderSlots: {
@@ -204,7 +209,7 @@ export const Default = {
                 ChatBubbleLeftEllipsisIcon,
             };
         },
-        template: `<SInput v-bind="args" :icon="getIcon(args.icon)" :endIcon="getIcon(args.endIcon)" v-model="value" />`,
+        template: `<SInput v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" v-model="value" />`,
     }),
     parameters: {
         design,
@@ -221,10 +226,54 @@ export const Default = {
     },
     args: {
         disabled: false,
+        leftOptions: [
+            {
+                label: 'COP',
+                value: 'COP',
+            },
+            {
+                label: 'USD',
+                value: 'USD',
+            },
+            {
+                label: 'EUR',
+                value: 'EUR',
+            },
+            {
+                label: 'JPY',
+                value: 'JPY',
+            },
+            {
+                label: 'PHP',
+                value: 'PHP',
+            },
+        ],
+        rightOptions: [
+            {
+                label: 'COP',
+                value: 'COP',
+            },
+            {
+                label: 'USD',
+                value: 'USD',
+            },
+            {
+                label: 'EUR',
+                value: 'EUR',
+            },
+            {
+                label: 'JPY',
+                value: 'JPY',
+            },
+            {
+                label: 'PHP',
+                value: 'PHP',
+            },
+        ],
         error: false,
         id: 'test-id',
         name: 'test-name',
-        leftOrderSlots: 'text,icon',
+        leftOrderSlots: 'selector,text,icon',
         rightOrderSlots: 'icon,text,selector',
         placeholder: 'Placeholder',
         prefix: '',
@@ -318,16 +367,18 @@ export const WithSuffix = createCustomVariation({
 
 export const WithOptionsEmbedded = createCustomVariation({
     template: `
-    <SInput :options="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
+    <SInput :leftOptions="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
+    
+    <SInput :rightOptions="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
     `,
-    containerClass: 'w-52',
+    containerClass: 'w-[700px] gap-5 flex',
 });
 
 export const OrderPrecastSlots = createCustomVariation({
     template: `
-        <SInput :icon="MapPinIcon" :endIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" />
+        <SInput :rightIcon="MapPinIcon" :leftIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" />
         
-        <SInput :icon="MapPinIcon" :endIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" leftOrderSlots="icon,text" rightOrderSlots="text,icon" />
+        <SInput :icrightIconon="MapPinIcon" :leftIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" leftOrderSlots="icon,text" rightOrderSlots="text,icon" />
         `,
     containerClass: 'w-[700px] flex gap-5',
 });

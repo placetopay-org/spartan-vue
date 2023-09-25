@@ -10,15 +10,16 @@ const emit = defineEmits(['update:modelValue']);
 const props = withDefaults(defineProps<Partial<TInputProps>>(), {
     class: undefined,
     disabled: false,
-    endIcon: undefined,
+    leftIcon: undefined,
+    rightIcon: undefined,
     error: false,
     id: undefined,
-    icon: undefined,
-    options: undefined,
+    leftOptions: undefined,
+    rightOptions: undefined,
     inputClass: undefined,
     modelValue: undefined,
     name: undefined,
-    leftOrderSlots: 'text,icon,slot',
+    leftOrderSlots: 'selector,text,icon,slot',
     rightOrderSlots: 'slot,icon,text,selector',
     placeholder: undefined,
     prefix: undefined,
@@ -66,8 +67,9 @@ watchEffect(() => {
 <template>
     <div
         :class="[
-            'relative flex w-full gap-2 border border-gray-300 bg-white pl-3 placeholder:text-gray-400',
-            options ? 'pr-0' : 'pr-3',
+            'relative flex w-full gap-2 border border-gray-300 bg-white placeholder:text-gray-400',
+            rightOptions ? 'pr-0' : 'pr-3',
+            leftOptions ? 'pl-0' : 'pl-3',
             borderClass,
             roundedClass,
             disabledClass,

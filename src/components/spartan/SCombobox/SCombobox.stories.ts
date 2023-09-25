@@ -104,7 +104,7 @@ export const Default = createDefault({
     </template>
 
     <SComboboxOptionGroup label="Colombia">
-        <SComboboxOption label="CC" value="CC"><span class="font-bold">CC</span> Cédula de ciudadanía</SComboboxOption>
+        <SComboboxOption label="CC" value="CC"><span class="font-bold">CC</span> - Cédula de ciudadanía</SComboboxOption>
         <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
         <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
         <SComboboxOption label="NIT" value="NIT">NIT</SComboboxOption>

@@ -12,7 +12,14 @@ const leftComponents: Record<string, any> = {
     icon: {
         component: IconSlot,
         getProps: (props: Partial<TInputProps>) => {
-            if (props.icon) return { icon: props.icon };
+            if (props.leftIcon) return { icon: props.leftIcon };
+            return undefined;
+        },
+    },
+    selector: {
+        component: SelectorSlot,
+        getProps: (props: Partial<TInputProps>) => {
+            if (props.leftOptions) return { options: props.leftOptions };
             return undefined;
         },
     },
@@ -29,18 +36,14 @@ const rightComponents: Record<string, any> = {
     icon: {
         component: IconSlot,
         getProps: (props: Partial<TInputProps>) => {
-            if (props.endIcon) return { icon: props.endIcon };
+            if (props.rightIcon) return { icon: props.rightIcon };
             return undefined;
         },
     },
     selector: {
         component: SelectorSlot,
         getProps: (props: Partial<TInputProps>) => {
-            if (props.options)
-                return {
-                    options: props.options,
-                    rounded: Boolean(props.rounded === 'both' || props.rounded === 'right'),
-                };
+            if (props.rightOptions) return { options: props.rightOptions };
             return undefined;
         },
     },
@@ -52,7 +55,6 @@ export const buildSideContent = (side: 'left' | 'right', rawOrder: string, props
         .map((slot) => {
             const component = side === 'left' ? leftComponents[slot] : rightComponents[slot];
             const componentProps = component?.getProps(props);
-            console.log(slot, componentProps, props.options);
             if (componentProps) {
                 return {
                     key: `${side}-${slot}`,
