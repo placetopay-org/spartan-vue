@@ -1,5 +1,5 @@
 import type { SourceProps } from '@storybook/blocks';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
@@ -62,13 +62,11 @@ export const createDefault = ({
     decorators: [() => ({ template: `<div class="${containerClass}"><story/></div>` })],
     render: (args: any) => ({
         components,
-        setup:
-            setup ||
-            (() => {
-                const argsWithoutSlots = computed(() => ({ ...args, default: undefined }));
-                const value = ref(args.modelValue);
-                return { args, argsWithoutSlots, value };
-            }),
+        setup: () => {
+            const argsWithoutSlots = computed(() => ({ ...args, default: undefined }));
+            if (setup) return { ...setup(), args, argsWithoutSlots };
+            return { args, argsWithoutSlots };
+        },
         template,
     }),
     parameters: {
