@@ -215,12 +215,12 @@ export const CustomButtonTextWithProp = createVariation({
     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
     setup: () => {
         const value = ref({ initial: 'H', name: 'Hight' });
-        return { value };
+        return { value, options: riskOptions };
     },
     template: `<SCombobox class="w-54" v-model="value" :displayButtonText="item => \`\${item.initial} - (\${item.name})\`">
-    <SComboboxOption :value="{ initial: 'H', name: 'Hight' }">Hight risk</SComboboxOption>
-    <SComboboxOption :value="{ initial: 'M', name: 'Medium' }">Medium risk</SComboboxOption>
-    <SComboboxOption :value="{ initial: 'L', name: 'Low' }">Low risk</SComboboxOption>
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
 </SCombobox>`,
     containerClass: 'w-[300px] h-[150px]',
 });
@@ -229,16 +229,16 @@ export const CustomButtonContentWithSlot = createVariation({
     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
     setup: () => {
         const value = ref({ initial: 'H', name: 'Hight' });
-        return { value };
+        return { value, options: riskOptions };
     },
     template: `<SCombobox class="w-54" v-model="value">
     <template #button>
         <span class="font-bold">{{ value.initial }}</span> - {{ value.name }}
     </template>
 
-    <SComboboxOption :value="{ initial: 'H', name: 'Hight' }">Hight risk</SComboboxOption>
-    <SComboboxOption :value="{ initial: 'M', name: 'Medium' }">Medium risk</SComboboxOption>
-    <SComboboxOption :value="{ initial: 'L', name: 'Low' }">Low risk</SComboboxOption>
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
 </SCombobox>`,
     containerClass: 'w-[300px] h-[150px]',
 });
@@ -262,16 +262,16 @@ export const CustomOptionContentWithSlot = createVariation({
     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
     setup: () => {
         const value = ref({ initial: 'H', name: 'Hight' });
-        return { value };
+        return { value, options: riskOptions };
     },
     template: `<SCombobox class="w-54" v-model="value">
     <template #button>
         <span class="font-bold">{{ value.initial }}</span> - {{ value.name }}
     </template>
 
-    <SComboboxOption :value="{ initial: 'H', name: 'Hight' }"><span class="font-bold">Hight</span> risk</SComboboxOption>
-    <SComboboxOption :value="{ initial: 'M', name: 'Medium' }"><span class="font-bold">Medium</span> risk</SComboboxOption>
-    <SComboboxOption :value="{ initial: 'L', name: 'Low' }"><span class="font-bold">Low</span> risk</SComboboxOption>
+    <SComboboxOption :value="options[0]"><span class="font-bold">Hight</span> risk</SComboboxOption>
+    <SComboboxOption :value="options[1]"><span class="font-bold">Medium</span> risk</SComboboxOption>
+    <SComboboxOption :value="options[2]"><span class="font-bold">Low</span> risk</SComboboxOption>
 </SCombobox>`,
     containerClass: 'w-[300px] h-[150px]',
 });
