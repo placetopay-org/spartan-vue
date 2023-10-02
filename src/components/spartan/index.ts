@@ -13,3 +13,4 @@ export * from './SRadio';
 export * from './SRadioGroup';
 export * from './SSelect';
 export * from './SSwitch';
+export * from './SCaption';

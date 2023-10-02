@@ -46,6 +46,7 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
 
 export const createDefault = ({
     components,
+    design,
     setup,
     args,
     transform,
@@ -54,6 +55,7 @@ export const createDefault = ({
 }: {
     template: string;
     setup?: () => any;
+    design?: any;
     args: Record<string, any>;
     transform?: (args: any) => string;
     components?: Record<string, any>;
@@ -70,6 +72,7 @@ export const createDefault = ({
         template,
     }),
     parameters: {
+        design: buildDesign(design),
         docs: {
             canvas: { layout: 'centered' },
             source: {
