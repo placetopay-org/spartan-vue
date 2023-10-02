@@ -5,7 +5,9 @@ import { buildSideContent } from './slotBuilder';
 import type { TInputProps } from './types';
 
 defineOptions({ inheritAttrs: false });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+    (event: 'update:modelValue', value: string | number | undefined): void;
+}>();
 
 const props = withDefaults(defineProps<Partial<TInputProps>>(), {
     class: undefined,

@@ -1,20 +1,13 @@
-import SInputBlock from './SInputBlock.vue';
+import SComboboxBlock from './SComboboxBlock.vue';
 import { ref } from 'vue';
-import { SButton, SDropdown, SDropdownItem } from '@spartan';
 import type { SourceProps } from '@storybook/blocks';
 import { buildDesign, buildSourceBinding } from '@/helpers';
-import {
-    ArrowLeftOnRectangleIcon,
-    InformationCircleIcon,
-    CurrencyDollarIcon,
-    MapPinIcon,
-    MagnifyingGlassIcon,
-} from '@heroicons/vue/24/outline';
-import { EnvelopeIcon, KeyIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
+import { InformationCircleIcon, CurrencyDollarIcon, MapPinIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+import { EnvelopeIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
 export default {
-    component: SInputBlock,
-    title: 'new/InputBlock',
+    component: SComboboxBlock,
+    title: 'new/ComboboxBlock',
     parameters: {
         docs: {
             description: {
@@ -31,7 +24,7 @@ export default {
         },
 
         // Props
-        errorText: {
+        error: {
             control: 'text',
             description: 'DOC',
             table: { type: { summary: 'string' }, category: 'Props' },
@@ -178,14 +171,14 @@ const sourceBinding = buildSourceBinding({
         suffix: undefined,
         type: 'text',
     },
-    check: ['disabled'],
+    check: ['disabled', 'error'],
     custom: { icon: true },
 });
 
 export const Default = {
     render: (args: any) => ({
         components: {
-            SInputBlock,
+            SComboboxBlock,
             EnvelopeIcon,
             MagnifyingGlassIcon,
             MapPinIcon,
@@ -224,8 +217,7 @@ export const Default = {
                 ChatBubbleLeftEllipsisIcon,
             };
         },
-        template:
-            '<SInputBlock v-bind="args" :right-icon="getIcon(args.rightIcon)" :left-icon="getIcon(args.leftIcon)" v-model="value" />',
+        template: '<SComboboxBlock v-bind="args" v-model="value" />',
     }),
     parameters: {
         design,
@@ -233,7 +225,7 @@ export const Default = {
             canvas: { layout: 'centered' },
             source: {
                 transform: ((_, storyContext) => `
-        <SInputBlock ${sourceBinding(storyContext.args)} />
+        <SComboboxBlock ${sourceBinding(storyContext.args)} />
         `) as SourceProps['transform'],
                 type: 'dynamic',
                 language: 'html',
@@ -242,7 +234,7 @@ export const Default = {
     },
     args: {
         disabled: false,
-        errorText: '',
+        error: '',
         helpText: 'Help text',
         rightIcon: undefined,
         leftIcon: undefined,
@@ -257,77 +249,77 @@ export const Default = {
     },
 };
 
-const createVariation = (
-    template: string,
-    options?: {
-        focusVisible?: boolean;
-        containerClass?: string;
-    },
-) => ({
-    decorators: [
-        () => ({
-            template: `<div style="${options?.containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>`,
-        }),
-    ],
-    render: () => ({
-        components: {
-            SInputBlock,
-            SButton,
-            SDropdown,
-            SDropdownItem,
-            ArrowLeftOnRectangleIcon,
-            EnvelopeIcon,
-            KeyIcon,
-            InformationCircleIcon,
-            ChatBubbleLeftEllipsisIcon,
-            CurrencyDollarIcon,
-            MapPinIcon,
-        },
-        setup() {
-            const email = ref('');
+// const createVariation = (
+//     template: string,
+//     options?: {
+//         focusVisible?: boolean;
+//         containerClass?: string;
+//     },
+// ) => ({
+//     decorators: [
+//         () => ({
+//             template: `<div style="${options?.containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>`,
+//         }),
+//     ],
+//     render: () => ({
+//         components: {
+//             SComboboxBlock,
+//             SButton,
+//             SDropdown,
+//             SDropdownItem,
+//             ArrowLeftOnRectangleIcon,
+//             EnvelopeIcon,
+//             KeyIcon,
+//             InformationCircleIcon,
+//             ChatBubbleLeftEllipsisIcon,
+//             CurrencyDollarIcon,
+//             MapPinIcon,
+//         },
+//         setup() {
+//             const email = ref('');
 
-            return {
-                email,
-                SButton,
-                ArrowLeftOnRectangleIcon,
-                EnvelopeIcon,
-                KeyIcon,
-                InformationCircleIcon,
-                ChatBubbleLeftEllipsisIcon,
-                CurrencyDollarIcon,
-                MapPinIcon,
-            };
-        },
-        template,
-    }),
-    parameters: {
-        design,
-        pseudo: { focusVisible: options?.focusVisible },
-        controls: { disable: true },
-        actions: { disable: true },
-        docs: {
-            source: {
-                code: template,
-                language: 'html',
-            },
-        },
-    },
-});
+//             return {
+//                 email,
+//                 SButton,
+//                 ArrowLeftOnRectangleIcon,
+//                 EnvelopeIcon,
+//                 KeyIcon,
+//                 InformationCircleIcon,
+//                 ChatBubbleLeftEllipsisIcon,
+//                 CurrencyDollarIcon,
+//                 MapPinIcon,
+//             };
+//         },
+//         template,
+//     }),
+//     parameters: {
+//         design,
+//         pseudo: { focusVisible: options?.focusVisible },
+//         controls: { disable: true },
+//         actions: { disable: true },
+//         docs: {
+//             source: {
+//                 code: template,
+//                 language: 'html',
+//             },
+//         },
+//     },
+// });
 
-export const WithLabel = createVariation(`<SInputBlock label="Name" placeholder="Enter your name" />`, {
-    containerClass: 'width: 200px',
-});
+// export const WithLabel = createVariation(`<SComboboxBlock label="Name" placeholder="Enter your name" />`, {
+//     containerClass: 'width: 200px',
+// });
 
-export const WithHelpText = createVariation(
-    `<SInputBlock label="Token" helpText="does not include quotes" placeholder="XX-XXXX-XXXX" />`,
-    {
-        containerClass: 'width: 200px',
-    },
-);
+// export const WithHelpText = createVariation(
+//     `<SComboboxBlock label="Token" helpText="does not include quotes" placeholder="XX-XXXX-XXXX" />`,
+//     {
+//         containerClass: 'width: 200px',
+//     },
+// );
 
-export const WithErrorText = createVariation(
-    `<SInputBlock label="Amount" error="the amount is mandatory" prefix="$" placeholder="0.00" />`,
-    {
-        containerClass: 'width: 200px',
-    },
-);
+// export const WithErrorText = createVariation(
+//     `<SComboboxBlock label="Amount" error="the amount is mandatory" prefix="$" placeholder="0.00" />`,
+//     {
+//         containerClass: 'width: 200px',
+//     },
+// );

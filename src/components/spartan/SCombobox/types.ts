@@ -1,31 +1,32 @@
 import type { TRounded } from '@/helpers';
-import type { ComputedRef, InjectionKey } from 'vue';
+import type { ComputedRef } from 'vue';
 
-export type TComboboxBaseProps = {
+type TComboboxBaseProps = {
+    id: string;
     disabled: boolean;
     error: boolean;
     modelValue: any;
     rounded: TRounded;
 };
 
-export type TComboboxProps = Partial<TComboboxBaseProps> & {
+type TComboboxNormalProps = Partial<TComboboxBaseProps> & {
     searchBy: undefined;
     options?: any[];
     displayButtonText?: (option: any) => string;
     displayOptionText?: (option: any) => string;
 };
 
-export type TComboboxSearchProps = Partial<TComboboxBaseProps> & {
+type TComboboxSearchProps = Partial<TComboboxBaseProps> & {
     searchBy: (option: any) => string;
     options: any[];
     displayButtonText: (option: any) => string;
     displayOptionText: (option: any) => string;
 };
 
-export type TContextKey = InjectionKey<TStateDefinition>;
+export type TComboboxProps = TComboboxNormalProps | TComboboxSearchProps;
 
 export type TStateDefinition = {
-    props: ComputedRef<Partial<TComboboxProps | TComboboxSearchProps>>;
+    props: ComputedRef<Partial<TComboboxProps>>;
     currentSelection: any;
     updateCurrentSelection: (option: any) => void;
 };

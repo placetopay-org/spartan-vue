@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { createSComboboxContext } from './api';
 import { hasSlotContent, roundedClass } from '@/helpers';
-import { Combobox, ComboboxButton, ComboboxOptions, ComboboxInput } from '@headlessui/vue';
+import { Combobox, ComboboxButton, ComboboxOptions, ComboboxInput, ComboboxLabel } from '@headlessui/vue';
 import { computed, ref } from 'vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import type { TComboboxProps, TComboboxSearchProps } from './types';
+import type { TComboboxProps } from './types';
 import SComboboxOption from './SComboboxOption.vue';
 
 const emit = defineEmits(['update:modelValue']);
 
-const props = withDefaults(defineProps<Partial<TComboboxProps | TComboboxSearchProps>>(), {
+const props = withDefaults(defineProps<Partial<TComboboxProps>>(), {
+    id: undefined,
     disabled: false,
     error: false,
     searchBy: undefined,
@@ -63,7 +64,8 @@ const onlyButtonClass = computed(() => [
 
 <template>
     <div>
-        <Combobox v-model="model" :class="[disabled && 'pointer-events-none opacity-50']">
+        <Combobox :id="id" v-model="model" :class="[disabled && 'pointer-events-none opacity-50']">
+            <slot name="label" />
             <div :class="['relative', roundedClass[props.rounded], searchBy ? 'w-full border border-gray-300' : '']">
                 <ComboboxInput
                     v-if="searchBy"

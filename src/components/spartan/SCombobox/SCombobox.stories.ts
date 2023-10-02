@@ -171,6 +171,9 @@ const riskOptions = [
     { initial: 'L', name: 'Low' },
 ];
 
+const a = { initial: 'H', name: 'Hight' };
+const b = riskOptions[0];
+
 export const Disabled = createVariation({
     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
     setup: () => {

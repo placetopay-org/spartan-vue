@@ -1,7 +1,7 @@
-import { inject, provide } from 'vue';
-import type { TStateDefinition, TContextKey } from './types';
+import { inject, provide, type InjectionKey } from 'vue';
+import type { TStateDefinition } from './types';
 
-const contextKey = Symbol('SComboboxContext') as TContextKey;
+const contextKey = Symbol('SComboboxContext') as InjectionKey<TStateDefinition>;
 
 export const createSComboboxContext = (state: TStateDefinition) => {
     // TODO: readonly state?
