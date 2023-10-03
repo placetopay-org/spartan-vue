@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { roundedClass, type TRounded } from '@/helpers';
-
-export type TSelectProps = {
-    disabled: boolean;
-    error: boolean;
-    id: string;
-    modelValue: string;
-    name: string;
-    placeholder: string;
-    rounded: TRounded;
-};
+import { roundedClass } from '@/helpers';
+import type { TSelectProps } from './types';
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string | undefined): void;

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { SInput, type TInputProps } from '@spartan';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
+import { SSelect, type TSelectProps } from '../SSelect';
 
 defineEmits<{ (event: 'update:modelValue', value: string | number | undefined): void }>();
 
-const props = defineProps<Partial<TBlockWrapperProps> & Partial<TInputProps>>();
+const props = defineProps<Partial<TBlockWrapperProps> & Partial<TSelectProps>>();
 
 const blockWrapperProps = computed(() => ({
     label: props.label,
@@ -14,7 +14,7 @@ const blockWrapperProps = computed(() => ({
     helpText: props.helpText,
 }));
 
-const inputProps = computed(() => ({
+const selectProps = computed(() => ({
     ...props,
     error: props.errorText ? Boolean(props.errorText) : props.error,
     label: undefined,
@@ -25,9 +25,8 @@ const inputProps = computed(() => ({
 
 <template>
     <BlockWrapper v-bind="blockWrapperProps">
-        <SInput v-bind="inputProps" @update:model-value="(newValue) => $emit('update:modelValue', newValue)">
-            <template #left><slot name="left" /></template>
-            <template #right><slot name="right" /></template>
-        </SInput>
+        <SSelect v-bind="selectProps" @update:model-value="(newValue) => $emit('update:modelValue', newValue)">
+            <slot />
+        </SSelect>
     </BlockWrapper>
 </template>

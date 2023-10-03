@@ -3,7 +3,7 @@ import { hasSlotContent } from '@/helpers';
 import type { TCaptionProps } from './types';
 
 withDefaults(defineProps<Partial<TCaptionProps>>(), {
-    variant: 'info',
+    variant: 'error',
     text: undefined,
 });
 

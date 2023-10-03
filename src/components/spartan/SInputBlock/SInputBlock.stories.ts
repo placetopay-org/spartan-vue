@@ -1,8 +1,7 @@
 import SInputBlock from './SInputBlock.vue';
 import { ref } from 'vue';
 import { SButton, SDropdown, SDropdownItem } from '@spartan';
-import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding } from '@/helpers';
+import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
 import {
     ArrowLeftOnRectangleIcon,
     InformationCircleIcon,
@@ -17,9 +16,7 @@ export default {
     title: 'new/InputBlock',
     parameters: {
         docs: {
-            description: {
-                component: 'DOC',
-            },
+            description: { component: 'The input component is used to create a text input.' },
         },
     },
     argTypes: {
@@ -27,34 +24,42 @@ export default {
         'update:modelValue': {
             control: { type: null },
             table: { type: { summary: null }, category: 'Events' },
-            description: 'DOC',
+            description: 'The event emitted when the input value changes.',
+        },
+
+        // Slots
+        left: {
+            control: { type: null },
+            description: 'The content to be rendered before the input.',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
+        right: {
+            control: { type: null },
+            description: 'The content to be rendered after the input.',
+            table: { type: { summary: 'VNode | VNode Array' } },
         },
 
         // Props
         errorText: {
             control: 'text',
-            description: 'DOC',
+            description: 'The error message to be displayed when the input has an error.',
             table: { type: { summary: 'string' }, category: 'Props' },
         },
         helpText: {
             control: 'text',
-            description: 'DOC',
+            description: 'The help message to be displayed below the input.',
             table: { type: { summary: 'string' }, category: 'Props' },
         },
         label: {
             control: 'text',
-            description: 'DOC',
+            description: 'The label of the input.',
             table: { type: { summary: 'string' }, category: 'Props' },
         },
 
         // Props - Input
         disabled: {
-            description: 'DOC',
-            table: {
-                type: { summary: 'boolean' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            description: 'Whether the input is disabled.',
+            table: { type: { summary: 'boolean' }, category: 'Props', subcategory: 'Input' },
         },
         leftIcon: {
             control: 'select',
@@ -67,11 +72,7 @@ export default {
                 'ChatBubbleLeftEllipsisIcon',
             ],
             description: `A Vue functional component to be used as the left icon.`,
-            table: {
-                type: { summary: 'FunctionalComponent' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            table: { type: { summary: 'FunctionalComponent' }, category: 'Props', subcategory: 'Input' },
         },
         rightIcon: {
             control: 'select',
@@ -92,16 +93,12 @@ export default {
         },
         id: {
             control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            description: 'The id of the input.',
+            table: { type: { summary: 'string' }, category: 'Props', subcategory: 'Input' },
         },
         modelValue: {
             control: { type: null },
-            description: 'DOC',
+            description: 'The value of the input.',
             table: {
                 type: { summary: 'Ref<string>' },
                 category: 'Props',
@@ -110,12 +107,8 @@ export default {
         },
         name: {
             control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            description: 'The name of the input.',
+            table: { type: { summary: 'string' }, category: 'Props', subcategory: 'Input' },
         },
         rounded: {
             control: 'inline-radio',
@@ -129,39 +122,28 @@ export default {
         },
         placeholder: {
             control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            description: 'The placeholder of the input.',
+            table: { type: { summary: 'string' }, category: 'Props', subcategory: 'Input' },
         },
         prefix: {
             control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            description: 'A prefix to be displayed before the input value.',
+            table: { type: { summary: 'string' }, category: 'Props', subcategory: 'Input' },
         },
         suffix: {
             control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            description: 'A suffix to be displayed after the input value.',
+            table: { type: { summary: 'string' }, category: 'Props', subcategory: 'Input' },
         },
         type: {
             control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
+            description: 'The type of the input.',
+            table: { type: { summary: 'string' }, category: 'Props', subcategory: 'Input' },
+        },
+        error: {
+            control: { type: 'boolean' },
+            description: 'Whether the input has an error.',
+            table: { type: { summary: 'boolean' }, category: 'Props', subcategory: 'Input' },
         },
     },
 };
@@ -169,6 +151,8 @@ export default {
 const design = buildDesign('');
 
 const sourceBinding = buildSourceBinding({
+    check: ['disabled', 'error'],
+    custom: { icon: true },
     prop: {
         rounded: 'both',
         id: undefined,
@@ -177,99 +161,78 @@ const sourceBinding = buildSourceBinding({
         prefix: undefined,
         suffix: undefined,
         type: 'text',
+        label: undefined,
+        errorText: undefined,
+        helpText: undefined,
     },
-    check: ['disabled'],
-    custom: { icon: true },
 });
 
-export const Default = {
-    render: (args: any) => ({
-        components: {
-            SInputBlock,
+export const Default = createDefault({
+    design: '',
+    components: {
+        SInputBlock,
+        EnvelopeIcon,
+        MagnifyingGlassIcon,
+        MapPinIcon,
+        InformationCircleIcon,
+        CurrencyDollarIcon,
+        ChatBubbleLeftEllipsisIcon,
+    },
+    setup: () => {
+        const value = ref('');
+        const getIcon = (
+            icon:
+                | 'EnvelopeIcon'
+                | 'MagnifyingGlassIcon'
+                | 'MapPinIcon'
+                | 'InformationCircleIcon'
+                | 'CurrencyDollarIcon'
+                | 'ChatBubbleLeftEllipsisIcon',
+        ) => {
+            if (icon === 'EnvelopeIcon') return EnvelopeIcon;
+            if (icon === 'MagnifyingGlassIcon') return MagnifyingGlassIcon;
+            if (icon === 'MapPinIcon') return MapPinIcon;
+            if (icon === 'InformationCircleIcon') return InformationCircleIcon;
+            if (icon === 'CurrencyDollarIcon') return CurrencyDollarIcon;
+            if (icon === 'ChatBubbleLeftEllipsisIcon') return ChatBubbleLeftEllipsisIcon;
+        };
+
+        return {
+            getIcon,
+            value,
             EnvelopeIcon,
             MagnifyingGlassIcon,
             MapPinIcon,
             InformationCircleIcon,
             CurrencyDollarIcon,
             ChatBubbleLeftEllipsisIcon,
-        },
-        setup() {
-            const value = ref('');
-            const getIcon = (
-                icon:
-                    | 'EnvelopeIcon'
-                    | 'MagnifyingGlassIcon'
-                    | 'MapPinIcon'
-                    | 'InformationCircleIcon'
-                    | 'CurrencyDollarIcon'
-                    | 'ChatBubbleLeftEllipsisIcon',
-            ) => {
-                if (icon === 'EnvelopeIcon') return EnvelopeIcon;
-                if (icon === 'MagnifyingGlassIcon') return MagnifyingGlassIcon;
-                if (icon === 'MapPinIcon') return MapPinIcon;
-                if (icon === 'InformationCircleIcon') return InformationCircleIcon;
-                if (icon === 'CurrencyDollarIcon') return CurrencyDollarIcon;
-                if (icon === 'ChatBubbleLeftEllipsisIcon') return ChatBubbleLeftEllipsisIcon;
-            };
-
-            return {
-                args,
-                getIcon,
-                value,
-                EnvelopeIcon,
-                MagnifyingGlassIcon,
-                MapPinIcon,
-                InformationCircleIcon,
-                CurrencyDollarIcon,
-                ChatBubbleLeftEllipsisIcon,
-            };
-        },
-        template:
-            '<SInputBlock v-bind="args" :right-icon="getIcon(args.rightIcon)" :left-icon="getIcon(args.leftIcon)" v-model="value" />',
-    }),
-    parameters: {
-        design,
-        docs: {
-            canvas: { layout: 'centered' },
-            source: {
-                transform: ((_, storyContext) => `
-        <SInputBlock ${sourceBinding(storyContext.args)} />
-        `) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
+        };
     },
+    template:
+        '<SInputBlock v-bind="args" :right-icon="getIcon(args.rightIcon)" :left-icon="getIcon(args.leftIcon)" v-model="value" />',
+    transform: (args) => ` <SInputBlock ${sourceBinding(args)} /> `,
     args: {
         disabled: false,
-        errorText: '',
-        helpText: 'Help text',
-        rightIcon: undefined,
-        leftIcon: undefined,
+        error: undefined,
         id: 'test-id',
-        label: 'Label',
+        modelValue: undefined,
         name: 'test-name',
         placeholder: 'Placeholder',
+        rounded: 'both',
+        label: 'Custom label',
+        errorText: '',
+        helpText: '',
+        rightIcon: undefined,
+        leftIcon: undefined,
         prefix: '',
         suffix: '',
-        rounded: 'both',
         type: 'text',
     },
-};
+});
 
-const createVariation = (
-    template: string,
-    options?: {
-        focusVisible?: boolean;
-        containerClass?: string;
-    },
-) => ({
-    decorators: [
-        () => ({
-            template: `<div style="${options?.containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>`,
-        }),
-    ],
-    render: () => ({
+const createVariation = ({ template, ...rest }: { template: string }) =>
+    buildVariation({
+        template,
         components: {
             SInputBlock,
             SButton,
@@ -283,51 +246,18 @@ const createVariation = (
             CurrencyDollarIcon,
             MapPinIcon,
         },
-        setup() {
-            const email = ref('');
+        containerClass: 'w-[200px]',
+        ...rest,
+    });
 
-            return {
-                email,
-                SButton,
-                ArrowLeftOnRectangleIcon,
-                EnvelopeIcon,
-                KeyIcon,
-                InformationCircleIcon,
-                ChatBubbleLeftEllipsisIcon,
-                CurrencyDollarIcon,
-                MapPinIcon,
-            };
-        },
-        template,
-    }),
-    parameters: {
-        design,
-        pseudo: { focusVisible: options?.focusVisible },
-        controls: { disable: true },
-        actions: { disable: true },
-        docs: {
-            source: {
-                code: template,
-                language: 'html',
-            },
-        },
-    },
+export const WithLabel = createVariation({
+    template: `<SInputBlock label="Name" id="test-id" placeholder="Enter your name" />`,
 });
 
-export const WithLabel = createVariation(`<SInputBlock label="Name" placeholder="Enter your name" />`, {
-    containerClass: 'width: 200px',
+export const WithHelpText = createVariation({
+    template: `<SInputBlock id="test-id" label="Token" helpText="does not include quotes" placeholder="XX-XXXX-XXXX" />`,
 });
 
-export const WithHelpText = createVariation(
-    `<SInputBlock label="Token" helpText="does not include quotes" placeholder="XX-XXXX-XXXX" />`,
-    {
-        containerClass: 'width: 200px',
-    },
-);
-
-export const WithErrorText = createVariation(
-    `<SInputBlock label="Amount" error="the amount is mandatory" prefix="$" placeholder="0.00" />`,
-    {
-        containerClass: 'width: 200px',
-    },
-);
+export const WithErrorText = createVariation({
+    template: `<SInputBlock id="test-id" label="Amount" errorText="the amount is mandatory" prefix="$" placeholder="0.00" />`,
+});

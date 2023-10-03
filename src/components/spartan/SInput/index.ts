@@ -1,2 +1,2 @@
 export { default as SInput } from './SInput.vue';
-export * from './types';
+export type { TInputProps } from './types';

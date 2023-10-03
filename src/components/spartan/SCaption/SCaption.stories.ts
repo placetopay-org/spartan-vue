@@ -26,10 +26,10 @@ export default {
         },
         variant: {
             control: 'inline-radio',
-            options: ['info', 'error'],
+            options: ['error', 'info'],
             description: 'Sets the variant of the caption.',
             table: {
-                type: { summary: 'info | error' },
+                type: { summary: 'error | info' },
             },
         },
     },
@@ -37,7 +37,7 @@ export default {
 
 const sourceBinding = buildSourceBinding({
     prop: {
-        variant: 'info',
+        variant: 'error',
         text: undefined,
     },
 });
@@ -48,7 +48,7 @@ export const Default = createDefault({
     template: `<SCaption v-bind="args" />`,
     args: {
         text: 'The field is required',
-        variant: 'info',
+        variant: 'error',
     },
     transform: (args) => `<SCaption ${sourceBinding(args)} />`,
 });

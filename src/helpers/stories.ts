@@ -21,7 +21,8 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
 
     if (bindings.prop) {
         Object.keys(bindings.prop).forEach((prop) => {
-            if (args[prop] && args[prop] !== bindings.prop![prop]) result += `${prop}="${args[prop]}" `;
+            if (args[prop] !== undefined && args[prop] !== '' && args[prop] !== bindings.prop![prop])
+                result += `${prop}="${args[prop]}" `;
         });
     }
 
@@ -55,7 +56,7 @@ export const createDefault = ({
 }: {
     template: string;
     setup?: () => any;
-    design?: any;
+    design?: string;
     args: Record<string, any>;
     transform?: (args: any) => string;
     components?: Record<string, any>;
@@ -72,7 +73,7 @@ export const createDefault = ({
         template,
     }),
     parameters: {
-        design: buildDesign(design),
+        design: design ? buildDesign(design) : undefined,
         docs: {
             canvas: { layout: 'centered' },
             source: {
