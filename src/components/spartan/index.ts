@@ -12,5 +12,6 @@ export * from './SPopover';
 export * from './SRadio';
 export * from './SRadioGroup';
 export * from './SSelect';
+export * from './SSelectBlock';
 export * from './SSwitch';
 export * from './SCaption';
