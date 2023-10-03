@@ -36,7 +36,7 @@ const model = computed({
         :disabled="disabled"
         :name="name"
         :class="[
-            'block border py-2 pl-3 pr-8 text-base text-gray-800 focus:z-10',
+            'block w-full border py-2 pl-3 pr-8 text-base text-gray-800 focus:z-10',
             error ? 'border-red-500 focus:s-ring-error' : 'border-gray-300 focus:s-ring',
             roundedClass[rounded],
         ]"
