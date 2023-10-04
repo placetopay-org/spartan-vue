@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SButton, SInput, SSelect } from '../../';
+import { SButton, SInputBlock, SSelectBlock } from '../../';
 
 const firstName = ref('');
 const lastName = ref('');
@@ -22,31 +22,31 @@ const postalCode = ref('');
         <form class="rounded-xl border border-gray-100 bg-white p-8 shadow-sm">
             <section class="grid grid-cols-6 gap-6">
                 <div class="col-span-3">
-                    <SInput id="firstName" v-model="firstName" label="Nombre" />
+                    <SInputBlock id="firstName" v-model="firstName" label="Nombre" />
                 </div>
                 <div class="col-span-3">
-                    <SInput id="lastName" v-model="lastName" label="Apellido" />
+                    <SInputBlock id="lastName" v-model="lastName" label="Apellido" />
                 </div>
                 <div class="col-span-6 max-w-sm">
-                    <SInput id="email" v-model="email" label="Correo electrónico" />
+                    <SInputBlock id="email" v-model="email" label="Correo electrónico" />
                 </div>
 
-                <SSelect id="country" v-model="country" label="País" class="col-span-6 max-w-sm">
+                <SSelectBlock id="country" v-model="country" label="País" class="col-span-6 max-w-sm">
                     <option value="colombia">Colombia</option>
                     <option value="puertoRico">Puerto Rico</option>
                     <option value="ecuador">Ecuador</option>
-                </SSelect>
+                </SSelectBlock>
                 <div class="col-span-6">
-                    <SInput id="streetAddress" v-model="streetAddress" label="Dirección" />
+                    <SInputBlock id="streetAddress" v-model="streetAddress" label="Dirección" />
                 </div>
                 <div class="col-span-2">
-                    <SInput id="city" v-model="city" label="Ciudad" />
+                    <SInputBlock id="city" v-model="city" label="Ciudad" />
                 </div>
                 <div class="col-span-2">
-                    <SInput id="state" v-model="state" label="Estado / Provincia" />
+                    <SInputBlock id="state" v-model="state" label="Estado / Provincia" />
                 </div>
                 <div class="col-span-2">
-                    <SInput id="postalCode" v-model="postalCode" label="Código postal" />
+                    <SInputBlock id="postalCode" v-model="postalCode" label="Código postal" />
                 </div>
             </section>
 
