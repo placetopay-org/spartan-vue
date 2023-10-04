@@ -1,4 +1,5 @@
 import SCheckbox from './SCheckbox.vue';
+import { ref } from 'vue';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
@@ -72,7 +73,11 @@ const sourceBinding = buildSourceBinding({
 
 export const Default = createDefault({
     components: { SCheckbox },
-    template: `<SCheckbox v-bind="argsWithoutSlots">
+    setup: () => {
+        const value = ref(false);
+        return { value };
+    },
+    template: `<SCheckbox v-bind="argsWithoutSlots" v-model="value">
   <template #default>
     {{ args.default }}
   </template>

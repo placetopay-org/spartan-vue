@@ -1,35 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { hasSlotContent } from '@/helpers';
+import type { TCheckboxProps } from './type';
 
 defineOptions({ inheritAttrs: false });
 
-const emit = defineEmits<{
+defineEmits<{
     (event: 'update:modelValue', value: boolean): void;
 }>();
 
-const props = defineProps<{
-    disabled?: boolean;
-    id?: string;
-    inline?: boolean;
-    modelValue: boolean;
-    name?: string;
-    reverse?: boolean;
-    value: string;
-}>();
-
-const internalValue = ref(props.modelValue);
-const model = computed({
-    get() {
-        return props.modelValue ?? internalValue.value;
-    },
-    set(newValue) {
-        internalValue.value = newValue;
-        emit('update:modelValue', newValue);
-    },
-});
-
+const props = defineProps<Partial<TCheckboxProps>>();
 const computedId = computed(() => props.id ?? uuidv4());
 </script>
 
@@ -44,12 +25,13 @@ const computedId = computed(() => props.id ?? uuidv4());
         <input
             :id="computedId"
             v-bind="$attrs"
-            v-model="model"
+            :checked="modelValue"
             class="cursor-pointer rounded border border-gray-300 bg-white text-primary-600 accent-primary-600 focus:ring-offset-0 focus:s-ring"
             type="checkbox"
             :disabled="disabled"
             :name="name"
             :value="value"
+            @change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
         />
         <div
             v-if="hasSlotContent($slots.default) || hasSlotContent($slots.description)"
