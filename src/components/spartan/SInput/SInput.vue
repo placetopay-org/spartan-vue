@@ -50,7 +50,7 @@ watchEffect(() => {
 <template>
     <div
         :class="[
-            'relative flex w-full gap-2 border border-gray-300 bg-white placeholder:text-gray-400',
+            'relative flex gap-2 border border-gray-300 bg-white placeholder:text-gray-400',
             error ? 'border-red-500 focus-within:s-ring-error' : 'border-gray-300 focus-within:s-ring',
             rightOptions ? 'pr-0' : 'pr-3',
             leftOptions ? 'pl-0' : 'pl-3',

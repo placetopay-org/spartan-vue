@@ -14,12 +14,14 @@ const dispersion = ref(false);
     <div class="bg-white">
         <header class="mb-8 flex items-center justify-between">
             <h1 class="text-xl font-semibold">Checkout Demo</h1>
-            <SSelect v-model="lang">
-                <option value="es">ES</option>
-                <option value="en">EN</option>
-                <option value="it">IT</option>
-                <option value="pt">PT</option>
-            </SSelect>
+            <div class="w-18">
+                <SSelect v-model="lang">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                    <option value="it">IT</option>
+                    <option value="pt">PT</option>
+                </SSelect>
+            </div>
         </header>
 
         <section>
