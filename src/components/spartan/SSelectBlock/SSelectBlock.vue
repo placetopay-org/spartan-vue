@@ -25,7 +25,11 @@ const selectProps = computed(() => ({
 
 <template>
     <BlockWrapper v-bind="blockWrapperProps">
-        <SSelect v-bind="selectProps" @update:model-value="(newValue) => $emit('update:modelValue', newValue)">
+        <SSelect
+            class="w-full"
+            v-bind="selectProps"
+            @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
+        >
             <slot />
         </SSelect>
     </BlockWrapper>

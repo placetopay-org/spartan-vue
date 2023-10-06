@@ -2,15 +2,14 @@
 // export type TBlockWrapperPropsWithLabel = {
 //     id: string;
 //     label: string;
-//     helpText: string;
-//     errorText: string;
+//     helpText?: string;
+//     errorText?: string;
 // };
 
 // export type TBlockWrapperPropsWithoutLabel = {
-//     id: undefined;
-//     label: undefined;
-//     helpText: string;
-//     errorText: string;
+//     id?: string;
+//     helpText?: string;
+//     errorText?: string;
 // };
 
 // export type TBlockWrapperProps = TBlockWrapperPropsWithLabel | TBlockWrapperPropsWithoutLabel;

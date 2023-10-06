@@ -25,7 +25,11 @@ const inputProps = computed(() => ({
 
 <template>
     <BlockWrapper v-bind="blockWrapperProps">
-        <SInput v-bind="inputProps" @update:model-value="(newValue) => $emit('update:modelValue', newValue)">
+        <SInput
+            class="w-full"
+            v-bind="inputProps"
+            @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
+        >
             <template #left><slot name="left" /></template>
             <template #right><slot name="right" /></template>
         </SInput>
