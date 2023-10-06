@@ -24,7 +24,6 @@ export { default as SModalAction } from './SModalAction.vue';
 export { default as SEmptyState } from './SEmptyState.vue';
 export { default as SSectionTitle } from './SSectionTitle.vue';
 export { default as SSectionDescription } from './SSectionDescription.vue';
-export { default as SLink } from './SLink.vue';
 export { default as STabsLine } from './STabsLine.vue';
 export { default as SSteps } from './SSteps.vue';
 export { default as SRadioGroups } from './SRadioGroups.vue';

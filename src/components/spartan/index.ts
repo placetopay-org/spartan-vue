@@ -15,3 +15,4 @@ export * from './SSelect';
 export * from './SSelectBlock';
 export * from './SSwitch';
 export * from './SCaption';
+export * from './SLink';

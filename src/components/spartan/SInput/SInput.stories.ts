@@ -209,7 +209,7 @@ export const Default = {
                 ChatBubbleLeftEllipsisIcon,
             };
         },
-        template: `{{value}}<SInput v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" />`,
+        template: `<SInput v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" />`,
     }),
     parameters: {
         design,
