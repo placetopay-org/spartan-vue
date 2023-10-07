@@ -3,11 +3,15 @@ import { computed } from 'vue';
 import { hasSlotContent } from '@/helpers';
 import type { TCardProps } from './types';
 
-const props = withDefaults(defineProps<TCardProps>(), {
+const props = withDefaults(defineProps<Partial<TCardProps>>(), {
     size: 'md',
     bodyAccent: false,
     headerAccent: false,
     footerAccent: false,
+    bodyClass: '',
+    headerClass: '',
+    footerClass: '',
+    actions: () => [],
 });
 
 const roundedStyle = computed(() => (props.size === 'md' ? 'rounded-xl' : 'rounded-md'));
@@ -27,14 +31,28 @@ const accentStyle = computed(() => {
 <template>
     <div :class="['flex flex-col overflow-hidden bg-white shadow duration-200 hover:shadow-md', roundedStyle]">
         <template v-if="hasSlotContent($slots.header)">
-            <div :class="[paddingAddonStyle, accentStyle.header]"><slot name="header" /></div>
+            <div :class="[paddingAddonStyle, accentStyle.header, headerClass]"><slot name="header" /></div>
             <hr class="border-gray-200" />
         </template>
-        <div :class="['h-full', paddingMainStyle, accentStyle.body]"><slot /></div>
+        <div :class="['h-full', paddingMainStyle, accentStyle.body, bodyClass]"><slot /></div>
 
         <template v-if="hasSlotContent($slots.footer)">
             <hr class="border-gray-200" />
-            <div :class="[paddingAddonStyle, accentStyle.footer]"><slot name="footer" /></div>
+            <div :class="[paddingAddonStyle, accentStyle.footer, footerClass]"><slot name="footer" /></div>
+        </template>
+
+        <template v-if="actions">
+            <hr class="border-gray-200" />
+            <div class="flex divide-x divide-gray-200">
+                <button
+                    v-for="action in actions"
+                    :key="action.text"
+                    class="flex w-full items-center justify-center gap-2 px-8 py-4 font-medium text-gray-400 hover:bg-gray-50 focus:outline-none"
+                >
+                    <component :is="action.icon" class="h-5 w-5" />
+                    <span>{{ action.text }}</span>
+                </button>
+            </div>
         </template>
     </div>
 </template>

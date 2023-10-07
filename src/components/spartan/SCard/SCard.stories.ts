@@ -1,5 +1,14 @@
 import SCard from './SCard.vue';
+import { SAvatar } from '../SAvatar';
+import { SBadge } from '../SBadge';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import {
+    EnvelopeIcon,
+    PhoneIcon,
+    HandThumbUpIcon,
+    ShareIcon,
+    ChatBubbleOvalLeftEllipsisIcon,
+} from '@heroicons/vue/24/outline';
 
 export default {
     component: SCard,
@@ -31,16 +40,49 @@ export default {
         },
 
         // Props
-        href: {
-            control: 'text',
-            description: 'The type of the input element.',
-            table: { type: { summary: 'string' } },
-        },
         size: {
             control: 'inline-radio',
             options: ['sm', 'md'],
             description: 'The size of the card. Inlfuences the padding and the rounded corners.',
             table: { type: { summary: 'sm | md' } },
+        },
+        actions: {
+            control: 'select',
+            options: ['none', 'contact', 'social'],
+            description: 'Buttons on bottom of the card that can be used to dispath actions.',
+            table: {
+                type: { summary: '{ icon: FunctionalComponent; onClick: () => void; text: string; }' },
+            },
+        },
+        bodyAccent: {
+            control: { type: null },
+            description: 'Whether the body of the card should have an accent color.',
+            table: { type: { summary: 'boolean' } },
+        },
+        headerAccent: {
+            control: { type: null },
+            description: 'Whether the header of the card should have an accent color.',
+            table: { type: { summary: 'boolean' } },
+        },
+        footerAccent: {
+            control: { type: null },
+            description: 'Whether the footer of the card should have an accent color.',
+            table: { type: { summary: 'boolean' } },
+        },
+        bodyClass: {
+            control: { type: null },
+            description: 'The class of the body of the card container.',
+            table: { type: { summary: 'boolean' } },
+        },
+        headerClass: {
+            control: { type: null },
+            description: 'The class of the header of the card container.',
+            table: { type: { summary: 'boolean' } },
+        },
+        footerClass: {
+            control: { type: null },
+            description: 'The class of the footer of the card container.',
+            table: { type: { summary: 'boolean' } },
         },
     },
 };
@@ -49,7 +91,51 @@ const sourceBinding = buildSourceBinding({});
 
 export const Default = createDefault({
     components: { SCard },
-    template: `<SCard v-bind="args">
+    setup: () => {
+        const getActionExample = (example: string) => {
+            if (example === 'none') {
+                return [];
+            }
+
+            if (example === 'contact') {
+                return [
+                    {
+                        icon: EnvelopeIcon,
+                        onClick: () => {},
+                        text: 'Email',
+                    },
+                    {
+                        icon: PhoneIcon,
+                        onClick: () => {},
+                        text: 'Call',
+                    },
+                ];
+            }
+
+            if (example === 'social') {
+                return [
+                    {
+                        icon: HandThumbUpIcon,
+                        onClick: () => {},
+                        text: 'Like',
+                    },
+                    {
+                        icon: ShareIcon,
+                        onClick: () => {},
+                        text: 'Share',
+                    },
+                    {
+                        icon: ChatBubbleOvalLeftEllipsisIcon,
+                        onClick: () => {},
+                        text: 'Comment',
+                    },
+                ];
+            }
+        };
+
+        return { getActionExample };
+    },
+    template: `<SCard v-bind="args" :actions="getActionExample(args.actions)">
     <template v-if="args.header" #header>
         {{ args.header }}
     </template>
@@ -60,13 +146,18 @@ export const Default = createDefault({
         {{ args.footer }}
     </template>
     </SCard>`,
-    transform: (args) => `<SCard ${sourceBinding(args)}>${args.default}</SCard>`,
+    transform: (args) => `<SCard ${sourceBinding(args)}>${
+        args.header ? `\n\t<template #header>${args.header}</template>\n` : ''
+    }
+    ${args.default}${args.footer ? `\n\n\t<template #footer>${args.footer}</template>` : ''}
+</SCard>`,
     args: {
         default: 'Card content',
         header: '',
-        footer: 'footer',
+        footer: '',
         href: '',
         size: 'md',
+        actions: 'none',
     },
 });
 
@@ -79,37 +170,17 @@ export const AccentParts = createVariation({
     <template #footer>
         <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
     </template>
-    </SCard>
+</SCard>
     
-    <SCard header-accent size='sm'>
+<SCard header-accent size='sm'>
     <template #header>
         <span class="text-gray-500 font-semibold">💰 Free Plan</span>
     </template>
 
     <p class="w-60">This is a free plan. It has limited features.</p>
-    </SCard>
+</SCard>
 
-    <SCard size='sm'>
-    <template #header>
-        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
-    </template>
-
-    <p class="w-60">This is a free plan. It has limited features.</p>
-
-    <template #footer>
-        <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
-    </template>
-    </SCard>
-
-    <SCard body-accent size='sm'>
-    <template #header>
-        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
-    </template>
-
-    <p class="w-60">This is a free plan. It has limited features.</p>
-    </SCard>
-
-    <SCard body-accent size='sm'>
+<SCard size='sm'>
     <template #header>
         <span class="text-gray-500 font-semibold">💰 Free Plan</span>
     </template>
@@ -119,9 +190,17 @@ export const AccentParts = createVariation({
     <template #footer>
         <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
     </template>
-    </SCard>
+</SCard>
 
-    <SCard header-accent footer-accent size='sm'>
+<SCard body-accent size='sm'>
+    <template #header>
+        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
+    </template>
+
+    <p class="w-60">This is a free plan. It has limited features.</p>
+</SCard>
+
+<SCard body-accent size='sm'>
     <template #header>
         <span class="text-gray-500 font-semibold">💰 Free Plan</span>
     </template>
@@ -131,6 +210,70 @@ export const AccentParts = createVariation({
     <template #footer>
         <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
     </template>
-    </SCard>
-    `,
+</SCard>
+
+<SCard header-accent footer-accent size='sm'>
+    <template #header>
+        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
+    </template>
+
+    <p class="w-60">This is a free plan. It has limited features.</p>
+
+    <template #footer>
+        <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
+    </template>
+</SCard>`,
+});
+
+export const ActionButtons = createVariation({
+    components: { SCard, SAvatar, SBadge },
+    containerClass: 'flex flex-wrap gap-4',
+    setup: () => {
+        const contactActions = [
+            {
+                icon: EnvelopeIcon,
+                onClick: () => {},
+                text: 'Email',
+            },
+            {
+                icon: PhoneIcon,
+                onClick: () => {},
+                text: 'Call',
+            },
+        ];
+
+        const socialActions = [
+            {
+                icon: HandThumbUpIcon,
+                onClick: () => {},
+                text: 'Like',
+            },
+            {
+                icon: ShareIcon,
+                onClick: () => {},
+                text: 'Share',
+            },
+            {
+                icon: ChatBubbleOvalLeftEllipsisIcon,
+                onClick: () => {},
+                text: 'Comment',
+            },
+        ];
+
+        return { contactActions, socialActions };
+    },
+    template: `<SCard :actions="contactActions" bodyClass="flex items-center justify-between w-80">
+    <div class="flex flex-col gap-2">
+        <div class="flex gap-2">
+            <span class="text-gray-900 font-semibold">Jane Cooper</span>
+            <SBadge pill color="primary">Admin</SBadge>
+        </div>
+        <span class="text-gray-500 font-normal">Regional Paradigm Technician</span>
+    </div>
+    <SAvatar name="Jane Cooper" />
+</SCard>
+
+<SCard :actions="socialActions" class="w-[500px]">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Quisquam, voluptatum.</p>
+</SCard>`,
 });
