@@ -27,8 +27,8 @@ import { SButton, SCheckbox } from '@spartan';
                     </SCheckbox>
 
                     <SCheckbox
-                        id="comments"
-                        name="comments"
+                        id="candidates"
+                        name="candidates"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     >
                         Candidatos
@@ -38,8 +38,8 @@ import { SButton, SCheckbox } from '@spartan';
                     </SCheckbox>
 
                     <SCheckbox
-                        id="comments"
-                        name="comments"
+                        id="offers"
+                        name="offers"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     >
                         Ofertas

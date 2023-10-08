@@ -11,6 +11,7 @@ export type TCardProps = {
     bodyAccent: boolean;
     headerAccent: boolean;
     footerAccent: boolean;
+    icon: FunctionalComponent;
     bodyClass: string;
     headerClass: string;
     footerClass: string;

@@ -8,6 +8,7 @@ import {
     HandThumbUpIcon,
     ShareIcon,
     ChatBubbleOvalLeftEllipsisIcon,
+    SquaresPlusIcon,
 } from '@heroicons/vue/24/outline';
 
 export default {
@@ -25,18 +26,28 @@ export default {
         // Slots
         default: {
             control: 'text',
-            table: { type: { summary: null }, category: 'Slots' },
             description: 'The content of the card.',
+            table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
         },
         header: {
             control: 'text',
-            table: { type: { summary: null }, category: 'Slots' },
             description: 'The content of the card header.',
+            table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
         },
         footer: {
             control: 'text',
-            table: { type: { summary: null }, category: 'Slots' },
             description: 'The content of the card footer.',
+            table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
+        },
+        title: {
+            control: 'text',
+            description: 'The content of the card title.',
+            table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
+        },
+        description: {
+            control: 'text',
+            description: 'The content of the card description.',
+            table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
         },
 
         // Props
@@ -45,6 +56,12 @@ export default {
             options: ['sm', 'md'],
             description: 'The size of the card. Inlfuences the padding and the rounded corners.',
             table: { type: { summary: 'sm | md' } },
+        },
+        icon: {
+            control: 'select',
+            options: ['SquaresPlusIcon', 'PhoneIcon', 'ShareIcon'],
+            description: 'The icon of the card.',
+            table: { type: { summary: 'FunctionalComponent' } },
         },
         actions: {
             control: 'select',
@@ -92,6 +109,20 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     components: { SCard },
     setup: () => {
+        const getIcon = (icon: string) => {
+            if (icon === 'SquaresPlusIcon') {
+                return SquaresPlusIcon;
+            }
+
+            if (icon === 'PhoneIcon') {
+                return PhoneIcon;
+            }
+
+            if (icon === 'ShareIcon') {
+                return ShareIcon;
+            }
+        };
+
         const getActionExample = (example: string) => {
             if (example === 'none') {
                 return [];
@@ -133,11 +164,19 @@ export const Default = createDefault({
             }
         };
 
-        return { getActionExample };
+        return { getIcon, getActionExample };
     },
-    template: `<SCard v-bind="args" :actions="getActionExample(args.actions)">
+    template: `<SCard v-bind="args" :icon="getIcon(args.icon)" :actions="getActionExample(args.actions)">
     <template v-if="args.header" #header>
         {{ args.header }}
+    </template>
+
+    <template v-if="args.title" #title>
+        {{ args.title }}
+    </template>
+
+    <template v-if="args.description" #description>
+        {{ args.description }}
     </template>
 
     {{args.default}}
@@ -155,9 +194,11 @@ export const Default = createDefault({
         default: 'Card content',
         header: '',
         footer: '',
-        href: '',
         size: 'md',
         actions: 'none',
+        title: '',
+        description: '',
+        icon: undefined,
     },
 });
 
@@ -275,5 +316,20 @@ export const ActionButtons = createVariation({
 
 <SCard :actions="socialActions" class="w-[500px]">
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Quisquam, voluptatum.</p>
+</SCard>`,
+});
+
+export const EmptyState = createVariation({
+    components: { SCard },
+    containerClass: 'flex flex-wrap gap-4',
+    setup: () => ({ SquaresPlusIcon }),
+    template: `<SCard :icon="SquaresPlusIcon">
+    <template #title>
+        You dont have any reports
+    </template>
+
+    <template #description>
+        There are no records available. you can start by adding a new one.
+    </template>
 </SCard>`,
 });

@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<Partial<TCardProps>>(), {
     bodyClass: '',
     headerClass: '',
     footerClass: '',
+    icon: undefined,
     actions: () => [],
 });
 
@@ -34,7 +35,21 @@ const accentStyle = computed(() => {
             <div :class="[paddingAddonStyle, accentStyle.header, headerClass]"><slot name="header" /></div>
             <hr class="border-gray-200" />
         </template>
-        <div :class="['h-full', paddingMainStyle, accentStyle.body, bodyClass]"><slot /></div>
+
+        <div :class="['flex h-full flex-col', paddingMainStyle, accentStyle.body]">
+            <div v-if="icon" class="mx-auto mb-4 flex justify-center rounded-full bg-primary-100 p-3">
+                <component :is="icon" class="h-6 w-6 text-primary-600" aria-hidden="true" />
+            </div>
+
+            <h3 v-if="hasSlotContent($slots.title)" class="mb-2 text-center text-lg font-semibold text-gray-900">
+                <slot name="title" />
+            </h3>
+
+            <p v-if="hasSlotContent($slots.description)" class="text-center text-base text-gray-500">
+                <slot name="description" />
+            </p>
+            <div :class="bodyClass"><slot /></div>
+        </div>
 
         <template v-if="hasSlotContent($slots.footer)">
             <hr class="border-gray-200" />
