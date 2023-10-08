@@ -30,7 +30,7 @@ const accentStyle = computed(() => {
 });
 </script>
 <template>
-    <div :class="['flex flex-col overflow-hidden bg-white shadow duration-200 hover:shadow-md', roundedStyle]">
+    <div :class="['flex flex-col overflow-hidden bg-white shadow duration-200', roundedStyle]">
         <template v-if="hasSlotContent($slots.header)">
             <div :class="[paddingAddonStyle, accentStyle.header, headerClass]"><slot name="header" /></div>
             <hr class="border-gray-200" />
