@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<Partial<TCardProps>>(), {
     headerClass: '',
     footerClass: '',
     icon: undefined,
-    actions: () => [],
+    actions: undefined,
 });
 
 const roundedStyle = computed(() => (props.size === 'md' ? 'rounded-xl' : 'rounded-md'));
@@ -56,7 +56,7 @@ const accentStyle = computed(() => {
             <div :class="[paddingAddonStyle, accentStyle.footer, footerClass]"><slot name="footer" /></div>
         </template>
 
-        <template v-if="actions">
+        <template v-if="actions && actions.length">
             <hr class="border-gray-200" />
             <div class="flex divide-x divide-gray-200">
                 <button
