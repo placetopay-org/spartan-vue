@@ -1,5 +1,5 @@
 import type { SourceProps } from '@storybook/blocks';
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
@@ -109,7 +109,12 @@ export const createVariation = ({
     ],
     render: () => ({
         components,
-        setup,
+        setup:
+            setup ||
+            (() => {
+                const value = ref();
+                return { value };
+            }),
         template,
     }),
     parameters: {

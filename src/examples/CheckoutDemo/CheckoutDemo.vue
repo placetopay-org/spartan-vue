@@ -41,26 +41,26 @@ const dispersion = ref(false);
 
         <section class="mt-6 flex flex-col gap-6">
             <SSwitch v-model="allowPartialPayments" passive reverse>
-                <template #label> Permitir pagos parciales </template>
+                Permitir pagos parciales
                 <template #description> Permite al usuario completar el pago en varias transacciones. </template>
             </SSwitch>
 
             <SSwitch v-model="startARecurringPayment" passive reverse>
-                <template #label> Iniciar un pago recurrente </template>
+                Iniciar un pago recurrente
                 <template #description>
                     Además del pago principal, se iniciará un pago recurrente cada mes durante 3 meses.
                 </template>
             </SSwitch>
 
             <SSwitch v-model="allowSubscription" passive reverse>
-                <template #label> Permitir suscripción </template>
+                Permitir suscripción
                 <template #description>
                     Permite que el usuario guarde el medio de pago para compartirlo al comercio.
                 </template>
             </SSwitch>
 
             <SSwitch v-model="dispersion" passive reverse>
-                <template #label> Dispersión </template>
+                Dispersión
                 <template #description>
                     Permite que el usuario guarde el medio de pago para compartirlo al comercio.
                 </template>

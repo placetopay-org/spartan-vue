@@ -13,7 +13,6 @@ export { default as SRootLayout } from './SRootLayout.vue';
 export { default as SSidebarNavChild } from './SSidebarNavChild.vue';
 export { default as SSidebarNavGroup } from './SSidebarNavGroup.vue';
 export { default as SSidebarNavParent } from './SSidebarNavParent.vue';
-export { default as SToggle } from './SToggle.vue';
 export { default as SNotification } from './SNotification.vue';
 export { default as SDescriptionList } from './SDescriptionList.vue';
 export { default as SDescriptionItem } from './SDescriptionItem.vue';
