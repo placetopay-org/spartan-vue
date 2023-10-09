@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- `SSwitch` now supports 
+- `SDefinitionTerm` component implementation.
+- `SSwitch` now supports icons.
 
 ### Removed
 - `SSelectGroup` component.
+- `DescriptionItem` component.
+- `DescriptionItemLabel` component.
+- `DescriptionItemValue` component.
 
 ## 2.0.0-beta.11 - 2023-10-08
 
