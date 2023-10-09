@@ -25,6 +25,5 @@ export { default as SSectionDescription } from './SSectionDescription.vue';
 export { default as STabsLine } from './STabsLine.vue';
 export { default as SSteps } from './SSteps.vue';
 export { default as SRadioGroups } from './SRadioGroups.vue';
-export * from './sSelects';
 export * from './sTables';
 export { SInputAlt, SInputDate, SInputDropdown, SInputError, SInputHelper, SInputMask, SInputRadio } from './sInputs';
