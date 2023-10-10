@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<Partial<TCardProps>>(), {
 
 const roundedStyle = computed(() => (props.size === 'md' ? 'rounded-xl' : 'rounded-md'));
 const paddingMainStyle = computed(() => (props.size === 'md' ? 'px-4 py-5 sm:p-6' : 'px-2 py-1 sm:px-4 sm:py-2'));
-const paddingAddonStyle = computed(() => (props.size === 'md' ? 'p-4 sm:px-6 sm:py-5' : 'px-2 py-1 sm:px-4 sm:py-1'));
 
 const accentStyle = computed(() => {
     const accentClass = 'bg-gray-50';
@@ -29,14 +28,15 @@ const accentStyle = computed(() => {
     };
 });
 </script>
+
 <template>
-    <div :class="['flex flex-col overflow-hidden bg-white shadow duration-200', roundedStyle]">
+    <article :class="['flex flex-col overflow-hidden bg-white shadow duration-200', roundedStyle]">
         <template v-if="hasSlotContent($slots.header)">
-            <div :class="[paddingAddonStyle, accentStyle.header, headerClass]"><slot name="header" /></div>
+            <header :class="[accentStyle.header, headerClass]"><slot name="header" /></header>
             <hr class="border-gray-200" />
         </template>
 
-        <div :class="['flex h-full flex-col', paddingMainStyle, accentStyle.body]">
+        <section :class="['flex h-full flex-col', paddingMainStyle, accentStyle.body]">
             <div v-if="icon" class="mx-auto mb-4 flex justify-center rounded-full bg-primary-100 p-3">
                 <component :is="icon" class="h-6 w-6 text-primary-600" aria-hidden="true" />
             </div>
@@ -49,16 +49,16 @@ const accentStyle = computed(() => {
                 <slot name="description" />
             </p>
             <div :class="bodyClass"><slot /></div>
-        </div>
+        </section>
 
         <template v-if="hasSlotContent($slots.footer)">
             <hr class="border-gray-200" />
-            <div :class="[paddingAddonStyle, accentStyle.footer, footerClass]"><slot name="footer" /></div>
+            <footer :class="[accentStyle.footer, footerClass]"><slot name="footer" /></footer>
         </template>
 
         <template v-if="actions && actions.length">
             <hr class="border-gray-200" />
-            <div class="flex divide-x divide-gray-200">
+            <section class="flex divide-x divide-gray-200">
                 <button
                     v-for="action in actions"
                     :key="action.text"
@@ -67,7 +67,7 @@ const accentStyle = computed(() => {
                     <component :is="action.icon" class="h-5 w-5" />
                     <span>{{ action.text }}</span>
                 </button>
-            </div>
+            </section>
         </template>
-    </div>
+    </article>
 </template>

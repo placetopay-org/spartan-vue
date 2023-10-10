@@ -209,13 +209,13 @@ export const AccentParts = createVariation({
     <p class="w-60">This is a free plan. It has limited features.</p>
     
     <template #footer>
-        <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
+        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
     </template>
 </SCard>
     
 <SCard header-accent size='sm'>
     <template #header>
-        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
+        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
     </template>
 
     <p class="w-60">This is a free plan. It has limited features.</p>
@@ -223,19 +223,19 @@ export const AccentParts = createVariation({
 
 <SCard size='sm'>
     <template #header>
-        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
+        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
     </template>
 
     <p class="w-60">This is a free plan. It has limited features.</p>
 
     <template #footer>
-        <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
+        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
     </template>
 </SCard>
 
 <SCard body-accent size='sm'>
     <template #header>
-        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
+        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
     </template>
 
     <p class="w-60">This is a free plan. It has limited features.</p>
@@ -243,25 +243,25 @@ export const AccentParts = createVariation({
 
 <SCard body-accent size='sm'>
     <template #header>
-        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
+        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
     </template>
 
     <p class="w-60">This is a free plan. It has limited features.</p>
 
     <template #footer>
-        <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
+        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
     </template>
 </SCard>
 
 <SCard header-accent footer-accent size='sm'>
     <template #header>
-        <span class="text-gray-500 font-semibold">💰 Free Plan</span>
+        <p class="text-gray-500 font-semibold px-2">💰 Free Plan</p>
     </template>
 
     <p class="w-60">This is a free plan. It has limited features.</p>
 
     <template #footer>
-        <span class="text-gray-500 italic">Promotion valid until 31/12/2023</span>
+        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
     </template>
 </SCard>`,
 });
