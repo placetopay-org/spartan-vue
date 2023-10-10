@@ -18,3 +18,5 @@ export * from './SCaption';
 export * from './SLink';
 export * from './SCard';
 export * from './SDefinitionTerm';
+export * from './SNotification';
+export * from './SSteps';
