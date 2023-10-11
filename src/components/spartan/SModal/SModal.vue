@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue';
+import type { TModalProps } from './types';
 
 defineEmits(['close']);
 
-withDefaults(
-    defineProps<{
-        open: boolean;
-    }>(),
-    {
-        open: false,
-    },
-);
+withDefaults(defineProps<Partial<TModalProps>>(), {
+    open: false,
+});
 </script>
 
 <template>
@@ -48,7 +44,7 @@ withDefaults(
                         leave-from="opacity-100 scale-100"
                         leave-to="opacity-0 scale-50"
                     >
-                        <DialogPanel class="w-full max-w-sm rounded bg-white">
+                        <DialogPanel class="w-full">
                             <slot />
                         </DialogPanel>
                     </TransitionChild>

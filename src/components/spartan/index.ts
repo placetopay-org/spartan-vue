@@ -22,3 +22,4 @@ export * from './SToast';
 export * from './SSteps';
 export * from './SBreadcrumbs';
 export * from './SModal';
+export * from './SModalCard';
