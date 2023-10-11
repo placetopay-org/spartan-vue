@@ -3,8 +3,6 @@ export { default as SSidebarLogo } from './SSidebarLogo.vue';
 export { default as SSidebarNavItem } from './SSidebarNavItem.vue';
 export { default as SSidebarNavTitle } from './SSidebarNavTitle.vue';
 export { default as SSidebarContent } from './SSidebarContent.vue';
-export { default as SBreadcrumbs } from './SBreadcrumbs.vue';
-export { default as SBreadcrumb } from './SBreadcrumb.vue';
 export { default as STabs } from './STabs.vue';
 export { default as STab } from './STab.vue';
 export { default as STopBar } from './STopBar.vue';

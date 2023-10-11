@@ -20,3 +20,4 @@ export * from './SCard';
 export * from './SDefinitionTerm';
 export * from './SToast';
 export * from './SSteps';
+export * from './SBreadcrumbs';

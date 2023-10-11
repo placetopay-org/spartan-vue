@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SBreadcrumbs` and `SBreadcrumbsItem` components implementation.
 - `SToast` component implementation.
 
 ## 2.0.0-beta.15 - 2023-10-10
