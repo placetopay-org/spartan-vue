@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SModal`, `SModalTitle` and `SModalDescription` components implementation.
 - `SBreadcrumbs` and `SBreadcrumbsItem` components implementation.
 - `SToast` component implementation.
 
