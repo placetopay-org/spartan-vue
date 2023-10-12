@@ -10,6 +10,7 @@ import {
     ChatBubbleOvalLeftEllipsisIcon,
     SquaresPlusIcon,
 } from '@heroicons/vue/24/outline';
+import { BoltIcon, KeyIcon, SparklesIcon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SCard,
@@ -316,6 +317,93 @@ export const ActionButtons = createVariation({
 
 <SCard :actions="socialActions" class="w-[500px]">
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Quisquam, voluptatum.</p>
+</SCard>`,
+});
+
+export const CustomIcon = createVariation({
+    components: { SCard },
+    containerClass: 'grid grid-cols-3 gap-4',
+    setup: () => ({ BoltIcon, KeyIcon, SparklesIcon }),
+    template: `<SCard :icon="BoltIcon">
+    <template #title>
+        Fast
+    </template>
+</SCard>
+
+<SCard :icon="KeyIcon">
+    <template #title>
+        Secure
+    </template>
+</SCard>
+
+<SCard :icon="SparklesIcon">
+    <template #title>
+        Beautiful
+    </template>
+</SCard>`,
+});
+
+export const VariantIcon = createVariation({
+    components: { SCard },
+    containerClass: 'grid grid-cols-3 gap-4',
+    setup: () => ({ SquaresPlusIcon }),
+    template: `<SCard :icon="SquaresPlusIcon">
+    <template #title>
+        Unstyle
+    </template>
+</SCard>
+
+<SCard :icon="SquaresPlusIcon" iconVariant="primary">
+    <template #title>
+        Primary Style
+    </template>
+</SCard>
+
+<SCard :icon="SquaresPlusIcon" iconVariant="success">
+    <template #title>
+        Success Style
+    </template>
+</SCard>
+
+<SCard :icon="SquaresPlusIcon" iconVariant="danger">
+    <template #title>
+        Danger Style
+    </template>
+</SCard>
+
+<SCard :icon="SquaresPlusIcon" iconVariant="warning">
+    <template #title>
+        Warning Style
+    </template>
+</SCard>
+
+<SCard :icon="SquaresPlusIcon" iconVariant="info">
+    <template #title>
+        Info Style
+    </template>
+</SCard>`,
+});
+
+export const CustomIconStyle = createVariation({
+    components: { SCard },
+    containerClass: 'grid grid-cols-3 gap-4',
+    setup: () => ({ SquaresPlusIcon }),
+    template: `<SCard :icon="SquaresPlusIcon" iconContainerClass="bg-black" iconClass="text-white">
+    <template #title>
+        Unstyle
+    </template>
+</SCard>
+
+<SCard :icon="SquaresPlusIcon" iconVariant="primary" iconContainerClass="rounded shadow">
+    <template #title>
+        Primary Style
+    </template>
+</SCard>
+
+<SCard :icon="SquaresPlusIcon" iconVariant="success" iconClass="h-5 w-5 stroke-2">
+    <template #title>
+        Success Style
+    </template>
 </SCard>`,
 });
 

@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 import { hasSlotContent } from '@/helpers';
 import type { TCardProps } from './types';
 
 const props = withDefaults(defineProps<Partial<TCardProps>>(), {
+    class: '',
     size: 'md',
     bodyAccent: false,
     headerAccent: false,
@@ -11,12 +13,50 @@ const props = withDefaults(defineProps<Partial<TCardProps>>(), {
     bodyClass: '',
     headerClass: '',
     footerClass: '',
+    iconClass: '',
+    iconVariant: undefined,
+    iconContainerClass: '',
     icon: undefined,
     actions: undefined,
 });
 
 const roundedStyle = computed(() => (props.size === 'md' ? 'rounded-xl' : 'rounded-md'));
 const paddingMainStyle = computed(() => (props.size === 'md' ? 'px-4 py-5 sm:p-6' : 'px-2 py-1 sm:px-4 sm:py-2'));
+
+const iconStyles = {
+    primary: {
+        container: 'bg-primary-100',
+        icon: 'text-primary-600',
+    },
+    success: {
+        container: 'bg-green-100',
+        icon: 'text-green-600',
+    },
+    danger: {
+        container: 'bg-red-100',
+        icon: 'text-red-600',
+    },
+    warning: {
+        container: 'bg-yellow-100',
+        icon: 'text-yellow-600',
+    },
+    info: {
+        container: 'bg-cyan-100',
+        icon: 'text-cyan-600',
+    },
+};
+
+const iconContainerVariantClass = computed(() => {
+    if (!props.iconVariant) return '';
+
+    return iconStyles[props.iconVariant].container;
+});
+
+const iconVariantClass = computed(() => {
+    if (!props.iconVariant) return '';
+
+    return iconStyles[props.iconVariant].icon;
+});
 
 const accentStyle = computed(() => {
     const accentClass = 'bg-gray-50';
@@ -30,15 +70,28 @@ const accentStyle = computed(() => {
 </script>
 
 <template>
-    <article :class="['flex flex-col overflow-hidden bg-white shadow duration-200', roundedStyle]">
+    <article :class="twMerge('flex flex-col overflow-hidden bg-white shadow duration-200', roundedStyle, props.class)">
         <template v-if="hasSlotContent($slots.header)">
             <header :class="[accentStyle.header, headerClass]"><slot name="header" /></header>
             <hr class="border-gray-200" />
         </template>
 
         <section :class="['flex h-full flex-col', paddingMainStyle, accentStyle.body]">
-            <div v-if="icon" class="mx-auto mb-4 flex justify-center rounded-full bg-primary-100 p-3">
-                <component :is="icon" class="h-6 w-6 text-primary-600" aria-hidden="true" />
+            <div
+                v-if="icon"
+                :class="
+                    twMerge(
+                        'mx-auto mb-4 flex justify-center rounded-full bg-gray-100 p-3',
+                        iconContainerVariantClass,
+                        iconContainerClass,
+                    )
+                "
+            >
+                <component
+                    :is="icon"
+                    :class="twMerge('h-6 w-6 text-gray-600', iconVariantClass, iconClass)"
+                    aria-hidden="true"
+                />
             </div>
 
             <h3 v-if="hasSlotContent($slots.title)" class="mb-2 text-center text-lg font-semibold text-gray-900">

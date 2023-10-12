@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 import { SCard } from '../SCard';
-import { SModal, type TModalProps } from '../SModal';
+import { SModal, SModalTitle, SModalDescription, type TModalProps } from '../SModal';
 import type { TCardProps } from '../SCard';
 
 defineEmits(['close']);
@@ -11,13 +12,14 @@ const props = withDefaults(defineProps<Partial<TModalProps> & Partial<TCardProps
     open: false,
 
     // SCard props
+    class: '',
     size: 'md',
-    bodyAccent: false,
-    headerAccent: false,
-    footerAccent: false,
     bodyClass: '',
     headerClass: '',
     footerClass: '',
+    iconClass: '',
+    iconContainerClass: '',
+    iconVariant: undefined,
     icon: undefined,
     actions: undefined,
 });
@@ -27,17 +29,29 @@ const modalProps = computed(() => ({
 }));
 
 const cardProps = computed(() => ({
-    ...props,
-    open: undefined,
+    class: twMerge('w-full sm:max-w-lg', props.class),
+    size: props.size,
+    bodyClass: props.bodyClass,
+    headerClass: props.headerClass,
+    footerClass: props.footerClass,
+    iconClass: props.iconClass,
+    iconContainerClass: props.iconContainerClass,
+    icon: props.icon,
+    actions: props.actions,
+    iconVariant: props.iconVariant,
 }));
 </script>
 
 <template>
     <SModal v-bind="modalProps" @close="$emit('close')">
         <SCard v-bind="cardProps">
-            <template #title><slot name="title" /></template>
+            <template #title>
+                <SModalTitle><slot name="title" /></SModalTitle>
+            </template>
             <slot />
-            <template #description><slot name="description" /></template>
+            <template #description>
+                <SModalDescription><slot name="description" /></SModalDescription>
+            </template>
         </SCard>
     </SModal>
 </template>

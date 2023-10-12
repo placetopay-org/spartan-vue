@@ -7,6 +7,7 @@ type TAction = {
 };
 
 export type TCardProps = {
+    class: string;
     size: 'sm' | 'md';
     bodyAccent: boolean;
     headerAccent: boolean;
@@ -15,5 +16,8 @@ export type TCardProps = {
     bodyClass: string;
     headerClass: string;
     footerClass: string;
+    iconClass: string;
+    iconVariant: 'primary' | 'success' | 'danger' | 'warning' | 'info';
+    iconContainerClass: string;
     actions: TAction[];
 };
