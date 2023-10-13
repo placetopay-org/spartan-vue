@@ -1,6 +1,7 @@
 import SCard from './SCard.vue';
 import { SAvatar } from '../SAvatar';
 import { SBadge } from '../SBadge';
+import { SButton } from '../SButton';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import {
     EnvelopeIcon,
@@ -9,6 +10,8 @@ import {
     ShareIcon,
     ChatBubbleOvalLeftEllipsisIcon,
     SquaresPlusIcon,
+    CubeTransparentIcon,
+    CloudIcon,
 } from '@heroicons/vue/24/outline';
 import { BoltIcon, KeyIcon, SparklesIcon } from '@heroicons/vue/24/solid';
 
@@ -320,6 +323,27 @@ export const ActionButtons = createVariation({
 </SCard>`,
 });
 
+export const ActionsSlot = createVariation({
+    components: { SCard, SButton },
+    containerClass: 'grid grid-cols-2 gap-4',
+    template: `<SCard iconVariant="success">
+    <template #title>Confirm payment</template>
+    <template #description>A voucher will be sent to your email.</template>
+    <template #actions>
+        <SButton class="w-full" variant="primary">Confirm</SButton>
+        <SButton class="w-full" variant="secondary">Cancel</SButton>
+    </template>
+</SCard>
+
+<SCard iconVariant="info">
+    <template #title>Don't forget!</template>
+    <template #description>Check your email to confirm your account.</template>
+    <template #actions>
+        <SButton class="w-full" variant="primary">Go to email</SButton>
+    </template>
+</SCard>`,
+});
+
 export const CustomIcon = createVariation({
     components: { SCard },
     containerClass: 'grid grid-cols-3 gap-4',
@@ -347,37 +371,31 @@ export const VariantIcon = createVariation({
     components: { SCard },
     containerClass: 'grid grid-cols-3 gap-4',
     setup: () => ({ SquaresPlusIcon }),
-    template: `<SCard :icon="SquaresPlusIcon">
-    <template #title>
-        Unstyle
-    </template>
-</SCard>
-
-<SCard :icon="SquaresPlusIcon" iconVariant="primary">
+    template: `<SCard iconVariant="primary">
     <template #title>
         Primary Style
     </template>
 </SCard>
 
-<SCard :icon="SquaresPlusIcon" iconVariant="success">
+<SCard iconVariant="success">
     <template #title>
         Success Style
     </template>
 </SCard>
 
-<SCard :icon="SquaresPlusIcon" iconVariant="danger">
+<SCard iconVariant="danger">
     <template #title>
         Danger Style
     </template>
 </SCard>
 
-<SCard :icon="SquaresPlusIcon" iconVariant="warning">
+<SCard iconVariant="warning">
     <template #title>
         Warning Style
     </template>
 </SCard>
 
-<SCard :icon="SquaresPlusIcon" iconVariant="info">
+<SCard iconVariant="info">
     <template #title>
         Info Style
     </template>
@@ -387,22 +405,22 @@ export const VariantIcon = createVariation({
 export const CustomIconStyle = createVariation({
     components: { SCard },
     containerClass: 'grid grid-cols-3 gap-4',
-    setup: () => ({ SquaresPlusIcon }),
-    template: `<SCard :icon="SquaresPlusIcon" iconContainerClass="bg-black" iconClass="text-white">
+    setup: () => ({ CubeTransparentIcon, CloudIcon }),
+    template: `<SCard :icon="CubeTransparentIcon" iconContainerClass="bg-black" iconClass="text-white">
     <template #title>
-        Unstyle
+        Fully customized
     </template>
 </SCard>
 
-<SCard :icon="SquaresPlusIcon" iconVariant="primary" iconContainerClass="rounded shadow">
+<SCard :icon="CloudIcon" iconVariant="warning" iconContainerClass="rounded shadow">
     <template #title>
-        Primary Style
+        Hybrid #1
     </template>
 </SCard>
 
-<SCard :icon="SquaresPlusIcon" iconVariant="success" iconClass="h-5 w-5 stroke-2">
+<SCard iconVariant="success" iconClass="h-10 w-10 stroke-2" iconContainerClass="p-1">
     <template #title>
-        Success Style
+        Hybrid #2
     </template>
 </SCard>`,
 });
@@ -410,8 +428,7 @@ export const CustomIconStyle = createVariation({
 export const EmptyState = createVariation({
     components: { SCard },
     containerClass: 'flex flex-wrap gap-4',
-    setup: () => ({ SquaresPlusIcon }),
-    template: `<SCard :icon="SquaresPlusIcon">
+    template: `<SCard iconVariant="primary">
     <template #title>
         You dont have any reports
     </template>

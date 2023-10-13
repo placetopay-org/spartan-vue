@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
-import { computed } from 'vue';
+import { computed, type FunctionalComponent } from 'vue';
 import { hasSlotContent } from '@/helpers';
 import type { TCardProps } from './types';
+import {
+    SquaresPlusIcon,
+    CheckCircleIcon,
+    ExclamationCircleIcon,
+    ExclamationTriangleIcon,
+    InformationCircleIcon,
+} from '@heroicons/vue/24/outline';
 
 const props = withDefaults(defineProps<Partial<TCardProps>>(), {
     class: '',
@@ -22,40 +29,48 @@ const props = withDefaults(defineProps<Partial<TCardProps>>(), {
 
 const roundedStyle = computed(() => (props.size === 'md' ? 'rounded-xl' : 'rounded-md'));
 const paddingMainStyle = computed(() => (props.size === 'md' ? 'px-4 py-5 sm:p-6' : 'px-2 py-1 sm:px-4 sm:py-2'));
-
-const iconStyles = {
+const iconData = {
     primary: {
-        container: 'bg-primary-100',
-        icon: 'text-primary-600',
+        background: 'bg-primary-100',
+        icon: SquaresPlusIcon,
+        color: 'text-primary-600',
     },
     success: {
-        container: 'bg-green-100',
-        icon: 'text-green-600',
+        background: 'bg-green-100',
+        icon: CheckCircleIcon,
+        color: 'text-green-600',
     },
     danger: {
-        container: 'bg-red-100',
-        icon: 'text-red-600',
+        background: 'bg-red-100',
+        icon: ExclamationCircleIcon,
+        color: 'text-red-600',
     },
     warning: {
-        container: 'bg-yellow-100',
-        icon: 'text-yellow-600',
+        background: 'bg-yellow-100',
+        icon: ExclamationTriangleIcon,
+        color: 'text-yellow-600',
     },
     info: {
-        container: 'bg-cyan-100',
-        icon: 'text-cyan-600',
+        background: 'bg-cyan-100',
+        icon: InformationCircleIcon,
+        color: 'text-cyan-600',
     },
 };
 
-const iconContainerVariantClass = computed(() => {
-    if (!props.iconVariant) return '';
+const iconStyles = computed(() => {
+    const styles = {
+        background: '',
+        icon: undefined as FunctionalComponent | undefined,
+        color: '',
+    };
 
-    return iconStyles[props.iconVariant].container;
-});
+    if (props.iconVariant) {
+        styles.background = iconData[props.iconVariant].background;
+        styles.icon = iconData[props.iconVariant].icon;
+        styles.color = iconData[props.iconVariant].color;
+    }
 
-const iconVariantClass = computed(() => {
-    if (!props.iconVariant) return '';
-
-    return iconStyles[props.iconVariant].icon;
+    return styles;
 });
 
 const accentStyle = computed(() => {
@@ -78,18 +93,18 @@ const accentStyle = computed(() => {
 
         <section :class="['flex h-full flex-col', paddingMainStyle, accentStyle.body]">
             <div
-                v-if="icon"
+                v-if="icon || iconStyles.icon"
                 :class="
                     twMerge(
                         'mx-auto mb-4 flex justify-center rounded-full bg-gray-100 p-3',
-                        iconContainerVariantClass,
+                        iconStyles.background,
                         iconContainerClass,
                     )
                 "
             >
                 <component
-                    :is="icon"
-                    :class="twMerge('h-6 w-6 text-gray-600', iconVariantClass, iconClass)"
+                    :is="icon ? icon : iconStyles.icon"
+                    :class="twMerge('h-6 w-6 text-gray-600', iconStyles.color, iconClass)"
                     aria-hidden="true"
                 />
             </div>
@@ -101,7 +116,11 @@ const accentStyle = computed(() => {
             <p v-if="hasSlotContent($slots.description)" class="text-center text-base text-gray-500">
                 <slot name="description" />
             </p>
-            <div :class="bodyClass"><slot /></div>
+            <div v-if="hasSlotContent($slots.default)" :class="bodyClass"><slot /></div>
+
+            <div v-if="hasSlotContent($slots.actions)" class="mt-6 flex flex-col gap-3 sm:flex-row-reverse">
+                <slot name="actions" />
+            </div>
         </section>
 
         <template v-if="hasSlotContent($slots.footer)">

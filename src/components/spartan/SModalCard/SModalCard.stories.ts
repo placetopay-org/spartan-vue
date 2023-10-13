@@ -95,17 +95,17 @@ export const ActionModal = createVariation({
     :open="open2" 
     @close="() => open2 = false"
 >
-    <template #title>
-        Trial Plan
-    </template>
+    <template #title>Trial Plan</template>
 
     <template #description>
         You don't have access to this feature, please upgrade your plan
     </template>
 
-    <SButton :icon="BanknotesIcon" class="w-full mt-6" variant="primary" @click="() => open2 = false">
-        Go to billing
-    </SButton>
+    <template #actions>
+        <SButton :icon="BanknotesIcon" class="w-full" variant="primary" @click="() => open2 = false">
+            Go to billing
+        </SButton>
+    </template>
 </SModalCard>
     
 <SButton @click="() => open1 = true">Action Modal</SButton>
@@ -119,7 +119,10 @@ export const ConfirmModal = createVariation({
         const open2 = ref(false);
         const open3 = ref(false);
 
+        const onSubmit = () => {};
+
         return {
+            onSubmit,
             open1,
             open2,
             open3,
@@ -158,57 +161,49 @@ export const ConfirmModal = createVariation({
 <SModalCard
     class="w-96"
     :icon="PencilSquareIcon" 
-    iconClass="text-gray-500"
-    iconContainerClass="bg-gray-100"
     :open="open2" 
     @close="() => open2 = false"
 >
-    <template #title>
-        Edit payment method
-    </template>
+    <template #title>Edit payment method</template>
 
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" id="test-form">
         <SInputBlock
             id="alias"
             label="Alias" 
             placeholder="My custom name"
         />
-        <div class="mt-6 flex flex-col gap-3 sm:flex-row-reverse">
-            <SButton class="w-full" variant="primary" type="submit">
-                Save
-            </SButton>
-            <SButton class="w-full" variant="secondary" @click="() => open2 = false">
-                Cancel
-            </SButton>
-        </div>
     </form>
+
+    <template #actions>
+        <SButton class="w-full" variant="primary" type="submit" form="test-form">
+            Save
+        </SButton>
+        <SButton class="w-full" variant="secondary" @click="() => open2 = false">
+            Cancel
+        </SButton>
+    </template>
 </SModalCard>
 
 <!-- Modal #3 -->
 <SModalCard
-    :icon="ExclamationCircleIcon" 
     iconVariant="danger"
     :open="open3" 
     @close="() => open3 = false"
 >
-    <template #title>
-        Delete means of payment
-    </template>
+    <template #title>Delete means of payment</template>
 
     <template #description>
         Are you absolutely sure that you want to delete the payment method that ends in 1155? This action cannot be reversed.
     </template>
 
-    <form @submit.prevent="onSubmit">
-        <div class="mt-6 flex flex-col gap-3 sm:flex-row-reverse">
-            <SButton class="w-full" variant="danger" type="submit">
-                Delete
-            </SButton>
-            <SButton class="w-full" variant="secondary" @click="() => open3 = false">
-                Cancel
-            </SButton>
-        </div>
-    </form>
+    <template #actions>
+        <SButton class="w-full" variant="danger">
+            Delete
+        </SButton>
+        <SButton class="w-full" variant="secondary" @click="() => open3 = false">
+            Cancel
+        </SButton>
+    </template>
 </SModalCard>
     
 <SButton @click="() => open1 = true">Example #1</SButton>

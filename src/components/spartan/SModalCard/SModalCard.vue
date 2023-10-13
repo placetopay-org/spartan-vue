@@ -52,6 +52,9 @@ const cardProps = computed(() => ({
             <template #description>
                 <SModalDescription><slot name="description" /></SModalDescription>
             </template>
+            <template #actions>
+                <slot name="actions" />
+            </template>
         </SCard>
     </SModal>
 </template>

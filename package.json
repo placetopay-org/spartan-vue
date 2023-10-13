@@ -70,6 +70,7 @@
     "@vue/tsconfig": "0.4.0",
     "autoprefixer": "10.4.14",
     "chromatic": "6.20.0",
+    "class-variance-authority": "^0.7.0",
     "dayjs": "1.11.9",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
