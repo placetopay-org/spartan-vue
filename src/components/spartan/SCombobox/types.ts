@@ -1,32 +1,53 @@
+import type { Ref } from 'vue';
 import type { TRounded } from '@/helpers';
-import type { ComputedRef } from 'vue';
+
+export type TOption = {
+    id: number;
+    show: boolean;
+    value: unknown;
+    content: string;
+    disabled?: boolean;
+};
+
+type TDispayFunction = (option: unknown) => string;
 
 type TComboboxBaseProps = {
     id: string;
+    initialOption: boolean | TOption['id'];
     disabled: boolean;
     error: boolean;
-    modelValue: any;
+    modelValue: string | number | object;
     rounded: TRounded;
+    class?: string;
 };
 
 type TComboboxNormalProps = Partial<TComboboxBaseProps> & {
-    searchBy: undefined;
-    options?: any[];
-    displayButtonText?: (option: any) => string;
-    displayOptionText?: (option: any) => string;
+    search: false;
+    displayButtonText?: TDispayFunction;
 };
 
 type TComboboxSearchProps = Partial<TComboboxBaseProps> & {
-    searchBy: (option: any) => string;
-    options: any[];
-    displayButtonText: (option: any) => string;
-    displayOptionText: (option: any) => string;
+    search: true | 'auto';
+    displayButtonText: TDispayFunction;
 };
 
 export type TComboboxProps = TComboboxNormalProps | TComboboxSearchProps;
 
+export type TComboboxOptionProps = {
+    class: string;
+    value: string | number | object;
+    disabled: boolean;
+};
+
 export type TStateDefinition = {
-    props: ComputedRef<Partial<TComboboxProps>>;
-    currentSelection: any;
-    updateCurrentSelection: (option: any) => void;
+    autoSearch: boolean;
+    query: string;
+    options: TOption[];
+    selectionId: TOption['id'] | null;
+    isSelected: (optionId: TOption['id']) => boolean;
+    isFiltered: (optionId: TOption['content']) => boolean;
+    getSelection: () => TOption;
+    updateSelection: (optionId: TOption['id']) => void;
+    registerOption: (props: Partial<TComboboxOptionProps>, el: Ref<HTMLElement | null>) => TOption;
+    emptyResults: () => boolean;
 };

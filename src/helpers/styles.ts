@@ -11,4 +11,7 @@ export const getRoundedClass = (rounded: TRounded) => roundedClass[rounded];
 
 export const getDisabledClass = (disabled: boolean) => (disabled ? 'opacity-50 cursor-not-allowed' : '');
 
-export const createBooleanVariation = (style: string) => ({ true: style });
+export const createBooleanVariation = (trueStyle: string | string[], falseStyle?: string | string[]) => ({
+    true: trueStyle,
+    false: falseStyle,
+});

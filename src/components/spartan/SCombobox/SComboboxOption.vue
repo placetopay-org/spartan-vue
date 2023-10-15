@@ -1,22 +1,29 @@
 <script setup lang="ts">
 import { ComboboxOption } from '@headlessui/vue';
-import { isEqual } from 'lodash';
-import { useSComboboxContext } from './api';
-import { computed } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useContext } from './api';
+import type { TComboboxOptionProps } from './types';
 
-const props = defineProps<{
-    class?: string;
-    value: any;
-    disabled?: boolean;
-}>();
+const props = defineProps<Partial<TComboboxOptionProps>>();
 
-const { currentSelection } = useSComboboxContext('SComboboxOption');
+const el = ref<HTMLElement | null>(null);
 
-const isSelected = computed(() => isEqual(currentSelection, props.value));
+const store = useContext('SComboboxOption');
+const option = store.value.registerOption(props, el);
+
+onMounted(() => {
+    store.value.options[option.id].content = el.value?.innerText || '';
+});
 </script>
 
 <template>
-    <ComboboxOption v-slot="{ active }" :value="value" :disabled="disabled" as="template">
+    <ComboboxOption
+        v-if="store.autoSearch ? store.isFiltered(option.content) : true"
+        v-slot="{ active }"
+        :value="option.id"
+        :disabled="disabled"
+        as="template"
+    >
         <li
             :class="[
                 active ? 'bg-primary-100 text-primary-900' : 'text-gray-900',
@@ -24,7 +31,10 @@ const isSelected = computed(() => isEqual(currentSelection, props.value));
                 disabled ? 'opacity-50' : '',
             ]"
         >
-            <span :class="[isSelected ? 'font-medium' : 'font-normal', 'block truncate', props.class]">
+            <span
+                ref="el"
+                :class="[store.isSelected(option.id) ? 'font-medium' : 'font-normal', 'block truncate', props.class]"
+            >
                 <slot />
             </span>
         </li>
