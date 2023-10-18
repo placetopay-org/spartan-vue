@@ -11,7 +11,7 @@ const rounded = {
 
 export type TComboboxStyles = VariantProps<typeof comboboxStyles>;
 export const comboboxStyles = cva(
-    ['relative border border-gray-300 focus-visible:outline-none', SCN.focusWithinRingPrimary],
+    ['relative bg-white border border-gray-300 focus-visible:outline-none', SCN.focusWithinRingPrimary],
     {
         variants: {
             rounded,

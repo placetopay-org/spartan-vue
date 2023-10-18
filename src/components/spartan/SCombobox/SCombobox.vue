@@ -10,7 +10,6 @@ import type { TComboboxProps, TOption } from './types';
 const emit = defineEmits<{ (event: 'update:modelValue', value: any): void; (event: 'query', value: string): void }>();
 
 const props = withDefaults(defineProps<Partial<TComboboxProps>>(), {
-    initialOption: undefined,
     disabled: false,
     error: false,
     search: false,
@@ -49,7 +48,7 @@ const store = createContext({ props, emit });
                 :class="twMerge(comboboxButtonStyles({ rounded, search: Boolean(search) }))"
             >
                 <template v-if="!search">
-                    <span v-if="hasSlotContent($slots.button)" class="block truncate">
+                    <span v-if="hasSlotContent($slots.button)" class="block truncate text-gray-900">
                         <slot name="button" />
                     </span>
                     <span v-else>
@@ -65,7 +64,7 @@ const store = createContext({ props, emit });
                 leave-active-class="transition duration-100 ease-in"
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
-                @after-leave="store.query = ''"
+                @after-leave="store.updateQuery('')"
             >
                 <ComboboxOptions
                     v-show="open"

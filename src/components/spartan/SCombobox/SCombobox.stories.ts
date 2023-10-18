@@ -193,114 +193,116 @@ export const Disabled = createVariation({
     containerClass: 'w-[100px]',
 });
 
-// export const Placeholder = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref();
-//         return { value };
-//     },
-//     template: `<SCombobox class="w-54" v-model="value" :displayButtonText="item => item ?? 'Select an option'">
-//     <SComboboxOption value="" disabled>Select an option</SComboboxOption>
-//     <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
-//     <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
-// </SCombobox>`,
-//     containerClass: 'w-[300px] h-[150px]',
-// });
+export const Placeholder = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref();
+        const value2 = ref();
+        return { value, value2 };
+    },
+    template: `<SCombobox class="w-40" v-model="value" :displayButtonText="item => item ?? 'Select an option'">
+    <SComboboxOption value="" disabled>Select an option</SComboboxOption>
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>
 
-// export const Error = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref();
-//         return { value };
-//     },
-//     template: `<SCombobox error class="w-54" v-model="value" :displayButtonText="item => item">
-//     <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
-//     <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
-// </SCombobox>`,
-//     containerClass: 'w-[300px] h-[100px]',
-// });
+<SCombobox class="w-40" v-model="value2">
+    <template #button>
+        <span :class="[value2 ? 'text-gray-900' : 'text-gray-500']">{{ value2 || 'Select an option' }}</span>
+    </template>
+    <SComboboxOption value="" disabled>Select an option</SComboboxOption>
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>
 
-// export const CustomButtonTextWithProp = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref({ initial: 'H', name: 'Hight' });
-//         return { value, options: riskOptions };
-//     },
-//     template: `<SCombobox class="w-54" v-model="value" :displayButtonText="item => \`\${item.initial} - (\${item.name})\`">
-//     <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
-//     <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
-//     <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
-// </SCombobox>`,
-//     containerClass: 'w-[300px] h-[150px]',
-// });
+<SCombobox class="w-40" v-model="value2" :displayButtonText="item => item ?? '--'">
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>
 
-// export const CustomButtonContentWithSlot = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref({ initial: 'H', name: 'Hight' });
-//         return { value, options: riskOptions };
-//     },
-//     template: `<SCombobox class="w-54" v-model="value">
-//     <template #button>
-//         <span class="font-bold">{{ value.initial }}</span> - {{ value.name }}
-//     </template>
+<SCombobox class="w-40" v-model="value2">
+    <template #button>{{ value2 || '--' }}</template>
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'grid grid-cols-4 gap-2 h-[100px]',
+});
 
-//     <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
-//     <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
-//     <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
-// </SCombobox>`,
-//     containerClass: 'w-[300px] h-[150px]',
-// });
+export const Error = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref('CC');
+        return { value };
+    },
+    template: `<SCombobox error class="w-24" v-model="value" :displayButtonText="item => item">
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'h-[100px]',
+});
 
-// export const CustomOptionTextWithProp = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref({ initial: 'H', name: 'Hight' });
-//         return { value, options: riskOptions };
-//     },
-//     template: `<SCombobox class="w-54" v-model="value" :options="options" :displayOptionText="option => \`\${option.name} risk\`">
-//     <template #button>
-//         <span class="font-bold">{{ value.initial }}</span> - {{ value.name }}
-//     </template>
-// </SCombobox>
-//     `,
-//     containerClass: 'w-[300px] h-[150px]',
-// });
+export const CustomButtonTextWithProp = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        return { value, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value" :displayButtonText="item => item && \`\${item.initial} - (\${item.name})\`">
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'w-[300px] h-[150px]',
+});
 
-// export const CustomOptionContentWithSlot = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref({ initial: 'H', name: 'Hight' });
-//         return { value, options: riskOptions };
-//     },
-//     template: `<SCombobox class="w-54" v-model="value">
-//     <template #button>
-//         <span class="font-bold">{{ value.initial }}</span> - {{ value.name }}
-//     </template>
+export const CustomButtonContentWithSlot = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        return { value, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value">
+    <template #button>
+        <span class="font-bold text-red-500">{{ value.initial }}</span> - {{ value.name }}
+    </template>
 
-//     <SComboboxOption :value="options[0]"><span class="font-bold">Hight</span> risk</SComboboxOption>
-//     <SComboboxOption :value="options[1]"><span class="font-bold">Medium</span> risk</SComboboxOption>
-//     <SComboboxOption :value="options[2]"><span class="font-bold">Low</span> risk</SComboboxOption>
-// </SCombobox>`,
-//     containerClass: 'w-[300px] h-[150px]',
-// });
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'w-[300px] h-[150px]',
+});
 
-// export const WithoutSlots = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref({ initial: 'H', name: 'Hight' });
-//         return { value, options: riskOptions };
-//     },
-//     template: `<SCombobox class="w-54" v-model="value" :options="options" :displayButtonText="item => \`\${item.initial} - (\${item.name})\`" :displayOptionText="option => \`\${option.name} risk\`"/>`,
-//     containerClass: 'w-[300px] h-[150px]',
-// });
+export const WithSearch = createVariation({
+    components: { SCombobox, SComboboxOption },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        const query = ref('');
+        return { value, query, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value" search @query="value => query = value" :displayButtonText="item => item && item.name">
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>
 
-// export const WithSearch = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref({ initial: 'H', name: 'Hight' });
-//         return { value, options: riskOptions };
-//     },
-//     template: `<SCombobox class="w-54" v-model="value" :searchBy="option => option.name" :options="options" :displayButtonText="item => item.name" :displayOptionText="option => option.name"/>`,
-//     containerClass: 'w-[300px] h-[150px]',
-// });
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+    containerClass: 'w-full h-[150px] flex gap-8 items-start',
+});
+
+export const WithAutomaticSearch = createVariation({
+    components: { SCombobox, SComboboxOption },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        const query = ref('');
+        return { value, query, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value" search="auto" @query="value => query = value" :displayButtonText="item => item && item.name">
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>
+
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+    containerClass: 'w-full h-[150px] flex gap-8 items-start',
+});

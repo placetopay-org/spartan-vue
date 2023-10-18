@@ -13,7 +13,6 @@ type TDispayFunction = (option: unknown) => string;
 
 type TComboboxBaseProps = {
     id: string;
-    initialOption: boolean | TOption['id'];
     disabled: boolean;
     error: boolean;
     modelValue: string | number | object;
