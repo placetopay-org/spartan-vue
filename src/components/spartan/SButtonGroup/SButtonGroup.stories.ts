@@ -1,8 +1,7 @@
 import SButtonGroup from './SButtonGroup.vue';
+import SButtonGroupItem from './SButtonGroupItem.vue';
 import { SDropdown, SDropdownItem } from '../SDropdown';
-import type { SourceProps } from '@storybook/blocks';
-import { action } from '@storybook/addon-actions';
-import { buildDesign, buildSourceBinding } from '@/helpers';
+import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { BookmarkIcon, PlusIcon, PencilIcon, ChevronDownIcon, UserCircleIcon } from '@heroicons/vue/20/solid';
 
 export default {
@@ -61,43 +60,24 @@ export default {
     },
 };
 
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4565%3A14705');
-
 const sourceBinding = buildSourceBinding({
     check: ['active', 'disabled', 'endIcon', 'first', 'last', 'next', 'prev'],
     custom: { icon: true },
 });
 
-export const Default = {
-    render: (args: any) => ({
-        components: { SButtonGroup, BookmarkIcon, PlusIcon, PencilIcon, ChevronDownIcon },
-        setup() {
-            const getIcon = (icon: 'BookmarkIcon' | 'PlusIcon' | 'PencilIcon' | 'ChevronDownIcon') => {
-                if (icon === 'BookmarkIcon') return BookmarkIcon;
-                if (icon === 'PlusIcon') return PlusIcon;
-                if (icon === 'PencilIcon') return PencilIcon;
-                if (icon === 'ChevronDownIcon') return ChevronDownIcon;
-            };
-            return { args, getIcon, onClick: action('onClick') };
-        },
-        template: `<SButtonGroup v-bind="args" :icon="getIcon(args.icon)" @click="onClick">{{ args.default }}</SButtonGroup>`,
-    }),
-    parameters: {
-        design,
-        docs: {
-            canvas: { layout: 'centered' },
-            source: {
-                transform: ((_, storyContext) =>
-                    `<SButtonGroup ${sourceBinding(storyContext.args)}>${
-                        storyContext.args.default
-                    }</SButtonGroup>`) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
+export const Default = createDefault({
+    components: { SButtonGroup, SButtonGroupItem, BookmarkIcon, PlusIcon, PencilIcon, ChevronDownIcon },
+    setup: () => {
+        const getIcon = (icon: 'BookmarkIcon' | 'PlusIcon' | 'PencilIcon' | 'ChevronDownIcon') => {
+            if (icon === 'BookmarkIcon') return BookmarkIcon;
+            if (icon === 'PlusIcon') return PlusIcon;
+            if (icon === 'PencilIcon') return PencilIcon;
+            if (icon === 'ChevronDownIcon') return ChevronDownIcon;
+        };
+        return { getIcon };
     },
     args: {
-        default: 'Group',
+        default: 'Item',
         active: false,
         disabled: false,
         endIcon: false,
@@ -107,137 +87,113 @@ export const Default = {
         next: false,
         prev: false,
     },
-};
-
-const createVariation = (
-    template: string,
-    decorators?: (() => {
-        template: string;
-    })[],
-) => ({
-    decorators: decorators ?? [
-        () => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' }),
-    ],
-    render: () => ({
-        components: {
-            SButtonGroup,
-            SDropdown,
-            SDropdownItem,
-            BookmarkIcon,
-            PlusIcon,
-            PencilIcon,
-            ChevronDownIcon,
-            UserCircleIcon,
-        },
-        setup() {
-            return {
-                BookmarkIcon,
-                PlusIcon,
-                PencilIcon,
-                ChevronDownIcon,
-                UserCircleIcon,
-            };
-        },
-        template,
-    }),
-    parameters: {
-        design,
-        controls: { disable: true },
-        actions: { disable: true },
-        docs: {
-            source: {
-                code: template,
-                language: 'html',
-            },
-        },
-    },
+    template: `<SButtonGroup><SButtonGroupItem v-bind="args" :icon="getIcon(args.icon)">{{ args.default }}</SButtonGroupItem></SButtonGroup>`,
+    transform: (args) => `<SButtonGroup>
+    <SButtonGroupItem ${sourceBinding(args)}>${args.default}</SButtonGroupItem>
+</SButtonGroup>`,
 });
 
-export const Group = createVariation(`
-<span class="isolate inline-flex rounded-md shadow-sm -space-x-px">
-  <SButtonGroup> one </SButtonGroup>
-  <SButtonGroup> two </SButtonGroup>
-  <SButtonGroup> three </SButtonGroup>
-</span>
-`);
+export const Base = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    template: `<SButtonGroup>
+    <SButtonGroupItem> one </SButtonGroupItem>
+    <SButtonGroupItem> two </SButtonGroupItem>
+    <SButtonGroupItem> three </SButtonGroupItem>
+</SButtonGroup>`,
+});
 
-export const GroupRounded = createVariation(`
-<span class="s-button-group">
-  <SButtonGroup first> red </SButtonGroup>
-  <SButtonGroup> green </SButtonGroup>
-  <SButtonGroup last> blue </SButtonGroup>
-</span>
-`);
+export const Rounded = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    template: `<SButtonGroup>
+    <SButtonGroupItem first> one </SButtonGroupItem>
+    <SButtonGroupItem> two </SButtonGroupItem>
+    <SButtonGroupItem last> three </SButtonGroupItem>
+</SButtonGroup>`,
+});
 
-export const GroupWithNav = createVariation(`
-<span class="">
-  <SButtonGroup prev />
-  <SButtonGroup v-for="i in ['day', 'week', 'month', 'year']">{{ i }}</SButtonGroup>
-  <SButtonGroup next />
-</span>
-`);
+export const WithNavigation = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    template: `<SButtonGroup>
+    <SButtonGroupItem prev />
+    <SButtonGroupItem v-for="i in ['day', 'week', 'month', 'year']">{{ i }}</SButtonGroupItem>
+    <SButtonGroupItem next />
+</SButtonGroup>`,
+});
 
-export const GroupWithActiveItem = createVariation(`
-<span class="s-button-group">
-  <SButtonGroup active first>Page 1</SButtonGroup>
-  <SButtonGroup>Page 2</SButtonGroup>
-  <SButtonGroup>Page 3</SButtonGroup>
-  <SButtonGroup>...</SButtonGroup>
-  <SButtonGroup next last />
-</span>
-`);
+export const WithActiveItem = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    template: `<SButtonGroup>
+    <SButtonGroupItem active first>Page 1</SButtonGroupItem>
+    <SButtonGroupItem>Page 2</SButtonGroupItem>
+    <SButtonGroupItem>Page 3</SButtonGroupItem>
+    <SButtonGroupItem>...</SButtonGroupItem>
+    <SButtonGroupItem next last />
+</SButtonGroup>`,
+});
 
-export const GroupWithDisableItem = createVariation(`
-<span class="s-button-group">
-  <SButtonGroup v-for="(i, index) in 5" :disabled="index === 3">{{ \`\${i + 28}. Section\` }}</SButtonGroup>
-  <SButtonGroup next last />
-</span>
-`);
+export const WithDisableItem = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    template: `<SButtonGroup>
+    <SButtonGroupItem v-for="(i, index) in 5" :disabled="index === 3">{{ \`\${i + 28}. Section\` }}</SButtonGroupItem>
+    <SButtonGroupItem next last />
+</SButtonGroup>`,
+});
 
-export const GroupWithIcons = createVariation(`
-<span class="s-button-group">
-  <SButtonGroup :icon="UserCircleIcon" first>John Doe</SButtonGroup>
-  <SButtonGroup :icon="UserCircleIcon">Mark Moe</SButtonGroup>
-  <SButtonGroup :icon="PlusIcon" last/>
-</span>
-`);
+export const WithIcons = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    setup: () => {
+        return { UserCircleIcon, PlusIcon };
+    },
+    template: `<SButtonGroup>
+    <SButtonGroupItem :icon="UserCircleIcon" first>John Doe</SButtonGroupItem>
+    <SButtonGroupItem :icon="UserCircleIcon">Mark Moe</SButtonGroupItem>
+    <SButtonGroupItem :icon="PlusIcon" last/>
+</SButtonGroup>`,
+});
 
-export const GroupWithDropdown = createVariation(
-    `
-<span class="s-button-group">
-  <SButtonGroup first>Save changes</SButtonGroup>
-  <SDropdown>
-    <SButtonGroup :icon="ChevronDownIcon" last />
+export const Pagination = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    template: `<SButtonGroup>
+    <SButtonGroupItem prev first />
+    <SButtonGroupItem v-for="(i, index) in 9" :active="index === 4">{{ i }}</SButtonGroupItem>
+    <SButtonGroupItem next last />
+</SButtonGroup>`,
+});
 
-    <template #items>
-      <SDropdownItem :icon="UserCircleIcon"> My Profile </SDropdownItem>
-      <SDropdownItem :icon="PencilIcon"> Edit </SDropdownItem>
-      <SDropdownItem :icon="PlusIcon"> Add </SDropdownItem>
-    </template>
-  </SDropdown>
-</span>
-`,
-    [() => ({ template: '<div style="padding-bottom: 200px; padding-left: 32px;"><story/></div>' })],
-);
+export const Customize = createVariation({
+    components: { SButtonGroup, SButtonGroupItem },
+    setup: () => {
+        return { BookmarkIcon, PlusIcon, PencilIcon, ChevronDownIcon };
+    },
+    template: `<SButtonGroup>
+    <SButtonGroupItem prev first />
+    <SButtonGroupItem>Days</SButtonGroupItem>
+    <SButtonGroupItem disabled>Weeks</SButtonGroupItem>
+    <SButtonGroupItem :icon="PlusIcon"/>
+    <SButtonGroupItem :icon="BookmarkIcon">Months</SButtonGroupItem>
+    <SButtonGroupItem active>29</SButtonGroupItem>
+    <SButtonGroupItem :icon="PencilIcon" endIcon>Years</SButtonGroupItem>
+    <SButtonGroupItem :icon="ChevronDownIcon" endIcon>Menu</SButtonGroupItem>
+    <SButtonGroupItem next last />
+</SButtonGroup>`,
+});
 
-export const Pagination = createVariation(`
-<span class="s-button-group">
-  <SButtonGroup prev first />
-  <SButtonGroup v-for="(i, index) in 9" :active="index === 4">{{ i }}</SButtonGroup>
-  <SButtonGroup next last />
-</span>
-`);
+export const WithDropdown = createVariation({
+    components: { SButtonGroup, SButtonGroupItem, SDropdown, SDropdownItem },
+    containerClass: 'h-[180px] pl-20',
+    setup: () => {
+        return { ChevronDownIcon, UserCircleIcon, PencilIcon, PlusIcon };
+    },
+    template: `<SButtonGroup>
+    <SButtonGroupItem first>Save changes</SButtonGroupItem>
+    <SDropdown>
+        <SButtonGroupItem :icon="ChevronDownIcon" last />
 
-export const Customize = createVariation(`
-<span class="s-button-group">
-  <SButtonGroup prev first />
-  <SButtonGroup>Days</SButtonGroup>
-  <SButtonGroup disabled>Weeks</SButtonGroup>
-  <SButtonGroup :icon="PlusIcon"/>
-  <SButtonGroup :icon="BookmarkIcon">Months</SButtonGroup>
-  <SButtonGroup active>29</SButtonGroup>
-  <SButtonGroup :icon="PencilIcon" endIcon>Years</SButtonGroup>
-  <SButtonGroup :icon="ChevronDownIcon" endIcon>Menu</SButtonGroup>
-  <SButtonGroup next last />
-</span>
-`);
+        <template #items>
+            <SDropdownItem :icon="UserCircleIcon"> My Profile </SDropdownItem>
+            <SDropdownItem :icon="PencilIcon"> Edit </SDropdownItem>
+            <SDropdownItem :icon="PlusIcon"> Add </SDropdownItem>
+        </template>
+    </SDropdown>
+</SButtonGroup>`,
+});
