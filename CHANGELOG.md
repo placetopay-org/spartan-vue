@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SSectionTitle` and `SSectionDescription` component implementation.
 - `SComboboxBlock` component.
 - Auto search feature on `SCombobox` component.
 
