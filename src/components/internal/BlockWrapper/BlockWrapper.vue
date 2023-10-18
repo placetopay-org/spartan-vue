@@ -2,9 +2,9 @@
 import { SCaption, SLabel } from '@spartan';
 import type { TBlockWrapperProps } from './types';
 
-const props = defineProps<Partial<TBlockWrapperProps>>();
+const props = defineProps<Partial<TBlockWrapperProps> & { wrapper: string }>();
 
-if (props.label && !props.id) console.warn('[BlockWrapper]: id is required when label is provided');
+if (props.label && !props.id) console.warn(`<${props.wrapper} />: id is required when label is provided`);
 </script>
 
 <template>

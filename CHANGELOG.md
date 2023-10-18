@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SComboboxBlock` component.
 - Auto search feature on `SCombobox` component.
 
 ## 2.0.0-beta.18 - 2023-10-13

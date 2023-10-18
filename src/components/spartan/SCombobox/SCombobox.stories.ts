@@ -82,7 +82,7 @@ export default {
 // const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
 
 const sourceBinding = buildSourceBinding({
-    prop: { rounded: 'both', errorText: undefined, helpText: undefined, placeholder: undefined },
+    prop: { rounded: 'both', errorText: undefined, helpText: undefined },
     check: ['disabled', 'error'],
 });
 

@@ -24,7 +24,7 @@ const inputProps = computed(() => ({
 </script>
 
 <template>
-    <BlockWrapper v-bind="blockWrapperProps">
+    <BlockWrapper wrapper="SInputBlock" v-bind="blockWrapperProps">
         <SInput
             class="w-full"
             v-bind="inputProps"

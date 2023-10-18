@@ -1,325 +1,126 @@
 import SComboboxBlock from './SComboboxBlock.vue';
+import { SComboboxOption, SComboboxOptionGroup } from '../SCombobox';
+import { buildSourceBinding, createDefault } from '@/helpers';
 import { ref } from 'vue';
-import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding } from '@/helpers';
-import { InformationCircleIcon, CurrencyDollarIcon, MapPinIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
-import { EnvelopeIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SComboboxBlock,
     title: 'new/ComboboxBlock',
     parameters: {
         docs: {
-            description: {
-                component: 'DOC',
-            },
+            description: { component: 'The select component is used to create a dropdown list of options.' },
         },
     },
     argTypes: {
-        // Events
-        'update:modelValue': {
-            control: { type: null },
-            table: { type: { summary: null }, category: 'Events' },
-            description: 'DOC',
-        },
-
         // Props
-        error: {
+        errorText: {
             control: 'text',
-            description: 'DOC',
+            description: 'The error message to be displayed when the select has an error.',
             table: { type: { summary: 'string' }, category: 'Props' },
         },
         helpText: {
             control: 'text',
-            description: 'DOC',
+            description: 'The help message to be displayed below the select.',
             table: { type: { summary: 'string' }, category: 'Props' },
         },
         label: {
             control: 'text',
-            description: 'DOC',
+            description: 'The label of the select.',
             table: { type: { summary: 'string' }, category: 'Props' },
-        },
-
-        // Props - Input
-        disabled: {
-            description: 'DOC',
-            table: {
-                type: { summary: 'boolean' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        leftIcon: {
-            control: 'select',
-            options: [
-                'EnvelopeIcon',
-                'MagnifyingGlassIcon',
-                'MapPinIcon',
-                'InformationCircleIcon',
-                'CurrencyDollarIcon',
-                'ChatBubbleLeftEllipsisIcon',
-            ],
-            description: `A Vue functional component to be used as the left icon.`,
-            table: {
-                type: { summary: 'FunctionalComponent' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        rightIcon: {
-            control: 'select',
-            options: [
-                'EnvelopeIcon',
-                'MagnifyingGlassIcon',
-                'MapPinIcon',
-                'InformationCircleIcon',
-                'CurrencyDollarIcon',
-                'ChatBubbleLeftEllipsisIcon',
-            ],
-            description: `A Vue functional component to be used as the right icon.`,
-            table: {
-                type: { summary: 'FunctionalComponent' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        id: {
-            control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        modelValue: {
-            control: { type: null },
-            description: 'DOC',
-            table: {
-                type: { summary: 'Ref<string>' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        name: {
-            control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        rounded: {
-            control: 'inline-radio',
-            options: ['left', 'right', 'both', 'none'],
-            description: `Specifies which corners should be rounded.`,
-            table: {
-                type: { summary: 'left | right | both | none | full' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        placeholder: {
-            control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        prefix: {
-            control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        suffix: {
-            control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
-        },
-        type: {
-            control: 'text',
-            description: 'DOC',
-            table: {
-                type: { summary: 'string' },
-                category: 'Props',
-                subcategory: 'Input',
-            },
         },
     },
 };
-
-const design = buildDesign('');
 
 const sourceBinding = buildSourceBinding({
     prop: {
-        rounded: 'both',
-        id: undefined,
-        name: undefined,
-        placeholder: undefined,
-        prefix: undefined,
-        suffix: undefined,
-        type: 'text',
+        errorText: undefined,
+        helpText: undefined,
+        label: undefined,
     },
     check: ['disabled', 'error'],
-    custom: { icon: true },
 });
 
-export const Default = {
-    render: (args: any) => ({
-        components: {
-            SComboboxBlock,
-            EnvelopeIcon,
-            MagnifyingGlassIcon,
-            MapPinIcon,
-            InformationCircleIcon,
-            CurrencyDollarIcon,
-            ChatBubbleLeftEllipsisIcon,
-        },
-        setup() {
-            const value = ref('');
-            const getIcon = (
-                icon:
-                    | 'EnvelopeIcon'
-                    | 'MagnifyingGlassIcon'
-                    | 'MapPinIcon'
-                    | 'InformationCircleIcon'
-                    | 'CurrencyDollarIcon'
-                    | 'ChatBubbleLeftEllipsisIcon',
-            ) => {
-                if (icon === 'EnvelopeIcon') return EnvelopeIcon;
-                if (icon === 'MagnifyingGlassIcon') return MagnifyingGlassIcon;
-                if (icon === 'MapPinIcon') return MapPinIcon;
-                if (icon === 'InformationCircleIcon') return InformationCircleIcon;
-                if (icon === 'CurrencyDollarIcon') return CurrencyDollarIcon;
-                if (icon === 'ChatBubbleLeftEllipsisIcon') return ChatBubbleLeftEllipsisIcon;
-            };
-
-            return {
-                args,
-                getIcon,
-                value,
-                EnvelopeIcon,
-                MagnifyingGlassIcon,
-                MapPinIcon,
-                InformationCircleIcon,
-                CurrencyDollarIcon,
-                ChatBubbleLeftEllipsisIcon,
-            };
-        },
-        template: '<SComboboxBlock v-bind="args" v-model="value" />',
-    }),
-    parameters: {
-        design,
-        docs: {
-            canvas: { layout: 'centered' },
-            source: {
-                transform: ((_, storyContext) => `
-        <SComboboxBlock ${sourceBinding(storyContext.args)} />
-        `) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
+const currencyOptions = [
+    {
+        label: 'Colombia',
+        options: [
+            { label: 'Cédula de ciudadanía', value: 'CC' },
+            { label: 'Cédula de extranjería', value: 'CE' },
+            { label: 'Tarjeta de identidad', value: 'TI' },
+            { label: 'NIT', value: 'NIT' },
+        ],
     },
+    {
+        label: 'United States',
+        options: [
+            { label: 'Social Security Number', value: 'SSN' },
+            { label: 'Individual Taxpayer Identification Number', value: 'ITIN' },
+            { label: 'Employer Identification Number', value: 'EIN' },
+        ],
+    },
+];
+
+export const Default = createDefault({
+    containerClass: 'h-96',
+    components: { SComboboxBlock, SComboboxOption, SComboboxOptionGroup },
     args: {
-        disabled: false,
-        error: '',
+        errorText: '',
         helpText: 'Help text',
-        rightIcon: undefined,
-        leftIcon: undefined,
-        id: 'test-id',
-        label: 'Label',
-        name: 'test-name',
-        placeholder: 'Placeholder',
-        prefix: '',
-        suffix: '',
-        rounded: 'both',
-        type: 'text',
+        label: 'Custom Label',
     },
-};
+    setup: () => {
+        const value = ref('CC');
+        return { value, options: currencyOptions[0].options };
+    },
+    template: `<SComboboxBlock  class="w-24" v-bind="args" v-model="value">
+    <template #button>{{ value }}</template>
+    <SComboboxOptionGroup label="Colombia">
+        <SComboboxOption value="CC">🪪 Cédula de ciudadanía</SComboboxOption>
+        <SComboboxOption value="CE">🪪 Cédula de extranjería</SComboboxOption>
+        <SComboboxOption value="TI">🪪 Tarjeta de identidad</SComboboxOption>
+        <SComboboxOption value="NIT">🪪 NIT</SComboboxOption>
+    </SComboboxOptionGroup>
 
-// const createVariation = (
-//     template: string,
-//     options?: {
-//         focusVisible?: boolean;
-//         containerClass?: string;
-//     },
-// ) => ({
-//     decorators: [
-//         () => ({
-//             template: `<div style="${options?.containerClass ?? 'gap: 20px; display: flex;'}"><story/></div>`,
-//         }),
-//     ],
-//     render: () => ({
-//         components: {
-//             SComboboxBlock,
-//             SButton,
-//             SDropdown,
-//             SDropdownItem,
-//             ArrowLeftOnRectangleIcon,
-//             EnvelopeIcon,
-//             KeyIcon,
-//             InformationCircleIcon,
-//             ChatBubbleLeftEllipsisIcon,
-//             CurrencyDollarIcon,
-//             MapPinIcon,
-//         },
-//         setup() {
-//             const email = ref('');
+    <SComboboxOptionGroup label="United States">
+        <SComboboxOption value="SSN">🪪 Social Security Number</SComboboxOption>
+        <SComboboxOption value="ITIN">🪪 Individual Taxpayer Identification Number</SComboboxOption>
+        <SComboboxOption value="EIN">🪪 Employer Identification Number</SComboboxOption>
+    </SComboboxOptionGroup>
 
-//             return {
-//                 email,
-//                 SButton,
-//                 ArrowLeftOnRectangleIcon,
-//                 EnvelopeIcon,
-//                 KeyIcon,
-//                 InformationCircleIcon,
-//                 ChatBubbleLeftEllipsisIcon,
-//                 CurrencyDollarIcon,
-//                 MapPinIcon,
-//             };
-//         },
-//         template,
-//     }),
-//     parameters: {
-//         design,
-//         pseudo: { focusVisible: options?.focusVisible },
-//         controls: { disable: true },
-//         actions: { disable: true },
-//         docs: {
-//             source: {
-//                 code: template,
-//                 language: 'html',
-//             },
-//         },
-//     },
-// });
+    <SComboboxOptionGroup label="United Kingdom">
+        <SComboboxOption value="NINO">🪪 National Insurance Number</SComboboxOption>
+        <SComboboxOption value="UTR">🪪 Unique Taxpayer Reference</SComboboxOption>
+    </SComboboxOptionGroup>
 
-// export const WithLabel = createVariation(`<SComboboxBlock label="Name" placeholder="Enter your name" />`, {
-//     containerClass: 'width: 200px',
-// });
+    <SComboboxOptionGroup label="Other">
+        <SComboboxOption value="PA">🪪 Pasaporte</SComboboxOption>
+        <SComboboxOption value="RC">🪪 Registro civil</SComboboxOption>
+    </SComboboxOptionGroup>
+</SComboboxBlock>`,
+    transform: (args) => `<SComboboxBlock ${sourceBinding(args)} ${
+        args.search === 'auto' ? 'search="auto"' : args.search === 'true' ? 'search' : ''
+    } v-model="value">
+    <SComboboxOptionGroup label="Colombia">
+        <SComboboxOption value="CC">🪪 Cédula de ciudadanía</SComboboxOption>
+        <SComboboxOption value="CE">🪪 Cédula de extranjería</SComboboxOption>
+        <SComboboxOption value="TI">🪪 Tarjeta de identidad</SComboboxOption>
+        <SComboboxOption value="NIT">🪪 NIT</SComboboxOption>
+    </SComboboxOptionGroup>
 
-// export const WithHelpText = createVariation(
-//     `<SComboboxBlock label="Token" helpText="does not include quotes" placeholder="XX-XXXX-XXXX" />`,
-//     {
-//         containerClass: 'width: 200px',
-//     },
-// );
+    <SComboboxOptionGroup label="United States">
+        <SComboboxOption value="SSN">🪪 Social Security Number</SComboboxOption>
+        <SComboboxOption value="ITIN">🪪 Individual Taxpayer Identification Number</SComboboxOption>
+        <SComboboxOption value="EIN">🪪 Employer Identification Number</SComboboxOption>
+    </SComboboxOptionGroup>
 
-// export const WithErrorText = createVariation(
-//     `<SComboboxBlock label="Amount" error="the amount is mandatory" prefix="$" placeholder="0.00" />`,
-//     {
-//         containerClass: 'width: 200px',
-//     },
-// );
+    <SComboboxOptionGroup label="United Kingdom">
+        <SComboboxOption value="NINO">🪪 National Insurance Number</SComboboxOption>
+        <SComboboxOption value="UTR">🪪 Unique Taxpayer Reference</SComboboxOption>
+    </SComboboxOptionGroup>
+
+    <SComboboxOptionGroup label="Other">
+        <SComboboxOption value="PA">🪪 Pasaporte</SComboboxOption>
+        <SComboboxOption value="RC">🪪 Registro civil</SComboboxOption>
+    </SComboboxOptionGroup>
+</SComboboxBlock>`,
+});

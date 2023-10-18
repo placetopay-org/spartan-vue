@@ -24,7 +24,7 @@ const selectProps = computed(() => ({
 </script>
 
 <template>
-    <BlockWrapper v-bind="blockWrapperProps">
+    <BlockWrapper wrapper="SSelectBlock" v-bind="blockWrapperProps">
         <SSelect
             class="w-full"
             v-bind="selectProps"

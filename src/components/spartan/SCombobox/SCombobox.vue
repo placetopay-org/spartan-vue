@@ -7,7 +7,10 @@ import { twMerge } from 'tailwind-merge';
 import { comboboxStyles, comboboxInputStyles, comboboxButtonStyles } from './styles';
 import type { TComboboxProps, TOption } from './types';
 
-const emit = defineEmits<{ (event: 'update:modelValue', value: any): void; (event: 'query', value: string): void }>();
+const emit = defineEmits<{
+    (event: 'update:modelValue', value: string | number | object): void;
+    (event: 'query', value: string): void;
+}>();
 
 const props = withDefaults(defineProps<Partial<TComboboxProps>>(), {
     disabled: false,
@@ -24,16 +27,15 @@ const store = createContext({ props, emit });
 <template>
     <div>
         <Combobox
-            :id="id"
             v-slot="{ open }"
             as="div"
             :model-value="store.querySelectionId(modelValue)"
             :class="twMerge(comboboxStyles({ disabled, rounded, error }), props.class)"
             @update:model-value="$emit('update:modelValue', store.options[$event].value)"
         >
-            <slot name="label" />
             <ComboboxInput
                 v-if="search"
+                :id="id"
                 autocomplete="off"
                 :disabled="disabled"
                 :display-value="
@@ -43,6 +45,7 @@ const store = createContext({ props, emit });
                 @change="(event) => store.updateQuery(event.target.value)"
             />
             <ComboboxButton
+                :id="id"
                 :tabindex="search ? -1 : 0"
                 :disabled="disabled"
                 :class="twMerge(comboboxButtonStyles({ rounded, search: Boolean(search) }))"
