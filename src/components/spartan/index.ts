@@ -27,3 +27,4 @@ export * from './SModalCard';
 export * from './SButtonGroup';
 export * from './SSectionTitle';
 export * from './SSectionDescription';
+export * from './SPlacetopayLogo';
