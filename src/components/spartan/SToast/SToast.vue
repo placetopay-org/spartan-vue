@@ -8,8 +8,8 @@ defineEmits(['close']);
 
 const props = withDefaults(
     defineProps<{
-        type: 'success' | 'danger';
-        leftBorder: boolean;
+        type?: 'success' | 'danger';
+        leftBorder?: boolean;
     }>(),
     {
         type: 'success',

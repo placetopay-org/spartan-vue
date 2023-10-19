@@ -15,3 +15,4 @@ export { default as SDescriptionList } from './SDescriptionList.vue';
 export { default as STabsLine } from './STabsLine.vue';
 export * from './sTables';
 export { SInputAlt, SInputDate, SInputDropdown, SInputError, SInputHelper, SInputMask, SInputRadio } from './sInputs';
+export * from './SDescriptionItem';
