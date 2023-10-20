@@ -7,14 +7,17 @@ const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
     width: undefined,
     height: undefined,
     size: 'md',
-    localAsset: false,
+    mode: 'base',
     class: '',
 });
 
 const asset = computed(() => {
-    const LOCAL_ASSET = '/src/assets/placetopay_logo.svg';
-    const WEB_ASSET = 'https://static.placetopay.com/placetopay-logo.svg';
-    return props.localAsset ? LOCAL_ASSET : WEB_ASSET;
+    const urls = {
+        base: 'placetopay_logo.svg',
+        dark: 'placetopay_logo_dark.svg',
+        blackAndWhite: 'placetopay_logo_bw.svg',
+    };
+    return `/src/assets/${urls[props.mode]}`;
 });
 
 const sizeStyle = computed(() => {

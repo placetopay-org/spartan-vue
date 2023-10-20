@@ -2,6 +2,6 @@ export type TPlacetopayLogoProps = {
     width: number;
     height: number;
     size: 'md';
-    localAsset: boolean;
+    mode: 'base' | 'dark' | 'blackAndWhite';
     class: string;
 };

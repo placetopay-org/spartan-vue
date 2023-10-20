@@ -1,5 +1,5 @@
 import SPlacetopayLogo from './SPlacetopayLogo.vue';
-import { buildSourceBinding, createDefault } from '@/helpers';
+import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SPlacetopayLogo,
@@ -29,9 +29,11 @@ export default {
             description: 'A defined size for the logo.',
             table: { type: { summary: 'none | md' } },
         },
-        localAsset: {
-            description: 'If true, the logo will be loaded from the local assets.',
-            table: { type: { summary: 'boolean' } },
+        mode: {
+            control: 'select',
+            options: ['base', 'dark', 'blackAndWhite'],
+            description: 'The style of the logo.',
+            table: { type: { summary: 'base | dark | blackAndWhite' } },
         },
         class: {
             control: { type: null },
@@ -53,6 +55,21 @@ export const Default = createDefault({
         width: 400,
         height: undefined,
         size: 'none',
-        localAsset: false,
+        mode: 'base',
     },
+});
+
+export const Base = createVariation({
+    components: { SPlacetopayLogo },
+    template: `<SPlacetopayLogo />`,
+});
+
+export const Dark = createVariation({
+    components: { SPlacetopayLogo },
+    template: `<SPlacetopayLogo mode="dark" />`,
+});
+
+export const BlackAndWhite = createVariation({
+    components: { SPlacetopayLogo },
+    template: `<SPlacetopayLogo mode="blackAndWhite" />`,
 });
