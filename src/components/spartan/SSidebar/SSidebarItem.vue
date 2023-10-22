@@ -5,7 +5,7 @@ import { useContext } from './api';
 import { sidebarItemStyles, sidebarItemIconStyles, sidebarItemContentStyles } from './styles';
 import type { TSidebarItemProps } from './types';
 
-const props = withDefaults(defineProps<TSidebarItemProps>(), {
+const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
     path: undefined,
     icon: undefined,
 });
@@ -19,7 +19,7 @@ const isActive = computed(() => store.value.path === getPath());
 
 <template>
     <li ref="el">
-        <button :class="twMerge(sidebarItemStyles({ active: isActive }))" @click="store.path = getPath()">
+        <button :class="twMerge(sidebarItemStyles({ active: isActive }))" @click="store.updatePath(getPath())">
             <component :is="icon" :class="twMerge(sidebarItemIconStyles({ active: isActive }))" />
 
             <span :class="twMerge(sidebarItemContentStyles({ active: isActive }))">

@@ -1,7 +1,13 @@
 import type { FunctionalComponent } from 'vue';
 
+export type TSidebarEmits = {
+    (event: 'update:modelValue', value?: string): void;
+};
+
 export type TSidebarProps = {
-    placetopayHeader: boolean;
+    modelValue: string;
+    class?: string;
+    placetopayHeader?: boolean;
 };
 
 export type TSidebarItemProps = {
@@ -9,5 +15,6 @@ export type TSidebarItemProps = {
     icon: FunctionalComponent;
 };
 export type TStateDefinition = {
-    path: string;
+    path: string | undefined;
+    updatePath: (path?: string) => void;
 };

@@ -67,8 +67,9 @@ export const createDefault = ({
         components,
         setup: () => {
             const argsWithoutSlots = computed(() => ({ ...args, default: undefined }));
+            const value = ref();
             if (setup) return { ...setup(), args, argsWithoutSlots };
-            return { args, argsWithoutSlots };
+            return { args, argsWithoutSlots, value };
         },
         template,
     }),

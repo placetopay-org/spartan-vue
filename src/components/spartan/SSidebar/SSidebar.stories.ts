@@ -4,6 +4,7 @@ import SSidebarItemGroup from './SSidebarItemGroup.vue';
 import { SPlacetopayLogo } from '../SPlacetopayLogo';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon } from '@heroicons/vue/24/outline';
+import { ref } from 'vue';
 
 export default {
     component: SSidebar,
@@ -36,7 +37,7 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     containerClass: 'p-40 bg-gray-100',
-    template: `<SSidebar v-bind="args">
+    template: `<SSidebar v-model="value" v-bind="args">
     <SSidebarItem>Sidebar Item</SSidebarItem>
     <SSidebarItemGroup>
         <template #title>Sub grops</template>
@@ -44,10 +45,6 @@ export const Default = createDefault({
         <SSidebarItem>Item 1</SSidebarItem>
         <SSidebarItem>Item 2</SSidebarItem>
     </SSidebarItemGroup>
-
-    <template #footer>
-        Footer!
-    </template>
 </SSidebar>`,
     transform: (args) => `<SSidebar ${sourceBinding(args)}>${args.default}</SSidebar>`,
     args: {
@@ -58,9 +55,11 @@ export const Default = createDefault({
 export const Base = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
-        return { HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        const value = ref('Dashboard');
+        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
     },
-    template: `<SSidebar placetopayHeader>
+    containerClass: 'flex gap-5 h-[550px]',
+    template: `<SSidebar class="w-60" placetopayHeader v-model="value">
     <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
     <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
     <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
@@ -80,5 +79,13 @@ export const Base = createVariation({
         <SSidebarItem>Permissions</SSidebarItem>
         <SSidebarItem>Logs</SSidebarItem>
     </SSidebarItemGroup>
-</SSidebar>`,
+</SSidebar>
+
+<!-- Example of view -->
+<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+    <h1>{{ value }}</h1>
+
+    <button @click="value = 'Logs'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+</main>`,
 });

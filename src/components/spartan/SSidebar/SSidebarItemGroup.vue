@@ -11,7 +11,7 @@ import {
 } from './styles';
 import type { TSidebarItemProps } from './types';
 
-const props = withDefaults(defineProps<TSidebarItemProps>(), {
+const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
     path: undefined,
     icon: undefined,
 });

@@ -1,12 +1,15 @@
-import { ref, inject, provide } from 'vue';
+import { ref, inject, provide, computed } from 'vue';
 import type { Ref, InjectionKey } from 'vue';
-import type { TStateDefinition } from './types';
+import type { TSidebarEmits, TSidebarProps, TStateDefinition } from './types';
 
 const contextKey = Symbol('SSidebarContext') as InjectionKey<Ref<TStateDefinition>>;
 
-export const createContext = () => {
+export const createContext = (props: Partial<TSidebarProps>, emit: TSidebarEmits) => {
     const state = ref<TStateDefinition>({
-        path: '',
+        path: computed(() => props.modelValue) as unknown as string | undefined,
+        updatePath: (path?: string) => {
+            emit('update:modelValue', path);
+        },
     });
 
     provide(contextKey, state);
