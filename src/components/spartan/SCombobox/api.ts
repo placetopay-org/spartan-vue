@@ -1,24 +1,17 @@
 import { ref, inject, provide, computed } from 'vue';
 import type { Ref, InjectionKey } from 'vue';
-import type { TComboboxProps, TStateDefinition, TOption, TComboboxOptionProps } from './types';
+import type { TComboboxProps, TStateDefinition, TOption, TComboboxOptionProps, TComboboxEmits } from './types';
 import { cleanSearch } from '@/helpers';
 
 const contextKey = Symbol('SComboboxContext') as InjectionKey<Ref<TStateDefinition>>;
 
-export const createContext = ({
-    props,
-    emit,
-}: {
-    props: Partial<TComboboxProps>;
-    emit: (event: 'update:modelValue', value: any) => void;
-}) => {
-    const state = ref({
+export const createContext = ({ props, emit }: { props: Partial<TComboboxProps>; emit: TComboboxEmits }) => {
+    const state: Ref<TStateDefinition> = ref({
         query: '',
         options: [] as TOption[],
-        // selectionId: null as TOption['id'] | null,
         selectionId: computed(() => state.value.querySelectionId(props.modelValue)),
         autoSearch: computed(() => props.search === 'auto'),
-        getSelection: () => state.value.options[state.value.selectionId],
+        getSelection: () => (state.value.selectionId ? state.value.options[state.value.selectionId] : null),
         isSelected: (optionId: TOption['id']) => state.value.selectionId === optionId,
         isFiltered: (optionContent: TOption['content']) => {
             return cleanSearch(optionContent).includes(cleanSearch(state.value.query));

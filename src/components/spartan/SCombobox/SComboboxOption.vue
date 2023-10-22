@@ -9,7 +9,7 @@ const props = defineProps<Partial<TComboboxOptionProps>>();
 const el = ref<HTMLElement | null>(null);
 
 const store = useContext('SComboboxOption');
-const option = store.value.registerOption(props, el);
+const option = store.value.registerOption(props);
 
 onMounted(() => {
     store.value.options[option.id].content = el.value?.innerText || '';

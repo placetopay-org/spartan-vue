@@ -5,12 +5,9 @@ import { Combobox, ComboboxButton, ComboboxOptions, ComboboxInput } from '@headl
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { comboboxStyles, comboboxInputStyles, comboboxButtonStyles } from './styles';
-import type { TComboboxProps, TOption } from './types';
+import type { TComboboxProps, TComboboxEmits, TOption } from './types';
 
-const emit = defineEmits<{
-    (event: 'update:modelValue', value: string | number | object): void;
-    (event: 'query', value: string): void;
-}>();
+const emit = defineEmits<TComboboxEmits>();
 
 const props = withDefaults(defineProps<Partial<TComboboxProps>>(), {
     disabled: false,

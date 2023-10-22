@@ -1,4 +1,3 @@
-import type { Ref } from 'vue';
 import type { TRounded } from '@/helpers';
 
 export type TOption = {
@@ -32,6 +31,11 @@ type TComboboxSearchProps = Partial<TComboboxBaseProps> & {
 
 export type TComboboxProps = TComboboxNormalProps | TComboboxSearchProps;
 
+export type TComboboxEmits = {
+    (event: 'update:modelValue', value: string | number | object | unknown): void;
+    (event: 'query', value: string): void;
+};
+
 export type TComboboxOptionProps = {
     class: string;
     value: string | number | object;
@@ -39,14 +43,15 @@ export type TComboboxOptionProps = {
 };
 
 export type TStateDefinition = {
-    autoSearch: boolean;
     query: string;
     options: TOption[];
     selectionId: TOption['id'] | null;
+    autoSearch: boolean;
+    getSelection: () => TOption | null;
     isSelected: (optionId: TOption['id']) => boolean;
     isFiltered: (optionId: TOption['content']) => boolean;
-    getSelection: () => TOption;
-    updateSelection: (optionId: TOption['id']) => void;
-    registerOption: (props: Partial<TComboboxOptionProps>, el: Ref<HTMLElement | null>) => TOption;
+    registerOption: (props: Partial<TComboboxOptionProps>) => TOption;
     emptyResults: () => boolean;
+    querySelectionId: (value: TOption['value']) => TOption['id'] | null;
+    updateQuery: (query: string) => void;
 };
