@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, useSlots } from 'vue';
 import { twMerge } from 'tailwind-merge';
 import { useContext } from './api';
 import { sidebarItemStyles, sidebarItemIconStyles, sidebarItemContentStyles } from './styles';
@@ -20,9 +20,10 @@ const setActive = (value: boolean) => (isActive.value = value);
 
 onMounted(() => {
     const groupName = el.value?.parentElement?.dataset.groupName;
-    const elInnetText = el.value?.innerText;
-    if (elInnetText) updatedPath.value = elInnetText;
-    if (groupName) updatedPath.value = `${groupName}/${elInnetText}`;
+    // TODO: ModalLeft compatible? -> const elInnerText = el.value?.innerText;
+    const elInnerText = useSlots().default?.()[0].children as string;
+    if (elInnerText) updatedPath.value = elInnerText;
+    if (groupName) updatedPath.value = `${groupName}/${elInnerText}`;
 
     if (updatedPath.value) store.registerPath(updatedPath.value, setActive, groupName);
 });

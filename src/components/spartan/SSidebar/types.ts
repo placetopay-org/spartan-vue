@@ -15,6 +15,10 @@ export type TSidebarItemProps = {
     icon: FunctionalComponent;
 };
 
+export type TSidebarItemGroupProps = TSidebarItemProps & {
+    verticalAccordion: string;
+};
+
 type TPath = {
     group?: string;
     activate: () => void;

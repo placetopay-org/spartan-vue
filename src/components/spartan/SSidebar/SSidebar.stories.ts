@@ -1,6 +1,7 @@
 import SSidebar from './SSidebar.vue';
 import SSidebarItem from './SSidebarItem.vue';
 import SSidebarItemGroup from './SSidebarItemGroup.vue';
+import { SModalLeft } from '../SModalLeft';
 import { SPlacetopayLogo } from '../SPlacetopayLogo';
 import { SAccordion } from '../SAccordion';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
@@ -74,7 +75,7 @@ export const Default = createDefault({
     <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
     <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -82,7 +83,7 @@ export const Default = createDefault({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -109,7 +110,7 @@ export const Base = createVariation({
     <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
     <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -117,7 +118,7 @@ export const Base = createVariation({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -139,17 +140,17 @@ export const AccordionWrapper = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo, SAccordion, Bars4Icon },
     setup: () => {
         const value = ref('Administration/Merchants');
-        const accordionRef = ref();
-        return { value, accordionRef, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        const open = ref(false);
+        return { value, open, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
     },
     containerClass: 'flex h-[550px]',
-    template: `<SAccordion class="w-60" ref="accordionRef">
+    template: `<SAccordion class="w-60" :open="open">
     <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
         <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
         <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon">
+        <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -157,7 +158,7 @@ export const AccordionWrapper = createVariation({
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon">
+        <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>
@@ -169,7 +170,45 @@ export const AccordionWrapper = createVariation({
 
 <!-- Example of view -->
 <main class="p-4 flex-1 flex items-start gap-4 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
-    <button @click="accordionRef?.toggle"><Bars4Icon class="h-7 w-7"/></button>
+    <button @click="open = !open"><Bars4Icon class="h-7 w-7"/></button>
+    <h1>{{ value }}</h1>
+</main>`,
+});
+
+export const ModalLeftWrapper = createVariation({
+    components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo, SModalLeft, Bars4Icon },
+    setup: () => {
+        const value = ref('Administration/Merchants');
+        const state = ref(false);
+        return { value, state, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+    },
+    template: `<SModalLeft :open="state" @close="() => state = false">
+    <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
+        <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
+        <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
+        <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+
+        <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
+            <template #title>Administration</template>
+
+            <SSidebarItem>Merchants</SSidebarItem>
+            <SSidebarItem>Sites</SSidebarItem>
+            <SSidebarItem>Users</SSidebarItem>
+        </SSidebarItemGroup>
+
+        <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
+            <template #title>Security</template>
+
+            <SSidebarItem>Roles</SSidebarItem>
+            <SSidebarItem>Permissions</SSidebarItem>
+            <SSidebarItem>Logs</SSidebarItem>
+        </SSidebarItemGroup>
+    </SSidebar>
+</SModalLeft>
+
+<!-- Example of view -->
+<main class="p-4 flex items-start gap-4 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+    <button @click="() => state = true"><Bars4Icon class="h-7 w-7"/></button>
     <h1>{{ value }}</h1>
 </main>`,
 });

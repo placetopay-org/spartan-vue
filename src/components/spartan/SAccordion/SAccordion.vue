@@ -1,41 +1,39 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
-import { ref } from 'vue';
 
 const props = defineProps<{
     class?: string;
+    open: boolean;
+    vertical?: boolean;
 }>();
-
-const state = ref(false);
-
-const open = () => (state.value = true);
-const close = () => (state.value = false);
-const toggle = () => (state.value = !state.value);
-
-defineExpose({
-    state,
-    open,
-    close,
-    toggle,
-});
 </script>
 
 <template>
-    <Transition appear name="accordion">
-        <div v-show="state" :class="twMerge('w-full overflow-hidden', props.class)">
+    <Transition appear :name="`${vertical ? 'vertical' : 'horizontal'}-accordion`">
+        <div v-show="open" :class="twMerge('overflow-hidden', vertical ? 'h-full' : 'w-full', props.class)">
             <slot />
         </div>
     </Transition>
 </template>
 
 <style scoped>
-.accordion-enter-active,
-.accordion-leave-active {
+.horizontal-accordion-enter-active,
+.horizontal-accordion-leave-active {
     transition: width 0.4s cubic-bezier(0.87, 0, 0.13, 1);
 }
 
-.accordion-enter-from,
-.accordion-leave-to {
+.horizontal-accordion-enter-from,
+.horizontal-accordion-leave-to {
     width: 0;
+}
+
+.vertical-accordion-enter-active,
+.vertical-accordion-leave-active {
+    transition: height 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.vertical-accordion-enter-from,
+.vertical-accordion-leave-to {
+    height: 0;
 }
 </style>
