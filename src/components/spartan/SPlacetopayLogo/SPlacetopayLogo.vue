@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
+import placetopayLogo from '/src/assets/placetopay_logo.svg';
+import placetopayLogoDark from '/src/assets/placetopay_logo_dark.svg';
+import placetopayLogoBw from '/src/assets/placetopay_logo_bw.svg';
 import type { TPlacetopayLogoProps } from './types';
 
 const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
@@ -12,12 +15,12 @@ const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
 });
 
 const asset = computed(() => {
-    const urls = {
-        base: 'placetopay_logo.svg',
-        dark: 'placetopay_logo_dark.svg',
-        blackAndWhite: 'placetopay_logo_bw.svg',
+    const assets = {
+        base: placetopayLogo,
+        dark: placetopayLogoDark,
+        blackAndWhite: placetopayLogoBw,
     };
-    return `/src/assets/${urls[props.mode]}`;
+    return assets[props.mode];
 });
 
 const sizeStyle = computed(() => {
