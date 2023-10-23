@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { twMerge } from 'tailwind-merge';
 import { useContext } from './api';
 import { sidebarItemStyles, sidebarItemIconStyles, sidebarItemContentStyles } from './styles';
@@ -11,15 +11,26 @@ const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
 });
 
 const el = ref<HTMLElement | null>(null);
+const updatedPath = ref(props.path);
 
 const store = useContext('SSidebarItem');
-const getPath = () => props.path ?? el.value?.innerText;
-const isActive = computed(() => store.value.path === getPath());
+
+const isActive = ref(false);
+const setActive = (value: boolean) => (isActive.value = value);
+
+onMounted(() => {
+    const groupName = el.value?.parentElement?.dataset.groupName;
+    const elInnetText = el.value?.innerText;
+    if (elInnetText) updatedPath.value = elInnetText;
+    if (groupName) updatedPath.value = `${groupName}/${elInnetText}`;
+
+    if (updatedPath.value) store.registerPath(updatedPath.value, setActive, groupName);
+});
 </script>
 
 <template>
     <li ref="el">
-        <button :class="twMerge(sidebarItemStyles({ active: isActive }))" @click="store.updatePath(getPath())">
+        <button :class="twMerge(sidebarItemStyles({ active: isActive }))" @click="store.updatePath(updatedPath)">
             <component :is="icon" :class="twMerge(sidebarItemIconStyles({ active: isActive }))" />
 
             <span :class="twMerge(sidebarItemContentStyles({ active: isActive }))">

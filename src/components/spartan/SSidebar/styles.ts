@@ -46,6 +46,7 @@ export const sidebarItemGroupChevronStyles = cva(
     {
         variants: {
             open: cbv('rotate-180'),
+            active: cbv('text-primary-500'),
         },
     },
 );
