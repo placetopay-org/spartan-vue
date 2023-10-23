@@ -2,9 +2,11 @@ import SSidebar from './SSidebar.vue';
 import SSidebarItem from './SSidebarItem.vue';
 import SSidebarItemGroup from './SSidebarItemGroup.vue';
 import { SPlacetopayLogo } from '../SPlacetopayLogo';
+import { SAccordion } from '../SAccordion';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
+import { Bars4Icon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SSidebar,
@@ -130,5 +132,44 @@ export const Base = createVariation({
 
     <button @click="value = 'Security/Logs'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
     <button @click="value = 'Dashboard'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+</main>`,
+});
+
+export const AccordionWrapper = createVariation({
+    components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo, SAccordion, Bars4Icon },
+    setup: () => {
+        const value = ref('Administration/Merchants');
+        const accordionRef = ref();
+        return { value, accordionRef, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+    },
+    containerClass: 'flex h-[550px]',
+    template: `<SAccordion class="w-60" ref="accordionRef">
+    <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
+        <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
+        <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
+        <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+
+        <SSidebarItemGroup :icon="KeyIcon">
+            <template #title>Administration</template>
+
+            <SSidebarItem>Merchants</SSidebarItem>
+            <SSidebarItem>Sites</SSidebarItem>
+            <SSidebarItem>Users</SSidebarItem>
+        </SSidebarItemGroup>
+
+        <SSidebarItemGroup :icon="LockClosedIcon">
+            <template #title>Security</template>
+
+            <SSidebarItem>Roles</SSidebarItem>
+            <SSidebarItem>Permissions</SSidebarItem>
+            <SSidebarItem>Logs</SSidebarItem>
+        </SSidebarItemGroup>
+    </SSidebar>
+</SAccordion>
+
+<!-- Example of view -->
+<main class="p-4 flex-1 flex items-start gap-4 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+    <button @click="accordionRef?.toggle"><Bars4Icon class="h-7 w-7"/></button>
+    <h1>{{ value }}</h1>
 </main>`,
 });
