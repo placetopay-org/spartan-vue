@@ -1,4 +1,4 @@
-import type { TInputProps } from './types';
+import type { TInputProps, TInputEmits } from './types';
 import { TextSlot, IconSlot, SelectorSlot } from './slots';
 
 const leftComponents: Record<string, any> = {
@@ -22,6 +22,12 @@ const leftComponents: Record<string, any> = {
             if (props.leftOptions) return { options: props.leftOptions };
             return undefined;
         },
+        getEmits: (props: Partial<TInputProps>, emit: TInputEmits) => {
+            if (props.leftOptions) {
+                return { 'update:modelValue': (value: string) => emit('update:leftOption', value) };
+            }
+            return undefined;
+        },
     },
 };
 
@@ -42,14 +48,30 @@ const rightComponents: Record<string, any> = {
     },
     selector: {
         component: SelectorSlot,
-        getProps: (props: Partial<TInputProps>) => {
-            if (props.rightOptions) return { options: props.rightOptions };
+        getProps: (props: Partial<TInputProps>, emit: TInputEmits) => {
+            if (props.rightOptions)
+                return {
+                    options: props.rightOptions,
+                    modelValue: props.rightOption,
+                    'onUpdate:rightOption': (value: string) => emit('update:rightOption', value),
+                };
             return undefined;
+        },
+        getEmits: (props: Partial<TInputProps>, emit: TInputEmits) => {
+            if (props.rightOptions) {
+                return { 'update:modelValue': (value: string) => emit('update:rightOption', value) };
+            }
+            return {};
         },
     },
 };
 
-export const buildSideContent = (side: 'left' | 'right', rawOrder: string, props: Partial<TInputProps>) => {
+export const buildSideContent = (
+    side: 'left' | 'right',
+    rawOrder: string,
+    props: Partial<TInputProps>,
+    emit: TInputEmits,
+) => {
     const order = rawOrder.split(',');
     return order
         .map((slot) => {
@@ -60,6 +82,7 @@ export const buildSideContent = (side: 'left' | 'right', rawOrder: string, props
                     key: `${side}-${slot}`,
                     component: component.component,
                     props: componentProps,
+                    emits: component.getEmits?.(props, emit) || {},
                 };
             }
 
@@ -68,10 +91,11 @@ export const buildSideContent = (side: 'left' | 'right', rawOrder: string, props
                     key: `${side}-${slot}`,
                     component: undefined,
                     props: undefined,
+                    emits: undefined,
                 };
             }
 
             return false;
         })
-        .filter(Boolean) as { key: string; component: any; props: any }[];
+        .filter(Boolean) as { key: string; component: any; props: any; emits: any }[];
 };

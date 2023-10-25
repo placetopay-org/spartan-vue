@@ -2,12 +2,10 @@
 import { computed, watchEffect } from 'vue';
 import { getRoundedClass, getDisabledClass } from '@/helpers';
 import { buildSideContent } from './slotBuilder';
-import type { TInputProps } from './types';
+import type { TInputProps, TInputEmits } from './types';
 
 defineOptions({ inheritAttrs: false });
-defineEmits<{
-    (event: 'update:modelValue', value: string | number | undefined): void;
-}>();
+const emit = defineEmits<TInputEmits>();
 
 const props = withDefaults(defineProps<Partial<TInputProps>>(), {
     class: undefined,
@@ -16,7 +14,9 @@ const props = withDefaults(defineProps<Partial<TInputProps>>(), {
     rightIcon: undefined,
     error: false,
     id: undefined,
+    leftOption: undefined,
     leftOptions: undefined,
+    rightOption: undefined,
     rightOptions: undefined,
     inputClass: undefined,
     modelValue: undefined,
@@ -33,8 +33,8 @@ const props = withDefaults(defineProps<Partial<TInputProps>>(), {
 const roundedClass = computed(() => getRoundedClass(props.rounded));
 const disabledClass = computed(() => getDisabledClass(props.disabled));
 
-const leftContent = computed(() => buildSideContent('left', props.leftOrderSlots, props));
-const rightContent = computed(() => buildSideContent('right', props.rightOrderSlots, props));
+const leftContent = computed(() => buildSideContent('left', props.leftOrderSlots, props, emit));
+const rightContent = computed(() => buildSideContent('right', props.rightOrderSlots, props, emit));
 
 const message = (component: string, type: string) => {
     return `The <${component} /> component should be used instead of the <SInput type="${type}"/>`;
@@ -60,7 +60,13 @@ watchEffect(() => {
         ]"
     >
         <template v-for="item in leftContent">
-            <component :is="item.component" v-if="item.component" :key="item.key" v-bind="item.props" />
+            <component
+                :is="item.component"
+                v-if="item.component"
+                :key="item.key"
+                v-bind="item.props"
+                v-on="item.emits"
+            />
             <slot v-else name="left" />
         </template>
         <input
@@ -75,7 +81,13 @@ watchEffect(() => {
             @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
         />
         <template v-for="item in rightContent">
-            <component :is="item.component" v-if="item.component" :key="item.key" v-bind="item.props" />
+            <component
+                :is="item.component"
+                v-if="item.component"
+                :key="item.key"
+                v-bind="item.props"
+                v-on="item.emits"
+            />
             <slot v-else name="right" />
         </template>
     </div>

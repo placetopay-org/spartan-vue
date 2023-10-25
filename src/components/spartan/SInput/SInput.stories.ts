@@ -369,7 +369,7 @@ export const WithOptionsEmbedded = createCustomVariation({
     template: `
     <SInput :leftOptions="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
     
-    <SInput :rightOptions="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
+    <SInput v-model:rightOption="currency" :rightOptions="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
     `,
     containerClass: 'w-[700px] gap-5 flex',
 });
