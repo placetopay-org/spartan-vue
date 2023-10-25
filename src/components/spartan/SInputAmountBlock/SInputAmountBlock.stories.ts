@@ -240,34 +240,14 @@ export const Default = createDefault({
     },
 });
 
-const createVariation = ({ template, ...rest }: { template: string }) =>
-    buildVariation({
-        template,
-        components: {
-            SInputAmountBlock,
-            SButton,
-            SDropdown,
-            SDropdownItem,
-            ArrowLeftOnRectangleIcon,
-            EnvelopeIcon,
-            KeyIcon,
-            InformationCircleIcon,
-            ChatBubbleLeftEllipsisIcon,
-            CurrencyDollarIcon,
-            MapPinIcon,
-        },
-        containerClass: 'w-[200px]',
-        ...rest,
-    });
+// export const WithLabel = createVariation({
+//     template: `<SInputAmountBlock label="Name" id="test-id" placeholder="Enter your name" />`,
+// });
 
-export const WithLabel = createVariation({
-    template: `<SInputAmountBlock label="Name" id="test-id" placeholder="Enter your name" />`,
-});
+// export const WithHelpText = createVariation({
+//     template: `<SInputAmountBlock id="test-id" label="Token" helpText="does not include quotes" placeholder="XX-XXXX-XXXX" />`,
+// });
 
-export const WithHelpText = createVariation({
-    template: `<SInputAmountBlock id="test-id" label="Token" helpText="does not include quotes" placeholder="XX-XXXX-XXXX" />`,
-});
-
-export const WithErrorText = createVariation({
-    template: `<SInputAmountBlock id="test-id" label="Amount" errorText="the amount is mandatory" prefix="$" placeholder="0.00" />`,
-});
+// export const WithErrorText = createVariation({
+//     template: `<SInputAmountBlock id="test-id" label="Amount" errorText="the amount is mandatory" prefix="$" placeholder="0.00" />`,
+// });

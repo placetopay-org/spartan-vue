@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { SInput, type TInputProps } from '../SInput';
-import { computed, watchEffect, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { CurrencyDisplay, useCurrencyInput, type CurrencyInputOptions } from 'vue-currency-input';
 import { Currencies } from '@/constants';
 import type { TInputAmountProps, TInputAmountEmits } from './types';
 
 const emit = defineEmits<TInputAmountEmits>();
-const props = defineProps<Partial<TInputProps> & TInputAmountProps>();
+const props = defineProps<TInputAmountProps & Partial<TInputProps>>();
 
 const inputProps = computed<Partial<TInputProps>>(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,8 +38,16 @@ watch(numberValue, (value) => {
     emit('update:modelValue', value);
 });
 
-watchEffect(() => setValue(props.modelValue));
-watchEffect(() => setOptions(currencyOptions.value));
+watch(
+    () => props.modelValue,
+    (value) => {
+        setValue(value);
+    },
+);
+
+watch(currencyOptions, (options) => {
+    setOptions(options);
+});
 </script>
 
 <template>
