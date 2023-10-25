@@ -28,3 +28,5 @@ export * from './SButtonGroup';
 export * from './SSectionTitle';
 export * from './SSectionDescription';
 export * from './SPlacetopayLogo';
+export * from './SInputAmount';
+export * from './SInputAmountBlock';

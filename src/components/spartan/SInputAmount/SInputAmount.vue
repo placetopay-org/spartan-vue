@@ -3,23 +3,10 @@ import { SInput, type TInputProps } from '../SInput';
 import { computed, watchEffect, watch } from 'vue';
 import { CurrencyDisplay, useCurrencyInput, type CurrencyInputOptions } from 'vue-currency-input';
 import { Currencies } from '@/constants';
+import type { TInputAmountProps, TInputAmountEmits } from './types';
 
-const emit = defineEmits<{
-    (event: 'update:currency', value: string | undefined): void;
-    (event: 'update:modelValue', value: number | null): void;
-    (event: 'change', value: number | null): void;
-}>();
-
-const props = defineProps<
-    Partial<TInputProps> & {
-        modelValue: number | null;
-        currency: keyof typeof Currencies;
-        locale?: string;
-        symbol?: boolean;
-        suffixCurrency?: boolean;
-        currencies?: Array<keyof typeof Currencies>;
-    }
->();
+const emit = defineEmits<TInputAmountEmits>();
+const props = defineProps<Partial<TInputProps> & TInputAmountProps>();
 
 const inputProps = computed<Partial<TInputProps>>(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
