@@ -1,16 +1,8 @@
-export { default as SSidebar } from './SSidebar.vue';
-export { default as SSidebarLogo } from './SSidebarLogo.vue';
-export { default as SSidebarNavItem } from './SSidebarNavItem.vue';
-export { default as SSidebarNavTitle } from './SSidebarNavTitle.vue';
-export { default as SSidebarContent } from './SSidebarContent.vue';
 export { default as STabs } from './STabs.vue';
 export { default as STab } from './STab.vue';
 export { default as STopBar } from './STopBar.vue';
 export { default as SAvatarMenuButton } from './SAvatarMenuButton.vue';
 export { default as SRootLayout } from './SRootLayout.vue';
-export { default as SSidebarNavChild } from './SSidebarNavChild.vue';
-export { default as SSidebarNavGroup } from './SSidebarNavGroup.vue';
-export { default as SSidebarNavParent } from './SSidebarNavParent.vue';
 export { default as SDescriptionList } from './SDescriptionList.vue';
 export { default as STabsLine } from './STabsLine.vue';
 export * from './sTables';

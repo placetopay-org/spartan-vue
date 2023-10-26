@@ -30,3 +30,4 @@ export * from './SSectionDescription';
 export * from './SPlacetopayLogo';
 export * from './SInputAmount';
 export * from './SInputAmountBlock';
+export * from './SSidebar';
