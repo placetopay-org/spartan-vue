@@ -1,34 +1,28 @@
 <script setup lang="ts">
-import { computed, type FunctionalComponent, useSlots, ref, watchEffect } from 'vue';
-import { roundedClass, type TRounded } from '@/helpers';
-
-export type TInputProps = {
-    disabled: boolean;
-    endIcon: FunctionalComponent;
-    error: boolean;
-    id: string;
-    icon: FunctionalComponent;
-    modelValue: string | number;
-    name: string;
-    placeholder: string;
-    prefix: string;
-    rounded: TRounded;
-    suffix: string;
-    type: string;
-};
+import { computed, watchEffect } from 'vue';
+import { getRoundedClass, getDisabledClass } from '@/helpers';
+import { buildSideContent } from './slotBuilder';
+import type { TInputProps, TInputEmits } from './types';
 
 defineOptions({ inheritAttrs: false });
-
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<TInputEmits>();
 
 const props = withDefaults(defineProps<Partial<TInputProps>>(), {
+    class: undefined,
     disabled: false,
-    endIcon: undefined,
+    leftIcon: undefined,
+    rightIcon: undefined,
     error: false,
     id: undefined,
-    icon: undefined,
+    leftOption: undefined,
+    leftOptions: undefined,
+    rightOption: undefined,
+    rightOptions: undefined,
+    inputClass: undefined,
     modelValue: undefined,
     name: undefined,
+    leftOrderSlots: 'selector,text,icon,slot',
+    rightOrderSlots: 'slot,icon,text,selector',
     placeholder: undefined,
     prefix: undefined,
     rounded: 'both',
@@ -36,37 +30,11 @@ const props = withDefaults(defineProps<Partial<TInputProps>>(), {
     type: 'text',
 });
 
-const slots = useSlots();
+const roundedClass = computed(() => getRoundedClass(props.rounded));
+const disabledClass = computed(() => getDisabledClass(props.disabled));
 
-const value = ref(props.modelValue);
-const model = computed({
-    get() {
-        return props.modelValue ?? value.value;
-    },
-    set(newValue) {
-        value.value = newValue;
-        emit('update:modelValue', newValue);
-    },
-});
-
-const inputHasFocus = ref(false);
-
-const errorClass = computed(() => {
-    return props.error
-        ? `border-red-500 ${inputHasFocus.value && 's-ring-error'}`
-        : `border-gray-300 ${inputHasFocus.value && 's-ring'}`;
-});
-
-const isRightRounded = computed(() => {
-    return props.rounded === 'right' || props.rounded === 'both';
-});
-
-const isLeftRounded = computed(() => {
-    return props.rounded === 'left' || props.rounded === 'both';
-});
-
-const leftContent = computed(() => Boolean(props.icon || props.prefix));
-const rightContent = computed(() => Boolean(props.endIcon || props.suffix || slots.options));
+const leftContent = computed(() => buildSideContent('left', props.leftOrderSlots, props, emit));
+const rightContent = computed(() => buildSideContent('right', props.rightOrderSlots, props, emit));
 
 const message = (component: string, type: string) => {
     return `The <${component} /> component should be used instead of the <SInput type="${type}"/>`;
@@ -82,45 +50,45 @@ watchEffect(() => {
 <template>
     <div
         :class="[
-            'relative flex w-full border border-gray-300 bg-white placeholder:text-gray-400',
-            errorClass,
-            roundedClass[rounded],
-            disabled && 'pointer-events-none opacity-50',
+            'relative flex gap-2 border border-gray-300 bg-white placeholder:text-gray-400',
+            error ? 'border-red-500 focus-within:s-ring-error' : 'border-gray-300 focus-within:s-ring',
+            rightOptions ? 'pr-0' : 'pr-3',
+            leftOptions ? 'pl-0' : 'pl-3',
+            roundedClass,
+            disabledClass,
+            props.class,
         ]"
     >
-        <div v-if="leftContent" :class="['flex items-center', isLeftRounded && 'rounded-l-lg']">
-            <span v-if="prefix" class="ml-3 text-gray-500">{{ prefix }}</span>
-            <component :is="icon" v-else-if="icon" class="ml-3 h-6 w-6 text-gray-500" />
-        </div>
+        <template v-for="item in leftContent">
+            <component
+                :is="item.component"
+                v-if="item.component"
+                :key="item.key"
+                v-bind="item.props"
+                v-on="item.emits"
+            />
+            <slot v-else name="left" />
+        </template>
         <input
             :id="id"
-            v-model="model"
-            :class="[
-                'w-full border-none focus:ring-0',
-                leftContent && 'pl-2',
-                rightContent && 'pr-2',
-                roundedClass[rounded],
-            ]"
+            :value="modelValue"
+            :class="['w-full border-none px-0 py-2 focus:ring-0', roundedClass, inputClass]"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"
             :type="type"
             v-bind="$attrs"
-            @focus="inputHasFocus = true"
-            @blur="inputHasFocus = false"
+            @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
         />
-        <div
-            v-if="rightContent"
-            :class="[
-                '-m-px flex items-center border border-transparent focus-within:s-ring',
-                isRightRounded && 'rounded-r-lg',
-            ]"
-        >
-            <select v-if="$slots.options" class="rounded-lg border-none text-sm text-gray-500 focus:ring-0">
-                <slot name="options" />
-            </select>
-            <span v-else-if="suffix" class="mr-3 text-gray-500">{{ suffix }}</span>
-            <component :is="endIcon" v-else-if="endIcon" class="mr-3 h-6 w-6 text-gray-500" />
-        </div>
+        <template v-for="item in rightContent">
+            <component
+                :is="item.component"
+                v-if="item.component"
+                :key="item.key"
+                v-bind="item.props"
+                v-on="item.emits"
+            />
+            <slot v-else name="right" />
+        </template>
     </div>
 </template>

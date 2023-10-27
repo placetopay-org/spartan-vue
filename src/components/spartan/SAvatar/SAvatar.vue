@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 
 const props = withDefaults(
     defineProps<
         Partial<{
+            class: string;
             borderless: boolean;
             indicator: boolean;
             indicatorPosition: keyof typeof indicatorPositionClass;
@@ -65,11 +67,12 @@ const initials = computed(() => {
     return `${first[0]}${last ? last[0] : ''}`.toUpperCase();
 });
 
-const classes = computed(() => [
+const classes = computed(() => twMerge([
     'rounded-full',
     sizeClass[props.size],
     !props.borderless && 'outline outline-1 outline-gray-800/20 -outline-offset-1',
-]);
+    props.class,
+]));
 </script>
 
 <template>

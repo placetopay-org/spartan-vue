@@ -1,27 +1,37 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { SInput, SLabel, type TInputProps } from '@spartan';
+import { SInput, type TInputProps } from '@spartan';
+import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 
-defineOptions({ inheritAttrs: false });
+defineEmits<{ (event: 'update:modelValue', value: string | number | undefined): void }>();
 
-const props = withDefaults(
-    defineProps<Partial<{ error: string; helpText: string; label: string }> & Omit<Partial<TInputProps>, 'error'>>(),
-    {
-        error: undefined,
-        label: undefined,
-    },
-);
+const props = defineProps<Partial<TBlockWrapperProps> & Partial<TInputProps>>();
 
-const inputProps = computed(() => ({ ...props, error: Boolean(props.error), helpText: undefined, label: undefined }));
+const blockWrapperProps = computed(() => ({
+    label: props.label,
+    id: props.id,
+    errorText: props.errorText,
+    helpText: props.helpText,
+}));
+
+const inputProps = computed(() => ({
+    ...props,
+    error: props.errorText ? Boolean(props.errorText) : props.error,
+    label: undefined,
+    helpText: undefined,
+    errorText: undefined,
+}));
 </script>
 
 <template>
-    <div>
-        <SLabel v-if="label" :for="id">{{ label }}</SLabel>
-        <SInput v-bind="inputProps" />
-        <div class="flex flex-col">
-            <span v-if="helpText" class="mt-1 text-xs font-normal text-gray-500">{{ helpText }}</span>
-            <span v-if="error" class="mt-1 text-xs font-normal text-red-500">{{ error }}</span>
-        </div>
-    </div>
+    <BlockWrapper wrapper="SInputBlock" v-bind="blockWrapperProps">
+        <SInput
+            class="w-full"
+            v-bind="inputProps"
+            @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
+        >
+            <template #left><slot name="left" /></template>
+            <template #right><slot name="right" /></template>
+        </SInput>
+    </BlockWrapper>
 </template>

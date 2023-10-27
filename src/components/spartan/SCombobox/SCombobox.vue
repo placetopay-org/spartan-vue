@@ -1,76 +1,85 @@
 <script setup lang="ts">
-import { Listbox, ListboxButton, ListboxOptions, ListboxLabel } from '@headlessui/vue';
+import { createContext } from './api';
+import { hasSlotContent } from '@/helpers';
+import { Combobox, ComboboxButton, ComboboxOptions, ComboboxInput } from '@headlessui/vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import { currentSelection } from './api';
-import { roundedClass, type TRounded } from '@/helpers';
-import { computed } from 'vue';
-import { HelpAndErrorTexts } from '@internal';
-import { SLabel } from '@spartan';
+import { twMerge } from 'tailwind-merge';
+import { comboboxStyles, comboboxInputStyles, comboboxButtonStyles } from './styles';
+import type { TComboboxProps, TComboboxEmits, TOption } from './types';
 
-const props = withDefaults(
-    defineProps<
-        Partial<{
-            disabled: boolean;
-            error: boolean;
-            errorText: string;
-            helpText: string;
-            label: string;
-            placeholder: string;
-            rounded: TRounded;
-        }>
-    >(),
-    {
-        disabled: false,
-        error: false,
-        errorText: undefined,
-        helpText: undefined,
-        label: undefined,
-        placeholder: undefined,
-        rounded: 'both',
-    },
-);
+const emit = defineEmits<TComboboxEmits>();
 
-const errorClass = computed(() => {
-    return props.error ? 'border-red-300 text-red-900 focus:s-ring-error' : 'border-gray-300 focus:s-ring';
+const props = withDefaults(defineProps<Partial<TComboboxProps>>(), {
+    disabled: false,
+    error: false,
+    search: false,
+    modelValue: undefined,
+    rounded: 'both',
+    displayButtonText: undefined,
 });
+
+const store = createContext({ props, emit });
 </script>
 
 <template>
     <div>
-        <Listbox v-model="currentSelection" :class="[disabled && 'pointer-events-none opacity-50']">
-            <div class="relative">
-                <ListboxLabel v-if="label">
-                    <SLabel>{{ label }}</SLabel>
-                </ListboxLabel>
-
-                <ListboxButton
-                    :class="[
-                        'relative w-full cursor-pointer border bg-white py-2 pl-3 pr-8 text-left focus:outline-none  sm:text-sm',
-                        errorClass,
-                        roundedClass[rounded],
-                    ]"
-                >
-                    <span v-if="currentSelection" class="block truncate">{{ currentSelection.label }}</span>
-                    <span v-else class="block truncate text-gray-500">{{ placeholder || 'select an option' }}</span>
-                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+        <Combobox
+            v-slot="{ open }"
+            as="div"
+            :model-value="store.querySelectionId(modelValue)"
+            :class="twMerge(comboboxStyles({ disabled, rounded, error }), props.class)"
+            @update:model-value="$emit('update:modelValue', store.options[$event].value)"
+        >
+            <ComboboxInput
+                v-if="search"
+                :id="id"
+                autocomplete="off"
+                :disabled="disabled"
+                :display-value="
+                    (optionId: unknown) => displayButtonText!(store.options[optionId as TOption['id']]?.value)
+                "
+                :class="twMerge(comboboxInputStyles({ rounded }))"
+                @change="(event) => store.updateQuery(event.target.value)"
+            />
+            <ComboboxButton
+                :id="id"
+                :tabindex="search ? -1 : 0"
+                :disabled="disabled"
+                :class="twMerge(comboboxButtonStyles({ rounded, search: Boolean(search) }))"
+            >
+                <template v-if="!search">
+                    <span v-if="hasSlotContent($slots.button)" class="block truncate text-gray-900">
+                        <slot name="button" />
                     </span>
-                </ListboxButton>
+                    <span v-else>
+                        {{ (displayButtonText && displayButtonText(store.getSelection()?.value)) || '&nbsp;' }}
+                    </span>
+                </template>
+                <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                </span>
+            </ComboboxButton>
 
-                <transition
-                    leave-active-class="transition duration-100 ease-in"
-                    leave-from-class="opacity-100"
-                    leave-to-class="opacity-0"
+            <transition
+                leave-active-class="transition duration-100 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+                @after-leave="store.updateQuery('')"
+            >
+                <ComboboxOptions
+                    v-show="open"
+                    static
+                    class="absolute z-10 mt-1 max-h-60 min-w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                 >
-                    <ListboxOptions
-                        class="absolute mt-1 max-h-60 min-w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                    <div
+                        v-if="store.emptyResults() && store.query !== ''"
+                        class="relative cursor-default select-none truncate px-4 py-2 text-gray-700"
                     >
-                        <slot />
-                    </ListboxOptions>
-                </transition>
-            </div>
-        </Listbox>
-
-        <HelpAndErrorTexts :help="helpText" :error="errorText" />
+                        Nothing found.
+                    </div>
+                    <slot />
+                </ComboboxOptions>
+            </transition>
+        </Combobox>
     </div>
 </template>

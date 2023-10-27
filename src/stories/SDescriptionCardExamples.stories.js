@@ -1,13 +1,4 @@
-import {
-    SCard,
-    SDescriptionItem,
-    SDescriptionItemLabel,
-    SDescriptionItemValue,
-    SButton,
-    SSectionTitle,
-    SSectionDescription,
-    SLink,
-} from '../index';
+import { SCard, SDefinitionTerm, SButton, SSectionTitle, SSectionDescription, SLink } from '../index';
 import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 export default {
@@ -18,21 +9,18 @@ export default {
             template: '<div class="flex bg-gray-100 py-12 px-8"><story /></div>',
         }),
     ],
-    subcomponents: { SDescriptionItem },
+    subcomponents: { SDefinitionTerm },
 };
 
 const Template = (args) => ({
     components: {
-        SDescriptionItem,
+        SDefinitionTerm,
         SButton,
         PencilIcon,
         TrashIcon,
         SSectionTitle,
         SSectionDescription,
         SCard,
-        SDescriptionItem,
-        SDescriptionItemLabel,
-        SDescriptionItemValue,
         SLink,
     },
     setup() {
@@ -52,47 +40,35 @@ const Template = (args) => ({
       </div>
       <div class="mt-6">
         <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-          <SDescriptionItem class="sm:col-span-1">
-            <SDescriptionItemLabel>
-              Permissions
-            </SDescriptionItemLabel>
-            <SDescriptionItemValue>
-              32 Permissions assigned
-            </SDescriptionItemValue>
-          </SDescriptionItem>
+          <SDefinitionTerm class="sm:col-span-1">
+            Permissions
+            <template #description>32 Permissions assigned</template>
+          </SDefinitionTerm>
 
-          <SDescriptionItem class="sm:col-span-1">
-            <SDescriptionItemLabel>
-              Used by
-            </SDescriptionItemLabel>
-            <SDescriptionItemValue>
-              23 Users are using this role
-            </SDescriptionItemValue>
-          </SDescriptionItem>
+          <SDefinitionTerm class="sm:col-span-1">
+            Used by
+            <template #description>23 Users are using this role</template>
+          </SDefinitionTerm>
 
-          <SDescriptionItem class="sm:col-span-1">
-            <SDescriptionItemLabel>
-              Created by
-            </SDescriptionItemLabel>
-            <SDescriptionItemValue>
+          <SDefinitionTerm class="sm:col-span-1">
+            Created by
+            <template #description>
               <SLink href="#">
                 Jane Doe
               </SLink>
               - 20 May 2021, 13:45
-            </SDescriptionItemValue>
-          </SDescriptionItem>
+            </template>
+          </SDefinitionTerm>
 
-          <SDescriptionItem class="sm:col-span-1">
-            <SDescriptionItemLabel>
-              Updated by
-            </SDescriptionItemLabel>
-            <SDescriptionItemValue>
+          <SDefinitionTerm class="sm:col-span-1">
+            Updated by
+            <template #description>
               <SLink href="#">
                 James Doe
               </SLink>
               - 22 May 2021, 11:45
-            </SDescriptionItemValue>
-          </SDescriptionItem>
+            </template>
+          </SDefinitionTerm>
         </dl>
       </div>
     </SCard>

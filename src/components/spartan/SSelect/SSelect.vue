@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { roundedClass, type TRounded } from '@/helpers';
-
-export type TSelectProps = {
-    disabled: boolean;
-    error: boolean;
-    id: string;
-    modelValue: string;
-    name: string;
-    placeholder: string;
-    rounded: TRounded;
-};
+import { roundedClass } from '@/helpers';
+import type { TSelectProps } from './types';
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string | undefined): void;
@@ -45,7 +36,7 @@ const model = computed({
         :disabled="disabled"
         :name="name"
         :class="[
-            'block border py-2 pl-3 pr-8 text-base text-gray-800 focus:z-10',
+            'block border py-2 pl-3 pr-8 text-base text-gray-800',
             error ? 'border-red-500 focus:s-ring-error' : 'border-gray-300 focus:s-ring',
             roundedClass[rounded],
         ]"

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { hasSlotContent } from '@/helpers';
 import { RadioGroupOption, RadioGroupLabel, RadioGroupDescription } from '@headlessui/vue';
 import { CheckCircleIcon } from '@heroicons/vue/20/solid';
 
@@ -20,12 +21,16 @@ defineProps<{
             <span class="flex flex-1">
                 <span class="flex flex-col justify-between">
                     <div>
-                        <RadioGroupLabel v-if="$slots.title" as="span" class="block text-sm font-medium text-gray-900">
+                        <RadioGroupLabel
+                            v-if="hasSlotContent($slots.title)"
+                            as="span"
+                            class="block text-sm font-medium text-gray-900"
+                        >
                             <slot name="title" />
                         </RadioGroupLabel>
 
                         <RadioGroupDescription
-                            v-if="$slots.description"
+                            v-if="hasSlotContent($slots.description)"
                             as="span"
                             class="mt-1 flex items-center text-sm text-gray-500"
                         >
@@ -34,7 +39,7 @@ defineProps<{
                     </div>
 
                     <RadioGroupDescription
-                        v-if="$slots.footer"
+                        v-if="hasSlotContent($slots.footer)"
                         as="span"
                         class="mt-6 text-sm font-medium text-gray-900"
                     >

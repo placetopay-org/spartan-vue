@@ -14,12 +14,14 @@ const dispersion = ref(false);
     <div class="bg-white">
         <header class="mb-8 flex items-center justify-between">
             <h1 class="text-xl font-semibold">Checkout Demo</h1>
-            <SSelect v-model="lang">
-                <option value="es">ES</option>
-                <option value="en">EN</option>
-                <option value="it">IT</option>
-                <option value="pt">PT</option>
-            </SSelect>
+            <div class="w-18">
+                <SSelect v-model="lang">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                    <option value="it">IT</option>
+                    <option value="pt">PT</option>
+                </SSelect>
+            </div>
         </header>
 
         <section>
@@ -39,26 +41,26 @@ const dispersion = ref(false);
 
         <section class="mt-6 flex flex-col gap-6">
             <SSwitch v-model="allowPartialPayments" passive reverse>
-                <template #label> Permitir pagos parciales </template>
+                Permitir pagos parciales
                 <template #description> Permite al usuario completar el pago en varias transacciones. </template>
             </SSwitch>
 
             <SSwitch v-model="startARecurringPayment" passive reverse>
-                <template #label> Iniciar un pago recurrente </template>
+                Iniciar un pago recurrente
                 <template #description>
                     Además del pago principal, se iniciará un pago recurrente cada mes durante 3 meses.
                 </template>
             </SSwitch>
 
             <SSwitch v-model="allowSubscription" passive reverse>
-                <template #label> Permitir suscripción </template>
+                Permitir suscripción
                 <template #description>
                     Permite que el usuario guarde el medio de pago para compartirlo al comercio.
                 </template>
             </SSwitch>
 
             <SSwitch v-model="dispersion" passive reverse>
-                <template #label> Dispersión </template>
+                Dispersión
                 <template #description>
                     Permite que el usuario guarde el medio de pago para compartirlo al comercio.
                 </template>
