@@ -14,20 +14,21 @@ export const InputWithSubmitButton = createVariation({
     },
     template: `
 <form @submit.prevent class="flex -space-x-px">
-  <SInput placeholder="example@email.com" :icon="EnvelopeIcon" type="email" rounded="left" required />
+  <SInput class="w-full" placeholder="example@email.com" :icon="EnvelopeIcon" type="email" rounded="left" required />
   <SButton type="submit" rounded="right">Invite</SButton>
 </form>
 
 <form @submit.prevent class="flex -space-x-px">
-  <SInput :icon="TagIcon" rounded="left" required suffix="tag" />
+  <SInput class="w-full" :icon="TagIcon" rounded="left" required suffix="tag" />
   <SButton type="submit" rounded="right" :icon="PlusIcon" />
 </form>
 
 <form @submit.prevent class="flex -space-x-px">
-  <SInput placeholder="Find your product..." rounded="left" required />
+  <SInput class="w-full" placeholder="Find your product..." rounded="left" required />
   <SButton type="submit" rounded="right" :icon="MagnifyingGlassIcon" >Search</SButton>
 </form>
 `,
+    containerClass: 'flex flex-col gap-4',
 });
 
 export const Test = createVariation({
@@ -55,36 +56,13 @@ export const Test = createVariation({
 
         return { currency, placeholder, prefix };
     },
-    template: `
-<script>
-  setup() {
-    const currency = ref('JPY');
-
-    const prefix = computed(() => {
-      if (currency.value === 'COP') return '$';
-      if (currency.value === 'USD') return '$';
-      if (currency.value === 'JPY') return '¥';
-      if (currency.value === 'EUR') return '€';
-    });
-
-    const placeholder = computed(() => {
-      if (currency.value === 'COP') return '100.000,00';
-      if (currency.value === 'USD') return '100,000.00';
-      if (currency.value === 'JPY') return '100,000.00';
-      if (currency.value === 'EUR') return '100,000.00';
-    });
-
-    return { currency, placeholder, prefix };
-  },
-</script>
-  
-<form @submit.prevent class="flex -space-x-px">
-  <SSelect v-model="currency" rounded="left">
-    <option value="COP">COP</option>
-    <option value="USD">USD</option>
-    <option value="EUR">EUR</option>
-    <option value="JPY">JPY</option>
-  </SSelect>
+    template: `<form @submit.prevent class="flex -space-x-px">
+    <SSelect v-model="currency" rounded="left">
+      <option value="COP">COP</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="JPY">JPY</option>
+    </SSelect>
   <SInput :prefix="prefix" :placeholder="placeholder" rounded="right" />
 </form>`,
 });

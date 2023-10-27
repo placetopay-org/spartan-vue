@@ -7,6 +7,101 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.26 - 2023-10-27
+
+## 2.0.0-beta.25 - 2023-10-27
+
+## 2.0.0-beta.24 - 2023-10-26
+
+## 2.0.0-beta.23 - 2023-10-26
+
+## 2.0.0-beta.22 - 2023-10-25
+
+## 2.0.0-beta.21 - 2023-10-25
+### Added
+- `SInputAmountBlock` component implementation.
+- `SInputAmount` component implementation.
+
+## 2.0.0-beta.20 - 2023-10-23
+### Fixed
+- Assets building process on `SPlacetopayLogo` component.
+
+## 2.0.0-beta.19 - 2023-10-23
+### Added
+- `SAccordion` component implementation.
+- `SSidebar` component implementation.
+- `SPlacetopayLogo` component implementation.
+- `SSectionTitle` and `SSectionDescription` component implementation.
+- `SComboboxBlock` component.
+- Auto search feature on `SCombobox` component.
+
+## 2.0.0-beta.18 - 2023-10-13
+### Added
+- Style variations with `Class Variance Authority`.
+- Actions slot on `SCard` and `SModalCard`.
+
+## 2.0.0-beta.17 - 2023-10-12
+### Added
+- `SModalCard` component implementation.
+
+## 2.0.0-beta.16 - 2023-10-11
+### Added
+- `SModal`, `SModalTitle` and `SModalDescription` components implementation.
+- `SBreadcrumbs` and `SBreadcrumbsItem` components implementation.
+- `SToast` component implementation.
+
+## 2.0.0-beta.15 - 2023-10-10
+
+## 2.0.0-beta.14 - 2023-10-10
+
+## 2.0.0-beta.13 - 2023-10-10
+
+## 2.0.0-beta.12 - 2023-10-09
+### Added
+- `SDefinitionTerm` component implementation.
+- `SSwitch` now supports icons.
+
+### Removed
+- `SSelectGroup` component.
+- `DescriptionItem` component.
+- `DescriptionItemLabel` component.
+- `DescriptionItemValue` component.
+
+## 2.0.0-beta.11 - 2023-10-08
+
+## 2.0.0-beta.10 - 2023-10-08
+
+## 2.0.0-beta.9 - 2023-10-08
+
+## 2.0.0-beta.8 - 2023-10-08
+
+## 2.0.0-beta.7 - 2023-10-06
+### Added
+- `SCard` component implementation.
+
+## 2.0.0-beta.6 - 2023-10-04
+### Fixed
+- Personal information example
+
+## 2.0.0-beta.5 - 2023-10-03
+
+## 2.0.0-beta.4 - 2023-10-03
+
+## 2.0.0-beta.3 - 2023-10-03
+### Added
+- `SSelectBlock` component implementation.
+
+## 2.0.0-beta.2 - 2023-10-02
+### Added
+- SCaption component implementation.
+
+## 2.0.0-beta.1 - 2023-10-02
+
+## 2.0.0-beta.0 - 2023-09-26
+### Changed
+- SInput component, left and right slots are now available.
+- SCombobox component, search feature and custom transform function are now available.
+
 ## 1.1.5-beta.0 - 2023-09-18
 ### Added
 - Slot for button content in SCombobox component.

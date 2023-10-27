@@ -9,7 +9,9 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, useSlots, type FunctionalComponent } from 'vue';
+import { buttonStyles, type TButtonStyles } from './styles';
+import { twMerge } from 'tailwind-merge';
+import { type FunctionalComponent } from 'vue';
 
 const props = withDefaults(
     defineProps<
@@ -19,10 +21,10 @@ const props = withDefaults(
             endIcon: boolean;
             icon: FunctionalComponent;
             loading: boolean;
-            rounded: keyof typeof roundedClass;
-            size: keyof typeof sizeClass;
+            rounded: TButtonStyles['rounded'];
+            size: TButtonStyles['size'];
             type: 'button' | 'submit';
-            variant: keyof typeof variantClass;
+            variant: TButtonStyles['variant'];
         }>
     >(),
     {
@@ -37,50 +39,6 @@ const props = withDefaults(
         variant: 'primary',
     },
 );
-
-const slots = useSlots();
-
-const variantClass = {
-    primary: 'text-white bg-primary-600 border-primary-600 hover:bg-primary-700 shadow-sm',
-    secondary: 'text-gray-900 bg-white border-gray-300 hover:bg-gray-50 focus:ring-gray-300 shadow-sm',
-    danger: 'text-white bg-red-500 border-red-300 hover:bg-red-600 focus:ring-red-300 shadow-sm',
-    outline: 'text-primary-600 bg-white border-primary-600 hover:bg-primary-50 shadow-sm',
-    link: 'text-primary-600 bg-transparent hover:text-primary-700',
-};
-
-const sizeClass = {
-    sm: {
-        text: 'py-2 px-3 text-xs',
-        noText: 'p-1',
-    },
-    md: {
-        text: 'py-3 px-6 text-sm',
-        noText: 'p-3',
-    },
-};
-
-const roundedClass = {
-    left: 'rounded-l-lg',
-    right: 'rounded-r-lg',
-    both: 'rounded-lg',
-    none: '',
-    full: 'rounded-full',
-};
-
-const buttonClasses = computed(() => [
-    'inline-flex items-center justify-center h-fit w-fit focus:s-ring border font-medium transition focus:outline-none gap-2',
-    props.disabled && 'pointer-events-none opacity-50',
-    props.loading && 'loading',
-    props.endIcon && 'flex-row-reverse',
-    slots.default?.()[0].children ? sizeClass[props.size].text : sizeClass[props.size].noText,
-    roundedClass[props.rounded],
-    variantClass[props.variant],
-]);
-
-const iconClasses = computed(() => [
-    'w-5 h-5',
-    slots.default?.()[0].children ? (props.endIcon ? '-mr-0.5' : '-ml-0.5') : '',
-]);
 </script>
 
 <template>
@@ -88,35 +46,28 @@ const iconClasses = computed(() => [
         :is="as || 'button'"
         :ref="$attrs.reference"
         :type="as && as === 'button' ? type : undefined"
-        :class="buttonClasses"
+        :class="
+            twMerge(
+                buttonStyles({
+                    variant,
+                    [$slots.default?.()[0].children ? 'size:text' : 'size:noText']: props.size,
+                    rounded,
+                    loading,
+                    endIcon,
+                }),
+            )
+        "
         :disabled="disabled"
     >
-        <component :is="icon" :class="iconClasses" />
+        <component
+            :is="icon"
+            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && (props.endIcon ? '-mr-0.5' : '-ml-0.5'))"
+        />
         <slot />
     </component>
 </template>
 
 <style>
-.border-ring-gray-300 {
-    box-shadow: inset 0 0 0 1px #d1d5db;
-}
-
-.border-ring-gray-300:focus {
-    box-shadow:
-        inset 0 0 0 1px #d1d5db,
-        var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-}
-
-.border-ring-primary-600 {
-    box-shadow: inset 0 0 0 1px #ff6c0c;
-}
-
-.border-ring-primary-600:focus {
-    box-shadow:
-        inset 0 0 0 1px #ff6c0c,
-        var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-}
-
 .loading {
     color: transparent !important;
     position: relative;

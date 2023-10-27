@@ -1,6 +1,5 @@
 import type { SourceProps } from '@storybook/blocks';
-import type { StoryObj } from '@storybook/vue3';
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
@@ -22,7 +21,8 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
 
     if (bindings.prop) {
         Object.keys(bindings.prop).forEach((prop) => {
-            if (args[prop] && args[prop] !== bindings.prop![prop]) result += `${prop}="${args[prop]}" `;
+            if (args[prop] !== undefined && args[prop] !== '' && args[prop] !== bindings.prop![prop])
+                result += `${prop}="${args[prop]}" `;
         });
     }
 
@@ -47,6 +47,7 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
 
 export const createDefault = ({
     components,
+    design,
     setup,
     args,
     transform,
@@ -55,23 +56,25 @@ export const createDefault = ({
 }: {
     template: string;
     setup?: () => any;
+    design?: string;
     args: Record<string, any>;
     transform?: (args: any) => string;
     components?: Record<string, any>;
     containerClass?: string;
 }) => ({
-    decorators: [() => ({ template: `<div class="${containerClass}"><story/></div>` })],
+    decorators: [() => ({ template: `<div ${containerClass ? `class="${containerClass}"` : ''}><story/></div>` })],
     render: (args: any) => ({
         components,
-        setup:
-            setup ||
-            (() => {
-                const argsWithoutSlots = computed(() => ({ ...args, default: undefined }));
-                return { args, argsWithoutSlots };
-            }),
+        setup: () => {
+            const argsWithoutSlots = computed(() => ({ ...args, default: undefined }));
+            const value = ref();
+            if (setup) return { ...setup(), args, argsWithoutSlots };
+            return { args, argsWithoutSlots, value };
+        },
         template,
     }),
     parameters: {
+        design: design ? buildDesign(design) : undefined,
         docs: {
             canvas: { layout: 'centered' },
             source: {
@@ -107,7 +110,12 @@ export const createVariation = ({
     ],
     render: () => ({
         components,
-        setup,
+        setup:
+            setup ||
+            (() => {
+                const value = ref();
+                return { value };
+            }),
         template,
     }),
     parameters: {

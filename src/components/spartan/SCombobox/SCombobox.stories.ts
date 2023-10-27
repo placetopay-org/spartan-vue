@@ -1,7 +1,8 @@
 import SCombobox from './SCombobox.vue';
 import SComboboxOption from './SComboboxOption.vue';
 import SComboboxOptionGroup from './SComboboxOptionGroup.vue';
-import { buildSourceBinding, createDefault } from '@/helpers';
+import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { ref } from 'vue';
 
 export default {
     component: SCombobox,
@@ -9,7 +10,8 @@ export default {
     parameters: {
         docs: {
             description: {
-                component: 'The select component is used to create a dropdown list of options.',
+                component:
+                    'The combobox component is a select with more features. Custom design and search are supported.',
             },
         },
     },
@@ -18,13 +20,28 @@ export default {
         'update:modelValue': {
             control: { type: null },
             table: { type: { summary: null }, category: 'Events' },
-            description: 'The event emitted when the input value changes.',
+            description: 'The event emitted when the combobox value changes.',
+        },
+        query: {
+            control: { type: null },
+            table: { type: { summary: null }, category: 'Events' },
+            description: 'The event emitted when the combobox query changes.',
         },
 
         // Slots
         default: {
             control: { type: null },
-            description: 'The content to be rendered inside the select.',
+            description: 'The content to be rendered inside the combobox.',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
+        button: {
+            control: { type: null },
+            description: 'The content to be rendered inside the combobox button.',
+            table: { type: { summary: 'VNode | VNode Array' } },
+        },
+        label: {
+            control: { type: null },
+            description: '-',
             table: { type: { summary: 'VNode | VNode Array' } },
         },
 
@@ -37,38 +54,10 @@ export default {
             description: 'Whether the select has an error.',
             table: { type: { summary: 'boolean' } },
         },
-        errorText: {
-            description: 'The error text to be displayed.',
-            table: { type: { summary: 'string' } },
-        },
-        helpText: {
-            description: 'The help text to be displayed.',
-            table: { type: { summary: 'string' } },
-        },
-        id: {
-            control: { type: 'text' },
-            description: 'The id of the select.',
-            table: { type: { summary: 'string' } },
-        },
         modelValue: {
             control: { type: null },
             description: 'The value of the select.',
             table: { type: { summary: 'Ref<string>' } },
-        },
-        name: {
-            control: { type: 'text' },
-            description: 'The name of the select.',
-            table: { type: { summary: 'string' } },
-        },
-        label: {
-            control: { type: 'text' },
-            description: 'The label of the select.',
-            table: { type: { summary: 'string' } },
-        },
-        placeholder: {
-            control: { type: 'text' },
-            description: 'The placeholder of the select.',
-            table: { type: { summary: 'string' } },
         },
         rounded: {
             control: 'inline-radio',
@@ -76,15 +65,46 @@ export default {
             description: `Specifies which corners should be rounded.`,
             table: { type: { summary: 'left | right | both | none | full' } },
         },
+        search: {
+            control: 'select',
+            options: ['false', 'true', 'auto'],
+            description: 'Whether the select should be searchable.',
+            table: { type: { summary: "boolean | 'auto'" } },
+        },
+        displayButtonText: {
+            control: { type: null },
+            description: 'The function to display the button text.',
+            table: { type: { summary: '(option) => string' } },
+        },
     },
 };
 
 // const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
 
 const sourceBinding = buildSourceBinding({
-    prop: { rounded: 'both', errorText: undefined, helpText: undefined, placeholder: undefined },
+    prop: { rounded: 'both', errorText: undefined, helpText: undefined },
     check: ['disabled', 'error'],
 });
+
+const currencyOptions = [
+    {
+        label: 'Colombia',
+        options: [
+            { label: 'Cédula de ciudadanía', value: 'CC' },
+            { label: 'Cédula de extranjería', value: 'CE' },
+            { label: 'Tarjeta de identidad', value: 'TI' },
+            { label: 'NIT', value: 'NIT' },
+        ],
+    },
+    {
+        label: 'United States',
+        options: [
+            { label: 'Social Security Number', value: 'SSN' },
+            { label: 'Individual Taxpayer Identification Number', value: 'ITIN' },
+            { label: 'Employer Identification Number', value: 'EIN' },
+        ],
+    },
+];
 
 export const Default = createDefault({
     containerClass: 'h-96',
@@ -92,114 +112,197 @@ export const Default = createDefault({
     args: {
         disabled: false,
         error: false,
-        errorText: '',
-        helpText: '',
-        label: 'Select',
-        placeholder: undefined,
         rounded: 'both',
+        modelValue: undefined,
+        search: 'false',
+        displayButtonText: (item: any) => item,
     },
-    template: `<SCombobox class="w-24" v-bind="args" v-model="args.modelValue">
-    <template #button>
-        {{ (args.modelValue?.label) ?? '-' }}
-    </template>
-
+    setup: () => {
+        const value = ref();
+        const getSearchProp = (search: 'false' | 'true' | 'auto') => (search === 'false' ? false : search);
+        return { value, getSearchProp, options: currencyOptions[0].options };
+    },
+    template: `<SCombobox class="w-24" v-bind="{...args, search: getSearchProp(args.search)}" v-model="value">
     <SComboboxOptionGroup label="Colombia">
-        <SComboboxOption label="CC" value="CC"><span class="font-bold">CC</span> Cédula de ciudadanía</SComboboxOption>
-        <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
-        <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
-        <SComboboxOption label="NIT" value="NIT">NIT</SComboboxOption>
+        <SComboboxOption value="CC">🪪 Cédula de ciudadanía</SComboboxOption>
+        <SComboboxOption value="CE">🪪 Cédula de extranjería</SComboboxOption>
+        <SComboboxOption value="TI">🪪 Tarjeta de identidad</SComboboxOption>
+        <SComboboxOption value="NIT">🪪 NIT</SComboboxOption>
     </SComboboxOptionGroup>
 
     <SComboboxOptionGroup label="United States">
-        <SComboboxOption label="SSN" value="SSN">Social Security Number</SComboboxOption>
-        <SComboboxOption label="ITIN" value="ITIN">Individual Taxpayer Identification Number</SComboboxOption>
-        <SComboboxOption label="EIN" value="EIN">Employer Identification Number</SComboboxOption>
+        <SComboboxOption value="SSN">🪪 Social Security Number</SComboboxOption>
+        <SComboboxOption value="ITIN">🪪 Individual Taxpayer Identification Number</SComboboxOption>
+        <SComboboxOption value="EIN">🪪 Employer Identification Number</SComboboxOption>
     </SComboboxOptionGroup>
 
     <SComboboxOptionGroup label="United Kingdom">
-        <SComboboxOption label="NINO" value="NINO">National Insurance Number</SComboboxOption>
-        <SComboboxOption label="UTR" value="UTR">Unique Taxpayer Reference</SComboboxOption>
+        <SComboboxOption value="NINO">🪪 National Insurance Number</SComboboxOption>
+        <SComboboxOption value="UTR">🪪 Unique Taxpayer Reference</SComboboxOption>
     </SComboboxOptionGroup>
 
     <SComboboxOptionGroup label="Other">
-        <SComboboxOption label="PA" value="PA">Pasaporte</SComboboxOption>
-        <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
+        <SComboboxOption value="PA">🪪 Pasaporte</SComboboxOption>
+        <SComboboxOption value="RC">🪪 Registro civil</SComboboxOption>
     </SComboboxOptionGroup>
-    </SCombobox>`,
-    transform: (args) => `<SCombobox ${sourceBinding(args)} v-model="value">
-    <template #button>{{ value?.value ?? '-' }}</template>
-
+</SCombobox>`,
+    transform: (args) => `<SCombobox ${sourceBinding(args)} ${
+        args.search === 'auto' ? 'search="auto"' : args.search === 'true' ? 'search' : ''
+    } v-model="value">
     <SComboboxOptionGroup label="Colombia">
-        <SComboboxOption label="CC" value="CC">Cédula de ciudadanía</SComboboxOption>
-        <SComboboxOption label="CE" value="CE">Cédula de extranjería</SComboboxOption>
-        <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
-        <SComboboxOption label="NIT" value="NIT">NIT</SComboboxOption>
+        <SComboboxOption value="CC">🪪 Cédula de ciudadanía</SComboboxOption>
+        <SComboboxOption value="CE">🪪 Cédula de extranjería</SComboboxOption>
+        <SComboboxOption value="TI">🪪 Tarjeta de identidad</SComboboxOption>
+        <SComboboxOption value="NIT">🪪 NIT</SComboboxOption>
     </SComboboxOptionGroup>
 
     <SComboboxOptionGroup label="United States">
-        <SComboboxOption label="SSN" value="SSN">Social Security Number</SComboboxOption>
-        <SComboboxOption label="ITIN" value="ITIN">Individual Taxpayer Identification Number</SComboboxOption>
-        <SComboboxOption label="EIN" value="EIN">Employer Identification Number</SComboboxOption>
+        <SComboboxOption value="SSN">🪪 Social Security Number</SComboboxOption>
+        <SComboboxOption value="ITIN">🪪 Individual Taxpayer Identification Number</SComboboxOption>
+        <SComboboxOption value="EIN">🪪 Employer Identification Number</SComboboxOption>
     </SComboboxOptionGroup>
 
     <SComboboxOptionGroup label="United Kingdom">
-        <SComboboxOption label="NINO" value="NINO">National Insurance Number</SComboboxOption>
-        <SComboboxOption label="UTR" value="UTR">Unique Taxpayer Reference</SComboboxOption>
+        <SComboboxOption value="NINO">🪪 National Insurance Number</SComboboxOption>
+        <SComboboxOption value="UTR">🪪 Unique Taxpayer Reference</SComboboxOption>
     </SComboboxOptionGroup>
 
     <SComboboxOptionGroup label="Other">
-        <SComboboxOption label="PA" value="PA">Pasaporte</SComboboxOption>
-        <SComboboxOption label="RC" value="RC">Registro civil</SComboboxOption>
+        <SComboboxOption value="PA">🪪 Pasaporte</SComboboxOption>
+        <SComboboxOption value="RC">🪪 Registro civil</SComboboxOption>
     </SComboboxOptionGroup>
 </SCombobox>`,
 });
 
-// export const Disabled = createVariation({
-//     components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
-//     setup: () => {
-//         const value = ref('CC');
+const riskOptions = [
+    { initial: 'H', name: 'Hight' },
+    { initial: 'M', name: 'Medium' },
+    { initial: 'L', name: 'Low' },
+];
 
-//         return { value };
-//     },
-//     template: `<SCombobox class="w-24" v-model="value" disabled>
-//     <SComboboxOption label="CC" value="CC">Cédula de ciudadanía</SComboboxOption>
-//     <SComboboxOption label="TI" value="TI">Tarjeta de identidad</SComboboxOption>
-// </SCombobox>`,
-// });
+export const Disabled = createVariation({
+    components: { SCombobox, SComboboxOption },
+    setup: () => {
+        const value = ref('CC');
+        return { value };
+    },
+    template: `<SCombobox class="w-24" v-model="value" disabled initialOption :displayButtonText="item => item">
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'w-[100px]',
+});
 
-// export const Placeholder = createVariation(
-//     `
-// <SCombobox v-model="value" placeholder="Select an option">
-//   <SComboboxOption value="option">option</SComboboxOption>
-//   <SComboboxOption value="option2">option2</SComboboxOption>
-//   <SComboboxOption value="option3">option3</SComboboxOption>
-//   <SComboboxOption value="option4">option4</SComboboxOption>
-//   <SComboboxOption value="option5">option5</SComboboxOption>
-// </SCombobox>
-// `,
-//     true,
-// );
+export const Placeholder = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref();
+        const value2 = ref();
+        return { value, value2 };
+    },
+    template: `<SCombobox class="w-40" v-model="value" :displayButtonText="item => item ?? 'Select an option'">
+    <SComboboxOption value="" disabled>Select an option</SComboboxOption>
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>
 
-// export const Disabled = createVariation(
-//     `
-// <SCombobox v-model="value" disabled>
-//   <SComboboxOption value="option">option</SComboboxOption>
-//   <SComboboxOption value="option2">option2</SComboboxOption>
-//   <SComboboxOption value="option3">option3</SComboboxOption>
-//   <SComboboxOption value="option4">option4</SComboboxOption>
-//   <SComboboxOption value="option5">option5</SComboboxOption>
-// </SCombobox>
-// `,
-// );
+<SCombobox class="w-40" v-model="value2">
+    <template #button>
+        <span :class="[value2 ? 'text-gray-900' : 'text-gray-500']">{{ value2 || 'Select an option' }}</span>
+    </template>
+    <SComboboxOption value="" disabled>Select an option</SComboboxOption>
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>
 
-// export const Error = createVariation(
-//     `
-// <SCombobox v-model="value" error>
-//   <SComboboxOption value="option">option</SComboboxOption>
-//   <SComboboxOption value="option2">option2</SComboboxOption>
-//   <SComboboxOption value="option3">option3</SComboboxOption>
-//   <SComboboxOption value="option4">option4</SComboboxOption>
-//   <SComboboxOption value="option5">option5</SComboboxOption>
-// </SCombobox>
-// `,
-// );
+<SCombobox class="w-40" v-model="value2" :displayButtonText="item => item ?? '--'">
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>
+
+<SCombobox class="w-40" v-model="value2">
+    <template #button>{{ value2 || '--' }}</template>
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'grid grid-cols-4 gap-2 h-[100px]',
+});
+
+export const Error = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref('CC');
+        return { value };
+    },
+    template: `<SCombobox error class="w-24" v-model="value" :displayButtonText="item => item">
+    <SComboboxOption value="CC">Cédula de ciudadanía</SComboboxOption>
+    <SComboboxOption value="TI">Tarjeta de identidad</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'h-[100px]',
+});
+
+export const CustomButtonTextWithProp = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        return { value, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value" :displayButtonText="item => item && \`\${item.initial} - (\${item.name})\`">
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'w-[300px] h-[150px]',
+});
+
+export const CustomButtonContentWithSlot = createVariation({
+    components: { SCombobox, SComboboxOption, SComboboxOptionGroup },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        return { value, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value">
+    <template #button>
+        <span class="font-bold text-red-500">{{ value.initial }}</span> - {{ value.name }}
+    </template>
+
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>`,
+    containerClass: 'w-[300px] h-[150px]',
+});
+
+export const WithSearch = createVariation({
+    components: { SCombobox, SComboboxOption },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        const query = ref('');
+        return { value, query, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value" search @query="value => query = value" :displayButtonText="item => item && item.name">
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>
+
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+    containerClass: 'w-full h-[150px] flex gap-8 items-start',
+});
+
+export const WithAutomaticSearch = createVariation({
+    components: { SCombobox, SComboboxOption },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        const query = ref('');
+        return { value, query, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value" search="auto" @query="value => query = value" :displayButtonText="item => item && item.name">
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>
+
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+    containerClass: 'w-full h-[150px] flex gap-8 items-start',
+});
