@@ -41,11 +41,12 @@ const setActive = (value: boolean) => {
 const accordionProps = computed(() => {
     const baseProps: any = {
         'data-group-name': updatedPath.value,
+        class: 'pl-8',
     };
 
     if (props.verticalAccordion) {
         baseProps.open = open.value;
-        baseProps.class = props.verticalAccordion;
+        baseProps.class = twMerge(baseProps.class, props.verticalAccordion);
         baseProps.vertical = true;
     }
 

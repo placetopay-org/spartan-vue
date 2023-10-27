@@ -3,17 +3,25 @@ import { TransitionChild, DialogPanel } from '@headlessui/vue';
 import { ModalBackdropWrapper } from '@internal';
 import type { TModalLeftProps } from './types';
 import { XMarkIcon } from '@heroicons/vue/20/solid';
+import { twMerge } from 'tailwind-merge';
 
 defineOptions({ inheritAttrs: false });
 defineEmits(['close', 'backdropClick']);
 
 withDefaults(defineProps<Partial<TModalLeftProps>>(), {
+    backdropClass: '',
     open: false,
+    breakpoint: 'lg'
 });
 </script>
 
 <template>
-    <ModalBackdropWrapper :show="open" backdrop-class="bg-gray-900/80" @close="$emit('backdropClick')">
+    <ModalBackdropWrapper
+        :breakpoint="breakpoint"
+        :show="open"
+        :backdrop-class="twMerge('bg-gray-900/80', backdropClass)"
+        @close="$emit('backdropClick')"
+    >
         <div class="fixed inset-0 w-screen overflow-y-auto">
             <button class="absolute right-4 top-4" @click="$emit('close')">
                 <XMarkIcon class="h-7 w-7 text-white" />

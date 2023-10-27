@@ -1,4 +1,5 @@
 export * from './SAvatar';
+export * from './SAccordion';
 export * from './SBadge';
 export * from './SButton';
 export * from './SCheckbox';
@@ -24,6 +25,7 @@ export * from './SSteps';
 export * from './SBreadcrumbs';
 export * from './SModal';
 export * from './SModalCard';
+export * from './SModalLeft';
 export * from './SButtonGroup';
 export * from './SSectionTitle';
 export * from './SSectionDescription';

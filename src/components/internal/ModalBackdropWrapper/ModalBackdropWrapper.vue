@@ -1,18 +1,36 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog } from '@headlessui/vue';
 import { twMerge } from 'tailwind-merge';
+import { ref } from 'vue';
 
 defineEmits(['close']);
 
-defineProps<{
+const props = defineProps<{
     show: boolean;
     backdropClass?: string;
+    breakpoint?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | number;
 }>();
+
+const mediaShow = ref(true);
+
+if (props.breakpoint) {
+    const widths = {
+        sm: 640,
+        md: 768,
+        lg: 1024,
+        xl: 1280,
+        '2xl': 1536,
+    };
+
+    const minWidth = typeof props.breakpoint === 'number' ? props.breakpoint : widths[props.breakpoint];
+    const mediaQuery = window.matchMedia(`(min-width: ${minWidth}px)`);
+    mediaQuery.addEventListener('change', (e) => (mediaShow.value = !e.matches));
+}
 </script>
 
 <template>
-    <TransitionRoot appear :show="show">
-        <Dialog as="div" class="relative z-50" @close="$emit('close')">
+    <TransitionRoot v-if="mediaShow" appear :show="show">
+        <Dialog as="div" :class="twMerge('relative z-50')" @close="$emit('close')">
             <!-- Backdrop -->
             <TransitionChild
                 as="template"

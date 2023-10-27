@@ -212,3 +212,41 @@ export const ModalLeftWrapper = createVariation({
     <h1>{{ value }}</h1>
 </main>`,
 });
+
+export const UsingPaths = createVariation({
+    components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
+    setup: () => {
+        const value = ref('metrics');
+        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+    },
+    containerClass: 'flex gap-5 h-[550px]',
+    template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
+    <SSidebarItem path="home" :icon="HomeIcon">Dashboard</SSidebarItem>
+    <SSidebarItem path="balance" :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
+    <SSidebarItem path="configuration" :icon="CommandLineIcon">System</SSidebarItem>
+
+    <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
+        <template #title>Administration</template>
+
+        <SSidebarItem path="my-merchants">Merchants</SSidebarItem>
+        <SSidebarItem path="my-sites">Sites</SSidebarItem>
+        <SSidebarItem path="my-users">Users</SSidebarItem>
+    </SSidebarItemGroup>
+
+    <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
+        <template #title>Security</template>
+
+        <SSidebarItem path="roles">Roles</SSidebarItem>
+        <SSidebarItem path="permissions">Permissions</SSidebarItem>
+        <SSidebarItem path="metrics">Logs</SSidebarItem>
+    </SSidebarItemGroup>
+</SSidebar>
+
+<!-- Example of view -->
+<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+    <h1>{{ value }}</h1>
+
+    <button @click="value = 'metrics'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'home'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+</main>`,
+});
