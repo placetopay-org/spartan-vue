@@ -25,6 +25,7 @@ if (props.breakpoint) {
     const minWidth = typeof props.breakpoint === 'number' ? props.breakpoint : widths[props.breakpoint];
     const mediaQuery = window.matchMedia(`(min-width: ${minWidth}px)`);
     mediaQuery.addEventListener('change', (e) => (mediaShow.value = !e.matches));
+    mediaShow.value = !mediaQuery.matches;
 }
 </script>
 
