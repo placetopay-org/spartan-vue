@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SSidebarItem` is now polymorphic using `as` prop.
 - `STabs` components implementation with `underline`, `pills` and `vetches` variants.
 
 ## 2.0.0-beta.26 - 2023-10-27
