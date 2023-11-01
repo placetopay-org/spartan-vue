@@ -15,7 +15,7 @@ import type { TSidebarItemGroupProps } from './types';
 const props = withDefaults(defineProps<Partial<TSidebarItemGroupProps>>(), {
     path: undefined,
     icon: undefined,
-    verticalAccordion: undefined,
+    accordion: true,
 });
 
 const slots = useSlots();
@@ -32,7 +32,7 @@ const setActive = (value: boolean) => {
             () => {
                 open.value = true;
             },
-            props.verticalAccordion ? 150 : 0,
+            props.accordion ? 150 : 0,
         );
     }
     isActive.value = value;
@@ -44,9 +44,8 @@ const accordionProps = computed(() => {
         class: 'pl-8',
     };
 
-    if (props.verticalAccordion) {
+    if (props.accordion) {
         baseProps.open = open.value;
-        baseProps.class = twMerge(baseProps.class, props.verticalAccordion);
         baseProps.vertical = true;
     }
 
@@ -68,11 +67,7 @@ store.registerGroup(updatedPath.value, setActive);
             <ChevronDownIcon :class="twMerge(sidebarItemGroupChevronStyles({ open, active: isActive }))" />
         </button>
 
-        <component
-            :is="verticalAccordion ? SAccordion : 'ul'"
-            v-show="open || verticalAccordion"
-            v-bind="accordionProps"
-        >
+        <component :is="accordion ? SAccordion : 'ul'" v-show="open || accordion" v-bind="accordionProps">
             <slot />
         </component>
     </li>

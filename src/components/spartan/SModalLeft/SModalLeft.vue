@@ -11,7 +11,7 @@ defineEmits(['close', 'backdropClick']);
 withDefaults(defineProps<Partial<TModalLeftProps>>(), {
     backdropClass: '',
     open: false,
-    breakpoint: 'lg'
+    breakpoint: undefined,
 });
 </script>
 
