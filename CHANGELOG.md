@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.29 - 2023-11-01
+
 ## 2.0.0-beta.28 - 2023-10-30
 ### Added
 - `SSidebarItem` is now polymorphic using `as` prop.
