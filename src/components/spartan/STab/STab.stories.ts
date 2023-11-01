@@ -113,7 +113,7 @@ export const UsingPaths = createVariation({
 </STab>`,
 });
 
-export const PillsVariants = createVariation({
+export const PillsVariant = createVariation({
     components: { STab, STabItem },
     containerClass: 'bg-white -m-4 p-8',
     setup: () => {
