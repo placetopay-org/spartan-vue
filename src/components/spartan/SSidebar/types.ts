@@ -17,7 +17,7 @@ export type TSidebarItemProps = {
 };
 
 export type TSidebarItemGroupProps = TSidebarItemProps & {
-    verticalAccordion: string;
+    accordion: boolean;
 };
 
 type TPath = {

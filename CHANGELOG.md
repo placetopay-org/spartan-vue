@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- Improve animation with `SAccordion` component.
+
+### Fixed
+- `SModalLeft` with breackpoint undefined by default.
 
 ## 2.0.0-beta.29 - 2023-11-01
 
