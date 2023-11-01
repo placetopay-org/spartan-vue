@@ -70,20 +70,20 @@ const Template = (args) => ({
                     <STableRowItem>
                         {{ row.role }}
                     </STableRowItem>
-                    <STableRowItem>
-                        <QrCodeIcon class="mr-2.5 h-5 w-5"></QrCodeIcon>
-                        <DocumentDuplicateIcon class="mr-2.5 h-5 w-5"></DocumentDuplicateIcon>
-                        <TrashIcon class="mr-2.5 h-5 w-5 text-red-500"></TrashIcon>
+                    <STableRowItem class="flex gap-2 [&>*]:h-5 [&>*]:w-5">
+                        <QrCodeIcon />
+                        <DocumentDuplicateIcon />
+                        <TrashIcon class="text-red-500" />
                     </STableRowItem>
                 </STableRow>
             </STableBody>
         </STable>
-        <STablePagination
+        <!-- <STablePagination
             :current-page="args.footer.currentPage"
             :last-page="args.footer.lastPage"
         >
           <p> {{ args.footer.info }} </p>
-        </STablePagination>
+        </STablePagination> -->
     </STableLayout>
   `,
 });

@@ -1,10 +1,7 @@
-export { default as STabs } from './STabs.vue';
-export { default as STab } from './STab.vue';
 export { default as STopBar } from './STopBar.vue';
 export { default as SAvatarMenuButton } from './SAvatarMenuButton.vue';
 export { default as SRootLayout } from './SRootLayout.vue';
 export { default as SDescriptionList } from './SDescriptionList.vue';
-export { default as STabsLine } from './STabsLine.vue';
 export * from './sTables';
 export { SInputAlt, SInputDate, SInputDropdown, SInputError, SInputHelper, SInputMask, SInputRadio } from './sInputs';
 export * from './SDescriptionItem';
