@@ -286,7 +286,7 @@ export const WithSearch = createVariation({
     <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
 </SCombobox>
 
-<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</p>`,
     containerClass: 'w-full h-[150px] flex gap-8 items-start',
 });
 
@@ -303,6 +303,6 @@ export const WithAutomaticSearch = createVariation({
     <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
 </SCombobox>
 
-<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</p>`,
     containerClass: 'w-full h-[150px] flex gap-8 items-start',
 });

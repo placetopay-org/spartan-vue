@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `STableHead`, `STableBody`, `STableRow`, `STableCell`,  and `STableHeadCell` components implementation.
 - `STable` component implementation.
 
+### Fixed
+- First element selection on `SCombobox` component.
+- Default symbol on amount input
+- Autofill style on SInput
+
 ## 2.0.0-beta.31 - 2023-11-01
 ### Changed
 - Improve cube bezier animation on `SAccordion` component.
