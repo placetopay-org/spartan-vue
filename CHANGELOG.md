@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Fixed
+- Default symbol on amount input
 - Autofill style on SInput
 
 ## 2.0.0-beta.31 - 2023-11-01
