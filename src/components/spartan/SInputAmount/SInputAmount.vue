@@ -19,7 +19,7 @@ const inputProps = computed<Partial<TInputProps>>(() => {
             label: currency,
             value: currency,
         })),
-        prefix: symbol ? Currencies[currency].symbol ?? '' : undefined,
+        prefix: symbol ? Currencies[currency].symbol ?? '$' : undefined,
         suffix: suffixCurrency ? currency : undefined,
     };
 });

@@ -45,6 +45,8 @@ watchEffect(() => {
         console.error(message(`S${props.type.charAt(0).toUpperCase() + props.type.slice(1)}`, props.type));
     }
 });
+
+console.log('mod');
 </script>
 
 <template>
@@ -57,7 +59,7 @@ watchEffect(() => {
             roundedClass,
             disabledClass,
             props.class,
-        ]"
+        ]" 
     >
         <template v-for="item in leftContent">
             <component
@@ -72,7 +74,7 @@ watchEffect(() => {
         <input
             :id="id"
             :value="modelValue"
-            :class="['w-full border-none px-0 py-2 focus:ring-0', roundedClass, inputClass]"
+            :class="['w-full border-none px-0 py-2 focus:ring-0 text-gray-900', roundedClass, inputClass]"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"
@@ -92,3 +94,12 @@ watchEffect(() => {
         </template>
     </div>
 </template>
+
+<style scoped>
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #111827;
+  -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+}
+</style>
