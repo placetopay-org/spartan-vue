@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
+import { useContext } from './api';
+import type { TTableHeadCellProps } from './types';
 
-defineProps<{
-    class?: string;
-}>();
+defineProps<Partial<TTableHeadCellProps>>();
+
+const context = useContext('STableHeadCell');
+context.register('col');
 </script>
 
 <template>

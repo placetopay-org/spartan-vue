@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- STable context and auto generation modes
 - `STableHead`, `STableBody`, `STableRow`, `STableCell`,  and `STableHeadCell` components implementation.
 - `STable` component implementation.
 
