@@ -33,3 +33,5 @@ export * from './SPlacetopayLogo';
 export * from './SInputAmount';
 export * from './SInputAmountBlock';
 export * from './SSidebar';
+export * from './STable';
+export * from './SDataTable';

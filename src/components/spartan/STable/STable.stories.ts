@@ -6,6 +6,7 @@ import STableRow from './STableRow.vue';
 import STableCell from './STableCell.vue';
 import { SBadge } from '../SBadge';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { table } from '@/data';
 import { QrCodeIcon, DocumentDuplicateIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 export default {
@@ -34,70 +35,6 @@ export default {
     },
 };
 
-const cols = ['Name', 'Email', 'Title', 'Role', ''];
-const rows = [
-    {
-        name: 'Lindsay Walton',
-        email: 'lindsay.walton@example.com',
-        title: 'Front-end Developer',
-        role: 'Member',
-    },
-    {
-        name: 'Jhon Connor',
-        email: 'jhon.connor@example.com',
-        title: 'Back-end Developer',
-        role: 'Member',
-    },
-    {
-        name: 'Jane Doe',
-        email: 'jane.doe@example.com',
-        title: 'Full Stack Developer',
-        role: 'Admin',
-    },
-    {
-        name: 'John Smith',
-        email: 'john.smith@example.com',
-        title: 'Data Scientist',
-        role: 'Member',
-    },
-    {
-        name: 'Emma Jones',
-        email: 'emma.jones@example.com',
-        title: 'UX Designer',
-        role: 'Member',
-    },
-    {
-        name: 'Robert Brown',
-        email: 'robert.brown@example.com',
-        title: 'Product Manager',
-        role: 'Admin',
-    },
-    {
-        name: 'Sophia Davis',
-        email: 'sophia.davis@example.com',
-        title: 'QA Engineer',
-        role: 'Member',
-    },
-    {
-        name: 'Michael Miller',
-        email: 'michael.miller@example.com',
-        title: 'DevOps Engineer',
-        role: 'Member',
-    },
-    {
-        name: 'Olivia Wilson',
-        email: 'olivia.wilson@example.com',
-        title: 'Mobile Developer',
-        role: 'Member',
-    },
-    {
-        name: 'James Moore',
-        email: 'james.moore@example.com',
-        title: 'Security Engineer',
-        role: 'Admin',
-    },
-];
-
 const sourceBinding = buildSourceBinding({
     check: ['borderless']
 });
@@ -119,11 +56,13 @@ export const Default = createDefault({
         borderless: false,
     },
     setup: () => {
-        return { cols, rows };
+        return { cols: table.cols, rows: table.rows };
     },
     template: `<STable v-bind="args">
     <STableHead>
-        <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        <STableRow>
+            <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        </STableRow>
     </STableHead>
 
     <STableBody>
@@ -152,7 +91,9 @@ export const Default = createDefault({
 </STable>`,
     transform: (args) => `<STable ${sourceBinding(args)}>
     <STableHead>
-        <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        <STableRow>
+            <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        </STableRow>
     </STableHead>
 
     <STableBody>
@@ -200,12 +141,15 @@ export const Base = createVariation({
             return role === 'Admin' ? 'yellow' : 'green';
         }
 
-        return { cols: cols.slice(0, 2), rows: rows.slice(0, 4), getRoleColor };
+        return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4), getRoleColor };
     },
     template: `<STable>
     <STableHead>
-        <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        <STableRow>
+            <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        </STableRow>
     </STableHead>
+
     <STableBody>
         <STableRow v-for="row in rows" :key="row.email">
             <STableCell>
@@ -238,7 +182,7 @@ export const InlineAutoGeneration = createVariation({
             return role === 'Admin' ? 'yellow' : 'green';
         }
 
-        return { cols: cols.slice(0, 2), rows: rows.slice(0, 4), getRoleColor };
+        return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4), getRoleColor };
     },
     template: `<STable :cols="cols" :rows="rows.map(r => [r.name, r.email])" />`,
 });
@@ -262,7 +206,7 @@ export const Borderless = createVariation({
             return role === 'Admin' ? 'yellow' : 'green';
         }
 
-        return { cols: cols.slice(0, 2), rows: rows.slice(0, 4), getRoleColor };
+        return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4), getRoleColor };
     },
     template: `<STable borderless :cols="cols" :rows="rows.map(r => [r.name, r.email])" />`,
 });
@@ -286,7 +230,7 @@ export const HighlightColumn = createVariation({
             return role === 'Admin' ? 'yellow' : 'green';
         }
 
-        return { cols: cols.slice(0, 3), rows: rows.slice(0, 4), getRoleColor };
+        return { cols: table.cols.slice(0, 3), rows: table.rows.slice(0, 4), getRoleColor };
     },
     template: `<STable :cols="cols">
     <STableBody>
@@ -324,7 +268,7 @@ export const HighlightColumnForInlineAutoGenerationMode = createVariation({
             return role === 'Admin' ? 'yellow' : 'green';
         }
 
-        return { cols: cols.slice(0, 3), rows: rows.slice(0, 4), getRoleColor };
+        return { cols: table.cols.slice(0, 3), rows: table.rows.slice(0, 4), getRoleColor };
     },
     template: `<STable highlight="[0, 2]" :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title])" />`,
 });
@@ -347,11 +291,13 @@ export const Customize = createVariation({
             return role === 'Admin' ? 'yellow' : 'green';
         }
 
-        return { cols, rows, getRoleColor };
+        return { cols: table.cols, rows: table.rows, getRoleColor };
     },
     template: `<STable>
     <STableHead>
-        <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        <STableRow>
+            <STableHeadCell v-for="col in cols" :key="col">{{ col }}</STableHeadCell>
+        </STableRow>
     </STableHead>
 
     <STableBody>

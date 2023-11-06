@@ -8,8 +8,6 @@ defineProps<{
 
 <template>
     <thead :class="twMerge('bg-gray-50', $props.class)">
-        <tr>
-            <slot />
-        </tr>
+        <slot />
     </thead>
 </template>
