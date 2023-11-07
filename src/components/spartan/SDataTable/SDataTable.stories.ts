@@ -36,20 +36,10 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     components: { SDataTable, SBadge, QrCodeIcon, DocumentDuplicateIcon, TrashIcon },
     setup: () => {
-        return { cols: table.cols, rows: table.rows };
+        return { cols: table.colsData, rows: table.rows };
     },
-    template: `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])">
-    <template #col[3]="{ value }">
-        <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
-    </template>    
-
-    <template #col[4]>
-        <div class="flex h-full gap-2 [&>*]:h-5 [&>*]:w-5">
-            <button><QrCodeIcon /></button>
-            <button><DocumentDuplicateIcon /></button>
-            <button><TrashIcon class="text-red-500" /></button>
-        </div>
-    </template>  
+    template: `<SDataTable :cols="cols" :data="rows">
+    
 
 </SDataTable>`,
     transform: (args) => `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])">
@@ -70,20 +60,20 @@ export const Default = createDefault({
     },
 });
 
-export const Base = createVariation({
-    components: { SDataTable },
-    containerClass: 'w-fit',
-    setup: () => {
-        return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4) };
-    },
-    template: `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])" />`,
-});
+// export const Base = createVariation({
+//     components: { SDataTable },
+//     containerClass: 'w-fit',
+//     setup: () => {
+//         return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4) };
+//     },
+//     template: `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])" />`,
+// });
 
-export const Sortable = createVariation({
-    components: { SDataTable },
-    containerClass: 'w-fit',
-    setup: () => {
-        return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4) };
-    },
-    template: `<SDataTable sortable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])" />`,
-});
+// export const Sortable = createVariation({
+//     components: { SDataTable },
+//     containerClass: 'w-fit',
+//     setup: () => {
+//         return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4) };
+//     },
+//     template: `<SDataTable sortable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])" />`,
+// });
