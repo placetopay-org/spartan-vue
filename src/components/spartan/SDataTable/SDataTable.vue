@@ -85,8 +85,8 @@ const table = useVueTable({
             <STableRow v-if="!loading" v-for="row in table.getRowModel().rows" :key="row.id">
                 <STableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
                     <slot
-                        :name="`col[${cell.column.columnDef.id}]`"
-                        :value="cell.column.columnDef.cell?.(cell.getContext())"
+                    :name="`col[${cell.column.columnDef.id}]`"
+                        :value="(cell.column.columnDef.cell as any)?.(cell.getContext())"
                     >
                         <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
                     </slot>
