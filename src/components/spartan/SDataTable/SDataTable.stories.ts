@@ -38,10 +38,7 @@ export const Default = createDefault({
     setup: () => {
         return { cols: table.colsData, rows: table.rows };
     },
-    template: `<SDataTable :cols="cols" :data="rows">
-    
-
-</SDataTable>`,
+    template: `<SDataTable v-bind="args" :cols="cols" :data="rows" />`,
     transform: (args) => `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])">
     <template #col[3]="{ value }">
         <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
@@ -56,24 +53,63 @@ export const Default = createDefault({
     </template>
 </SDataTable>`,
     args: {
-        href: 'Link',
+        sortable: false,
+        loading: false,
     },
 });
 
-// export const Base = createVariation({
-//     components: { SDataTable },
-//     containerClass: 'w-fit',
-//     setup: () => {
-//         return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4) };
-//     },
-//     template: `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])" />`,
-// });
+export const Base = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+    },
+    template: `<SDataTable :cols="cols" :data="rows" />`,
+});
 
-// export const Sortable = createVariation({
-//     components: { SDataTable },
-//     containerClass: 'w-fit',
-//     setup: () => {
-//         return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4) };
-//     },
-//     template: `<SDataTable sortable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])" />`,
-// });
+export const Sortable = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+    },
+    template: `<!-- Click on the header to sort the table -->
+<SDataTable sortable :cols="cols" :data="rows" />`,
+});
+
+export const Loading = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+    },
+    template: `<SDataTable loading :cols="cols" :data="rows" />`,
+});
+
+export const CustomCells = createVariation({
+    components: { SDataTable, SBadge },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+    },
+    template: `<SDataTable :cols="cols" :data="rows">
+    <template #head[email]="{ value }">
+        {{ value }}
+        <span class="italic text-gray-500">(secret)</span>
+    </template>
+
+    <template #head[role]="{ value }">
+        {{ value }}:
+        <div class="h-4 w-4 rounded-full bg-yellow-400" />
+        <div class="h-4 w-4 rounded-full bg-green-400" />
+    </template>
+
+    <template #col[email]="{ value }">
+        {{ value.slice(0, 3) }}***
+    </template>
+
+    <template #col[role]="{ value }">
+        <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
+    </template>
+</SDataTable>`,
+});

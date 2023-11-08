@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { Loader } from '@internal';
 import {
     FlexRender,
     getCoreRowModel,
@@ -15,7 +16,7 @@ import { twMerge } from 'tailwind-merge';
 const props = defineProps<{
     cols: Record<string, string>[];
     data: unknown[];
-    sortable?: boolean | number;
+    sortable?: boolean;
     loading?: boolean;
 }>();
 
@@ -29,26 +30,27 @@ const columns = props.cols.map((col) => {
     });
 });
 
-// const sorting = ref<SortingState>([]);
+const sorting = ref<SortingState>([]);
 
 const table = useVueTable({
     get data() {
         return props.data;
     },
-    // state: {
-    //     get sorting() {
-    //         return sorting.value;
-    //     },
-    // },
-    // onSortingChange: (updaterOrValue) => {
-    //     sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue;
-    // },
+    get enableSorting() {
+        return props.sortable;
+    },
+    state: {
+        get sorting() {
+            return sorting.value;
+        },
+    },
+    onSortingChange: (updaterOrValue) => {
+        sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue;
+    },
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getSortedRowModel: getSortedRowModel(),
+    getSortedRowModel: getSortedRowModel(),
 });
-
-// const sortTarget = ref(typeof props.sortable === 'number' ? props.sortable : props.sortable ? 0 : null);
 </script>
 
 <template>
@@ -60,23 +62,22 @@ const table = useVueTable({
                     :key="header.id"
                     :colSpan="header.colSpan"
                 >
-                    <button
+                    <component
                         v-if="!header.isPlaceholder"
+                        :is="header.column.getCanSort() ? 'button' : 'div'"
                         @click="header.column.getToggleSortingHandler()?.($event)"
-                        :class="twMerge('flex gap-2 items-center', header.column.getCanSort() && 'select-none bg-green-600', header.column.getIsSorted() && 'text-primary-600')"
+                        :class="twMerge('flex gap-2 items-center', header.column.getCanSort() && 'select-none', header.column.getCanSort() && header.column.getIsSorted() && 'text-primary-600')"
                     >
-                        <!-- <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" /> -->
-                        <!-- :value="header.column.columnDef.header?.(header.getContext())" -->
-
                         <slot :name="`head[${header.column.columnDef.id}]`" :value="header.column.columnDef.header">
                             <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
                         </slot>
 
                         <component
+                            v-if="header.column.getCanSort()"
                             :is="{ asc: ChevronUpIcon, desc: ChevronDownIcon }[header.column.getIsSorted() as string]"
                             class="h-5 w-5 rounded bg-primary-100"
                         />
-                    </button>
+                    </component>
                 </STableHeadCell>
             </STableRow>
         </STableHead>
@@ -92,13 +93,13 @@ const table = useVueTable({
                     </slot>
                 </STableCell>
             </STableRow>
-            <!-- <STableRow v-else>
+            <STableRow v-else>
                 <STableCell :colspan="cols.length">
-                    <div class="w-full text-center">
-                        {{ 'spartan.sDataTable.processing' }}
+                    <div class="flex justify-center w-full">
+                        <Loader :size="50" />
                     </div>
                 </STableCell>
-            </STableRow> -->
+            </STableRow>
         </STableBody>
     </STable>
 </template>
