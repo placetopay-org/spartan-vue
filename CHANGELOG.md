@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Loader component to internal components
 - Update `SDataTable` stories template
 
+## 2.0.0-beta.34 - 2023-11-07
+
 ## 2.0.0-beta.33 - 2023-11-07
 
 ## 2.0.0-beta.32 - 2023-11-07
