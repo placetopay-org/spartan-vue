@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- `SCombobox` component now supports `flipOptions` prop to flip the options list.
 
 ## 2.0.0-beta.36 - 2023-11-10
 ### Changed

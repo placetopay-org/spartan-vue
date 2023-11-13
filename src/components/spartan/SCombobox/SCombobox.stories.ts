@@ -71,6 +71,10 @@ export default {
             description: 'Whether the select should be searchable.',
             table: { type: { summary: "boolean | 'auto'" } },
         },
+        flipOptions: {
+            description: 'Whether the options should be flipped.',
+            table: { type: { summary: "boolean" } },
+        },
         displayButtonText: {
             control: { type: null },
             description: 'The function to display the button text.',
@@ -115,6 +119,7 @@ export const Default = createDefault({
         rounded: 'both',
         modelValue: undefined,
         search: 'false',
+        flipOptions: false,
         displayButtonText: (item: any) => item,
     },
     setup: () => {
