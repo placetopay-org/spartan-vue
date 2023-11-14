@@ -1,5 +1,9 @@
 {
     "$spartan": {
+        "dataTable": {
+            "pageSizePrefix": "Mostrar",
+            "searchPlaceholder": "Buscar en todas las columnas"
+        },
         "filter": {
             "addBtn": "Agregar",
             "addFilterBtn": "Agregar filtro",

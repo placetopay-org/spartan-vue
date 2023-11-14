@@ -17,6 +17,7 @@ import { twMerge } from 'tailwind-merge';
 import { BORDER_STYLE } from '../STable/styles';
 import { SInput, SSelect } from '..';
 import type { TDataTableProps } from './types';
+import { translator } from '@/helpers';
 
 const props = defineProps<TDataTableProps & TTableProps>();
 
@@ -26,6 +27,8 @@ const tableProps = computed<Partial<TTableProps>>(() => {
 
     return { ...rest };
 });
+
+const { t } = translator('dataTable');
 
 const columnHelper = createColumnHelper<any>();
 const columns = props.cols.map((col, index) => {
@@ -84,7 +87,7 @@ const table = useVueTable({
                 "
             >
                 <option v-for="pageSize in $props.pageSizes" :key="pageSize" :value="pageSize">
-                    Show {{ pageSize }}
+                    {{ `${t('pageSizePrefix')} ${pageSize}`  }}
                 </option>
             </SSelect>
 
@@ -93,7 +96,7 @@ const table = useVueTable({
                 class="w-1/2 rounded-md"
                 inputClass="text-sm py-1"
                 v-model="globalFilter"
-                placeholder="Search all columns..."
+                :placeholder="`${t('searchPlaceholder')}...`"
             />
         </div>
         <STable v-bind="tableProps" :borderless="filtrable">
