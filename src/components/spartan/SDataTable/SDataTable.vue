@@ -9,12 +9,13 @@ import {
     createColumnHelper,
     type SortingState,
     getFilteredRowModel,
+    getPaginationRowModel,
 } from '@tanstack/vue-table';
 import { STable, STableHead, STableBody, STableRow, STableCell, STableHeadCell, type TTableProps } from '../STable';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { BORDER_STYLE } from '../STable/styles';
-import { SInput } from '..';
+import { SInput, SSelect } from '..';
 import type { TDataTableProps } from './types';
 
 const props = defineProps<TDataTableProps & TTableProps>();
@@ -64,13 +65,31 @@ const table = useVueTable({
     getSortedRowModel: getSortedRowModel(),
     globalFilterFn: 'includesString',
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
 });
+
 </script>
 
 <template>
     <div :class="twMerge(!props.borderless && BORDER_STYLE, props.containerClass)">
-        <div v-if="filtrable" class="flex justify-end bg-white px-5 py-3">
+        <div v-if="filtrable || pageSizes" :class="twMerge('flex bg-white px-5 py-3 justify-end', filtrable && pageSizes && 'justify-between')">
+            <SSelect
+                class="text-sm py-1"
+                v-if="props.pageSizes"
+                :modelValue="table.getState().pagination.pageSize"
+                @update:model-value="
+                    (value) => {
+                        table.setPageSize(Number(value));
+                    }
+                "
+            >
+                <option v-for="pageSize in $props.pageSizes" :key="pageSize" :value="pageSize">
+                    Show {{ pageSize }}
+                </option>
+            </SSelect>
+
             <SInput
+                v-if="filtrable"
                 class="w-1/2 rounded-md"
                 inputClass="text-sm py-1"
                 v-model="globalFilter"
@@ -111,8 +130,12 @@ const table = useVueTable({
 
             <STableBody>
                 <STableRow v-if="!loading" v-for="row in table.getRowModel().rows" :key="row.id">
-                    <pre>{{ row.columnFiltersMeta }}</pre>
-                    <STableCell v-for="(cell, index) in row.getVisibleCells()" :key="cell.id" :highlight="props.highlight?.includes(index)">
+                    <!-- <pre>{{ row.columnFiltersMeta }}</pre> -->
+                    <STableCell
+                        v-for="(cell, index) in row.getVisibleCells()"
+                        :key="cell.id"
+                        :highlight="props.highlight?.includes(index)"
+                    >
                         <slot
                             :name="`col[${cell.column.columnDef.id}]`"
                             :value="(cell.column.columnDef.cell as any)?.(cell.getContext())"

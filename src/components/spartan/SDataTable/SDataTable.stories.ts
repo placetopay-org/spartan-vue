@@ -38,7 +38,7 @@ export const Default = createDefault({
     setup: () => {
         return { cols: table.colsData, rows: table.rows };
     },
-    template: `<SDataTable v-bind="args" :cols="cols" :data="rows" />`,
+    template: `<SDataTable v-bind="args" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
     transform: (args) => `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])">
     <template #col[3]="{ value }">
         <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
@@ -86,6 +86,24 @@ export const Loading = createVariation({
         return { cols: table.colsData, rows: table.rows.slice(0, 4) };
     },
     template: `<SDataTable loading :cols="cols" :data="rows" />`,
+});
+
+export const PageSizes = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+    },
+    template: `<SDataTable :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
+});
+
+export const Filtrable = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+    },
+    template: `<SDataTable filtrable :cols="cols" :data="rows" />`,
 });
 
 export const CustomCells = createVariation({
