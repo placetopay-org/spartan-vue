@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SDataTable` component now supports `pagination` prop to set the pagination.
 - `SDataTable` component now supports `pageSizes` prop to set the page sizes.
 
 ## 2.0.0-beta.37 - 2023-11-14

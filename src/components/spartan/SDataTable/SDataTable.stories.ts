@@ -57,6 +57,7 @@ export const Default = createDefault({
         filtrable: true,
         loading: false,
         borderless: false,
+        pagination: false,
     },
 });
 
@@ -95,6 +96,15 @@ export const PageSizes = createVariation({
         return { cols: table.colsData, rows: table.rows.slice(0, 4) };
     },
     template: `<SDataTable :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
+});
+
+export const Pagination = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData, rows: table.rows };
+    },
+    template: `<SDataTable pagination :initialPageSize="3" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
 });
 
 export const Filtrable = createVariation({

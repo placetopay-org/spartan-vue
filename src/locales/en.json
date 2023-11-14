@@ -1,6 +1,8 @@
 {
     "$spartan": {
         "dataTable": {
+            "of": "of",
+            "page": "Page",
             "pageSizePrefix": "Show",
             "searchPlaceholder": "Search all columns"
         },

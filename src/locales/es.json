@@ -1,6 +1,8 @@
 {
     "$spartan": {
         "dataTable": {
+            "of": "de",
+            "page": "Página",
             "pageSizePrefix": "Mostrar",
             "searchPlaceholder": "Buscar en todas las columnas"
         },

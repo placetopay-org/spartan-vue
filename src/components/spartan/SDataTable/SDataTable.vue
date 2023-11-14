@@ -12,7 +12,14 @@ import {
     getPaginationRowModel,
 } from '@tanstack/vue-table';
 import { STable, STableHead, STableBody, STableRow, STableCell, STableHeadCell, type TTableProps } from '../STable';
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
+import {
+    ChevronUpIcon,
+    ChevronDownIcon,
+    ChevronLeftIcon,
+    ChevronDoubleLeftIcon,
+    ChevronRightIcon,
+    ChevronDoubleRightIcon,
+} from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { BORDER_STYLE } from '../STable/styles';
 import { SInput, SSelect } from '..';
@@ -71,13 +78,17 @@ const table = useVueTable({
     getPaginationRowModel: getPaginationRowModel(),
 });
 
+if (props.initialPageSize) table.setPageSize(props.initialPageSize);
 </script>
 
 <template>
     <div :class="twMerge(!props.borderless && BORDER_STYLE, props.containerClass)">
-        <div v-if="filtrable || pageSizes" :class="twMerge('flex bg-white px-5 py-3 justify-end', filtrable && pageSizes && 'justify-between')">
+        <div
+            v-if="filtrable || pageSizes"
+            :class="twMerge('flex justify-end bg-white px-5 py-3', filtrable && pageSizes && 'justify-between')"
+        >
             <SSelect
-                class="text-sm py-1"
+                class="py-1 text-sm"
                 v-if="props.pageSizes"
                 :modelValue="table.getState().pagination.pageSize"
                 @update:model-value="
@@ -87,7 +98,7 @@ const table = useVueTable({
                 "
             >
                 <option v-for="pageSize in $props.pageSizes" :key="pageSize" :value="pageSize">
-                    {{ `${t('pageSizePrefix')} ${pageSize}`  }}
+                    {{ `${t('pageSizePrefix')} ${pageSize}` }}
                 </option>
             </SSelect>
 
@@ -133,7 +144,6 @@ const table = useVueTable({
 
             <STableBody>
                 <STableRow v-if="!loading" v-for="row in table.getRowModel().rows" :key="row.id">
-                    <!-- <pre>{{ row.columnFiltersMeta }}</pre> -->
                     <STableCell
                         v-for="(cell, index) in row.getVisibleCells()"
                         :key="cell.id"
@@ -155,6 +165,54 @@ const table = useVueTable({
                     </STableCell>
                 </STableRow>
             </STableBody>
+
+            <tfoot v-if="pagination">
+                <tr className="px-5 py-3 flex items-center gap-4">
+                    <div class="flex items-center gap-1">
+                        <button
+                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                            @click="() => table.setPageIndex(0)"
+                            :disabled="!table.getCanPreviousPage()"
+                        >
+                            <ChevronDoubleLeftIcon
+                                class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800"
+                            />
+                        </button>
+                        <button
+                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                            @click="() => table.previousPage()"
+                            :disabled="!table.getCanPreviousPage()"
+                        >
+                            <ChevronLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                        </button>
+                        <button
+                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                            @click="() => table.nextPage()"
+                            :disabled="!table.getCanNextPage()"
+                        >
+                            <ChevronRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                        </button>
+                        <button
+                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                            @click="() => table.setPageIndex(table.getPageCount() - 1)"
+                            :disabled="!table.getCanNextPage()"
+                        >
+                            <ChevronDoubleRightIcon
+                                class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800"
+                            />
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span>{{ t('page') }}</span>
+                        <div class="flex items-center gap-2 font-bold">
+                            {{ table.getState().pagination.pageIndex + 1 }}
+                            <span class="font-normal">{{ t('of') }}</span>
+                            {{ table.getPageCount() }}
+                        </div>
+                    </div>
+                </tr>
+            </tfoot>
         </STable>
     </div>
 </template>
