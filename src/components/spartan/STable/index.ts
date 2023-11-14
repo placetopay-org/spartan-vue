@@ -4,3 +4,5 @@ export { default as STableBody } from './STableBody.vue';
 export { default as STableRow } from './STableRow.vue';
 export { default as STableCell } from './STableCell.vue';
 export { default as STableHeadCell } from './STableHeadCell.vue';
+
+export type { TTableProps } from './types';

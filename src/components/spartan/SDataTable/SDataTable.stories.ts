@@ -54,7 +54,9 @@ export const Default = createDefault({
 </SDataTable>`,
     args: {
         sortable: false,
+        filtrable: true,
         loading: false,
+        borderless: false,
     },
 });
 
