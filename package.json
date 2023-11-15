@@ -1,6 +1,6 @@
 {
   "name": "@placetopay/spartan-vue",
-  "version": "2.0.0-beta.31",
+  "version": "2.0.0-beta.38",
   "type": "module",
   "description": "spartan vue lib",
   "main": "./dist/spartan-vue.umd.cjs",
@@ -61,6 +61,7 @@
     "@storybook/vue3-vite": "7.1.1",
     "@tailwindcss/forms": "0.5.4",
     "@tailwindcss/typography": "0.5.9",
+    "@tanstack/vue-table": "^8.10.7",
     "@types/lodash": "^4.14.198",
     "@types/node": "20.4.5",
     "@types/uuid": "^9.0.3",

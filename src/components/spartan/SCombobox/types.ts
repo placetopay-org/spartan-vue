@@ -17,6 +17,7 @@ type TComboboxBaseProps = {
     modelValue: string | number | object;
     rounded: TRounded;
     class?: string;
+    flipOptions?: boolean;
 };
 
 type TComboboxNormalProps = Partial<TComboboxBaseProps> & {

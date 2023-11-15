@@ -3,6 +3,7 @@ import { computed, watchEffect } from 'vue';
 import { getRoundedClass, getDisabledClass } from '@/helpers';
 import { buildSideContent } from './slotBuilder';
 import type { TInputProps, TInputEmits } from './types';
+import { twMerge } from 'tailwind-merge';
 
 defineOptions({ inheritAttrs: false });
 const emit = defineEmits<TInputEmits>();
@@ -45,8 +46,6 @@ watchEffect(() => {
         console.error(message(`S${props.type.charAt(0).toUpperCase() + props.type.slice(1)}`, props.type));
     }
 });
-
-console.log('mod');
 </script>
 
 <template>
@@ -59,7 +58,7 @@ console.log('mod');
             roundedClass,
             disabledClass,
             props.class,
-        ]" 
+        ]"
     >
         <template v-for="item in leftContent">
             <component
@@ -74,7 +73,7 @@ console.log('mod');
         <input
             :id="id"
             :value="modelValue"
-            :class="['w-full border-none px-0 py-2 focus:ring-0 text-gray-900', roundedClass, inputClass]"
+            :class="twMerge('w-full border-none px-0 py-2 text-gray-900 focus:ring-0', roundedClass, inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"
@@ -97,9 +96,9 @@ console.log('mod');
 
 <style scoped>
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #111827;
-  -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+    -webkit-text-fill-color: #111827;
+    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
 }
 </style>

@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 2.0.0-beta.38 - 2023-11-14
+### Added
+- `SDataTable` component now supports `pagination` prop to set the pagination.
+- `SDataTable` component now supports `pageSizes` prop to set the page sizes.
+
+### Changed
+- `SSidebar` styles updated.
+
+## 2.0.0-beta.37 - 2023-11-14
+### Added
+- `SCombobox` component now supports `flipOptions` prop to flip the options list.
+
+## 2.0.0-beta.36 - 2023-11-10
+### Changed
+- `SComboboxOptions` styles
+
+## 2.0.0-beta.35 - 2023-11-08
+### Added
+- Loader component to internal components
+- Update `SDataTable` stories template
+
+## 2.0.0-beta.34 - 2023-11-07
+
+## 2.0.0-beta.33 - 2023-11-07
+
+## 2.0.0-beta.32 - 2023-11-07
+### Added
+- STable context and auto generation modes
+- `STableHead`, `STableBody`, `STableRow`, `STableCell`,  and `STableHeadCell` components implementation.
+- `STable` component implementation.
+
 ### Fixed
 - First element selection on `SCombobox` component.
 - Default symbol on amount input
