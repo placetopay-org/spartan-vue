@@ -1,5 +1,5 @@
 export type TDataTableProps = {
-    cols: Record<string, string>[];
+    cols: Record<string, string>[] | string[];
     pageSizes?: number[];
     initialPageSize?: number;
     data: unknown[];

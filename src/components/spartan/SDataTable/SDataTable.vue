@@ -38,12 +38,19 @@ const tableProps = computed<Partial<TTableProps>>(() => {
 const { t } = translator('dataTable');
 
 const columnHelper = createColumnHelper<any>();
-const columns = props.cols.map((col, index) => {
-    const key = Object.keys(col)[0];
-    return columnHelper.accessor(key, {
-        id: key,
-        header: col[key],
-    });
+const columns = props.cols.map((col) => {
+    if (typeof col === 'string') {
+        return columnHelper.accessor(col, {
+            id: col,
+            header: col,
+        });
+    } else {
+        const key = Object.keys(col)[0];
+        return columnHelper.accessor(key, {
+            id: key,
+            header: col[key],
+        });
+    }
 });
 
 const globalFilter = ref('');
