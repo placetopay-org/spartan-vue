@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `SDataTable` now can recieve a string array to set the columns order.
 
+## 2.0.0-beta.40 - 2023-11-15
+
 ## 2.0.0-beta.39 - 2023-11-15
 
 ## 2.0.0-beta.38 - 2023-11-14
