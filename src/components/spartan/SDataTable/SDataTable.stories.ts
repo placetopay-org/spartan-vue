@@ -38,9 +38,10 @@ export const Default = createDefault({
     setup: () => {
         return { cols: table.colsData, rows: table.rows };
     },
-    template: `<SDataTable v-bind="args" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
+    template: `<SDataTable v-bind="args" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows">  
+</SDataTable>`,
     transform: (args) => `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])">
-    <template #col[3]="{ value }">
+    <template #col[role]="{ value }">
         <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
     </template>    
 

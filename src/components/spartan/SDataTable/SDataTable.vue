@@ -158,6 +158,7 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                     >
                         <slot
                             :name="`col[${cell.column.columnDef.id}]`"
+                            :record="cell.row.original"
                             :value="(cell.column.columnDef.cell as any)?.(cell.getContext())"
                         >
                             <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
