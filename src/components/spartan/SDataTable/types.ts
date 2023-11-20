@@ -1,3 +1,5 @@
+type TManualOptions = true | ('pagination' | 'sorting' | 'filtering')[];
+
 export type TDataTableProps = {
     cols: Record<string, string>[] | string[];
     pageSizes?: number[];
@@ -8,4 +10,5 @@ export type TDataTableProps = {
     loading?: boolean;
     pagination?: boolean;
     containerClass?: string;
+    manual?: TManualOptions;
 };

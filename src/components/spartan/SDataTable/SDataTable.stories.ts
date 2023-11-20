@@ -38,7 +38,7 @@ export const Default = createDefault({
     setup: () => {
         return { cols: table.colsData, rows: table.rows };
     },
-    template: `<SDataTable v-bind="args" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows">  
+    template: `<SDataTable v-bind="args" :manual="['filtering']" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows">  
 </SDataTable>`,
     transform: (args) => `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])">
     <template #col[role]="{ value }">

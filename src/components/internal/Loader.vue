@@ -1,8 +1,8 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-    size: number;
-    color: string;
-    backgroundColor: string;
+    size?: number;
+    color?: string;
+    backgroundColor?: string;
 }>(), {
     size: 150,
     color: '#FF7E29',

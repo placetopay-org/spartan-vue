@@ -26,7 +26,7 @@ import { SInput, SSelect } from '..';
 import type { TDataTableProps } from './types';
 import { translator } from '@/helpers';
 
-const props = defineProps<TDataTableProps & TTableProps>();
+const props = defineProps<TDataTableProps & Partial<TTableProps>>();
 
 const tableProps = computed<Partial<TTableProps>>(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,6 +34,22 @@ const tableProps = computed<Partial<TTableProps>>(() => {
 
     return { ...rest };
 });
+
+const manualOptions = computed(() => {
+    if (typeof props.manual === 'boolean') {
+        return {
+            manualPagination: props.manual,
+            manualSorting: props.manual,
+            manualFiltering: props.manual,
+        };
+    } else {
+        return {
+            manualPagination: Boolean(props.manual?.includes('pagination')),
+            manualSorting: Boolean(props.manual?.includes('sorting')),
+            manualFiltering: Boolean(props.manual?.includes('filtering')),
+        }
+    }
+})
 
 const { t } = translator('dataTable');
 
@@ -55,10 +71,11 @@ const columns = props.cols.map((col) => {
 
 const globalFilter = ref('');
 const sorting = ref<SortingState>([]);
+const data = ref(props.data);
 
 const table = useVueTable({
     get data() {
-        return props.data;
+        return data.value as any;
     },
     get enableSorting() {
         return props.sortable;
@@ -83,6 +100,7 @@ const table = useVueTable({
     globalFilterFn: 'includesString',
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    ...manualOptions.value,
 });
 
 if (props.initialPageSize) table.setPageSize(props.initialPageSize);
