@@ -17,7 +17,7 @@
       "require": "./dist/spartan-vue.umd.cjs",
       "types": "./dist/types/index.d.ts"
     },
-    "./locales/*": "./src/locales/*",
+    "./locales": "./src/locales/index.ts",
     "./tailwindcss.js": "./src/expose/tailwindcss.js",
     "./style.css": "./dist/style.css"
   },

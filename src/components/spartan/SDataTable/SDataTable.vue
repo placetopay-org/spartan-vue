@@ -173,54 +173,47 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                     </STableCell>
                 </STableRow>
             </STableBody>
-
-            <tfoot v-if="pagination">
-                <tr className="px-5 py-3 flex items-center gap-4">
-                    <div class="flex items-center gap-1">
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.setPageIndex(0)"
-                            :disabled="!table.getCanPreviousPage()"
-                        >
-                            <ChevronDoubleLeftIcon
-                                class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800"
-                            />
-                        </button>
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.previousPage()"
-                            :disabled="!table.getCanPreviousPage()"
-                        >
-                            <ChevronLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
-                        </button>
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.nextPage()"
-                            :disabled="!table.getCanNextPage()"
-                        >
-                            <ChevronRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
-                        </button>
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.setPageIndex(table.getPageCount() - 1)"
-                            :disabled="!table.getCanNextPage()"
-                        >
-                            <ChevronDoubleRightIcon
-                                class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800"
-                            />
-                        </button>
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        <span>{{ t('page') }}</span>
-                        <div class="flex items-center gap-2 font-bold">
-                            {{ table.getState().pagination.pageIndex + 1 }}
-                            <span class="font-normal">{{ t('of') }}</span>
-                            {{ table.getPageCount() }}
-                        </div>
-                    </div>
-                </tr>
-            </tfoot>
         </STable>
+        <div v-if="pagination" class="flex items-center gap-4 bg-gray-50 px-5 py-3 border-t border-gray-300">
+            <div class="flex items-center gap-1">
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.setPageIndex(0)"
+                    :disabled="!table.getCanPreviousPage()"
+                >
+                    <ChevronDoubleLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.previousPage()"
+                    :disabled="!table.getCanPreviousPage()"
+                >
+                    <ChevronLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.nextPage()"
+                    :disabled="!table.getCanNextPage()"
+                >
+                    <ChevronRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.setPageIndex(table.getPageCount() - 1)"
+                    :disabled="!table.getCanNextPage()"
+                >
+                    <ChevronDoubleRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span>{{ t('page') }}</span>
+                <div class="flex items-center gap-2 font-bold">
+                    {{ table.getState().pagination.pageIndex + 1 }}
+                    <span class="font-normal">{{ t('of') }}</span>
+                    {{ table.getPageCount() }}
+                </div>
+            </div>
+        </div>
     </div>
 </template>
