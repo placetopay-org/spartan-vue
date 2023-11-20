@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SDataTable` server side by default.
 - `SDataTable` now can recieve a string array to set the columns order.
 
 ## 2.0.0-beta.40 - 2023-11-15

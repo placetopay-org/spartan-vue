@@ -10,6 +10,7 @@ import {
     type SortingState,
     getFilteredRowModel,
     getPaginationRowModel,
+    type PaginationState,
 } from '@tanstack/vue-table';
 import { STable, STableHead, STableBody, STableRow, STableCell, STableHeadCell, type TTableProps } from '../STable';
 import {
@@ -26,6 +27,9 @@ import { SInput, SSelect } from '..';
 import type { TDataTableProps } from './types';
 import { translator } from '@/helpers';
 
+const emits = defineEmits<{
+    (event: 'paginationChange', value: PaginationState): void;
+}>();
 const props = defineProps<TDataTableProps & Partial<TTableProps>>();
 
 const tableProps = computed<Partial<TTableProps>>(() => {
@@ -35,21 +39,21 @@ const tableProps = computed<Partial<TTableProps>>(() => {
     return { ...rest };
 });
 
-const manualOptions = computed(() => {
-    if (typeof props.manual === 'boolean') {
+const clientSideOptions = computed(() => {
+    if (typeof props.clientSide === 'boolean') {
         return {
-            manualPagination: props.manual,
-            manualSorting: props.manual,
-            manualFiltering: props.manual,
+            manualPagination: !props.clientSide,
+            manualSorting: !props.clientSide,
+            manualFiltering: !props.clientSide,
         };
     } else {
         return {
-            manualPagination: Boolean(props.manual?.includes('pagination')),
-            manualSorting: Boolean(props.manual?.includes('sorting')),
-            manualFiltering: Boolean(props.manual?.includes('filtering')),
-        }
+            manualPagination: !props.clientSide?.includes('pagination'),
+            manualSorting: !props.clientSide?.includes('sorting'),
+            manualFiltering: !props.clientSide?.includes('filtering'),
+        };
     }
-})
+});
 
 const { t } = translator('dataTable');
 
@@ -69,13 +73,18 @@ const columns = props.cols.map((col) => {
     }
 });
 
+const data = computed(() => props.data);
+
 const globalFilter = ref('');
 const sorting = ref<SortingState>([]);
-const data = ref(props.data);
+const pagination = computed<PaginationState>(() => ({
+    pageSize: props.pagination?.pageSize || 10,
+    pageIndex: props.pagination?.pageIndex || 0,
+}));
 
 const table = useVueTable({
     get data() {
-        return data.value as any;
+        return data.value;
     },
     get enableSorting() {
         return props.sortable;
@@ -83,13 +92,25 @@ const table = useVueTable({
     get enableGlobalFilter() {
         return props.filtrable;
     },
+    get pageCount() {
+        return props.pagination?.pageCount ?? -1;
+    },
     state: {
+        get pagination() {
+            return pagination.value;
+        },
         get sorting() {
             return sorting.value;
         },
         get globalFilter() {
             return globalFilter.value;
         },
+    },
+    onPaginationChange: (updaterOrValue) => {
+        emits(
+            'paginationChange',
+            typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().pagination) : updaterOrValue,
+        );
     },
     onSortingChange: (updaterOrValue) => {
         sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue;
@@ -100,10 +121,8 @@ const table = useVueTable({
     globalFilterFn: 'includesString',
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    ...manualOptions.value,
+    ...clientSideOptions.value,
 });
-
-if (props.initialPageSize) table.setPageSize(props.initialPageSize);
 </script>
 
 <template>
@@ -135,7 +154,7 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                 :placeholder="`${t('searchPlaceholder')}...`"
             />
         </div>
-        <STable v-bind="tableProps" :borderless="filtrable">
+        <STable v-bind="tableProps" :borderless="Boolean(filtrable || sortable || pagination)">
             <STableHead>
                 <STableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
                     <STableHeadCell v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan">
@@ -192,7 +211,7 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                 </STableRow>
             </STableBody>
         </STable>
-        <div v-if="pagination" class="flex items-center gap-4 bg-gray-50 px-5 py-3 border-t border-gray-300">
+        <div v-if="pagination && table.getState().pagination.pageIndex >= 0 && table.getPageCount() !== -1" class="flex items-center gap-4 border-t border-gray-300 bg-gray-50 px-5 py-3">
             <div class="flex items-center gap-1">
                 <button
                     class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"

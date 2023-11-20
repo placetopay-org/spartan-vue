@@ -1,14 +1,13 @@
-type TManualOptions = true | ('pagination' | 'sorting' | 'filtering')[];
+type TClientOptions = true | ('pagination' | 'sorting' | 'filtering')[];
 
 export type TDataTableProps = {
     cols: Record<string, string>[] | string[];
     pageSizes?: number[];
-    initialPageSize?: number;
     data: unknown[];
     sortable?: boolean;
     filtrable?: boolean;
     loading?: boolean;
-    pagination?: boolean;
+    pagination?: { pageIndex: number; pageSize: number; pageCount?: number };
     containerClass?: string;
-    manual?: TManualOptions;
+    clientSide?: TClientOptions;
 };
