@@ -1,13 +1,15 @@
-type TClientOptions = true | ('pagination' | 'sorting' | 'filtering')[];
-
 export type TDataTableProps = {
     cols: Record<string, string>[] | string[];
-    pageSizes?: number[];
     data: unknown[];
     sortable?: boolean;
     filtrable?: boolean;
     loading?: boolean;
-    pagination?: { pageIndex: number; pageSize: number; pageCount?: number };
+    pagination?: { page?: number; size?: number; count: number; sizes?: number[] };
+    sorting?: Record<string, 'asc' | 'desc' | false>;
     containerClass?: string;
-    clientSide?: TClientOptions;
+};
+
+export type TDataTableEmits = {
+    (event: 'paginationChange', value: Pick<Exclude<TDataTableProps['pagination'], undefined>, 'page' | 'size'>): void;
+    (event: 'sortingChange', value: Exclude<TDataTableProps['sorting'], undefined>): void;
 };

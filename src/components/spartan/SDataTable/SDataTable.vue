@@ -7,10 +7,8 @@ import {
     getSortedRowModel,
     useVueTable,
     createColumnHelper,
-    type SortingState,
     getFilteredRowModel,
     getPaginationRowModel,
-    type PaginationState,
 } from '@tanstack/vue-table';
 import { STable, STableHead, STableBody, STableRow, STableCell, STableHeadCell, type TTableProps } from '../STable';
 import {
@@ -24,12 +22,11 @@ import {
 import { twMerge } from 'tailwind-merge';
 import { BORDER_STYLE } from '../STable/styles';
 import { SInput, SSelect } from '..';
-import type { TDataTableProps } from './types';
+import type { TDataTableProps, TDataTableEmits } from './types';
 import { translator } from '@/helpers';
+import { adaptFromPagination, adaptFromSorting, adaptToPagination, adaptToSorting } from './helpers';
 
-const emits = defineEmits<{
-    (event: 'paginationChange', value: PaginationState): void;
-}>();
+const emits = defineEmits<TDataTableEmits>();
 const props = defineProps<TDataTableProps & Partial<TTableProps>>();
 
 const tableProps = computed<Partial<TTableProps>>(() => {
@@ -37,22 +34,6 @@ const tableProps = computed<Partial<TTableProps>>(() => {
     const { borderless, cols, rows, highlight, ...rest } = props;
 
     return { ...rest };
-});
-
-const clientSideOptions = computed(() => {
-    if (typeof props.clientSide === 'boolean') {
-        return {
-            manualPagination: !props.clientSide,
-            manualSorting: !props.clientSide,
-            manualFiltering: !props.clientSide,
-        };
-    } else {
-        return {
-            manualPagination: !props.clientSide?.includes('pagination'),
-            manualSorting: !props.clientSide?.includes('sorting'),
-            manualFiltering: !props.clientSide?.includes('filtering'),
-        };
-    }
 });
 
 const { t } = translator('dataTable');
@@ -63,12 +44,14 @@ const columns = props.cols.map((col) => {
         return columnHelper.accessor(col, {
             id: col,
             header: col,
+            enableSorting: Boolean(props.sorting?.[col] !== undefined),
         });
     } else {
         const key = Object.keys(col)[0];
         return columnHelper.accessor(key, {
             id: key,
             header: col[key],
+            enableSorting: Boolean(props.sorting?.[key] !== undefined),
         });
     }
 });
@@ -76,31 +59,26 @@ const columns = props.cols.map((col) => {
 const data = computed(() => props.data);
 
 const globalFilter = ref('');
-const sorting = ref<SortingState>([]);
-const pagination = computed<PaginationState>(() => ({
-    pageSize: props.pagination?.pageSize || 10,
-    pageIndex: props.pagination?.pageIndex || 0,
-}));
 
 const table = useVueTable({
     get data() {
         return data.value;
     },
     get enableSorting() {
-        return props.sortable;
+        return Boolean(props.sorting);
     },
     get enableGlobalFilter() {
         return props.filtrable;
     },
     get pageCount() {
-        return props.pagination?.pageCount ?? -1;
+        return props.pagination?.count;
     },
     state: {
         get pagination() {
-            return pagination.value;
+            return computed(() => adaptToPagination(props.pagination)).value;
         },
         get sorting() {
-            return sorting.value;
+            return computed(() => adaptToSorting(props.sorting)).value;
         },
         get globalFilter() {
             return globalFilter.value;
@@ -109,43 +87,35 @@ const table = useVueTable({
     onPaginationChange: (updaterOrValue) => {
         emits(
             'paginationChange',
-            typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().pagination) : updaterOrValue,
+            adaptFromPagination(
+                typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().pagination) : updaterOrValue,
+            ),
         );
     },
     onSortingChange: (updaterOrValue) => {
-        sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue;
+        emits(
+            'sortingChange',
+            adaptFromSorting(
+                typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().sorting) : updaterOrValue,
+                props.sorting!,
+            ),
+        );
     },
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    globalFilterFn: 'includesString',
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    ...clientSideOptions.value,
+    globalFilterFn: 'includesString',
+    manualPagination: true,
+    manualSorting: true,
+    manualFiltering: true,
 });
 </script>
 
 <template>
     <div :class="twMerge(!props.borderless && BORDER_STYLE, props.containerClass)">
-        <div
-            v-if="filtrable || pageSizes"
-            :class="twMerge('flex justify-end bg-white px-5 py-3', filtrable && pageSizes && 'justify-between')"
-        >
-            <SSelect
-                class="py-1 text-sm"
-                v-if="props.pageSizes"
-                :modelValue="table.getState().pagination.pageSize"
-                @update:model-value="
-                    (value) => {
-                        table.setPageSize(Number(value));
-                    }
-                "
-            >
-                <option v-for="pageSize in $props.pageSizes" :key="pageSize" :value="pageSize">
-                    {{ `${t('pageSizePrefix')} ${pageSize}` }}
-                </option>
-            </SSelect>
-
+        <div v-if="filtrable" class="flex justify-end bg-white px-5 py-3">
             <SInput
                 v-if="filtrable"
                 class="w-1/2 rounded-md"
@@ -164,9 +134,8 @@ const table = useVueTable({
                             @click="header.column.getToggleSortingHandler()?.($event)"
                             :class="
                                 twMerge(
-                                    'flex items-center gap-2',
-                                    header.column.getCanSort() && 'select-none',
-                                    header.column.getCanSort() && header.column.getIsSorted() && 'text-primary-600',
+                                    'group flex items-center gap-2',
+                                    header.column.getCanSort() && 'select-none focus-visible:outline-none',
                                 )
                             "
                         >
@@ -174,12 +143,17 @@ const table = useVueTable({
                                 <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
                             </slot>
 
+                            <ChevronUpIcon
+                                v-if="header.column.getCanSort() && !header.column.getIsSorted()"
+                                class="invisible h-5 w-5 rounded text-gray-400 group-hover:visible group-focus-visible:visible"
+                            />
+
                             <component
                                 v-if="header.column.getCanSort()"
                                 :is="
                                     { asc: ChevronUpIcon, desc: ChevronDownIcon }[header.column.getIsSorted() as string]
                                 "
-                                class="h-5 w-5 rounded bg-primary-100"
+                                class="h-5 w-5 rounded bg-gray-200 duration-100 group-hover:bg-gray-300"
                             />
                         </component>
                     </STableHeadCell>
@@ -211,7 +185,10 @@ const table = useVueTable({
                 </STableRow>
             </STableBody>
         </STable>
-        <div v-if="pagination && table.getState().pagination.pageIndex >= 0 && table.getPageCount() !== -1" class="flex items-center gap-4 border-t border-gray-300 bg-gray-50 px-5 py-3">
+        <div
+            v-if="pagination && table.getState().pagination.pageIndex >= 0 && table.getPageCount() !== -1"
+            class="flex items-center gap-4 border-t border-gray-300 bg-gray-50 px-5 py-3"
+        >
             <div class="flex items-center gap-1">
                 <button
                     class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
@@ -251,6 +228,21 @@ const table = useVueTable({
                     {{ table.getPageCount() }}
                 </div>
             </div>
+
+            <SSelect
+                class="ml-auto py-1 text-sm"
+                v-if="pagination?.sizes"
+                :modelValue="table.getState().pagination.pageSize"
+                @update:model-value="
+                    (value) => {
+                        table.setPageSize(Number(value));
+                    }
+                "
+            >
+                <option v-for="pageSize in $props.pagination?.sizes" :key="pageSize" :value="pageSize">
+                    {{ `${t('pageSizePrefix')} ${pageSize}` }}
+                </option>
+            </SSelect>
         </div>
     </div>
 </template>
