@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- `SDataTable` componente now supports manual sorting.
+- `SInputAmount` now emit `info` event with related information
+- `SDataTable` component now supports manual sorting.
 
 ## 2.0.0-beta.41 - 2023-11-20
 ### Added

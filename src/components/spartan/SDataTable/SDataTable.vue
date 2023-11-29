@@ -24,7 +24,7 @@ import { BORDER_STYLE } from '../STable/styles';
 import { SInput, SSelect } from '..';
 import type { TDataTableProps, TDataTableEmits } from './types';
 import { translator } from '@/helpers';
-import { adaptFromPagination, adaptFromSorting, adaptToPagination, adaptToSorting } from './helpers';
+import { adaptFromPagination, adaptToPagination, adaptToSorting } from './helpers';
 
 const emits = defineEmits<TDataTableEmits>();
 const props = defineProps<TDataTableProps & Partial<TTableProps>>();
@@ -44,14 +44,16 @@ const columns = props.cols.map((col) => {
         return columnHelper.accessor(col, {
             id: col,
             header: col,
-            enableSorting: Boolean(props.sorting?.[col] !== undefined),
+            enableSorting: props.sorting?.sortable.includes(col),
+            sortDescFirst: false,
         });
     } else {
         const key = Object.keys(col)[0];
         return columnHelper.accessor(key, {
             id: key,
             header: col[key],
-            enableSorting: Boolean(props.sorting?.[key] !== undefined),
+            enableSorting: props.sorting?.sortable.includes(key),
+            sortDescFirst: false,
         });
     }
 });
@@ -93,13 +95,8 @@ const table = useVueTable({
         );
     },
     onSortingChange: (updaterOrValue) => {
-        emits(
-            'sortingChange',
-            adaptFromSorting(
-                typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().sorting) : updaterOrValue,
-                props.sorting!,
-            ),
-        );
+        const value = typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().sorting) : updaterOrValue;
+        emits('sortingChange', value[0] ?? []);
     },
     columns,
     getCoreRowModel: getCoreRowModel(),

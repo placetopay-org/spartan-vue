@@ -44,7 +44,7 @@ export const Default = createDefault({
             const start = (pagination.value.page - 1) * pagination.value.size;
             const end = start + pagination.value.size;
             return table.rows.slice(start, end);
-        })
+        });
 
         return { cols: table.colsData.slice(0, 4), rows, pagination };
     },
@@ -57,7 +57,9 @@ export const Default = createDefault({
     @paginationChange="pagination = {...pagination, ...$event}"
     >  
 </SDataTable>`,
-    transform: (args) => `<SDataTable class="w-[610px]" :cols="cols" :rows="rows" :pagination="pagination"  @paginationChange="pagination = {...pagination, ...$event}">
+    transform: (
+        args,
+    ) => `<SDataTable class="w-[610px]" :cols="cols" :rows="rows" :pagination="pagination"  @paginationChange="pagination = {...pagination, ...$event}">
     <template #col[role]="{ value }">
         <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
     </template>    
@@ -92,15 +94,15 @@ export const Sortable = createVariation({
     components: { SDataTable },
     containerClass: 'w-fit',
     setup: () => {
-        const sorting = ref({ name: false, email: 'asc', role: false });
+        const sorting = ref({ sortable: ['name', 'email', 'role'], sort: { id: 'email', desc: false } });
         return { cols: table.colsData.slice(0, 4), rows: table.rows.slice(0, 4), sorting };
     },
-    template: `<!-- sorting = { name: false, email: 'asc', role: false } -->
+    template: `<!-- sorting = { sortable: ['name', 'email', 'role'], sort: { id: 'email', desc: false } } -->
 <SDataTable 
     :cols="cols" 
     :data="rows" 
     :sorting="sorting" 
-    @sortingChange="sorting = $event"
+    @sortingChange="sorting.sort = $event"
     />`,
 });
 
@@ -115,7 +117,7 @@ export const Pagination = createVariation({
             const start = (pagination.value.page - 1) * pagination.value.size;
             const end = start + pagination.value.size;
             return table.rows.slice(start, end);
-        })
+        });
 
         return { cols: table.colsData.slice(0, 4), rows, pagination };
     },
@@ -139,7 +141,7 @@ export const PageSizes = createVariation({
             const start = (pagination.value.page - 1) * pagination.value.size;
             const end = start + pagination.value.size;
             return table.rows.slice(start, end);
-        })
+        });
 
         return { cols: table.colsData.slice(0, 4), rows, pagination };
     },
