@@ -1,54 +1,41 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
+import { onMounted, ref, watch } from 'vue';
 
 const props = defineProps<{
     class?: string;
     open: boolean;
     vertical?: boolean;
 }>();
+
+const accordionBody = ref<HTMLDivElement | null>(null);
+
+watch(
+    () => props.open,
+    (open) => {
+        if (open) {
+            accordionBody.value!.style.gridTemplateRows = '1fr';
+        } else {
+            accordionBody.value!.style.gridTemplateRows = '0fr';
+        }
+    },
+);
+
+onMounted(() => {
+    if (props.open) accordionBody.value!.style.gridTemplateRows = '1fr';
+});
 </script>
 
 <template>
-    <Transition appear :name="`${vertical ? 'vertical' : 'horizontal'}-accordion`">
-        <div
-            v-show="open"
-            :class="
-                twMerge(vertical ? 'max-h-screen overflow-y-hidden' : 'max-w-screen overflow-x-hidden', props.class)
-            "
-        >
-            <slot />
+    <div class="accordion">
+        <div ref="accordionBody" class="transition-accordion grid grid-rows-[0fr]">
+            <div class="overflow-hidden"><slot /></div>
         </div>
-    </Transition>
+    </div>
 </template>
 
 <style scoped>
-.max-w-screen {
-    max-width: 100vw;
-}
-
-.horizontal-accordion-enter-active {
-    transition: max-width 0.4s cubic-bezier(0.87, 0, 0.13, 1);
-}
-
-.horizontal-accordion-leave-active {
-    transition: max-width 0.4s cubic-bezier(0, 1.04, 0.17, 0.99);
-}
-
-.horizontal-accordion-enter-from,
-.horizontal-accordion-leave-to {
-    max-width: 0;
-}
-
-.vertical-accordion-enter-active {
-    transition: max-height 0.4s cubic-bezier(0.87, 0, 0.13, 1);
-}
-
-.vertical-accordion-leave-active {
-    transition: max-height 0.4s cubic-bezier(0, 1.04, 0.17, 0.99);
-}
-
-.vertical-accordion-enter-from,
-.vertical-accordion-leave-to {
-    max-height: 0;
+.transition-accordion {
+    transition: 250ms grid-template-rows ease;
 }
 </style>

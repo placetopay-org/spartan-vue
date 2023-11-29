@@ -39,22 +39,22 @@ const sourceBinding = buildSourceBinding({});
 
 export const Default = createDefault({
     components: { SAccordion, Bars4Icon, XMarkIcon },
-    containerClass: 'h-[600px] w-[600px] flex',
+    containerClass: 'flex gap-2',
     setup: () => {
-        const open = ref(false);
+        const open = ref(true);
         return { open };
     },
-    template: `<SAccordion class="w-[150px]" :open="open">
-    <div class="relative bg-yellow-300 h-full w-[150px] border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">
-    Any Element!
-    <button class="absolute right-4 top-4" @click="open = !open"><XMarkIcon class="h-7 w-7"/></button>
-</div>     
-</SAccordion>
+    template: `<div class="flex flex-col gap-2">
+    <button class="bg-blue-300 px-4 py-1 h-fit border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center" @click="open = true">Open</button>
+    <button class="bg-red-300 px-4 py-1 h-fit border-dashed border-4 border-red-600 font-bold text-red-800 flex justify-center items-center" @click="open = false">Close</button>    
+</div>
 
-<div class="relative bg-blue-300 flex-1 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center">
-    Other content
-    <button v-if="!open" class="absolute left-4 top-4" @click="open = !open"><Bars4Icon class="h-7 w-7"/></button>
-</div>`,
+    
+<SAccordion :open="open">
+<div class="bg-yellow-300 w-80 h-full border-dashed border-4 border-yellow-600 font-bold text-yellow-800">
+    <div class="flex justify-center items-center h-full">Any Element Too!</div>
+</div> 
+</SAccordion>`,
     transform: (args) => `<SAccordion ${sourceBinding(args)}>${args.default}</SAccordion>`,
     args: {
         open: false,
