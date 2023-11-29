@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import SInputAmount from './SInputAmount.vue';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
-const currencies = ['USD', 'EUR', 'COP', 'JPY'];
+const currencies = ['USD', 'EUR', 'COP', 'JPY', 'BHD'];
 
 export default {
     component: SInputAmount,
@@ -54,6 +54,11 @@ export default {
             table: { type: { summary: null }, category: 'Events' },
             description: 'The event emitted when the input value changes.',
         },
+        info: {
+            control: { type: null },
+            table: { type: { summary: null }, category: 'Events' },
+            description: 'The event emitted when the currency changes.',
+        }
     },
 };
 
@@ -71,10 +76,11 @@ export const Default = createDefault({
     },
     setup: () => {
         const value = ref(22.99);
+        const currency = ref('USD');
 
-        return { value, currencies };
+        return { value, currency, currencies };
     },
-    template: `<SInputAmount :symbol="args.symbol" :suffixCurrency="args.suffixCurrency" :currencies="args.currencies" v-model:currency="args.currency" v-model=value />`,
+    template: `<SInputAmount :symbol="args.symbol" :suffixCurrency="args.suffixCurrency" :currencies="args.currencies" v-model:currency="currency" v-model="value" @info="console.log" />`,
     transform: (args) =>
         `<SInputAmount ${sourceBinding(args)}  v-model=value v-model:currency="currency" :currencies="currencies" />`,
 });
