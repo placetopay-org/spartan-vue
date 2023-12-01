@@ -3,7 +3,6 @@ import type { ColumnSort } from "@tanstack/table-core";
 export type TDataTableProps = {
     cols: Record<string, string>[] | string[];
     data: unknown[];
-    sortable?: boolean;
     filtrable?: boolean;
     loading?: boolean;
     initialSizes: number[];

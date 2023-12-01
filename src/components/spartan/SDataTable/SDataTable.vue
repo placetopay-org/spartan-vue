@@ -96,7 +96,7 @@ const table = useVueTable({
     },
     onSortingChange: (updaterOrValue) => {
         const value = typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().sorting) : updaterOrValue;
-        emits('sortingChange', value[0] ?? []);
+        emits('sortingChange', value[0]);
     },
     columns,
     getCoreRowModel: getCoreRowModel(),
@@ -121,7 +121,7 @@ const table = useVueTable({
                 :placeholder="`${t('searchPlaceholder')}...`"
             />
         </div>
-        <STable v-bind="tableProps" :borderless="Boolean(filtrable || sortable || pagination)">
+        <STable v-bind="tableProps" :borderless="Boolean(filtrable || pagination)">
             <STableHead>
                 <STableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
                     <STableHeadCell v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan">

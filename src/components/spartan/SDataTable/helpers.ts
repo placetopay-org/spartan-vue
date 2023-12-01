@@ -17,7 +17,5 @@ export const adaptToPagination = (pagination: TDataTableProps['pagination']): Pa
 };
 
 export const adaptToSorting = (sorting: TDataTableProps['sorting']): SortingState | undefined => {
-    if (!sorting) return undefined;
-
-    return [sorting.sort];
+    if (sorting?.sort) return [sorting.sort];
 };
