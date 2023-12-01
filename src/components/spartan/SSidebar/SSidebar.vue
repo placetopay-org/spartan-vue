@@ -44,7 +44,12 @@ createContext(props, emit);
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ff6c0c;
+    background: #c1c1c1;
     border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+    border-radius: 0px;
 }
 </style>
