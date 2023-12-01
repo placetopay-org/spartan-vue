@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.44 - 2023-12-01
+
 ## 2.0.0-beta.43 - 2023-12-01
 ### Added
 - Debounce query on `SCombobox` component.
