@@ -39,9 +39,8 @@ export default defineConfig({
                 'dayjs',
                 'litepie-datepicker-tw3',  // TODO: Review this package
                 'lodash', // TODO: Review this package and use tree-shaking
-                'uuid',
                 'vue-currency-input',
-                'vue-imask'
+                'vue-imask',
             ],
             output: {
                 globals: {
@@ -57,9 +56,8 @@ export default defineConfig({
                     'dayjs': 'dayjs',
                     'litepie-datepicker-tw3': 'LitepieDatepickerTW3',
                     'lodash': 'Lodash',
-                    'uuid': 'UUID',
                     'vue-currency-input': 'VueCurrencyInput',
-                    'vue-imask': 'VueIMask'
+                    'vue-imask': 'VueIMask',
                 },
             },
         },

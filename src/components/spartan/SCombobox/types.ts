@@ -18,6 +18,7 @@ type TComboboxBaseProps = {
     rounded: TRounded;
     class?: string;
     flipOptions?: boolean;
+    queryDebounce?: number;
 };
 
 type TComboboxNormalProps = Partial<TComboboxBaseProps> & {
