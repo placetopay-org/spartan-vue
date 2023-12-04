@@ -27,7 +27,9 @@ import { translator } from '@/helpers';
 import { adaptFromPagination, adaptToPagination, adaptToSorting } from './helpers';
 
 const emits = defineEmits<TDataTableEmits>();
-const props = defineProps<TDataTableProps & Partial<TTableProps>>();
+const props = withDefaults(defineProps<TDataTableProps & Partial<TTableProps>>(), {
+    displayHeaderText: (header: string) => header,
+});
 
 const tableProps = computed<Partial<TTableProps>>(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -137,7 +139,10 @@ const table = useVueTable({
                             "
                         >
                             <slot :name="`head[${header.column.columnDef.id}]`" :value="header.column.columnDef.header">
-                                <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
+                                <FlexRender
+                                    :render="displayHeaderText(header.column.columnDef.header as string)"
+                                    :props="header.getContext()"
+                                />
                             </slot>
 
                             <ChevronUpIcon

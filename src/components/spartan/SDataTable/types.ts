@@ -2,6 +2,7 @@ import type { ColumnSort } from "@tanstack/table-core";
 
 export type TDataTableProps = {
     cols: Record<string, string>[] | string[];
+    displayHeaderText?: (header: string) => string;
     data: unknown[];
     filtrable?: boolean;
     loading?: boolean;
