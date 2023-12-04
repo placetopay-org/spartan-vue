@@ -75,6 +75,7 @@ export const Default = {
         savedFilters: false,
         fields: [
             {
+                id: 'brand',
                 name: 'Brand',
                 type: 'enum',
                 options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
@@ -84,6 +85,7 @@ export const Default = {
                 },
             },
             {
+                id: 'description',
                 name: 'Description',
                 type: 'string',
                 filter: {
@@ -92,6 +94,7 @@ export const Default = {
                 },
             },
             {
+                id: 'seller',
                 name: 'Seller',
                 type: 'enum',
                 options: [
@@ -119,6 +122,7 @@ export const Default = {
                 // }
             },
             {
+                id: 'price',
                 name: 'Price',
                 type: 'number',
                 // filter: {
@@ -127,6 +131,7 @@ export const Default = {
                 // }
             },
             {
+                id: 'date',
                 name: 'Date',
                 type: 'date',
                 // required: true,
@@ -136,64 +141,79 @@ export const Default = {
                 },
             },
             {
+                id: 'gebder',
                 name: 'Gender',
                 type: 'enum',
                 unique: true,
                 options: ['men', 'women', 'kids', 'unisex'],
             },
             {
+                id: 'new',
                 name: 'New',
                 type: 'boolean',
             },
             {
+                id: 'another',
                 name: 'Another',
                 type: 'string',
             },
             {
+                id: 'another1',
                 name: 'Another 1',
                 type: 'string',
             },
             {
+                id: 'another2',
                 name: 'Another 2',
                 type: 'string',
             },
             {
+                id: 'another3',
                 name: 'Another 3',
                 type: 'string',
             },
             {
+                id: 'another4',
                 name: 'Another 4',
                 type: 'string',
             },
             {
+                id: 'another5',
                 name: 'Another 5',
                 type: 'string',
             },
             {
+                id: 'another6',
                 name: 'Another 6',
                 type: 'string',
             },
             {
+                id: 'another7',
                 name: 'Another 7',
                 type: 'string',
             },
             {
+                id: 'another8',
                 name: 'Another 8',
                 type: 'string',
             },
             {
+                id: 'another9',
                 name: 'Another 9',
                 type: 'string',
             },
             {
+                id: 'another10',
                 name: 'Another 10',
                 type: 'string',
             },
             {
+                id: 'another11',
                 name: 'Another 11',
                 type: 'string',
             },
             {
+                id: 'another12',
                 name: 'Another 12',
                 type: 'string',
             },

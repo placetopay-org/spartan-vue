@@ -28,6 +28,7 @@ type TGtOrLtFilter<T> = TFilter<Oper.GT | Oper.GTE | Oper.LT | Oper.LTE, T>;
 type TBetweenOrNotFilter<T> = TFilter<Oper.BETWEEN | Oper.NBETWEEN, [T, T]>;
 
 type TFieldLayout<T, F> = {
+    id: string;
     name: string;
     type: T;
     options?: string[];
