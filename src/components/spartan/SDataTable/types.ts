@@ -5,9 +5,8 @@ export type TDataTableProps = {
     data: unknown[];
     filtrable?: boolean;
     loading?: boolean;
-    initialSizes: number[];
-    pagination?: { page?: number; size?: number; count: number; sizes?: number[] };
-    sorting?: { sortable: string[]; sort: ColumnSort };
+    pagination?: { page?: number; count: number; size?: number, sizes?: number[] };
+    sorting?: { availableColumns: string[]; currentSort?: ColumnSort };
     containerClass?: string;
 };
 

@@ -44,7 +44,7 @@ const columns = props.cols.map((col) => {
         return columnHelper.accessor(col, {
             id: col,
             header: col,
-            enableSorting: props.sorting?.sortable.includes(col),
+            enableSorting: props.sorting?.availableColumns.includes(col),
             sortDescFirst: false,
         });
     } else {
@@ -52,7 +52,7 @@ const columns = props.cols.map((col) => {
         return columnHelper.accessor(key, {
             id: key,
             header: col[key],
-            enableSorting: props.sorting?.sortable.includes(key),
+            enableSorting: props.sorting?.availableColumns.includes(key),
             sortDescFirst: false,
         });
     }
