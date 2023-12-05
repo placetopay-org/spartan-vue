@@ -13,7 +13,7 @@ const emit = defineEmits<TComboboxEmits>();
 const props = withDefaults(defineProps<Partial<TComboboxProps>>(), {
     disabled: false,
     error: false,
-    search: false,
+    search: undefined,
     modelValue: undefined,
     rounded: 'both',
     displayButtonText: undefined,

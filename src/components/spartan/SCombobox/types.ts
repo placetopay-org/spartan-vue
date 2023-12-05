@@ -12,17 +12,17 @@ type TDispayFunction = (option: unknown) => string;
 
 type TComboboxBaseProps = {
     id: string;
-    disabled: boolean;
-    error: boolean;
+    disabled?: boolean;
+    error?: boolean;
     modelValue: string | number | object;
-    rounded: TRounded;
+    rounded?: TRounded;
     class?: string;
     flipOptions?: boolean;
     queryDebounce?: number;
 };
 
 type TComboboxNormalProps = Partial<TComboboxBaseProps> & {
-    search: false;
+    search?: undefined;
     displayButtonText?: TDispayFunction;
 };
 

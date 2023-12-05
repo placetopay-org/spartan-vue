@@ -319,7 +319,7 @@ export const QueryDebounce = createVariation({
         const query = ref('');
         return { value, query, options: riskOptions };
     },
-    template: `<SCombobox class="w-40" v-model="value" :queryDebounce="0" search="auto" @query="value => query = value" :displayButtonText="item => item && item.name">
+    template: `<SCombobox class="w-40" v-model="value" :queryDebounce="0" search="auto" @query="console.log" :displayButtonText="item => item && item.name">
     <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
     <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
     <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
