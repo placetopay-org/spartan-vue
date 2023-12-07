@@ -2,17 +2,17 @@
 import { computed, onMounted, ref } from 'vue';
 import { SButton, SPopover } from '@spartan';
 import { InputSelector, TwoInputSelector, OptionsSelector } from '../selectors';
-import { Oper, FieldType, type TField } from '../types';
+import OperatorSelector from './OperatorSelector.vue';
+import { Oper, FieldType, type Field, type Option } from '../types';
 import { translator } from '@/helpers';
-import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 
 const emit = defineEmits<{
-    (event: 'add', value: { field: TField; filter: TField['filter'] }): void;
+    (event: 'add', value: { field: Field; state: Field['state'] }): void;
     (event: 'cancel'): void;
 }>();
 
 const props = defineProps<{
-    field: TField;
+    field: Field;
 }>();
 
 const conditionMap = {
@@ -65,40 +65,73 @@ const conditionMap = {
 const { t } = translator('filter');
 const value = ref();
 const operatorGroup = conditionMap[props.field.type];
-const operators = Object.keys(operatorGroup) as Oper[];
-const activeOperator = ref(operators[0]);
+// const operators = Object.keys(operatorGroup) as Oper[];
+const operators = computed<Option[] | undefined>(() => {
+    if (props.field.type === 'string')
+        return [
+            { label: t('operatorEquals'), value: Oper.EQ },
+            { label: t('operatorNotEquals'), value: Oper.NEQ },
+            { label: t('operatorContains'), value: Oper.CONTAINS },
+            { label: t('operatorStartsWith'), value: Oper.STARTSWITH },
+            { label: t('operatorEndsWith'), value: Oper.ENDSWITH },
+        ];
+});
 
-const filterComponent = computed(() => operatorGroup[activeOperator.value as keyof typeof operatorGroup]);
+const activeOperator = ref(operators.value?.[0]);
 
-const selectOperator = (selection: Oper, closeCallback: () => void) => {
-    if (
-        selection === Oper.BETWEEN ||
-        selection === Oper.NBETWEEN ||
-        activeOperator.value === Oper.BETWEEN ||
-        activeOperator.value === Oper.NBETWEEN
-    ) {
-        value.value = undefined;
+const filterInterface = computed(() => {
+    let component;
+    let componentProps;
+
+    if (props.field.type === 'boolean') {
+        component = OptionsSelector;
+        componentProps = {
+            options: [
+                {
+                    label: props.field.config?.true ?? t('yes'),
+                    value: true,
+                },
+                {
+                    label: props.field.config?.false ?? t('no'),
+                    value: false,
+                },
+            ],
+        };
     }
-    activeOperator.value = selection;
-    closeCallback();
-};
+
+    return { component, componentProps };
+});
+
+// const selectOperator = (selection: Oper, closeCallback: () => void) => {
+//     if (
+//         selection === Oper.BETWEEN ||
+//         selection === Oper.NBETWEEN ||
+//         activeOperator.value === Oper.BETWEEN ||
+//         activeOperator.value === Oper.NBETWEEN
+//     ) {
+//         value.value = undefined;
+//     }
+//     activeOperator.value = selection;
+//     closeCallback();
+// };
 
 const add = () => {
     emit('add', {
         field: props.field,
-        filter: {
-            operator: activeOperator.value,
-            value: value.value,
-        } as TField['filter'],
+        state: value.value,
     });
 };
 
 const disabled = computed(() => {
-    if (activeOperator.value === Oper.EX || activeOperator.value === Oper.NEX) return false;
+    // if (activeOperator.value) {
+    //     if (activeOperator.value === Oper.EX || activeOperator.value === Oper.NEX || props.field.type === 'boolean')
+    //     return false;
+    // }
+    
 
     const isValid = (value: string | number | boolean | null | undefined) => {
-        if (value === 0) return true;
-        return !!(value && String(value).trim());
+        if (value === 0 || value === false) return true;
+        return Boolean(value && String(value).trim());
     };
 
     if (Array.isArray(value.value)) {
@@ -109,10 +142,7 @@ const disabled = computed(() => {
 });
 
 onMounted(() => {
-    if (props.field.filter) {
-        activeOperator.value = props.field.filter.operator;
-        value.value = props.field.filter.value;
-    }
+    if (props.field.state !== undefined) value.value = props.field.state;
 });
 </script>
 
@@ -120,30 +150,7 @@ onMounted(() => {
     <div class="flex max-h-96 min-w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl">
         <div class="flex items-center gap-3">
             <span>{{ field.name }}</span>
-            <SPopover :offset="8">
-                <template #reference="{ toggle }">
-                    <button
-                        class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pl-3 pr-2 text-gray-800"
-                        @click="toggle"
-                    >
-                        <span>{{ t('oper.' + activeOperator) }}</span>
-                        <ChevronDownIcon class="h-5 w-5 text-gray-600" />
-                    </button>
-                </template>
-
-                <template #default="{ close }">
-                    <ul class="divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white shadow-2xl">
-                        <li v-for="operator in operators" :key="operator">
-                            <button
-                                class="w-full whitespace-nowrap p-3 text-left text-sm font-medium text-gray-800 hover:bg-gray-50"
-                                @click="selectOperator(operator, close)"
-                            >
-                                {{ t('oper.' + operator) }}
-                            </button>
-                        </li>
-                    </ul>
-                </template>
-            </SPopover>
+            <OperatorSelector v-if="activeOperator" :operators="operators" v-model="activeOperator" />
         </div>
 
         <Transition
@@ -155,7 +162,7 @@ onMounted(() => {
             leave-from-class="translate-y-0 opacity-100"
             leave-to-class="-translate-y-2 opacity-0"
         >
-            <component :is="filterComponent" v-if="filterComponent" v-model="value" :field="props.field" />
+            <component :is="filterInterface.component" v-if="filterInterface" v-model="value" v-bind="filterInterface.componentProps" />
         </Transition>
 
         <div class="flex gap-3">

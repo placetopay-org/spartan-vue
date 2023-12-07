@@ -7,6 +7,8 @@
             "searchPlaceholder": "Pesquisar todas as colunas"
         },
         "filter": {
+            "yes": "Sim",
+            "no": "Não",
             "addBtn": "Adicionar",
             "addFilterBtn": "Adicionar filtro",
             "applyBtn": "Aplicar",

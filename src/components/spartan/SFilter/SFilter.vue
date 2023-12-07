@@ -9,7 +9,7 @@ import { ref, computed, watchEffect } from 'vue';
 import { closeActivePopover, customFilterManager } from './helpers';
 import { useStep } from '@/hooks';
 import { translator } from '@/helpers';
-import type { TField } from './types';
+import type { Field, TField } from './types';
 
 const { t } = translator('filter');
 
@@ -19,7 +19,7 @@ defineEmits<{
 
 const props = defineProps<{
     savedFilters?: boolean;
-    fields: TField[];
+    fields: Field[];
 }>();
 
 const fields = ref(props.fields);
@@ -28,9 +28,9 @@ const filterName = ref<string>();
 const addFilterPop = ref<InstanceType<typeof SPopover> | null>(null);
 const customFilterPop = ref<InstanceType<typeof SPopover> | null>(null);
 const preventClose = ref(false);
-const activeField = ref<TField>();
+const activeField = ref<Field>();
 const customFilterComputed = ref<{ name: string; data: TField[] }[]>([]);
-const enableCustomFilter = computed(() => fields.value.some((filter) => filter.filter));
+// const enableCustomFilter = computed(() => fields.value.some((filter) => filter.filter));
 
 watchEffect(() => {
     if (props.savedFilters) {
@@ -55,35 +55,35 @@ const createCustomFilter = () => {
     customFilterPop.value?.focus();
 };
 
-const saveCustomFilter = () => {
-    customFilterManager.add(
-        filterName.value!,
-        fields.value.filter((filter) => filter.filter),
-    );
-    customFilterComputed.value = customFilterManager.get();
-    resetCustomFilter();
-};
+// const saveCustomFilter = () => {
+//     customFilterManager.add(
+//         filterName.value!,
+//         fields.value.filter((filter) => filter.filter),
+//     );
+//     customFilterComputed.value = customFilterManager.get();
+//     resetCustomFilter();
+// };
 
-const selectCustomFilter = (savedFields: TField[]) => {
-    fields.value = JSON.parse(JSON.stringify(savedFields)) as TField[];
-    resetCustomFilter();
-};
+// const selectCustomFilter = (savedFields: TField[]) => {
+//     fields.value = JSON.parse(JSON.stringify(savedFields)) as TField[];
+//     resetCustomFilter();
+// };
 
 const openFieldSelector = () => switchPopover(addFilterPop.value?.open, resetAddFilter);
 
-const selectField = (filter: TField) => {
-    activeField.value = filter;
+const selectField = (field: Field) => {
+    activeField.value = field;
     nextAddFilterPopState();
     preventClose.value = true;
 };
 
-const updateFilter = ({ field, filter }: { field: TField; filter: TField['filter'] }) => {
-    field.filter = filter;
+const updateFilter = ({ field, state }: { field: Field; state: Field['state'] }) => {
+    field.state = state;
     closeActivePopover.value?.();
 };
 
-const removeFilter = (field: TField) => {
-    field.filter = undefined;
+const clearState = (field: Field) => {
+    delete field.state;
 };
 
 const resetAddFilter = () => {
@@ -99,19 +99,19 @@ const resetCustomFilter = () => {
     customFilterPop.value?.close();
 };
 
-const clean = () => fields.value.forEach((filter) => !filter.required && (filter.filter = undefined));
+// const clean = () => fields.value.forEach((filter) => !filter.required && (filter.filter = undefined));
 </script>
 
 <template>
     <div class="flex w-full justify-between gap-8 pr-1">
         <div class="flex flex-wrap gap-3 pl-1">
             <FieldFilter
-                v-for="filter in fields"
-                :key="filter.name"
-                :field="filter"
-                :filter-idx="fields.indexOf(filter)"
+                v-for="field in fields"
+                :key="field.name"
+                :field="field"
+                :filter-idx="fields.indexOf(field)"
                 @update="updateFilter"
-                @remove="removeFilter"
+                @remove="clearState"
             />
 
             <SPopover ref="addFilterPop" :prevent-close="preventClose" :offset="8">
@@ -136,7 +136,7 @@ const clean = () => fields.value.forEach((filter) => !filter.required && (filter
                 >
                     <FieldSelector
                         v-if="isAddFilterPopState(0)"
-                        :fields="fields.filter((data) => !data.filter)"
+                        :fields="fields.filter((field) => !field.state)"
                         @select="selectField"
                     />
                     <FilterSelector

@@ -2,14 +2,14 @@
 import { ref, computed } from 'vue';
 import { SInput } from '@spartan';
 import { translator } from '@/helpers';
-import type { TField } from '../types';
+import type { Field } from '../types';
 
 defineEmits<{
-    (event: 'select', field: TField): void;
+    (event: 'select', field: Field): void;
 }>();
 
 const props = defineProps<{
-    fields: TField[];
+    fields: Field[];
 }>();
 
 const { t } = translator('filter');
@@ -44,7 +44,7 @@ const searchedFields = computed(
 <style scoped>
 /* width */
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
 
 /* Track */
@@ -54,7 +54,13 @@ const searchedFields = computed(
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ff6c0c;
+    background: #c1c1c1;
     border-radius: 16px;
 }
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
 </style>
+
+
