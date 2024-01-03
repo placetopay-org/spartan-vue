@@ -2,14 +2,14 @@
 import { ref, computed } from 'vue';
 import { SInput } from '@spartan';
 import { translator } from '@/helpers';
-import type { Field } from '../types';
+import type { TField } from '../types';
 
 defineEmits<{
-    (event: 'select', field: Field): void;
+    (event: 'select', field: TField): void;
 }>();
 
 const props = defineProps<{
-    fields: Field[];
+    fields: TField[];
 }>();
 
 const { t } = translator('filter');
@@ -62,5 +62,4 @@ const searchedFields = computed(
     background: #a8a8a8;
 }
 </style>
-
 

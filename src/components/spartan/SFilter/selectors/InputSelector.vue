@@ -23,8 +23,8 @@ const value = computed({
 });
 
 const inputType = computed(() => {
-    if (props.field.type === 'number') return 'number';
-    if (props.field.type === 'date') return 'date';
+    if (props.field.interfaces.oneInput?.type === 'number') return 'number';
+    if (props.field.interfaces.oneInput?.type === 'date') return 'date';
     return 'text';
 });
 </script>

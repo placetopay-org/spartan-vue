@@ -1,156 +1,73 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { SButton, SPopover } from '@spartan';
-import { InputSelector, TwoInputSelector, OptionsSelector } from '../selectors';
+import { computed, ref, type Component } from 'vue';
+import { SButton } from '@spartan';
 import OperatorSelector from './OperatorSelector.vue';
-import { Oper, FieldType, type Field, type Option } from '../types';
+import type { TField, TOption } from '../types';
+import { interfaceComponents } from '../constants';
 import { translator } from '@/helpers';
+import { useContext } from '../api';
 
 const emit = defineEmits<{
-    (event: 'add', value: { field: Field; state: Field['state'] }): void;
-    (event: 'cancel'): void;
+    (event: 'close'): void;
 }>();
 
 const props = defineProps<{
-    field: Field;
+    field: TField;
 }>();
 
-const conditionMap = {
-    [FieldType.BOOLEAN]: {
-        [Oper.EX]: null,
-        [Oper.NEX]: null,
-        [Oper.EQ]: OptionsSelector,
-    },
-    [FieldType.STRING]: {
-        [Oper.EX]: null,
-        [Oper.NEX]: null,
-        [Oper.EQ]: InputSelector,
-        [Oper.NEQ]: InputSelector,
-        [Oper.CONTAINS]: InputSelector,
-        [Oper.STARTSWITH]: InputSelector,
-        [Oper.ENDSWITH]: InputSelector,
-    },
-    [FieldType.NUMBER]: {
-        [Oper.EX]: null,
-        [Oper.NEX]: null,
-        [Oper.EQ]: InputSelector,
-        [Oper.NEQ]: InputSelector,
-        [Oper.GT]: InputSelector,
-        [Oper.GTE]: InputSelector,
-        [Oper.LT]: InputSelector,
-        [Oper.LTE]: InputSelector,
-        [Oper.BETWEEN]: TwoInputSelector,
-        [Oper.NBETWEEN]: TwoInputSelector,
-    },
-    [FieldType.DATE]: {
-        [Oper.EX]: null,
-        [Oper.NEX]: null,
-        [Oper.EQ]: InputSelector,
-        [Oper.NEQ]: InputSelector,
-        [Oper.GT]: InputSelector,
-        [Oper.GTE]: InputSelector,
-        [Oper.LT]: InputSelector,
-        [Oper.LTE]: InputSelector,
-        [Oper.BETWEEN]: TwoInputSelector,
-        [Oper.NBETWEEN]: TwoInputSelector,
-    },
-    [FieldType.ENUM]: {
-        [Oper.EX]: null,
-        [Oper.NEX]: null,
-        [Oper.EQ]: OptionsSelector,
-        [Oper.NEQ]: OptionsSelector,
-    },
-};
-
 const { t } = translator('filter');
-const value = ref();
-const operatorGroup = conditionMap[props.field.type];
-// const operators = Object.keys(operatorGroup) as Oper[];
-const operators = computed<Option[] | undefined>(() => {
-    if (props.field.type === 'string')
-        return [
-            { label: t('operatorEquals'), value: Oper.EQ },
-            { label: t('operatorNotEquals'), value: Oper.NEQ },
-            { label: t('operatorContains'), value: Oper.CONTAINS },
-            { label: t('operatorStartsWith'), value: Oper.STARTSWITH },
-            { label: t('operatorEndsWith'), value: Oper.ENDSWITH },
-        ];
+const context = useContext('FieldSelector');
+const operatorData = computed(() => context.operatorData[props.field.id]);
+
+const value = ref(props.field.state?.value ?? undefined);
+
+const fieldData = computed(() => {
+    const operatorsAsOptions: TOption[] = [];
+    const interfaceOfOperator: Record<string, Component | null> = {};
+
+    Object.keys(operatorData.value).forEach((key) => {
+        const data = operatorData.value[key as keyof typeof operatorData.value];
+        if (data) {
+            operatorsAsOptions.push({
+                label: data.label,
+                value: key,
+            } as TOption);
+
+            interfaceOfOperator[key] = interfaceComponents[data.interface as keyof typeof interfaceComponents];
+        }
+    });
+
+    return {
+        operators: operatorsAsOptions,
+        interfaces: interfaceOfOperator,
+    };
 });
 
-const activeOperator = ref(operators.value?.[0]);
-
-const filterInterface = computed(() => {
-    let component;
-    let componentProps;
-
-    if (props.field.type === 'boolean') {
-        component = OptionsSelector;
-        componentProps = {
-            options: [
-                {
-                    label: props.field.config?.true ?? t('yes'),
-                    value: true,
-                },
-                {
-                    label: props.field.config?.false ?? t('no'),
-                    value: false,
-                },
-            ],
-        };
-    }
-
-    return { component, componentProps };
-});
-
-// const selectOperator = (selection: Oper, closeCallback: () => void) => {
-//     if (
-//         selection === Oper.BETWEEN ||
-//         selection === Oper.NBETWEEN ||
-//         activeOperator.value === Oper.BETWEEN ||
-//         activeOperator.value === Oper.NBETWEEN
-//     ) {
-//         value.value = undefined;
-//     }
-//     activeOperator.value = selection;
-//     closeCallback();
-// };
+const operator = ref(
+    props.field.state?.operator
+        ? {
+              label: context.operatorData[props.field.id][props.field.state.operator].label,
+              value: props.field.state.operator,
+          }
+        : fieldData.value.operators[0],
+);
 
 const add = () => {
-    emit('add', {
-        field: props.field,
-        state: value.value,
+    context.applyFilter(props.field, {
+        operator: operator.value.value,
+        value: value.value,
     });
+    emit('close');
 };
 
-const disabled = computed(() => {
-    // if (activeOperator.value) {
-    //     if (activeOperator.value === Oper.EX || activeOperator.value === Oper.NEX || props.field.type === 'boolean')
-    //     return false;
-    // }
-    
-
-    const isValid = (value: string | number | boolean | null | undefined) => {
-        if (value === 0 || value === false) return true;
-        return Boolean(value && String(value).trim());
-    };
-
-    if (Array.isArray(value.value)) {
-        if (value.value.length === 0) return true;
-        return !value.value.every((item) => isValid(item));
-    }
-    return !isValid(value.value);
-});
-
-onMounted(() => {
-    if (props.field.state !== undefined) value.value = props.field.state;
-});
+const disabled = computed(() => !value.value || value.value.length === 0);
 </script>
 
 <template>
     <div class="flex max-h-96 min-w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl">
         <div class="flex items-center gap-3">
             <span>{{ field.name }}</span>
-            <OperatorSelector v-if="activeOperator" :operators="operators" v-model="activeOperator" />
+            <OperatorSelector :operators="fieldData.operators" v-model="operator" />
         </div>
 
         <Transition
@@ -162,11 +79,11 @@ onMounted(() => {
             leave-from-class="translate-y-0 opacity-100"
             leave-to-class="-translate-y-2 opacity-0"
         >
-            <component :is="filterInterface.component" v-if="filterInterface" v-model="value" v-bind="filterInterface.componentProps" />
+            <component :is="fieldData.interfaces[operator.value]" :field="field" v-model="value" />
         </Transition>
 
         <div class="flex gap-3">
-            <SButton class="w-full" variant="secondary" @click="$emit('cancel')">{{ t('cancelBtn') }}</SButton>
+            <SButton class="w-full" variant="secondary" @click="$emit('close')">{{ t('cancelBtn') }}</SButton>
             <SButton
                 :class="['w-full', disabled && 'pointer-events-none opacity-50']"
                 :disabled="disabled"
