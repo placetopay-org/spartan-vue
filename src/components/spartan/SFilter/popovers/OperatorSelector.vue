@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { SPopover } from '../../SPopover';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import type { Option } from '../types';
+import type { TOption } from '../types';
 
 const emit = defineEmits<{
-    (event: 'update:modelValue', value: Option): void;
+    (event: 'update:modelValue', value: TOption): void;
 }>();
 
 defineProps<{
-    operators: Option[] | undefined;
-    modelValue: Option;
+    operators: TOption[];
+    modelValue: TOption;
 }>();
 
-const selectOperator = (operator: Option, close: () => void) => {
+const selectOperator = (operator: TOption, close: () => void) => {
     emit('update:modelValue', operator);
     close();
 };

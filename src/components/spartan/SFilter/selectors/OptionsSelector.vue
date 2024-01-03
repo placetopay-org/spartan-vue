@@ -1,26 +1,27 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
-import type { Option } from '../types';
 import { SRadio, SCheckbox } from '../../';
 import { translator } from '@/helpers';
 import { SBadge, SInput } from '@spartan';
+import type { TField } from '../types';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string[];
-    multiple?: boolean;
-    options: Option[];
+    field: TField;
 }>();
 
 const { t } = translator('filter');
+
+const interfaceData = computed(() => props.field.interfaces.options!);
 
 const search = ref('');
 
 const checked = computed({
     get() {
-        return props.modelValue;
+        return props.modelValue || [];
     },
     set(value) {
         emit('update:modelValue', value);
@@ -28,10 +29,10 @@ const checked = computed({
 });
 
 const computedOptions = computed(() => {
-    return props.options.filter((option) => option.label.toLowerCase().includes(search.value.toLowerCase()));
+    return interfaceData.value.options.filter((option) => option.toLowerCase().includes(search.value.toLowerCase()));
 });
 
-// const removeCheck = (option: string) => (checked.value = checked.value.filter((item) => item !== option));
+const removeCheck = (option: string) => checked.value = checked.value.filter((item) => item !== option);
 
 const clear = () => {
     checked.value = [];
@@ -42,12 +43,12 @@ const clear = () => {
 <template>
     <div class="flex flex-col gap-4">
         <SInput
-            v-if="!multiple && computedOptions.length > 5"
+            v-if="!interfaceData.multiple && interfaceData.options.length > 5"
             v-model="search"
             :placeholder="t('inputSelectorPlaceholder')"
         />
         <div
-            v-if="multiple"
+            v-if="interfaceData.multiple"
             :tabindex="-1"
             class="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:border-primary-300 focus-within:ring focus-within:ring-primary-100"
             @focus="
@@ -82,14 +83,14 @@ const clear = () => {
                 </button>
             </div>
         </div>
-        <div class="scroll-primary max-h-32 overflow-y-auto py-1.5 pl-1.5 flex flex-col gap-2">
-            <div v-for="option in computedOptions" :key="option.value" class="flex items-center gap-2">
+        <div class="scroll-primary flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
+            <div v-for="option in computedOptions" :key="option" class="flex items-center gap-2">
                 <component
-                    :is="multiple ? SCheckbox : SRadio"
+                    :is="interfaceData.multiple ? SCheckbox : SRadio"
                     v-model="checked"
-                    :value="option.value"
+                    :value="option"
                 >
-                    {{ option.label }}
+                    {{ option }}
                 </component>
             </div>
         </div>

@@ -2,7 +2,7 @@ import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
 import { buildDesign, buildSourceBinding } from '@/helpers';
 import type { SourceProps } from '@storybook/blocks';
-import { Oper, type TField } from './types';
+import { type TField } from './types';
 
 export default {
     component: SFilter,
@@ -58,7 +58,7 @@ export const Default = {
 
             return { args, show };
         },
-        template: '<StoryPanel /><SFilter v-bind="args" @apply="show" />',
+        template: '<StoryPanel /><SFilter v-bind="args" @apply="show" @update:fields="console.log" />',
     }),
     parameters: {
         design,
@@ -77,145 +77,160 @@ export const Default = {
             {
                 id: 'brand',
                 name: 'Brand',
-                type: 'enum',
-                options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                filter: {
-                    operator: Oper.EQ,
+                interfaces: {
+                    options: {
+                        multiple: true,
+                        operators: ['equal', 'notEqual', 'contains'],
+                        options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
+                        customOperators: [
+                            { id: 'custom', translationLabel: 'customOper', translationTag: 'customTag' },
+                        ],
+                    },
+                },
+                state: {
+                    operator: 'equal',
                     value: ['Nike', 'Adidas'],
                 },
             },
             {
                 id: 'description',
                 name: 'Description',
-                type: 'string',
-                filter: {
-                    operator: Oper.CONTAINS,
+                interfaces: {
+                    oneInput: {
+                        operators: ['contains', 'notContains', 'startsWith', 'endsWith'],
+                        customOperators: [{ id: 'custom', translationLabel: 'customOper' }],
+                    },
+                },
+                state: {
+                    operator: 'contains',
                     value: 'sport',
                 },
             },
             {
                 id: 'seller',
                 name: 'Seller',
-                type: 'enum',
-                options: [
-                    'Amazon',
-                    'Ebay',
-                    'Walmart',
-                    'Target',
-                    'Best Buy',
-                    'Another 1',
-                    'Another 2',
-                    'Another 3',
-                    'Another 4',
-                    'Another 5',
-                    'Another 6',
-                    'Another 7',
-                    'Another 8',
-                    'Another 9',
-                    'Another 10',
-                    'Another 11',
-                    'Another 12',
-                ],
-                // filter: {
-                //   operator: Oper.EQ,
-                //   value: ['Amazon'],
-                // }
+                interfaces: {
+                    option: {
+                        operators: ['equal', 'notEqual'],
+                        options: [
+                            'Amazon',
+                            'Ebay',
+                            'Walmart',
+                            'Target',
+                            'Best Buy',
+                            'Another 1',
+                            'Another 2',
+                            'Another 3',
+                            'Another 4',
+                            'Another 5',
+                            'Another 6',
+                            'Another 7',
+                            'Another 8',
+                            'Another 9',
+                            'Another 10',
+                            'Another 11',
+                            'Another 12',
+                        ],
+                    },
+                },
             },
             {
                 id: 'price',
                 name: 'Price',
-                type: 'number',
-                // filter: {
-                //   operator: Oper.BETWEEN,
-                //   value: [0, 100],
-                // }
+                interfaces: {
+                    twoInputs: {
+                        type: 'number',
+                        operators: ['between', 'notBetween'],
+                        customOperators: [{ id: 'custom', translationLabel: 'customOper' }],
+                    },
+                },
             },
             {
                 id: 'date',
                 name: 'Date',
-                type: 'date',
-                // required: true,
-                filter: {
-                    operator: Oper.BETWEEN,
+                permanent: true,
+                interfaces: {
+                    twoInputs: {
+                        type: 'date',
+                        operators: ['between', 'notBetween'],
+                        customOperators: [{ id: 'custom', translationLabel: 'customOper' }],
+                    },
+                },
+                state: {
+                    operator: 'between',
                     value: ['2023-08-01', '2023-08-02'],
                 },
             },
             {
-                id: 'gebder',
+                id: 'gender',
                 name: 'Gender',
-                type: 'enum',
-                unique: true,
-                options: ['men', 'women', 'kids', 'unisex'],
+                interfaces: {
+                    option: {
+                        operators: ['equal', 'notEqual'],
+                        options: ['man', 'woman', 'kid'],
+                    },
+                },
             },
             {
                 id: 'new',
                 name: 'New',
-                type: 'boolean',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another',
                 name: 'Another',
-                type: 'string',
             },
             {
                 id: 'another1',
                 name: 'Another 1',
-                type: 'string',
             },
             {
                 id: 'another2',
                 name: 'Another 2',
-                type: 'string',
             },
             {
                 id: 'another3',
                 name: 'Another 3',
-                type: 'string',
             },
             {
                 id: 'another4',
                 name: 'Another 4',
-                type: 'string',
             },
             {
                 id: 'another5',
                 name: 'Another 5',
-                type: 'string',
             },
             {
                 id: 'another6',
                 name: 'Another 6',
-                type: 'string',
             },
             {
                 id: 'another7',
                 name: 'Another 7',
-                type: 'string',
             },
             {
                 id: 'another8',
                 name: 'Another 8',
-                type: 'string',
             },
             {
                 id: 'another9',
                 name: 'Another 9',
-                type: 'string',
             },
             {
                 id: 'another10',
                 name: 'Another 10',
-                type: 'string',
             },
             {
                 id: 'another11',
                 name: 'Another 11',
-                type: 'string',
             },
             {
                 id: 'another12',
                 name: 'Another 12',
-                type: 'string',
             },
         ] as TField[],
     },

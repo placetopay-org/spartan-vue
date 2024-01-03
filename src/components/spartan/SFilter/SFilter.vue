@@ -1,120 +1,83 @@
 <script setup lang="ts">
-import FieldFilter from './FieldFilter.vue';
+import FieldBadge from './FieldBadge.vue';
 import FieldSelector from './popovers/FieldSelector.vue';
 import FilterSelector from './popovers/FilterSelector.vue';
 import { SInput, SButton, SPopover } from '@spartan';
 import { FunnelIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
 import { PlusIcon, InboxArrowDownIcon } from '@heroicons/vue/20/solid';
 import { ref, computed, watchEffect } from 'vue';
-import { closeActivePopover, customFilterManager } from './helpers';
-import { useStep } from '@/hooks';
 import { translator } from '@/helpers';
-import type { Field, TField } from './types';
+import type { TField, SFilterEmits, SFilterProps, TSavedFilters } from './types';
+import { createContext } from './api';
+
+const emit = defineEmits<SFilterEmits>();
+const props = defineProps<Partial<SFilterProps>>();
 
 const { t } = translator('filter');
 
-defineEmits<{
-    (event: 'apply', fields: TField[]): void;
-}>();
+const context = createContext(props, emit);
 
-const props = defineProps<{
-    savedFilters?: boolean;
-    fields: Field[];
-}>();
+const activeField = ref<TField>();
+const activeSavedFilter = ref(false);
 
-const fields = ref(props.fields);
+const savedFilterName = ref('');
+const addFilterPop = ref<InstanceType<typeof SPopover> | undefined>();
+const customFilterPop = ref<InstanceType<typeof SPopover> | undefined>();
 
-const filterName = ref<string>();
-const addFilterPop = ref<InstanceType<typeof SPopover> | null>(null);
-const customFilterPop = ref<InstanceType<typeof SPopover> | null>(null);
-const preventClose = ref(false);
-const activeField = ref<Field>();
-const customFilterComputed = ref<{ name: string; data: TField[] }[]>([]);
-// const enableCustomFilter = computed(() => fields.value.some((filter) => filter.filter));
+const customFilterComputed = ref<TSavedFilters[]>(context.getSavedFilters() ?? []);
+const enableFilterSaving = computed(() => props.fields?.some((filter) => filter.state));
 
-watchEffect(() => {
-    if (props.savedFilters) {
-        customFilterComputed.value = customFilterManager.get();
-    }
-});
+// watchEffect(() => {
+//     if (props.savedFilters) {
+//         customFilterComputed.value = customFilterManager.get();
+//     }
+// });
 
-const { step: addFilterPopState, is: isAddFilterPopState, next: nextAddFilterPopState } = useStep();
-const { step: customFilterPopState, is: isCustomFilterPopState, next: nextCustomFilterPopState } = useStep();
-
-const switchPopover = (open?: () => void, close?: () => void) => {
-    closeActivePopover.value?.();
-    open?.();
-    closeActivePopover.value = close;
-};
-
-const openCustomFilters = () => switchPopover(customFilterPop.value?.open, resetCustomFilter);
+const openCustomFilters = () => context.togglePopover(customFilterPop.value);
+const openFieldSelector = () => context.togglePopover(addFilterPop.value);
 
 const createCustomFilter = () => {
-    nextCustomFilterPopState();
-    preventClose.value = true;
+    activeSavedFilter.value = true;
     customFilterPop.value?.focus();
 };
 
-// const saveCustomFilter = () => {
-//     customFilterManager.add(
-//         filterName.value!,
-//         fields.value.filter((filter) => filter.filter),
-//     );
-//     customFilterComputed.value = customFilterManager.get();
-//     resetCustomFilter();
-// };
-
-// const selectCustomFilter = (savedFields: TField[]) => {
-//     fields.value = JSON.parse(JSON.stringify(savedFields)) as TField[];
-//     resetCustomFilter();
-// };
-
-const openFieldSelector = () => switchPopover(addFilterPop.value?.open, resetAddFilter);
-
-const selectField = (field: Field) => {
-    activeField.value = field;
-    nextAddFilterPopState();
-    preventClose.value = true;
+const saveCustomFilter = () => {
+    context.addSavedFilter(
+        savedFilterName.value!,
+        props.fields!.filter((filter) => filter.state),
+    );
+    customFilterComputed.value = context.getSavedFilters();
+    closeCustomFilter();
 };
 
-const updateFilter = ({ field, state }: { field: Field; state: Field['state'] }) => {
-    field.state = state;
-    closeActivePopover.value?.();
+const selectCustomFilter = (savedFields: TField[]) => {
+    // fields.value = JSON.parse(JSON.stringify(savedFields)) as TField[];
+    emit('update:fields', savedFields);
+    closeCustomFilter();
 };
 
-const clearState = (field: Field) => {
-    delete field.state;
-};
-
-const resetAddFilter = () => {
-    activeField.value = undefined;
-    addFilterPopState.value = 0;
-    preventClose.value = false;
+const closeFilterSelector = () => {
     addFilterPop.value?.close();
+    activeField.value = undefined;
 };
 
-const resetCustomFilter = () => {
-    customFilterPopState.value = 0;
-    preventClose.value = false;
-    customFilterPop.value?.close();
+const closeCustomFilter = () => {
+    addFilterPop.value?.close();
+    activeSavedFilter.value = false;
 };
 
-// const clean = () => fields.value.forEach((filter) => !filter.required && (filter.filter = undefined));
+defineExpose({
+    apply: () => context.apply(),
+    clear: () => context.clear(),
+});
 </script>
 
 <template>
     <div class="flex w-full justify-between gap-8 pr-1">
         <div class="flex flex-wrap gap-3 pl-1">
-            <FieldFilter
-                v-for="field in fields"
-                :key="field.name"
-                :field="field"
-                :filter-idx="fields.indexOf(field)"
-                @update="updateFilter"
-                @remove="clearState"
-            />
+            <FieldBadge v-if="fields" v-for="field in fields" :key="field.id" :field="field" />
 
-            <SPopover ref="addFilterPop" :prevent-close="preventClose" :offset="8">
+            <SPopover ref="addFilterPop" :prevent-close="Boolean(activeField)" :offset="8">
                 <template #reference>
                     <button
                         class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring"
@@ -135,22 +98,17 @@ const resetCustomFilter = () => {
                     leave-to-class="opacity-0"
                 >
                     <FieldSelector
-                        v-if="isAddFilterPopState(0)"
-                        :fields="fields.filter((field) => !field.state)"
-                        @select="selectField"
+                        v-if="!activeField"
+                        :fields="fields ? fields.filter((field) => !field.state) : []"
+                        @select="(field) => (activeField = field)"
                     />
-                    <FilterSelector
-                        v-else-if="isAddFilterPopState(1) && activeField"
-                        :field="activeField"
-                        @add="updateFilter"
-                        @cancel="resetAddFilter"
-                    />
+                    <FilterSelector v-else :field="activeField" @close="closeFilterSelector" />
                 </Transition>
             </SPopover>
         </div>
 
         <div class="flex gap-3">
-            <SPopover v-if="savedFilters" ref="customFilterPop" :prevent-close="preventClose">
+            <SPopover v-if="savedFilters" ref="customFilterPop" :prevent-close="activeSavedFilter">
                 <template #reference>
                     <SButton
                         variant="outline"
@@ -171,7 +129,7 @@ const resetCustomFilter = () => {
                     leave-to-class="opacity-0"
                 >
                     <div
-                        v-if="isCustomFilterPopState(0)"
+                        v-if="!activeSavedFilter"
                         class="min-w-[220px] overflow-hidden rounded-lg border border-gray-100 bg-white shadow-2xl"
                     >
                         <ul class="w-full">
@@ -196,9 +154,9 @@ const resetCustomFilter = () => {
                             </li>
                             <li>
                                 <button
-                                    :disabled="!enableCustomFilter"
+                                    :disabled="!enableFilterSaving"
                                     :class="[
-                                        !enableCustomFilter && 'opacity-50',
+                                        !enableFilterSaving && 'opacity-50',
                                         'flex w-full gap-3 whitespace-nowrap bg-primary-600 px-4 py-3 text-sm font-semibold text-gray-50 hover:bg-primary-700',
                                     ]"
                                     @click="createCustomFilter"
@@ -209,16 +167,15 @@ const resetCustomFilter = () => {
                             </li>
                         </ul>
                     </div>
-                    <div
-                        v-else-if="isCustomFilterPopState(1)"
-                        class="w-80 overflow-hidden rounded-lg border border-gray-100 bg-white p-4 shadow-2xl"
-                    >
-                        <SInput id="filterName" v-model="filterName" label="Nombre del filtro" />
+                    <div v-else class="w-80 overflow-hidden rounded-lg border border-gray-100 bg-white p-4 shadow-2xl">
+                        <SInput id="filterName" v-model="savedFilterName" label="Nombre del filtro" />
                         <div class="mt-4 flex gap-3">
-                            <SButton class="w-full" variant="secondary" @click="resetCustomFilter">Cancelar</SButton>
+                            <SButton class="w-full" variant="secondary" @click="closeCustomFilter">
+                                {{ t('cancelBtn') }}
+                            </SButton>
                             <SButton
-                                :class="['w-full', !filterName?.trim() && 'pointer-events-none opacity-50']"
-                                :disabled="!filterName?.trim()"
+                                :class="['w-full', !savedFilterName?.trim() && 'pointer-events-none opacity-50']"
+                                :disabled="!savedFilterName?.trim()"
                                 @click="saveCustomFilter"
                             >
                                 {{ t('saveBtn') }}
@@ -227,19 +184,10 @@ const resetCustomFilter = () => {
                     </div>
                 </Transition>
             </SPopover>
-            <SButton
-                rounded="full"
-                class="whitespace-nowrap !py-0.5"
-                @click="
-                    $emit(
-                        'apply',
-                        fields.filter((filter) => filter.filter),
-                    )
-                "
-            >
+            <SButton rounded="full" class="whitespace-nowrap !py-0.5" @click="context.apply">
                 {{ t('applyBtn') }}
             </SButton>
-            <SButton variant="secondary" rounded="full" class="whitespace-nowrap !py-0.5" @click="clean">
+            <SButton variant="secondary" rounded="full" class="whitespace-nowrap !py-0.5" @click="context.clear">
                 {{ t('clearBtn') }}
             </SButton>
         </div>

@@ -21,8 +21,8 @@ watch([value1, value2], () => {
 });
 
 const inputType = computed(() => {
-    if (props.field.type === 'number') return 'number';
-    if (props.field.type === 'date') return 'date';
+    if (props.field.interfaces.twoInputs?.type === 'number') return 'number';
+    if (props.field.interfaces.twoInputs?.type === 'date') return 'date';
     return 'text';
 });
 </script>

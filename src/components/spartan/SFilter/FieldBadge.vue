@@ -2,26 +2,21 @@
 import FilterSelector from './popovers/FilterSelector.vue';
 import { computed, ref } from 'vue';
 import { SBadge, SPopover } from '@spartan';
-import { FieldType, Oper, type Field } from './types';
-import { closeActivePopover } from './helpers';
+import type { TField } from './types';
+import { useContext } from './api';
 import { translator } from '@/helpers';
 
-const emit = defineEmits<{
-    (event: 'remove', field: Field): void;
-    (event: 'update', value: { field: Field; state: Field['state'] }): void;
-}>();
-
 const props = defineProps<{
-    field: Field;
-    fieldIdx: number;
+    field: TField;
 }>();
 
 const { t } = translator('filter');
+const context = useContext('FieldBadge');
 
 const description = computed(() => {
-    const { type, state } = props.field;
+    // const { type, state } = props.field;
 
-    if (type === 'boolean') return state ? t('yes') : t('no');
+    // if (type === 'boolean') return state ? t('yes') : t('no');
 
     // if (!filter) return;
 
@@ -49,42 +44,38 @@ const description = computed(() => {
     return '';
 });
 
-const popover = ref<InstanceType<typeof SPopover> | null>(null);
-
+const popover = ref<InstanceType<typeof SPopover>>();
+const removing = ref(false);
 const toggle = () => {
-    if (popover.value?.isOpen) {
-        popover.value?.close();
-        closeActivePopover.value = undefined;
-    } else {
-        closeActivePopover.value?.();
-        popover.value?.open();
-        closeActivePopover.value = popover.value?.close;
+    if (popover.value?.isOpen || !removing.value) context.togglePopover(popover.value);
+
+    if (removing.value) {
+        delete props.field.state;
+        removing.value = false;
     }
 };
 </script>
 
 <template>
-    <SPopover v-if="field.state !== undefined" ref="popover" :offset="12" prevent-close>
+    <SPopover v-if="field.state" ref="popover" :offset="12" prevent-close>
         <template #reference>
             <button @click="toggle">
                 <SBadge
-                    color="gray"
+                    color="white"
                     class="whitespace-nowrap"
                     pill
-                    :removable="field.permanent !== true"
-                    @removed="$emit('remove', field)"
+                    border
+                    :removable="!field.permanent"
+                    @removed="removing = true"
                 >
                     <span class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</span>
-                    <span class="max-w-[144px] truncate">{{ description }}</span>
+                    <span class="max-w-[144px] truncate">
+                        {{ context.getDescriptionTranslation(field.state.operator) }}
+                    </span>
                 </SBadge>
             </button>
         </template>
 
-        <FilterSelector
-            :field="field"
-            :field-idx="fieldIdx"
-            @add="(value) => $emit('update', value)"
-            @cancel="popover?.close"
-        />
+        <FilterSelector :field="field" @close="popover?.close" />
     </SPopover>
 </template>
