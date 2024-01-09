@@ -56,5 +56,5 @@ export type SFilterProps = {
 };
 
 export type SFilterEmits = {
-    (event: 'apply', fields: TField[] | undefined): void;
+    (event: 'apply', fields: Omit<TField, 'interfaces'>[] | undefined): void;
 };

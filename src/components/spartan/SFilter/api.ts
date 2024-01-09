@@ -55,7 +55,14 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
             return data;
         }),
         apply: () => {
-            emit('apply', props.fields?.filter((filter) => filter.state));
+            const fields: Omit<TField, 'interfaces'>[] = [];
+            props.fields?.forEach((field) => {
+                if (field.state) {
+                    const { interfaces, ...rest } = field;
+                    fields.push({ ...rest });
+                }
+            });
+            emit('apply', fields);
         },
         clear: () => {
             props.fields?.forEach((filter) => {

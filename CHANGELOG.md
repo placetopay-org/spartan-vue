@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `SDataTable` component now supports `sortDescFirst` prop to set the default sort direction.
 
+### Changed
+- Apply function in `SFilter` component now omit interfaces information.
+
 ## 2.0.0-beta.45 - 2023-12-05
 
 ## 2.0.0-beta.44 - 2023-12-01
