@@ -94,15 +94,15 @@ export const Sortable = createVariation({
     components: { SDataTable },
     containerClass: 'w-fit',
     setup: () => {
-        const sorting = ref({ sortable: ['name', 'email', 'role'], sort: { id: 'email', desc: false } });
+        const sorting = ref({ availableColumns: ['name', 'email', 'role'], currentSort: { id: 'email', desc: false }, descFirst: false });
         return { cols: table.colsData.slice(0, 4), rows: table.rows.slice(0, 4), sorting };
     },
-    template: `<!-- sorting = { sortable: ['name', 'email', 'role'], sort: { id: 'email', desc: false } } -->
+    template: `<!-- sorting = { availableColumns: ['name', 'email', 'role'], currentSort: { id: 'email', desc: false }, descFirst: false } -->
 <SDataTable 
     :cols="cols" 
     :data="rows" 
     :sorting="sorting" 
-    @sortingChange="sorting.sort = $event"
+    @sortingChange="sorting.currentSort = $event"
     />`,
 });
 

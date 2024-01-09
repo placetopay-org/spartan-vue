@@ -47,7 +47,7 @@ const columns = props.cols.map((col) => {
             id: col,
             header: col,
             enableSorting: props.sorting?.availableColumns.includes(col),
-            sortDescFirst: false,
+            sortDescFirst: props.sorting?.descFirst,
         });
     } else {
         const key = Object.keys(col)[0];
@@ -55,7 +55,7 @@ const columns = props.cols.map((col) => {
             id: key,
             header: col[key],
             enableSorting: props.sorting?.availableColumns.includes(key),
-            sortDescFirst: false,
+            sortDescFirst: props.sorting?.descFirst,
         });
     }
 });
@@ -70,6 +70,9 @@ const table = useVueTable({
     },
     get enableSorting() {
         return Boolean(props.sorting);
+    },
+    get sortDescFirst() {
+        return props.sorting?.descFirst;
     },
     get enableGlobalFilter() {
         return props.filtrable;
@@ -145,8 +148,9 @@ const table = useVueTable({
                                 />
                             </slot>
 
-                            <ChevronUpIcon
+                            <component
                                 v-if="header.column.getCanSort() && !header.column.getIsSorted()"
+                                :is="props.sorting?.descFirst ? ChevronDownIcon : ChevronUpIcon"
                                 class="invisible h-5 w-5 rounded text-gray-400 group-hover:visible group-focus-visible:visible"
                             />
 
