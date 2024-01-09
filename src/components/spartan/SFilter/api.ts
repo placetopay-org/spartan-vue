@@ -1,6 +1,7 @@
 import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
 import type { SFilterEmits, SFilterProps, TField, TOperatorData } from './types';
 import { predefinedOperators, predefinedDescriptions, predefinedLabels } from './constants';
+import { translator } from '@/helpers';
 
 type ContextState = {
     activePopoverCloser?: () => boolean;
@@ -83,9 +84,9 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
             field.state = state;
         },
         getDescriptionTranslation: (operator: string) => {
-            if (predefinedOperators.includes(operator as any))
-                return predefinedDescriptions[operator as (typeof predefinedOperators)[number]];
-            return 'hola';
+            const { t } = translator('filter');
+            if (predefinedOperators.includes(operator as any)) return t(`operator.${operator}`);
+            return t(`operator.${operator}`);
         },
     });
 

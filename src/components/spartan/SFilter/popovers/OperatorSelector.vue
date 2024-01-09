@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { SPopover } from '../../SPopover';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import type { TOption } from '../types';
+import { translator } from '@/helpers';
 
 const emit = defineEmits<{
-    (event: 'update:modelValue', value: TOption): void;
+    (event: 'update:modelValue', value: string): void;
 }>();
 
 defineProps<{
-    operators: TOption[];
-    modelValue: TOption;
+    operators: string[];
+    modelValue: string;
 }>();
 
-const selectOperator = (operator: TOption, close: () => void) => {
+const { t } = translator('filter');
+
+const selectOperator = (operator: string, close: () => void) => {
     emit('update:modelValue', operator);
     close();
 };
@@ -25,19 +27,19 @@ const selectOperator = (operator: TOption, close: () => void) => {
                 class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pl-3 pr-2 text-gray-800"
                 @click="toggle"
             >
-                <span>{{ modelValue.label }}</span>
+                <span>{{ t(`operator.${modelValue}`) }}</span>
                 <ChevronDownIcon class="h-5 w-5 text-gray-600" />
             </button>
         </template>
 
         <template #default="{ close }">
             <ul class="divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white shadow-2xl">
-                <li v-for="operator in operators" :key="operator.value">
+                <li v-for="operator in operators" :key="operator">
                     <button
                         class="w-full whitespace-nowrap p-3 text-left text-sm font-medium text-gray-800 hover:bg-gray-50"
                         @click="selectOperator(operator, close)"
                     >
-                        {{ operator.label }}
+                        {{ t(`operator.${operator}`) }}
                     </button>
                 </li>
             </ul>

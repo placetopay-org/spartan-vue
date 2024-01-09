@@ -22,21 +22,22 @@
             "optionsSelectorPlaceholder": "Seleziona una o più opzioni",
             "saveBtn": "Salva",
             "savedFiltersText": "I miei filtri salvati",
-            "oper": {
-                "ex": "Esiste",
-                "nex": "Non esiste",
-                "eq": "È uguale a",
-                "neq": "Non è uguale a",
-                "gt": "È maggiore di",
-                "gte": "È maggiore o uguale a",
-                "lt": "È minore di",
-                "lte": "È minore o uguale a",
+       
+            "operator": {
                 "between": "È tra",
-                "notBetween": "Non è tra",
                 "contains": "Contiene",
+                "endsWith": "Finisce con",
+                "equal": "È uguale a",
+                "exist": "Esiste",
+                "greaterThan": "È maggiore di",
+                "greaterThanOrEqual": "È maggiore o uguale a",
+                "lessThan": "È minore di",
+                "lessThanOrEqual": "È minore o uguale a",
+                "notBetween": "Non è tra",
                 "notContains": "Non contiene",
-                "startsWith": "Inizia con",
-                "endsWith": "Finisce con"
+                "notEqual": "Non è uguale a",
+                "notExist": "Non esiste",
+                "startsWith": "Inizia con"
             }
         }
     }

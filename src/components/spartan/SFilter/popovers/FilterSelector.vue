@@ -45,16 +45,13 @@ const fieldData = computed(() => {
 
 const operator = ref(
     props.field.state?.operator
-        ? {
-              label: context.operatorData[props.field.id][props.field.state.operator].label,
-              value: props.field.state.operator,
-          }
-        : fieldData.value.operators[0],
+        ? props.field.state.operator
+        : Object.keys(operatorData.value)[0],
 );
 
 const add = () => {
     context.applyFilter(props.field, {
-        operator: operator.value.value,
+        operator: operator.value,
         value: value.value,
     });
     emit('close');
@@ -67,7 +64,7 @@ const disabled = computed(() => !value.value || value.value.length === 0);
     <div class="flex max-h-96 min-w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl">
         <div class="flex items-center gap-3">
             <span>{{ field.name }}</span>
-            <OperatorSelector :operators="fieldData.operators" v-model="operator" />
+            <OperatorSelector :operators="Object.keys(operatorData)" v-model="operator" />
         </div>
 
         <Transition
@@ -79,7 +76,7 @@ const disabled = computed(() => !value.value || value.value.length === 0);
             leave-from-class="translate-y-0 opacity-100"
             leave-to-class="-translate-y-2 opacity-0"
         >
-            <component :is="fieldData.interfaces[operator.value]" :field="field" v-model="value" />
+            <component :is="fieldData.interfaces[operator]" :field="field" v-model="value" />
         </Transition>
 
         <div class="flex gap-3">
