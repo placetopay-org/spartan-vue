@@ -110,10 +110,15 @@ export const Default = createDefault({
             id: 'price',
             name: 'Price',
             interfaces: {
+                oneInput: {
+                    type: 'amount',
+                    currency: 'USD',
+                    operators: ['equal', 'notEqual', 'greaterThan', 'lessThan', 'greaterThanOrEqual', 'lessThanOrEqual'],
+                },
                 twoInputs: {
-                    type: 'number',
+                    type: 'amount',
+                    currency: 'USD',
                     operators: ['between', 'notBetween'],
-                    customOperators: [{ id: 'custom', translationLabel: 'customOper' }],
                 },
             },
         },

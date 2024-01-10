@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { SInput } from '@spartan';
+import { SInput, SInputAmount } from '@spartan';
 import type { TField } from '../types';
 import { translator } from '@/helpers';
 
@@ -22,13 +22,21 @@ const value = computed({
     },
 });
 
-const inputType = computed(() => {
-    if (props.field.interfaces.oneInput?.type === 'number') return 'number';
-    if (props.field.interfaces.oneInput?.type === 'date') return 'date';
-    return 'text';
-});
+const interfaceData = computed(() => props.field.interfaces.oneInput!);
 </script>
 
 <template>
-    <SInput v-model="value" :type="inputType" :placeholder="t('inputSelectorPlaceholder')" />
+    <SInputAmount
+        v-if="interfaceData.type === 'amount'"
+        v-model="(value as number)"
+        :currency="interfaceData.currency"
+        :type="interfaceData.type"
+        :placeholder="t('inputSelectorPlaceholder')"
+    />
+    <SInput
+        v-else
+        v-model="value"
+        :type="props.field.interfaces.oneInput?.type"
+        :placeholder="t('inputSelectorPlaceholder')"
+    />
 </template>

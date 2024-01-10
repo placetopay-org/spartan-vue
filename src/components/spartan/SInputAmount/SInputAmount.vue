@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SInput, type TInputProps } from '../SInput';
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import Big from 'big.js';
 import { CurrencyDisplay, useCurrencyInput, type CurrencyInputOptions } from 'vue-currency-input';
 import { Currencies } from '@/constants';
@@ -46,6 +46,8 @@ const emitInfo = (currency: keyof typeof Currencies) => {
     });
 };
 
+const startInNull = ref(!props.modelValue);
+
 const currencyOptions = computed<CurrencyInputOptions>(() => buildOptions(props.currency));
 const { inputRef, setOptions, setValue, numberValue, formattedValue } = useCurrencyInput(currencyOptions.value, false);
 const setCurrency = (value: keyof typeof Currencies) => setOptions(buildOptions(value));
@@ -60,15 +62,25 @@ const updateCurrencyAndInfo = (value: keyof typeof Currencies) => {
 
 watch(numberValue, (value) => {
     let emittedValue = value;
-    if (props.minorUnitMode && value) emittedValue = Number(Big(value).times(10 ** Currencies[props.currency].decimals));
+    if (props.minorUnitMode && value) {
+        emittedValue = Number(Big(value).times(10 ** Currencies[props.currency].decimals));
+    }
     emit('update:modelValue', emittedValue);
-})
+});
 
 watch(
     () => props.modelValue,
     (value) => {
         let settableValue = value;
-        if (props.minorUnitMode && value) settableValue = Number(Big(value).div(10 ** Currencies[props.currency].decimals));
+
+        if (props.minorUnitMode) {
+            if (value) settableValue = Number(Big(value).div(10 ** Currencies[props.currency].decimals));
+            if (!startInNull.value && settableValue) {
+                settableValue = Number(Big(settableValue).div(10 ** Currencies[props.currency].decimals));
+                startInNull.value = true;
+            }
+        }
+
         setValue(settableValue);
         emitInfo(props.currency);
     },

@@ -1,4 +1,5 @@
 import { predefinedOperators } from './constants';
+import { Currencies } from '@/constants';
 
 export type TOperatorId = (typeof predefinedOperators)[number];
 
@@ -17,9 +18,16 @@ export type TBaseInterface = {
 
 export type TNoneInterface = TBaseInterface;
 
-export type TInputInterface = TBaseInterface & {
+type TInputInterfaceBase = {
     type?: 'number' | 'date';
 };
+
+type TInputInterfaceForAmount = {
+    type: 'amount';
+    currency: keyof typeof Currencies;
+};
+
+export type TInputInterface = TBaseInterface & (TInputInterfaceBase | TInputInterfaceForAmount);
 
 export type TOptionsInterface = TBaseInterface & {
     options: string[];

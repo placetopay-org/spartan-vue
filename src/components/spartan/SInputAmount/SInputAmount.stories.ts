@@ -78,7 +78,7 @@ export const Default = createDefault({
         symbol: false,
         suffixCurrency: false,
         currencies,
-        minorUnitMode: true,
+        minorUnitMode: false,
     },
     setup: () => {
         const value = ref(22.99);
@@ -86,7 +86,7 @@ export const Default = createDefault({
 
         return { value, currency, currencies };
     },
-    template: `<pre>{{value}}</pre><input v-model="value" /><SInputAmount :symbol="args.symbol" :minorUnitMode="args.minorUnitMode" :suffixCurrency="args.suffixCurrency" :currencies="args.currencies" v-model:currency="currency" v-model="value" @info="console.log" />`,
+    template: `<SInputAmount :symbol="args.symbol" :minorUnitMode="args.minorUnitMode" :suffixCurrency="args.suffixCurrency" :currencies="args.currencies" v-model:currency="currency" v-model="value" @info="console.log" />`,
     transform: (args) =>
         `<SInputAmount ${sourceBinding(args)}  v-model=value v-model:currency="currency" :currencies="currencies" />`,
 });
@@ -109,7 +109,7 @@ export const minorUnitMode = createVariation({
     containerClass: 'flex flex-col gap-2',
     setup: () => {
         const value = ref(22.99);
-        const valueMinor = ref(22.99);
+        const valueMinor = ref(1234);
         const currency = ref('USD');
 
         return { value, valueMinor, currency };
@@ -117,7 +117,7 @@ export const minorUnitMode = createVariation({
     template: `<!-- currency: USD -->
 <div class="flex items-center gap-2">
     <div class="flex w-[200px]">
-        <SInputAmount v-model="valueMinor" v-model:currency="currency" minorUnitMode suffixCurrency />
+        <SInputAmount v-model="valueMinor" currency="USD" minorUnitMode suffixCurrency />
     </div>
     <span>Model value (minor unit mode): {{valueMinor}}</span>
 </div>
