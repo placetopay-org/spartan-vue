@@ -11,7 +11,7 @@ const props = defineProps<TInputAmountProps & Partial<TInputProps>>();
 
 const inputProps = computed<Partial<TInputProps>>(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { currencies, locale, symbol, currency, suffixCurrency, modelValue, ...rest } = props;
+    const { currencies, locale, symbol, currency, suffixCurrency, modelValue, minorUnitMode, ...rest } = props;
 
     return {
         ...rest,
@@ -35,18 +35,19 @@ const buildOptions = (currency: keyof typeof Currencies) => ({
 
 const emitInfo = (currency: keyof typeof Currencies) => {
     if (!numberValue.value) return;
+    const minorUnit = Number(Big(numberValue.value).times(10 ** Currencies[currency].decimals));
     emit('info', {
         amount: numberValue.value,
         currency: currency,
         decimals: Currencies[currency].decimals,
         code: Currencies[currency].code,
         symbol: Currencies[currency].symbol,
-        minorUnit: Number(Big(numberValue.value).times(10 ** Currencies[currency].decimals)),
+        minorUnit,
     });
 };
 
 const currencyOptions = computed<CurrencyInputOptions>(() => buildOptions(props.currency));
-const { inputRef, setOptions, setValue, numberValue, formattedValue } = useCurrencyInput(currencyOptions.value);
+const { inputRef, setOptions, setValue, numberValue, formattedValue } = useCurrencyInput(currencyOptions.value, false);
 const setCurrency = (value: keyof typeof Currencies) => setOptions(buildOptions(value));
 
 const updateCurrencyAndInfo = (value: keyof typeof Currencies) => {
@@ -57,11 +58,18 @@ const updateCurrencyAndInfo = (value: keyof typeof Currencies) => {
     if (prevValue === numberValue.value) emitInfo(value);
 };
 
+watch(numberValue, (value) => {
+    let emittedValue = value;
+    if (props.minorUnitMode && value) emittedValue = Number(Big(value).times(10 ** Currencies[props.currency].decimals));
+    emit('update:modelValue', emittedValue);
+})
+
 watch(
     () => props.modelValue,
     (value) => {
-        console.log('watch modelValue', value);
-        setValue(value);
+        let settableValue = value;
+        if (props.minorUnitMode && value) settableValue = Number(Big(value).div(10 ** Currencies[props.currency].decimals));
+        setValue(settableValue);
         emitInfo(props.currency);
     },
 );
@@ -72,7 +80,6 @@ watch(currencyOptions, (options) => {
 </script>
 
 <template>
-    <!-- update:modelValue automatic from vue-currency-input -->
     <SInput
         ref="inputRef"
         v-bind="inputProps"

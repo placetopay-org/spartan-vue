@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- Minor unit mode now available on `SInputAmount` component.
 - `SFilter` component now supports translation for operators.
 - `SDataTable` component now supports `sortDescFirst` prop to set the default sort direction.
 
