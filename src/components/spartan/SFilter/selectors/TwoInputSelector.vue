@@ -31,7 +31,7 @@ const interfaceData = computed(() => props.field.interfaces.twoInputs!);
             :currency="interfaceData.currency"
             :type="interfaceData.type"
             :placeholder="t('inputSelectorPlaceholder')"
-            minor-unit-mode
+            :minor-unit-mode="interfaceData.minorUnitMode"
         />
         <SInput
             v-else
@@ -47,7 +47,7 @@ const interfaceData = computed(() => props.field.interfaces.twoInputs!);
             :currency="interfaceData.currency"
             :type="interfaceData.type"
             :placeholder="t('inputSelectorPlaceholder')"
-            minor-unit-mode
+            :minor-unit-mode="interfaceData.minorUnitMode"
         />
         <SInput
             v-else

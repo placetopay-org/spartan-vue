@@ -25,6 +25,7 @@ type TInputInterfaceBase = {
 type TInputInterfaceForAmount = {
     type: 'amount';
     currency: keyof typeof Currencies;
+    minorUnitMode?: boolean;
 };
 
 export type TInputInterface = TBaseInterface & (TInputInterfaceBase | TInputInterfaceForAmount);
