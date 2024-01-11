@@ -112,7 +112,8 @@ export const Default = createDefault({
             interfaces: {
                 oneInput: {
                     type: 'amount',
-                    currency: 'USD',
+                    currency: 'EUR',
+                    currencies: ['USD', 'EUR', 'GBP'],
                     operators: ['equal', 'notEqual', 'greaterThan', 'lessThan', 'greaterThanOrEqual', 'lessThanOrEqual'],
                 },
                 twoInputs: {

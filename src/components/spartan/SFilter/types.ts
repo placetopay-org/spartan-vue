@@ -18,17 +18,12 @@ export type TBaseInterface = {
 
 export type TNoneInterface = TBaseInterface;
 
-type TInputInterfaceBase = {
-    type?: 'number' | 'date';
-};
-
-type TInputInterfaceForAmount = {
-    type: 'amount';
-    currency: keyof typeof Currencies;
+export type TInputInterface = TBaseInterface & {
+    type?: 'number' | 'date' | 'amount';
     minorUnitMode?: boolean;
+    currency?: keyof typeof Currencies;
+    currencies?: (keyof typeof Currencies)[];
 };
-
-export type TInputInterface = TBaseInterface & (TInputInterfaceBase | TInputInterfaceForAmount);
 
 export type TOptionsInterface = TBaseInterface & {
     options: string[];

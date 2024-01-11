@@ -57,7 +57,7 @@ const add = () => {
     emit('close');
 };
 
-const disabled = computed(() => !value.value || value.value.length === 0);
+const disabled = computed(() => (!value.value || value.value.length === 0) && fieldData.value.interfaces[operator.value] !== interfaceComponents.none);
 </script>
 
 <template>

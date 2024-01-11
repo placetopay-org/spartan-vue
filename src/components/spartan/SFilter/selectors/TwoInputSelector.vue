@@ -20,6 +20,10 @@ watch([value1, value2], () => {
     emit('update:modelValue', [value1.value, value2.value]);
 });
 
+const updateCurrency = (currency?: string) => {
+    props.field.interfaces.twoInputs!.currency = currency as any;
+};
+
 const interfaceData = computed(() => props.field.interfaces.twoInputs!);
 </script>
 
@@ -28,10 +32,12 @@ const interfaceData = computed(() => props.field.interfaces.twoInputs!);
         <SInputAmount
             v-if="interfaceData.type === 'amount'"
             v-model="(value1 as number)"
-            :currency="interfaceData.currency"
+            :currency="interfaceData.currency ?? interfaceData.currencies![0]"
+            :currencies="interfaceData.currencies"
             :type="interfaceData.type"
             :placeholder="t('inputSelectorPlaceholder')"
             :minor-unit-mode="interfaceData.minorUnitMode"
+            @update:currency="updateCurrency"
         />
         <SInput
             v-else
@@ -44,10 +50,12 @@ const interfaceData = computed(() => props.field.interfaces.twoInputs!);
         <SInputAmount
             v-if="interfaceData.type === 'amount'"
             v-model="(value2 as number)"
-            :currency="interfaceData.currency"
+            :currency="interfaceData.currency ?? interfaceData.currencies![0]"
+            :currencies="interfaceData.currencies"
             :type="interfaceData.type"
             :placeholder="t('inputSelectorPlaceholder')"
             :minor-unit-mode="interfaceData.minorUnitMode"
+            @update:currency="updateCurrency"
         />
         <SInput
             v-else
