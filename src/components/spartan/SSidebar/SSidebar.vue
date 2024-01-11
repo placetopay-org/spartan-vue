@@ -31,25 +31,3 @@ createContext(props, emit);
     </aside>
 </template>
 
-<style scoped>
-/* width */
-::-webkit-scrollbar {
-    width: 4px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 16px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-    border-radius: 0px;
-}
-</style>
