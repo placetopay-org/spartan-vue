@@ -7,13 +7,13 @@ export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options';
 
 export type TOperator = {
     id: string;
-    translationLabel: string;
-    translationTag: string;
+    label: string;
+    description: string;
 };
 
 export type TBaseInterface = {
     operators?: TOperatorId[];
-    customOperators?: TOperator[];
+    customOperators?: (TOperator | string)[];
 };
 
 export type TNoneInterface = TBaseInterface;
@@ -29,8 +29,6 @@ export type TOptionsInterface = TBaseInterface & {
     options: string[];
     multiple?: boolean;
 };
-
-export type TInterface = TNoneInterface | TInputInterface | TOptionsInterface;
 
 export type TField = {
     id: string;
@@ -48,7 +46,7 @@ export type TField = {
     };
 };
 
-export type TOperatorData = Record<string, Record<string, { label: string; interface: string }>>;
+export type TOperatorData = Record<string, Record<string, { label: string; description: string; interface: TInterfaceId }>>;
 
 export type TOption = {
     label: string;

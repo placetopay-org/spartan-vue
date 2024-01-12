@@ -1,3 +1,5 @@
+import type { Component } from 'vue';
+import type { TInterfaceId } from '.';
 import { InputSelector, TwoInputSelector, OptionsSelector } from './selectors';
 
 export const predefinedOperators = [
@@ -17,41 +19,7 @@ export const predefinedOperators = [
     'endsWith',
 ] as const;
 
-export const predefinedLabels: Record<(typeof predefinedOperators)[number], string> = {
-    exist: 'Exist',
-    notExist: 'Not Exist',
-    equal: 'Equal',
-    notEqual: 'Not Equal',
-    greaterThan: 'Greater Than',
-    greaterThanOrEqual: 'Greater Than Or Equal',
-    lessThan: 'Less Than',
-    lessThanOrEqual: 'Less Than Or Equal',
-    between: 'Between',
-    notBetween: 'Not Between',
-    contains: 'Contains',
-    notContains: 'Not Contains',
-    startsWith: 'Starts With',
-    endsWith: 'Ends With',
-};
-
-export const predefinedDescriptions: Record<(typeof predefinedOperators)[number], string> = {
-    exist: 'Exist',
-    notExist: 'Not Exist',
-    equal: 'Equal',
-    notEqual: 'Not Equal',
-    greaterThan: 'Greater Than',
-    greaterThanOrEqual: 'Greater Than Or Equal',
-    lessThan: 'Less Than',
-    lessThanOrEqual: 'Less Than Or Equal',
-    between: 'Between',
-    notBetween: 'Not Between',
-    contains: 'Contains',
-    notContains: 'Not Contains',
-    startsWith: 'Starts With',
-    endsWith: 'Ends With',
-};
-
-export const interfaceComponents = {
+export const interfaceComponents: Record<TInterfaceId, Component | null> = {
     none: null,
     oneInput: InputSelector,
     twoInputs: TwoInputSelector,

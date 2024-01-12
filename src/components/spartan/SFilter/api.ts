@@ -1,6 +1,5 @@
-import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
-import type { SFilterEmits, SFilterProps, TField, TOperatorData } from './types';
-import { predefinedOperators, predefinedDescriptions, predefinedLabels } from './constants';
+import { reactive, inject, provide, type InjectionKey, computed } from 'vue';
+import type { SFilterEmits, SFilterProps, TField, TOperatorData, TInterfaceId } from './types';
 import { translator } from '@/helpers';
 
 type ContextState = {
@@ -10,7 +9,7 @@ type ContextState = {
     togglePopover: (activePopover: any, force?: boolean) => void;
     operatorData: TOperatorData;
     applyFilter: (field: TField, state: TField['state']) => void;
-    getDescriptionTranslation: (operator: string) => string;
+    getOperatorLabel: (field: TField) => string;
 };
 
 const contextKey = Symbol('SFilterContext') as InjectionKey<ContextState>;
@@ -23,15 +22,18 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
 
             props.fields?.forEach((field) => {
                 if (!field.interfaces) return;
-                Object.keys(field.interfaces).forEach((key) => {
-                    const interfaceData = field.interfaces[key as keyof typeof field.interfaces];
+                Object.keys(field.interfaces).forEach((value) => {
+                    const key = value as TInterfaceId;
+                    const interfaceData = field.interfaces[key];
                     if (interfaceData) {
+                        const { t } = translator('filter');
                         if (interfaceData.operators) {
                             interfaceData.operators.forEach((operator) => {
                                 data[field.id] = {
                                     ...data[field.id],
                                     [operator]: {
-                                        label: predefinedLabels[operator],
+                                        label: t(`operator.${operator}`),
+                                        description: t(`operator.${operator}_description`),
                                         interface: key,
                                     },
                                 };
@@ -40,10 +42,14 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
 
                         if (interfaceData.customOperators) {
                             interfaceData.customOperators.forEach((operator) => {
+                                const isString = typeof operator === 'string';
                                 data[field.id] = {
                                     ...data[field.id],
-                                    [operator.id]: {
-                                        label: operator.translationLabel,
+                                    [isString ? operator : operator.id]: {
+                                        label: isString ? t(`operator.${operator}`) : operator.label,
+                                        description: isString
+                                            ? t(`operator.${operator}_description`)
+                                            : operator.description,
                                         interface: key,
                                     },
                                 };
@@ -83,10 +89,9 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
         applyFilter: (field: TField, state: TField['state']) => {
             field.state = state;
         },
-        getDescriptionTranslation: (operator: string) => {
-            const { t } = translator('filter');
-            if (predefinedOperators.includes(operator as any)) return t(`operator.${operator}`);
-            return t(`operator.${operator}`);
+        getOperatorLabel: (field: TField) => {
+            const operator = field.state!.operator;
+            return state.operatorData[field.id][operator].label;
         },
     });
 

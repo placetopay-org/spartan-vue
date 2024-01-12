@@ -21,33 +21,7 @@ const operatorData = computed(() => context.operatorData[props.field.id]);
 
 const value = ref(props.field.state?.value ?? undefined);
 
-const fieldData = computed(() => {
-    const operatorsAsOptions: TOption[] = [];
-    const interfaceOfOperator: Record<string, Component | null> = {};
-
-    Object.keys(operatorData.value).forEach((key) => {
-        const data = operatorData.value[key as keyof typeof operatorData.value];
-        if (data) {
-            operatorsAsOptions.push({
-                label: data.label,
-                value: key,
-            } as TOption);
-
-            interfaceOfOperator[key] = interfaceComponents[data.interface as keyof typeof interfaceComponents];
-        }
-    });
-
-    return {
-        operators: operatorsAsOptions,
-        interfaces: interfaceOfOperator,
-    };
-});
-
-const operator = ref(
-    props.field.state?.operator
-        ? props.field.state.operator
-        : Object.keys(operatorData.value)[0],
-);
+const operator = ref(props.field.state?.operator ? props.field.state.operator : Object.keys(operatorData.value)[0]);
 
 const add = () => {
     context.applyFilter(props.field, {
@@ -57,7 +31,9 @@ const add = () => {
     emit('close');
 };
 
-const disabled = computed(() => (!value.value || value.value.length === 0) && fieldData.value.interfaces[operator.value] !== interfaceComponents.none);
+const disabled = computed(
+    () => (!value.value || value.value.length === 0) && operatorData.value[operator.value].interface !== 'none',
+);
 </script>
 
 <template>
@@ -76,7 +52,7 @@ const disabled = computed(() => (!value.value || value.value.length === 0) && fi
             leave-from-class="translate-y-0 opacity-100"
             leave-to-class="-translate-y-2 opacity-0"
         >
-            <component :is="fieldData.interfaces[operator]" :field="field" v-model="value" />
+            <component :is="interfaceComponents[operatorData[operator].interface]" :field="field" v-model="value" />
         </Transition>
 
         <div class="flex gap-3">
