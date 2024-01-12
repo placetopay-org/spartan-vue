@@ -26,7 +26,7 @@ export type TInputInterface = TBaseInterface & {
 };
 
 export type TOptionsInterface = TBaseInterface & {
-    options: string[];
+    options: (string | { id: string; label: string })[];
     multiple?: boolean;
 };
 
@@ -46,7 +46,10 @@ export type TField = {
     };
 };
 
-export type TOperatorData = Record<string, Record<string, { label: string; description: string; interface: TInterfaceId }>>;
+export type TOperatorData = Record<
+    string,
+    Record<string, { label: string; description: string; interface: TInterfaceId }>
+>;
 
 export type TOption = {
     label: string;

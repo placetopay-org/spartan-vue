@@ -3,20 +3,25 @@ import type { TInterfaceId } from '.';
 import { InputSelector, TwoInputSelector, OptionsSelector } from './selectors';
 
 export const predefinedOperators = [
-    'exist',
-    'notExist',
+    'between',
+    'contains',
+    'endsWith',
     'equal',
-    'notEqual',
+    'exist',
     'greaterThan',
     'greaterThanOrEqual',
+    'lastMonth',
+    'lastWeek',
+    'lastYear',
     'lessThan',
     'lessThanOrEqual',
-    'between',
     'notBetween',
-    'contains',
     'notContains',
+    'notEqual',
+    'notExist',
     'startsWith',
-    'endsWith',
+    'today',
+    'yesterday',
 ] as const;
 
 export const interfaceComponents: Record<TInterfaceId, Component | null> = {

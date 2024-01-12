@@ -31,13 +31,18 @@
                 "exist": "Esiste",
                 "greaterThan": "È maggiore di",
                 "greaterThanOrEqual": "È maggiore o uguale a",
+                "lastMonth": "Ultimo mese",
+                "lastWeek": "Ultima settimana",
+                "lastYear": "Ultimo anno",
                 "lessThan": "È minore di",
                 "lessThanOrEqual": "È minore o uguale a",
                 "notBetween": "Non è tra",
                 "notContains": "Non contiene",
                 "notEqual": "Non è uguale a",
                 "notExist": "Non esiste",
-                "startsWith": "Inizia con"
+                "startsWith": "Inizia con",
+                "today": "Oggi",
+                "yesterday": "Ieri"
             }
         }
     }

@@ -28,11 +28,22 @@ const checked = computed({
     },
 });
 
+const getOptionId = (option: string | { id: string; label: string }) =>
+    typeof option === 'string' ? option : option.id;
+const getOptionLabel = (option: string | { id: string; label: string }) =>
+    typeof option === 'string' ? option : option.label;
+const getOptionLabelFromId = (id: string) => {
+    const option = interfaceData.value.options.find((option) => getOptionId(option) === id);
+    return getOptionLabel(option!)
+};
+
 const computedOptions = computed(() => {
-    return interfaceData.value.options.filter((option) => option.toLowerCase().includes(search.value.toLowerCase()));
+    return interfaceData.value.options.filter((option) =>
+        getOptionLabel(option).toLowerCase().includes(search.value.toLowerCase()),
+    );
 });
 
-const removeCheck = (option: string) => checked.value = checked.value.filter((item) => item !== option);
+const removeCheck = (option: string) => (checked.value = checked.value.filter((item) => item !== option));
 
 const clear = () => {
     checked.value = [];
@@ -66,7 +77,7 @@ const clear = () => {
                         size="sm"
                         @removed="removeCheck(option)"
                     >
-                        {{ option }}
+                        {{ getOptionLabelFromId(option) }}
                     </SBadge>
                 </template>
                 <input
@@ -84,13 +95,13 @@ const clear = () => {
             </div>
         </div>
         <div class="flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
-            <div v-for="option in computedOptions" :key="option" class="flex items-center gap-2">
+            <div v-for="option in computedOptions" :key="getOptionId(option)" class="flex items-center gap-2">
                 <component
                     :is="interfaceData.multiple ? SCheckbox : SRadio"
                     v-model="checked"
-                    :value="option"
+                    :value="getOptionId(option)"
                 >
-                    {{ option }}
+                    {{ getOptionLabel(option) }}
                 </component>
             </div>
         </div>

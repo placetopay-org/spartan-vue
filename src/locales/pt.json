@@ -30,13 +30,18 @@
                 "exist": "Existe",
                 "greaterThan": "É maior que",
                 "greaterThanOrEqual": "É maior ou igual a",
+                "lastMonth": "Ultimo mês",
+                "lastWeek": "Ultima semana",
+                "lastYear": "Ultimo ano",
                 "lessThan": "É menor que",
                 "lessThanOrEqual": "É menor ou igual a",
                 "notContains": "Não contém",
                 "notBetween": "Não está entre",
                 "notEqual": "Não é igual a",
                 "notExist": "Não existe",
-                "startsWith": "Começa com"
+                "startsWith": "Começa com",
+                "today": "Hoje",
+                "yesterday": "Ontem"
             }
         }
     }
