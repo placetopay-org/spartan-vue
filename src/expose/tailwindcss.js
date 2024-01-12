@@ -53,16 +53,16 @@ export default {
         plugin(function ({ addBase, addComponents, addUtilities, theme }) {
             addBase({
                 ':root': {
-                    '--color-primary-50': '255 246 234',
-                    '--color-primary-100': '255 227 188',
-                    '--color-primary-200': '255 204 141',
-                    '--color-primary-300': '255 179 98',
-                    '--color-primary-400': '255 148 64',
-                    '--color-primary-500': '255 126 41',
-                    '--color-primary-600': '255 108 12',
-                    '--color-primary-700': '218 90 13',
-                    '--color-primary-800': '192 61 17',
-                    '--color-primary-900': '161 56 21',
+                    '--color-primary-50': '232 240 255',
+                    '--color-primary-100': '200 221 255',
+                    '--color-primary-200': '159 196 255',
+                    '--color-primary-300': '109 169 255',
+                    '--color-primary-400': '59 142 255',
+                    '--color-primary-500': '0 120 255',
+                    '--color-primary-600': '0 99 228',
+                    '--color-primary-700': '0 78 200',
+                    '--color-primary-800': '0 57 172',
+                    '--color-primary-900': '0 45 148',
                 },
                 html: {
                     '@apply antialiased': {},

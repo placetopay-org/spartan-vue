@@ -56,7 +56,7 @@ const clear = () => {
                     ((event.target as HTMLDivElement).querySelector('input') as HTMLInputElement).focus()
             "
         >
-            <div class="scroll-hide flex max-h-20 w-full flex-wrap gap-3 overflow-auto">
+            <div class="flex max-h-20 w-full flex-wrap gap-3 overflow-auto">
                 <template v-if="checked">
                     <SBadge
                         v-for="option in checked"
@@ -83,7 +83,7 @@ const clear = () => {
                 </button>
             </div>
         </div>
-        <div class="scroll-primary flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
+        <div class="flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
             <div v-for="option in computedOptions" :key="option" class="flex items-center gap-2">
                 <component
                     :is="interfaceData.multiple ? SCheckbox : SRadio"
@@ -96,32 +96,3 @@ const clear = () => {
         </div>
     </div>
 </template>
-
-<style scoped>
-/* width */
-.scroll-primary::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-.scroll-primary::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-.scroll-primary::-webkit-scrollbar-thumb {
-    background: #ff6c0c;
-    border-radius: 16px;
-}
-
-/* For Webkit-based browsers (Chrome, Safari and Opera) */
-.scroll-hide::-webkit-scrollbar {
-    display: none;
-}
-
-/* For IE, Edge and Firefox */
-.scroll-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-}
-</style>
