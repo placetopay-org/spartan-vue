@@ -3,6 +3,7 @@ import { SBadge } from '../SBadge';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { table } from '@/data';
 import { QrCodeIcon, DocumentDuplicateIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import { computed, ref } from 'vue';
 
 export default {
     component: SDataTable,
@@ -36,11 +37,30 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     components: { SDataTable, SBadge, QrCodeIcon, DocumentDuplicateIcon, TrashIcon },
     setup: () => {
-        return { cols: table.colsData, rows: table.rows };
+        const pagination = ref({ page: 1, size: 2, sizes: [1, 2, 3, 5, 10], count: 5 });
+
+        const rows = computed(() => {
+            pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
+            const start = (pagination.value.page - 1) * pagination.value.size;
+            const end = start + pagination.value.size;
+            return table.rows.slice(start, end);
+        });
+
+        return { cols: table.colsData.slice(0, 4), rows, pagination };
     },
-    template: `<SDataTable v-bind="args" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
-    transform: (args) => `<SDataTable :cols="cols" :rows="rows.map(r => [r.name, r.email, r.title, r.role])">
-    <template #col[3]="{ value }">
+    template: `<SDataTable 
+    v-bind="args" 
+    class="w-[610px]"
+    :cols="cols" 
+    :data="rows"
+    :pagination="pagination" 
+    @paginationChange="pagination = {...pagination, ...$event}"
+    >  
+</SDataTable>`,
+    transform: (
+        args,
+    ) => `<SDataTable class="w-[610px]" :cols="cols" :rows="rows" :pagination="pagination"  @paginationChange="pagination = {...pagination, ...$event}">
+    <template #col[role]="{ value }">
         <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
     </template>    
 
@@ -57,7 +77,7 @@ export const Default = createDefault({
         filtrable: true,
         loading: false,
         borderless: false,
-        pagination: false,
+        pagination: true,
     },
 });
 
@@ -65,7 +85,7 @@ export const Base = createVariation({
     components: { SDataTable },
     containerClass: 'w-fit',
     setup: () => {
-        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+        return { cols: table.colsData.slice(0, 4), rows: table.rows.slice(0, 4) };
     },
     template: `<SDataTable :cols="cols" :data="rows" />`,
 });
@@ -74,53 +94,80 @@ export const Sortable = createVariation({
     components: { SDataTable },
     containerClass: 'w-fit',
     setup: () => {
-        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+        const sorting = ref({ availableColumns: ['name', 'email', 'role'], currentSort: { id: 'email', desc: false }, descFirst: false });
+        return { cols: table.colsData.slice(0, 4), rows: table.rows.slice(0, 4), sorting };
     },
-    template: `<!-- Click on the header to sort the table -->
-<SDataTable sortable :cols="cols" :data="rows" />`,
-});
-
-export const Loading = createVariation({
-    components: { SDataTable },
-    containerClass: 'w-fit',
-    setup: () => {
-        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
-    },
-    template: `<SDataTable loading :cols="cols" :data="rows" />`,
-});
-
-export const PageSizes = createVariation({
-    components: { SDataTable },
-    containerClass: 'w-fit',
-    setup: () => {
-        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
-    },
-    template: `<SDataTable :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
+    template: `<!-- sorting = { availableColumns: ['name', 'email', 'role'], currentSort: { id: 'email', desc: false }, descFirst: false } -->
+<SDataTable 
+    :cols="cols" 
+    :data="rows" 
+    :sorting="sorting" 
+    @sortingChange="sorting.currentSort = $event"
+    />`,
 });
 
 export const Pagination = createVariation({
     components: { SDataTable },
     containerClass: 'w-fit',
     setup: () => {
-        return { cols: table.colsData, rows: table.rows };
+        const pagination = ref({ page: 1, size: 3, count: -1 });
+
+        const rows = computed(() => {
+            pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
+            const start = (pagination.value.page - 1) * pagination.value.size;
+            const end = start + pagination.value.size;
+            return table.rows.slice(start, end);
+        });
+
+        return { cols: table.colsData.slice(0, 4), rows, pagination };
     },
-    template: `<SDataTable pagination :initialPageSize="3" :pageSizes="[1, 2, 3, 5, 10]" :cols="cols" :data="rows" />`,
+    template: `<!-- pagination = { size: 3, count: 4 } -->
+<SDataTable 
+    :cols="cols" 
+    :data="rows" 
+    :pagination="pagination" 
+    @paginationChange="pagination = {...pagination, ...$event}"
+/>`,
 });
 
-export const Filtrable = createVariation({
+export const PageSizes = createVariation({
     components: { SDataTable },
     containerClass: 'w-fit',
     setup: () => {
-        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+        const pagination = ref({ page: 1, size: 3, sizes: [1, 2, 3, 4], count: -1 });
+
+        const rows = computed(() => {
+            pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
+            const start = (pagination.value.page - 1) * pagination.value.size;
+            const end = start + pagination.value.size;
+            return table.rows.slice(start, end);
+        });
+
+        return { cols: table.colsData.slice(0, 4), rows, pagination };
     },
-    template: `<SDataTable filtrable :cols="cols" :data="rows" />`,
+    template: `<!-- pagination = { size: 3, sizes: [1, 2, 3, 4], count: 4 } -->
+<SDataTable 
+    :cols="cols" 
+    :data="rows" 
+    :pagination="pagination" 
+    @paginationChange="pagination = {...pagination, ...$event}"
+/>`,
 });
+
+// export const Filtrable = createVariation({
+//     components: { SDataTable },
+//     containerClass: 'w-fit',
+//     setup: () => {
+//         return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+//     },
+//     template: `<SDataTable filtrable :cols="cols" :data="rows" />`,
+// });
 
 export const CustomCells = createVariation({
     components: { SDataTable, SBadge },
     containerClass: 'w-fit',
     setup: () => {
-        return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+        return { cols: table.colsData.slice(0, 4), rows: table.rows.slice(0, 4) };
     },
     template: `<SDataTable :cols="cols" :data="rows">
     <template #head[email]="{ value }">
@@ -142,4 +189,13 @@ export const CustomCells = createVariation({
         <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
     </template>
 </SDataTable>`,
+});
+
+export const Loading = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-fit',
+    setup: () => {
+        return { cols: table.colsData.slice(0, 4), rows: table.rows.slice(0, 4) };
+    },
+    template: `<SDataTable loading :cols="cols" :data="rows" />`,
 });

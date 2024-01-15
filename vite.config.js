@@ -26,11 +26,31 @@ export default defineConfig({
             name: 'SpartanVue',
         },
         rollupOptions: {
-            external: ['vue', 'vue-i18n'],
+            external: [
+                'vue',
+                'vue-i18n',
+                // '@floating-ui/vue',
+                // '@headlessui/vue',
+                // '@heroicons/vue',
+                // '@intlify/unplugin-vue-i18n',
+                // '@tanstack/vue-table',
+                //'litepie-datepicker-tw3',  TODO: Review this package
+                // 'lodash',  TODO: Review this package and use tree-shaking
+                // 'vue-currency-input',
+                // 'vue-imask',
+            ],
             output: {
                 globals: {
                     vue: 'Vue',
-                    'vue-i18n': 'vueI18n',
+                    'vue-i18n': 'VueI18n',
+                    // '@floating-ui/vue': 'FloatingUI',
+                    // '@headlessui/vue': 'HeadlessUI',
+                    // '@heroicons/vue': 'Heroicons',
+                    // '@intlify/unplugin-vue-i18n': 'VueI18nPlugin',
+                    // '@tanstack/vue-table': 'VueTable',
+                    // 'litepie-datepicker-tw3': 'LitepieDatepickerTW3',
+                    // 'vue-currency-input': 'VueCurrencyInput',
+                    // 'vue-imask': 'VueIMask',
                 },
             },
         },

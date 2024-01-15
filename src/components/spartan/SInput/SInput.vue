@@ -52,7 +52,7 @@ watchEffect(() => {
     <div
         :class="[
             'relative flex gap-2 border border-gray-300 bg-white placeholder:text-gray-400',
-            error ? 'border-red-500 focus-within:s-ring-error' : 'border-gray-300 focus-within:s-ring',
+            error ? 'border-red-500 focus-within:s-ring-error outline-none' : 'border-gray-300 focus-within:s-ring',
             rightOptions ? 'pr-0' : 'pr-3',
             leftOptions ? 'pl-0' : 'pl-3',
             roundedClass,
@@ -73,7 +73,7 @@ watchEffect(() => {
         <input
             :id="id"
             :value="modelValue"
-            :class="twMerge('w-full border-none px-0 py-2 text-gray-900 focus:ring-0', roundedClass, inputClass)"
+            :class="twMerge('w-full border-none px-0 py-2 text-gray-900 focus:ring-0 outline-none', roundedClass, inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"

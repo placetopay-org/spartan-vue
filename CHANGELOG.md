@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.49 - 2024-01-12
+
+## 2.0.0-beta.48 - 2024-01-12
+
+## 2.0.0-beta.47 - 2024-01-11
+
+## 2.0.0-beta.46 - 2024-01-11
+### Added
+- Minor unit mode now available on `SInputAmount` component.
+- `SFilter` component now supports translation for operators.
+- `SDataTable` component now supports `sortDescFirst` prop to set the default sort direction.
+
+### Changed
+- Apply function in `SFilter` component now omit interfaces information.
+
+## 2.0.0-beta.45 - 2023-12-05
+
+## 2.0.0-beta.44 - 2023-12-01
+
+## 2.0.0-beta.43 - 2023-12-01
+### Added
+- Debounce query on `SCombobox` component.
+
+## 2.0.0-beta.42 - 2023-11-29
+### Added
+- `SInputAmount` now emit `info` event with related information
+- `SDataTable` component now supports manual sorting.
+
+## 2.0.0-beta.41 - 2023-11-20
+### Added
+- `SDataTable` server side by default.
+- `SDataTable` now can recieve a string array to set the columns order.
+
 ## 2.0.0-beta.40 - 2023-11-15
 
 ## 2.0.0-beta.39 - 2023-11-15

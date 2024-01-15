@@ -1,8 +1,7 @@
 import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
-import { buildDesign, buildSourceBinding } from '@/helpers';
-import type { SourceProps } from '@storybook/blocks';
-import { Oper, type TField } from './types';
+import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
+import { type TField } from './types';
 
 export default {
     component: SFilter,
@@ -10,7 +9,8 @@ export default {
     parameters: {
         docs: {
             description: {
-                component: '-',
+                component:
+                    'A filter interface wich can be used to build a filter data structure useful for querying data.',
             },
         },
     },
@@ -19,20 +19,12 @@ export default {
         apply: {
             control: { type: null },
             table: { type: { summary: null }, category: 'Events' },
-            description: '-',
-        },
-        removed: {
-            control: { type: null },
-            table: { type: { summary: null }, category: 'Events' },
-            description: '-',
+            description: 'The event is emitted when the apply action is triggered.',
         },
 
         // Props
-        savedFilters: {
-            description: '-',
-        },
         fields: {
-            description: '-',
+            description: 'The fields to be used to build the filter data structure.',
         },
     },
 };
@@ -40,166 +32,187 @@ export default {
 const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=5253%3A20873');
 
 const sourceBinding = buildSourceBinding({
-    check: ['savedFilters'],
 });
 
-export const Default = {
-    decorators: [
-        () => ({
-            template: '<div style="padding: 0 4px; padding-bottom: 500px;"><story/></div>',
-        }),
-    ],
-    render: (args: any) => ({
-        components: { SFilter, StoryPanel },
-        setup() {
-            const show = (value: string) => {
-                console.log(JSON.parse(JSON.stringify(value)));
-            };
+export const Default = createDefault({
+    containerClass: 'h-[500px]',
+    components: { SFilter, StoryPanel },
+    template: `<StoryPanel /><SFilter v-bind="args" @apply="show" />`,
+    setup: () => {
+        const show = (value: string) => {
+            console.log(JSON.parse(JSON.stringify(value)));
+        };
 
-            return { args, show };
-        },
-        template: '<StoryPanel /><SFilter v-bind="args" @apply="show" />',
-    }),
-    parameters: {
-        design,
-        docs: {
-            source: {
-                transform: ((_, storyContext) => `
-        <SFilter ${sourceBinding(storyContext.args)} />`) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
+        return { show };
     },
-    args: {
-        savedFilters: false,
-        fields: [
-            {
-                name: 'Brand',
-                type: 'enum',
-                options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                filter: {
-                    operator: Oper.EQ,
-                    value: ['Nike', 'Adidas'],
+    args: {fields: [
+        {
+            id: 'brand',
+            name: 'Brand',
+            interfaces: {
+                options: {
+                    multiple: true,
+                    operators: ['equal', 'notEqual', 'contains'],
+                    options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
+                    customOperators: [
+                        { id: 'custom', translationLabel: 'customOper', translationTag: 'customTag' },
+                    ],
                 },
             },
-            {
-                name: 'Description',
-                type: 'string',
-                filter: {
-                    operator: Oper.CONTAINS,
-                    value: 'sport',
+            state: {
+                operator: 'equal',
+                value: ['Nike', 'Adidas'],
+            },
+        },
+        {
+            id: 'description',
+            name: 'Description',
+            interfaces: {
+                oneInput: {
+                    operators: ['contains', 'notContains', 'startsWith', 'endsWith'],
+                    customOperators: [{ id: 'custom', translationLabel: 'customOper' }],
                 },
             },
-            {
-                name: 'Seller',
-                type: 'enum',
-                options: [
-                    'Amazon',
-                    'Ebay',
-                    'Walmart',
-                    'Target',
-                    'Best Buy',
-                    'Another 1',
-                    'Another 2',
-                    'Another 3',
-                    'Another 4',
-                    'Another 5',
-                    'Another 6',
-                    'Another 7',
-                    'Another 8',
-                    'Another 9',
-                    'Another 10',
-                    'Another 11',
-                    'Another 12',
-                ],
-                // filter: {
-                //   operator: Oper.EQ,
-                //   value: ['Amazon'],
-                // }
+            state: {
+                operator: 'contains',
+                value: 'sport',
             },
-            {
-                name: 'Price',
-                type: 'number',
-                // filter: {
-                //   operator: Oper.BETWEEN,
-                //   value: [0, 100],
-                // }
-            },
-            {
-                name: 'Date',
-                type: 'date',
-                // required: true,
-                filter: {
-                    operator: Oper.BETWEEN,
-                    value: ['2023-08-01', '2023-08-02'],
+        },
+        {
+            id: 'seller',
+            name: 'Seller',
+            interfaces: {
+                option: {
+                    operators: ['equal', 'notEqual'],
+                    options: [
+                        'Amazon',
+                        'Ebay',
+                        'Walmart',
+                        'Target',
+                        'Best Buy',
+                        'Another 1',
+                        'Another 2',
+                        'Another 3',
+                        'Another 4',
+                        'Another 5',
+                        'Another 6',
+                        'Another 7',
+                        'Another 8',
+                        'Another 9',
+                        'Another 10',
+                        'Another 11',
+                        'Another 12',
+                    ],
                 },
             },
-            {
-                name: 'Gender',
-                type: 'enum',
-                unique: true,
-                options: ['men', 'women', 'kids', 'unisex'],
+        },
+        {
+            id: 'price',
+            name: 'Price',
+            interfaces: {
+                oneInput: {
+                    type: 'amount',
+                    currency: 'EUR',
+                    currencies: ['USD', 'EUR', 'GBP'],
+                    operators: ['equal', 'notEqual', 'greaterThan', 'lessThan', 'greaterThanOrEqual', 'lessThanOrEqual'],
+                },
+                twoInputs: {
+                    type: 'amount',
+                    currency: 'USD',
+                    operators: ['between', 'notBetween'],
+                },
             },
-            {
-                name: 'New',
-                type: 'boolean',
+        },
+        {
+            id: 'date',
+            name: 'Date',
+            permanent: true,
+            interfaces: {
+                twoInputs: {
+                    type: 'date',
+                    operators: ['between', 'notBetween'],
+                    customOperators: [{ id: 'custom', translationLabel: 'customOper' }],
+                },
             },
-            {
-                name: 'Another',
-                type: 'string',
+            state: {
+                operator: 'between',
+                value: ['2023-08-01', '2023-08-02'],
             },
-            {
-                name: 'Another 1',
-                type: 'string',
+        },
+        {
+            id: 'gender',
+            name: 'Gender',
+            interfaces: {
+                option: {
+                    operators: ['equal', 'notEqual'],
+                    options: ['man', 'woman', 'kid'],
+                },
             },
-            {
-                name: 'Another 2',
-                type: 'string',
+        },
+        {
+            id: 'new',
+            name: 'New',
+            interfaces: {
+                none: {
+                    operators: ['exist', 'notExist'],
+                },
             },
-            {
-                name: 'Another 3',
-                type: 'string',
-            },
-            {
-                name: 'Another 4',
-                type: 'string',
-            },
-            {
-                name: 'Another 5',
-                type: 'string',
-            },
-            {
-                name: 'Another 6',
-                type: 'string',
-            },
-            {
-                name: 'Another 7',
-                type: 'string',
-            },
-            {
-                name: 'Another 8',
-                type: 'string',
-            },
-            {
-                name: 'Another 9',
-                type: 'string',
-            },
-            {
-                name: 'Another 10',
-                type: 'string',
-            },
-            {
-                name: 'Another 11',
-                type: 'string',
-            },
-            {
-                name: 'Another 12',
-                type: 'string',
-            },
-        ] as TField[],
-    },
-};
+        },
+        {
+            id: 'another',
+            name: 'Another',
+        },
+        {
+            id: 'another1',
+            name: 'Another 1',
+        },
+        {
+            id: 'another2',
+            name: 'Another 2',
+        },
+        {
+            id: 'another3',
+            name: 'Another 3',
+        },
+        {
+            id: 'another4',
+            name: 'Another 4',
+        },
+        {
+            id: 'another5',
+            name: 'Another 5',
+        },
+        {
+            id: 'another6',
+            name: 'Another 6',
+        },
+        {
+            id: 'another7',
+            name: 'Another 7',
+        },
+        {
+            id: 'another8',
+            name: 'Another 8',
+        },
+        {
+            id: 'another9',
+            name: 'Another 9',
+        },
+        {
+            id: 'another10',
+            name: 'Another 10',
+        },
+        {
+            id: 'another11',
+            name: 'Another 11',
+        },
+        {
+            id: 'another12',
+            name: 'Another 12',
+        },
+    ] as TField[],
+}
+});
 
 // const createVariation = (template: string) => ({
 //   decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],

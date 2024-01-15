@@ -32,7 +32,7 @@ export default {
         // Props
         color: {
             control: { type: 'select' },
-            options: ['blue', 'gray', 'green', 'indigo', 'primary', 'red', 'yellow'],
+            options: ['blue', 'gray', 'green', 'indigo', 'primary', 'red', 'yellow', 'white'],
             description: "Determines the badge's color theme.",
             table: { type: { summary: 'VNode | VNode Array' } },
         },
@@ -150,6 +150,20 @@ export const Color = createVariation(
 <SBadge color="green"> Green </SBadge>
 <SBadge color="yellow"> Yellow </SBadge>
 <SBadge color="indigo"> Indigo </SBadge>
+<SBadge color="white"> White </SBadge>
+`,
+);
+
+export const Border = createVariation(
+    `
+<SBadge color="primary" border> Primary </SBadge>
+<SBadge color="gray" border> Gray </SBadge>
+<SBadge color="red" border> Red </SBadge>
+<SBadge color="blue" border> Blue </SBadge>
+<SBadge color="green" border> Green </SBadge>
+<SBadge color="yellow" border> Yellow </SBadge>
+<SBadge color="indigo" border> Indigo </SBadge>
+<SBadge color="white" border> White </SBadge>
 `,
 );
 
@@ -162,6 +176,7 @@ export const Outline = createVariation(
 <SBadge color="green" outline> Green </SBadge>
 <SBadge color="yellow" outline> Yellow </SBadge>
 <SBadge color="indigo" outline> Indigo </SBadge>
+<SBadge color="white" outline> White </SBadge>
 `,
 );
 
@@ -174,6 +189,7 @@ export const Pill = createVariation(
 <SBadge color="green" pill> Green </SBadge>
 <SBadge color="yellow" pill> Yellow </SBadge>
 <SBadge color="indigo" pill> Indigo </SBadge>
+<SBadge color="white" pill> White </SBadge>
 `,
 );
 

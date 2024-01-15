@@ -7,7 +7,6 @@ import {
     getSortedRowModel,
     useVueTable,
     createColumnHelper,
-    type SortingState,
     getFilteredRowModel,
     getPaginationRowModel,
 } from '@tanstack/vue-table';
@@ -23,10 +22,14 @@ import {
 import { twMerge } from 'tailwind-merge';
 import { BORDER_STYLE } from '../STable/styles';
 import { SInput, SSelect } from '..';
-import type { TDataTableProps } from './types';
+import type { TDataTableProps, TDataTableEmits } from './types';
 import { translator } from '@/helpers';
+import { adaptFromPagination, adaptToPagination, adaptToSorting } from './helpers';
 
-const props = defineProps<TDataTableProps & TTableProps>();
+const emits = defineEmits<TDataTableEmits>();
+const props = withDefaults(defineProps<TDataTableProps & Partial<TTableProps>>(), {
+    displayHeaderText: (header: string) => header,
+});
 
 const tableProps = computed<Partial<TTableProps>>(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,70 +41,83 @@ const tableProps = computed<Partial<TTableProps>>(() => {
 const { t } = translator('dataTable');
 
 const columnHelper = createColumnHelper<any>();
-const columns = props.cols.map((col, index) => {
-    const key = Object.keys(col)[0];
-    return columnHelper.accessor(key, {
-        id: key,
-        header: col[key],
-    });
+const columns = props.cols.map((col) => {
+    if (typeof col === 'string') {
+        return columnHelper.accessor(col, {
+            id: col,
+            header: col,
+            enableSorting: props.sorting?.availableColumns.includes(col),
+            sortDescFirst: props.sorting?.descFirst,
+        });
+    } else {
+        const key = Object.keys(col)[0];
+        return columnHelper.accessor(key, {
+            id: key,
+            header: col[key],
+            enableSorting: props.sorting?.availableColumns.includes(key),
+            sortDescFirst: props.sorting?.descFirst,
+        });
+    }
 });
 
+const data = computed(() => props.data);
+
 const globalFilter = ref('');
-const sorting = ref<SortingState>([]);
 
 const table = useVueTable({
     get data() {
-        return props.data;
+        return data.value;
     },
     get enableSorting() {
-        return props.sortable;
+        return Boolean(props.sorting);
+    },
+    get sortDescFirst() {
+        return props.sorting?.descFirst;
     },
     get enableGlobalFilter() {
         return props.filtrable;
     },
+    get pageCount() {
+        return props.pagination?.count;
+    },
     state: {
+        get pagination() {
+            return computed(() => adaptToPagination(props.pagination)).value;
+        },
         get sorting() {
-            return sorting.value;
+            return computed(() => adaptToSorting(props.sorting)).value;
         },
         get globalFilter() {
             return globalFilter.value;
         },
     },
+    onPaginationChange: (updaterOrValue) => {
+        emits(
+            'paginationChange',
+            adaptFromPagination(
+                typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().pagination) : updaterOrValue,
+            ),
+        );
+    },
     onSortingChange: (updaterOrValue) => {
-        sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue;
+        const value = typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().sorting) : updaterOrValue;
+        emits('sortingChange', value[0]);
     },
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    globalFilterFn: 'includesString',
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    globalFilterFn: 'includesString',
+    manualPagination: true,
+    manualSorting: true,
+    manualFiltering: true,
 });
-
-if (props.initialPageSize) table.setPageSize(props.initialPageSize);
 </script>
 
 <template>
     <div :class="twMerge(!props.borderless && BORDER_STYLE, props.containerClass)">
-        <div
-            v-if="filtrable || pageSizes"
-            :class="twMerge('flex justify-end bg-white px-5 py-3', filtrable && pageSizes && 'justify-between')"
-        >
-            <SSelect
-                class="py-1 text-sm"
-                v-if="props.pageSizes"
-                :modelValue="table.getState().pagination.pageSize"
-                @update:model-value="
-                    (value) => {
-                        table.setPageSize(Number(value));
-                    }
-                "
-            >
-                <option v-for="pageSize in $props.pageSizes" :key="pageSize" :value="pageSize">
-                    {{ `${t('pageSizePrefix')} ${pageSize}` }}
-                </option>
-            </SSelect>
-
+        <div v-if="filtrable" class="flex justify-end bg-white px-5 py-3">
             <SInput
                 v-if="filtrable"
                 class="w-1/2 rounded-md"
@@ -110,7 +126,7 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                 :placeholder="`${t('searchPlaceholder')}...`"
             />
         </div>
-        <STable v-bind="tableProps" :borderless="filtrable">
+        <STable v-bind="tableProps" :borderless="Boolean(filtrable || pagination)">
             <STableHead>
                 <STableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
                     <STableHeadCell v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan">
@@ -120,22 +136,30 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                             @click="header.column.getToggleSortingHandler()?.($event)"
                             :class="
                                 twMerge(
-                                    'flex items-center gap-2',
-                                    header.column.getCanSort() && 'select-none',
-                                    header.column.getCanSort() && header.column.getIsSorted() && 'text-primary-600',
+                                    'group flex items-center gap-2',
+                                    header.column.getCanSort() && 'select-none focus-visible:outline-none',
                                 )
                             "
                         >
                             <slot :name="`head[${header.column.columnDef.id}]`" :value="header.column.columnDef.header">
-                                <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
+                                <FlexRender
+                                    :render="displayHeaderText(header.column.columnDef.header as string)"
+                                    :props="header.getContext()"
+                                />
                             </slot>
+
+                            <component
+                                v-if="header.column.getCanSort() && !header.column.getIsSorted()"
+                                :is="props.sorting?.descFirst ? ChevronDownIcon : ChevronUpIcon"
+                                class="invisible h-5 w-5 rounded text-gray-400 group-hover:visible group-focus-visible:visible"
+                            />
 
                             <component
                                 v-if="header.column.getCanSort()"
                                 :is="
                                     { asc: ChevronUpIcon, desc: ChevronDownIcon }[header.column.getIsSorted() as string]
                                 "
-                                class="h-5 w-5 rounded bg-primary-100"
+                                class="h-5 w-5 rounded bg-gray-200 duration-100 group-hover:bg-gray-300"
                             />
                         </component>
                     </STableHeadCell>
@@ -151,6 +175,7 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                     >
                         <slot
                             :name="`col[${cell.column.columnDef.id}]`"
+                            :record="cell.row.original"
                             :value="(cell.column.columnDef.cell as any)?.(cell.getContext())"
                         >
                             <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
@@ -165,54 +190,65 @@ if (props.initialPageSize) table.setPageSize(props.initialPageSize);
                     </STableCell>
                 </STableRow>
             </STableBody>
-
-            <tfoot v-if="pagination">
-                <tr className="px-5 py-3 flex items-center gap-4">
-                    <div class="flex items-center gap-1">
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.setPageIndex(0)"
-                            :disabled="!table.getCanPreviousPage()"
-                        >
-                            <ChevronDoubleLeftIcon
-                                class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800"
-                            />
-                        </button>
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.previousPage()"
-                            :disabled="!table.getCanPreviousPage()"
-                        >
-                            <ChevronLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
-                        </button>
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.nextPage()"
-                            :disabled="!table.getCanNextPage()"
-                        >
-                            <ChevronRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
-                        </button>
-                        <button
-                            class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
-                            @click="() => table.setPageIndex(table.getPageCount() - 1)"
-                            :disabled="!table.getCanNextPage()"
-                        >
-                            <ChevronDoubleRightIcon
-                                class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800"
-                            />
-                        </button>
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        <span>{{ t('page') }}</span>
-                        <div class="flex items-center gap-2 font-bold">
-                            {{ table.getState().pagination.pageIndex + 1 }}
-                            <span class="font-normal">{{ t('of') }}</span>
-                            {{ table.getPageCount() }}
-                        </div>
-                    </div>
-                </tr>
-            </tfoot>
         </STable>
+        <div
+            v-if="pagination && table.getState().pagination.pageIndex >= 0 && table.getPageCount() !== -1"
+            class="flex items-center gap-4 border-t border-gray-300 bg-gray-50 px-5 py-3"
+        >
+            <div class="flex items-center gap-1">
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.setPageIndex(0)"
+                    :disabled="!table.getCanPreviousPage()"
+                >
+                    <ChevronDoubleLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.previousPage()"
+                    :disabled="!table.getCanPreviousPage()"
+                >
+                    <ChevronLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.nextPage()"
+                    :disabled="!table.getCanNextPage()"
+                >
+                    <ChevronRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+                <button
+                    class="group rounded border bg-gray-100 p-1 disabled:pointer-events-none disabled:opacity-50"
+                    @click="() => table.setPageIndex(table.getPageCount() - 1)"
+                    :disabled="!table.getCanNextPage()"
+                >
+                    <ChevronDoubleRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span>{{ t('page') }}</span>
+                <div class="flex items-center gap-2 font-bold">
+                    {{ table.getState().pagination.pageIndex + 1 }}
+                    <span class="font-normal">{{ t('of') }}</span>
+                    {{ table.getPageCount() }}
+                </div>
+            </div>
+
+            <SSelect
+                class="ml-auto py-1 text-sm"
+                v-if="pagination?.sizes"
+                :modelValue="table.getState().pagination.pageSize"
+                @update:model-value="
+                    (value) => {
+                        table.setPageSize(Number(value));
+                    }
+                "
+            >
+                <option v-for="pageSize in $props.pagination?.sizes" :key="pageSize" :value="pageSize">
+                    {{ `${t('pageSizePrefix')} ${pageSize}` }}
+                </option>
+            </SSelect>
+        </div>
     </div>
 </template>

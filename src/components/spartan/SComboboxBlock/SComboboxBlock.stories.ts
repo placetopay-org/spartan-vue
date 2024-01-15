@@ -1,6 +1,6 @@
 import SComboboxBlock from './SComboboxBlock.vue';
 import { SComboboxOption, SComboboxOptionGroup } from '../SCombobox';
-import { buildSourceBinding, createDefault } from '@/helpers';
+import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
 
 export default {
@@ -36,6 +36,7 @@ const sourceBinding = buildSourceBinding({
         errorText: undefined,
         helpText: undefined,
         label: undefined,
+        id: undefined,
     },
     check: ['disabled', 'error'],
 });
@@ -67,12 +68,13 @@ export const Default = createDefault({
         errorText: '',
         helpText: 'Help text',
         label: 'Custom Label',
+        id: 'custom-id',
     },
     setup: () => {
         const value = ref('CC');
         return { value, options: currencyOptions[0].options };
     },
-    template: `<SComboboxBlock  class="w-24" v-bind="args" v-model="value">
+    template: `<SComboboxBlock class="w-24" v-bind="args" v-model="value">
     <template #button>{{ value }}</template>
     <SComboboxOptionGroup label="Colombia">
         <SComboboxOption value="CC">🪪 Cédula de ciudadanía</SComboboxOption>
