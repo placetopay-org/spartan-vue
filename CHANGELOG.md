@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SInputIncrementBlock` component implementation.
+- `SInputIncrement` now supports `error` prop.
 - `SInputIncrement` component implementation.
 
 ## 2.0.0-beta.50 - 2024-01-15

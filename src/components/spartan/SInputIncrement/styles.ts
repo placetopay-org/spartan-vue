@@ -2,13 +2,11 @@ import { cva } from 'class-variance-authority';
 import { createBooleanVariation as cbv } from '@/helpers';
 
 export const inputStyles = cva(
-    [
-        'flex text-gray-900 items-center justify-between rounded-lg border border-gray-300 bg-white px-1 transition',
-        'focus-within:border-primary-300 focus-within:ring focus-within:ring-primary-100',
-    ],
+    'flex text-gray-900 items-center justify-between rounded-lg border bg-white px-1 transition',
     {
         variants: {
             disabled: cbv('opacity-50 text-gray-400'),
+            error: cbv('border-red-500 focus-within:s-ring-error', 'border-gray-300 focus-within:s-ring'),
         },
     },
 );

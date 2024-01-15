@@ -3,15 +3,10 @@ import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 import { inputStyles, iconStyles } from './styles';
+import type { TInputIncrementProps, TInputIncrementEmits } from './types';
 
-const emit = defineEmits<{
-    (event: 'update:modelValue', value: number): void;
-}>();
-
-const props = defineProps<{
-    disabled?: boolean;
-    modelValue: number;
-}>();
+const emit = defineEmits<TInputIncrementEmits>();
+const props = defineProps<TInputIncrementProps>();
 
 const value = computed({
     get: () => props.modelValue ?? 0,
@@ -37,7 +32,7 @@ const updateValue = (event: Event) => {
 </script>
 
 <template>
-    <div :class="twMerge(inputStyles({ disabled }))">
+    <div :class="twMerge(inputStyles({ error, disabled }))">
         <button :disabled="disabled" class="group p-2 pr-3 focus-visible:outline-none" @click="value--">
             <MinusCircleIcon :class="twMerge(iconStyles({ disabled }))" />
         </button>

@@ -19,7 +19,7 @@ export default {
             table: { type: { summary: null }, category: 'Events' },
             description: 'The event emitted when the input value changes.',
         },
-        
+
         // Props
         modelValue: {
             control: { type: null },
@@ -41,7 +41,7 @@ export const Default = createDefault({
     setup: () => {
         const value = ref(0);
 
-        return { value }
+        return { value };
     },
     template: `<SInputIncrement v-model="value" v-bind="args">{{args.default}}</SInputIncrement>`,
     transform: (args) => `<SInputIncrement ${sourceBinding(args)}>${args.default}</SInputIncrement>`,
@@ -53,9 +53,14 @@ export const Default = createDefault({
 export const Base = createVariation({
     components: { SInputIncrement },
     template: '<SInputIncrement v-model="value" />',
-})
+});
 
 export const Disabled = createVariation({
     components: { SInputIncrement },
     template: '<SInputIncrement v-model="value" disabled />',
-})
+});
+
+export const Error = createVariation({
+    components: { SInputIncrement },
+    template: '<SInputIncrement v-model="value" error />',
+});
