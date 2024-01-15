@@ -36,3 +36,4 @@ export * from './SSidebar';
 export * from './STab';
 export * from './STable';
 export * from './SDataTable';
+export * from './SInputIncrement';
