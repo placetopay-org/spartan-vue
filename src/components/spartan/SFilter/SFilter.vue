@@ -66,11 +66,11 @@ defineExpose({
             </SPopover>
         </div>
 
-        <div class="flex gap-3">
-            <SButton rounded="full" class="whitespace-nowrap !py-0.5" @click="context.apply">
+        <div class="flex gap-3" v-if="!hideApplyButton && !hideClearButton">
+            <SButton v-if="!hideApplyButton" rounded="full" class="whitespace-nowrap !py-0.5" @click="context.apply">
                 {{ t('applyBtn') }}
             </SButton>
-            <SButton variant="secondary" rounded="full" class="whitespace-nowrap !py-0.5" @click="context.clear">
+            <SButton v-if="!hideClearButton" variant="secondary" rounded="full" class="whitespace-nowrap !py-0.5" @click="context.clear">
                 {{ t('clearBtn') }}
             </SButton>
         </div>

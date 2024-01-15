@@ -58,6 +58,8 @@ export type TOption = {
 
 export type SFilterProps = {
     fields: TField[];
+    hideApplyButton?: boolean;
+    hideClearButton?: boolean;
 };
 
 export type SFilterEmits = {
