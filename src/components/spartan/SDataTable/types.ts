@@ -14,7 +14,7 @@ export type TDataTableProps = {
     filtrable?: boolean;
     loading?: boolean;
     pagination?: { page?: number; count: number; size?: number; sizes?: number[] };
-    sorting?: { currentSort?: ColumnSort; sortDescFirst?: boolean };
+    sorting?: ColumnSort;
     containerClass?: string;
 };
 

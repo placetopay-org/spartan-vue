@@ -1,4 +1,10 @@
-export const colsData = [{ id: 'name', header: 'Name' }, { id: 'email', header: 'Email' }, { id: 'title', header: 'Title' }, { id: 'role', header: 'Role' }, { id: 'action', header: '' } ];
+export const colsData = [
+    { id: 'name', header: 'Name', sortable: false, sortDescFirst: false },
+    { id: 'email', header: 'Email', sortable: false, sortDescFirst: false },
+    { id: 'title', header: 'Title', sortable: false, sortDescFirst: false },
+    { id: 'role', header: 'Role', sortable: false, sortDescFirst: false },
+    { id: 'action', header: '', sortable: false, sortDescFirst: false },
+];
 export const cols = ['Name', 'Email', 'Title', 'Role', ''];
 
 export const rows = [

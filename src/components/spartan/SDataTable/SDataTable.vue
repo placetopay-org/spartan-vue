@@ -50,9 +50,9 @@ const columns = props.cols.map((col) => {
     } else {
         return columnHelper.accessor(col.id, {
             id: col.id,
-            header: col.header,
-            enableSorting: col.sortable,
-            sortDescFirst: col.sortDescFirst ?? props.sorting?.sortDescFirst,
+            header: col.header ?? col.id,
+            enableSorting: Boolean(col.sortable),
+            sortDescFirst: Boolean(col.sortDescFirst),
         });
     }
 });
@@ -64,12 +64,6 @@ const globalFilter = ref('');
 const table = useVueTable({
     get data() {
         return data.value;
-    },
-    get enableSorting() {
-        return Boolean(props.sorting);
-    },
-    get sortDescFirst() {
-        return props.sorting?.sortDescFirst;
     },
     get enableGlobalFilter() {
         return props.filtrable;
@@ -148,12 +142,12 @@ const table = useVueTable({
 
                             <component
                                 v-if="header.column.getCanSort() && !header.column.getIsSorted()"
-                                :is="header.column.getFirstSortDir() ? ChevronDownIcon : ChevronUpIcon"
+                                :is="header.column.getFirstSortDir() === 'desc' ? ChevronDownIcon : ChevronUpIcon"
                                 class="invisible h-5 w-5 rounded text-gray-400 group-hover:visible group-focus-visible:visible"
                             />
 
                             <component
-                                v-if="header.column.getCanSort()"
+                                v-if="header.column.getCanSort() && header.column.getIsSorted()"
                                 :is="
                                     { asc: ChevronUpIcon, desc: ChevronDownIcon }[header.column.getIsSorted() as string]
                                 "

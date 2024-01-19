@@ -4,7 +4,7 @@ import FieldSelector from './popovers/FieldSelector.vue';
 import FilterSelector from './popovers/FilterSelector.vue';
 import { SButton, SPopover } from '@spartan';
 import { PlusIcon } from '@heroicons/vue/20/solid';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { translator } from '@/helpers';
 import type { TField, SFilterEmits, SFilterProps } from './types';
 import { createContext } from './api';
@@ -18,6 +18,8 @@ const context = createContext(props, emit);
 
 const activeField = ref<TField>();
 const addFilterPop = ref<InstanceType<typeof SPopover> | undefined>();
+
+const appliedFields = computed(() => props.fields?.filter((field) => field.state));
 
 const openFieldSelector = () => context.togglePopover(addFilterPop.value);
 const closeFilterSelector = () => {
@@ -36,7 +38,7 @@ defineExpose({
         <div class="flex flex-wrap gap-3 pl-1">
             <FieldBadge v-if="fields" v-for="field in fields" :key="field.id" :field="field" />
 
-            <SPopover v-if="fields?.length" ref="addFilterPop" :prevent-close="Boolean(activeField)" :offset="8">
+            <SPopover v-if="appliedFields?.length !== fields?.length" ref="addFilterPop" :prevent-close="Boolean(activeField)" :offset="8">
                 <template #reference>
                     <button
                         class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring"
