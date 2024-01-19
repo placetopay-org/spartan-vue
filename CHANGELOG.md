@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.54 - 2024-01-19
+
 ## 2.0.0-beta.53 - 2024-01-19
 ### Added
 - `SSkeleton` component implementation.
