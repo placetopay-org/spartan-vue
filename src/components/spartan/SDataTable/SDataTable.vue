@@ -27,13 +27,13 @@ import { translator } from '@/helpers';
 import { adaptFromPagination, adaptToPagination, adaptToSorting } from './helpers';
 
 const emits = defineEmits<TDataTableEmits>();
-const props = withDefaults(defineProps<TDataTableProps & Partial<TTableProps>>(), {
+const props = withDefaults(defineProps<TDataTableProps & Partial<Omit<TTableProps, 'cols' | 'rows'>>>(), {
     displayHeaderText: (header: string) => header,
 });
 
 const tableProps = computed<Partial<TTableProps>>(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { borderless, cols, rows, highlight, ...rest } = props;
+    // @typescript-eslint/no-unused-vars
+    const { borderless, cols, highlight, ...rest } = props;
 
     return { ...rest };
 });
@@ -46,16 +46,13 @@ const columns = props.cols.map((col) => {
         return columnHelper.accessor(col, {
             id: col,
             header: col,
-            enableSorting: props.sorting?.availableColumns.includes(col),
-            sortDescFirst: props.sorting?.descFirst,
         });
     } else {
-        const key = Object.keys(col)[0];
-        return columnHelper.accessor(key, {
-            id: key,
-            header: col[key],
-            enableSorting: props.sorting?.availableColumns.includes(key),
-            sortDescFirst: props.sorting?.descFirst,
+        return columnHelper.accessor(col.id, {
+            id: col.id,
+            header: col.header,
+            enableSorting: col.sortable,
+            sortDescFirst: col.sortDescFirst ?? props.sorting?.sortDescFirst,
         });
     }
 });
@@ -72,7 +69,7 @@ const table = useVueTable({
         return Boolean(props.sorting);
     },
     get sortDescFirst() {
-        return props.sorting?.descFirst;
+        return props.sorting?.sortDescFirst;
     },
     get enableGlobalFilter() {
         return props.filtrable;
@@ -92,16 +89,17 @@ const table = useVueTable({
         },
     },
     onPaginationChange: (updaterOrValue) => {
-        emits(
-            'paginationChange',
-            adaptFromPagination(
-                typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().pagination) : updaterOrValue,
-            ),
+        const value = adaptFromPagination(
+            typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().pagination) : updaterOrValue,
         );
+
+        emits('paginationChange', value);
+        emits('change', { type: 'pagination', value });
     },
     onSortingChange: (updaterOrValue) => {
         const value = typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().sorting) : updaterOrValue;
         emits('sortingChange', value[0]);
+        emits('change', { type: 'sorting', value: value[0] });
     },
     columns,
     getCoreRowModel: getCoreRowModel(),
@@ -150,7 +148,7 @@ const table = useVueTable({
 
                             <component
                                 v-if="header.column.getCanSort() && !header.column.getIsSorted()"
-                                :is="props.sorting?.descFirst ? ChevronDownIcon : ChevronUpIcon"
+                                :is="header.column.getFirstSortDir() ? ChevronDownIcon : ChevronUpIcon"
                                 class="invisible h-5 w-5 rounded text-gray-400 group-hover:visible group-focus-visible:visible"
                             />
 

@@ -36,7 +36,7 @@ defineExpose({
         <div class="flex flex-wrap gap-3 pl-1">
             <FieldBadge v-if="fields" v-for="field in fields" :key="field.id" :field="field" />
 
-            <SPopover ref="addFilterPop" :prevent-close="Boolean(activeField)" :offset="8">
+            <SPopover v-if="fields?.length" ref="addFilterPop" :prevent-close="Boolean(activeField)" :offset="8">
                 <template #reference>
                     <button
                         class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring"

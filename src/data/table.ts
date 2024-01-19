@@ -1,4 +1,4 @@
-export const colsData = [{ name: 'Name' }, { email: 'Email' }, { title: 'Title' }, { role: 'Role' }, { 'action': '' }];
+export const colsData = [{ id: 'name', header: 'Name' }, { id: 'email', header: 'Email' }, { id: 'title', header: 'Title' }, { id: 'role', header: 'Role' }, { id: 'action', header: '' } ];
 export const cols = ['Name', 'Email', 'Title', 'Role', ''];
 
 export const rows = [
