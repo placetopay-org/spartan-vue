@@ -38,3 +38,4 @@ export * from './STable';
 export * from './SDataTable';
 export * from './SInputIncrement';
 export * from './SInputIncrementBlock';
+export * from './SSkeleton';
