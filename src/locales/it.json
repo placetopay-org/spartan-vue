@@ -3,7 +3,9 @@
         "dataTable": {
             "of": "di",
             "page": "Pagina",
+            "showing": "Mostrando",
             "pageSizePrefix": "Mostra",
+            "results": "risultati",
             "searchPlaceholder": "Cerca in tutte le colonne"
         },
         "filter": {

@@ -32,8 +32,6 @@ export default {
     },
 };
 
-const sourceBinding = buildSourceBinding({});
-
 export const Default = createDefault({
     components: { SDataTable, SBadge, QrCodeIcon, DocumentDuplicateIcon, TrashIcon },
     setup: () => {
@@ -53,6 +51,7 @@ export const Default = createDefault({
     class="w-[610px]"
     :cols="cols" 
     :data="rows"
+    numericPaginator
     :pagination="pagination" 
     @paginationChange="pagination = {...pagination, ...$event}"
     >  

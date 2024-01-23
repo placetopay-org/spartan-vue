@@ -3,7 +3,9 @@
         "dataTable": {
             "of": "of",
             "page": "Page",
+            "showing": "Showing",
             "pageSizePrefix": "Show",
+            "results": "results",
             "searchPlaceholder": "Search all columns"
         },
         "filter": {

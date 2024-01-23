@@ -3,7 +3,9 @@
         "dataTable": {
             "of": "de",
             "page": "Página",
+            "showing": "Mostrando",
             "pageSizePrefix": "Mostrar",
+            "results": "resultados",
             "searchPlaceholder": "Buscar en todas las columnas"
         },
         "filter": {
