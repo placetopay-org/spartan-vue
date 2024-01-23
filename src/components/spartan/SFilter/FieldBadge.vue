@@ -10,7 +10,6 @@ const props = defineProps<{
 }>();
 
 const context = useContext('FieldBadge');
-
 const popover = ref<InstanceType<typeof SPopover>>();
 const removing = ref(false);
 const toggle = () => {
@@ -36,9 +35,9 @@ const toggle = () => {
                     @removed="removing = true"
                 >
                     <span class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</span>
-                    <span class="max-w-[144px] truncate">
+                    <span class="max-w-[220px] truncate">
                         {{ context.getOperatorLabel(field) }}
-                    </span>
+                    </span>  
                 </SBadge>
             </button>
         </template>

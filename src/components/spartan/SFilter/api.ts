@@ -1,6 +1,6 @@
 import { reactive, inject, provide, type InjectionKey, computed } from 'vue';
 import type { SFilterEmits, SFilterProps, TField, TOperatorData, TInterfaceId } from './types';
-import { translator } from '@/helpers';
+import { buildLabel } from './helpers';
 
 type ContextState = {
     activePopoverCloser?: () => boolean;
@@ -26,14 +26,12 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
                     const key = value as TInterfaceId;
                     const interfaceData = field.interfaces[key];
                     if (interfaceData) {
-                        const { t } = translator('filter');
                         if (interfaceData.operators) {
                             interfaceData.operators.forEach((operator) => {
                                 data[field.id] = {
                                     ...data[field.id],
                                     [operator]: {
-                                        label: t(`operator.${operator}`),
-                                        description: t(`operator.${operator}_description`),
+                                        label: null,
                                         interface: key,
                                     },
                                 };
@@ -46,10 +44,7 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
                                 data[field.id] = {
                                     ...data[field.id],
                                     [isString ? operator : operator.id]: {
-                                        label: isString ? t(`operator.${operator}`) : operator.label,
-                                        description: isString
-                                            ? t(`operator.${operator}_description`)
-                                            : operator.description,
+                                        label: isString ? null : operator.label,
                                         interface: key,
                                     },
                                 };
@@ -90,8 +85,12 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
             field.state = state;
         },
         getOperatorLabel: (field: TField) => {
-            const operator = field.state!.operator;
-            return state.operatorData[field.id][operator].label;
+            const fieldState = field.state!;
+            const label = state.operatorData[field.id][fieldState.operator].label;
+            if (!label) return buildLabel(fieldState.operator, fieldState.value);
+            if (typeof label === 'string') return label;
+
+            return label(fieldState.value);
         },
     });
 

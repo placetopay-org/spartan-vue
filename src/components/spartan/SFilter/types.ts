@@ -5,10 +5,11 @@ export type TOperatorId = (typeof predefinedOperators)[number];
 
 export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options';
 
+type customOperatorLabel = string | ((value?: string | string[]) => string);
+
 export type TOperator = {
     id: string;
-    label: string;
-    description: string;
+    label: customOperatorLabel;
 };
 
 export type TBaseInterface = {
@@ -48,7 +49,7 @@ export type TField = {
 
 export type TOperatorData = Record<
     string,
-    Record<string, { label: string; description: string; interface: TInterfaceId }>
+    Record<string, { label: customOperatorLabel | null; interface: TInterfaceId }>
 >;
 
 export type TOption = {
