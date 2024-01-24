@@ -103,7 +103,7 @@ export const Default = {
     <div class="h-96"/>
     </div>
 
-  <SPopover v-else :placement="args.placement" :offset="args.offset" :static="args.static" :responsive="false">
+  <SPopover v-else :placement="args.placement" :offset="args.offset" :static="args.static" :responsive="args.responsive">
     <template #reference="{ open }">
       <button class="bg-blue-300 w-40 h-12 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center" @click="open">Any Element!</button>
     </template>
@@ -136,7 +136,7 @@ export const Default = {
         placement: 'bottom-start',
         static: false,
         preventClose: false,
-        responsive: false,
+        responsive: true,
     },
 };
 
