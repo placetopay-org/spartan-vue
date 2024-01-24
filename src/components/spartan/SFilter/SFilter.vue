@@ -10,7 +10,9 @@ import type { TField, SFilterEmits, SFilterProps } from './types';
 import { createContext } from './api';
 
 const emit = defineEmits<SFilterEmits>();
-const props = defineProps<Partial<SFilterProps>>();
+const props = withDefaults(defineProps<Partial<SFilterProps>>(), {
+    responsive: true,
+});
 
 const { t } = translator('filter');
 
@@ -27,6 +29,11 @@ const closeFilterSelector = () => {
     activeField.value = undefined;
 };
 
+const clear = () => {
+    context.clear();
+    if (props.applyWhenClear) context.apply();
+};
+
 defineExpose({
     apply: () => context.apply(),
     clear: () => context.clear(),
@@ -36,9 +43,15 @@ defineExpose({
 <template>
     <div class="flex w-full justify-between gap-8 pr-1">
         <div class="flex flex-wrap gap-3 pl-1">
-            <FieldBadge v-if="fields" v-for="field in fields" :key="field.id" :field="field" />
+            <FieldBadge v-if="fields" v-for="field in fields" :key="field.id" :field="field" :responsive="responsive" />
 
-            <SPopover v-if="appliedFields?.length !== fields?.length" ref="addFilterPop" :prevent-close="Boolean(activeField)" :offset="8">
+            <SPopover
+                :responsive="responsive"
+                v-if="appliedFields?.length !== fields?.length"
+                ref="addFilterPop"
+                :prevent-close="Boolean(activeField)"
+                :offset="8"
+            >
                 <template #reference>
                     <button
                         class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring"
@@ -72,7 +85,13 @@ defineExpose({
             <SButton v-if="!hideApplyButton" rounded="full" class="whitespace-nowrap !py-0.5" @click="context.apply">
                 {{ t('applyBtn') }}
             </SButton>
-            <SButton v-if="!hideClearButton" variant="secondary" rounded="full" class="whitespace-nowrap !py-0.5" @click="context.clear">
+            <SButton
+                v-if="!hideClearButton"
+                variant="secondary"
+                rounded="full"
+                class="whitespace-nowrap !py-0.5"
+                @click="clear"
+            >
                 {{ t('clearBtn') }}
             </SButton>
         </div>

@@ -61,6 +61,8 @@ export type SFilterProps = {
     fields: TField[];
     hideApplyButton?: boolean;
     hideClearButton?: boolean;
+    applyWhenClear?: boolean;
+    responsive?: boolean;
 };
 
 export type SFilterEmits = {

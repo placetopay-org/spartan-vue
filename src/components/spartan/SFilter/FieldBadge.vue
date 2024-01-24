@@ -7,6 +7,7 @@ import { useContext } from './api';
 
 const props = defineProps<{
     field: TField;
+    responsive: boolean;
 }>();
 
 const context = useContext('FieldBadge');
@@ -23,7 +24,7 @@ const toggle = () => {
 </script>
 
 <template>
-    <SPopover v-if="field.state" ref="popover" :offset="12" prevent-close>
+    <SPopover v-if="field.state" ref="popover" :offset="12" prevent-close :responsive="responsive" >
         <template #reference>
             <button @click="toggle">
                 <SBadge
