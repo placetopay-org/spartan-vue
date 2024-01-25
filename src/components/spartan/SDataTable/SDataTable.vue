@@ -182,7 +182,7 @@ const table = useVueTable({
             class="border-t border-gray-300 bg-gray-50 px-5 py-3"
             v-if="pagination && table.getState().pagination.pageIndex >= 0 && table.getPageCount() !== -1"
         >
-            <NumericPaginator v-if="numericPaginator" :table="table" :pagination="pagination" />
+            <NumericPaginator v-if="numericPaginator || numericPaginator === 0" :size="numericPaginator" :table="table" :pagination="pagination" />
             <SimplePaginator v-else :table="table" :pagination="pagination" />
         </div>
     </div>

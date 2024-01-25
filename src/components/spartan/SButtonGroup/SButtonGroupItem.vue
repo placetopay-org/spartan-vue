@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { SCN } from '@/constants';
 import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/vue/20/solid';
+import { twMerge } from 'tailwind-merge';
 import { computed, type FunctionalComponent } from 'vue';
 
 const props = withDefaults(
@@ -14,6 +15,7 @@ const props = withDefaults(
             last: boolean;
             next: boolean;
             prev: boolean;
+            class: string;
         }>
     >(),
     {
@@ -38,7 +40,7 @@ const iconClass = computed(() => [
     <button
         :disabled="disabled"
         type="button"
-        :class="[
+        :class="twMerge([
             SCN.focusRingPrimary,
             'group group group relative inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:z-20 focus:outline-primary-300 active:bg-primary-50 active:text-primary-600',
             active ? 'z-10 bg-primary-50 text-primary-600 outline-primary-300' : 'bg-white hover:bg-gray-50',
@@ -46,7 +48,8 @@ const iconClass = computed(() => [
             disabled && 'pointer-events-none opacity-50',
             first && 'rounded-l-md',
             last && 'rounded-r-md',
-        ]"
+            props.class,
+        ])"
     >
         <template v-if="next || prev">
             <span class="sr-only">{{ next ? 'Next' : 'Prev' }}</span>

@@ -3,6 +3,7 @@
         "dataTable": {
             "of": "de",
             "page": "Página",
+            "pages": "páginas",
             "showing": "Mostrando",
             "pageSizePrefix": "Mostrar",
             "results": "resultados",
