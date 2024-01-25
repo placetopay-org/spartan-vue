@@ -1,10 +1,9 @@
 import SInput from './SInput.vue';
 import { ref } from 'vue';
-import { SButton, SDropdown, SDropdownItem } from '@spartan';
+import { SButton } from '@spartan';
 import type { SourceProps } from '@storybook/blocks';
 import { buildDesign, buildSourceBinding, createVariation } from '@/helpers';
 import {
-    ArrowLeftOnRectangleIcon,
     InformationCircleIcon,
     CurrencyDollarIcon,
     MapPinIcon,
@@ -226,6 +225,7 @@ export const Default = {
     },
     args: {
         disabled: false,
+        leftOption: 'PHP',
         leftOptions: [
             {
                 label: 'COP',
@@ -248,6 +248,7 @@ export const Default = {
                 value: 'PHP',
             },
         ],
+        rightOption: 'COP',
         rightOptions: [
             {
                 label: 'COP',
@@ -283,48 +284,20 @@ export const Default = {
     },
 };
 
-const createCustomVariation = ({ template, containerClass }: { template: string; containerClass?: string }) =>
-    createVariation({
-        template,
-        setup: () => {
-            return {
-                SButton,
-                ArrowLeftOnRectangleIcon,
-                EnvelopeIcon,
-                KeyIcon,
-                InformationCircleIcon,
-                ChatBubbleLeftEllipsisIcon,
-                CurrencyDollarIcon,
-                MapPinIcon,
-            };
-        },
-        containerClass,
-        components: {
-            SInput,
-            SButton,
-            SDropdown,
-            SDropdownItem,
-            ArrowLeftOnRectangleIcon,
-            EnvelopeIcon,
-            KeyIcon,
-            InformationCircleIcon,
-            ChatBubbleLeftEllipsisIcon,
-            CurrencyDollarIcon,
-            MapPinIcon,
-        },
-    });
-
-export const Disabled = createCustomVariation({
+export const Disabled = createVariation({
+    components: { SInput },
     template: `<SInput disabled placeholder="placeholder" />`,
     containerClass: 'w-52',
 });
 
-export const Error = createCustomVariation({
+export const Error = createVariation({
+    components: { SInput },
     template: `<SInput error placeholder="placeholder" />`,
     containerClass: 'w-52',
 });
 
-export const Rounded = createCustomVariation({
+export const Rounded = createVariation({
+    components: { SInput },
     template: `
     <SInput placeholder="both (default)" />
     <SInput rounded="left" placeholder="left" />
@@ -333,23 +306,32 @@ export const Rounded = createCustomVariation({
     `,
 });
 
-export const WithIcon = createCustomVariation({
+export const WithLeftIcon = createVariation({
+    components: { SInput },
+    setup: () => {
+        return { EnvelopeIcon, KeyIcon, InformationCircleIcon };
+    },
     template: `
-    <SInput :icon="EnvelopeIcon" placeholder="Email" />
-    <SInput :icon="KeyIcon" placeholder="Password" />
-    <SInput :icon="InformationCircleIcon" />
+    <SInput :leftIcon="EnvelopeIcon" placeholder="Email" />
+    <SInput :leftIcon="KeyIcon" placeholder="Password" />
+    <SInput :leftIcon="InformationCircleIcon" />
     `,
 });
 
-export const WithEndIcon = createCustomVariation({
+export const WithRightIcon = createVariation({
+    components: { SInput },
+    setup: () => {
+        return { ChatBubbleLeftEllipsisIcon, CurrencyDollarIcon, MapPinIcon };
+    },
     template: `
-    <SInput :endIcon="ChatBubbleLeftEllipsisIcon" placeholder="Comment" />
-    <SInput :endIcon="CurrencyDollarIcon" placeholder="Amount" />
-    <SInput :endIcon="MapPinIcon" placeholder="Location" />
+    <SInput :rightIcon="ChatBubbleLeftEllipsisIcon" placeholder="Comment" />
+    <SInput :rightIcon="CurrencyDollarIcon" placeholder="Amount" />
+    <SInput :rightIcon="MapPinIcon" placeholder="Location" />
     `,
 });
 
-export const WithPrefix = createCustomVariation({
+export const WithPrefix = createVariation({
+    components: { SInput },
     template: `
     <SInput prefix="$" type="number" placeholder="100.000" />
     <SInput prefix="https://" />
@@ -357,7 +339,8 @@ export const WithPrefix = createCustomVariation({
     `,
 });
 
-export const WithSuffix = createCustomVariation({
+export const WithSuffix = createVariation({
+    components: { SInput },
     template: `
     <SInput suffix=".com" />
     <SInput suffix="USD" />
@@ -365,16 +348,33 @@ export const WithSuffix = createCustomVariation({
     `,
 });
 
-export const WithOptionsEmbedded = createCustomVariation({
+export const WithOptionsEmbedded = createVariation({
+    components: { SInput },
+    setup: () => {
+        const currencies = [
+            { label: 'COP', value: 'COP' },
+            { label: 'USD', value: 'USD' },
+            { label: 'EUR', value: 'EUR' },
+            { label: 'JPY', value: 'JPY' },
+        ];
+        const leftOption = ref('USD');
+        const rightOption = ref('COP');
+
+        return { leftOption, rightOption, currencies };
+    },
     template: `
-    <SInput :leftOptions="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
+<SInput v-model:leftOption="leftOption" :leftOptions="currencies" />
     
-    <SInput v-model:rightOption="currency" :rightOptions="[{ label: 'COP', value: 'COP' }, { label: 'USD', value: 'USD' }, { label: 'EUR', value: 'EUR' }, { label: 'JPY', value: 'JPY' }]" />
+<SInput v-model:rightOption="rightOption" :rightOptions="currencies" />
     `,
     containerClass: 'w-[700px] gap-5 flex',
 });
 
-export const OrderPrecastSlots = createCustomVariation({
+export const OrderPrecastSlots = createVariation({
+    components: { SInput },
+    setup: () => {
+        return { MapPinIcon, InformationCircleIcon };
+    },
     template: `
         <SInput :rightIcon="MapPinIcon" :leftIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" />
         
@@ -383,7 +383,11 @@ export const OrderPrecastSlots = createCustomVariation({
     containerClass: 'w-[700px] flex gap-5',
 });
 
-export const PrecastAndCustomSlots = createCustomVariation({
+export const PrecastAndCustomSlots = createVariation({
+    components: { SInput, SButton },
+    setup: () => {
+        return { MapPinIcon, InformationCircleIcon };
+    },
     template: `
         <SInput :icon="MapPinIcon" :endIcon="InformationCircleIcon" prefix="Set" placeholder="Location" suffix="help" leftOrderSlots="slot,icon,text">
             <template #left>
