@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { SInputAmount, type TInputAmountProps, type TInputAmountEmits } from '../SInputAmount';
+import { SInputMask, type TInputMaskProps, type TInputMaskEmits } from '../SInputMask';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 import type { TInputProps } from '../SInput';
 
-defineEmits<TInputAmountEmits>();
-const props = defineProps<Partial<TBlockWrapperProps> & Partial<TInputProps> & TInputAmountProps>();
+defineEmits<TInputMaskEmits>();
+const props = defineProps<Partial<TBlockWrapperProps> & Partial<TInputProps> & TInputMaskProps>();
 
 const blockWrapperProps = computed(() => ({
     label: props.label,
@@ -14,7 +14,7 @@ const blockWrapperProps = computed(() => ({
     helpText: props.helpText,
 }));
 
-const inputAmountProps = computed<TInputAmountProps>(() => {
+const SInputMaskProps = computed<Partial<TInputProps> & TInputMaskProps>(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { label, helpText, errorText, ...rest } = props;
     return { ...rest, error: props.errorText ? Boolean(props.errorText) : props.error };
@@ -22,15 +22,10 @@ const inputAmountProps = computed<TInputAmountProps>(() => {
 </script>
 
 <template>
-    <BlockWrapper wrapper="SInputAmountBlock" v-bind="blockWrapperProps">
-        <SInputAmount
-            class="w-full"
-            v-bind="inputAmountProps"
-            @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
-            @update:currency="(newCurrency) => $emit('update:currency', newCurrency)"
-        >
+    <BlockWrapper wrapper="SInputMaskBlock" v-bind="blockWrapperProps">
+        <SInputMask class="w-full" v-bind="SInputMaskProps">
             <template #left><slot name="left" /></template>
             <template #right><slot name="right" /></template>
-        </SInputAmount>
+        </SInputMask>
     </BlockWrapper>
 </template>
