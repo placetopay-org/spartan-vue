@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { getRoundedClass, getDisabledClass } from '@/helpers';
 import { buildSideContent } from './slotBuilder';
 import type { TInputProps, TInputEmits } from './types';
@@ -46,6 +46,10 @@ watchEffect(() => {
         console.error(message(`S${props.type.charAt(0).toUpperCase() + props.type.slice(1)}`, props.type));
     }
 });
+
+const inputElement = ref<HTMLInputElement>();
+
+defineExpose({ inputElement });
 </script>
 
 <template>
@@ -72,6 +76,7 @@ watchEffect(() => {
         </template>
         <input
             :id="id"
+            ref="inputElement"
             :value="modelValue"
             :class="twMerge('w-full border-none px-0 py-2 text-gray-900 focus:ring-0 outline-none', roundedClass, inputClass)"
             :disabled="disabled"
