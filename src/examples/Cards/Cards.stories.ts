@@ -8,7 +8,7 @@ export default {
 const design = buildDesign('');
 
 export const DescriptionCard = {
-    decorators: [() => ({ template: '<div class="bg-gray-300 w-[800px] p-10"><story/></div>' })],
+    decorators: [() => ({ template: '<div class="bg-gray-50 p-8 shadow-md w-[800px]"><story/></div>' })],
     render: (args: any) => ({
         components: { DescriptionCardExample },
         setup() {
