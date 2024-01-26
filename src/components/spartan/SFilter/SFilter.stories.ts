@@ -5,7 +5,7 @@ import { type TField } from './types';
 
 export default {
     component: SFilter,
-    title: 'new/Filter',
+    title: 'misc/Filter',
     parameters: {
         docs: {
             description: {

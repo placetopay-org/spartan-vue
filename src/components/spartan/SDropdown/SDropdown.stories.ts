@@ -16,7 +16,7 @@ import {
 
 export default {
     component: SDropdown,
-    title: 'new/Dropdown',
+    title: 'inputs/Dropdown',
     parameters: {
         docs: {
             description: {

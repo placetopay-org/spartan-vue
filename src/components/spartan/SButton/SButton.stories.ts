@@ -6,7 +6,7 @@ import { buildDesign, buildSourceBinding } from '@/helpers';
 
 export default {
     component: SButton,
-    title: 'new/Button',
+    title: 'buttons/Button',
     parameters: {
         docs: {
             description: {

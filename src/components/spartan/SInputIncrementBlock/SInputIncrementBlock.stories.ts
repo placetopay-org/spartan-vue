@@ -4,7 +4,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SInputIncrementBlock,
-    title: 'new/InputIncrementBlock',
+    title: 'inputBlocks/InputIncrementBlock',
     parameters: {
         docs: {
             description: {

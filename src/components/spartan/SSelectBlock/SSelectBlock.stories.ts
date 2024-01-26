@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault } from '@/helpers';
 
 export default {
     component: SSelectBlock,
-    title: 'new/SelectBlock',
+    title: 'inputBlocks/SelectBlock',
     parameters: {
         docs: {
             description: { component: 'The select component is used to create a dropdown list of options.' },

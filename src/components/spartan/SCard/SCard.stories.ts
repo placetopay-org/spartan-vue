@@ -17,7 +17,7 @@ import { BoltIcon, KeyIcon, SparklesIcon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SCard,
-    title: 'new/Card',
+    title: 'misc/Card',
     parameters: {
         docs: {
             description: {

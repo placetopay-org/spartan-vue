@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SLabel,
-    title: 'new/Label',
+    title: 'display/Label',
     parameters: {
         docs: {
             description: {

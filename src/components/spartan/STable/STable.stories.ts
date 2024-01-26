@@ -11,7 +11,7 @@ import { QrCodeIcon, DocumentDuplicateIcon, TrashIcon } from '@heroicons/vue/24/
 
 export default {
     component: STable,
-    title: 'new/Table',
+    title: 'tables/Table',
     parameters: {
         docs: {
             description: {

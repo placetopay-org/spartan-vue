@@ -11,7 +11,7 @@ import { Bars4Icon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SSidebar,
-    title: 'new/Sidebar',
+    title: 'navigation/Sidebar',
     parameters: {
         docs: {
             description: {

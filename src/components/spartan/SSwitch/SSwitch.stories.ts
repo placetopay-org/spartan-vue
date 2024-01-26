@@ -5,7 +5,7 @@ import { LockClosedIcon, LockOpenIcon, BellIcon } from '@heroicons/vue/24/solid'
 
 export default {
     component: SSwitch,
-    title: 'new/Switch',
+    title: 'inputs/Switch',
     parameters: {
         docs: {
             description: {

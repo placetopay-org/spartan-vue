@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SDefinitionTerm,
-    title: 'new/DefinitionTerm',
+    title: 'display/DefinitionTerm',
     parameters: {
         docs: {
             description: {

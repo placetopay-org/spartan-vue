@@ -4,7 +4,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SInputMaskBlock,
-    title: 'new/InputMaskBlock',
+    title: 'inputBlocks/InputMaskBlock',
     parameters: {
         docs: {
             description: {

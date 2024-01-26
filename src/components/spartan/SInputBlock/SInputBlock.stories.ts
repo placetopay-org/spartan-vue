@@ -13,7 +13,7 @@ import { EnvelopeIcon, KeyIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vu
 
 export default {
     component: SInputBlock,
-    title: 'new/InputBlock',
+    title: 'inputBlocks/InputBlock',
     parameters: {
         docs: {
             description: { component: 'The input component is used to create a text input.' },

@@ -7,7 +7,7 @@ import { computed, ref } from 'vue';
 
 export default {
     component: SDataTable,
-    title: 'new/DataTable',
+    title: 'tables/DataTable',
     parameters: {
         docs: {
             description: {

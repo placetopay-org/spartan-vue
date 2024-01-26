@@ -5,7 +5,7 @@ import { createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SModalLeft,
-    title: 'new/ModalLeft',
+    title: 'modals/ModalLeft',
     parameters: {
         docs: {
             description: {

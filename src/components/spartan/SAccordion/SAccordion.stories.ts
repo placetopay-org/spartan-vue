@@ -5,7 +5,7 @@ import { ref } from 'vue';
 
 export default {
     component: SAccordion,
-    title: 'Misc/Accordion',
+    title: 'misc/Accordion',
     ...createHistory({
         description: 'A simple accordion component layout.',
         slots: [{ name: 'default', description: 'The content of the accordion.' }],

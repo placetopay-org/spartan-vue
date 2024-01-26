@@ -6,7 +6,7 @@ import { ref } from 'vue';
 
 export default {
     component: SCombobox,
-    title: 'new/Combobox',
+    title: 'inputs/Combobox',
     parameters: {
         docs: {
             description: {

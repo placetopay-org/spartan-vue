@@ -4,7 +4,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SInputIncrement,
-    title: 'new/InputIncrement',
+    title: 'inputs/InputIncrement',
     parameters: {
         docs: {
             description: {

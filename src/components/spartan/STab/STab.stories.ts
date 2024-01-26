@@ -6,7 +6,7 @@ import { ref } from 'vue';
 
 export default {
     component: STab,
-    title: 'new/Tab',
+    title: 'navigation/Tab',
     parameters: {
         docs: {
             description: {

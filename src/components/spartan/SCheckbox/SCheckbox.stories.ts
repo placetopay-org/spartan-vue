@@ -4,7 +4,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SCheckbox,
-    title: 'new/Checkbox',
+    title: 'inputs/Checkbox',
     parameters: {
         docs: {
             description: {

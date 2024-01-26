@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault } from '@/helpers';
 
 export default {
     component: SSteps,
-    title: 'new/Steps',
+    title: 'navigation/Steps',
     parameters: {
         docs: {
             description: {

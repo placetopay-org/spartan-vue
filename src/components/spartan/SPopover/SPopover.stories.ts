@@ -8,7 +8,7 @@ import { watch, nextTick } from 'vue';
 
 export default {
     component: SPopover,
-    title: 'new/Popover',
+    title: 'misc/Popover',
     parameters: {
         docs: {
             description: {
