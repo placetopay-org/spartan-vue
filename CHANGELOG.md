@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- `TDropdownItemProps` now exports his types.
-- `TDropdownProps` now exports his types.
-- `TDefinitionTerm` now exports his types.
+- `SLabel` now exports his types.
+- `SDropdownItem` now exports his types.
+- `SDropdown` now exports his types.
+- `SDefinitionTerm` now exports his types.
 - `SButtonGroupItem` now exports his types.
 - `SButton` now exports his types.
 - `SBreadcrumbsItem` now exports his types.
