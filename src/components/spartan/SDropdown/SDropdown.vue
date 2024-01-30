@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
+import type { TDropdownProps } from './types';
 
-withDefaults(
-    defineProps<
-        Partial<{
-            leftToRight: boolean;
-        }>
-    >(),
-    {
-        leftToRight: false,
-    },
-);
+withDefaults(defineProps<Partial<TDropdownProps>>(), {
+    leftToRight: false,
+});
 </script>
 
 <template>

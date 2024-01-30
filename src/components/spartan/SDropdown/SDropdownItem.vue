@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { MenuItem } from '@headlessui/vue';
-import type { FunctionalComponent } from 'vue';
-withDefaults(
-    defineProps<
-        Partial<{
-            disabled: boolean;
-            icon: FunctionalComponent;
-        }>
-    >(),
-    {
-        disabled: false,
-        icon: undefined,
-    },
-);
+import type { TDropdownItemProps } from './types';
+
+withDefaults(defineProps<Partial<TDropdownItemProps>>(), {
+    disabled: false,
+    icon: undefined,
+});
 </script>
 
 <template>
