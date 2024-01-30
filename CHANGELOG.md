@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SBreadcrumbsItem` now exports his types.
 - `SBadge` now exports his types.
 - `SAvatar` now exports his types.
 - `SAccordion` now exports his types.
