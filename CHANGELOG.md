@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SAvatar` now exports his types.
 - `SAccordion` now exports his types.
 
 ## 2.0.0-beta.57 - 2024-01-30
