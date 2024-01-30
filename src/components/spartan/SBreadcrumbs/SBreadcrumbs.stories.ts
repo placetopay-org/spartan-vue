@@ -5,7 +5,7 @@ import { HomeIcon, Cog8ToothIcon, BanknotesIcon } from '@heroicons/vue/24/solid'
 
 export default {
     component: SBreadcrumbs,
-    title: 'new/Breadcrumbs',
+    title: 'navigation/Breadcrumbs',
     parameters: {
         docs: {
             description: {

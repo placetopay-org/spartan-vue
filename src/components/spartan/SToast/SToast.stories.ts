@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SToast,
-    title: 'new/Toast',
+    title: 'misc/Toast',
     parameters: {
         docs: {
             description: {

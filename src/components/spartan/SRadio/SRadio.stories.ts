@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SRadio,
-    title: 'new/Radio',
+    title: 'inputs/Radio',
     parameters: {
         docs: {
             description: {

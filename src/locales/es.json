@@ -3,7 +3,10 @@
         "dataTable": {
             "of": "de",
             "page": "Página",
+            "pages": "páginas",
+            "showing": "Mostrando",
             "pageSizePrefix": "Mostrar",
+            "results": "resultados",
             "searchPlaceholder": "Buscar en todas las columnas"
         },
         "filter": {
@@ -11,7 +14,7 @@
             "addFilterBtn": "Agregar filtro",
             "applyBtn": "Aplicar",
             "cancelBtn": "Cancelar",
-            "clearBtn": "Limpar filtros",
+            "clearBtn": "Limpiar filtros",
             "customSaveBtn": "Guardar filtro",
             "fieldSelectorNotResults": "No se encontraron resultados",
             "fieldSelectorPlaceholder": "Selecciona un campo",

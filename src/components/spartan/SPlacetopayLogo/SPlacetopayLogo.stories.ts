@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SPlacetopayLogo,
-    title: 'new/PlacetopayLogo',
+    title: 'misc/PlacetopayLogo',
     parameters: {
         docs: {
             description: {

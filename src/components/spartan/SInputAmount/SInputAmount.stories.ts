@@ -6,7 +6,7 @@ const currencies = ['USD', 'EUR', 'COP', 'JPY', 'BHD'];
 
 export default {
     component: SInputAmount,
-    title: 'new/InputAmount',
+    title: 'inputs/InputAmount',
     parameters: {
         docs: {
             description: {

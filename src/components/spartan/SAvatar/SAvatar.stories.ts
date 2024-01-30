@@ -8,7 +8,7 @@ import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
 
 export default {
     component: SAvatar,
-    title: 'new/Avatar',
+    title: 'misc/Avatar',
     parameters: {
         docs: {
             description: {

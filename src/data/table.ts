@@ -1,4 +1,10 @@
-export const colsData = [{ id: 'name', header: 'Name' }, { id: 'email', header: 'Email' }, { id: 'title', header: 'Title' }, { id: 'role', header: 'Role' }, { id: 'action', header: '' } ];
+export const colsData = [
+    { id: 'name', header: 'Name', sortable: false, sortDescFirst: false },
+    { id: 'email', header: 'Email', sortable: false, sortDescFirst: false },
+    { id: 'title', header: 'Title', sortable: false, sortDescFirst: false },
+    { id: 'role', header: 'Role', sortable: false, sortDescFirst: false },
+    { id: 'action', header: '', sortable: false, sortDescFirst: false },
+];
 export const cols = ['Name', 'Email', 'Title', 'Role', ''];
 
 export const rows = [
@@ -59,6 +65,126 @@ export const rows = [
     {
         name: 'James Moore',
         email: 'james.moore@example.com',
+        title: 'Security Engineer',
+        role: 'Admin',
+    },
+    {
+        name: 'Ava Taylor',
+        email: 'ava.taylor@example.com',
+        title: 'Front-end Developer',
+        role: 'Member',
+    },
+    {
+        name: 'Ethan Walker',
+        email: 'ethan.walker@example.com',
+        title: 'Back-end Developer',
+        role: 'Member',
+    },
+    {
+        name: 'Madison Hall',
+        email: 'madison.hall@example.com',
+        title: 'Full Stack Developer',
+        role: 'Admin',
+    },
+    {
+        name: 'Noah Harris',
+        email: 'noah.harris@example.com',
+        title: 'Data Scientist',
+        role: 'Member',
+    },
+    {
+        name: 'Isabella Clark',
+        email: 'isabella.clark@example.com',
+        title: 'UX Designer',
+        role: 'Member',
+    },
+    {
+        name: 'Liam Turner',
+        email: 'liam.turner@example.com',
+        title: 'Product Manager',
+        role: 'Admin',
+    },
+    {
+        name: 'Mia Brown',
+        email: 'mia.brown@example.com',
+        title: 'QA Engineer',
+        role: 'Member',
+    },
+    {
+        name: 'Jackson Davis',
+        email: 'jackson.davis@example.com',
+        title: 'DevOps Engineer',
+        role: 'Member',
+    },
+    {
+        name: 'Scarlett Martinez',
+        email: 'scarlett.martinez@example.com',
+        title: 'Mobile Developer',
+        role: 'Member',
+    },
+    {
+        name: 'Lucas White',
+        email: 'lucas.white@example.com',
+        title: 'Security Engineer',
+        role: 'Admin',
+    },
+    {
+        name: 'Chloe Robinson',
+        email: 'chloe.robinson@example.com',
+        title: 'Front-end Developer',
+        role: 'Member',
+    },
+    {
+        name: 'Mason Phillips',
+        email: 'mason.phillips@example.com',
+        title: 'Back-end Developer',
+        role: 'Member',
+    },
+    {
+        name: 'Grace Turner',
+        email: 'grace.turner@example.com',
+        title: 'Full Stack Developer',
+        role: 'Admin',
+    },
+    {
+        name: 'Elijah Baker',
+        email: 'elijah.baker@example.com',
+        title: 'Data Scientist',
+        role: 'Member',
+    },
+    {
+        name: 'Avery Lewis',
+        email: 'avery.lewis@example.com',
+        title: 'UX Designer',
+        role: 'Member',
+    },
+    {
+        name: 'Logan King',
+        email: 'logan.king@example.com',
+        title: 'Product Manager',
+        role: 'Admin',
+    },
+    {
+        name: 'Layla Morgan',
+        email: 'layla.morgan@example.com',
+        title: 'QA Engineer',
+        role: 'Member',
+    },
+    {
+        name: 'Carter Mitchell',
+        email: 'carter.mitchell@example.com',
+        title: 'DevOps Engineer',
+        role: 'Member',
+    },
+    {
+        name: 'Addison Turner',
+        email: 'addison.turner@example.com',
+        title: 'Mobile Developer',
+        role: 'Member',
+    },
+    {
+        name: 'Henry Clark',
+        email: 'henry.clark@example.com',
         title: 'Security Engineer',
         role: 'Admin',
     },

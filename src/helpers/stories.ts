@@ -1,5 +1,5 @@
 import type { SourceProps } from '@storybook/blocks';
-import { ref, computed } from 'vue';
+import { ref, computed, type Component } from 'vue';
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
@@ -43,6 +43,65 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
     }
 
     return result.trim();
+};
+
+export const createHistory = ({
+    description,
+    slots,
+    props,
+    events,
+}: {
+    description: string;
+    slots?: {
+        name: string;
+        description: string;
+    }[];
+    props?: {
+        name: string;
+        description: string;
+        type: 'string' | 'number' | 'boolean';
+        default?: string;
+        control?: string | null;
+    }[];
+    events?: Record<string, any>;
+}) => {
+
+    const argTypesSlots = slots?.reduce(
+        (acc, curr) => {
+            acc[curr.name] = {
+                description: curr.description,
+                table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
+                control: { type: null },
+            };
+            return acc;
+        },
+        {} as Record<string, any>,
+    );
+
+    const argTypesProps = props?.reduce(
+        (acc, curr) => {
+            acc[curr.name] = {
+                description: curr.description,
+                table: { type: { summary: curr.type }, defaultValue: { summary: curr.default } },
+                control: { type: curr.control },
+            };
+            return acc;
+        },
+        {} as Record<string, any>,
+    );
+
+    const argTypes = { ...argTypesSlots, ...argTypesProps };
+
+    return {
+        parameters: {
+            docs: {
+                description: {
+                    component: description,
+                },
+            },
+        },
+        argTypes,
+    };
 };
 
 export const createDefault = ({

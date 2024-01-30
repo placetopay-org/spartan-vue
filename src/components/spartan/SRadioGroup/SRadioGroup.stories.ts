@@ -5,7 +5,7 @@ import { ref } from 'vue';
 
 export default {
     component: SRadioGroup,
-    title: 'new/RadioGroup',
+    title: 'inputs/RadioGroup',
     parameters: {
         docs: {
             description: {

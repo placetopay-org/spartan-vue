@@ -5,7 +5,7 @@ import { ref } from 'vue';
 
 export default {
     component: SSelect,
-    title: 'new/Select',
+    title: 'inputs/Select',
     parameters: {
         docs: {
             description: {

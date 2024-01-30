@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { hasSlotContent } from '@/helpers';
-import type { TCheckboxProps } from './type';
+import type { TCheckboxProps } from './types';
 
 defineOptions({ inheritAttrs: false });
 

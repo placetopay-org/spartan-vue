@@ -1,13 +1,13 @@
 import SDataTable from './SDataTable.vue';
 import { SBadge } from '../SBadge';
-import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { createDefault, createVariation } from '@/helpers';
 import { table } from '@/data';
 import { QrCodeIcon, DocumentDuplicateIcon, TrashIcon } from '@heroicons/vue/24/outline';
 import { computed, ref } from 'vue';
 
 export default {
     component: SDataTable,
-    title: 'new/DataTable',
+    title: 'tables/DataTable',
     parameters: {
         docs: {
             description: {
@@ -32,8 +32,6 @@ export default {
     },
 };
 
-const sourceBinding = buildSourceBinding({});
-
 export const Default = createDefault({
     components: { SDataTable, SBadge, QrCodeIcon, DocumentDuplicateIcon, TrashIcon },
     setup: () => {
@@ -50,9 +48,9 @@ export const Default = createDefault({
     },
     template: `<SDataTable 
     v-bind="args" 
-    class="w-[610px]"
     :cols="cols" 
     :data="rows"
+    numericPaginator="1"
     :pagination="pagination" 
     @paginationChange="pagination = {...pagination, ...$event}"
     >  
@@ -94,15 +92,26 @@ export const Sortable = createVariation({
     components: { SDataTable },
     containerClass: 'w-fit',
     setup: () => {
-        const sorting = ref({ availableColumns: ['name', 'email', 'role'], currentSort: { id: 'email', desc: false }, descFirst: false });
-        return { cols: table.colsData.slice(0, 4), rows: table.rows.slice(0, 4), sorting };
+        const sorting = ref({ id: 'email', desc: false });
+        const cols = [...table.colsData];
+        cols[0].sortable = true;
+        cols[1].sortable = true;
+        cols[2].sortable = true;
+
+        cols[1].sortDescFirst = true;
+
+        return {
+            cols: cols.slice(0, 4),
+            rows: table.rows.slice(0, 4),
+            sorting,
+        };
     },
-    template: `<!-- sorting = { availableColumns: ['name', 'email', 'role'], currentSort: { id: 'email', desc: false }, descFirst: false } -->
+    template: `<!-- sorting = { id: 'email', desc: false } -->
 <SDataTable 
     :cols="cols" 
     :data="rows" 
     :sorting="sorting" 
-    @sortingChange="sorting.currentSort = $event"
+    @sortingChange="sorting = $event"
     />`,
 });
 
@@ -130,9 +139,50 @@ export const Pagination = createVariation({
 />`,
 });
 
+export const NumericPagination = createVariation({
+    components: { SDataTable },
+    containerClass: 'w-[800px] flex flex-col gap-8',
+    setup: () => {
+        const pagination = ref({ page: 1, size: 3, count: -1 });
+
+        const rows = computed(() => {
+            pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
+            const start = (pagination.value.page - 1) * pagination.value.size;
+            const end = start + pagination.value.size;
+            return table.rows.slice(start, end);
+        });
+
+        return { cols: table.colsData.slice(0, 4), rows, pagination };
+    },
+    template: `<!-- pagination = { size: 3, count: 4 } -->
+<SDataTable 
+    :cols="cols" 
+    :data="rows" 
+    :pagination="pagination" 
+    numericPaginator
+    @paginationChange="pagination = {...pagination, ...$event}"
+/>
+
+<SDataTable 
+    :cols="cols" 
+    :data="rows" 
+    :pagination="pagination" 
+    numericPaginator="1"
+    @paginationChange="pagination = {...pagination, ...$event}"
+/>
+
+<SDataTable 
+    :cols="cols" 
+    :data="rows" 
+    :pagination="pagination" 
+    numericPaginator="2"
+    @paginationChange="pagination = {...pagination, ...$event}"
+/>`,
+});
+
 export const PageSizes = createVariation({
     components: { SDataTable },
-    containerClass: 'w-fit',
+    containerClass: 'w-[800px] flex flex-col gap-8',
     setup: () => {
         const pagination = ref({ page: 1, size: 3, sizes: [1, 2, 3, 4], count: -1 });
 
@@ -149,6 +199,14 @@ export const PageSizes = createVariation({
 <SDataTable 
     :cols="cols" 
     :data="rows" 
+    :pagination="pagination" 
+    @paginationChange="pagination = {...pagination, ...$event}"
+/>
+
+<SDataTable 
+    :cols="cols" 
+    :data="rows" 
+    numericPaginator
     :pagination="pagination" 
     @paginationChange="pagination = {...pagination, ...$event}"
 />`,

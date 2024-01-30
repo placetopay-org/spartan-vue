@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault } from '@/helpers';
 
 export default {
     component: SLink,
-    title: 'new/Link',
+    title: 'navigation/Link',
     parameters: {
         docs: {
             description: {

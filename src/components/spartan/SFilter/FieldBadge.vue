@@ -7,10 +7,10 @@ import { useContext } from './api';
 
 const props = defineProps<{
     field: TField;
+    responsive: boolean;
 }>();
 
 const context = useContext('FieldBadge');
-
 const popover = ref<InstanceType<typeof SPopover>>();
 const removing = ref(false);
 const toggle = () => {
@@ -24,7 +24,7 @@ const toggle = () => {
 </script>
 
 <template>
-    <SPopover v-if="field.state" ref="popover" :offset="12" prevent-close>
+    <SPopover v-if="field.state" ref="popover" :offset="12" prevent-close :responsive="responsive" >
         <template #reference>
             <button @click="toggle">
                 <SBadge
@@ -36,9 +36,9 @@ const toggle = () => {
                     @removed="removing = true"
                 >
                     <span class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</span>
-                    <span class="max-w-[144px] truncate">
+                    <span class="max-w-[220px] truncate">
                         {{ context.getOperatorLabel(field) }}
-                    </span>
+                    </span>  
                 </SBadge>
             </button>
         </template>

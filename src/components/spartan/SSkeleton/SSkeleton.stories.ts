@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SSkeleton,
-    title: 'new/Skeleton',
+    title: 'misc/Skeleton',
     parameters: {
         docs: {
             description: {

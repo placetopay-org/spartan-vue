@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SDefinitionTerm,
-    title: 'new/DefinitionTerm',
+    title: 'display/DefinitionTerm',
     parameters: {
         docs: {
             description: {
@@ -20,7 +20,7 @@ export default {
         },
 
         // Props
-        label: {
+        labels: {
             control: 'text',
             description: 'The label/title of the term.',
             table: { type: { summary: 'string' } },
@@ -34,7 +34,7 @@ export default {
 };
 
 const sourceBinding = buildSourceBinding({
-    prop: { label: undefined, description: undefined },
+    prop: { labels: undefined, description: undefined },
 });
 
 export const Default = createDefault({
@@ -43,17 +43,29 @@ export const Default = createDefault({
     transform: (args) => `<SDefinitionTerm ${sourceBinding(args)}/>`,
     args: {
         default: undefined,
-        label: 'First Name',
+        labels: 'First Name',
         description: 'John Doe',
     },
 });
 
 export const PropsOrSlots = createVariation({
     components: { SDefinitionTerm },
-    template: `<SDefinitionTerm label="Label by prop" description="Description by prop" />
+    template: `<SDefinitionTerm labels="Label by prop" description="Description by prop" />
 
 <SDefinitionTerm>
     Label by slot
+    <template #description>Description by slot</template>
+</SDefinitionTerm>`,
+});
+
+export const MultipleLabels = createVariation({
+    components: { SDefinitionTerm },
+    template: `<SDefinitionTerm :labels="['Label by prop #1', 'Label by prop #2']" description="Description by prop" />
+
+<SDefinitionTerm>
+    <template #1>Label by slot #1</template>
+    <template #2>Label by slot #2</template>
+    
     <template #description>Description by slot</template>
 </SDefinitionTerm>`,
 });

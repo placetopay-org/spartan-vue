@@ -5,7 +5,7 @@ import { buildDesign, buildSourceBinding } from '@/helpers';
 
 export default {
     component: SBadge,
-    title: 'new/Badge',
+    title: 'display/Badge',
     parameters: {
         docs: {
             description: {

@@ -14,7 +14,7 @@ import {
 
 export default {
     component: SModalCard,
-    title: 'new/ModalCard',
+    title: 'modals/ModalCard',
     parameters: {
         docs: {
             description: {

@@ -5,7 +5,7 @@ import { ref } from 'vue';
 
 export default {
     component: SComboboxBlock,
-    title: 'new/ComboboxBlock',
+    title: 'inputBlocks/ComboboxBlock',
     parameters: {
         docs: {
             description: { component: 'The select component is used to create a dropdown list of options.' },
