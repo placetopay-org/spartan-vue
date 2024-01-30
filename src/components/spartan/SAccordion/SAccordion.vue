@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
+import type { TAccordionProps } from './types';
 
-const props = defineProps<{
-    class?: string;
-    open: boolean;
-    vertical?: boolean;
-}>();
+const props = defineProps<TAccordionProps>();
 </script>
 
 <template>
