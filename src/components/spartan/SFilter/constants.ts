@@ -1,5 +1,5 @@
 import type { Component } from 'vue';
-import type { TInterfaceId } from '.';
+import type { TInterfaceId } from './types';
 import { InputSelector, TwoInputSelector, OptionsSelector } from './selectors';
 
 export const predefinedOperators = [
