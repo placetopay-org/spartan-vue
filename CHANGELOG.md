@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `TDefinitionTerm` now exports his types.
 - `SButtonGroupItem` now exports his types.
 - `SButton` now exports his types.
 - `SBreadcrumbsItem` now exports his types.
