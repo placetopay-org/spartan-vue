@@ -1,2 +1,3 @@
 export { default as SFilter } from './SFilter.vue';
-export * from './types';
+
+export type { SFilterProps, SFilterEmits } from './types';

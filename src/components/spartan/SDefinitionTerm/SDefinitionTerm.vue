@@ -11,8 +11,6 @@ defineProps<
 
 const slots = useSlots();
 const slotLabels = computed(() => Object.keys(slots).filter((key) => key.match(/^\d+$/)));
-
-console.log('slotLabels', slotLabels.value);
 </script>
 
 <template>
