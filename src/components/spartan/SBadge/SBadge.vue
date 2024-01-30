@@ -1,30 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { TBadgeProps, TBadgeEmits } from './types';
 
-defineEmits(['removed']);
+defineEmits<TBadgeEmits>();
 
-const props = withDefaults(
-    defineProps<
-        Partial<{
-            color: keyof typeof colorOption;
-            dot: boolean;
-            outline: boolean;
-            pill: boolean;
-            removable: boolean;
-            size: keyof typeof sizeOptions;
-            border: boolean;
-        }>
-    >(),
-    {
-        color: 'gray',
-        dot: false,
-        outline: false,
-        pill: false,
-        removable: false,
-        size: 'md',
-        border: false,
-    },
-);
+const props = withDefaults(defineProps<Partial<TBadgeProps>>(), {
+    color: 'gray',
+    dot: false,
+    outline: false,
+    pill: false,
+    removable: false,
+    size: 'md',
+    border: false,
+});
 
 const colorOption = {
     white: {
