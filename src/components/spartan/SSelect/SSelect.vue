@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { roundedClass } from '@/helpers';
-import type { TSelectProps } from './types';
+import type { TSelectEmits, TSelectProps } from './types';
 import { twMerge } from 'tailwind-merge';
 
-const emit = defineEmits<{
-    (e: 'update:modelValue', value: string | number | undefined): void;
-}>();
+const emit = defineEmits<TSelectEmits>();
 
 const props = withDefaults(defineProps<Partial<TSelectProps>>(), {
     disabled: false,
