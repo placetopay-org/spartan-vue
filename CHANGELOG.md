@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `STabItem` now exports his types.
+- `STab` now exports his types.
 - `SSwitch` now exports his types.
 - `SSteps` now exports his types.
 - `SSelect` now exports his types.
