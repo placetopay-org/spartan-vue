@@ -2,22 +2,12 @@
 import { computed, ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { hasSlotContent } from '@/helpers';
+import type { TRadioEmits, TRadioProps } from './types';
 
 defineOptions({ inheritAttrs: false });
 
-const emit = defineEmits<{
-    (event: 'update:modelValue', value: boolean): void;
-}>();
-
-const props = defineProps<{
-    disabled?: boolean;
-    id?: string;
-    inline?: boolean;
-    modelValue: boolean;
-    name?: string;
-    reverse?: boolean;
-    value: string;
-}>();
+const emit = defineEmits<TRadioEmits>();
+const props = defineProps<TRadioProps>();
 
 const internalValue = ref(props.modelValue);
 const model = computed({
