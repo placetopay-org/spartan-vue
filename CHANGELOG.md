@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SModalCard` now exports his types.
 - `SLink` now exports his types.
 - `SLabel` now exports his types.
 - `SDropdownItem` now exports his types.

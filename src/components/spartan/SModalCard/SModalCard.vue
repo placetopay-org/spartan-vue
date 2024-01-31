@@ -2,12 +2,12 @@
 import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 import { SCard } from '../SCard';
-import { SModal, SModalTitle, SModalDescription, type TModalProps } from '../SModal';
-import type { TCardProps } from '../SCard';
+import { SModal, SModalTitle, SModalDescription } from '../SModal';
+import type { TModalCardProps, TModalCardEmits } from './types';
 
-defineEmits(['close']);
+defineEmits<TModalCardEmits>();
 
-const props = withDefaults(defineProps<Partial<TModalProps> & Partial<TCardProps>>(), {
+const props = withDefaults(defineProps<TModalCardProps>(), {
     // SModal props
     open: false,
 
