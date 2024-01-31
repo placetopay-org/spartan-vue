@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SRadioGroupItem` now exports his types.
+- `SRadioGroup` now exports his types.
 - `SRadio` now exports his types.
 - `SPopover` now exports his types.
 - `SModalLeft` now exports his types.
