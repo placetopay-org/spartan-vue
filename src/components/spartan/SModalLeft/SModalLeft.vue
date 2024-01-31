@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { TransitionChild, DialogPanel } from '@headlessui/vue';
 import { ModalBackdropWrapper } from '@internal';
-import type { TModalLeftProps } from './types';
+import type { TModalLeftProps, TModalLeftEmits } from './types';
 import { XMarkIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 
 defineOptions({ inheritAttrs: false });
-defineEmits(['close', 'backdropClick']);
+defineEmits<TModalLeftEmits>();
 
 withDefaults(defineProps<Partial<TModalLeftProps>>(), {
     backdropClass: '',

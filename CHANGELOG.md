@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- `SToast` now exports his types.
+- `STabItem` now exports his types.
+- `STab` now exports his types.
+- `SSwitch` now exports his types.
+- `SSteps` now exports his types.
+- `SSelect` now exports his types.
+- `SSectionTitle` now exports his types.
+- `SSectionDescription` now exports his types.
+- `SRadioGroupItem` now exports his types.
+- `SRadioGroup` now exports his types.
+- `SRadio` now exports his types.
+- `SPopover` now exports his types.
+- `SModalLeft` now exports his types.
+- `SModalCard` now exports his types.
+- `SLink` now exports his types.
+- `SLabel` now exports his types.
+- `SDropdownItem` now exports his types.
+- `SDropdown` now exports his types.
+- `SDefinitionTerm` now exports his types.
+- `SButtonGroupItem` now exports his types.
+- `SButton` now exports his types.
+- `SBreadcrumbsItem` now exports his types.
+- `SBadge` now exports his types.
+- `SAvatar` now exports his types.
+- `SAccordion` now exports his types.
 
 ## 2.0.0-beta.57 - 2024-01-30
 ### Added

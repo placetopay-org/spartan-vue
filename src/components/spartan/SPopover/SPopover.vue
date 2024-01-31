@@ -3,10 +3,10 @@ import { useFloating, autoUpdate, flip, offset as setOffset } from '@floating-ui
 import { ref, computed, nextTick, watch } from 'vue';
 import { useMediaQuery } from '@vueuse/core';
 import { popoverContainerStyles, popoverFloatingStyles } from './styles';
-import type { TPopoverProps } from './types';
+import type { TPopoverEmits, TPopoverProps } from './types';
 import { twMerge } from 'tailwind-merge';
 
-const emit = defineEmits(['close']);
+const emit = defineEmits<TPopoverEmits>();
 
 const props = withDefaults(defineProps<TPopoverProps>(), {
     static: false,
@@ -121,7 +121,14 @@ defineExpose(handlers);
                 leave-from-class="translate-y-0 opacity-100"
                 leave-to-class="-translate-y-2 opacity-0"
             >
-                <div v-if="isOpen" :class="popoverFloatingStyles({ responsive })" ref="floating" :style="styles" tabindex="-1" @focusout="focusout">
+                <div
+                    v-if="isOpen"
+                    :class="popoverFloatingStyles({ responsive })"
+                    ref="floating"
+                    :style="styles"
+                    tabindex="-1"
+                    @focusout="focusout"
+                >
                     <slot v-bind="handlers" />
                 </div>
             </Transition>

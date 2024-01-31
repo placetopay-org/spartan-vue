@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { type FunctionalComponent } from 'vue';
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
-defineProps<Partial<{ first: boolean; href: string; active: boolean; icon: FunctionalComponent }>>();
+import type { TBreadcrumbsItemProps } from './types';
+
+defineProps<Partial<TBreadcrumbsItemProps>>();
 </script>
 
 <template>

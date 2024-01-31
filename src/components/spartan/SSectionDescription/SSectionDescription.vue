@@ -1,12 +1,9 @@
 <script setup lang="ts">
-withDefaults(
-    defineProps<{
-        as: string;
-    }>(),
-    {
-        as: 'p',
-    },
-);
+import type { TSectionDescriptionProps } from './types';
+
+withDefaults(defineProps<TSectionDescriptionProps>(), {
+    as: 'p',
+});
 </script>
 
 <template>

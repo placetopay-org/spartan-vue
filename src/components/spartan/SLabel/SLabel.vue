@@ -1,8 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{
-    for?: string;
-    srOnly?: boolean;
-}>();
+import type { TLabelProps } from './types';
+
+const props = defineProps<TLabelProps>();
 </script>
 
 <template>

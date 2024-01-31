@@ -1,28 +1,16 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
+import type { TAvatarProps } from './types';
 
-const props = withDefaults(
-    defineProps<
-        Partial<{
-            class: string;
-            borderless: boolean;
-            indicator: boolean;
-            indicatorPosition: keyof typeof indicatorPositionClass;
-            name: string;
-            size: keyof typeof sizeClass;
-            src: string;
-        }>
-    >(),
-    {
-        borderless: false,
-        indicator: false,
-        indicatorPosition: 'right-top',
-        name: '?',
-        size: 'md',
-        src: '',
-    },
-);
+const props = withDefaults(defineProps<Partial<TAvatarProps>>(), {
+    borderless: false,
+    indicator: false,
+    indicatorPosition: 'right-top',
+    name: '?',
+    size: 'md',
+    src: '',
+});
 
 const sizeClass = {
     xs: 'h-6 w-6',
@@ -67,12 +55,14 @@ const initials = computed(() => {
     return `${first[0]}${last ? last[0] : ''}`.toUpperCase();
 });
 
-const classes = computed(() => twMerge([
-    'rounded-full',
-    sizeClass[props.size],
-    !props.borderless && 'outline outline-1 outline-gray-800/20 -outline-offset-1',
-    props.class,
-]));
+const classes = computed(() =>
+    twMerge([
+        'rounded-full',
+        sizeClass[props.size],
+        !props.borderless && 'outline outline-1 outline-gray-800/20 -outline-offset-1',
+        props.class,
+    ]),
+);
 </script>
 
 <template>

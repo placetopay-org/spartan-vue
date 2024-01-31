@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { hasSlotContent } from '@/helpers';
 import { computed, useSlots } from 'vue';
+import type { TDefinitionTermProps } from './types';
 
-defineProps<
-    Partial<{
-        labels: string | string[];
-        description: string;
-    }>
->();
+defineProps<Partial<TDefinitionTermProps>>();
 
 const slots = useSlots();
 const slotLabels = computed(() => Object.keys(slots).filter((key) => key.match(/^\d+$/)));
