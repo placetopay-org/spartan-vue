@@ -1,36 +1,40 @@
 import SDefinitionTerm from './SDefinitionTerm.vue';
-import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { buildSourceBinding, createDefault, createVariation, createHistory } from '@/helpers';
 
 export default {
     component: SDefinitionTerm,
     title: 'display/DefinitionTerm',
-    parameters: {
-        docs: {
-            description: {
-                component: 'The definition term component is used to display a label and description of a term.',
+    ...createHistory({
+        description: 'The definition term component is used to display a label and description of a term.',
+        slots: [
+            {
+                name: 'default',
+                description: 'The label of the term.',
             },
-        },
-    },
-    argTypes: {
-        // Slots
-        default: {
-            control: 'text',
-            description: 'The label of the term.',
-            table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
-        },
-
-        // Props
-        labels: {
-            control: 'text',
-            description: 'The label/title of the term.',
-            table: { type: { summary: 'string' } },
-        },
-        description: {
-            control: 'text',
-            description: 'The description of the term.',
-            table: { type: { summary: 'string' } },
-        },
-    },
+            {
+                name: 'description_',
+                description: 'The description of the term.',
+            },
+            {
+                name: 'label',
+                description: 'Using numbered slots, you can have multiple labels.',
+            },
+        ],
+        props: [
+            {
+                name: 'labels',
+                description: 'The label/title of the term.',
+                type: 'string | string[]',
+                control: 'text',
+            },
+            {
+                name: 'description',
+                description: 'The description of the term.',
+                type: 'string',
+                control: 'text',
+            },
+        ],
+    }),
 };
 
 const sourceBinding = buildSourceBinding({
