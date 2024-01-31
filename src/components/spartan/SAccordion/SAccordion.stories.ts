@@ -47,39 +47,39 @@ export const Default = createDefault({
         vertical: false,
     },
     transform: (args) => `
-    <SAccordion class="w-[150px]" :open="open" ${sourceBinding(args)}>
-        <div class="relative bg-yellow-300 h-full w-[150px] border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">
-            Any Element!
-            <button class="absolute right-4 top-4" @click="open = false">
-                <span class="sr-only">Close</span>
-                <XMarkIcon class="h-7 w-7"/>
-            </button>
-        </div>     
-    </SAccordion>
-
-    <div class="relative bg-blue-300 flex-1 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center">
-        Other content
-        <button v-if="!open" class="absolute left-4 top-4" @click="open = true">
-            <span class="sr-only">Open</span>
-            <Bars4Icon class="h-7 w-7"/>
+<SAccordion class="w-[150px]" :open="open" ${sourceBinding(args)}>
+    <div class="relative bg-yellow-300 h-full w-[150px] border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">
+        Any Element!
+        <button class="absolute right-4 top-4" @click="open = false">
+            <span class="sr-only">Close</span>
+            <XMarkIcon class="h-7 w-7"/>
         </button>
-    </div>`,
+    </div>     
+</SAccordion>
+
+<div class="relative bg-blue-300 flex-1 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center">
+    Other content
+    <button v-if="!open" class="absolute left-4 top-4" @click="open = true">
+        <span class="sr-only">Open</span>
+        <Bars4Icon class="h-7 w-7"/>
+    </button>
+</div>`,
     template: `
-    <SAccordion class="w-[150px]" :open="open" v-bind="args">
-        <div class="relative bg-yellow-300 h-full w-[150px] border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">
-            Any Element!
-            <button class="absolute right-4 top-4" @click="open = false">
-                <span class="sr-only">Close</span>
-                <XMarkIcon class="h-7 w-7"/>
-            </button>
-        </div>     
-    </SAccordion>
-
-    <div class="relative bg-blue-300 flex-1 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center">
-        Other content
-        <button v-if="!open" class="absolute left-4 top-4" @click="open = true">
-            <span class="sr-only">Open</span>
-            <Bars4Icon class="h-7 w-7"/>
+<SAccordion class="w-[150px]" :open="open" v-bind="args">
+    <div class="relative bg-yellow-300 h-full w-[150px] border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">
+        Any Element!
+        <button class="absolute right-4 top-4" @click="open = false">
+            <span class="sr-only">Close</span>
+            <XMarkIcon class="h-7 w-7"/>
         </button>
-    </div>`,
+    </div>     
+</SAccordion>
+
+<div class="relative bg-blue-300 flex-1 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex justify-center items-center">
+    Other content
+    <button v-if="!open" class="absolute left-4 top-4" @click="open = true">
+        <span class="sr-only">Open</span>
+        <Bars4Icon class="h-7 w-7"/>
+    </button>
+</div>`,
 });
