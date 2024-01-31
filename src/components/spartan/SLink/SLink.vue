@@ -1,8 +1,7 @@
 <script setup lang="ts">
-defineProps<{
-    href: string;
-    target?: '_blank' | '_self' | '_parent' | '_top';
-}>();
+import type { TLinkProps } from './types';
+
+defineProps<TLinkProps>();
 </script>
 
 <template>
