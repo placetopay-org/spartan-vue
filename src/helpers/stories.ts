@@ -133,6 +133,28 @@ export const createHistory = ({
     };
 };
 
+export const createBlockWrapperHistory = (blockOf: string) =>
+    createHistory({
+        description: `A ${blockOf} wrapped in a form block with a label, help text and error text.`,
+        props: [
+            {
+                name: 'errorText',
+                description: 'The error message to be displayed when the block has an error.',
+                type: 'string',
+            },
+            {
+                name: 'helpText',
+                description: 'The help message to be displayed below the block.',
+                type: 'string',
+            },
+            {
+                name: 'label',
+                description: 'The label of the block.',
+                type: 'string',
+            },
+        ],
+    });
+
 export const createDefault = ({
     components,
     design,

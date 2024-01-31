@@ -1,34 +1,12 @@
 import SComboboxBlock from './SComboboxBlock.vue';
 import { SComboboxOption, SComboboxOptionGroup } from '../SCombobox';
-import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { buildSourceBinding, createDefault, createBlockWrapperHistory } from '@/helpers';
 import { ref } from 'vue';
 
 export default {
     component: SComboboxBlock,
     title: 'inputBlocks/ComboboxBlock',
-    parameters: {
-        docs: {
-            description: { component: 'The select component is used to create a dropdown list of options.' },
-        },
-    },
-    argTypes: {
-        // Props
-        errorText: {
-            control: 'text',
-            description: 'The error message to be displayed when the select has an error.',
-            table: { type: { summary: 'string' }, category: 'Props' },
-        },
-        helpText: {
-            control: 'text',
-            description: 'The help message to be displayed below the select.',
-            table: { type: { summary: 'string' }, category: 'Props' },
-        },
-        label: {
-            control: 'text',
-            description: 'The label of the select.',
-            table: { type: { summary: 'string' }, category: 'Props' },
-        },
-    },
+    ...createBlockWrapperHistory('SCombobox'),
 };
 
 const sourceBinding = buildSourceBinding({
