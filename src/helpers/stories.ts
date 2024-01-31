@@ -53,11 +53,13 @@ export const createHistory = ({
 }: {
     description: string;
     slots?: {
+        subcategory?: string;
         name: string;
         description: string;
         control?: boolean;
     }[];
     props?: {
+        subcategory?: string;
         name: string;
         description: string;
         type: string;
@@ -69,7 +71,7 @@ export const createHistory = ({
         name: string;
         description: string;
         type?: string;
-    }[]
+    }[];
 }) => {
     const argTypesEvents = events?.reduce(
         (acc, curr) => {
@@ -87,7 +89,11 @@ export const createHistory = ({
         (acc, curr) => {
             acc[curr.name] = {
                 description: curr.description,
-                table: { type: { summary: 'VNode | VNode Array' }, category: 'Slots' },
+                table: {
+                    type: { summary: 'VNode | VNode Array' },
+                    category: 'Slots',
+                    subcategory: curr.subcategory ?? undefined,
+                },
                 control: { type: curr.control ? 'text' : null },
             };
             return acc;
@@ -99,7 +105,12 @@ export const createHistory = ({
         (acc, curr) => {
             acc[curr.name] = {
                 description: curr.description,
-                table: { type: { summary: curr.type }, defaultValue: { summary: curr.default } },
+                table: {
+                    type: { summary: curr.type },
+                    defaultValue: { summary: curr.default },
+                    category: 'Props',
+                    subcategory: curr.subcategory ?? undefined,
+                },
                 control: { type: curr.control },
                 options: curr.options,
             };
