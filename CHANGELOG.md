@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- `TModalLeft` now exports his types.
+- `SPopover` now exports his types.
+- `SModalLeft` now exports his types.
 - `SModalCard` now exports his types.
 - `SLink` now exports his types.
 - `SLabel` now exports his types.
