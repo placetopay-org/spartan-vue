@@ -1,39 +1,58 @@
 import SBreadcrumbs from './SBreadcrumbs.vue';
 import SBreadcrumbsItem from './SBreadcrumbsItem.vue';
-import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { buildSourceBinding, createDefault, createVariation, createHistory } from '@/helpers';
 import { HomeIcon, Cog8ToothIcon, BanknotesIcon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SBreadcrumbs,
     title: 'navigation/Breadcrumbs',
-    parameters: {
-        docs: {
-            description: {
-                component: 'The link component is used to navigate between pages.',
+    ...createHistory({
+        description: 'The breadcrumbs component is used to indicate the current page location within a navigational hierarchy.',
+        slots: [
+            {
+                name: 'default',
+                description: 'Where BreadcrumbsItem components are placed.',
             },
-        },
-    },
-    argTypes: {
-        // Slots
-        default: {
-            control: 'text',
-            table: { type: { summary: null }, category: 'Slots' },
-            description: 'The content of the link.',
-        },
-
-        // Props
-        href: {
-            control: 'text',
-            description: 'The type of the input element.',
-            table: { type: { summary: 'string' } },
-        },
-        target: {
-            control: 'select',
-            options: ['_blank', '_parent', '_self', '_top'],
-            description: 'The target attribute specifies where to open the linked document.',
-            table: { type: { summary: '_blank | _parent | _self | _top' } },
-        },
-    },
+            {
+                subcategory: 'SBreadcrumbsItem',
+                name: 'default_',
+                description: 'The content to display.',
+            }
+        ],
+        props: [
+            {
+                subcategory: 'SBreadcrumbsItem',
+                name: 'first',
+                control: null,
+                default: 'false',
+                description: 'If `true`, the chevron separator will not be displayed.',
+                type: 'boolean',
+            },
+            {
+                subcategory: 'SBreadcrumbsItem',
+                name: 'href',
+                control: null,
+                default: '',
+                description: 'The URL to link to when the breadcrumb item is clicked.',
+                type: 'string',
+            },
+            {
+                subcategory: 'SBreadcrumbsItem',
+                name: 'active',
+                control: null,
+                default: 'false',
+                description: 'If `true`, the item will be displayed as the active item.',
+                type: 'boolean',
+            },
+            {
+                subcategory: 'SBreadcrumbsItem',
+                name: 'icon',
+                control: null,
+                description: 'The icon to display.',
+                type: 'FunctionalComponent',
+            },
+        ]
+    }),
 };
 
 const sourceBinding = buildSourceBinding({});
@@ -41,22 +60,20 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     components: { SBreadcrumbs, SBreadcrumbsItem },
     setup: () => ({ HomeIcon }),
-    template: `<SBreadcrumbs v-bind="args">
+    template: `
+<SBreadcrumbs v-bind="args">
     <SBreadcrumbsItem :icon="HomeIcon" href="#" first>Projects</SBreadcrumbsItem>
     <SBreadcrumbsItem href="#">Core</SBreadcrumbsItem>
     <SBreadcrumbsItem active>Checkout</SBreadcrumbsItem>  
 </SBreadcrumbs>`,
     transform: (args) => `<SBreadcrumbs ${sourceBinding(args)}>${args.default}</SBreadcrumbs>`,
-    args: {
-        default: 'Link',
-        href: '',
-        target: undefined,
-    },
+    args: {},
 });
 
 export const Base = createVariation({
     components: { SBreadcrumbs, SBreadcrumbsItem },
-    template: `<SBreadcrumbs v-bind="args">
+    template: `
+<SBreadcrumbs v-bind="args">
     <SBreadcrumbsItem href="#" first>Projects</SBreadcrumbsItem>
     <SBreadcrumbsItem href="#">Core</SBreadcrumbsItem>
     <SBreadcrumbsItem href="#" active>Checkout</SBreadcrumbsItem>  
@@ -67,7 +84,8 @@ export const WithIcons = createVariation({
     components: { SBreadcrumbs, SBreadcrumbsItem },
     setup: () => ({ HomeIcon, Cog8ToothIcon, BanknotesIcon }),
     containerClass: 'flex flex-col gap-8',
-    template: `<SBreadcrumbs v-bind="args">
+    template: `
+<SBreadcrumbs v-bind="args">
     <SBreadcrumbsItem href="#" first :icon="HomeIcon">Projects</SBreadcrumbsItem>
     <SBreadcrumbsItem href="#" :icon="Cog8ToothIcon">Core</SBreadcrumbsItem>
     <SBreadcrumbsItem href="#" :icon="BanknotesIcon" active>Checkout</SBreadcrumbsItem>  

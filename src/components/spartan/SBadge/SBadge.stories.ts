@@ -1,69 +1,77 @@
 import SBadge from './SBadge.vue';
-import type { SourceProps } from '@storybook/blocks';
-import { action } from '@storybook/addon-actions';
-import { buildDesign, buildSourceBinding } from '@/helpers';
+import { createDefault, createVariation as buildVariation, buildDesign, buildSourceBinding, createHistory } from '@/helpers';
 
 export default {
     component: SBadge,
     title: 'display/Badge',
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    'A customizable and interactive badge component is easily integrated. Allows you to embed content and offers extensive appearance features.',
+    ...createHistory({
+        description:
+            'A customizable and interactive badge component is easily integrated. Allows you to embed content and offers extensive appearance features.',
+        slots: [
+            {
+                name: 'default',
+                description: 'Default slot for badge content.',
+                control: true,
             },
-        },
-    },
-    argTypes: {
-        // Events
-        removed: {
-            control: { type: 'text' },
-            table: { type: { summary: null }, category: 'Events' },
-            description: "This event is emitted when the badge's remove button is clicked.",
-        },
-
-        // Slots
-        default: {
-            control: 'text',
-            description: 'Default slot for badge content.',
-            table: { type: { summary: 'VNode | VNode Array' } },
-        },
-
-        // Props
-        color: {
-            control: { type: 'select' },
-            options: ['blue', 'gray', 'green', 'indigo', 'primary', 'red', 'yellow', 'white'],
-            description: "Determines the badge's color theme.",
-            table: { type: { summary: 'VNode | VNode Array' } },
-        },
-        dot: {
-            description: 'If `true`, a dot will be displayed inside the badge.',
-            table: { type: { summary: 'boolean' } },
-        },
-        outline: {
-            description:
-                "If `true`, the badge will be outlined with its color theme. Otherwise, it'll have a solid background of its color theme.",
-            table: { type: { summary: 'boolean' } },
-        },
-        pill: {
-            description:
-                'If set to `true`, the badge will have fully rounded corners. Otherwise, it will have slightly rounded corners.',
-            table: { type: { summary: 'boolean' } },
-        },
-        removable: {
-            description: 'If `true`, a remove button will be displayed inside the badge.',
-            table: { type: { summary: 'boolean' } },
-        },
-        size: {
-            control: { type: 'inline-radio' },
-            options: ['sm', 'md', 'lg'],
-            description: 'Dictates the size of the badge.',
-            table: { type: { summary: 'VNode | VNode Array' } },
-        },
-    },
+        ],
+        events: [
+            {
+                name: 'removed',
+                description: "This event is emitted when the badge's remove button is clicked.",
+            },
+        ],
+        props: [
+            {
+                name: 'color',
+                control: 'select',
+                type: 'string',
+                default: 'gray',
+                description: "Determines the badge's color theme.",
+                options: ['blue', 'gray', 'green', 'indigo', 'primary', 'red', 'yellow', 'white'],
+            },
+            {
+                name: 'dot',
+                type: 'boolean',
+                default: 'false',
+                description: 'If `true`, a dot will be displayed inside the badge.',
+            },
+            {
+                name: 'outline',
+                type: 'boolean',
+                default: 'false',
+                description:
+                    "If `true`, the badge will be outlined with its color theme. Otherwise, it'll have a solid background of its color theme.",
+            },
+            {
+                name: 'pill',
+                type: 'boolean',
+                default: 'false',
+                description:
+                    'If set to `true`, the badge will have fully rounded corners. Otherwise, it will have slightly rounded corners.',
+            },
+            {
+                name: 'removable',
+                type: 'boolean',
+                default: 'false',
+                description: 'If `true`, a remove button will be displayed inside the badge.',
+            },
+            {
+                name: 'size',
+                control: 'inline-radio',
+                type: 'sm | md | lg',
+                default: 'md',
+                description: 'Dictates the size of the badge.',
+                options: ['sm', 'md', 'lg'],
+            },
+            {
+                name: 'border',
+                type: 'boolean',
+                default: 'false',
+                description: 'If `true`, the badge will have a border.',
+            },
+        ],
+    }),
 };
-
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2083');
 
 const sourceBinding = buildSourceBinding({
     check: ['dot', 'outline', 'pill', 'removable'],
@@ -71,34 +79,9 @@ const sourceBinding = buildSourceBinding({
     emit: ['removed'],
 });
 
-export const Default = {
-    render: (args: any) => ({
-        components: { SBadge },
-        setup() {
-            const removed = (e: any) => {
-                action('removed')(e);
-                args.hidden = false;
-                setTimeout(() => {
-                    args.hidden = true;
-                }, 350);
-            };
-            return { args, removed };
-        },
-        template: '<SBadge v-bind="args" @removed="removed"> {{ args.default }} </SBadge>',
-    }),
-    parameters: {
-        design,
-        docs: {
-            canvas: { layout: 'centered' },
-            source: {
-                transform: ((_, storyContext) => `
-        <SBadge ${sourceBinding(storyContext.args)}> ${storyContext.args.default} </SBadge>
-        `) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
-    },
+export const Default = createDefault({
+    design: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2083',
+    components: { SBadge },
     args: {
         default: 'Badge',
         color: 'gray',
@@ -107,30 +90,16 @@ export const Default = {
         pill: false,
         removable: false,
         size: 'md',
+        border: false,
     },
-};
+    transform: (args) => `<SBadge ${sourceBinding(args)}> ${args.default} </SBadge>`,
+    template: '<SBadge v-bind="args"> {{ args.default }} </SBadge>',
+})
 
-const createVariation = (template: string) => ({
-    decorators: [
-        () => ({
-            template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>',
-        }),
-    ],
-    render: () => ({
-        components: { SBadge },
-        template,
-    }),
-    parameters: {
-        design,
-        controls: { disable: true },
-        actions: { disable: true },
-        docs: {
-            source: {
-                code: template,
-                language: 'html',
-            },
-        },
-    },
+const createVariation = (template: string) => buildVariation({
+    components: { SBadge },
+    containerClass: 'flex gap-5',
+    template
 });
 
 export const Size = createVariation(
