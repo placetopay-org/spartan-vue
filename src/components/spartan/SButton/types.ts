@@ -11,4 +11,5 @@ export type TButtonProps = {
     size: TButtonStyles['size'];
     type: 'button' | 'submit';
     variant: TButtonStyles['variant'];
+    class?: string;
 };

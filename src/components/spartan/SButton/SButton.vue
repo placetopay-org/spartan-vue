@@ -40,6 +40,7 @@ const props = withDefaults(defineProps<Partial<TButtonProps>>(), {
                     loading,
                     endIcon,
                 }),
+                $props.class
             )
         "
         :disabled="disabled"
