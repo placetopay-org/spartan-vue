@@ -6,11 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 2.0.0-beta.60 - 2024-02-06
 ### Added
 - Spartan now provides a tailwindcss plugin to use the internal configuration and styles.
 
 ### Removed
-- Spartan `preset` for tailwindcss is no longer available. 
+- Spartan `preset` for tailwindcss is no longer available.
 
 ## 2.0.0-beta.59 - 2024-02-03
 ### Changed
