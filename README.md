@@ -17,7 +17,7 @@ You can find the documentation and components of this design system by clicking 
 2. Install in the consumer project
 
    ```shell
-   npm install -D @placetopay/spartan-vue
+   npm install -D @placetopay/spartan-vue @tailwindcss/forms
    ```
 
 3. Configure your `tailwind.config.js` file adding the following lines:
@@ -29,7 +29,7 @@ You can find the documentation and components of this design system by clicking 
       ],
       plugins: [
          //...
-         require('@placetopay/spartan-vue/plugin.js'),
+         require('@placetopay/spartan-vue/plugin'),
       ],
    ```
 

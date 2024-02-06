@@ -18,7 +18,7 @@
       "types": "./dist/types/index.d.ts"
     },
     "./locales": "./src/locales/index.ts",
-    "./plugin.js": "./src/expose/plugin.js",
+    "./plugin": "./src/expose/plugin.js",
     "./style.css": "./dist/style.css"
   },
   "repository": {
