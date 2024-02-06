@@ -59,11 +59,11 @@ const updateModelValue = (event: Event) => {
                 hasSlotContent($slots.description) ? '-mt-1' : '-mt-0.5',
             ]"
         >
-            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" class="label">
+            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" class="text-sm font-semibold text-gray-900">
                 <slot />
             </label>
             <p v-if="hasSlotContent($slots.description)" :class="['text-sm font-normal text-gray-500', inline && '']">
-                <label v-if="hasSlotContent($slots.default) && inline" :for="computedId" class="label">
+                <label v-if="hasSlotContent($slots.default) && inline" :for="computedId" class="text-sm font-semibold text-gray-900">
                     <slot />
                 </label>
                 <slot name="description" />
@@ -71,9 +71,3 @@ const updateModelValue = (event: Event) => {
         </div>
     </div>
 </template>
-
-<style>
-.label {
-    @apply text-sm font-semibold text-gray-900;
-}
-</style>

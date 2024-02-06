@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- Spartan now provides a tailwindcss plugin to use the internal configuration and styles.
+
 ### Changed
 - Updated docs for `SDefinitionTerm`.
 - Updated docs for `SComboboxBlock`.
@@ -14,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated docs for `SBreadcrumbs`.
 - Updated docs for `SBadge`.
 - Updated docs for `SAccordion`.
+
+### Removed
+- Spartan `preset` for tailwindcss is no longer available. 
 
 ## 2.0.0-beta.58 - 2024-01-31
 ### Added
