@@ -29,7 +29,7 @@ You can find the documentation and components of this design system by clicking 
       ],
       plugins: [
          //...
-         require('@placetopay/spartan-vue/plugin'),
+         require('@placetopay/spartan-vue/plugin.js'),
       ],
    ```
 
