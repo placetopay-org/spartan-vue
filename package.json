@@ -9,7 +9,7 @@
   "files": [
     "dist/*",
     "src/locales/*",
-    "src/expose/tailwindcss.js"
+    "src/expose/plugin.js"
   ],
   "exports": {
     ".": {
