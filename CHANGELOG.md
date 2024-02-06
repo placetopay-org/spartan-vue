@@ -9,15 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Spartan now provides a tailwindcss plugin to use the internal configuration and styles.
 
-### Changed
-- Updated docs for `SDefinitionTerm`.
-- Updated docs for `SComboboxBlock`.
-- Updated docs for `SAvatar`.
-- Updated docs for `SButton`.
-- Updated docs for `SBreadcrumbs`.
-- Updated docs for `SBadge`.
-- Updated docs for `SAccordion`.
-
 ### Removed
 - Spartan `preset` for tailwindcss is no longer available. 
 
