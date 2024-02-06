@@ -2,16 +2,10 @@
 import { computed, type FunctionalComponent } from 'vue';
 import { Switch, SwitchGroup, SwitchLabel, SwitchDescription } from '@headlessui/vue';
 import { hasSlotContent } from '@/helpers';
+import type { TSwitchEmits, TSwitchProps } from './types';
 
-const emit = defineEmits(['update:modelValue']);
-const props = defineProps<{
-    icon?: boolean | FunctionalComponent;
-    iconOff?: FunctionalComponent;
-    iconOn?: FunctionalComponent;
-    modelValue: boolean;
-    passive?: boolean;
-    reverse?: boolean;
-}>();
+const emit = defineEmits<TSwitchEmits>();
+const props = defineProps<TSwitchProps>();
 
 const model = computed({
     get() {

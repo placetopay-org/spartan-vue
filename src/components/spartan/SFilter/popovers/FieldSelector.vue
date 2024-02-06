@@ -44,7 +44,7 @@ const searchedFields = computed(
 <style scoped>
 /* width */
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
 
 /* Track */
@@ -54,7 +54,12 @@ const searchedFields = computed(
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ff6c0c;
+    background: #c1c1c1;
     border-radius: 16px;
 }
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
 </style>
+

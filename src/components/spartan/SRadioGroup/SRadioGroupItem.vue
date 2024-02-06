@@ -2,10 +2,9 @@
 import { hasSlotContent } from '@/helpers';
 import { RadioGroupOption, RadioGroupLabel, RadioGroupDescription } from '@headlessui/vue';
 import { CheckCircleIcon } from '@heroicons/vue/20/solid';
+import type { TRadioGroupItemProps } from './types';
 
-defineProps<{
-    value: string;
-}>();
+defineProps<TRadioGroupItemProps>();
 </script>
 
 <template>

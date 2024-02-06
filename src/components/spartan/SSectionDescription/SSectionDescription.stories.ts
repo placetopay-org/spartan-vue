@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault } from '@/helpers';
 
 export default {
     component: SSectionDescription,
-    title: 'new/SectionDescription',
+    title: 'display/SectionDescription',
     parameters: {
         docs: {
             description: {

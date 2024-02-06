@@ -6,19 +6,25 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { comboboxStyles, comboboxInputStyles, comboboxButtonStyles } from './styles';
 import type { TComboboxProps, TComboboxEmits, TOption } from './types';
+import { useDebounceFn } from '@vueuse/core';
 
 const emit = defineEmits<TComboboxEmits>();
 
 const props = withDefaults(defineProps<Partial<TComboboxProps>>(), {
     disabled: false,
     error: false,
-    search: false,
+    search: undefined,
     modelValue: undefined,
     rounded: 'both',
     displayButtonText: undefined,
+    flipOptions: false,
 });
 
 const store = createContext({ props, emit });
+
+const updateQuery = useDebounceFn((query) => {
+    store.value.updateQuery(query);
+}, props.queryDebounce ?? 500);
 </script>
 
 <template>
@@ -39,7 +45,7 @@ const store = createContext({ props, emit });
                     (optionId: unknown) => displayButtonText!(store.options[optionId as TOption['id']]?.value)
                 "
                 :class="twMerge(comboboxInputStyles({ rounded }))"
-                @change="(event) => store.updateQuery(event.target.value)"
+                @change="updateQuery($event.target.value)"
             />
             <ComboboxButton
                 :id="id"
@@ -64,12 +70,17 @@ const store = createContext({ props, emit });
                 leave-active-class="transition duration-100 ease-in"
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
-                @after-leave="store.updateQuery('')"
+                @after-leave="updateQuery('')"
             >
                 <ComboboxOptions
                     v-show="open"
                     static
-                    class="absolute z-10 mt-1 max-h-60 min-w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                    :class="
+                        twMerge(
+                            'absolute z-10 mt-2 max-h-60 min-w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+                            $props.flipOptions && 'right-0',
+                        )
+                    "
                 >
                     <div
                         v-if="store.emptyResults() && store.query !== ''"

@@ -9,36 +9,21 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { buttonStyles, type TButtonStyles } from './styles';
+import { buttonStyles } from './styles';
 import { twMerge } from 'tailwind-merge';
-import { type FunctionalComponent } from 'vue';
+import type { TButtonProps } from './types';
 
-const props = withDefaults(
-    defineProps<
-        Partial<{
-            as: string;
-            disabled: boolean;
-            endIcon: boolean;
-            icon: FunctionalComponent;
-            loading: boolean;
-            rounded: TButtonStyles['rounded'];
-            size: TButtonStyles['size'];
-            type: 'button' | 'submit';
-            variant: TButtonStyles['variant'];
-        }>
-    >(),
-    {
-        as: 'button',
-        disabled: false,
-        endIcon: false,
-        icon: undefined,
-        loading: false,
-        rounded: 'both',
-        size: 'md',
-        type: 'button',
-        variant: 'primary',
-    },
-);
+const props = withDefaults(defineProps<Partial<TButtonProps>>(), {
+    as: 'button',
+    disabled: false,
+    endIcon: false,
+    icon: undefined,
+    loading: false,
+    rounded: 'both',
+    size: 'md',
+    type: 'button',
+    variant: 'primary',
+});
 </script>
 
 <template>
@@ -55,6 +40,7 @@ const props = withDefaults(
                     loading,
                     endIcon,
                 }),
+                $props.class
             )
         "
         :disabled="disabled"

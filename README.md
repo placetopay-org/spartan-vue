@@ -1,18 +1,18 @@
-# Spartan VueJs
+# Spartan Vue
 
-SpartanVue is a vue component library that contains the components used in the PlacetoPay web applications based in [TailwindCSS](https://tailwindcss.com/).
+Spartan Vue is a vue component library that contains the components used in the PlacetoPay web applications based in [TailwindCSS](https://tailwindcss.com/).
 
 ## Desing system
 
-You can find the documentation and components of this design system by clicking [here.](https://646e732a14dfaa707ad59b33-gmuixqrsag.chromatic.com/?path=/docs/introduction-overview--docs)
+You can find the documentation and components of this design system by clicking [here.](https://develop--646e732a14dfaa707ad59b33.chromatic.com/)
 
 ## Installing
 
 1. Requirements
 
-   - [NodeJs](https://nodejs.org/es/) ^16 or [NVM](https://github.com/nvm-sh/nvm) (for use multiple versions of nodejs)
+   - [NodeJs](https://nodejs.org/es/) ^16 
    - [NPM](https://www.npmjs.com/) ^7
-   - Github personal access token with "read:packages" permissions
+   - [TailwindCSS](https://tailwindcss.com/) ^3
 
 2. Install in the consumer project
 
@@ -20,52 +20,36 @@ You can find the documentation and components of this design system by clicking 
    npm install -D @placetopay/spartan-vue @tailwindcss/forms
    ```
 
-3. Configure your `tailwind.config.js` add the `presets` key and content element for the package
+3. Configure your `tailwind.config.js` file adding the following lines:
 
    ```javascript
-   module.exports = {
       content: [
          //...
          "node_modules/@placetopay/spartan-vue/dist/*.js",
-      ]
-      presets: [require("@placetopay/spartan-vue/tailwindcss.js")],
-   };
+      ],
+      plugins: [
+         //...
+         require('@placetopay/spartan-vue/plugin'),
+      ],
    ```
+
+> **Note:** If you want set a custom primary color, you can add `primary` option in the spartan-vue plugin configuration:
+
+   ```javascript
+      require('@placetopay/spartan-vue/plugin')({
+         primary: {
+            50: '228 242 253',
+            100: '187 222 251',
+            200: '144 202 249',
+            300: '100 181 246',
+            400: '66 165 245',
+            500: '33 150 243',
+            600: '30 132 229',
+            700: '25 103 196',
+            800: '21 78 148',
+            900: '13 42 84',
+         }
+      }),
+   ```
+
    
-## Developing
-
-1. Requirements
-
-   - [NodeJs](https://nodejs.org/es/) 16
-   - [NPM](https://www.npmjs.com/) 7
-   - Set ssh key in your github account
-
-2. Clone the repository
-
-   ```shell
-   git clone git@github.com:placetopay-org/spartan-vue.git
-   ```
-
-3. Install dependencies
-
-   ```shell
-   npm install
-   ```
-
-    ```shell
-    cp .env.example .env
-    ```
-
-5. Run the project
-
-   ```shell
-   npm run dev:storybook
-   ```
-
-6. Open the project in your browser
-
-   ```shell
-   http://localhost:6006
-   ```
-
-7. Happy coding!

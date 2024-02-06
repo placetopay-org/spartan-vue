@@ -1,35 +1,51 @@
 {
     "$spartan": {
+        "dataTable": {
+            "of": "de",
+            "page": "Página",
+            "pages": "páginas",
+            "showing": "Mostrando",
+            "pageSizePrefix": "Mostrar",
+            "results": "resultados",
+            "searchPlaceholder": "Buscar en todas las columnas"
+        },
         "filter": {
             "addBtn": "Agregar",
             "addFilterBtn": "Agregar filtro",
             "applyBtn": "Aplicar",
             "cancelBtn": "Cancelar",
-            "clearBtn": "Limpar filtros",
+            "clearBtn": "Limpiar filtros",
             "customSaveBtn": "Guardar filtro",
             "fieldSelectorNotResults": "No se encontraron resultados",
             "fieldSelectorPlaceholder": "Selecciona un campo",
             "inputSelectorPlaceholder": "Escribe un valor",
+            "no": "No",
             "notFoundFieldText": "No se encontraron filtros gruadados",
+            "operator": {
+                "between": "Entre",
+                "contains": "Contiene",
+                "endsWith": "Termina con",
+                "equal": "Es igual a",
+                "exist": "Existe",
+                "greaterThan": "Es mayor que",
+                "greaterThanOrEqual": "Es mayor o igual que",
+                "lastMonth": "Último mes",
+                "lastWeek": "Última semana",
+                "lastYear": "Último año",
+                "lessThan": "Es menor que",
+                "lessThanOrEqual": "Es menor o igual que",
+                "notEqual": "No es igual a",
+                "notExist": "No existe",
+                "notBetween": "No entre",
+                "notContains": "No contiene",
+                "startsWith": "Comienza con",
+                "today": "Hoy",
+                "yesterday": "Ayer"
+            },
             "optionsSelectorPlaceholder": "Selecciona una o varias opciones",
             "saveBtn": "Guardar",
             "savedFiltersText": "Mis filtros guardados",
-            "oper": {
-                "ex": "Existe",
-                "nex": "No existe",
-                "eq": "Es igual a",
-                "neq": "No es igual a",
-                "gt": "Es mayor que",
-                "gte": "Es mayor o igual que",
-                "lt": "Es menor que",
-                "lte": "Es menor o igual que",
-                "between": "Entre",
-                "notBetween": "No entre",
-                "contains": "Contiene",
-                "notContains": "No contiene",
-                "startsWith": "Comienza con",
-                "endsWith": "Termina con"
-            }
+            "yes": "Si"
         }
     }
 }

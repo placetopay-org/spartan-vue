@@ -7,7 +7,7 @@ import { createDefault, createVariation } from '@/helpers';
 
 export default {
     component: SModal,
-    title: 'new/Modal',
+    title: 'modals/Modal',
     parameters: {
         docs: {
             description: {

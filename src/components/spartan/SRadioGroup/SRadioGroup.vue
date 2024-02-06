@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { RadioGroup } from '@headlessui/vue';
+import type { TRadioGroupEmits, TRadioGroupProps } from './types';
 
-const emit = defineEmits(['update:modelValue']);
-const props = defineProps<{
-    modelValue: string;
-}>();
+const emit = defineEmits<TRadioGroupEmits>();
+const props = defineProps<TRadioGroupProps>();
 
 const model = computed({
     get() {

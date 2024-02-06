@@ -3,7 +3,7 @@ import { buildSourceBinding, createDefault } from '@/helpers';
 
 export default {
     component: SCaption,
-    title: 'new/Caption',
+    title: 'display/Caption',
     parameters: {
         docs: {
             description: {

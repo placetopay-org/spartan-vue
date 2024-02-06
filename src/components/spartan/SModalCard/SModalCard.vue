@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
-import { SCard } from '../SCard';
+import { SCard, type TCardProps } from '../SCard';
 import { SModal, SModalTitle, SModalDescription, type TModalProps } from '../SModal';
-import type { TCardProps } from '../SCard';
+import type { TModalCardEmits } from './types';
 
-defineEmits(['close']);
+defineEmits<TModalCardEmits>();
 
 const props = withDefaults(defineProps<Partial<TModalProps> & Partial<TCardProps>>(), {
     // SModal props

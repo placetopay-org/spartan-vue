@@ -1,36 +1,36 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { TBadgeProps, TBadgeEmits } from './types';
 
-defineEmits(['removed']);
+defineEmits<TBadgeEmits>();
 
-const props = withDefaults(
-    defineProps<
-        Partial<{
-            color: keyof typeof colorOption;
-            dot: boolean;
-            outline: boolean;
-            pill: boolean;
-            removable: boolean;
-            size: keyof typeof sizeOptions;
-        }>
-    >(),
-    {
-        color: 'gray',
-        dot: false,
-        outline: false,
-        pill: false,
-        removable: false,
-        size: 'md',
-    },
-);
+const props = withDefaults(defineProps<Partial<TBadgeProps>>(), {
+    color: 'gray',
+    dot: false,
+    outline: false,
+    pill: false,
+    removable: false,
+    size: 'md',
+    border: false,
+});
 
 const colorOption = {
+    white: {
+        textClass: 'text-gray-800',
+        dotClass: 'fill-gray-400',
+        styleClass: {
+            solid: 'bg-white',
+            outline: 'outline-black',
+            border: 'border-gray-300',
+        },
+    },
     primary: {
         textClass: 'text-primary-800',
         dotClass: 'fill-primary-400',
         styleClass: {
             solid: 'bg-primary-100',
             outline: 'outline-primary-800',
+            border: 'border-primary-300',
         },
     },
     gray: {
@@ -39,6 +39,7 @@ const colorOption = {
         styleClass: {
             solid: 'bg-gray-100',
             outline: 'outline-gray-800',
+            border: 'border-gray-300',
         },
     },
     red: {
@@ -47,6 +48,7 @@ const colorOption = {
         styleClass: {
             solid: 'bg-red-100',
             outline: 'outline-red-800',
+            border: 'border-red-300',
         },
     },
     blue: {
@@ -55,6 +57,7 @@ const colorOption = {
         styleClass: {
             solid: 'bg-blue-100',
             outline: 'outline-blue-800',
+            border: 'border-blue-300',
         },
     },
     green: {
@@ -63,6 +66,7 @@ const colorOption = {
         styleClass: {
             solid: 'bg-green-100',
             outline: 'outline-green-800',
+            border: 'border-green-300',
         },
     },
     yellow: {
@@ -71,6 +75,7 @@ const colorOption = {
         styleClass: {
             solid: 'bg-yellow-100',
             outline: 'outline-yellow-800',
+            border: 'border-yellow-300',
         },
     },
     indigo: {
@@ -79,6 +84,7 @@ const colorOption = {
         styleClass: {
             solid: 'bg-indigo-100',
             outline: 'outline-indigo-800',
+            border: 'border-indigo-300',
         },
     },
 };
@@ -92,8 +98,9 @@ const sizeOptions = {
 const classes = computed(() => [
     'inline-flex items-center font-medium',
     props.pill ? 'rounded-xl' : 'rounded',
+    props.border && `border ${colorOption[props.color].styleClass.border}`,
     props.outline
-        ? 'outline outline-1 -outline-offset-1' + colorOption[props.color].styleClass.outline
+        ? 'outline outline-1 -outline-offset-1 ' + colorOption[props.color].styleClass.outline
         : colorOption[props.color].styleClass.solid,
     sizeOptions[props.size],
     colorOption[props.color].textClass,

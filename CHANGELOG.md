@@ -7,6 +7,183 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.63 - 2024-02-06
+
+## 2.0.0-beta.62 - 2024-02-06
+
+## 2.0.0-beta.61 - 2024-02-06
+
+## 2.0.0-beta.60 - 2024-02-06
+### Added
+- Spartan now provides a tailwindcss plugin to use the internal configuration and styles.
+
+### Removed
+- Spartan `preset` for tailwindcss is no longer available.
+
+## 2.0.0-beta.59 - 2024-02-03
+### Changed
+- Updated docs for `SDefinitionTerm`.
+- Updated docs for `SComboboxBlock`.
+- Updated docs for `SAvatar`.
+- Updated docs for `SButton`.
+- Updated docs for `SBreadcrumbs`.
+- Updated docs for `SBadge`.
+- Updated docs for `SAccordion`.
+
+## 2.0.0-beta.58 - 2024-01-31
+### Added
+- `SToast` now exports his types.
+- `STabItem` now exports his types.
+- `STab` now exports his types.
+- `SSwitch` now exports his types.
+- `SSteps` now exports his types.
+- `SSelect` now exports his types.
+- `SSectionTitle` now exports his types.
+- `SSectionDescription` now exports his types.
+- `SRadioGroupItem` now exports his types.
+- `SRadioGroup` now exports his types.
+- `SRadio` now exports his types.
+- `SPopover` now exports his types.
+- `SModalLeft` now exports his types.
+- `SModalCard` now exports his types.
+- `SLink` now exports his types.
+- `SLabel` now exports his types.
+- `SDropdownItem` now exports his types.
+- `SDropdown` now exports his types.
+- `SDefinitionTerm` now exports his types.
+- `SButtonGroupItem` now exports his types.
+- `SButton` now exports his types.
+- `SBreadcrumbsItem` now exports his types.
+- `SBadge` now exports his types.
+- `SAvatar` now exports his types.
+- `SAccordion` now exports his types.
+
+## 2.0.0-beta.57 - 2024-01-30
+### Added
+- `SInputMaskBlock` component implementation.
+- `SInputMask` component implementation.
+
+## 2.0.0-beta.56 - 2024-01-24
+### Added
+- Responsive design for `Spopover` component.
+
+## 2.0.0-beta.55 - 2024-01-23
+### Added
+- Operator labels on `SFilter` component.
+
+## 2.0.0-beta.54 - 2024-01-19
+
+## 2.0.0-beta.53 - 2024-01-19
+### Added
+- `SSkeleton` component implementation.
+
+## 2.0.0-beta.52 - 2024-01-15
+### Fixed
+- `SInputIncrementBlock` component exportation.
+- buttons on `SInputIncrement` avoid submit form.
+
+## 2.0.0-beta.51 - 2024-01-15
+### Added
+- `SInputIncrementBlock` component implementation.
+- `SInputIncrement` now supports `error` prop.
+- `SInputIncrement` component implementation.
+
+## 2.0.0-beta.50 - 2024-01-15
+
+## 2.0.0-beta.49 - 2024-01-12
+
+## 2.0.0-beta.48 - 2024-01-12
+
+## 2.0.0-beta.47 - 2024-01-11
+
+## 2.0.0-beta.46 - 2024-01-11
+### Added
+- Minor unit mode now available on `SInputAmount` component.
+- `SFilter` component now supports translation for operators.
+- `SDataTable` component now supports `sortDescFirst` prop to set the default sort direction.
+
+### Changed
+- Apply function in `SFilter` component now omit interfaces information.
+
+## 2.0.0-beta.45 - 2023-12-05
+
+## 2.0.0-beta.44 - 2023-12-01
+
+## 2.0.0-beta.43 - 2023-12-01
+### Added
+- Debounce query on `SCombobox` component.
+
+## 2.0.0-beta.42 - 2023-11-29
+### Added
+- `SInputAmount` now emit `info` event with related information
+- `SDataTable` component now supports manual sorting.
+
+## 2.0.0-beta.41 - 2023-11-20
+### Added
+- `SDataTable` server side by default.
+- `SDataTable` now can recieve a string array to set the columns order.
+
+## 2.0.0-beta.40 - 2023-11-15
+
+## 2.0.0-beta.39 - 2023-11-15
+
+## 2.0.0-beta.38 - 2023-11-14
+### Added
+- `SDataTable` component now supports `pagination` prop to set the pagination.
+- `SDataTable` component now supports `pageSizes` prop to set the page sizes.
+
+### Changed
+- `SSidebar` styles updated.
+
+## 2.0.0-beta.37 - 2023-11-14
+### Added
+- `SCombobox` component now supports `flipOptions` prop to flip the options list.
+
+## 2.0.0-beta.36 - 2023-11-10
+### Changed
+- `SComboboxOptions` styles
+
+## 2.0.0-beta.35 - 2023-11-08
+### Added
+- Loader component to internal components
+- Update `SDataTable` stories template
+
+## 2.0.0-beta.34 - 2023-11-07
+
+## 2.0.0-beta.33 - 2023-11-07
+
+## 2.0.0-beta.32 - 2023-11-07
+### Added
+- STable context and auto generation modes
+- `STableHead`, `STableBody`, `STableRow`, `STableCell`,  and `STableHeadCell` components implementation.
+- `STable` component implementation.
+
+### Fixed
+- First element selection on `SCombobox` component.
+- Default symbol on amount input
+- Autofill style on SInput
+
+## 2.0.0-beta.31 - 2023-11-01
+### Changed
+- Improve cube bezier animation on `SAccordion` component.
+
+## 2.0.0-beta.30 - 2023-11-01
+### Changed
+- Improve animation with `SAccordion` component.
+
+### Fixed
+- `SModalLeft` with breackpoint undefined by default.
+
+## 2.0.0-beta.29 - 2023-11-01
+
+## 2.0.0-beta.28 - 2023-10-30
+### Added
+- `SSidebarItem` is now polymorphic using `as` prop.
+
+## 2.0.0-beta.27 - 2023-10-30
+### Added
+- `STabs` components implementation with `underline`, `pills` and `vetches` variants.
+
 ## 2.0.0-beta.26 - 2023-10-27
 
 ## 2.0.0-beta.25 - 2023-10-27

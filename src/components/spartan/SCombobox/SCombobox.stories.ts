@@ -6,7 +6,7 @@ import { ref } from 'vue';
 
 export default {
     component: SCombobox,
-    title: 'new/Combobox',
+    title: 'inputs/Combobox',
     parameters: {
         docs: {
             description: {
@@ -71,6 +71,10 @@ export default {
             description: 'Whether the select should be searchable.',
             table: { type: { summary: "boolean | 'auto'" } },
         },
+        flipOptions: {
+            description: 'Whether the options should be flipped.',
+            table: { type: { summary: 'boolean' } },
+        },
         displayButtonText: {
             control: { type: null },
             description: 'The function to display the button text.',
@@ -115,6 +119,7 @@ export const Default = createDefault({
         rounded: 'both',
         modelValue: undefined,
         search: 'false',
+        flipOptions: false,
         displayButtonText: (item: any) => item,
     },
     setup: () => {
@@ -122,7 +127,7 @@ export const Default = createDefault({
         const getSearchProp = (search: 'false' | 'true' | 'auto') => (search === 'false' ? false : search);
         return { value, getSearchProp, options: currencyOptions[0].options };
     },
-    template: `<SCombobox class="w-24" v-bind="{...args, search: getSearchProp(args.search)}" v-model="value">
+    template: `<SCombobox class="w-24" v-bind="{...args, search: getSearchProp(args.search)}" :queryDebounce="0" v-model="value" @query="console.log">
     <SComboboxOptionGroup label="Colombia">
         <SComboboxOption value="CC">🪪 Cédula de ciudadanía</SComboboxOption>
         <SComboboxOption value="CE">🪪 Cédula de extranjería</SComboboxOption>
@@ -286,7 +291,7 @@ export const WithSearch = createVariation({
     <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
 </SCombobox>
 
-<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</p>`,
     containerClass: 'w-full h-[150px] flex gap-8 items-start',
 });
 
@@ -303,6 +308,23 @@ export const WithAutomaticSearch = createVariation({
     <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
 </SCombobox>
 
-<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</span>`,
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</p>`,
+    containerClass: 'w-full h-[150px] flex gap-8 items-start',
+});
+
+export const QueryDebounce = createVariation({
+    components: { SCombobox, SComboboxOption },
+    setup: () => {
+        const value = ref(riskOptions[0]);
+        const query = ref('');
+        return { value, query, options: riskOptions };
+    },
+    template: `<SCombobox class="w-40" v-model="value" :queryDebounce="0" search="auto" @query="console.log" :displayButtonText="item => item && item.name">
+    <SComboboxOption :value="options[0]">Hight risk</SComboboxOption>
+    <SComboboxOption :value="options[1]">Medium risk</SComboboxOption>
+    <SComboboxOption :value="options[2]">Low risk</SComboboxOption>
+</SCombobox>
+
+<p class="mt-1"><span class="font-bold">Query:</span> {{ query }}</p>`,
     containerClass: 'w-full h-[150px] flex gap-8 items-start',
 });

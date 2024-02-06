@@ -1,5 +1,5 @@
 import type { SourceProps } from '@storybook/blocks';
-import { ref, computed } from 'vue';
+import { ref, computed, type Component } from 'vue';
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
@@ -44,6 +44,116 @@ export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: 
 
     return result.trim();
 };
+
+export const createHistory = ({
+    description,
+    slots,
+    props,
+    events,
+}: {
+    description: string;
+    slots?: {
+        subcategory?: string;
+        name: string;
+        description: string;
+        control?: boolean;
+    }[];
+    props?: {
+        subcategory?: string;
+        name: string;
+        description: string;
+        type: string;
+        default?: string;
+        control?: string | null;
+        options?: string[];
+    }[];
+    events?: {
+        name: string;
+        description: string;
+        type?: string;
+    }[];
+}) => {
+    const argTypesEvents = events?.reduce(
+        (acc, curr) => {
+            acc[curr.name] = {
+                description: curr.description,
+                table: { type: { summary: curr.type ?? 'undefined' }, category: 'Events' },
+                control: { type: null },
+            };
+            return acc;
+        },
+        {} as Record<string, any>,
+    );
+
+    const argTypesSlots = slots?.reduce(
+        (acc, curr) => {
+            acc[curr.name] = {
+                description: curr.description,
+                table: {
+                    type: { summary: 'VNode | VNode Array' },
+                    category: 'Slots',
+                    subcategory: curr.subcategory ?? undefined,
+                },
+                control: { type: curr.control ? 'text' : null },
+            };
+            return acc;
+        },
+        {} as Record<string, any>,
+    );
+
+    const argTypesProps = props?.reduce(
+        (acc, curr) => {
+            acc[curr.name] = {
+                description: curr.description,
+                table: {
+                    type: { summary: curr.type },
+                    defaultValue: { summary: curr.default },
+                    category: 'Props',
+                    subcategory: curr.subcategory ?? undefined,
+                },
+                control: { type: curr.control },
+                options: curr.options,
+            };
+            return acc;
+        },
+        {} as Record<string, any>,
+    );
+
+    const argTypes = { ...argTypesSlots, ...argTypesProps, ...argTypesEvents };
+
+    return {
+        parameters: {
+            docs: {
+                description: {
+                    component: description,
+                },
+            },
+        },
+        argTypes,
+    };
+};
+
+export const createBlockWrapperHistory = (blockOf: string) =>
+    createHistory({
+        description: `A ${blockOf} wrapped in a form block with a label, help text and error text.`,
+        props: [
+            {
+                name: 'errorText',
+                description: 'The error message to be displayed when the block has an error.',
+                type: 'string',
+            },
+            {
+                name: 'helpText',
+                description: 'The help message to be displayed below the block.',
+                type: 'string',
+            },
+            {
+                name: 'label',
+                description: 'The label of the block.',
+                type: 'string',
+            },
+        ],
+    });
 
 export const createDefault = ({
     components,

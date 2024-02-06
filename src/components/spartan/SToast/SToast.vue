@@ -3,19 +3,14 @@ import { CheckCircleIcon, XCircleIcon, ExclamationCircleIcon } from '@heroicons/
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
 import { hasSlotContent } from '@/helpers';
+import type { TToastEmits, TToastProps } from './types';
 
-defineEmits(['close']);
+defineEmits<TToastEmits>();
 
-const props = withDefaults(
-    defineProps<{
-        type?: 'success' | 'danger';
-        leftBorder?: boolean;
-    }>(),
-    {
-        type: 'success',
-        leftBorder: false,
-    },
-);
+const props = withDefaults(defineProps<TToastProps>(), {
+    type: 'success',
+    leftBorder: false,
+});
 
 const typeStyles = {
     success: {

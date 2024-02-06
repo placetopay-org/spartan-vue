@@ -1,4 +1,4 @@
-import type { FunctionalComponent } from 'vue';
+import type { Component, FunctionalComponent } from 'vue';
 
 export type TSidebarEmits = {
     (event: 'update:modelValue', value?: string): void;
@@ -11,12 +11,13 @@ export type TSidebarProps = {
 };
 
 export type TSidebarItemProps = {
+    as: string | Component;
     path: string;
     icon: FunctionalComponent;
 };
 
 export type TSidebarItemGroupProps = TSidebarItemProps & {
-    verticalAccordion: string;
+    accordion: boolean;
 };
 
 type TPath = {

@@ -1,17 +1,17 @@
-import { ref } from 'vue';
-import type { TField } from './types';
+import { translator } from '@/helpers';
 
-export const closeActivePopover = ref();
+const none = ['contains', 'equal', 'exist'];
+const not = ['notContains', 'notEqual', 'notExist'];
+const literal = ['lastMonth', 'lastWeek', 'lastYear', 'today', 'yesterday'];
+const compound = ['between', 'endsWith', 'startsWith', 'notBetween', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual'];
 
-export const customFilterManager = {
-    get: () =>
-        JSON.parse(localStorage.getItem('customFilters') || '[]') as {
-            name: string;
-            data: TField[];
-        }[],
-    add: (name: string, data: TField[]) => {
-        const filters = customFilterManager.get();
-        filters.push({ name, data });
-        localStorage.setItem('customFilters', JSON.stringify(filters));
-    },
+export const buildLabel = (operator: string, value?: string | string[]) => {
+    const { t } = translator('filter.operator');
+
+    if (none.includes(operator)) return '' + value;
+    if (not.includes(operator)) return `not ${value}`;
+    if (literal.includes(operator)) return t(operator);
+    if (compound.includes(operator)) return `${t(operator)} ${value}`;
+
+    return '';
 };

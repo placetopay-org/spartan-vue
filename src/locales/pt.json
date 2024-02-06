@@ -1,6 +1,17 @@
 {
     "$spartan": {
+        "dataTable": {
+            "of": "de",
+            "page": "Página",
+            "pages": "Páginas",
+            "showing": "Mostrando",
+            "pageSizePrefix": "Mostrar",
+            "results": "resultados",
+            "searchPlaceholder": "Pesquisar todas as colunas"
+        },
         "filter": {
+            "yes": "Sim",
+            "no": "Não",
             "addBtn": "Adicionar",
             "addFilterBtn": "Adicionar filtro",
             "applyBtn": "Aplicar",
@@ -14,21 +25,26 @@
             "optionsSelectorPlaceholder": "Selecione uma ou mais opções",
             "saveBtn": "Salvar",
             "savedFiltersText": "Meus filtros salvos",
-            "oper": {
-                "ex": "Existe",
-                "nex": "Não existe",
-                "eq": "É igual a",
-                "neq": "Não é igual a",
-                "gt": "É maior que",
-                "gte": "É maior ou igual a",
-                "lt": "É menor que",
-                "lte": "É menor ou igual a",
+            "operator": {
                 "between": "Está entre",
-                "notBetween": "Não está entre",
                 "contains": "Contém",
+                "endsWith": "Termina com",
+                "equal": "É igual a",
+                "exist": "Existe",
+                "greaterThan": "É maior que",
+                "greaterThanOrEqual": "É maior ou igual a",
+                "lastMonth": "Ultimo mês",
+                "lastWeek": "Ultima semana",
+                "lastYear": "Ultimo ano",
+                "lessThan": "É menor que",
+                "lessThanOrEqual": "É menor ou igual a",
                 "notContains": "Não contém",
+                "notBetween": "Não está entre",
+                "notEqual": "Não é igual a",
+                "notExist": "Não existe",
                 "startsWith": "Começa com",
-                "endsWith": "Termina com"
+                "today": "Hoje",
+                "yesterday": "Ontem"
             }
         }
     }

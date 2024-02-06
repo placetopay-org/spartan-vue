@@ -11,7 +11,7 @@ import { Bars4Icon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SSidebar,
-    title: 'new/Sidebar',
+    title: 'navigation/Sidebar',
     parameters: {
         docs: {
             description: {
@@ -75,7 +75,7 @@ export const Default = createDefault({
     <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
     <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
+    <SSidebarItemGroup :icon="KeyIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -83,7 +83,7 @@ export const Default = createDefault({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
+    <SSidebarItemGroup :icon="LockClosedIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -110,7 +110,7 @@ export const Base = createVariation({
     <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
     <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
+    <SSidebarItemGroup :icon="KeyIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -118,7 +118,7 @@ export const Base = createVariation({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
+    <SSidebarItemGroup :icon="LockClosedIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -144,13 +144,13 @@ export const AccordionWrapper = createVariation({
         return { value, open, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
     },
     containerClass: 'flex h-[550px]',
-    template: `<SAccordion class="w-60" :open="open">
+    template: `<SAccordion :open="open">
     <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
         <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
         <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
+        <SSidebarItemGroup :icon="KeyIcon">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -158,7 +158,7 @@ export const AccordionWrapper = createVariation({
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
+        <SSidebarItemGroup :icon="LockClosedIcon">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>
@@ -188,7 +188,7 @@ export const ModalLeftWrapper = createVariation({
         <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
         <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
+        <SSidebarItemGroup :icon="KeyIcon">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -196,7 +196,7 @@ export const ModalLeftWrapper = createVariation({
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
+        <SSidebarItemGroup :icon="LockClosedIcon">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>
@@ -225,7 +225,7 @@ export const UsingPaths = createVariation({
     <SSidebarItem path="balance" :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
     <SSidebarItem path="configuration" :icon="CommandLineIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon" verticalAccordion="h-[108px]">
+    <SSidebarItemGroup :icon="KeyIcon">
         <template #title>Administration</template>
 
         <SSidebarItem path="my-merchants">Merchants</SSidebarItem>
@@ -233,7 +233,7 @@ export const UsingPaths = createVariation({
         <SSidebarItem path="my-users">Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon" verticalAccordion="h-[108px]">
+    <SSidebarItemGroup :icon="LockClosedIcon">
         <template #title>Security</template>
 
         <SSidebarItem path="roles">Roles</SSidebarItem>
@@ -248,5 +248,43 @@ export const UsingPaths = createVariation({
 
     <button @click="value = 'metrics'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
     <button @click="value = 'home'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+</main>`,
+});
+
+export const IntegratedScroll = createVariation({
+    components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
+    setup: () => {
+        const value = ref('Administration/Merchants');
+        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+    },
+    containerClass: 'flex gap-5 h-[300px]',
+    template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
+    <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
+    <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+
+    <SSidebarItemGroup :icon="KeyIcon">
+        <template #title>Administration</template>
+
+        <SSidebarItem>Merchants</SSidebarItem>
+        <SSidebarItem>Sites</SSidebarItem>
+        <SSidebarItem>Users</SSidebarItem>
+    </SSidebarItemGroup>
+
+    <SSidebarItemGroup :icon="LockClosedIcon">
+        <template #title>Security</template>
+
+        <SSidebarItem>Roles</SSidebarItem>
+        <SSidebarItem>Permissions</SSidebarItem>
+        <SSidebarItem>Logs</SSidebarItem>
+    </SSidebarItemGroup>
+</SSidebar>
+
+<!-- Example of view -->
+<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+    <h1>{{ value }}</h1>
+
+    <button @click="value = 'Security/Logs'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });

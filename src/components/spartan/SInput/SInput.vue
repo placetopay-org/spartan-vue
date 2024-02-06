@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { getRoundedClass, getDisabledClass } from '@/helpers';
 import { buildSideContent } from './slotBuilder';
 import type { TInputProps, TInputEmits } from './types';
+import { twMerge } from 'tailwind-merge';
 
 defineOptions({ inheritAttrs: false });
 const emit = defineEmits<TInputEmits>();
@@ -45,13 +46,17 @@ watchEffect(() => {
         console.error(message(`S${props.type.charAt(0).toUpperCase() + props.type.slice(1)}`, props.type));
     }
 });
+
+const inputElement = ref<HTMLInputElement>();
+
+defineExpose({ inputElement });
 </script>
 
 <template>
     <div
         :class="[
             'relative flex gap-2 border border-gray-300 bg-white placeholder:text-gray-400',
-            error ? 'border-red-500 focus-within:s-ring-error' : 'border-gray-300 focus-within:s-ring',
+            error ? 'border-red-500 focus-within:s-ring-error outline-none' : 'border-gray-300 focus-within:s-ring',
             rightOptions ? 'pr-0' : 'pr-3',
             leftOptions ? 'pl-0' : 'pl-3',
             roundedClass,
@@ -71,8 +76,9 @@ watchEffect(() => {
         </template>
         <input
             :id="id"
+            ref="inputElement"
             :value="modelValue"
-            :class="['w-full border-none px-0 py-2 focus:ring-0', roundedClass, inputClass]"
+            :class="twMerge('w-full border-none px-0 py-2 text-gray-900 focus:ring-0 outline-none', roundedClass, inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"
@@ -92,3 +98,12 @@ watchEffect(() => {
         </template>
     </div>
 </template>
+
+<style scoped>
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #111827;
+    -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+}
+</style>

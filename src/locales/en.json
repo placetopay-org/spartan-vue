@@ -1,5 +1,14 @@
 {
     "$spartan": {
+        "dataTable": {
+            "of": "of",
+            "page": "Page",
+            "pages": "pages",
+            "showing": "Showing",
+            "pageSizePrefix": "Show",
+            "results": "results",
+            "searchPlaceholder": "Search all columns"
+        },
         "filter": {
             "addBtn": "Add",
             "addFilterBtn": "Add filter",
@@ -10,26 +19,33 @@
             "fieldSelectorNotResults": "No fields found",
             "fieldSelectorPlaceholder": "Select a field",
             "inputSelectorPlaceholder": "Write a value",
+            "no": "No",
             "notFoundFieldText": "No saved filters found",
+            "operator": {
+                "between": "Is between",
+                "contains": "Contains",
+                "endsWith": "Ends with",
+                "equal": "Is equal to",
+                "exist": "Exists",
+                "greaterThan": "Is greater than",
+                "greaterThanOrEqual": "Is greater or equal to",
+                "lastMonth": "Last Month",
+                "lastWeek": "Last Week",
+                "lastYear": "Last Year",
+                "lessThan": "Is less than",
+                "lessThanOrEqual": "Is less or equal to",
+                "notEqual": "Is not equal to",
+                "notExist": "Does not exist",
+                "notBetween": "Is not between",
+                "notContains": "Does not contain",
+                "startsWith": "Starts with",
+                "today": "Today",
+                "yesterday": "Yesterday"
+            },
             "optionsSelectorPlaceholder": "Select one or more options",
             "saveBtn": "Save",
             "savedFiltersText": "My saved filters",
-            "oper": {
-                "ex": "Exists",
-                "nex": "Does not exist",
-                "eq": "Is equal to",
-                "neq": "Is not equal to",
-                "gt": "Is greater than",
-                "gte": "Is greater or equal to",
-                "lt": "Is less than",
-                "lte": "Is less or equal to",
-                "between": "Is between",
-                "notBetween": "Is not between",
-                "contains": "Contains",
-                "notContains": "Does not contain",
-                "startsWith": "Starts with",
-                "endsWith": "Ends with"
-            }
+            "yes": "Yes"
         }
     }
 }

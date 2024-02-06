@@ -1,39 +1,51 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
+import type { TAccordionProps } from './types';
 
-const props = defineProps<{
-    class?: string;
-    open: boolean;
-    vertical?: boolean;
-}>();
+const props = defineProps<TAccordionProps>();
 </script>
 
 <template>
     <Transition appear :name="`${vertical ? 'vertical' : 'horizontal'}-accordion`">
-        <div v-show="open" :class="twMerge('overflow-hidden', vertical ? 'h-full' : 'w-full', props.class)">
+        <div
+            v-show="open"
+            :class="
+                twMerge(vertical ? 'max-h-screen overflow-y-hidden' : 'max-w-screen overflow-x-hidden', props.class)
+            "
+        >
             <slot />
         </div>
     </Transition>
 </template>
 
 <style scoped>
-.horizontal-accordion-enter-active,
+.max-w-screen {
+    max-width: 100vw;
+}
+
+.horizontal-accordion-enter-active {
+    transition: max-width 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
 .horizontal-accordion-leave-active {
-    transition: width 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+    transition: max-width 0.4s cubic-bezier(0, 1.04, 0.17, 0.99);
 }
 
 .horizontal-accordion-enter-from,
 .horizontal-accordion-leave-to {
-    width: 0;
+    max-width: 0;
 }
 
-.vertical-accordion-enter-active,
+.vertical-accordion-enter-active {
+    transition: max-height 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+}
+
 .vertical-accordion-leave-active {
-    transition: height 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+    transition: max-height 0.4s cubic-bezier(0, 1.04, 0.17, 0.99);
 }
 
 .vertical-accordion-enter-from,
 .vertical-accordion-leave-to {
-    height: 0;
+    max-height: 0;
 }
 </style>

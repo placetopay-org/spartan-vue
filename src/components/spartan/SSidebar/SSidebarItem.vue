@@ -5,7 +5,10 @@ import { useContext } from './api';
 import { sidebarItemStyles, sidebarItemIconStyles, sidebarItemContentStyles } from './styles';
 import type { TSidebarItemProps } from './types';
 
+defineOptions({ inheritAttrs: false });
+
 const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
+    as: 'button',
     path: undefined,
     icon: undefined,
 });
@@ -33,12 +36,12 @@ onMounted(() => {
 
 <template>
     <li ref="el">
-        <button :class="twMerge(sidebarItemStyles({ active: isActive }))" @click="store.updatePath(updatedPath)">
+        <component :is="as" v-bind="$attrs" :class="twMerge(sidebarItemStyles({ active: isActive }))" @click="store.updatePath(updatedPath)">
             <component :is="icon" :class="twMerge(sidebarItemIconStyles({ active: isActive }))" />
 
             <span :class="twMerge(sidebarItemContentStyles({ active: isActive }))">
                 <slot />
             </span>
-        </button>
+        </component>
     </li>
 </template>

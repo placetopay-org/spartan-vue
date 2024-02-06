@@ -1,19 +1,17 @@
 import SInputAmountBlock from './SInputAmountBlock.vue';
 import { ref } from 'vue';
-import { SButton, SDropdown, SDropdownItem } from '@spartan';
-import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
+import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
 import {
-    ArrowLeftOnRectangleIcon,
     InformationCircleIcon,
     CurrencyDollarIcon,
     MapPinIcon,
     MagnifyingGlassIcon,
 } from '@heroicons/vue/24/outline';
-import { EnvelopeIcon, KeyIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
+import { EnvelopeIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
 export default {
     component: SInputAmountBlock,
-    title: 'new/InputAmountBlock',
+    title: 'inputBlocks/InputAmountBlock',
     parameters: {
         docs: {
             description: { component: 'The input component is used to create a text input.' },

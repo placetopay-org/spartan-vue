@@ -2,22 +2,12 @@
 import { computed, ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { hasSlotContent } from '@/helpers';
+import type { TRadioEmits, TRadioProps } from './types';
 
 defineOptions({ inheritAttrs: false });
 
-const emit = defineEmits<{
-    (event: 'update:modelValue', value: boolean): void;
-}>();
-
-const props = defineProps<{
-    disabled?: boolean;
-    id?: string;
-    inline?: boolean;
-    modelValue: boolean;
-    name?: string;
-    reverse?: boolean;
-    value: string;
-}>();
+const emit = defineEmits<TRadioEmits>();
+const props = defineProps<TRadioProps>();
 
 const internalValue = ref(props.modelValue);
 const model = computed({
@@ -59,11 +49,11 @@ const computedId = computed(() => props.id ?? uuidv4());
                 hasSlotContent($slots.description) ? '-mt-1' : '-mt-0.5',
             ]"
         >
-            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" class="label">
+            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" class="text-sm font-semibold text-gray-900">
                 <slot />
             </label>
             <p v-if="hasSlotContent($slots.description)" :class="['text-sm font-normal text-gray-500', inline && '']">
-                <label v-if="hasSlotContent($slots.default) && inline" :for="computedId" class="label">
+                <label v-if="hasSlotContent($slots.default) && inline" :for="computedId" class="text-sm font-semibold text-gray-900">
                     <slot />
                 </label>
                 <slot name="description" />
@@ -71,9 +61,3 @@ const computedId = computed(() => props.id ?? uuidv4());
         </div>
     </div>
 </template>
-
-<style>
-.label {
-    @apply text-sm font-semibold text-gray-900;
-}
-</style>

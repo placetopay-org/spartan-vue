@@ -3,7 +3,7 @@ import { merge, clone } from 'lodash';
 export { spartanMessages };
 
 const addSpartanMessages = (locale: string, baseMessages: any) => {
-    return merge(clone(spartanMessages[locale]), clone(baseMessages));
+    return merge(clone(spartanMessages?.[locale]), clone(baseMessages));
 };
 
 export const addSpartanEnMessages = (baseMessages: any) => addSpartanMessages('en', baseMessages);

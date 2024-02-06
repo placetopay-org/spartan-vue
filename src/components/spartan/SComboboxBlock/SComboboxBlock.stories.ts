@@ -1,34 +1,12 @@
 import SComboboxBlock from './SComboboxBlock.vue';
 import { SComboboxOption, SComboboxOptionGroup } from '../SCombobox';
-import { buildSourceBinding, createDefault } from '@/helpers';
+import { buildSourceBinding, createDefault, createBlockWrapperHistory } from '@/helpers';
 import { ref } from 'vue';
 
 export default {
     component: SComboboxBlock,
-    title: 'new/ComboboxBlock',
-    parameters: {
-        docs: {
-            description: { component: 'The select component is used to create a dropdown list of options.' },
-        },
-    },
-    argTypes: {
-        // Props
-        errorText: {
-            control: 'text',
-            description: 'The error message to be displayed when the select has an error.',
-            table: { type: { summary: 'string' }, category: 'Props' },
-        },
-        helpText: {
-            control: 'text',
-            description: 'The help message to be displayed below the select.',
-            table: { type: { summary: 'string' }, category: 'Props' },
-        },
-        label: {
-            control: 'text',
-            description: 'The label of the select.',
-            table: { type: { summary: 'string' }, category: 'Props' },
-        },
-    },
+    title: 'inputBlocks/ComboboxBlock',
+    ...createBlockWrapperHistory('SCombobox'),
 };
 
 const sourceBinding = buildSourceBinding({
@@ -36,6 +14,7 @@ const sourceBinding = buildSourceBinding({
         errorText: undefined,
         helpText: undefined,
         label: undefined,
+        id: undefined,
     },
     check: ['disabled', 'error'],
 });
@@ -67,12 +46,13 @@ export const Default = createDefault({
         errorText: '',
         helpText: 'Help text',
         label: 'Custom Label',
+        id: 'custom-id',
     },
     setup: () => {
         const value = ref('CC');
         return { value, options: currencyOptions[0].options };
     },
-    template: `<SComboboxBlock  class="w-24" v-bind="args" v-model="value">
+    template: `<SComboboxBlock class="w-24" v-bind="args" v-model="value">
     <template #button>{{ value }}</template>
     <SComboboxOptionGroup label="Colombia">
         <SComboboxOption value="CC">🪪 Cédula de ciudadanía</SComboboxOption>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
-import { FieldType, type TField } from '../types';
+import { SRadio, SCheckbox } from '../../';
 import { translator } from '@/helpers';
 import { SBadge, SInput } from '@spartan';
+import type { TField } from '../types';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -14,24 +15,32 @@ const props = defineProps<{
 
 const { t } = translator('filter');
 
-const unique = computed(() => props.field.unique || props.field.type === FieldType.BOOLEAN);
+const interfaceData = computed(() => props.field.interfaces.options!);
 
 const search = ref('');
 
 const checked = computed({
     get() {
-        return props.modelValue ?? [];
+        return props.modelValue || [];
     },
     set(value) {
         emit('update:modelValue', value);
     },
 });
 
-const computedOptions = computed(() => {
-    const options = props.field.type === FieldType.BOOLEAN ? ['true', 'false'] : props.field.options;
-    options?.filter((option) => option.toLowerCase().includes(search.value.toLowerCase()));
+const getOptionId = (option: string | { id: string; label: string }) =>
+    typeof option === 'string' ? option : option.id;
+const getOptionLabel = (option: string | { id: string; label: string }) =>
+    typeof option === 'string' ? option : option.label;
+const getOptionLabelFromId = (id: string) => {
+    const option = interfaceData.value.options.find((option) => getOptionId(option) === id);
+    return getOptionLabel(option!)
+};
 
-    return options ?? [];
+const computedOptions = computed(() => {
+    return interfaceData.value.options.filter((option) =>
+        getOptionLabel(option).toLowerCase().includes(search.value.toLowerCase()),
+    );
 });
 
 const removeCheck = (option: string) => (checked.value = checked.value.filter((item) => item !== option));
@@ -45,12 +54,12 @@ const clear = () => {
 <template>
     <div class="flex flex-col gap-4">
         <SInput
-            v-if="unique && computedOptions.length > 5"
+            v-if="!interfaceData.multiple && interfaceData.options.length > 5"
             v-model="search"
             :placeholder="t('inputSelectorPlaceholder')"
         />
         <div
-            v-if="!unique"
+            v-if="interfaceData.multiple"
             :tabindex="-1"
             class="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:border-primary-300 focus-within:ring focus-within:ring-primary-100"
             @focus="
@@ -58,8 +67,8 @@ const clear = () => {
                     ((event.target as HTMLDivElement).querySelector('input') as HTMLInputElement).focus()
             "
         >
-            <div class="scroll-hide flex max-h-20 w-full flex-wrap gap-3 overflow-auto">
-                <template v-if="checked.length">
+            <div class="flex max-h-20 w-full flex-wrap gap-3 overflow-auto">
+                <template v-if="checked">
                     <SBadge
                         v-for="option in checked"
                         :key="option"
@@ -68,7 +77,7 @@ const clear = () => {
                         size="sm"
                         @removed="removeCheck(option)"
                     >
-                        {{ option }}
+                        {{ getOptionLabelFromId(option) }}
                     </SBadge>
                 </template>
                 <input
@@ -85,43 +94,16 @@ const clear = () => {
                 </button>
             </div>
         </div>
-        <div class="scroll-primary max-h-32 overflow-y-auto pb-1.5 pl-1.5">
-            <div v-for="option in computedOptions" :key="option" class="flex items-center gap-2">
-                <!-- <SInput :id="option" v-model="checked" :value="option" :type="unique ? 'radio' : 'checkbox'" /> -->
-                <!-- <component :is="unique ? SRadio : SCheckbox" :id="option" v-model="checked" :value="option"/> -->
-                <!-- <SRadio :id="option" :value="option" />
-                <SCheckbox :id="option" :value="option" /> -->
-                <label :for="option" class="text-sm font-medium text-gray-900">{{ option }}</label>
+        <div class="flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
+            <div v-for="option in computedOptions" :key="getOptionId(option)" class="flex items-center gap-2">
+                <component
+                    :is="interfaceData.multiple ? SCheckbox : SRadio"
+                    v-model="checked"
+                    :value="getOptionId(option)"
+                >
+                    {{ getOptionLabel(option) }}
+                </component>
             </div>
         </div>
     </div>
 </template>
-
-<style scoped>
-/* width */
-.scroll-primary::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-.scroll-primary::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-.scroll-primary::-webkit-scrollbar-thumb {
-    background: #ff6c0c;
-    border-radius: 16px;
-}
-
-/* For Webkit-based browsers (Chrome, Safari and Opera) */
-.scroll-hide::-webkit-scrollbar {
-    display: none;
-}
-
-/* For IE, Edge and Firefox */
-.scroll-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-}
-</style>

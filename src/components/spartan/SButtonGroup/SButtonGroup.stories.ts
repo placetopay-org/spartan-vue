@@ -6,7 +6,7 @@ import { BookmarkIcon, PlusIcon, PencilIcon, ChevronDownIcon, UserCircleIcon } f
 
 export default {
     component: SButtonGroup,
-    title: 'new/ButtonGroup',
+    title: 'buttons/ButtonGroup',
     parameters: {
         docs: {
             description: {

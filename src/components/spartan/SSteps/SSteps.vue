@@ -2,15 +2,9 @@
 import CompleteStep from './steps/CompleteStep.vue';
 import CurrentStep from './steps/CurrentStep.vue';
 import UpcomingStep from './steps/UpcomingStep.vue';
+import type { TStepsProps } from './types';
 
-defineProps<{
-    steps: Array<{
-        name: string;
-        href: string;
-        description: string;
-        status: 'complete' | 'current' | 'upcoming';
-    }>;
-}>();
+defineProps<TStepsProps>();
 </script>
 
 <template>

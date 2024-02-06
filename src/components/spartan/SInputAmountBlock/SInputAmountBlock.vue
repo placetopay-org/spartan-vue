@@ -22,7 +22,7 @@ const inputAmountProps = computed<TInputAmountProps>(() => {
 </script>
 
 <template>
-    <BlockWrapper wrapper="SInputBlock" v-bind="blockWrapperProps">
+    <BlockWrapper wrapper="SInputAmountBlock" v-bind="blockWrapperProps">
         <SInputAmount
             class="w-full"
             v-bind="inputAmountProps"

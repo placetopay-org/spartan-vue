@@ -1,59 +1,55 @@
-/* eslint-disable no-useless-escape */
-
 import SAvatar from './SAvatar.vue';
 import { SDropdown, SDropdownItem } from '@spartan';
-import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding } from '@/helpers';
-import { ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
+import { buildSourceBinding, createDefault, createHistory, createVariation as buildVariation } from '@/helpers';
+import { ArrowLeftEndOnRectangleIcon } from '@heroicons/vue/24/outline';
 
 export default {
     component: SAvatar,
-    title: 'new/Avatar',
-    parameters: {
-        docs: {
-            description: {
-                component: 'A versatile avatar component with multiple styles and appearances.',
+    title: 'misc/Avatar',
+    ...createHistory({
+        description: 'A versatile avatar component with multiple styles and appearances.',
+        props: [
+            {
+                name: 'borderless',
+                description: 'If **true**, the avatar will be borderless.',
+                type: 'boolean',
+                control: 'boolean',
             },
-        },
-    },
-    argTypes: {
-        // Props
-        borderless: {
-            description: 'If **true**, the avatar will be borderless.',
-            table: { type: { summary: 'boolean' } },
-        },
-        indicator: {
-            description: 'If **true**, the avatar will have an indicator.',
-            table: { type: { summary: 'boolean' } },
-        },
-        indicatorPosition: {
-            control: 'inline-radio',
-            options: ['left-top', 'left-bottom', 'right-top', 'right-bottom'],
-            description: 'Sets the position of the indicator.',
-            table: {
-                type: { summary: 'left-top | left-bottom | right-top | right-bottom' },
+            {
+                name: 'indicator',
+                description: 'If **true**, the avatar will have an indicator.',
+                type: 'boolean',
+                control: 'boolean',
             },
-        },
-        name: {
-            control: 'text',
-            description: 'Defines the text to be used for the component.',
-            table: { type: { summary: 'string' } },
-        },
-        size: {
-            control: 'inline-radio',
-            options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
-            description: 'Sets the size of the avatar.',
-            table: { type: { summary: 'xs | sm | md | lg | xl | 2xl' } },
-        },
-        src: {
-            control: 'text',
-            description: 'Defines the image source to be used for the component.',
-            table: { type: { summary: 'string' } },
-        },
-    },
+            {
+                name: 'indicatorPosition',
+                description: 'Sets the position of the indicator.',
+                type: 'left-top | left-bottom | right-top | right-bottom',
+                options: ['left-top', 'left-bottom', 'right-top', 'right-bottom'],
+                control: 'inline-radio',
+            },
+            {
+                name: 'name',
+                description: 'Defines the text to be used for the component.',
+                type: 'string',
+                control: 'text',
+            },
+            {
+                name: 'size',
+                description: 'Sets the size of the avatar.',
+                type: 'xs | sm | md | lg | xl | 2xl',
+                options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+                control: 'inline-radio',
+            },
+            {
+                name: 'src',
+                description: 'Defines the image source to be used for the component.',
+                type: 'string',
+                control: 'text',
+            },
+        ],
+    }),
 };
-
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=200-1795');
 
 const sourceBinding = buildSourceBinding({
     check: ['borderless', 'indicator'],
@@ -65,27 +61,10 @@ const sourceBinding = buildSourceBinding({
     },
 });
 
-export const Default = {
-    render: (args: any) => ({
-        components: { SAvatar },
-        setup() {
-            return { args };
-        },
-        template: '<SAvatar v-bind="args" />',
-    }),
-    parameters: {
-        design,
-        docs: {
-            canvas: { layout: 'centered' },
-            source: {
-                transform: ((_, storyContext) => `
-        <SAvatar ${sourceBinding(storyContext.args)} />
-        `) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
-    },
+export const Default = createDefault({
+    design: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=200-1795',
+    components: { SAvatar },
+    setup: () => ({ ArrowLeftEndOnRectangleIcon }),
     args: {
         borderless: false,
         indicator: false,
@@ -93,42 +72,23 @@ export const Default = {
         name: 'John Doe',
         size: 'md',
     },
-};
+    transform: (args) => `<SAvatar ${sourceBinding(args)} />`,
+    template: '<SAvatar v-bind="args" />',
+});
 
 const createVariation = (
     template: string,
     options?: {
-        focusVisible?: boolean;
-        decorators?: (() => {
-            template: string;
-        })[];
+        focus?: boolean;
+        containerClass?: string;
     },
-) => ({
-    decorators: options?.decorators ?? [
-        () => ({
-            template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>',
-        }),
-    ],
-    render: () => ({
-        components: { SAvatar, SDropdown, SDropdownItem, ArrowLeftOnRectangleIcon },
-        setup() {
-            return { ArrowLeftOnRectangleIcon };
-        },
+) =>
+    buildVariation({
+        focusVisible: options?.focus,
+        components: { SAvatar, SDropdown, SDropdownItem },
+        containerClass: options?.containerClass ?? 'flex gap-5',
         template,
-    }),
-    parameters: {
-        design,
-        pseudo: { focusVisible: options?.focusVisible },
-        controls: { disable: true },
-        actions: { disable: true },
-        docs: {
-            source: {
-                code: template,
-                language: 'html',
-            },
-        },
-    },
-});
+    });
 
 export const Size = createVariation(`
 <SAvatar name="John Doe" size="xs" />
@@ -137,7 +97,7 @@ export const Size = createVariation(`
 <SAvatar name="John Doe" size="lg" />
 <SAvatar name="John Doe" size="xl" />
 <SAvatar name="John Doe" size="2xl" />
-`);
+`, { containerClass: 'flex gap-5 items-end' });
 
 export const Name = createVariation(`
 <!-- separators: ' ' - _ . , ; : | \ -->
@@ -155,15 +115,6 @@ export const Src = createVariation(`
 <SAvatar size="2xl" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=256&h=256" />
 `);
 
-export const Focus = createVariation(
-    `
-<!-- focus-visible: ON -->
-<SAvatar name="John Doe" size="2xl" />
-<SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
-`,
-    { focusVisible: true },
-);
-
 export const Borderless = createVariation(`
 <SAvatar name="John Doe" size="2xl" borderless />
 <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" borderless />
@@ -177,8 +128,7 @@ export const Indicator = createVariation(`
 <SAvatar name="John Doe" size="2xl" indicator indicatorPosition="right-bottom" />
 `);
 
-export const WithDropdown = createVariation(
-    `
+export const WithDropdown = createVariation(`
 <SDropdown leftToRight>
   <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
 
@@ -191,15 +141,9 @@ export const WithDropdown = createVariation(
       </div>
     </SDropdownItem>
 
-    <SDropdownItem :icon="ArrowLeftOnRectangleIcon"> Logout </SDropdownItem>
+    <SDropdownItem :icon="ArrowLeftEndOnRectangleIcon"> Logout </SDropdownItem>
   </template>
 </SDropdown>
 `,
-    {
-        decorators: [
-            () => ({
-                template: '<div style="padding-bottom: 200px;"><story/></div>',
-            }),
-        ],
-    },
+    { containerClass: 'pb-[200px]' },
 );

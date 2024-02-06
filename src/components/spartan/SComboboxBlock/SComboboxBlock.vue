@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { SCombobox, type TComboboxProps } from '../SCombobox';
+import { SCombobox, type TComboboxProps, type TComboboxEmits } from '../SCombobox';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 
-defineEmits<{ (event: 'update:modelValue', value: string | number | object): void }>();
+defineEmits<TComboboxEmits>();
 
-const props = defineProps<Partial<TBlockWrapperProps> & Partial<TComboboxProps>>();
+const props = defineProps<Partial<TBlockWrapperProps> & TComboboxProps>();
 
 const blockWrapperProps = computed(() => ({
     label: props.label,
@@ -14,13 +14,11 @@ const blockWrapperProps = computed(() => ({
     helpText: props.helpText,
 }));
 
-const comboboxProps = computed(() => ({
-    ...props,
-    error: props.errorText ? Boolean(props.errorText) : props.error,
-    label: undefined,
-    helpText: undefined,
-    errorText: undefined,
-}));
+const comboboxProps = computed<TComboboxProps>(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { label, helpText, errorText, ...rest } = props;
+    return { ...rest, error: props.errorText ? Boolean(props.errorText) : props.error };
+});
 </script>
 
 <template>
@@ -29,11 +27,9 @@ const comboboxProps = computed(() => ({
             class="w-full"
             v-bind="comboboxProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
+            @query="$emit('query', $event)"
         >
             <slot />
-            <!-- <template #label>
-                <SLabel v-if="label" :for="id">{{ label }}</SLabel>
-            </template> -->
             <template #button><slot name="button" /></template>
         </SCombobox>
     </BlockWrapper>
