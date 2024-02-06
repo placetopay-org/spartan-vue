@@ -20,13 +20,36 @@ You can find the documentation and components of this design system by clicking 
    npm install -D @placetopay/spartan-vue
    ```
 
-3. Add spartan-vue styles
-   
-   ```css
-   @import 'tailwindcss/base';
-   @import '@placetopay/spartan-vue/style.css';
+3. Configure your `tailwind.config.js` file adding the following lines:
 
-   @import 'tailwindcss/components';
-   @import 'tailwindcss/utilities';
+   ```javascript
+      content: [
+         //...
+         "node_modules/@placetopay/spartan-vue/dist/*.js",
+      ],
+      plugins: [
+         //...
+         require('@placetopay/spartan-vue/plugin'),
+      ],
    ```
+
+> **Note:** If you want set a custom primary color, you can add `primary` option in the spartan-vue plugin configuration:
+
+   ```javascript
+      require('@placetopay/spartan-vue/plugin')({
+         primary: {
+            50: '228 242 253',
+            100: '187 222 251',
+            200: '144 202 249',
+            300: '100 181 246',
+            400: '66 165 245',
+            500: '33 150 243',
+            600: '30 132 229',
+            700: '25 103 196',
+            800: '21 78 148',
+            900: '13 42 84',
+         }
+      }),
+   ```
+
    
