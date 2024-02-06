@@ -21,6 +21,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Spartan `preset` for tailwindcss is no longer available. 
 
+## 2.0.0-beta.59 - 2024-02-03
+### Changed
+- Updated docs for `SDefinitionTerm`.
+- Updated docs for `SComboboxBlock`.
+- Updated docs for `SAvatar`.
+- Updated docs for `SButton`.
+- Updated docs for `SBreadcrumbs`.
+- Updated docs for `SBadge`.
+- Updated docs for `SAccordion`.
+
 ## 2.0.0-beta.58 - 2024-01-31
 ### Added
 - `SToast` now exports his types.
