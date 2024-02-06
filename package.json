@@ -1,6 +1,6 @@
 {
   "name": "@placetopay/spartan-vue",
-  "version": "2.0.0-beta.59",
+  "version": "2.0.0-beta.63",
   "type": "module",
   "description": "spartan vue lib",
   "main": "./dist/spartan-vue.umd.cjs",
@@ -9,7 +9,7 @@
   "files": [
     "dist/*",
     "src/locales/*",
-    "src/expose/tailwindcss.js"
+    "src/expose/plugin.js"
   ],
   "exports": {
     ".": {
@@ -18,7 +18,7 @@
       "types": "./dist/types/index.d.ts"
     },
     "./locales": "./src/locales/index.ts",
-    "./tailwindcss.js": "./src/expose/tailwindcss.js",
+    "./plugin": "./src/expose/plugin.js",
     "./style.css": "./dist/style.css"
   },
   "repository": {

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.63 - 2024-02-06
+
+## 2.0.0-beta.62 - 2024-02-06
+
+## 2.0.0-beta.61 - 2024-02-06
+
+## 2.0.0-beta.60 - 2024-02-06
+### Added
+- Spartan now provides a tailwindcss plugin to use the internal configuration and styles.
+
+### Removed
+- Spartan `preset` for tailwindcss is no longer available.
+
 ## 2.0.0-beta.59 - 2024-02-03
 ### Changed
 - Updated docs for `SDefinitionTerm`.

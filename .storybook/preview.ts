@@ -1,4 +1,5 @@
 import '../src/css/style.css';
+import '../src/css/palette-evertec.css';
 import DocumentationTemplate from './DocumentationTemplate.mdx';
 import { type Preview, setup } from '@storybook/vue3';
 import type { App } from 'vue';
