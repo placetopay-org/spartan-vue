@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.61 - 2024-02-06
+
 ## 2.0.0-beta.60 - 2024-02-06
 ### Added
 - Spartan now provides a tailwindcss plugin to use the internal configuration and styles.
