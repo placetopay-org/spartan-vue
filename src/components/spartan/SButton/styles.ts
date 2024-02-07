@@ -54,7 +54,6 @@ export const buttonStyles = cva(
                 full: 'rounded-full',
             },
             loading: cbv('loading'),
-            endIcon: cbv('flex-row-reverse'),
             'size:text': size.text,
             'size:noText': size.noText,
         },
