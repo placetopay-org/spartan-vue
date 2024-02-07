@@ -55,7 +55,7 @@ defineExpose({ inputElement });
 <template>
     <div
         :class="[
-            'relative flex gap-2 border border-gray-300 bg-white placeholder:text-gray-400',
+            'relative flex gap-2 border border-gray-300 bg-white',
             error ? 'border-red-500 focus-within:s-ring-error outline-none' : 'border-gray-300 focus-within:s-ring',
             rightOptions ? 'pr-0' : 'pr-3',
             leftOptions ? 'pl-0' : 'pl-3',
@@ -78,7 +78,7 @@ defineExpose({ inputElement });
             :id="id"
             ref="inputElement"
             :value="modelValue"
-            :class="twMerge('w-full border-none px-0 py-2 text-gray-900 focus:ring-0 outline-none', roundedClass, inputClass)"
+            :class="twMerge('w-full border-none px-0 py-2 text-gray-900 focus:ring-0 outline-none placeholder:text-gray-400', roundedClass, inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"

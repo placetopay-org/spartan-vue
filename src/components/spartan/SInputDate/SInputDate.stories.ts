@@ -14,6 +14,32 @@ export default {
                 description: 'The value of the input.',
                 default: 'null',
                 control: null
+            },
+            {
+                name: 'hideInputIcon',
+                type: 'boolean',
+                description: 'Hide the input icon.',
+                default: 'false',
+            },
+            {
+                name: 'error',
+                type: 'boolean',
+                description: 'Show the input as an error.',
+                default: 'false',
+            },
+            {
+                name: 'class',
+                type: 'string',
+                description: 'The class to apply to the input.',
+                default: '',
+                control: null
+            },
+            {
+                name: 'placeholder',
+                type: 'string',
+                description: 'The placeholder to display in the input.',
+                default: '',
+                control: 'text'
             }
         ],
         events: [
@@ -35,7 +61,11 @@ export const Default = createDefault({
         const value = ref(null);
         return { value };
     },
-    template: `<SInputDate v-model="value" v-bind="args">{{args.default}}</SInputDate>`,
-    transform: (args) => `<SInputDate ${sourceBinding(args)}>${args.default}</SInputDate>`,
-    args: {},
+    template: `<SInputDate v-model="value" v-bind="args" />`,
+    transform: (args) => `<SInputDate ${sourceBinding(args)} />`,
+    args: {
+        hideInputIcon: false,
+        error: false,
+        placeholder: 'Select a date',
+    },
 });
