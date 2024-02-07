@@ -4,8 +4,8 @@ import type { TButtonStyles } from './styles';
 export type TButtonProps = {
     as: string;
     disabled: boolean;
-    endIcon: boolean;
-    icon: FunctionalComponent;
+    leftIcon: FunctionalComponent;
+    rightIcon: FunctionalComponent;
     loading: boolean;
     rounded: TButtonStyles['rounded'];
     size: TButtonStyles['size'];

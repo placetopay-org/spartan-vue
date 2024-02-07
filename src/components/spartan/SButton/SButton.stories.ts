@@ -29,14 +29,15 @@ export default {
                 control: 'boolean',
             },
             {
-                name: 'endIcon',
-                description: 'If **true**, the icon will be displayed at the end of the button content.',
-                type: 'boolean',
-                control: 'boolean',
+                name: 'leftIcon',
+                description: `A Vue functional component to be used as the button's left icon.`,
+                type: 'FunctionalComponent',
+                options: ['PlusIcon', 'MagnifyingGlassIcon', 'PencilIcon'],
+                control: 'select',
             },
             {
-                name: 'icon',
-                description: `A Vue functional component to be used as the button's icon.`,
+                name: 'rightIcon',
+                description: `A Vue functional component to be used as the button's right icon.`,
                 type: 'FunctionalComponent',
                 options: ['PlusIcon', 'MagnifyingGlassIcon', 'PencilIcon'],
                 control: 'select',
@@ -80,7 +81,7 @@ export default {
 };
 
 const sourceBinding = buildSourceBinding({
-    check: ['disabled', 'loading', 'endIcon'],
+    check: ['disabled', 'loading'],
     prop: {
         as: 'button',
         size: 'md',
@@ -88,7 +89,6 @@ const sourceBinding = buildSourceBinding({
         variant: 'primary',
         rounded: 'both',
     },
-    custom: { icon: true },
 });
 
 export const Default = createDefault({
@@ -107,8 +107,8 @@ export const Default = createDefault({
         default: 'Click me',
         as: 'button',
         disabled: false,
-        endIcon: false,
-        icon: undefined,
+        endIcon: undefined,
+        rightIcon: undefined,
         loading: false,
         rounded: 'both',
         size: 'md',
@@ -116,7 +116,7 @@ export const Default = createDefault({
         variant: 'primary',
     },
     transform: (args) => `<SButton ${sourceBinding(args)}>${args.default}</SButton>`,
-    template: '<SButton v-bind="args" :icon="getIcon(args.icon)" @click="onClick"> {{ args.default }} </SButton>',
+    template: '<SButton v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" @click="onClick"> {{ args.default }} </SButton>',
 });
 
 const createVariation = (template: string, icons?: Record<string, FunctionalComponent>) =>
@@ -158,9 +158,9 @@ export const Loading = createVariation(`
 `);
 
 export const OnlyIcon = createVariation(`
-<SButton :icon="MagnifyingGlassIcon" rounded="right"/>
-<SButton :icon="PencilIcon" size="sm" rounded="none"/>
-<SButton :icon="PlusIcon" size="sm" rounded="full"/>
+<SButton :leftIcon="MagnifyingGlassIcon" rounded="right"/>
+<SButton :rightIcon="PencilIcon" size="sm" rounded="none"/>
+<SButton :leftIcon="PlusIcon" size="sm" rounded="full"/>
 `, { MagnifyingGlassIcon, PencilIcon, PlusIcon });
 
 export const IconWithText = createVariation(`
