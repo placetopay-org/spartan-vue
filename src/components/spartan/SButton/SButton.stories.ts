@@ -107,7 +107,7 @@ export const Default = createDefault({
         default: 'Click me',
         as: 'button',
         disabled: false,
-        endIcon: undefined,
+        leftIcon: undefined,
         rightIcon: undefined,
         loading: false,
         rounded: 'both',
