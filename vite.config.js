@@ -34,7 +34,7 @@ export default defineConfig({
                 // '@heroicons/vue',
                 // '@intlify/unplugin-vue-i18n',
                 // '@tanstack/vue-table',
-                //'litepie-datepicker-tw3',  TODO: Review this package
+                //'@vuepic/vue-datepicker',  TODO: Review this package
                 // 'lodash',  TODO: Review this package and use tree-shaking
                 // 'vue-currency-input',
                 // 'vue-imask',
@@ -48,7 +48,7 @@ export default defineConfig({
                     // '@heroicons/vue': 'Heroicons',
                     // '@intlify/unplugin-vue-i18n': 'VueI18nPlugin',
                     // '@tanstack/vue-table': 'VueTable',
-                    // 'litepie-datepicker-tw3': 'LitepieDatepickerTW3',
+                    // '@vuepic/vue-datepicker': 'VueDatepickerTW3',
                     // 'vue-currency-input': 'VueCurrencyInput',
                     // 'vue-imask': 'VueIMask',
                 },

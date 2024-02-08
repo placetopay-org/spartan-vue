@@ -1,31 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { SInput, type TInputProps } from '@spartan';
+import { SInput, type TInputProps, type TInputEmits } from '../SInput';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
+import { extractWrapperProps } from '@/helpers';
 
-defineEmits<{ (event: 'update:modelValue', value: string | number | undefined): void }>();
 
+defineEmits<TInputEmits>();
 const props = defineProps<Partial<TBlockWrapperProps> & Partial<TInputProps>>();
-
-const blockWrapperProps = computed(() => ({
-    label: props.label,
-    id: props.id,
-    errorText: props.errorText,
-    helpText: props.helpText,
-}));
-
-const inputProps = computed(() => ({
-    ...props,
-    error: props.errorText ? Boolean(props.errorText) : props.error,
-    label: undefined,
-    helpText: undefined,
-    errorText: undefined,
-}));
+const [blockWrapperProps, inputProps] = extractWrapperProps<Partial<TInputProps>>(props);
 </script>
 
 <template>
-    <BlockWrapper wrapper="SInputBlock" v-bind="blockWrapperProps">
+    <BlockWrapper wrapper="SInputBlock" v-bind="blockWrapperProps" v-slot="{ id }">
         <SInput
+            :id="id"
             class="w-full"
             v-bind="inputProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
