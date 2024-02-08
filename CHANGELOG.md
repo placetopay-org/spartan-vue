@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.0.0-beta.64 - 2024-02-07
 ### Added
+- `SInputDateBlock` component implementation.
 - `SInputDate` component implementation.
 
 ## 2.0.0-beta.63 - 2024-02-06
