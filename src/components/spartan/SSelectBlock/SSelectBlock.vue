@@ -1,31 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
-import { SSelect, type TSelectProps } from '../SSelect';
+import { SSelect, type TSelectProps, type TSelectEmits } from '../SSelect';
+import { extractWrapperProps } from '@/helpers';
 
-defineEmits<{ (event: 'update:modelValue', value: string | number | undefined): void }>();
-
+defineEmits<TSelectEmits>();
 const props = defineProps<Partial<TBlockWrapperProps> & Partial<TSelectProps>>();
-
-const blockWrapperProps = computed(() => ({
-    label: props.label,
-    id: props.id,
-    errorText: props.errorText,
-    helpText: props.helpText,
-}));
-
-const selectProps = computed(() => ({
-    ...props,
-    error: props.errorText ? Boolean(props.errorText) : props.error,
-    label: undefined,
-    helpText: undefined,
-    errorText: undefined,
-}));
+const [blockWrapperProps, selectProps] = extractWrapperProps<Partial<TSelectProps>>(props);
 </script>
 
 <template>
-    <BlockWrapper wrapper="SSelectBlock" v-bind="blockWrapperProps">
+    <BlockWrapper wrapper="SSelectBlock" v-bind="blockWrapperProps" v-slot="{ id }">
         <SSelect
+            :id="id"
             class="w-full"
             v-bind="selectProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"

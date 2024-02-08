@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.0.0-beta.64 - 2024-02-07
 ### Added
+- `SSelectBlock` now calculates the id when it is not provided.
+- `SInputMaskBlock` now calculates the id when it is not provided.
+- `SInputIncrementBlock` now calculates the id when it is not provided.
 - `SInputDateBlock` now calculates the id when it is not provided.
 - `SInputBlock` now calculates the id when it is not provided.
 - `SInputAmountBlock` now calculates the id when it is not provided.
