@@ -16,8 +16,6 @@ import type { TButtonProps } from './types';
 const props = withDefaults(defineProps<Partial<TButtonProps>>(), {
     as: 'button',
     disabled: false,
-    endIcon: false,
-    icon: undefined,
     loading: false,
     rounded: 'both',
     size: 'md',
@@ -38,7 +36,6 @@ const props = withDefaults(defineProps<Partial<TButtonProps>>(), {
                     [$slots.default?.()[0].children ? 'size:text' : 'size:noText']: props.size,
                     rounded,
                     loading,
-                    endIcon,
                 }),
                 $props.class
             )
@@ -46,10 +43,14 @@ const props = withDefaults(defineProps<Partial<TButtonProps>>(), {
         :disabled="disabled"
     >
         <component
-            :is="icon"
-            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && (props.endIcon ? '-mr-0.5' : '-ml-0.5'))"
+            :is="leftIcon"
+            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-ml-0.5')"
         />
         <slot />
+        <component
+            :is="rightIcon"
+            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-mr-0.5' )"
+        />
     </component>
 </template>
 
