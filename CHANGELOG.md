@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.64 - 2024-02-07
+### Added
+- `SSelectBlock` now calculates the id when it is not provided.
+- `SInputMaskBlock` now calculates the id when it is not provided.
+- `SInputIncrementBlock` now calculates the id when it is not provided.
+- `SInputDateBlock` now calculates the id when it is not provided.
+- `SInputBlock` now calculates the id when it is not provided.
+- `SInputAmountBlock` now calculates the id when it is not provided.
+- `SComboboxBlock` now calculates the id when it is not provided.
+- `SInputDateBlock` component implementation.
+- `SInputDate` component implementation.
+
 ## 2.0.0-beta.63 - 2024-02-06
 
 ## 2.0.0-beta.62 - 2024-02-06

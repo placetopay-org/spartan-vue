@@ -1,29 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { SInputAmount, type TInputAmountProps, type TInputAmountEmits } from '../SInputAmount';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 import type { TInputProps } from '../SInput';
+import { extractWrapperProps } from '@/helpers';
 
 defineEmits<TInputAmountEmits>();
 const props = defineProps<Partial<TBlockWrapperProps> & Partial<TInputProps> & TInputAmountProps>();
-
-const blockWrapperProps = computed(() => ({
-    label: props.label,
-    id: props.id,
-    errorText: props.errorText,
-    helpText: props.helpText,
-}));
-
-const inputAmountProps = computed<TInputAmountProps>(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { label, helpText, errorText, ...rest } = props;
-    return { ...rest, error: props.errorText ? Boolean(props.errorText) : props.error };
-});
+const [blockWrapperProps, inputAmountProps] = extractWrapperProps<Partial<TInputProps> & TInputAmountProps>(props);
 </script>
 
 <template>
-    <BlockWrapper wrapper="SInputAmountBlock" v-bind="blockWrapperProps">
+    <BlockWrapper wrapper="SInputAmountBlock" v-bind="blockWrapperProps" v-slot="{ id }">
         <SInputAmount
+            :id="id"
             class="w-full"
             v-bind="inputAmountProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
