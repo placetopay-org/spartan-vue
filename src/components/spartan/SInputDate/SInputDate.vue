@@ -16,6 +16,7 @@ const value = computed({
 
 <template>
     <VueDatePicker
+        :uid="id"
         v-model="value"
         :hide-input-icon="hideInputIcon"
         :placeholder="placeholder"

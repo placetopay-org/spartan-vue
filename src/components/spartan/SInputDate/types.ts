@@ -1,4 +1,5 @@
 export type TInputDateProps = {
+    id?: string;
     modelValue: string | null;
     hideInputIcon?: boolean;
     error?: boolean;
