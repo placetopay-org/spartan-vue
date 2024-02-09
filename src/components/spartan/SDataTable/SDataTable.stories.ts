@@ -1,6 +1,6 @@
 import SDataTable from './SDataTable.vue';
 import { SBadge } from '../SBadge';
-import { createDefault, createVariation } from '@/helpers';
+import { createDefault, createVariation, createHistory } from '@/helpers';
 import { table } from '@/data';
 import { QrCodeIcon, DocumentDuplicateIcon, TrashIcon } from '@heroicons/vue/24/outline';
 import { computed, ref } from 'vue';
@@ -8,28 +8,108 @@ import { computed, ref } from 'vue';
 export default {
     component: SDataTable,
     title: 'tables/DataTable',
-    parameters: {
-        docs: {
-            description: {
-                component: 'The link component is used to navigate between pages.',
+    ...createHistory({
+        description: 'The DataTable component is used to display data in a table format.',
+        slots: [
+            {
+                name: '`head[${header.column.columnDef.id}]`',
+                description: 'Slot to customize the header of a column.',
             },
-        },
-    },
-    argTypes: {
-        // Slots
-        default: {
-            control: 'text',
-            table: { type: { summary: null }, category: 'Slots' },
-            description: 'The content of the link.',
-        },
-
-        // Props
-        href: {
-            control: 'text',
-            description: 'The type of the input element.',
-            table: { type: { summary: 'string' } },
-        },
-    },
+            {
+                name: '`col[${cell.column.columnDef.id}]`',
+                description: 'Slot to customize the content of a column.',
+            },
+        ],
+        props: [
+            {
+                name: 'cols',
+                type: 'custom-type: cols',
+                default: '[]',
+                description: 'Columns to display in the table.',
+            },
+            {
+                name: 'data',
+                type: 'unknown[]',
+                default: '[]',
+                description: 'Data to display in the table.',
+            },
+            {
+                name: 'displayHeaderText',
+                type: '(header: string) => string',
+                default: 'undefined',
+                description: 'Function to transform the header text.',
+                control: null,
+            },
+            {
+                name: 'filtrable',
+                type: 'Boolean',
+                default: 'false',
+                description: 'Enable the filter input for the table.',
+            },
+            {
+                name: 'loading',
+                type: 'Boolean',
+                default: 'false',
+                description: 'Show a loading spinner in the table.',
+            },
+            {
+                name: 'pagination',
+                type: 'custom-type: pagination',
+                default: 'undefined',
+                description: 'Enable the pagination for the table. It can be an object with the properties: page, count, size, sizes.',
+            },
+            {
+                name: 'sorting',
+                type: 'custom-type: sorting',
+                default: 'undefined',
+                description: 'Enable the sorting for the table. It can be an object with the properties: id, desc.',
+            },
+            {
+                name: 'containerClass',
+                type: 'string',
+                default: 'undefined',
+                description: 'Class to apply to the container of the table.',
+            },
+            {
+                name: 'numericPaginator',
+                type: 'boolean | number',
+                default: 'false',
+                description: 'Enable the numeric paginator for the table. It can be a boolean or a number.',
+            },
+            {
+                name: 'class',
+                description: '[STable](/?path=/docs/tables-table--docs)',
+                subcategory: 'Inherited from the STable',
+            },
+            {
+                name: 'borderless',
+                description: '[STable](/?path=/docs/tables-table--docs)',
+                subcategory: 'Inherited from the STable',
+            },
+            {
+                name: 'highlight',
+                description: '[STable](/?path=/docs/tables-table--docs)',
+                subcategory: 'Inherited from the STable',
+            }
+        ],
+        events: [
+            {
+                name: 'paginationChange',
+                description: 'Pagination change event.',
+                type: '{ page: number; size: number }',
+            },
+            {
+                name: 'sortingChange',
+                description: 'Sorting change event.',
+                type: '{ id: string; desc: boolean }',
+            },
+            {
+                name: 'change',
+                description: 'Change event. (pagination | sorting)',
+                type: 'custom-type: change',
+            }
+        ]
+    }),
 };
 
 export const Default = createDefault({
@@ -71,7 +151,6 @@ export const Default = createDefault({
     </template>
 </SDataTable>`,
     args: {
-        sortable: false,
         filtrable: true,
         loading: false,
         borderless: false,

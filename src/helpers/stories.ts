@@ -62,7 +62,7 @@ export const createHistory = ({
         subcategory?: string;
         name: string;
         description: string;
-        type: string;
+        type?: string;
         default?: string;
         control?: string | null;
         options?: string[];
