@@ -1,4 +1,4 @@
-export const methodName = [
+export const brandName = [
     'account',
     'ach',
     'alkosto',

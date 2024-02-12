@@ -1,10 +1,10 @@
-import SMethodIcon from './SMethodIcon.vue';
+import SCardBrand from './SCardBrand.vue';
 import { buildSourceBinding, createDefault, createHistory } from '@/helpers';
-import { methodName } from './constants';
+import { brandName } from './constants';
 
 export default {
-    component: SMethodIcon,
-    title: 'display/MethodIcon',
+    component: SCardBrand,
+    title: 'display/CardBrand',
     ...createHistory({
         description: 'This component is used to display a payment method icon.',
         props: [
@@ -19,7 +19,7 @@ export default {
                 name: 'name',
                 type: 'string',
                 default: 'undefined',
-                options: methodName as unknown as string[],
+                options: brandName as unknown as string[],
                 description: 'The name of the icon to be displayed.',
             },
             {
@@ -37,11 +37,11 @@ const sourceBinding = buildSourceBinding({
 });
 
 export const Default = createDefault({
-    components: { SMethodIcon },
+    components: { SCardBrand },
     args: {
         name: 'visa',
         size: 200,
     },
-    template: `<SMethodIcon class="fill-red-500" v-bind="argsWithoutSlots" />`,
-    transform: (args) => `<SMethodIcon ${sourceBinding(args)} />`,
+    template: `<SCardBrand v-bind="argsWithoutSlots" />`,
+    transform: (args) => `<SCardBrand ${sourceBinding(args)} />`,
 });

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import * as assets from './assets';
-import type { TMethodIconProps } from './types';
+import type { TCardBrandProps } from './types';
 
-defineProps<TMethodIconProps>();
+defineProps<TCardBrandProps>();
 </script>
 
 <template>
