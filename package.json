@@ -97,6 +97,7 @@
     "typescript": "5.3.3",
     "uuid": "^9.0.1",
     "vite": "4.4.8",
+    "vite-svg-loader": "^5.1.0",
     "vue-currency-input": "^3.0.5",
     "vue-tsc": "1.8.27"
   },

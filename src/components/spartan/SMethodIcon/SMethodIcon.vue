@@ -7,7 +7,5 @@ defineProps<TMethodIconProps>();
 </script>
 
 <template>
-    <div>
-        <img :src="assets[name]" :class="twMerge($props.class)" :height="size" :width="size" />
-    </div>
+    <component :is="assets[name]" :class="twMerge($props.class)" :height="size" :width="size" />
 </template>
