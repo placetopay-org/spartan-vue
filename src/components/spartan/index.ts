@@ -43,3 +43,4 @@ export * from './SInputMask';
 export * from './SInputMaskBlock';
 export * from './SInputDate';
 export * from './SInputDateBlock';
+export * from './SMethodIcon';

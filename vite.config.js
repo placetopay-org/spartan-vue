@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
+import svgLoader from 'vite-svg-loader'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
+        svgLoader(),
         VueI18nPlugin({
             defaultSFCLang: 'json',
             include: [resolve(__dirname, './src/locales/**')],
