@@ -20,7 +20,7 @@ export const InputWithSubmitButton = createVariation({
 
 <form @submit.prevent class="flex -space-x-px">
   <SInput class="w-full" :icon="TagIcon" rounded="left" required suffix="tag" />
-  <SButton type="submit" rounded="right" :icon="PlusIcon" />
+  <SButton type="submit" rounded="right" :left-icon="PlusIcon" />
 </form>
 
 <form @submit.prevent class="flex -space-x-px">
