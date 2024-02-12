@@ -5,7 +5,7 @@ import { createContext } from './api';
 
 const emit = defineEmits<TTabEmits>();
 
-const props = withDefaults(defineProps<Partial<TTabProps>>(), {
+const props = withDefaults(defineProps<TTabProps>(), {
     variant: 'underline'
 });
 
@@ -19,7 +19,7 @@ createContext(props, emit);
 </script>
 
 <template>
-    <component :is="variants[variant]">
+    <component :full="full" :is="variants[variant]">
         <slot />
     </component>
 </template>

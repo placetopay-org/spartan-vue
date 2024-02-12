@@ -26,6 +26,7 @@ onMounted(() => {
         ref="el"
         v-if="as"
         :is="as"
+        :type="as === 'button' ? 'button' : undefined"
         :class="[
             active
                 ? 'border-primary-500 text-primary-600'

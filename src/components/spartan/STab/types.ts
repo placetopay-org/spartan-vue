@@ -1,13 +1,16 @@
 import type { Component, FunctionalComponent } from 'vue';
 
+export type Variants = 'underline' | 'pills' | 'vetches';
+
 export type TTab = {
     path: string;
     setActive: (value: boolean) => void;
 };
 
 export type TTabProps = {
-    variant: 'underline' | 'pills';
+    variant?: Variants;
     modelValue: string;
+    full?: boolean;
 };
 
 export type TTabEmits = {

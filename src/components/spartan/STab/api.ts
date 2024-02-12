@@ -1,9 +1,10 @@
 import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
-import type { TTabProps, TTabEmits, TTab } from './types';
+import type { TTabProps, TTabEmits, TTab, Variants } from './types';
 
 type TState = {
     tabs: Record<TTab['path'], TTab['setActive']>,
-    variant: 'underline' | 'pills';
+    variant: Variants;
+    full: boolean;
     registerTab: (tab: TTab) => void;
     updateTab: (path?: string) => void;
 };
@@ -13,6 +14,7 @@ const contextKey = Symbol('STabContext') as InjectionKey<TState>;
 export const createContext = (props: Partial<TTabProps>, emit: TTabEmits) => {
     const state: TState = reactive({
         tabs: {},
+        full: computed(() => props.full || false),
         variant: computed(() => props.variant || 'underline'),
         registerTab: (tab: TTab) => {
             state.tabs[tab.path] = tab.setActive;

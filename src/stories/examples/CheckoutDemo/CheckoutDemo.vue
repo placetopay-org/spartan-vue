@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SSelect, SButton, SRadioGroup, SRadioGroupItem, SSwitch } from '../../';
+import { SSelect, SButton, SRadioGroup, SRadioGroupItem, SSwitch } from '../../../';
 
 const lang = ref('es');
 const useCase = ref('payment');

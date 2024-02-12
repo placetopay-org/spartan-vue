@@ -1,5 +1,5 @@
 import CheckoutDemo from './CheckoutDemo.vue';
-import { buildDesign } from '../../helpers';
+import { buildDesign } from '../../../helpers';
 
 export default {
     component: CheckoutDemo,

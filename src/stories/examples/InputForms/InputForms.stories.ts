@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
-import { SInput, SButton, SSelect } from '../../';
-import { createVariation } from '../../helpers';
+import { SInput, SButton, SSelect } from '../../../';
+import { createVariation } from '../../../helpers';
 import { EnvelopeIcon, MagnifyingGlassIcon, PlusIcon, TagIcon } from '@heroicons/vue/20/solid';
 
 export default {
