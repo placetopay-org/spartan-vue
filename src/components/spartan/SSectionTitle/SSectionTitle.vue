@@ -8,7 +8,7 @@ withDefaults(defineProps<TSectionTitleProps>(), {
 </script>
 
 <template>
-    <component :is="as" :class="twMerge('text-lg font-semibold text-gray-900', $props.class)">
+    <component :is="as" :class="twMerge('text-base font-semibold text-gray-900', $props.class)">
         <slot />
     </component>
 </template>
