@@ -1,5 +1,5 @@
 import DescriptionCardExample from './DescriptionCard.vue';
-import { buildDesign } from '../../helpers';
+import { buildDesign } from '../../../helpers';
 
 export default {
     title: 'examples/Cards',

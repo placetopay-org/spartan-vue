@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Fixed
+- `STab` underline full style variant.
 - `SDataTable` props documentation.
 
 ## 2.0.0-beta.65 - 2024-02-08

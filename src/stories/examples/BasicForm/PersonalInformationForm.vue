@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SButton, SInputBlock, SSelectBlock } from '../../';
+import { SButton, SInputBlock, SSelectBlock } from '../../../';
 
 const firstName = ref('');
 const lastName = ref('');

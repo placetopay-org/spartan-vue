@@ -26,6 +26,7 @@ onMounted(() => {
         ref="el"
         v-if="as"
         :is="as"
+        :type="as === 'button' ? 'button' : undefined"
         :class="[
             active ? 'bg-white text-primary-600 shadow' : 'text-gray-500 hover:text-gray-700',
             'group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium',

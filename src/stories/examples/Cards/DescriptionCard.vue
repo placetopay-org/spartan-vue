@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SButton, SCard, SSectionTitle, SSectionDescription, SDefinitionTerm, SLink } from '@spartan';
+import { SButton, SCard, SSectionTitle, SSectionDescription, SDefinitionTerm, SLink } from '../../../';
 </script>
 
 <template>

@@ -10,13 +10,13 @@ const store = useContext('STabItem');
 const variants = {
     underline: UnderlineTabItem,
     pills: PillTabItem,
-    vetches: VetchTabItem
+    vetches: VetchTabItem,
 };
 </script>
 
 <template>
-    <li>
-        <component :is="variants[store.variant]" v-bind="{...props, ...$attrs}">
+    <li :class="store.full ? 'w-full' : ''">
+        <component class="w-full inline-flex justify-center" :is="variants[store.variant]" v-bind="{ ...props, ...$attrs }">
             <slot />
         </component>
     </li>

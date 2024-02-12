@@ -1,6 +1,6 @@
 import PersonalInformationForm from './PersonalInformationForm.vue';
 import NotificationsForm from './NotificationsForm.vue';
-import { buildDesign } from '../../helpers';
+import { buildDesign } from '../../../helpers';
 
 export default {
     title: 'examples/BasicForms',
