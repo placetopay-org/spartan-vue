@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge';
 import type { TSectionTitleProps } from './types';
 
 withDefaults(defineProps<TSectionTitleProps>(), {
@@ -7,7 +8,7 @@ withDefaults(defineProps<TSectionTitleProps>(), {
 </script>
 
 <template>
-    <component :is="as" class="text-lg font-semibold text-gray-900">
+    <component :is="as" :class="twMerge('text-lg font-semibold text-gray-900', $props.class)">
         <slot />
     </component>
 </template>
