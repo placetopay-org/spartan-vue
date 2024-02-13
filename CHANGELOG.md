@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.69 - 2024-02-12
+
+## 2.0.0-beta.68 - 2024-02-12
+
 ## 2.0.0-beta.67 - 2024-02-12
 ### Added
+- New `SPageTitle` component.
+- New `SCardBrand` component.
 - `SSectionDescription` now supports class merging.
 
 ## 2.0.0-beta.66 - 2024-02-12
