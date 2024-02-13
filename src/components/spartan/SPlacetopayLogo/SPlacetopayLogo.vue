@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
-import placetopayLogo from '/src/assets/placetopay_logo.svg';
-import placetopayLogoDark from '/src/assets/placetopay_logo_dark.svg';
-import placetopayLogoBw from '/src/assets/placetopay_logo_bw.svg';
+import placetopayLogo from './assets/placetopay_logo.svg';
+import placetopayLogoDark from './assets/placetopay_logo_dark.svg';
+import placetopayLogoBw from './assets/placetopay_logo_bw.svg';
 import type { TPlacetopayLogoProps } from './types';
 
 const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
@@ -20,17 +20,17 @@ const assets = {
     blackAndWhite: placetopayLogoBw,
 };
 
-const sizeStyle = computed(() => {
-    if (props.size === 'md') return 'h-8 w-auto';
-    return '';
+const computedWidth = computed(() => {
+    if (props.size === 'md') return 202;
+    return props.width;
 });
 </script>
 
 <template>
     <component
         :is="assets[mode]"
-        :width="props.width"
+        :width="computedWidth"
         :height="props.height"
-        :class="twMerge(sizeStyle, props.class)"
+        :class="twMerge('aspect-[202/45]', props.class)"
     />
 </template>

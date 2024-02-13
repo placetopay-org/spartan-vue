@@ -3,5 +3,5 @@
     font-style: normal;
     src:
         local('Inter'),
-        url(./Inter-Regular.ttf) format('truetype');
+        url(./fonts/Inter-Regular.ttf) format('truetype');
 }
