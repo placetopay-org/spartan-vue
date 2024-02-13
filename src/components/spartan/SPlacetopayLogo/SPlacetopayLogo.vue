@@ -14,14 +14,11 @@ const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
     class: '',
 });
 
-const asset = computed(() => {
-    const assets = {
-        base: placetopayLogo,
-        dark: placetopayLogoDark,
-        blackAndWhite: placetopayLogoBw,
-    };
-    return assets[props.mode];
-});
+const assets = {
+    base: placetopayLogo,
+    dark: placetopayLogoDark,
+    blackAndWhite: placetopayLogoBw,
+};
 
 const sizeStyle = computed(() => {
     if (props.size === 'md') return 'h-8 w-auto';
@@ -30,5 +27,10 @@ const sizeStyle = computed(() => {
 </script>
 
 <template>
-    <img :width="width" :height="height" :class="twMerge(sizeStyle, props.class)" :src="asset" alt="Placetopay logo" />
+    <component
+        :is="assets[mode]"
+        :width="props.width"
+        :height="props.height"
+        :class="twMerge(sizeStyle, props.class)"
+    />
 </template>
