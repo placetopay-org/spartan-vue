@@ -41,10 +41,10 @@ export default {
                 control: null,
             },
             {
-                name: 'filtrable',
-                type: 'Boolean',
-                default: 'false',
-                description: 'Enable the filter input for the table.',
+                name: 'filter',
+                type: 'string',
+                default: 'undefined',
+                description: 'Filter the data in the table.',
             },
             {
                 name: 'loading',
@@ -104,8 +104,13 @@ export default {
                 type: '{ id: string; desc: boolean }',
             },
             {
+                name: 'filterChange',
+                description: 'Filter change event.',
+                type: 'string',
+            },
+            {
                 name: 'change',
-                description: 'Change event. (pagination | sorting)',
+                description: 'Change event. (pagination | sorting | filter)',
                 type: 'custom-type: change',
             }
         ]
@@ -124,15 +129,19 @@ export const Default = createDefault({
             return table.rows.slice(start, end);
         });
 
-        return { cols: table.colsData.slice(0, 4), rows, pagination };
+        const filter = ref('');
+
+        return { cols: table.colsData.slice(0, 4), rows, pagination, filter };
     },
     template: `<SDataTable 
     v-bind="args" 
     :cols="cols" 
     :data="rows"
-    numericPaginator="1"
+    :numericPaginator="1"
     :pagination="pagination" 
     @paginationChange="pagination = {...pagination, ...$event}"
+    :filter="filter"
+    @filterChange="filter = $event"
     >  
 </SDataTable>`,
     transform: (
@@ -151,7 +160,6 @@ export const Default = createDefault({
     </template>
 </SDataTable>`,
     args: {
-        filtrable: true,
         loading: false,
         borderless: false,
         pagination: true,
@@ -246,7 +254,7 @@ export const NumericPagination = createVariation({
     :cols="cols" 
     :data="rows" 
     :pagination="pagination" 
-    numericPaginator="1"
+    :numericPaginator="1"
     @paginationChange="pagination = {...pagination, ...$event}"
 />
 
@@ -254,7 +262,7 @@ export const NumericPagination = createVariation({
     :cols="cols" 
     :data="rows" 
     :pagination="pagination" 
-    numericPaginator="2"
+    :numericPaginator="2"
     @paginationChange="pagination = {...pagination, ...$event}"
 />`,
 });

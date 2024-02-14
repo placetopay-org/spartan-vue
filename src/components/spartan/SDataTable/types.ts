@@ -11,7 +11,7 @@ export type TDataTableProps = {
         | string[];
     displayHeaderText?: (header: string) => string;
     data: unknown[];
-    filtrable?: boolean;
+    filter?: string | number;
     loading?: boolean;
     pagination?: { page?: number; count: number; size?: number; sizes?: number[] };
     sorting?: ColumnSort;
@@ -22,6 +22,7 @@ export type TDataTableProps = {
 export type TDataTableEmits = {
     (event: 'paginationChange', value: Pick<Exclude<TDataTableProps['pagination'], undefined>, 'page' | 'size'>): void;
     (event: 'sortingChange', value: ColumnSort): void;
+    (event: 'filterChange', value: string): void;
     (
         event: 'change',
         value:
@@ -32,6 +33,10 @@ export type TDataTableEmits = {
             | {
                   type: 'sorting';
                   value: ColumnSort;
-              },
+              }
+            | {
+                    type: 'filter';
+                    value: string;
+            }
     ): void;
 };

@@ -35,7 +35,7 @@ const tableProps = computed<Partial<TTableProps>>(() => {
 
 const { t } = translator('dataTable');
 
-const columnHelper = createColumnHelper<unknown>();
+const columnHelper = createColumnHelper<any>();
 const columns = props.cols.map((col) => {
     if (typeof col === 'string') {
         return columnHelper.accessor(col, {
@@ -52,16 +52,16 @@ const columns = props.cols.map((col) => {
     }
 });
 
-const data = computed(() => props.data);
+const hasFilter = computed(() => props.filter !== undefined);
 
-const globalFilter = ref('');
+const data = computed(() => props.data);
 
 const table = useVueTable({
     get data() {
         return data.value;
     },
     get enableGlobalFilter() {
-        return props.filtrable;
+        return hasFilter.value;
     },
     get pageCount() {
         return props.pagination?.count;
@@ -74,7 +74,7 @@ const table = useVueTable({
             return computed(() => adaptToSorting(props.sorting)).value;
         },
         get globalFilter() {
-            return globalFilter.value;
+            return props.filter;
         },
     },
     onPaginationChange: (updaterOrValue) => {
@@ -90,6 +90,13 @@ const table = useVueTable({
         emits('sortingChange', value[0]);
         emits('change', { type: 'sorting', value: value[0] });
     },
+    onGlobalFilterChange: (updaterOrValue) => {
+        const value =
+            typeof updaterOrValue === 'function' ? updaterOrValue(table.getState().globalFilter) : updaterOrValue;
+
+        emits('filterChange', value);
+        emits('change', { type: 'filter', value });
+    },
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -104,16 +111,17 @@ const table = useVueTable({
 
 <template>
     <div :class="twMerge(!props.borderless && BORDER_STYLE, props.containerClass)">
-        <div v-if="filtrable" class="flex justify-end bg-white px-5 py-3">
+        <div v-if="hasFilter" class="flex justify-end bg-white px-5 py-3">
             <SInput
-                v-if="filtrable"
+                v-if="hasFilter"
                 class="w-1/2 rounded-md"
                 inputClass="text-sm py-1"
-                v-model="globalFilter"
+                :modelValue="filter"
+                @update:modelValue="table.setGlobalFilter"
                 :placeholder="`${t('searchPlaceholder')}...`"
             />
         </div>
-        <STable v-bind="tableProps" :borderless="Boolean(filtrable || pagination)">
+        <STable v-bind="tableProps" :borderless="Boolean(hasFilter || pagination)">
             <STableHead>
                 <STableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
                     <STableHeadCell v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan">
@@ -182,7 +190,12 @@ const table = useVueTable({
             class="border-t border-gray-300 bg-gray-50 px-5 py-3"
             v-if="pagination && table.getState().pagination.pageIndex >= 0 && table.getPageCount() !== -1"
         >
-            <NumericPaginator v-if="numericPaginator || numericPaginator === 0" :size="numericPaginator" :table="table" :pagination="pagination" />
+            <NumericPaginator
+                v-if="numericPaginator || numericPaginator === 0"
+                :size="numericPaginator"
+                :table="table"
+                :pagination="pagination"
+            />
             <SimplePaginator v-else :table="table" :pagination="pagination" />
         </div>
     </div>
