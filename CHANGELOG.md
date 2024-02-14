@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Fixed
+- Importance of `size` prop on `PlacetopayLogo` component.
 
 ## 2.0.0-beta.70 - 2024-02-14
 ### Fixed
+- Prop `filter` availability on `SDataTable` component.
 - Aspect ratio of `SPlacetopayLogo` definition.
 
 ## 2.0.0-beta.69 - 2024-02-12
