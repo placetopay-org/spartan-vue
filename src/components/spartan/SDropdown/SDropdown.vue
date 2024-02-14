@@ -23,8 +23,8 @@ withDefaults(defineProps<Partial<TDropdownProps>>(), {
             leave-to-class="transform opacity-0 scale-95"
         >
             <MenuItems
-                :class="[leftToRight ? 'left-0 origin-top-left' : 'right-0 origin-top-right ']"
-                class="absolute z-40 mt-1 min-w-[192px] divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-gray-100 focus:outline-none"
+                :class="[leftToRight ? 'left-0 origin-top-left' : 'right-0 origin-top-right']"
+                class="absolute z-40 mt-1 divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-gray-100 focus:outline-none"
             >
                 <slot name="items" />
             </MenuItems>

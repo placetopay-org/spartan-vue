@@ -1,0 +1,12 @@
+{/* AccountsDemo.mdx */}
+
+import { Canvas, Meta, Title, Description } from '@storybook/blocks';
+import * as AccountsStories from './AccountsDemo.stories.ts';
+
+<Meta of={AccountsStories} />
+
+<Title>Formulario</Title>
+<Canvas of={AccountsStories.FormStory} withToolbar />
+
+<Title>Pie de página</Title>
+<Canvas of={AccountsStories.FooterStory} withToolbar />

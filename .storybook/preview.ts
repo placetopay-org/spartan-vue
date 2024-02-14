@@ -1,4 +1,4 @@
-import '../src/css/style.css';
+import '../src/styles/main.css';
 import DocumentationTemplate from './DocumentationTemplate.mdx';
 import { type Preview, setup } from '@storybook/vue3';
 import type { App } from 'vue';
