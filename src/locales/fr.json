@@ -1,0 +1,51 @@
+{
+    "$spartan": {
+        "dataTable": {
+            "of": "de",
+            "page": "Page",
+            "pages": "pages",
+            "showing": "Affichage",
+            "pageSizePrefix": "Afficher",
+            "results": "résultats",
+            "searchPlaceholder": "Rechercher dans toutes les colonnes"
+        },
+        "filter": {
+            "addBtn": "Ajouter",
+            "addFilterBtn": "Ajouter un filtre",
+            "applyBtn": "Appliquer",
+            "cancelBtn": "Annuler",
+            "clearBtn": "Effacer les filtres",
+            "customSaveBtn": "Enregistrer le filtre",
+            "fieldSelectorNotResults": "Aucun résultat trouvé",
+            "fieldSelectorPlaceholder": "Sélectionnez un champ",
+            "inputSelectorPlaceholder": "Écrivez une valeur",
+            "no": "Non",
+            "notFoundFieldText": "Aucun filtre enregistré trouvé",
+            "operator": {
+                "between": "Entre",
+                "contains": "Contient",
+                "endsWith": "Se termine par",
+                "equal": "Est égal à",
+                "exist": "Existe",
+                "greaterThan": "Est supérieur à",
+                "greaterThanOrEqual": "Est supérieur ou égal à",
+                "lastMonth": "Le mois dernier",
+                "lastWeek": "La semaine dernière",
+                "lastYear": "L'année dernière",
+                "lessThan": "Est inférieur à",
+                "lessThanOrEqual": "Est inférieur ou égal à",
+                "notEqual": "N'est pas égal à",
+                "notExist": "N'existe pas",
+                "notBetween": "Pas entre",
+                "notContains": "Ne contient pas",
+                "startsWith": "Commence par",
+                "today": "Aujourd'hui",
+                "yesterday": "Hier"
+            },
+            "optionsSelectorPlaceholder": "Sélectionnez une ou plusieurs options",
+            "saveBtn": "Enregistrer",
+            "savedFiltersText": "Mes filtres enregistrés",
+            "yes": "Oui"
+        }
+    }
+}

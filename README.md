@@ -50,12 +50,24 @@ If you desire to establish a custom primary color, you may incorporate the `prim
       }),
    ```
 
+## Usage
+```html
+<script setup>
+import { SButton } from '@placetopay/spartan-vue';
+</script>
+
+<template>
+   <SButton>Create</SButton>
+</template>
+```
+
 ## Using Components with Translation
 Some components come with integrated texts. For these components, Spartan-vue provides translations in four languages:
 - Spanish
 - English
 - Italian
 - Portuguese
+- French
 
 It is essential to have [vue-i18n](https://vue-i18n.intlify.dev/) installed and correctly add the translation JSON files. These translations are entirely customizable, and the functionality can be expanded to include more languages.
 
@@ -99,3 +111,23 @@ This configuration sets up vue-i18n with English (`en`) as the default language 
 That's it! You've now successfully set up vue-i18n for Spartan-vue components in your project.
 
 Feel free to adjust the instructions to match your project's structure and requirements. If you have any questions or need further assistance, please don't hesitate to ask!
+
+### Using Icons
+In most cases you will have slots where you can put the icons of your choice. The recommended way to use icons is to use the [Iconsax Vue](https://placetopay-org.github.io/iconsax-vue/) library. You can install it using the following command:
+
+```shell
+npm install @placetopay/iconsax-vue
+```
+
+Those icons are exported as functional components that are recognized in spartan components:
+
+```html
+<script setup>
+import { SButton } from '@placetopay/spartan-vue';
+import { AddCircleIcon } from '@placetopay/iconsax-vue/bold';
+</script>
+
+<template>
+   <SButton :left-icon="AddCircleIcon">Create</SButton>
+</template>
+```
