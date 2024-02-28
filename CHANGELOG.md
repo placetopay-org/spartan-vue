@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Changed
+- `SMethodIcon` moved to `SCardBrand` component.
 - `SDropdown` now implements `SPopover` under the hood. This change allows the dropdown to be more flexible on positioning and to be more accessible.
 
 ## 2.0.0-beta.72 - 2024-02-26
