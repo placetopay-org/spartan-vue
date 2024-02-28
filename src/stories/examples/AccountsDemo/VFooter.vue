@@ -4,7 +4,7 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 </script>
 
 <template>
-    <footer class="flex w-full justify-center gap-8 bg-white py-6 text-gray-400">
+    <footer class="flex w-full justify-center gap-8 bg-white text-gray-400">
         <span>© Placetopay</span>
 
         <SDropdown placement="top-start">
