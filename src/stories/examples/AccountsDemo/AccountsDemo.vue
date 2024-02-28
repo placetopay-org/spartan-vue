@@ -1,21 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { SPlacetopayLogo, STab, STabItem } from '../../../';
-
-const tab = ref('login');
+import VForm from './VForm.vue';
+import VFooter from './VFooter.vue';
 </script>
 
 <template>
-    <main class="flex bg-blue-500 h-full w-full">
+    <main class="flex h-full w-full">
         <img class="w-full h-full" src="./bento-grid.png" alt="bento grid">
-        
-        <section class="px-16 flex flex-col justify-center items-center w-1/3">
-            <SPlacetopayLogo />
 
-            <STab v-model="tab">
-                <STabItem>Ingresar</STabItem>
-                <STabItem>Soy nuevo</STabItem>
-            </STab>
+        <section class="relative px-16 flex flex-col justify-center items-center w-1/3 pb-10">
+            <VForm />
+            <VFooter class="absolute bottom-0" />
         </section>
     </main>
 </template>

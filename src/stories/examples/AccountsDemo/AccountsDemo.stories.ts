@@ -1,5 +1,6 @@
-import Form from './Form.vue';
-import Footer from './Footer.vue';
+import VForm from './VForm.vue';
+import VFooter from './VFooter.vue';
+import AccountsDemo from './AccountsDemo.vue';
 import { createDefault } from '../../../helpers';
 
 export default {
@@ -9,11 +10,11 @@ export default {
 export const FormStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'bg-black/80 w-[958px] h-[600px] flex justify-center items-center',
-    components: { Form },
+    components: { VForm },
     args: {
         modelValue: true,
     },
-    template: `<Form v-bind="args" v-model="args.modelValue"/>`,
+    template: `<VForm v-bind="args" v-model="args.modelValue"/>`,
     transform: () => `<script setup lang="ts">
     import { ref } from 'vue';
     import { SPlacetopayLogo, STab, STabItem, SInputBlock, SButton } from '@placetopay/spartan-vue';
@@ -50,10 +51,45 @@ export const FormStory = createDefault({
 export const FooterStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'bg-black/80 w-[958px] h-[600px] flex justify-center items-center',
-    components: { Footer },
+    components: { VFooter },
     args: {
         modelValue: true,
     },
-    template: `<Footer v-bind="args" v-model="args.modelValue"/>`,
-    transform: () => ``
+    template: `<VFooter v-bind="args" v-model="args.modelValue"/>`,
+    transform: () => `<script setup lang="ts">
+    import { SDropdown, SDropdownItem } from '../../../';
+    import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
+    </script>
+    
+    <template>
+        <footer class="flex w-full justify-center gap-8 bg-white py-6 text-gray-400">
+            <span>© Placetopay</span>
+    
+            <SDropdown placement="top-start">
+                <template #reference>
+                    <button class="flex items-center gap-1.5">
+                        <ChatBubbleBottomCenterTextIcon class="h-4 w-4" />
+                        Idioma
+                    </button>
+                </template>
+    
+                <div class="text-sm font-medium text-gray-800 w-36">
+                    <SDropdownItem>Español</SDropdownItem>
+                    <SDropdownItem>Inglés</SDropdownItem>
+                </div>
+            </SDropdown>
+        </footer>
+    </template>
+    `
+});
+
+export const PageStory = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'bg-black/80 w-[958px] h-[600px] flex justify-center items-center',
+    components: { AccountsDemo },
+    args: {
+        modelValue: true,
+    },
+    template: `<AccountsDemo v-bind="args" v-model="args.modelValue"/>`,
+    transform: () => `---`
 });
