@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 2.0.0-beta.73 - 2024-02-28
 ### Changed
 - `SMethodIcon` moved to `SCardBrand` component.
 - `SDropdown` now implements `SPopover` under the hood. This change allows the dropdown to be more flexible on positioning and to be more accessible.
