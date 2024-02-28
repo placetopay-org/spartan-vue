@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { MenuItem } from '@headlessui/vue';
+import { twMerge } from 'tailwind-merge';
 import type { TDropdownItemProps } from './types';
 
 withDefaults(defineProps<Partial<TDropdownItemProps>>(), {
@@ -13,8 +14,14 @@ withDefaults(defineProps<Partial<TDropdownItemProps>>(), {
         <button
             type="button"
             v-bind="$attrs"
-            :class="[active && 'bg-gray-50', disabled && 'cursor-default select-text']"
-            class="group flex w-full items-center gap-3 px-3 py-3 text-sm text-gray-700"
+            :class="
+                twMerge(
+                    active && 'bg-gray-50',
+                    disabled && 'cursor-default select-text pointer-events-none',
+                    'group flex w-full items-center gap-3 px-3 py-3 text-sm text-gray-700 text-nowrap',
+                    $props.class
+                )
+            "
         >
             <component :is="icon" class="h-5 w-5 text-gray-400" aria-hidden="true" />
             <div class="flex flex-col items-start">

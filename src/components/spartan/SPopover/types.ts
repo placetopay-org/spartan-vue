@@ -10,4 +10,5 @@ export type TPopoverProps = {
     placement?: Placement;
     preventClose?: boolean;
     responsive?: boolean;
+    class?: string;
 };
