@@ -3,6 +3,7 @@ import { SPopover } from '../SPopover';
 import { Menu, MenuItems } from '@headlessui/vue';
 import type { TDropdownProps } from './types';
 import { twMerge } from 'tailwind-merge';
+import { focusFirstChild } from '@/helpers';
 
 withDefaults(defineProps<Partial<TDropdownProps>>(), {
     offset: 2,
@@ -16,7 +17,7 @@ withDefaults(defineProps<Partial<TDropdownProps>>(), {
 <template>
     <SPopover v-bind="$props" :class="twMerge('w-fit', $props.class)">
         <template #reference="handlers">
-            <button @click="handlers.toggle">
+            <button @click="handlers.toggle" @focus="focusFirstChild" :tabindex="-1">
                 <slot name="reference" />
             </button>
         </template>

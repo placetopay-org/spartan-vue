@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- Internal focus handler on `SPopover` and `SDropdown` components.
 
 ## 2.0.0-beta.73 - 2024-02-28
 ### Changed

@@ -6,6 +6,7 @@ import { useMediaQuery } from '@vueuse/core';
 import { popoverContainerStyles, popoverFloatingStyles } from './styles';
 import { TranStyle } from '@/constants';
 import type { TPopoverEmits, TPopoverProps } from './types';
+import { focusFirstChild } from '@/helpers';
 
 const emit = defineEmits<TPopoverEmits>();
 
@@ -59,7 +60,11 @@ const open = () => {
     });
 };
 
-const close = () => (isOpen.value = false);
+const close = () => {
+    isOpen.value = false;
+    focusFirstChild(reference.value, true);
+    (reference.value?.firstElementChild as HTMLElement)?.focus();
+};
 
 const toggle = () => {
     if (isOpen.value) close();
@@ -109,6 +114,7 @@ defineExpose(handlers);
                 ref="floating"
                 :style="styles"
                 tabindex="-1"
+                @focus="focusFirstChild"
                 @focusout="focusout"
             >
                 <slot v-bind="handlers" />
