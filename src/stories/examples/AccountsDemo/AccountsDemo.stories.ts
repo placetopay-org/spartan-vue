@@ -17,40 +17,66 @@ export const FormStory = createDefault({
     template: `<div class="h-full px-16 bg-white"><VForm v-bind="args" v-model="args.modelValue"/></div>`,
     transform: () => `<script setup lang="ts">
     import { ref } from 'vue';
-    import { SPlacetopayLogo, STab, STabItem, SInputBlock, SButton } from '../../../';
+    import { SPlacetopayLogo, STab, STabItem, SInputBlock, SButton } from '@placetopay/spartan-vue';
     import { computed } from 'vue';
+    import { ArrowLeftIcon } from '@heroicons/vue/20/solid';
     
-    const tab = ref('Ingresar');
-    const atLogin = computed(() => tab.value === 'Ingresar');
+    const props = defineProps<{
+        routeParam: string;
+    }>();
+    
+    const route = ref(props.routeParam);
+    const push = (newRoute?: string) => {
+        console.log('newRoute', newRoute);
+        if (!newRoute) return;
+        route.value = newRoute;
+    };
+    
+    const AuthRoutes = ['login', 'signup'];
+    
+    const atLogin = computed(() => route.value === 'login');
     </script>
     
     <template>
         <form class="flex h-full w-full max-w-sm flex-col items-center justify-center bg-white">
             <SPlacetopayLogo class="mb-8" :height="32" />
     
-            <STab v-model="tab" full class="mb-6 w-full">
-                <STabItem>Ingresar</STabItem>
-                <STabItem>Soy nuevo</STabItem>
-            </STab>
+            <template v-if="AuthRoutes.includes(route)">
+                <STab :model-value="route" @update:model-value="newRoute => push(newRoute)" full class="mb-6 w-full">
+                    <STabItem path="login">Ingresar</STabItem>
+                    <STabItem path="signup">Soy nuevo</STabItem>
+                </STab>
     
-            <div class="flex w-full flex-col gap-6">
-                <SInputBlock v-if="!atLogin" label="Nombre" />
-                <SInputBlock label="Correo electrónico" placeholder="tuemail@ejemplo.com" />
-                <SInputBlock label="Contraseña" type="password" />
-                <SInputBlock v-if="!atLogin" label="Confirmar la contraseña" type="password" />
+                <div class="flex w-full flex-col gap-6">
+                    <SInputBlock v-if="!atLogin" label="Nombre" />
+                    <SInputBlock label="Correo electrónico" placeholder="tuemail@ejemplo.com" />
+                    <SInputBlock label="Contraseña" type="password" />
+                    <SInputBlock v-if="!atLogin" label="Confirmar la contraseña" type="password" />
     
-                <a class="text-center text-xs font-medium text-gray-400">¿Olvidaste tu contraseña?</a>
-                <SButton class="w-full">{{ atLogin ? 'Ingresar' : 'Registrarse' }}</SButton>
+                    <button type="button" @click="push('restore-password')" class="text-center text-xs font-medium text-gray-400">¿Olvidaste tu contraseña?</button>
+                    <SButton class="w-full">{{ atLogin ? 'Ingresar' : 'Registrarse' }}</SButton>
     
-                <p class="text-xs font-normal text-gray-400">
-                    Al continuar acepto las políticas aplicables para el tratamiento de mis datos personales según la
-                    jurisdicción local del responsable y de
-                    <strong class="font-semibold text-gray-500">Evertec PlacetoPay</strong> en su calidad de encargado.
-                </p>
-            </div>
+                    <p class="text-xs font-normal text-gray-400">
+                        Al continuar acepto las políticas aplicables para el tratamiento de mis datos personales según la
+                        jurisdicción local del responsable y de
+                        <strong class="font-semibold text-gray-500">Evertec PlacetoPay</strong> en su calidad de encargado.
+                    </p>
+                </div>
+            </template>
+    
+            <template v-if="route === 'restore-password'">
+                <h2 class="text-gray-900 font-semibold mb-1.5">Restablecer contraseña</h2>
+                <p class="text-xs text-gray-600 text-center mb-6">Ingrese el correo electrónico asociado con su cuenta y le enviaremos un enlace para restablecer su contraseña.</p>
+                
+                <SInputBlock class="w-full mb-6" label="Correo electrónico" placeholder="tuemail@ejemplo.com" />
+    
+                <div class="flex w-full">
+                    <SButton class="w-fit mr-4" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')">Volver</SButton>
+                    <SButton class="flex-1" @click="push('login')">Envíar link</SButton>
+                </div>
+            </template>
         </form>
-    </template>
-    `
+    </template>`
 });
 
 export const FooterStory = createDefault({
@@ -62,7 +88,7 @@ export const FooterStory = createDefault({
     },
     template: `<div class="w-full py-6 bg-white"><VFooter v-bind="args" v-model="args.modelValue"/></div>`,
     transform: () => `<script setup lang="ts">
-    import { SDropdown, SDropdownItem } from '../../../';
+    import { SDropdown, SDropdownItem } from '@placetopay/spartan-vue';
     import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
     </script>
     
@@ -88,12 +114,12 @@ export const FooterStory = createDefault({
     `
 });
 
-export const PageStory = createDefault({
+export const LoginPageStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
     components: { AccountsDemo },
     args: {},
-    template: `<AccountsDemo />`,
+    template: `<AccountsDemo route="login" />`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
     import VFooter from './VFooter.vue';
@@ -101,9 +127,61 @@ export const PageStory = createDefault({
     
     <template>
         <div class="flex h-full w-full flex-1">
-            <div class="relative hidden w-0 flex-1 lg:block">
-                <img class="absolute inset-0 h-full w-full object-cover" src="./bento-grid.png" alt="bento grid">
-            </div>
+            <!-- Bento grid -->
+    
+            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
+                <div class="mx-auto w-full max-w-sm lg:w-96">
+                    <VForm />
+                </div>
+    
+                <VFooter class="absolute bottom-0 py-6" /> 
+            </section>
+        </div>
+    </template>
+    `
+});
+
+export const RegisterPageStory = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'h-full w-full',
+    components: { AccountsDemo },
+    args: {},
+    template: `<AccountsDemo route="signup" />`,
+    transform: () => `<script setup lang="ts">
+    import VForm from './VForm.vue';
+    import VFooter from './VFooter.vue';
+    </script>
+    
+    <template>
+        <div class="flex h-full w-full flex-1">
+            <!-- Bento grid -->
+    
+            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
+                <div class="mx-auto w-full max-w-sm lg:w-96">
+                    <VForm />
+                </div>
+    
+                <VFooter class="absolute bottom-0 py-6" /> 
+            </section>
+        </div>
+    </template>
+    `
+});
+
+export const RestorePasswordPageStory = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'h-full w-full',
+    components: { AccountsDemo },
+    args: {},
+    template: `<AccountsDemo route="restore-password" />`,
+    transform: () => `<script setup lang="ts">
+    import VForm from './VForm.vue';
+    import VFooter from './VFooter.vue';
+    </script>
+    
+    <template>
+        <div class="flex h-full w-full flex-1">
+            <!-- Bento grid -->
     
             <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
                 <div class="mx-auto w-full max-w-sm lg:w-96">
