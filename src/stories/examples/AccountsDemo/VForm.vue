@@ -4,9 +4,14 @@ import { SPlacetopayLogo, STab, STabItem, SInputBlock, SButton } from '../../../
 import { computed } from 'vue';
 import { ArrowLeftIcon } from '@heroicons/vue/20/solid';
 
-const props = defineProps<{
-    routeParam: string;
-}>();
+const props = withDefaults(
+    defineProps<{
+        routeParam: string;
+    }>(),
+    {
+        routeParam: 'login',
+    },
+);
 
 const route = ref(props.routeParam);
 const push = (newRoute?: string) => {
@@ -25,7 +30,7 @@ const atLogin = computed(() => route.value === 'login');
         <SPlacetopayLogo class="mb-8" :height="32" />
 
         <template v-if="AuthRoutes.includes(route)">
-            <STab :model-value="route" @update:model-value="newRoute => push(newRoute)" full class="mb-6 w-full">
+            <STab :model-value="route" @update:model-value="(newRoute) => push(newRoute)" full class="mb-6 w-full">
                 <STabItem path="login">Ingresar</STabItem>
                 <STabItem path="signup">Soy nuevo</STabItem>
             </STab>
@@ -36,7 +41,13 @@ const atLogin = computed(() => route.value === 'login');
                 <SInputBlock label="Contraseña" type="password" />
                 <SInputBlock v-if="!atLogin" label="Confirmar la contraseña" type="password" />
 
-                <button type="button" @click="push('restore-password')" class="text-center text-xs font-medium text-gray-400">¿Olvidaste tu contraseña?</button>
+                <button
+                    type="button"
+                    @click="push('restore-password')"
+                    class="text-center text-xs font-medium text-gray-400"
+                >
+                    ¿Olvidaste tu contraseña?
+                </button>
                 <SButton class="w-full">{{ atLogin ? 'Ingresar' : 'Registrarse' }}</SButton>
 
                 <p class="text-xs font-normal text-gray-400">
@@ -48,13 +59,18 @@ const atLogin = computed(() => route.value === 'login');
         </template>
 
         <template v-if="route === 'restore-password'">
-            <h2 class="text-gray-900 font-semibold mb-1.5">Restablecer contraseña</h2>
-            <p class="text-xs text-gray-600 text-center mb-6">Ingrese el correo electrónico asociado con su cuenta y le enviaremos un enlace para restablecer su contraseña.</p>
-            
-            <SInputBlock class="w-full mb-6" label="Correo electrónico" placeholder="tuemail@ejemplo.com" />
+            <h2 class="mb-1.5 font-semibold text-gray-900">Restablecer contraseña</h2>
+            <p class="mb-6 text-center text-xs text-gray-600">
+                Ingrese el correo electrónico asociado con su cuenta y le enviaremos un enlace para restablecer su
+                contraseña.
+            </p>
+
+            <SInputBlock class="mb-6 w-full" label="Correo electrónico" placeholder="tuemail@ejemplo.com" />
 
             <div class="flex w-full">
-                <SButton class="w-fit mr-4" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')">Volver</SButton>
+                <SButton class="mr-4 w-fit" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')"
+                    >Volver</SButton
+                >
                 <SButton class="flex-1" @click="push('login')">Envíar link</SButton>
             </div>
         </template>
