@@ -9,7 +9,7 @@ const computedId = computed(() => props.id || uuidv4());
 </script>
 
 <template>
-    <div>
+    <div class="w-full">
         <SLabel v-if="label" :for="useDpUid ? `dp-menu-${computedId}` : computedId">{{ label }}</SLabel>
         <slot :id="computedId" />
         <div v-if="helpText || errorText" class="flex flex-col">
