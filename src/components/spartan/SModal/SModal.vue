@@ -24,7 +24,7 @@ withDefaults(defineProps<Partial<TModalProps>>(), {
                     leave-from="opacity-100 scale-100"
                     leave-to="opacity-0 scale-50"
                 >
-                    <DialogPanel class="flex w-full justify-center">
+                    <DialogPanel class="flex max-w-max justify-center">
                         <slot />
                     </DialogPanel>
                 </TransitionChild>
