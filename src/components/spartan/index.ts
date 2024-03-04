@@ -45,3 +45,5 @@ export * from './SInputDate';
 export * from './SInputDateBlock';
 export * from './SCardBrand';
 export * from './SPageTitle';
+export * from './STextArea';
+export * from './STextAreaBlock';

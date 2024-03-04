@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- New `STextAreaBlock` component.
+- New `STextArea` component.
 - Internal focus handler on `SPopover` and `SDropdown` components.
+
+### Fixed
+- Error class order on `Block` components.
 
 ## 2.0.0-beta.73 - 2024-02-28
 ### Changed

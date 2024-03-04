@@ -28,7 +28,7 @@ export default plugin.withOptions(
                 ':root': colorUtilities,
                 html: { '@apply antialiased': {} },
                 // "@import '@placetopay/spartan-vue/style.css';": true, NOT WORKS
-                "@import url('https://rsms.me/inter/inter.css')": true,
+                // "@import url('https://rsms.me/inter/inter.css')": true, NOT WORKS
                 '.s-ring': {
                     '@apply duration-150 ring ring-primary-100 border-primary-300 z-10': {},
                 },

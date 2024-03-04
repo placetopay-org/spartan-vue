@@ -9,7 +9,7 @@ export const extractWrapperProps = <T>(props: any): [ComputedRef<TBlockWrapperPr
         }),
         computed(() => {
             const { id, label, helpText, errorText, ...rest } = props;
-            return { error: errorText ? Boolean(errorText) : props.error, ...rest };
+            return { ...rest, error: errorText ? Boolean(errorText) : props.error };
         }),
     ];
 };
