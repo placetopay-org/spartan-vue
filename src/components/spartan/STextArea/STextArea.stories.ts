@@ -1,5 +1,7 @@
+import { ref } from 'vue';
 import STextArea from './STextArea.vue';
-import { buildSourceBinding, createDefault, createHistory } from '@/helpers';
+import { SLabel } from '../SLabel';
+import { buildSourceBinding, createDefault, createHistory, createVariation } from '@/helpers';
 
 export default {
     component: STextArea,
@@ -30,14 +32,64 @@ export default {
     }),
 };
 
-const sourceBinding = buildSourceBinding({});
+const sourceBinding = buildSourceBinding({
+    check: ['error', 'disabled'],
+});
 
 export const Default = createDefault({
     components: { STextArea },
-    template: `<STextArea v-bind="args">{{args.default}}</STextArea>`,
-    transform: (args) => `<STextArea ${sourceBinding(args)}>${args.default}</STextArea>`,
+    template: `<STextArea v-bind="args" v-model="value" />`,
+    transform: (args) => `<STextArea v-model="value" ${sourceBinding(args)} />`,
     args: {
         error: false,
         disabled: false,
     },
 });
+
+export const Base = createVariation({
+    components: { STextArea },
+    containerClass: 'grid grid-cols-2 gap-4',
+    template: `<STextArea />`,
+});
+
+export const Error = createVariation({
+    components: { STextArea },
+    containerClass: 'grid grid-cols-2 gap-4',
+    template: `<STextArea v-model="value" error />`,
+});
+
+export const Disabled = createVariation({
+    components: { STextArea },
+    containerClass: 'grid grid-cols-2 gap-4',
+    template: `<STextArea v-model="value" disabled />`,
+});
+
+export const InitialValue = createVariation({
+    components: { STextArea },
+    setup: () => {
+        const value = ref('initial value');
+        return { value };
+    },
+    containerClass: 'grid grid-cols-2 gap-4 h-[100px]',
+    template: `
+<!-- value = 'initial value' -->
+<STextArea v-model="value" /> 
+<SLabel>
+    <span class="font-bold">v-model: </span>
+    {{value}}
+</SLabel>
+`,
+});
+
+export const MultiLine = createVariation({
+    components: { STextArea },
+    containerClass: 'grid grid-cols-2 gap-4 h-[100px]',
+    template: `
+<STextArea v-model="value" /> 
+<SLabel class="whitespace-pre-line">
+    <span class="font-bold">v-model: </span>
+    {{value}}
+</SLabel>
+`,
+});
+
