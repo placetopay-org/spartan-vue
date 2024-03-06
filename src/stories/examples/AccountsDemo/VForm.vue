@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SPlacetopayLogo, STab, STabItem, SInputBlock, SButton } from '../../../';
+import { SPlacetopayLogo, STab, STabItem, SInputBlock, SButton, SInputOTP, SInputOTPItem } from '../../../';
 import { computed } from 'vue';
 import { ArrowLeftIcon } from '@heroicons/vue/20/solid';
+import { LockClosedIcon } from '@heroicons/vue/24/outline';
 
 const props = withDefaults(
     defineProps<{
@@ -23,6 +24,8 @@ const push = (newRoute?: string) => {
 const AuthRoutes = ['login', 'signup'];
 
 const atLogin = computed(() => route.value === 'login');
+
+const otp = ref('');
 </script>
 
 <template>
@@ -68,10 +71,38 @@ const atLogin = computed(() => route.value === 'login');
             <SInputBlock class="mb-6 w-full" label="Correo electrónico" placeholder="tuemail@ejemplo.com" />
 
             <div class="flex w-full">
-                <SButton class="mr-4 w-fit" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')"
-                    >Volver</SButton
-                >
-                <SButton class="flex-1" @click="push('login')">Envíar link</SButton>
+                <SButton class="mr-4 w-fit" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')">
+                    Volver
+                </SButton>
+                <SButton class="flex-1" @click="push('otp')">Envíar link</SButton>
+            </div>
+        </template>
+
+        <template v-if="route === 'otp'">
+            <div class="border border-gray-100 rounded-full p-3 mb-6">
+                <LockClosedIcon class="mx-auto h-6 w-6 text-gray-900" />
+            </div>
+            <h2 class="mb-1.5 font-semibold text-gray-900">Código de autenticación</h2>
+            <p class="mb-6 text-center text-xs text-gray-600">
+                Abra su aplicación de autenticación de dos factores (TOTP) o la extensión del navegador para ver su
+                código de autenticación.
+            </p>
+
+            <SInputOTP v-model="otp" class="mb-6">
+                <SInputOTPItem />
+                <SInputOTPItem />
+                <SInputOTPItem class="mr-2.5" />
+
+                <SInputOTPItem />
+                <SInputOTPItem />
+                <SInputOTPItem />
+            </SInputOTP>
+
+            <div class="flex w-full">
+                <SButton class="mr-4 w-fit" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')">
+                    Volver
+                </SButton>
+                <SButton class="flex-1" @click="push('otp')">Verificar</SButton>
             </div>
         </template>
     </form>

@@ -47,3 +47,4 @@ export * from './SCardBrand';
 export * from './SPageTitle';
 export * from './STextArea';
 export * from './STextAreaBlock';
+export * from './SInputOTP';
