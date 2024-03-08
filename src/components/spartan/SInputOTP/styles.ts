@@ -11,7 +11,7 @@ export const inputOTPStyles = cva(
 );
 
 export const inputOTPItemStyles = cva(
-    'flex h-12 w-[46px] items-center justify-center rounded-xl border bg-gray-100 border-gray-200',
+    'flex h-12 w-[46px] shrink-0 items-center justify-center rounded-xl border bg-gray-100 border-gray-200',
     {
         variants: {
             active: cbv('border-gray-900 ring-1 ring-gray-800'),

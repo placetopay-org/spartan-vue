@@ -16,7 +16,6 @@ const props = withDefaults(
 
 const route = ref(props.routeParam);
 const push = (newRoute?: string) => {
-    console.log('newRoute', newRoute);
     if (!newRoute) return;
     route.value = newRoute;
 };

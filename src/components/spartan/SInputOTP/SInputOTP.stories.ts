@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { SInput } from '../SInput'
 import SInputOTP from './SInputOTP.vue';
 import SInputOTPItem from './SInputOTPItem.vue';
 import { buildSourceBinding, createDefault, createVariation, createHistory } from '@/helpers';
@@ -58,7 +59,7 @@ export default {
 const sourceBinding = buildSourceBinding({});
 
 export const Default = createDefault({
-    components: { SInputOTP, SInputOTPItem },
+    components: { SInputOTP, SInputOTPItem, SInput },
     setup: () => {
         const value = ref('');
 
@@ -72,7 +73,12 @@ export const Default = createDefault({
     <SInputOTPItem />
     <SInputOTPItem />
     <SInputOTPItem />
-</SInputOTP>`,
+</SInputOTP>
+
+<hr class="mt-8" />
+<p class="text-xs text-gray-400 mb-2">v-model test: {{ value }}</p>
+
+<SInput type="text" v-model="value" />`,
     transform: (args) => `<SInputOTP ${sourceBinding(args)}>${args.default}</SInputOTP>`,
     args: {
         disabled: false,
@@ -98,8 +104,7 @@ export const Base = createVariation({
     <SInputOTPItem />
     <SInputOTPItem />
 </SInputOTP>
-
-<p>Value: {{ value }}</p>`,
+`,
 });
 
 export const Disabled = createVariation({

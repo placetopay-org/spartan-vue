@@ -7,9 +7,8 @@ type TItem = {
 };
 
 type TState = {
-    items: TItem[],
+    items: TItem[];
     value: string;
-    isFocused: boolean;
     isFocusedAll: boolean;
     success: boolean;
     error: boolean;
@@ -23,51 +22,60 @@ type TState = {
 
 const contextKey = Symbol('STabContext') as InjectionKey<TState>;
 
+const activate = (state: TState) => {
+    if (state.value.length < state.items.length) state.items[state.value.length]?.setActive(true);
+    else state.items[state.value.length - 1]?.setActive(true);
+};
+
+const deactivate = (state: TState) => {
+    if (state.isFocusedAll) {
+        state.isFocusedAll = false;
+        state.items.forEach(({ setActive }) => setActive(false));
+    } else if (state.value.length < state.items.length) state.items[state.value.length]?.setActive(false);
+    else state.items[state.value.length - 1]?.setActive(false);
+};
+
 export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
     const state: TState = reactive({
         items: [],
-        value: props.modelValue,
+        value: computed(() => props.modelValue || ''),
         success: computed(() => props.success || false),
         error: computed(() => props.error || false),
-        isFocused: false,
         isFocusedAll: false,
         register: (setValue: TItem['setValue'], setActive: TItem['setActive']) => {
+            if (state.items.length < state.value.length) setValue(state.value.charAt(state.items.length));
             state.items.push({ setValue, setActive });
         },
         updateValue: (value: string) => {
-            if (state.isFocusedAll) state.items.forEach(({ setActive }) => setActive(false));
-            else state.items[state.value.length]?.setActive(false);
-
-            if (!value || /^[0-9]+$/.test(value)) {
-                state.value = value;
-                emit('update:modelValue', value);
-
-                state.items.forEach(({ setValue }, index) => setValue(value.charAt(index)));
+            if (value.length === state.value.length) {
+                deactivate(state);
+                activate(state);
+                return;
             }
 
-            if (state.isFocused) state.items[state.value.length]?.setActive(true);
-        },
-        focusInput: () => {
-            state.isFocused = true;
-            state.items[state.value.length]?.setActive(true);
-        },
-        focusoutInput: () => {
-            state.isFocused = false;
+            deactivate(state);
 
-            if (state.isFocusedAll) {
-                state.isFocusedAll = false;
-                state.items.forEach(({ setActive }) => setActive(false));
-            } else state.items[state.value.length]?.setActive(false);
+            if (!value || /^[0-9]+$/.test(value)) emit('update:modelValue', value);
+
+            activate({...state, value });
         },
+        focusInput: () => activate(state),
+        focusoutInput: () => deactivate(state),
+        selectAll: () => {
+            state.isFocusedAll = true;
+            state.items.forEach(({ setActive }) => setActive(true));
+        },
+        // TODO: Implement arrow keys navigation
         updateSelection: (start: number, end: number) => {
             // console.log('updateSelection', start, end, state.items.slice(start, end).length);
             // state.items.slice(start, end + 1).forEach(({ setActive }) => setActive(true));
         },
-        selectAll: () => {
-            state.isFocusedAll = true;
-            state.items.forEach(({ setActive }) => setActive(true));
-        }
     });
+
+    watch(
+        () => props.modelValue,
+        (currentValue) => state.items.forEach(({ setValue }, index) => setValue(currentValue.charAt(index))),
+    );
 
     provide(contextKey, state);
     return state;

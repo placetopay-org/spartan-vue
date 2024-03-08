@@ -23,6 +23,7 @@ const updateValue = (event: Event) => {
     $input.value = context.value;
 };
 
+// TODO: Implement arrow keys navigation
 const showCaret = (event: Event) => {
     // const $input = event.target as HTMLInputElement;
 
