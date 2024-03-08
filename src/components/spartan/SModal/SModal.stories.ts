@@ -47,7 +47,7 @@ export const Default = createDefault({
         return { open };
     },
     template: `<SModal :open="open" @close="() => open = false">
-    <div class="bg-yellow-300 flex flex-col gap-8 w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 justify-center items-center">
+    <div class="bg-yellow-300 flex flex-col gap-8 w-full sm:w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 justify-center items-center">
         Any Element!
 
         <button class="bg-blue-300 px-2 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex items-center" @click="() => open = false">X</button>

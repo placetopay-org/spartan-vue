@@ -2,9 +2,7 @@
 import VForm from './VForm.vue';
 import VFooter from './VFooter.vue';
 
-defineProps<{
-    route: string;
-}>();
+defineProps<{ route: string }>();
 </script>
 
 <template>
