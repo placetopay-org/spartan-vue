@@ -8,6 +8,8 @@ import { TranStyle } from '@/constants';
 import type { TPopoverEmits, TPopoverProps } from './types';
 import { focusFirstChild } from '@/helpers';
 
+defineOptions({ inheritAttrs: false });
+
 const emit = defineEmits<TPopoverEmits>();
 
 const props = withDefaults(defineProps<TPopoverProps>(), {
