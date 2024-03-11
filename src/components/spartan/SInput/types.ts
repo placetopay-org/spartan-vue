@@ -33,4 +33,5 @@ export type TInputProps = {
     leftOptions: TOption[];
     rightOrderSlots: string;
     leftOrderSlots: string;
+    borderless?: boolean;
 };

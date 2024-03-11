@@ -86,6 +86,10 @@ export default {
             description: 'The error state of the input.',
             table: { type: { summary: 'boolean' } },
         },
+        borderless: {
+            description: 'The borderless mode of the input.',
+            table: { type: { summary: 'boolean' } },
+        },
         id: {
             control: 'text',
             description: 'The id of the input element.',
@@ -281,8 +285,27 @@ export const Default = {
         suffix: '',
         rounded: 'both',
         type: 'text',
+        borderless: false,
     },
 };
+
+export const Base = createVariation({
+    components: { SInput },
+    template: `<SInput />`,
+    containerClass: 'w-52',
+});
+
+export const Borderless = createVariation({
+    components: { SInput },
+    template: `
+<!-- The borderless using prop -->
+<SInput borderless class="bg-[#f8f8f8]" inputClass="bg-[#f8f8f8]" value="borderless(props)" />
+
+<!-- The borderless using classes -->
+<SInput class="border-0 focus-within:!ring-0 bg-[#f8f8f8]" inputClass="bg-[#f8f8f8]" value="borderless(classes)" />
+`,
+    containerClass: 'w-52',
+});
 
 export const Disabled = createVariation({
     components: { SInput },
