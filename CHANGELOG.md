@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- New `SStackedList` and `SStackedListItem` components.
 - `SInput` now uses class variance authority, allowing to use the borderless variant.
 
 ## 2.0.0-beta.77 - 2024-03-08

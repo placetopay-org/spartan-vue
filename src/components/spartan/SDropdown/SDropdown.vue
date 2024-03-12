@@ -12,10 +12,12 @@ withDefaults(defineProps<Partial<TDropdownProps>>(), {
     responsive: true,
     preventClose: false,
 });
+
+defineOptions({ inheritAttrs: false });
 </script>
 
 <template>
-    <SPopover v-bind="$props" :class="twMerge('w-fit', $props.class)">
+    <SPopover v-bind="{ ...$props, class: undefined }" :class="twMerge('w-fit', $props.class)">
         <template #reference="handlers">
             <button @click="handlers.toggle" @focus="focusFirstChild" :tabindex="-1">
                 <slot name="reference" />
