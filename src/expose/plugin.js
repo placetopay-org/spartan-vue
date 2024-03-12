@@ -1,7 +1,8 @@
-import plugin from 'tailwindcss/plugin';
+// import '../../dist/style.css';
+import { withOptions } from 'tailwindcss/plugin';
 import tailwindForms from '@tailwindcss/forms';
 
-export default plugin.withOptions(
+export default withOptions(
     function (options = {}) {
         return function (config) {
             tailwindForms().handler(config);

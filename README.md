@@ -14,7 +14,7 @@ You can find the documentation and components of this design system by clicking 
 2. Install in the consumer project
 
    ```shell
-   npm install -D @placetopay/spartan-vue @tailwindcss/forms
+   npm install -D @placetopay/spartan-vue
    ```
 
 3. Configure your `tailwind.config.js` file adding the following lines:
@@ -28,6 +28,16 @@ You can find the documentation and components of this design system by clicking 
          //...
          require('@placetopay/spartan-vue/plugin'),
       ],
+   ```
+
+4. Import the styles in your main file (Before the `your styles` import):
+
+   ```javascript
+      // add before your styles
+      import '@placetopay/spartan-vue/style.css';
+      
+      // your styles (with tailwindcss directives)
+      import './my-styles.css'
    ```
 
 ## Plugin configuration

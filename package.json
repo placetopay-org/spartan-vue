@@ -18,7 +18,7 @@
       "types": "./dist/types/index.d.ts"
     },
     "./locales": "./src/locales/index.ts",
-    "./plugin": "./src/expose/plugin.js",
+    "./plugin": "./src/expose/dist/plugin.js",
     "./style.css": "./dist/style.css"
   },
   "repository": {
@@ -26,10 +26,10 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "vite build && npm run build:types",
+    "build": "vite build && rollup -c && npm run build:types",
     "build:storybook": "storybook build",
+    "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
-    "serve": "vite preview",
     "typecheck": "vue-tsc --noEmit",
     "format:check": "prettier . --check",
     "format": "prettier . --write",
@@ -53,6 +53,9 @@
     "@heroicons/vue": "2.1.1",
     "@intlify/unplugin-vue-i18n": "^2.0.0",
     "@placetopay/iconsax-vue": "^0.0.7",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
     "@storybook/addon-a11y": "7.1.1",
     "@storybook/addon-designs": "7.0.1",
     "@storybook/addon-essentials": "7.1.1",
@@ -91,6 +94,8 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "rollup": "^4.12.1",
+    "rollup-plugin-postcss": "^4.0.2",
     "storybook": "7.1.1",
     "storybook-addon-pseudo-states": "2.1.0",
     "tailwind-merge": "^2.2.1",
