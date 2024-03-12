@@ -1,0 +1,12 @@
+{/* SidebarLayouts.mdx */}
+
+import { Canvas, Meta, Title, Description } from '@storybook/blocks';
+import * as AccountsStories from './SidebarLayouts.stories.ts';
+
+<Meta of={AccountsStories} />
+
+<Title>Barra lateral con encabezado</Title>
+<Canvas of={AccountsStories.SidebarWithHeaderStory} withToolbar />
+
+<Title>Barra lateral sola</Title>
+<Canvas of={AccountsStories.OnlySidebarStory} withToolbar />
