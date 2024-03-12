@@ -16,35 +16,35 @@ const size: Record<'text' | 'noText', Record<TSizeVariant, string>> = {
 
 export type TButtonStyles = VariantProps<typeof buttonStyles> & { size: TSizeVariant };
 export const buttonStyles = cva(
-    'inline-flex items-center justify-center h-fit w-fit border font-medium transition focus:outline-none gap-2 disabled:opacity-50 disabled:cursor-not-allowed',
+    'inline-flex items-center justify-center h-fit w-fit border font-medium transition focus:outline-none gap-2',
     {
         variants: {
             variant: {
                 primary: [
                     'text-white',
-                    'bg-primary-600 enabled:hover:bg-primary-700',
+                    'bg-primary-600 hover:bg-primary-700',
                     'border-primary-600 shadow-sm',
                     SCN.focusRingPrimary,
                 ],
                 secondary: [
                     'text-gray-900',
-                    'bg-white enabled:hover:bg-gray-50',
+                    'bg-white hover:bg-gray-50',
                     'border-gray-300 focus:ring-gray-300 shadow-sm',
                     SCN.focusRingSecondary,
                 ],
                 danger: [
                     'text-white',
-                    'bg-red-500 enabled:hover:bg-red-600',
+                    'bg-red-500 hover:bg-red-600',
                     'border-red-500 focus:ring-red-300 shadow-sm',
                     SCN.focusRingDanger,
                 ],
                 outline: [
                     'text-primary-600',
-                    'bg-white enabled:hover:bg-primary-50',
+                    'bg-white hover:bg-primary-50',
                     'border-primary-600 shadow-sm',
                     SCN.focusRingPrimary,
                 ],
-                link: ['text-primary-600 enabled:hover:text-primary-700', 'bg-transparent', 'border-transparent'],
+                link: ['text-primary-600 hover:text-primary-700', 'bg-transparent', 'border-transparent'],
             },
             rounded: {
                 left: 'rounded-l-lg',
@@ -54,6 +54,7 @@ export const buttonStyles = cva(
                 full: 'rounded-full',
             },
             loading: cbv('loading'),
+            disabled: cbv('opacity-50 pointer-events-none'),
             'size:text': size.text,
             'size:noText': size.noText,
         },

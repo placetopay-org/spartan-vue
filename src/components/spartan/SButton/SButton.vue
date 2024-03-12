@@ -43,6 +43,7 @@ const finalLeftIcon = computed(() => {
                     [$slots.default?.()[0].children ? 'size:text' : 'size:noText']: props.size,
                     rounded,
                     loading,
+                    disabled,
                 }),
                 $props.class
             )

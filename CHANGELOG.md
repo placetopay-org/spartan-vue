@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- Custom colors for `SButton` component examples.
 - `Tailwind Forms Plugin` now available through the `Spartan` plugin.
+
+### Fixed
+- Inter font weights for documentation.
 
 ## 2.0.0-beta.78 - 2024-03-12
 ### Added

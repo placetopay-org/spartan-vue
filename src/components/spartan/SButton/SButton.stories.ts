@@ -127,6 +127,17 @@ const createVariation = (template: string, icons?: Record<string, FunctionalComp
         template,
     });
 
+export const Base = createVariation(`
+<SButton> Base </SButton>
+`);
+
+export const CustomColor = createVariation(`
+<SButton class="bg-yellow-500 border-yellow-600 hover:bg-yellow-600 focus:ring-yellow-100 focus:border-yellow-300"> Yellow </SButton>
+<SButton class="bg-blue-500 border-blue-600 hover:bg-blue-600 focus:ring-blue-100 focus:border-blue-300"> Blue </SButton>
+<SButton class="bg-green-500 border-green-600 hover:bg-green-600 focus:ring-green-100 focus:border-green-300"> Green </SButton>
+<SButton class="bg-pink-500 border-pink-600 hover:bg-pink-600 focus:ring-pink-100 focus:border-pink-300"> Pink </SButton>
+`);
+
 export const Variant = createVariation(`
 <SButton variant="primary"> Primary </SButton>
 <SButton variant="secondary"> Secondary </SButton>
