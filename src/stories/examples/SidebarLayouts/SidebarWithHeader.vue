@@ -11,11 +11,11 @@ const value = ref('Dashboard');
 
 <template>
     <div class="flex h-full">
-        <SAccordion :open="open" class="hidden xl:block">
+        <SAccordion :open="open" class="hidden lg:block">
             <MySidebar v-model="value" />
         </SAccordion>
 
-        <SModalLeft breakpoint="xl" :open="open" @close="() => (open = false)">
+        <SModalLeft breakpoint="lg" :open="open" @close="() => (open = false)">
             <MySidebar v-model="value" />
         </SModalLeft>
 
