@@ -10,7 +10,7 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
     as: 'button',
     path: undefined,
-    icon: undefined,
+    icon: undefined, 
 });
 
 const el = ref<HTMLElement | null>(null);
