@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { Mesh } from '@internal';
 import { SSidebar, SSidebarItem, SSidebarItemGroup, SAccordion } from '../../../components/spartan';
 import {
-    HomeIcon,
     PaperAirplaneIcon,
     CommandLineIcon,
     KeyIcon,
     LockClosedIcon,
-    Bars4Icon,
+    Bars3Icon,
 } from '@heroicons/vue/24/outline';
+import { HomeIcon } from '@placetopay/iconsax-vue/outline';
 
 const open = ref(true);
 const value = ref('Dashboard');
@@ -40,33 +41,14 @@ const value = ref('Dashboard');
             </SSidebar>
         </SAccordion>
 
-        <!-- Example of view -->
-        <main
-            class="flex flex-1 items-start gap-4 p-4 font-bold text-gray-600"
-        >
-            <button @click="open = !open"><Bars4Icon class="h-7 w-7" /></button>
-            <div class="relative h-full w-full overflow-hidden rounded-xl border border-dashed border-gray-400 opacity-75">
-                <p class="absolute top-1/2 left-1/2 -translate-x-1/2">{{ value }}</p>
-                <svg class="absolute inset-0 h-full w-full stroke-gray-900/10" fill="none">
-                    <defs>
-                        <pattern
-                            id="pattern-1526ac66-f54a-4681-8fb8-0859d412f251"
-                            x="0"
-                            y="0"
-                            width="10"
-                            height="10"
-                            patternUnits="userSpaceOnUse"
-                        >
-                            <path d="M-3 13 15-5M-5 5l18-18M-1 21 17 3"></path>
-                        </pattern>
-                    </defs>
-                    <rect
-                        stroke="none"
-                        fill="url(#pattern-1526ac66-f54a-4681-8fb8-0859d412f251)"
-                        width="100%"
-                        height="100%"
-                    ></rect>
-                </svg>
+        <main class="flex flex-1 items-start py-10 font-bold text-gray-600">
+            <div class="px-4 sm:px-6 lg:px-8 h-full w-full">
+
+                <!-- Example content -->
+                <Mesh class="p-4">
+                    <button @click="open = !open"><Bars3Icon class="relative h-6 w-6 text-gray-400" /></button>
+                    <p class="absolute left-1/2 top-1/2 -translate-x-1/2">{{ value }}</p>
+                </Mesh>
             </div>
         </main>
     </div>
