@@ -9,7 +9,6 @@ import type { TPlacetopayLogoProps } from './types';
 const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
     width: undefined,
     height: undefined,
-    size: 'md',
     mode: 'base',
     class: '',
 });
