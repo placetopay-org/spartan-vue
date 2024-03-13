@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Mesh } from '@internal';
-import { SSidebar, SSidebarItem, SSidebarItemGroup, SAccordion } from '../../../components/spartan';
-import {
-    PaperAirplaneIcon,
-    CommandLineIcon,
-    KeyIcon,
-    LockClosedIcon,
-    Bars3Icon,
-} from '@heroicons/vue/24/outline';
-import { HomeIcon } from '@placetopay/iconsax-vue/outline';
+import { SAccordion, SModalLeft } from '../../../components/spartan';
+import { Bars3Icon } from '@heroicons/vue/24/outline';
+import MySidebar from './MySidebar.vue';
 
 const open = ref(true);
 const value = ref('Dashboard');
@@ -17,29 +11,13 @@ const value = ref('Dashboard');
 
 <template>
     <div class="flex h-full">
-        <SAccordion :open="open">
-            <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
-                <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-                <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-                <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
-
-                <SSidebarItemGroup :icon="KeyIcon">
-                    <template #title>Administration</template>
-
-                    <SSidebarItem>Merchants</SSidebarItem>
-                    <SSidebarItem>Sites</SSidebarItem>
-                    <SSidebarItem>Users</SSidebarItem>
-                </SSidebarItemGroup>
-
-                <SSidebarItemGroup :icon="LockClosedIcon">
-                    <template #title>Security</template>
-
-                    <SSidebarItem>Roles</SSidebarItem>
-                    <SSidebarItem>Permissions</SSidebarItem>
-                    <SSidebarItem>Logs</SSidebarItem>
-                </SSidebarItemGroup>
-            </SSidebar>
+        <SAccordion :open="open" class="hidden xl:block">
+            <MySidebar v-model="value" />
         </SAccordion>
+
+        <SModalLeft breakpoint="xl" :open="open" @close="() => (open = false)">
+            <MySidebar v-model="value" />
+        </SModalLeft>
 
         <main class="flex flex-1 items-start py-10 font-bold text-gray-600">
             <div class="px-4 sm:px-6 lg:px-8 h-full w-full">

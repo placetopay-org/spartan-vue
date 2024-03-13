@@ -5,9 +5,10 @@ import { SModalLeft } from '../SModalLeft';
 import { SPlacetopayLogo } from '../SPlacetopayLogo';
 import { SAccordion } from '../SAccordion';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon } from '@heroicons/vue/24/outline';
+import { PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 import { Bars4Icon } from '@heroicons/vue/24/solid';
+import { HomeIcon } from '@placetopay/iconsax-vue/outline';
 
 export default {
     component: SSidebar,
