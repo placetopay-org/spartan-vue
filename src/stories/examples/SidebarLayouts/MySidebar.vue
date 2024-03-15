@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { SSidebar, SSidebarItem, SSidebarItemGroup } from '../../../components/spartan';
-import {
-    PaperAirplaneIcon,
-    CommandLineIcon,
-    KeyIcon,
-    LockClosedIcon,
-} from '@heroicons/vue/24/outline';
-import { HomeIcon } from '@placetopay/iconsax-vue/outline';
+import { HomeIcon, DocumentCodeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon } from '@placetopay/iconsax-vue/linear';
 
 defineEmits(['update:modelValue']);
 
@@ -18,10 +12,10 @@ defineProps<{
 <template>
     <SSidebar class="w-60 pb-8" placetopayHeader :modelValue="modelValue" @update:modelValue="$emit('update:modelValue', $event)">
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-        <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-        <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+        <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+        <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon">
+        <SSidebarItemGroup :icon="ClipboardTickIcon">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -29,7 +23,7 @@ defineProps<{
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon">
+        <SSidebarItemGroup :icon="ShieldSecurityIcon">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>

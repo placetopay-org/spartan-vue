@@ -5,10 +5,15 @@ import { SModalLeft } from '../SModalLeft';
 import { SPlacetopayLogo } from '../SPlacetopayLogo';
 import { SAccordion } from '../SAccordion';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 import { Bars4Icon } from '@heroicons/vue/24/solid';
-import { HomeIcon } from '@placetopay/iconsax-vue/outline';
+import {
+    HomeIcon,
+    DocumentCodeIcon,
+    ReceiptTextIcon,
+    ClipboardTickIcon,
+    ShieldSecurityIcon,
+} from '@placetopay/iconsax-vue/linear';
 
 export default {
     component: SSidebar,
@@ -69,14 +74,14 @@ export const Default = createDefault({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     containerClass: 'flex justify-center py-5 h-[500px] w-[900px] bg-gray-100',
     setup: () => {
-        return { HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     template: `<SSidebar class="w-60 pb-8" v-bind="args" v-model="args.modelValue">
     <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -84,7 +89,7 @@ export const Default = createDefault({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -103,15 +108,15 @@ export const Base = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
         const value = ref('Administration/Merchants');
-        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex gap-5 h-[550px]',
     template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
     <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -119,7 +124,7 @@ export const Base = createVariation({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -142,16 +147,16 @@ export const AccordionWrapper = createVariation({
     setup: () => {
         const value = ref('Administration/Merchants');
         const open = ref(false);
-        return { value, open, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, open, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex h-[550px]',
     template: `<SAccordion :open="open">
     <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-        <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-        <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+        <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+        <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon">
+        <SSidebarItemGroup :icon="ClipboardTickIcon">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -159,7 +164,7 @@ export const AccordionWrapper = createVariation({
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon">
+        <SSidebarItemGroup :icon="ShieldSecurityIcon">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>
@@ -181,15 +186,15 @@ export const ModalLeftWrapper = createVariation({
     setup: () => {
         const value = ref('Administration/Merchants');
         const state = ref(false);
-        return { value, state, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, state, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     template: `<SModalLeft :open="state" @close="() => state = false">
     <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-        <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-        <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+        <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+        <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon">
+        <SSidebarItemGroup :icon="ClipboardTickIcon">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -197,7 +202,7 @@ export const ModalLeftWrapper = createVariation({
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon">
+        <SSidebarItemGroup :icon="ShieldSecurityIcon">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>
@@ -218,15 +223,15 @@ export const UsingPaths = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
         const value = ref('metrics');
-        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex gap-5 h-[550px]',
     template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
     <SSidebarItem path="home" :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem path="balance" :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem path="configuration" :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem path="balance" :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem path="configuration" :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem path="my-merchants">Merchants</SSidebarItem>
@@ -234,7 +239,7 @@ export const UsingPaths = createVariation({
         <SSidebarItem path="my-users">Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem path="roles">Roles</SSidebarItem>
@@ -256,15 +261,15 @@ export const IntegratedScroll = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
         const value = ref('Administration/Merchants');
-        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex gap-5 h-[300px]',
     template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
     <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -272,7 +277,7 @@ export const IntegratedScroll = createVariation({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
