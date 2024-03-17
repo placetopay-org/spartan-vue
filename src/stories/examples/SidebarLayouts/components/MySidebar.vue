@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SSidebar, SSidebarItem, SSidebarItemGroup } from '../../../components/spartan';
+import { SSidebar, SSidebarItem, SSidebarItemGroup } from '@spartan';
 import { HomeIcon, DocumentCodeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon } from '@placetopay/iconsax-vue/linear';
 
 defineEmits(['update:modelValue']);

@@ -39,7 +39,7 @@ onMounted(() => {
 
 <template>
     <li ref="el">
-        <component :is="as" v-bind="$attrs" :class="twMerge(sidebarItemStyles({ active: isActive, isChild }))" @click="store.updatePath(updatedPath)">
+        <component :is="as" v-bind="$attrs" :class="twMerge(sidebarItemStyles({ isChild }))" @click="store.updatePath(updatedPath)">
             <component :is="icon" :class="twMerge(sidebarItemIconStyles({ active: isActive }))" />
 
             <span :class="twMerge(sidebarItemContentStyles({ active: isActive }))">

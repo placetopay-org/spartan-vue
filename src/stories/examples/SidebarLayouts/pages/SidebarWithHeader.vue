@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Mesh } from '@internal';
-import { SAccordion, SModalLeft } from '../../../components/spartan';
+import { SAccordion, SModalLeft } from '@spartan';
 import { Bars3Icon } from '@heroicons/vue/24/outline';
-import MySidebar from './MySidebar.vue';
+import MySidebar from '../components/MySidebar.vue';
 
 const open = ref(true);
 const value = ref('Dashboard');

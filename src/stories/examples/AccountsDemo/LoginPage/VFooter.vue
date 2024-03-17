@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SDropdown, SDropdownItem } from '../../../';
+import { SDropdown, SDropdownItem } from '@spartan';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 </script>
 

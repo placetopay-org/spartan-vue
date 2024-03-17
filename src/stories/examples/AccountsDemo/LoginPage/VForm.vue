@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SPlacetopayLogo, STab, STabItem, SInput, SInputBlock, SButton, SInputOTP, SInputOTPItem } from '../../../';
+import { SPlacetopayLogo, STab, STabItem, SInput, SInputBlock, SButton, SInputOTP, SInputOTPItem } from '@spartan';
 import { computed } from 'vue';
 import { ArrowLeftIcon } from '@heroicons/vue/20/solid';
 import { LockClosedIcon, KeyIcon } from '@heroicons/vue/24/outline';

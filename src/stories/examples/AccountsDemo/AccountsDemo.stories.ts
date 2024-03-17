@@ -1,6 +1,6 @@
-import VForm from './VForm.vue';
-import VFooter from './VFooter.vue';
-import AccountsDemo from './AccountsDemo.vue';
+import VForm from './LoginPage/VForm.vue';
+import VFooter from './LoginPage/VFooter.vue';
+import LoginPage from './LoginPage/LoginPage.vue';
 import { createDefault } from '../../../helpers';
 
 export default {
@@ -183,9 +183,9 @@ export const FooterStory = createDefault({
 export const LoginPageBentoVariantStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
-    components: { AccountsDemo },
+    components: { LoginPage },
     args: {},
-    template: `<AccountsDemo route="login" bentoVariant />`,
+    template: `<LoginPage route="login" bentoVariant />`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
     import VFooter from './VFooter.vue';
@@ -210,9 +210,9 @@ export const LoginPageBentoVariantStory = createDefault({
 export const LoginPageStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
-    components: { AccountsDemo },
+    components: { LoginPage },
     args: {},
-    template: `<AccountsDemo route="login" />`,
+    template: `<LoginPage route="login" />`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
     import VFooter from './VFooter.vue';
@@ -237,9 +237,9 @@ export const LoginPageStory = createDefault({
 export const RegisterPageStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
-    components: { AccountsDemo },
+    components: { LoginPage },
     args: {},
-    template: `<AccountsDemo route="signup" />`,
+    template: `<LoginPage route="signup" />`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
     import VFooter from './VFooter.vue';
@@ -264,9 +264,9 @@ export const RegisterPageStory = createDefault({
 export const RestorePasswordPageStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
-    components: { AccountsDemo },
+    components: { LoginPage },
     args: {},
-    template: `<AccountsDemo route="restore-password" />`,
+    template: `<LoginPage route="restore-password" />`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
     import VFooter from './VFooter.vue';
@@ -291,9 +291,9 @@ export const RestorePasswordPageStory = createDefault({
 export const OTPPageStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
-    components: { AccountsDemo },
+    components: { LoginPage },
     args: {},
-    template: `<AccountsDemo route="otp" />`,
+    template: `<LoginPage route="otp" />`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
     import VFooter from './VFooter.vue';
@@ -318,9 +318,9 @@ export const OTPPageStory = createDefault({
 export const RecoveryCodePageStory = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
-    components: { AccountsDemo },
+    components: { LoginPage },
     args: {},
-    template: `<AccountsDemo route="recovery-code" />`,
+    template: `<LoginPage route="recovery-code" />`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
     import VFooter from './VFooter.vue';
