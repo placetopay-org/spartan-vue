@@ -12,7 +12,7 @@ defineProps<{ route: string, bentoVariant: boolean }>();
             <Bento v-if="bentoVariant" />
             <section v-else class="p-6 pr-0 hidden lg:flex">
                 <div class="rounded-2xl overflow-hidden bg-black h-full w-full">
-                    <img class="h-full w-full object-cover opacity-50" src="./assets/bento-2.jpg" />
+                    <img class="h-full w-full object-cover opacity-50" src="../assets/bento-2.jpg" />
                 </div>
             </section>
     
