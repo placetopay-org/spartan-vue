@@ -4,7 +4,7 @@ import FieldSelector from './popovers/FieldSelector.vue';
 import FilterSelector from './popovers/FilterSelector.vue';
 import { SButton, SPopover } from '@spartan';
 import { PlusIcon } from '@heroicons/vue/20/solid';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { translator } from '@/helpers';
 import type { TField, SFilterEmits, SFilterProps } from './types';
 import { createContext } from './api';
@@ -37,6 +37,10 @@ const clear = () => {
 defineExpose({
     apply: () => context.apply(),
     clear: () => context.clear(),
+});
+
+onMounted(() => {
+    if (props.immediateApply) context.apply();
 });
 </script>
 

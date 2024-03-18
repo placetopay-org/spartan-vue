@@ -62,6 +62,7 @@ export type SFilterProps = {
     hideApplyButton?: boolean;
     hideClearButton?: boolean;
     applyWhenClear?: boolean;
+    immediateApply?: boolean;
     responsive?: boolean;
 };
 

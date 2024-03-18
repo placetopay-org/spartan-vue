@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- immediateApply prop to SFilter component.
 - Custom colors for `SButton` component examples.
 - `Tailwind Forms Plugin` now available through the `Spartan` plugin.
 
