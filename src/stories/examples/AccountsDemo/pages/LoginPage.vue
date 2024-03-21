@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import VForm from './VForm.vue';
-import VFooter from './VFooter.vue';
-import Bento from './Bento.vue';
+import VForm from '../components/VForm.vue';
+import VFooter from '../components/VFooter.vue';
+import Bento from '../components/Bento.vue';
 
 defineProps<{ route: string, bentoVariant: boolean }>();
 </script>
