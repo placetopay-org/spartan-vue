@@ -2,17 +2,20 @@
 
 import { Canvas, Meta, Title, Description } from '@storybook/blocks';
 import * as PageStories from './stories.stories.ts';
+import { buildExampleLink } from '@/helpers';
 
 <Meta of={PageStories} />
 
 <Title>Página de inicio de sesión</Title>
+<ul>
+    <li><a target='_blank' href={buildExampleLink('accountsdemo-pages', 'login')}>Inicio de sesión</a></li>
+    <li><a target='_blank' href={buildExampleLink('accountsdemo-pages', 'login-bento')}>Variante con Bento Grid</a></li>
+    <li><a target='_blank' href={buildExampleLink('accountsdemo-pages', 'register')}>Registro</a></li>
+    <li><a target='_blank' href={buildExampleLink('accountsdemo-pages', 'restore-password')}>Recuperación de contraseña</a></li>
+    <li><a target='_blank' href={buildExampleLink('accountsdemo-pages', 'otp')}>Código OTP</a></li>
+    <li><a target='_blank' href={buildExampleLink('accountsdemo-pages', 'recovery-code')}>Código de recuperación</a></li>
+</ul>
 <Canvas of={PageStories.Login} withToolbar />
 
-<Title>Página de inicio de sesión (variante con BentoGrid)</Title>
-<Canvas of={PageStories.LoginBento} withToolbar />
-
-<Title>Página de registro</Title>
-<Canvas of={PageStories.Register} withToolbar />
-
 <Title>Página de autenticación</Title>
-<Canvas of={PageStories.AuthPageStory} withToolbar />
+<Canvas of={PageStories.Auth} withToolbar />

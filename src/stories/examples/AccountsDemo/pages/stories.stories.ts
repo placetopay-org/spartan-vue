@@ -94,7 +94,7 @@ export const Register = createDefault({
     `
 });
 
-export const RestorePasswordPageStory = createDefault({
+export const RestorePassword = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
     components: { LoginPage },
@@ -121,7 +121,7 @@ export const RestorePasswordPageStory = createDefault({
     `
 });
 
-export const OTPPageStory = createDefault({
+export const OTP = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
     components: { LoginPage },
@@ -148,7 +148,7 @@ export const OTPPageStory = createDefault({
     `
 });
 
-export const RecoveryCodePageStory = createDefault({
+export const RecoveryCode = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
     components: { LoginPage },
@@ -175,12 +175,12 @@ export const RecoveryCodePageStory = createDefault({
     `
 });
 
-export const AuthPageStory = createDefault({
+export const Auth = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
     components: { LinkButton, AuthPage },
     args: { buttonPreviewMode: true },
-    template: `<LinkButton :mode="args.buttonPreviewMode" example="accounts-pages" name="page-story">
+    template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="auth">
     <AuthPage />
     </LinkButton>`,
     transform: () => `---`,

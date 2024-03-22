@@ -1,5 +1,7 @@
 import type { SourceProps } from '@storybook/blocks';
-import { ref, computed, type Component } from 'vue';
+import { ref, computed } from 'vue';
+
+export const buildExampleLink = (example: string, name: string) => `/iframe.html?args=buttonPreviewMode:false&id=examples-${example}--${name}&viewMode=story`
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
