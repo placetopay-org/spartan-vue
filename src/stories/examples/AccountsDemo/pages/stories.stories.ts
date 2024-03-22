@@ -177,7 +177,7 @@ export const RecoveryCode = createDefault({
 
 export const Auth = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
-    containerClass: 'h-full w-full',
+    containerClass: 'h-full w-full bg-white',
     components: { LinkButton, AuthPage },
     args: { buttonPreviewMode: true },
     template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="auth">
