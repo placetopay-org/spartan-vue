@@ -10,7 +10,7 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
     as: 'button',
     path: undefined,
-    icon: undefined,
+    icon: undefined, 
 });
 
 const el = ref<HTMLElement | null>(null);
@@ -21,8 +21,11 @@ const store = useContext('SSidebarItem');
 const isActive = ref(false);
 const setActive = (value: boolean) => (isActive.value = value);
 
+const isChild = ref(false);
+
 onMounted(() => {
     const groupName = el.value?.parentElement?.dataset.groupName;
+    if (groupName) isChild.value = true;
     // TODO: ModalLeft compatible? -> const elInnerText = el.value?.innerText;
     const elInnerText = useSlots().default?.()[0].children as string;
     if (!updatedPath.value) {
@@ -36,7 +39,7 @@ onMounted(() => {
 
 <template>
     <li ref="el">
-        <component :is="as" v-bind="$attrs" :class="twMerge(sidebarItemStyles({ active: isActive }))" @click="store.updatePath(updatedPath)">
+        <component :is="as" v-bind="$attrs" :class="twMerge(sidebarItemStyles({ isChild }))" @click="store.updatePath(updatedPath)">
             <component :is="icon" :class="twMerge(sidebarItemIconStyles({ active: isActive }))" />
 
             <span :class="twMerge(sidebarItemContentStyles({ active: isActive }))">

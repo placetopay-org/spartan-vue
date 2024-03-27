@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- Separator component for SSidebar
+- Home page example for accounts demo
+- Auth page example for accounts demo
+
+## 2.0.0-beta.79 - 2024-03-18
+### Added
+- immediateApply prop to SFilter component.
 - Custom colors for `SButton` component examples.
 - `Tailwind Forms Plugin` now available through the `Spartan` plugin.
 

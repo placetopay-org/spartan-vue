@@ -6,8 +6,8 @@ import { SAccordion } from '../SAccordion';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import {
     sidebarItemStyles,
-    sidebarItemIconStyles,
-    sidebarItemContentStyles,
+    sidebarItemGroupIconStyles,
+    sidebarItemGroupContentStyles,
     sidebarItemGroupChevronStyles,
 } from './styles';
 import type { TSidebarItemGroupProps } from './types';
@@ -41,7 +41,7 @@ const setActive = (value: boolean) => {
 const accordionProps = computed(() => {
     const baseProps: any = {
         'data-group-name': updatedPath.value,
-        class: 'pl-8',
+        class: 'p-1 space-y-1',
     };
 
     if (props.accordion) {
@@ -58,9 +58,9 @@ store.registerGroup(updatedPath.value, setActive);
 <template>
     <li>
         <button :class="twMerge(sidebarItemStyles())" @click="open = !open">
-            <component :is="icon" :class="twMerge(sidebarItemIconStyles({ active: isActive }))" />
+            <component :is="icon" :class="twMerge(sidebarItemGroupIconStyles({ active: isActive }))" />
 
-            <span :class="twMerge(sidebarItemContentStyles({ active: isActive }))">
+            <span :class="twMerge(sidebarItemGroupContentStyles({ active: isActive }))">
                 <slot name="title" />
             </span>
 

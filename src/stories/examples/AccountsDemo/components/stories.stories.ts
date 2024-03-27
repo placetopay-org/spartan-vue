@@ -1,10 +1,9 @@
 import VForm from './VForm.vue';
 import VFooter from './VFooter.vue';
-import AccountsDemo from './AccountsDemo.vue';
-import { createDefault } from '../../../helpers';
+import { createDefault } from '@/helpers';
 
 export default {
-    title: 'examples/AccountsDemo',
+    title: 'examples/AccountsDemo/components',
 };
 
 export const FormStory = createDefault({
@@ -176,141 +175,6 @@ export const FooterStory = createDefault({
                 </div>
             </SDropdown>
         </footer>
-    </template>
-    `
-});
-
-export const LoginPageStory = createDefault({
-    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
-    containerClass: 'h-full w-full',
-    components: { AccountsDemo },
-    args: {},
-    template: `<AccountsDemo route="login" />`,
-    transform: () => `<script setup lang="ts">
-    import VForm from './VForm.vue';
-    import VFooter from './VFooter.vue';
-    </script>
-    
-    <template>
-        <div class="flex h-full w-full flex-1">
-            <!-- Bento grid -->
-    
-            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
-                <div class="mx-auto w-full max-w-sm lg:w-96">
-                    <VForm />
-                </div>
-    
-                <VFooter class="absolute bottom-0 py-6" /> 
-            </section>
-        </div>
-    </template>
-    `
-});
-
-export const RegisterPageStory = createDefault({
-    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
-    containerClass: 'h-full w-full',
-    components: { AccountsDemo },
-    args: {},
-    template: `<AccountsDemo route="signup" />`,
-    transform: () => `<script setup lang="ts">
-    import VForm from './VForm.vue';
-    import VFooter from './VFooter.vue';
-    </script>
-    
-    <template>
-        <div class="flex h-full w-full flex-1">
-            <!-- Bento grid -->
-    
-            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
-                <div class="mx-auto w-full max-w-sm lg:w-96">
-                    <VForm />
-                </div>
-    
-                <VFooter class="absolute bottom-0 py-6" /> 
-            </section>
-        </div>
-    </template>
-    `
-});
-
-export const RestorePasswordPageStory = createDefault({
-    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
-    containerClass: 'h-full w-full',
-    components: { AccountsDemo },
-    args: {},
-    template: `<AccountsDemo route="restore-password" />`,
-    transform: () => `<script setup lang="ts">
-    import VForm from './VForm.vue';
-    import VFooter from './VFooter.vue';
-    </script>
-    
-    <template>
-        <div class="flex h-full w-full flex-1">
-            <!-- Bento grid -->
-    
-            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
-                <div class="mx-auto w-full max-w-sm lg:w-96">
-                    <VForm />
-                </div>
-    
-                <VFooter class="absolute bottom-0 py-6" /> 
-            </section>
-        </div>
-    </template>
-    `
-});
-
-export const OTPPageStory = createDefault({
-    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
-    containerClass: 'h-full w-full',
-    components: { AccountsDemo },
-    args: {},
-    template: `<AccountsDemo route="otp" />`,
-    transform: () => `<script setup lang="ts">
-    import VForm from './VForm.vue';
-    import VFooter from './VFooter.vue';
-    </script>
-    
-    <template>
-        <div class="flex h-full w-full flex-1">
-            <!-- Bento grid -->
-    
-            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
-                <div class="mx-auto w-full max-w-sm lg:w-96">
-                    <VForm />
-                </div>
-    
-                <VFooter class="absolute bottom-0 py-6" /> 
-            </section>
-        </div>
-    </template>
-    `
-});
-
-export const RecoveryCodePageStory = createDefault({
-    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
-    containerClass: 'h-full w-full',
-    components: { AccountsDemo },
-    args: {},
-    template: `<AccountsDemo route="recovery-code" />`,
-    transform: () => `<script setup lang="ts">
-    import VForm from './VForm.vue';
-    import VFooter from './VFooter.vue';
-    </script>
-    
-    <template>
-        <div class="flex h-full w-full flex-1">
-            <!-- Bento grid -->
-    
-            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
-                <div class="mx-auto w-full max-w-sm lg:w-96">
-                    <VForm />
-                </div>
-    
-                <VFooter class="absolute bottom-0 py-6" /> 
-            </section>
-        </div>
     </template>
     `
 });

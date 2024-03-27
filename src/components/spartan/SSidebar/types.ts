@@ -39,3 +39,7 @@ export type TStateDefinition = {
     registerPath: (path: string, setActive: (value: boolean) => void, group?: string) => void;
     registerGroup: (path: string, setActive: (value: boolean) => void) => void;
 };
+
+export type TSidebarSeparatorProps = {
+    title: string;
+};
