@@ -141,3 +141,10 @@ import { AddCircleIcon } from '@placetopay/iconsax-vue/bold';
    <SButton :left-icon="AddCircleIcon">Create</SButton>
 </template>
 ```
+
+### Using Flag Icons
+The flag icons are also available in the [Flagicons Vue](https://placetopay-org.github.io/flagicons-vue/) library. You can install it using the following command:
+
+```shell
+npm install @placetopay/flagicons-vue
+```

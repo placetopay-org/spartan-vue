@@ -49,3 +49,4 @@ export * from './STextArea';
 export * from './STextAreaBlock';
 export * from './SInputOTP';
 export * from './SStackedList';
+export * from './SPaginator';
