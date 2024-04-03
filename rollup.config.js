@@ -7,7 +7,7 @@ export default [
   {
     input: 'src/expose/plugin.js',
     output: {
-      file: 'src/expose/dist/plugin.js',
+      file: 'dist/plugin.js',
       format: 'es',
     },
     plugins: [nodeResolve(), commonjs(), terser(), postcss({
