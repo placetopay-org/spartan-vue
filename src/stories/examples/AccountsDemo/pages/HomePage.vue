@@ -65,7 +65,7 @@ import { ArrowRightIcon } from '@heroicons/vue/24/solid';
                         </div>
                     </div>
 
-                    <SButton class="h-8 px-3" variant="secondary">Editar perfil</SButton>
+                    <SButton size="sm" variant="secondary">Editar perfil</SButton>
                 </div>
 
                 <div class="flex gap-4">
@@ -79,25 +79,25 @@ import { ArrowRightIcon } from '@heroicons/vue/24/solid';
                             </div>
                         </header>
 
-                        <ul class="divide-y px-4">
+                        <ul class="divide-y px-4 text-gray-900">
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Navegador</span>
-                                <span>Chrome 116.0.0</span>
+                                <span class="text-sm font-normal">Chrome 116.0.0</span>
                             </li>
 
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Dispositivo</span>
-                                <span>Computador</span>
+                                <span class="text-sm font-normal">Computador</span>
                             </li>
 
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Sistema operativo</span>
-                                <span>Mac OS X 10.15.7</span>
+                                <span class="text-sm font-normal">Mac OS X 10.15.7</span>
                             </li>
 
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Ip</span>
-                                <span>2800:486:803:900:390d:c713:64a:6e82</span>
+                                <span class="text-sm font-normal">2800:486:803:900:390d:c713:64a:6e82</span>
                             </li>
                         </ul>
                     </div>
@@ -112,25 +112,25 @@ import { ArrowRightIcon } from '@heroicons/vue/24/solid';
                             </div>
                         </header>
 
-                        <ul class="divide-y px-4">
+                        <ul class="divide-y px-4 text-gray-900">
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Navegador</span>
-                                <span>Chrome 116.0.0</span>
+                                <span class="text-sm font-normal">Chrome 116.0.0</span>
                             </li>
 
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Dispositivo</span>
-                                <span>Computador</span>
+                                <span class="text-sm font-normal">Computador</span>
                             </li>
 
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Sistema operativo</span>
-                                <span>Mac OS X 10.15.7</span>
+                                <span class="text-sm font-normal">Mac OS X 10.15.7</span>
                             </li>
 
                             <li class="flex justify-between py-3">
                                 <span class="text-gray-500 text-sm font">Ip</span>
-                                <span>2800:486:803:900:390d:c713:64a:6e82</span>
+                                <span class="text-sm font-normal">2800:486:803:900:390d:c713:64a:6e82</span>
                             </li>
                         </ul>
                     </div>

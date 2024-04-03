@@ -37,13 +37,42 @@ export const Login = createDefault({
     `
 });
 
+export const LoginUW = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'h-full w-full',
+    components: { LinkButton, LoginPage },
+    args: { buttonPreviewMode: true },
+    template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="login">
+        <LoginPage route="login" variant="uw" />
+    </LinkButton>`,
+    transform: () => `<script setup lang="ts">
+    import VForm from './VForm.vue';
+    import VFooter from './VFooter.vue';
+    </script>
+    
+    <template>
+        <div class="flex h-full w-full flex-1">
+            <!-- Bento grid -->
+    
+            <section class="px-4 sm:px-16 flex flex-col justify-center items-center bg-white flex-1 relative">
+                <div class="mx-auto w-full max-w-sm lg:w-96">
+                    <VForm />
+                </div>
+    
+                <VFooter class="absolute bottom-0 py-6" /> 
+            </section>
+        </div>
+    </template>
+    `
+});
+
 export const LoginBento = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
     containerClass: 'h-full w-full',
     components: { LinkButton, LoginPage },
     args: { buttonPreviewMode: true },
     template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="login-bento">
-        <LoginPage route="login" bentoVariant />
+        <LoginPage route="login" variant="bento" />
     </LinkButton>`,
     transform: () => `<script setup lang="ts">
     import VForm from './VForm.vue';
