@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - New `SPaginator` component.
 
+### Fixed
+- `SInput` now is hidden totally when `type` is `hidden`.
+
 ## 2.0.0-beta.81 - 2024-04-03
 ### Fixed
 - Unified `dist` folder structure.

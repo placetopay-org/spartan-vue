@@ -62,6 +62,7 @@ defineExpose({ inputElement });
                     rightOptions: !!rightOptions,
                     borderless,
                 }),
+                type === 'hidden' && 'hidden',
                 $props.class,
             )
         "
