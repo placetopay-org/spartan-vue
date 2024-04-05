@@ -3,7 +3,6 @@ import { SInput, type TInputProps, type TInputEmits } from '../SInput';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 import { extractWrapperProps } from '@/helpers';
 
-
 defineEmits<TInputEmits>();
 const props = defineProps<Partial<TBlockWrapperProps> & Partial<TInputProps>>();
 const [blockWrapperProps, inputProps] = extractWrapperProps<Partial<TInputProps>>(props);
