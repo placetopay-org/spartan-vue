@@ -1,3 +1,6 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=placetopay_spartan-vue&metric=alert_status&token=b69fd0a8192cde94bf6206210c16de8967defabf)](https://sonarcloud.io/summary/new_code?id=placetopay_spartan-vue)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=placetopay_spartan-vue&metric=coverage&token=b69fd0a8192cde94bf6206210c16de8967defabf)](https://sonarcloud.io/summary/new_code?id=placetopay_spartan-vue)
+
 # Spartan Vue
 Spartan Vue is a vue component library that contains the components used in the PlacetoPay web applications based in [TailwindCSS](https://tailwindcss.com/).
 
