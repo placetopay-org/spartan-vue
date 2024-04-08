@@ -32,6 +32,7 @@
     "format:check": "prettier . --check",
     "format": "prettier . --write",
     "test": "vitest watch --ui --coverage",
+    "test:pipe": "vitest run --coverage",
     "lint": "npx eslint --ext .ts,.vue --fix ./",
     "lint:check": "npx eslint --ext .ts,.vue .",
     "foli": "npm run format & npm run lint",
