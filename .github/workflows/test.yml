@@ -1,11 +1,6 @@
-name: 'publish'
+name: 'test'
 on:
     workflow_dispatch:
-        inputs:
-            release-type:
-                description: 'PRE Release type (one of): patch, minor, major, prepatch, preminor, premajor, prerelease'
-                required: true
-                default: 'prerelease'
 jobs:
     release:
         name: Test
