@@ -6,12 +6,6 @@ jobs:
         name: Test
         runs-on: ubuntu-latest
         steps:
-            - name: Set release type output
-              id: release-type
-              run: |
-                  USER_INPUT=${{ github.event.inputs.release-type }}
-                  echo "RELEASE_TYPE=${USER_INPUT:-"prerelease"}" >> $GITHUB_OUTPUT
-
             - name: checkout
               uses: actions/checkout@v2
               with:
