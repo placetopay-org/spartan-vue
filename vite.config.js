@@ -63,6 +63,7 @@ export default defineConfig({
         include: ['./src/components/spartan/**/*.test.ts'],
         environment: 'jsdom',
         coverage: {
+            reporter: ['lcov'],
             provider: 'istanbul',
             extension: ['.vue'],
             include: ['src/components/spartan/'],
