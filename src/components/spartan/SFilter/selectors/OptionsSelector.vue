@@ -84,7 +84,7 @@ const clear = () => {
                     id="input-search"
                     v-model="search"
                     type="text"
-                    :placeholder="checked.length ? '' : t('optionsSelectorPlaceholder')"
+                    :placeholder="(checked as string[]).length ? '' : t('optionsSelectorPlaceholder')"
                     class="w-full border-0 p-0 text-sm placeholder:text-gray-400 focus:outline-0 focus:ring-0"
                 />
             </div>
@@ -96,6 +96,7 @@ const clear = () => {
         </div>
         <div class="flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
             <div v-for="option in computedOptions" :key="getOptionId(option)" class="flex items-center gap-2">
+                <!-- @vue-ignore -->
                 <component
                     :is="interfaceData.multiple ? SCheckbox : SRadio"
                     v-model="checked"

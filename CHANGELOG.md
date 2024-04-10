@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Fixed
+- Error on `SFilter` when try to focus first element on popover.
 - Warning for types on `SFilter` use options interface.
 
 ## 2.0.0-beta.82 - 2024-04-04
