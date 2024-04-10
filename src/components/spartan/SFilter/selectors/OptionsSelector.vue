@@ -9,7 +9,7 @@ import type { TField } from '../types';
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
-    modelValue?: string[];
+    modelValue?: string[] | string;
     field: TField;
 }>();
 
@@ -21,7 +21,7 @@ const search = ref('');
 
 const checked = computed({
     get() {
-        return props.modelValue || [];
+        return props.modelValue || (interfaceData.value.multiple ? [] : false);
     },
     set(value) {
         emit('update:modelValue', value);
@@ -43,7 +43,7 @@ const computedOptions = computed(() => {
     );
 });
 
-const removeCheck = (option: string) => (checked.value = checked.value.filter((item) => item !== option));
+const removeCheck = (option: string) => (checked.value = (checked.value as string[]).filter((item) => item !== option));
 
 const clear = () => {
     checked.value = [];
