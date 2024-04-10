@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `STextArea` tests.
+- `SLabel` tests.
 - `SBreadcrumbs` and `SBreadcrumbsItem` tests.
 - `SLink` tests.
 - `SBadge` tests.
