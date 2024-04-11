@@ -80,7 +80,7 @@ export const Default = createDefault({
                 id: 'seller',
                 name: 'Seller',
                 interfaces: {
-                    option: {
+                    options: {
                         operators: ['equal', 'notEqual'],
                         options: [
                             'Amazon',

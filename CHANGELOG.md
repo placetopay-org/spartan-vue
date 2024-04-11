@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SAccordion` tests.
 - Testing environment.
 
+## 2.0.0-beta.83 - 2024-04-10
+### Fixed
+- Error on `SFilter` when try to focus first element on popover.
+- Warning for types on `SFilter` use options interface.
+
 ## 2.0.0-beta.82 - 2024-04-04
 ### Added
 - New `SPaginator` component.
