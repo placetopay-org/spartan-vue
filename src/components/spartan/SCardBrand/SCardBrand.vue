@@ -7,5 +7,5 @@ defineProps<TCardBrandProps>();
 </script>
 
 <template>
-    <component :is="assets[name]" :class="twMerge($props.class)" :height="size" :width="size" />
+    <component :is="assets[name]" :class="twMerge($props.class)" :height="size" :width="size" role="img" />
 </template>

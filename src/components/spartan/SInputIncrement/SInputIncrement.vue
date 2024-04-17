@@ -34,11 +34,11 @@ const updateValue = (event: Event) => {
 
 <template>
     <div :class="twMerge(inputStyles({ error, disabled }), containerClass)">
-        <button type="button" :disabled="disabled" class="group p-2 pr-3 focus-visible:outline-none" @click="value--">
+        <button aria-label="decrement" type="button" :disabled="disabled" class="group p-2 pr-3 focus-visible:outline-none" @click="value--">
             <MinusCircleIcon :class="twMerge(iconStyles({ disabled }))" />
         </button>
         <input v-bind="$attrs" :disabled="disabled" :value="value" @input="updateValue" class="border-none text-center focus:ring-0" />
-        <button type="button" :disabled="disabled" class="group p-2 pl-3 focus-visible:outline-none" @click="value++">
+        <button aria-label="increment" type="button" :disabled="disabled" class="group p-2 pl-3 focus-visible:outline-none" @click="value++">
             <PlusCircleIcon :class="twMerge(iconStyles({ disabled }))" />
         </button>
     </div>
