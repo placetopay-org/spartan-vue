@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SInputMaskBlock` tests.
+- `SInputMask` tests.
+- `SRadioGroup` tests.
+- `STab` tests.
+- `SInputAmountBlock` tests.
+- `SInputAmount` tests.
 - `SToast` tests.
 - `SSwitch` tests.
 - `SSelectBlock` tests.

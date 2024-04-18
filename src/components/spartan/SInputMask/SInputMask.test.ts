@@ -1,21 +1,21 @@
 import { test, describe } from 'vitest';
-import { render } from '@testing-library/vue';
+import { cleanup, render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
-import SInputAmount from './SInputAmount.vue';
+import SInputMask from './SInputMask.vue';
 import userEvent from '@testing-library/user-event';
 
-describe('SInputAmount', () => {
+describe('SInputMask', () => {
     test('Can be rendered', async () => {
         // Arrange
-        let modelValue = 22.99;
+        let modelValue = '';
         const user = userEvent.setup();
 
         // Act
-        const { rerender } = render(SInputAmount, {
+        const { rerender } = render(SInputMask, {
             props: {
-                currency: 'USD',
+                mask: '00/00/0000',
                 modelValue,
-                'onUpdate:modelValue': (e: number) => {
+                'onUpdate:modelValue': (e: string) => {
                     modelValue = e;
                     rerender({ modelValue });
                 },
@@ -24,11 +24,9 @@ describe('SInputAmount', () => {
 
         const input = screen.getByRole('textbox');
 
-        input.focus();
-        await user.keyboard('{backspace}');
-        await user.keyboard('test');
+        await user.type(input, '1234567890');
 
         // Assert
-        expect(modelValue).toEqual(22.9);
+        expect(modelValue).toEqual('12/34/5678');
     });
 });
