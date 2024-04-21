@@ -1,6 +1,7 @@
 import LoginPage from './LoginPage.vue';
 import AuthPage from './AuthPage.vue';
 import HomePage from './HomePage.vue';
+import EditProfilePage from './EditProfilePage.vue';
 import { LinkButton } from '@internal';
 import { createDefault } from '@/helpers';
 
@@ -491,4 +492,15 @@ export const Home = createDefault({
         </div>
     </template>
     `,
+});
+
+export const EditProfile = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'h-full w-full bg-white',
+    components: { LinkButton, EditProfilePage },
+    args: { buttonPreviewMode: true },
+    template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="edit-profile">
+    <EditProfilePage />
+    </LinkButton>`,
+    transform: () => ``,
 });
