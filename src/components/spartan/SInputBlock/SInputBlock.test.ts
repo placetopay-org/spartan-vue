@@ -121,7 +121,6 @@ describe('SInputBlock', () => {
         render(SInputBlock, { props: { type: 'radio' } });
 
         // Assert
-        console.log('error.mock.calls', error.mock.calls);
         expect(error).toHaveBeenCalledTimes(2);
         expect(error.mock.calls[0][0]).contains('The <SCheckbox /> component should be used instead of the <SInput type="checkbox"/>');
         expect(error.mock.calls[1][0]).contains('The <SRadio /> component should be used instead of the <SInput type="radio"/>');
