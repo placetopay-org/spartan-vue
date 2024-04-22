@@ -1,188 +1,146 @@
 <script setup lang="ts">
-import { SSidebar, SSidebarItem, SSidebarSeparator, SAvatar, SButton, SCard } from '@spartan';
-import {
-    HomeIcon,
-    ShieldTickIcon,
-    MonitorMobbileIcon,
-    KeySquareIcon,
-    CodeIcon,
-    LockIcon,
-    Setting2Icon,
-    ProfileCircleIcon,
-    RepeatIcon,
-    FlagIcon,
-    CalendarSearchIcon,
-} from '@placetopay/iconsax-vue/linear';
+import { SModalLeft, SAvatar, SButton, SInputBlock, SSelectBlock, SPlacetopayLogo } from '@spartan';
+import { LockIcon, UserTagIcon, SmsEditIcon } from '@placetopay/iconsax-vue/linear';
+import { ArrowLeftIcon } from '@heroicons/vue/24/solid';
+import { EyeSlashIcon, Bars3Icon } from '@heroicons/vue/24/outline';
+import VSidebar from '../components/VSidebar.vue';
+import { ref } from 'vue';
 
-import { ArrowRightIcon } from '@heroicons/vue/24/solid';
+const open = ref(false);
 </script>
 
 <template>
-    <div class="flex h-full w-full">
-        <SSidebar class="border-r border-gray-200" placetopay-header>
-            <SSidebarItem :icon="HomeIcon">Inicio</SSidebarItem>
-            <SSidebarItem :icon="ShieldTickIcon">Autenticación</SSidebarItem>
-            <SSidebarItem :icon="MonitorMobbileIcon">Aplicaciones</SSidebarItem>
-            <SSidebarItem :icon="KeySquareIcon">Sesiones de acceso</SSidebarItem>
+    <div class="flex h-full w-full divide-x divide-gray-200">
+        <VSidebar class="hidden lg:block" />
 
-            <SSidebarSeparator title="Administrador" />
+        <SModalLeft breakpoint="lg" :open="open" @close="() => (open = false)">
+            <VSidebar />
+        </SModalLeft>
 
-            <SSidebarItem :icon="CodeIcon">Apps registradas</SSidebarItem>
-            <SSidebarItem :icon="HomeIcon">Roles y permisos</SSidebarItem>
-            <SSidebarItem :icon="ProfileCircleIcon">Usuarios</SSidebarItem>
-            <SSidebarItem :icon="Setting2Icon">Configuración</SSidebarItem>
-            <SSidebarItem :icon="LockIcon">Logs de seguridad</SSidebarItem>
-        </SSidebar>
+        <div class="flex flex-1 flex-col items-start gap-8 p-6">
+            <div class="flex w-full justify-between lg:hidden">
+                <SPlacetopayLogo :height="35" />
 
-        <main class="relative flex flex-1 flex-col items-center">
-            <div class="absolute inset-x-0 flex h-44 justify-between overflow-hidden">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="h-[150px] w-full blur-2xl">
-                    <defs>
-                        <pattern id="patt" x="0" y="0" width="1100" height="150" patternUnits="userSpaceOnUse">
-                            <ellipse cx="0" cy="150" rx="500" ry="50" class="fill-primary-600/50" />
-                            <ellipse cx="550" cy="0" rx="150" ry="50" class="fill-primary-600/30" />
-                            <ellipse cx="850" cy="150" rx="100" ry="90" class="fill-primary-600/20" />
-                        </pattern>
-                    </defs>
-
-                    <rect width="100%" height="100%" x="0" y="0" stroke="black" fill="url(#patt)" />
-                </svg>
+                <button @click="open = true" class="p-2.5">
+                    <Bars3Icon class="h-6 w-6 text-gray-500" />
+                </button>
             </div>
 
-            <section class="mt-36 w-full space-y-8 px-10 max-w-6xl">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <SAvatar
-                            class="h-32 w-32 border-4 border-white"
-                            size="2xl"
-                            borderless
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256"
-                        />
+            <nav class="flex w-full items-center gap-2">
+                <ArrowLeftIcon class="h-5 w-5 text-gray-500" />
+                <span class="text-2xl font-semibold">Editar perfil</span>
+            </nav>
 
-                        <div>
-                            <h1 class="text-2xl font-bold">Arley </h1>
-                            <p class="text-gray-500">john.doe@example.com</p>
-                        </div>
-                    </div>
+            <hr class="w-full border-t border-gray-200" />
 
-                    <SButton size="sm" variant="secondary">Editar perfil</SButton>
+            <section class="grid w-full grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="w-full space-y-1">
+                    <UserTagIcon class="h-6 w-6 text-gray-400" />
+                    <h3 class="text-base font-semibold text-gray-900">Información Personal</h3>
+                    <span class="text-sm font-normal text-gray-700"
+                        >Actualiza tu perfil para mejorar tu experiencia</span
+                    >
                 </div>
 
-                <div class="flex gap-4">
-                    <div class="w-full rounded-xl border border-gray-200 overflow-hidden">
-                        <header class="bg-gray-50 border-b border-gray-100 p-3 text-gray-900 flex gap-3 items-center">
-                            <FlagIcon class="h-6 w-6 m-2"/>
-
-                            <div class="text-xs flex flex-col">
-                                <span>Olla</span>
-                                <span class="font-semibold">24 ago 2023, 15:19:59</span>
+                <div class="w-full space-y-6">
+                    <div>
+                        <p class="mb-1 text-sm font-medium text-gray-700">Foto de perfil</p>
+                        <div class="flex gap-8">
+                            <SAvatar
+                                class="h-24 w-24"
+                                borderless
+                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256"
+                            />
+                            <div class="flex flex-col gap-2">
+                                <SButton variant="secondary">Editar</SButton>
+                                <span class="text-xs font-normal text-gray-600">JPG o PNG, Máximo 1MB</span>
                             </div>
-                        </header>
-
-                        <ul class="divide-y px-4 text-gray-900">
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Navegador</span>
-                                <span class="text-sm font-normal">Chrome 116.0.0</span>
-                            </li>
-
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Dispositivo</span>
-                                <span class="text-sm font-normal">Computador</span>
-                            </li>
-
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Sistema operativo</span>
-                                <span class="text-sm font-normal">Mac OS X 10.15.7</span>
-                            </li>
-
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Ip</span>
-                                <span class="text-sm font-normal">2800:486:803:900:390d:c713:64a:6e82</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="w-full rounded-xl border border-gray-200 overflow-hidden">
-                        <header class="bg-gray-50 border-b border-gray-100 p-3 text-gray-900 flex gap-3 items-center">
-                            <CalendarSearchIcon class="h-6 w-6 m-2"/>
-
-                            <div class="text-xs flex flex-col">
-                                <span>Último inicio de sesión desde</span>
-                                <span class="font-semibold">24 ago 2023, 15:19:59</span>
-                            </div>
-                        </header>
-
-                        <ul class="divide-y px-4 text-gray-900">
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Navegador</span>
-                                <span class="text-sm font-normal">Chrome 116.0.0</span>
-                            </li>
-
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Dispositivo</span>
-                                <span class="text-sm font-normal">Computador</span>
-                            </li>
-
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Sistema operativo</span>
-                                <span class="text-sm font-normal">Mac OS X 10.15.7</span>
-                            </li>
-
-                            <li class="flex justify-between py-3">
-                                <span class="text-gray-500 text-sm font">Ip</span>
-                                <span class="text-sm font-normal">2800:486:803:900:390d:c713:64a:6e82</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="flex gap-4">
-                    <div class="flex flex-col w-full rounded-xl border border-gray-200 p-4">
-                        <ShieldTickIcon class="h-6 w-6 mb-3"/>
-                        <div class="flex-1 mb-2">
-                            <h3 class="mb-1 text-gray-900 font-semibold text-base">Doble factor de autenticación</h3>
-                            <p class="text-gray-600 text-xs font-normal">Autenticación de dos factores agrega una capa adicional de seguridad a tu cuenta</p>
                         </div>
-                        
-                        <footer class="flex justify-end">
-                            <a href="#" class="flex gap-2 items-center text-primary-600 text-xs font-normal">
-                                <span class="whitespace-nowrap">Ver detalle</span>
-                                <ArrowRightIcon class="h-4 w-4" />
-                            </a>
-                        </footer>
                     </div>
 
-                    <div class="flex flex-col w-full rounded-xl border border-gray-200 p-4">
-                        <MonitorMobbileIcon class="h-6 w-6 mb-3"/>
-                        <div class="flex-1 mb-2">
-                            <h3 class="mb-1 text-gray-900 font-semibold text-base">Aplicaciones</h3>
-                            <p class="text-gray-600 text-xs font-normal">Administra todas las cuentas vinculadas a la tuya en las que tienes autorización</p>
-                        </div>
-                        
-                        <footer class="flex justify-end">
-                            <a href="#" class="flex gap-2 items-center text-primary-600 text-xs font-normal">
-                                <span class="whitespace-nowrap">Ver detalle</span>
-                                <ArrowRightIcon class="h-4 w-4" />
-                            </a>
-                        </footer>
-                    </div>
+                    <SInputBlock modelValue="John Doe" label="Nombre completo" placeholder="Nombre completo" />
 
-                    <div class="flex flex-col w-full rounded-xl border border-gray-200 p-4">
-                        <RepeatIcon class="h-6 w-6 mb-3"/>
-                        <div class="flex-1 mb-2">
-                            <h3 class="mb-1 text-gray-900 font-semibold text-base">Registro de accesos</h3>
-                            <p class="text-gray-600 text-xs font-normal">Supervisa tus sesiones para tener el control de quién y cuándo accede a tu cuenta</p>
-                        </div>
-                        
-                        <footer class="flex justify-end">
-                            <a href="#" class="flex gap-2 items-center text-primary-600 text-xs font-normal">
-                                <span class="whitespace-nowrap">Ver detalle</span>
-                                <ArrowRightIcon class="h-4 w-4" />
-                            </a>
-                        </footer>
+                    <SSelectBlock modelValue="UTC" label="Zona Horaria" class="w-fit">
+                        <option value="UTC">UTC</option>
+                        <option value="America/Bogota">America/Bogota</option>
+                        <option value="America/New_York">America/New_York</option>
+                    </SSelectBlock>
+
+                    <div class="flex justify-end">
+                        <SButton>Guardar</SButton>
                     </div>
                 </div>
             </section>
-        </main>
+
+            <hr class="w-full border-t border-gray-200" />
+
+            <section class="grid w-full grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="w-full space-y-1">
+                    <SmsEditIcon class="h-6 w-6 text-gray-400" />
+                    <h3 class="text-base font-semibold text-gray-900">Cambiar correo eletrónico</h3>
+                    <span class="text-sm font-normal text-gray-700"
+                        >Deberás verificar tu correo actual y el nuevo correo electrónico antes de hacer efectivo el
+                        cambio</span
+                    >
+                </div>
+
+                <div class="w-full space-y-6">
+                    <div>
+                        <p class="mb-2 text-sm font-medium text-gray-700">Correo electrónico actual</p>
+                        <p class="text-base font-normal text-gray-900">john.doe@evertecinc.com</p>
+                    </div>
+
+                    <SInputBlock label="Nuevo correo electrónico" placeholder="new-email@example.com" />
+
+                    <SInputBlock label="Confirmar nuevo correo electrónico" placeholder="new-email@example.com" />
+
+                    <div class="flex justify-end">
+                        <SButton>Guardar</SButton>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="w-full border-t border-gray-200" />
+
+            <section class="grid w-full grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="w-full space-y-1">
+                    <LockIcon class="h-6 w-6 text-gray-400" />
+                    <h3 class="text-base font-semibold text-gray-900">Contraseña</h3>
+                    <span class="text-sm font-normal text-gray-700"
+                        >Cambia tu contraseña y no la utilices en otras cuentas</span
+                    >
+                </div>
+
+                <div class="w-full space-y-6">
+                    <SInputBlock label="Contraseña actual">
+                        <template #right>
+                            <button>
+                                <EyeSlashIcon class="h-6 w-6 text-gray-500" />
+                            </button>
+                        </template>
+                    </SInputBlock>
+
+                    <SInputBlock label="Nueva contraseña">
+                        <template #right>
+                            <button>
+                                <EyeSlashIcon class="h-6 w-6 text-gray-500" />
+                            </button>
+                        </template>
+                    </SInputBlock>
+
+                    <SInputBlock label="Confirmar nueva contraseña">
+                        <template #right>
+                            <button>
+                                <EyeSlashIcon class="h-6 w-6 text-gray-500" />
+                            </button>
+                        </template>
+                    </SInputBlock>
+
+                    <div class="flex justify-end">
+                        <SButton>Guardar</SButton>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </template>
