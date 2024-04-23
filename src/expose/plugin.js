@@ -59,6 +59,7 @@ export default plugin.withOptions(
                     },
                 },
             },
+            safelist: ['sm:items-start', 'sm:items-center', 'sm:items-end'],
         };
     },
 );
