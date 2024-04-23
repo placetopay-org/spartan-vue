@@ -3,40 +3,50 @@ import SModalTitle from './SModalTitle.vue';
 import SModalDescription from './SModalDescription.vue';
 import { ref } from 'vue';
 import { SButton } from '../SButton';
-import { createDefault, createVariation } from '@/helpers';
+import { createDefault, createVariation, createHistory } from '@/helpers';
 
 export default {
     component: SModal,
     title: 'modals/Modal',
-    parameters: {
-        docs: {
-            description: {
-                component: 'A modal is a dialog box/popup window that is displayed on top of the current page.',
+    ...createHistory({
+        description: 'A modal is a dialog box/popup window that is displayed on top of the current page.',
+        events: [
+            {
+                name: 'close',
+                description: 'Emitted when the modal is closed.',
+            }
+        ],
+        slots: [
+            {
+                name: 'default',
+                description: 'The content of the modal.',
+            }
+        ],
+        props: [
+            {
+                name: 'open',
+                type: 'boolean',
+                default: 'false',
+                description: 'Whether the modal is open or not.',
+                control: null,
             },
-        },
-    },
-    argTypes: {
-        // Events
-        close: {
-            control: { type: null },
-            description: 'Emitted when the modal is closed.',
-            table: { type: { summary: null }, category: 'Events' },
-        },
-
-        // Slots
-        default: {
-            control: { type: null },
-            table: { type: { summary: null }, category: 'Slots' },
-            description: 'The content of the modal.',
-        },
-
-        // Props
-        open: {
-            control: { type: null },
-            description: 'Whether the modal is open or not.',
-            table: { type: { summary: 'boolean' } },
-        },
-    },
+            {
+                name: 'responsive',
+                type: 'boolean',
+                default: 'true',
+                description: 'Whether the modal is responsive or not.',
+                control: 'boolean',
+            },
+            {
+                name: 'position',
+                type: 'string',
+                default: 'center',
+                description: 'The position of the modal.',
+                options: ['top', 'nearTop', 'center', 'bottom'],
+                control: 'select',
+            }
+        ]
+    }),
 };
 
 export const Default = createDefault({
@@ -46,7 +56,7 @@ export const Default = createDefault({
 
         return { open };
     },
-    template: `<SModal :open="open" @close="() => open = false">
+    template: `<SModal v-bind="args" :open="open" @close="() => open = false">
     <div class="bg-yellow-300 flex flex-col gap-8 w-full sm:w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 justify-center items-center">
         Any Element!
 
@@ -68,6 +78,8 @@ export const Default = createDefault({
         default: undefined,
         open: undefined,
         close: undefined,
+        responsive: true,
+        position: 'center',
     },
 });
 

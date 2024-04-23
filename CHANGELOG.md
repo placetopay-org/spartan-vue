@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SAvatar` tests.
 - `SAccordion` tests.
 - Testing environment.
+- New `SModal` vertical positions.
 
 ## 2.0.0-beta.83 - 2024-04-10
 ### Fixed
