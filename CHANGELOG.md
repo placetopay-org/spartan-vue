@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `SPopover` tests.
+- `SInputMaskBlock` tests.
+- `SInputMask` tests.
+- `SRadioGroup` tests.
+- `STab` tests.
+- `SInputAmountBlock` tests.
+- `SInputAmount` tests.
+- `SToast` tests.
+- `SSwitch` tests.
+- `SSelectBlock` tests.
+- `SSelect` tests.
+- `SSectionTitle` tests.
+- `SSectionDescription` tests.
+- `SPlacetopayLogo` tests.
+- `SInputOTP` tests.
+- `SInputIncrementBlock` tests.
+- `SInputIncrement` tests.
+- `SInputDateBlock` tests.
+- `SInputDate` tests.
+- `SInputBlock` tests.
+- `SInput` tests.
+- `SDefinitionTerm` tests.
+- `SComboboxBlock` tests.
+- `SCombobox` tests.
+- `SRadio` tests.
+- `SCheckbox` tests.
+- `SCardBrand` tests.
+- `SCard` tests.
+- `SCaption` tests.
+- `SButtonGroup` and `SButtonGroupItem` tests.
+- `SButton` tests.
+- `STextAreaBlock` tests.
+- `STextArea` tests.
+- `SLabel` tests.
+- `SBreadcrumbs` and `SBreadcrumbsItem` tests.
+- `SLink` tests.
+- `SBadge` tests.
+- `SAvatar` tests.
+- `SAccordion` tests.
+- Testing environment.
 - New `SModal` vertical positions.
 
 ## 2.0.0-beta.83 - 2024-04-10

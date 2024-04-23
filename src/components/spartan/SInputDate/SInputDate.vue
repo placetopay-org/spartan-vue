@@ -4,8 +4,9 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import type { TInputDateProps, TInputDateEmits } from './types';
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
+import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
 
-const props = defineProps<TInputDateProps>();
+const props = defineProps<TInputDateProps & VueDatePickerProps>();
 const emit = defineEmits<TInputDateEmits>();
 
 const value = computed({
@@ -16,10 +17,9 @@ const value = computed({
 
 <template>
     <VueDatePicker
+        v-bind="{ ...$props, modelValue: undefined }"
         :uid="id"
         v-model="value"
-        :hide-input-icon="hideInputIcon"
-        :placeholder="placeholder"
         :class="
             twMerge(
                 error

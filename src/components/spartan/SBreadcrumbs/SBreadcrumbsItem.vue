@@ -15,7 +15,7 @@ defineProps<Partial<TBreadcrumbsItemProps>>();
                 :class="[active ? 'text-gray-800' : undefined]"
                 :aria-current="active ? 'page' : undefined"
             >
-                <component :is="icon" class="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                <component v-if="icon" :is="icon" class="h-5 w-5 flex-shrink-0" aria-hidden="true" />
                 <slot />
             </a>
         </div>

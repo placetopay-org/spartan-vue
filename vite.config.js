@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
@@ -57,4 +59,17 @@ export default defineConfig({
             },
         },
     },
+    test: {
+        globals: true,
+        include: ['./src/components/spartan/**/*.test.ts'],
+        setupFiles: './vitest-setup.ts',
+        environment: 'jsdom',
+        coverage: {
+            reporter: ['lcov', 'html'],
+            provider: 'istanbul',
+            extension: ['.vue'],
+            include: ['src/components/spartan/'],
+            clean: false,
+        }
+    }
 });
