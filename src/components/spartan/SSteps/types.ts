@@ -1,8 +1,12 @@
+export type TStepsItemsProps = {
+    status: 'complete' | 'current' | 'upcoming';
+    href: string;
+    name?: string;
+    description?: string;
+    last?: boolean;
+};
+
 export type TStepsProps = {
-    steps: Array<{
-        name: string;
-        href: string;
-        description: string;
-        status: 'complete' | 'current' | 'upcoming';
-    }>;
+    variant: 'simple' | 'circlesWithText';
+    steps: TStepsItemsProps[];
 };
