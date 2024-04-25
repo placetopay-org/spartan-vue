@@ -20,12 +20,14 @@ export default {
                 type: 'TStep[]',
                 default: '[]',
                 description: 'The steps to display.',
-            }
-        ]
+            },
+        ],
     }),
 };
 
-const sourceBinding = buildSourceBinding({});
+const sourceBinding = buildSourceBinding({
+    prop: { variant: 'circlesWithText' },
+});
 
 export const Default = createDefault({
     components: { SSteps },
@@ -117,10 +119,42 @@ export const Base = createVariation({
 ]"/>`,
 });
 
+export const Variant = createVariation({
+    components: { SSteps, SStepsItem },
+    containerClass: 'flex flex-col',
+    template: `
+<SSteps>
+    <SStepsItem name="Step 1" description="Step 1 description" href="#" status="complete" /> 
+    <SStepsItem name="Step 2" description="Step 2 description" href="#" status="current" />
+    <SStepsItem last name="Step 3" description="Step 3 description" href="#" status="upcoming" />   
+</SSteps>
+
+<hr class="w-full border-t border-gray-300 my-8" />
+
+<SSteps variant="simple">
+    <SStepsItem name="Step 1" description="Step 1 description" href="#" status="complete" /> 
+    <SStepsItem name="Step 2" description="Step 2 description" href="#" status="current" />
+    <SStepsItem last name="Step 3" description="Step 3 description" href="#" status="upcoming" />   
+</SSteps>`,
+});
 
 export const Custom = createVariation({
     components: { SSteps, SStepsItem },
+    containerClass: 'flex flex-col',
     template: `<SSteps>
+    <SStepsItem href="#" status="complete">Step 1</SStepsItem> 
+    <SStepsItem href="#" status="current">
+        Step 2
+        <template #description>Step 2 description</template>
+    </SStepsItem> 
+    <SStepsItem last href="#" status="upcoming">
+        <template #description>Step 3 description</template>
+    </SStepsItem> 
+</SSteps>
+
+<hr class="w-full border-t border-gray-300 my-8" />
+
+<SSteps variant="simple">
     <SStepsItem href="#" status="complete">Step 1</SStepsItem> 
     <SStepsItem href="#" status="current">
         Step 2

@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import SStepsItem from './SStepsItem.vue';
 import type { TStepsProps } from './types';
-import { containerStyles } from './styles';
+import { createContext } from './api';
 
-defineProps<TStepsProps>();
+const props = withDefaults(defineProps<TStepsProps>(), {
+    variant: 'circlesWithText',
+    steps: () => [],
+});
+
+createContext(props);
+
+const containerStyle = {
+    simple: 'space-y-4 md:flex md:space-x-8 md:space-y-0',
+    circlesWithText: 'overflow-hidden',
+}
 </script>
 
 <template>
     <nav aria-label="Progress">
-        <ol role="list" :class="containerStyles({ variant })">
+        <ol role="list" :class="containerStyle[variant]">
             <slot />
             <SStepsItem
                 v-for="(step, stepIdx) in steps"

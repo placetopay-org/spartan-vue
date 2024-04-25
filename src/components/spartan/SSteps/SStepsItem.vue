@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import { indicatorStyle } from './styles';
-import type { TStepsItemsProps } from './types';
-import { CheckIcon } from '@heroicons/vue/20/solid';
+import type { TStepsItemsProps, TStepItemData } from './types';
+import { useContext } from './api';
 import { hasSlotContent } from '@/helpers';
-
-const props = defineProps<TStepsItemsProps>();
+import { StepLine, CircleWithText } from './circlesWithTextVariant';
+import { SimpleStep } from './simpleVariant';
 
 const slots = useSlots();
+const props = defineProps<TStepsItemsProps>();
 
 const isComplete = computed(() => props.status === 'complete');
 const isCurrent = computed(() => props.status === 'current');
@@ -20,63 +20,55 @@ const hasName = computed(() => {
 });
 
 const hasDescription = computed(() => {
-    console.log('description: ', slots.description);
     if (hasSlotContent(slots.description)) return { slot: true };
     if (props.description) return { slot: false };
     return false;
 });
 
 const hasOnlyOneSlot = computed(() => {
-    return hasName.value && !hasDescription.value || !hasName.value && hasDescription.value;
+    return (hasName.value && !hasDescription.value) || (!hasName.value && hasDescription.value);
 });
 
 const ariaCurrent = computed<{ 'aria-current': 'step' } | undefined>(() =>
     isCurrent ? { 'aria-current': 'step' } : undefined,
 );
+
+const context = useContext('SStepsItem');
+const itemStyle = computed(() => {
+    if (context.variant === 'simple') return 'md:flex-1';
+    return ['relative', !props.last && 'pb-10'];
+});
+
+const itemData = computed<TStepItemData>(() => ({
+    status: props.status,
+    href: props.href,
+    isComplete: isComplete.value,
+    isCurrent: isCurrent.value,
+    isUpcoming: isUpcoming.value,
+    ariaCurrent: ariaCurrent.value,
+    hasName: hasName.value,
+    hasDescription: hasDescription.value,
+    hasOnlyOneSlot: hasOnlyOneSlot.value,
+    name: props.name,
+    description: props.description,
+}));
 </script>
 
 <template>
-    <li :class="['relative', !last && 'pb-10']">
-        <div
-            v-if="!last"
-            :class="['absolute left-4 top-4 -ml-px mt-0.5 h-full w-0.5', isComplete ? 'bg-primary-500' : 'bg-gray-300']"
-            aria-hidden="true"
-        />
-        <a :href="href" class="group relative flex items-start" v-bind="ariaCurrent">
-            <span class="flex h-9 items-center">
-                <span :class="indicatorStyle({ status })">
-                    <CheckIcon v-if="isComplete" class="h-5 w-5 text-white" aria-hidden="true" />
-                    <span
-                        v-else
-                        :class="[
-                            'h-2.5 w-2.5 rounded-full bg-primary-500',
-                            isCurrent ? 'bg-primary-500' : 'bg-transparent group-hover:bg-gray-300',
-                        ]"
-                    />
-                </span>
-            </span>
-            <span :class="['ml-4 flex min-w-0 flex-col', hasOnlyOneSlot && 'self-center']">
-                <span
-                    v-if="hasName"
-                    :class="[
-                        'text-xs font-semibold',
-                        { 'text-gray-600': isComplete, 'text-gray-500': isCurrent, 'text-gray-400': isUpcoming },
-                    ]"
-                >
-                    <slot v-if="hasName.slot" />
-                    <template v-else>{{ name }}</template>
-                </span>
-                <span
-                    v-if="hasDescription"
-                    :class="[
-                        'text-sm',
-                        { 'text-gray-600': isComplete, 'text-gray-900': isCurrent, 'text-gray-400': isUpcoming },
-                    ]"
-                >
-                    <slot name="description" v-if="hasDescription.slot" />
-                    <template v-else>{{ description }}</template>
-                </span>
-            </span>
-        </a>
+    <li :class="itemStyle">
+        <template v-if="context.variant === 'circlesWithText'">
+            <StepLine :last="props.last" :isComplete="isComplete" />
+            <CircleWithText v-bind="itemData">
+                <slot />
+                <template #description><slot name="description" /></template>
+            </CircleWithText>
+        </template>
+
+        <template v-if="context.variant === 'simple'">
+            <SimpleStep v-bind="itemData">
+                <slot />
+                <template #description><slot name="description" /></template>
+            </SimpleStep>
+        </template>
     </li>
 </template>
