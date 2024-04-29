@@ -11,10 +11,10 @@ const open = ref(false);
 
 <template>
     <div class="flex w-full divide-x divide-gray-200">
-        <VSidebar class="hidden lg:flex" />
+        <VSidebar current="Inicio" class="hidden lg:flex" />
 
         <SModalLeft breakpoint="lg" :open="open" @close="() => (open = false)">
-            <VSidebar />
+            <VSidebar current="Inicio" />
         </SModalLeft>
 
         <div class="flex w-full flex-1 flex-col items-start gap-8 p-6">
@@ -27,13 +27,17 @@ const open = ref(false);
             </div>
 
             <nav class="flex w-full items-center gap-2">
-                <button><ArrowLeftIcon class="h-5 w-5 text-gray-500" /></button>
+                <a
+                    href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--home"
+                >
+                    <ArrowLeftIcon class="h-5 w-5 text-gray-500"/>
+                </a>
                 <span class="text-2xl font-semibold">Editar perfil</span>
             </nav>
 
-            <main class="max-w-7xl mx-auto space-y-8">
-                <section class="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
-                    <div class="w-full space-y-1">
+            <main class="mx-auto max-w-7xl space-y-8">
+                <section class="grid w-full grid-cols-1 gap-8 lg:grid-cols-3">
+                    <div class="space-y-1">
                         <UserTagIcon class="h-6 w-6 text-gray-400" />
                         <h3 class="text-base font-semibold text-gray-900">Información Personal</h3>
                         <span class="text-sm font-normal text-gray-700"
@@ -41,7 +45,7 @@ const open = ref(false);
                         >
                     </div>
 
-                    <div class="w-full space-y-6">
+                    <div class="space-y-6 lg:col-span-2">
                         <div>
                             <p class="mb-1 text-sm font-medium text-gray-700">Foto de perfil</p>
                             <div class="flex items-center gap-8">
@@ -59,7 +63,7 @@ const open = ref(false);
 
                         <SInputBlock modelValue="John Doe" label="Nombre completo" placeholder="Nombre completo" />
 
-                        <SSelectBlock modelValue="UTC" label="Zona Horaria" class="w-fit">
+                        <SSelectBlock modelValue="UTC" label="Zona Horaria" class="w-1/2">
                             <option value="UTC">UTC</option>
                             <option value="America/Bogota">America/Bogota</option>
                             <option value="America/New_York">America/New_York</option>

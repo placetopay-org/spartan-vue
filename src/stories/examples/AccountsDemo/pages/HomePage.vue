@@ -18,10 +18,10 @@ const open = ref(false);
 
 <template>
     <div class="h-full w-full divide-x divide-gray-200 lg:flex">
-        <VSidebar class="hidden lg:flex" />
+        <VSidebar current="Inicio" class="hidden lg:flex" />
 
         <SModalLeft breakpoint="lg" :open="open" @close="() => (open = false)">
-            <VSidebar />
+            <VSidebar current="Inicio" />
         </SModalLeft>
 
         <div class="flex w-full items-center justify-between p-4 lg:hidden border-b border-gray-200">
@@ -62,7 +62,7 @@ const open = ref(false);
                         </div>
                     </div>
 
-                    <SButton class="lg:w-auto w-full" size="sm" variant="secondary">Editar perfil</SButton>
+                    <SButton as="a" href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--edit-profile" class="lg:w-auto w-full" size="sm" variant="secondary">Editar perfil</SButton>
                 </div>
 
                 <div class="grid lg:grid-cols-2 gap-4">

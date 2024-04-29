@@ -10,6 +10,7 @@ export const createContext = (props: TSidebarProps, emit: TSidebarEmits) => {
         groups: {},
         path: props.modelValue,
         updatePath: (path?: string) => {
+            if (path === state.path) return;
             emit('update:modelValue', path);
         },
         registerPath: (path: string, setActive: (value: boolean) => void, group?: string) => {

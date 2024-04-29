@@ -19,7 +19,7 @@ defineOptions({ inheritAttrs: false });
 <template>
     <SPopover v-bind="{ ...$props, class: undefined }" :class="twMerge('w-fit', $props.class)">
         <template #reference="handlers">
-            <button @click="handlers.toggle" @focus="focusFirstChild" :tabindex="-1">
+            <button @click="handlers.toggle" :class="referenceClass" @focus="focusFirstChild" :tabindex="-1">
                 <slot name="reference" />
             </button>
         </template>

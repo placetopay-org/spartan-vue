@@ -51,7 +51,7 @@ const recoveryCode = ref('');
                 >
                     ¿Olvidaste tu contraseña?
                 </button>
-                <SButton class="w-full">{{ atLogin ? 'Ingresar' : 'Registrarse' }}</SButton>
+                <SButton as="a" href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--auth" class="w-full">{{ atLogin ? 'Ingresar' : 'Registrarse' }}</SButton>
 
                 <p class="text-xs font-normal text-gray-400">
                     Al continuar acepto las políticas aplicables para el tratamiento de mis datos personales según la
