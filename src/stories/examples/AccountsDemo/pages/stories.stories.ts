@@ -496,7 +496,7 @@ export const Home = createDefault({
 
 export const EditProfile = createDefault({
     design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
-    containerClass: 'bg-white',
+    containerClass: 'bg-white min-h-full flex',
     components: { LinkButton, EditProfilePage },
     args: { buttonPreviewMode: true },
     template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="edit-profile">

@@ -18,7 +18,7 @@ const open = ref(false);
 
 <template>
     <div class="h-full w-full divide-x divide-gray-200 lg:flex">
-        <VSidebar class="hidden lg:block" />
+        <VSidebar class="hidden lg:flex" />
 
         <SModalLeft breakpoint="lg" :open="open" @close="() => (open = false)">
             <VSidebar />
