@@ -30,7 +30,7 @@ const lang = ref(0);
             <main class="py-5 px-4 space-y-8 border border-gray-200 rounded-lg">
                 <section class="flex gap-3">
                     <SAvatar class="bg-gray-700 text-base font-semibold text-white" name="Jhon Doe"/>
-                    <div class="text-sm space-y-2">
+                    <div class="text-sm space-y-2 flex-1">
                         <span class="font-medium text-gray-900">Jhon Doe - jhon@example.com</span>
                         <p class="font-normal">
                             <span class="text-gray-900">Panel-dev </span>
@@ -40,11 +40,11 @@ const lang = ref(0);
                 </section>
                 <section class="flex gap-3">
                     <ProfileCircleIcon class="h-10 w-10 text-gray-500"/>
-                    <div class="text-sm space-y-2">
+                    <div class="text-sm space-y-2 flex-1">
                         <span class="font-medium text-gray-900">Datos personales del usuario</span>
                         <div class="font-normal space-y-1">
                             <p class="text-gray-500">Al autorizar, <span class="text-gray-900">Panel-dev</span> podrá leer la información básica de tu perfil en <span class="text-gray-900">Placetopay Accounts</span>.</p>
-                            <p class="text-gray-500">Puedes administrar tu cuenta de Placetopay Accounts en <span class="text-gray-900 underline">Editar Perfil</span>.</p>
+                            <p class="text-gray-500">Puedes administrar tu cuenta de Placetopay Accounts en <a href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--edit-profile" class="text-gray-900 underline">Editar Perfil</a>.</p>
                         </div>
                     </div>
                 </section>
