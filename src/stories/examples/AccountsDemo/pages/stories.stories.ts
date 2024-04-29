@@ -2,6 +2,7 @@ import LoginPage from './LoginPage.vue';
 import AuthPage from './AuthPage.vue';
 import HomePage from './HomePage.vue';
 import EditProfilePage from './EditProfilePage.vue';
+import TwoFactorAuthPage from './TwoFactorAuthPage.vue';
 import { LinkButton } from '@internal';
 import { createDefault } from '@/helpers';
 
@@ -501,6 +502,17 @@ export const EditProfile = createDefault({
     args: { buttonPreviewMode: true },
     template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="edit-profile">
     <EditProfilePage />
+    </LinkButton>`,
+    transform: () => ``,
+});
+
+export const TwoFactorAuth = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'bg-white min-h-full flex',
+    components: { LinkButton, TwoFactorAuthPage },
+    args: { buttonPreviewMode: true },
+    template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="two-factor-auth">
+    <TwoFactorAuthPage />
     </LinkButton>`,
     transform: () => ``,
 });

@@ -20,7 +20,7 @@ defineProps<{
 
 const exampleRoutes = {
     'Inicio': 'iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--home',
-    // 'Autenticación': '/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--edit-profile',
+    'Autenticación': 'iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--two-factor-auth',
 };
 
 const updateExample = (route) => {
