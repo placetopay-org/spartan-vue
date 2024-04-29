@@ -52,8 +52,8 @@ const lang = ref(0);
 
             <section class="space-y-7">
                 <div class="space-y-4">
-                    <SButton class="w-full" variant="primary">Autorizar</SButton>
-                    <SButton class="w-full" variant="secondary">Cancelar</SButton>
+                    <SButton as="a" href="iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--home" class="w-full" variant="primary">Autorizar</SButton>
+                    <SButton as="a" href="iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--login" class="w-full" variant="secondary">Cancelar</SButton>
                 </div>
 
                 <p class="text-center text-sm text-gray-500 font-normal">Al autorizar, serás redireccionado a https://panel-co.placetopay.dev</p>

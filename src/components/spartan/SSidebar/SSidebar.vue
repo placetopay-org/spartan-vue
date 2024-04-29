@@ -27,7 +27,7 @@ createContext(props, emit);
             </ul>
         </nav>
 
-        <footer v-if="hasSlotContent($slots.footer)"><slot name="footer" /></footer>
+        <footer class="mt-auto -m-4" v-if="hasSlotContent($slots.footer)"><slot name="footer" /></footer>
     </aside>
 </template>
 
