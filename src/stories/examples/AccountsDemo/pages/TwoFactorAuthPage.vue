@@ -41,7 +41,7 @@ const open = ref(false);
                 </section>
 
                 <section class="flex justify-center">
-                    <SButton>Habilitar la autenticación</SButton>
+                    <SButton as="a" href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--two-factor-step-1">Habilitar la autenticación</SButton>
                 </section>
             </main>
         </div>

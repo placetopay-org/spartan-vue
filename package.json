@@ -53,7 +53,7 @@
     "@headlessui/vue": "1.7.17",
     "@heroicons/vue": "2.1.1",
     "@intlify/unplugin-vue-i18n": "^2.0.0",
-    "@placetopay/iconsax-vue": "^0.0.7",
+    "@placetopay/iconsax-vue": "^1.0.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",

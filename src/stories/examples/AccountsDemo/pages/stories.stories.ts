@@ -3,6 +3,9 @@ import AuthPage from './AuthPage.vue';
 import HomePage from './HomePage.vue';
 import EditProfilePage from './EditProfilePage.vue';
 import TwoFactorAuthPage from './TwoFactorAuthPage.vue';
+import TwoFactorStep1Page from './TwoFactorStep1Page.vue';
+import TwoFactorStep2Page from './TwoFactorStep2Page.vue';
+import TwoFactorStep3Page from './TwoFactorStep3Page.vue';
 import { LinkButton } from '@internal';
 import { createDefault } from '@/helpers';
 
@@ -513,6 +516,39 @@ export const TwoFactorAuth = createDefault({
     args: { buttonPreviewMode: true },
     template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="two-factor-auth">
     <TwoFactorAuthPage />
+    </LinkButton>`,
+    transform: () => ``,
+});
+
+export const TwoFactorStep1 = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'bg-white min-h-full flex',
+    components: { LinkButton, TwoFactorStep1Page },
+    args: { buttonPreviewMode: true },
+    template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="two-factor-step-1">
+    <TwoFactorStep1Page />
+    </LinkButton>`,
+    transform: () => ``,
+});
+
+export const TwoFactorStep2 = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'bg-white min-h-full flex',
+    components: { LinkButton, TwoFactorStep2Page },
+    args: { buttonPreviewMode: true },
+    template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="two-factor-step-2">
+    <TwoFactorStep2Page />
+    </LinkButton>`,
+    transform: () => ``,
+});
+
+export const TwoFactorStep3 = createDefault({
+    design: 'https://www.figma.com/file/L7Q1hYhhz42H3zHPngVnbw/Accounts-V2?type=design&node-id=408-1756',
+    containerClass: 'bg-white min-h-full flex',
+    components: { LinkButton, TwoFactorStep3Page },
+    args: { buttonPreviewMode: true },
+    template: `<LinkButton :mode="args.buttonPreviewMode" example="accountsdemo-pages" name="two-factor-step-3">
+    <TwoFactorStep3Page />
     </LinkButton>`,
     transform: () => ``,
 });

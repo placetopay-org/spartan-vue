@@ -1,0 +1,63 @@
+<script setup lang="ts">
+import {
+    SModalLeft,
+    SBadge,
+    SButton,
+    SInputBlock,
+    SSelectBlock,
+    SPlacetopayLogo,
+    SSteps,
+    SStepsItem,
+    SDefinitionTerm,
+} from '@spartan';
+import { LockIcon, UserTagIcon, SmsEditIcon, ShieldTickIcon } from '@placetopay/iconsax-vue/linear';
+import { AndroidIcon, AppleIcon, WindowsIcon } from '@placetopay/iconsax-vue/Crypto/bold';
+import { ArrowLeftIcon, CloudArrowDownIcon } from '@heroicons/vue/24/solid';
+import { EyeSlashIcon, Bars3Icon } from '@heroicons/vue/24/outline';
+import VSidebar from '../components/VSidebar.vue';
+import { ref } from 'vue';
+
+const open = ref(false);
+</script>
+
+<template>
+    <div class="flex w-full divide-x divide-gray-200">
+        <VSidebar current="Autenticación" class="hidden lg:flex" />
+
+        <SModalLeft breakpoint="lg" :open="open" @close="() => (open = false)">
+            <VSidebar current="Autenticación" />
+        </SModalLeft>
+
+        <div class="flex w-full flex-1 flex-col items-start">
+            <div class="flex w-full items-center justify-between border-b border-gray-200 p-4 lg:hidden">
+                <SPlacetopayLogo :height="35" />
+
+                <button @click="open = true" class="p-2.5">
+                    <Bars3Icon class="h-6 w-6 text-gray-500" />
+                </button>
+            </div>
+
+            <h2 class="p-4 text-2xl font-semibold text-gray-900 lg:px-6 lg:py-8">Autenticación</h2>
+
+            <main class="mx-auto flex w-full max-w-xl flex-col p-4">
+                <SSteps class="" variant="simple">
+                    <SStepsItem name="Paso 1" description="Obtén la aplicación" href="#" status="complete" />
+                    <SStepsItem name="Paso 2" description="Escanea el QR" href="#" status="complete" />
+                    <SStepsItem name="Paso 3" description="Clave de recuperación" href="#" status="current" />
+                </SSteps>
+
+                <section class="space-y-2 mt-8">
+                    <h2 class="text-base font-semibold text-gray-900">Guarda esta clave de recuperación de emergencia</h2>
+                    <p class="text-sm font-normal text-gray-700">
+                        Si dejas de tener acceso al teléfono, no podrás iniciar sesión en la cuenta sin esta clave. Imprime, copia o anota esta clave sin que nadie la vea.
+                    </p>
+                </section>
+
+                <section class="mt-6 gap-4 flex flex-col md:flex-row">
+                    <SButton class="w-full md:w-fit" variant="secondary" :rightIcon="CloudArrowDownIcon">Descargar clave</SButton>
+                    <SButton class="w-full md:w-fit">Finalizar autenticación</SButton>
+                </section>
+            </main>
+        </div>
+    </div>
+</template>
