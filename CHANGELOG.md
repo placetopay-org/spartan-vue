@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.0.0-beta.84 - 2024-04-23
 ### Added
+- `SSidebar` tests.
+- `SSidebarItem` tests.
+- `SSidebarItemGroup` tests.
+- `SPaginator` tests.
+- `SModalLeft` tests.
+- `SModalCard` tests.
+- `SModal` tests.
 - `SPopover` tests.
 - `SInputMaskBlock` tests.
 - `SInputMask` tests.
