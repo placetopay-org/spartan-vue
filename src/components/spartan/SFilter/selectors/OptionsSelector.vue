@@ -9,7 +9,7 @@ import type { TField } from '../types';
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
-    modelValue?: string[] | string;
+    modelValue?: string | string[];
     field: TField;
 }>();
 
@@ -28,22 +28,26 @@ const checked = computed({
     },
 });
 
-const getOptionId = (option: string | { id: string; label: string }) =>
-    typeof option === 'string' ? option : option.id;
-const getOptionLabel = (option: string | { id: string; label: string }) =>
-    typeof option === 'string' ? option : option.label;
-const getOptionLabelFromId = (id: string) => {
-    const option = interfaceData.value.options.find((option) => getOptionId(option) === id);
-    return getOptionLabel(option!)
+const getOptionId = (option: any) => {
+    try {
+        return JSON.parse(option).id as string;
+    } catch {
+        return option;
+    }
+};
+const getOptionLabel = (option: { id: string; label: string } | string) => {
+    return typeof option === 'object' ? option.label : option;
 };
 
 const computedOptions = computed(() => {
-    return interfaceData.value.options.filter((option) =>
-        getOptionLabel(option).toLowerCase().includes(search.value.toLowerCase()),
-    );
+    const optionLabels = interfaceData.value.options.map((option) => getOptionLabel(option));
+    return optionLabels.filter((option) => option.toLowerCase().includes(search.value.toLowerCase()));
 });
 
-const removeCheck = (option: string) => (checked.value = (checked.value as string[]).filter((item) => item !== option));
+const removeCheck = (option: string) => {
+    if (checked.value === false) return;
+    checked.value = (checked.value as string[]).filter((item) => item !== option);
+};
 
 const clear = () => {
     checked.value = [];
@@ -71,13 +75,13 @@ const clear = () => {
                 <template v-if="checked">
                     <SBadge
                         v-for="option in checked"
-                        :key="option"
+                        :key="getOptionId(option)"
                         removable
                         pill
                         size="sm"
                         @removed="removeCheck(option)"
                     >
-                        {{ getOptionLabelFromId(option) }}
+                        {{ getOptionLabel(option) }}
                     </SBadge>
                 </template>
                 <input
@@ -100,7 +104,7 @@ const clear = () => {
                 <component
                     :is="interfaceData.multiple ? SCheckbox : SRadio"
                     v-model="checked"
-                    :value="getOptionId(option)"
+                    :value="option"
                 >
                     {{ getOptionLabel(option) }}
                 </component>

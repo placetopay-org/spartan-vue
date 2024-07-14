@@ -9,7 +9,7 @@ export const buildLabel = (operator: string, value?: string | string[]) => {
     const { t } = translator('filter.operator');
 
     if (none.includes(operator)) return '' + value;
-    if (not.includes(operator)) return `not ${value}`;
+    if (not.includes(operator)) return `¬ ${value}`;
     if (literal.includes(operator)) return t(operator);
     if (compound.includes(operator)) return `${t(operator)} ${value}`;
 
