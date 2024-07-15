@@ -62,7 +62,7 @@ export default defineConfig({
     test: {
         globals: true,
         include: ['./src/components/spartan/**/*.test.ts'],
-        setupFiles: './vitest-setup.ts',
+        setupFiles: './src/vitest-setup.ts',
         environment: 'jsdom',
         coverage: {
             reporter: ['lcov', 'html'],
