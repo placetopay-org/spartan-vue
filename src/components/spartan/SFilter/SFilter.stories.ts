@@ -53,13 +53,13 @@ export const Default = createDefault({
                     options: {
                         multiple: true,
                         operators: ['equal', 'notEqual', 'contains'],
-                        options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
+                        options: [{id: '1', label: 'Nike'}, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
                         customOperators: [{ id: 'custom', label: 'customOper' }],
                     },
                 },
                 state: {
                     operator: 'equal',
-                    value: ['Nike', 'Adidas'],
+                    value: ['Adidas'],
                 },
             },
             {

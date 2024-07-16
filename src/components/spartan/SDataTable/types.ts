@@ -35,8 +35,8 @@ export type TDataTableEmits = {
                   value: ColumnSort;
               }
             | {
-                    type: 'filter';
-                    value: string;
-            }
+                  type: 'filter';
+                  value: string;
+              },
     ): void;
 };
