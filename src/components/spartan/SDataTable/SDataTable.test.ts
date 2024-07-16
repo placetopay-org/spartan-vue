@@ -30,8 +30,6 @@ describe('SDataTable', () => {
             props: {
                 cols: table.colsData,
                 data: table.rows,
-                // cols: ['name', { id: 'email', header: 'email', sortable: false, sortDescFirst: false }, { id: 'role' }],
-                // data: [{name: 'john doe', email: 'john.doe@example.com', role: 'admin'}]
             }
         });
 
@@ -55,10 +53,9 @@ describe('SDataTable', () => {
 
         // Assert
         screen.getByRole('table');
-        screen.debug();
-        screen.getByText('name');
-        screen.getByText('email');
-        screen.getByText('john doe');
-        screen.getByText('john.doe@example.com');
+        screen.getByText('Name');
+        screen.getByText('Email');
+        screen.getByText('Jhon Connor');
+        screen.getByText('jhon.connor@example.com');
     });
 });
