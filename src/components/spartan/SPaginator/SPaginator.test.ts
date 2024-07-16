@@ -163,7 +163,6 @@ describe('SPaginator', () => {
             },
         });
 
-        
         const nextButton = screen.getByRole('button', { name: /next/i });
 
         await user.click(nextButton);

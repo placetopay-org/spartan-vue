@@ -146,7 +146,7 @@ export const Default = createDefault({
 </SDataTable>`,
     transform: (
         args,
-    ) => `<SDataTable class="w-[610px]" :cols="cols" :rows="rows" :pagination="pagination"  @paginationChange="pagination = {...pagination, ...$event}">
+    ) => `<SDataTable class="w-[610px]" :cols="cols" :data="rows" :pagination="pagination"  @paginationChange="pagination = {...pagination, ...$event}">
     <template #col[role]="{ value }">
         <SBadge :color="value === 'Admin' ? 'yellow' : 'green'">{{ value }}</SBadge>
     </template>    
