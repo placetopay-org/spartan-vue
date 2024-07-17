@@ -14,12 +14,12 @@ describe('SDataTable', () => {
         // Act
         try {
             render(SDataTable);
-        } finally {
-            // Assert
-            expect(warn).toHaveBeenCalledTimes(2);
-            expect(warn.mock.calls[0][0]).contains('[Vue warn]: Missing required prop: "cols"');
-            expect(warn.mock.calls[1][0]).contains('[Vue warn]: Missing required prop: "data"');
-        }
+        } catch (error) {}
+
+        // Assert
+        expect(warn).toHaveBeenCalledTimes(2);
+        expect(warn.mock.calls[0][0]).contains('[Vue warn]: Missing required prop: "cols"');
+        expect(warn.mock.calls[1][0]).contains('[Vue warn]: Missing required prop: "data"');
     });
 
     test('Can be rendered', async () => {
