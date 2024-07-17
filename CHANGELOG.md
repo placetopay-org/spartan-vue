@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
+- `STable` tests.
+- `SStackedList` tests.
+- `SSkeleton` tests.
+- `SPageTitle` tests.
 - `SDataTable` tests.
 - `SFilter` tests.
 - `SDropdown` tests.
