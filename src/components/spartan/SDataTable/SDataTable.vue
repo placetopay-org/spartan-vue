@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<TDataTableProps & Partial<Omit<TTableProp
 
 const tableProps = computed<Partial<TTableProps>>(() => {
     // @typescript-eslint/no-unused-vars
-    const { borderless, cols, highlight, ...rest } = props;
+    const { borderless, cols, data, highlight, ...rest } = props;
 
     return { ...rest };
 });

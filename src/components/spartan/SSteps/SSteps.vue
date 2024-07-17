@@ -18,7 +18,7 @@ const containerStyle = {
 
 <template>
     <nav aria-label="Progress">
-        <ol role="list" :class="containerStyle[variant]">
+        <ol :class="containerStyle[variant]">
             <slot />
             <SStepsItem
                 v-for="(step, stepIdx) in steps"
