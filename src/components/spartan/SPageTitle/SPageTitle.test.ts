@@ -6,9 +6,12 @@ import { screen } from '@testing-library/dom';
 describe('SPageTitle', () => {
     test('Can be rendered', async () => {
         // Act
-        render(SPageTitle, { slots: { default: 'My Page' }});
+        render(SPageTitle, { props: { class: 'test-class' }, slots: { default: 'My Page' }});
+
+        const pageTitle = screen.getByRole('heading', { name: 'My Page' });
 
         // Assert
-        screen.getByRole('heading', { name: 'My Page' });
+        expect(pageTitle).toBeInTheDocument();
+        expect(pageTitle).toHaveClass('test-class');
     });
 });
