@@ -15,7 +15,7 @@ describe('SDataTable', () => {
         try {
             render(SDataTable);
         } catch (error) {
-            // Do nothing
+            console.log('has error');
         }
 
         // Assert

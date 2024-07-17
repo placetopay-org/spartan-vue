@@ -1,4 +1,4 @@
-import { reactive, inject, provide, watch, computed } from 'vue';
+import { reactive, inject, provide, watch } from 'vue';
 import type { InjectionKey } from 'vue';
 import type { TStepsProps, TApiState } from './types';
 
