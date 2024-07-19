@@ -25,6 +25,7 @@ const { t } = translator('dataTable');
                 @click="() => table.setPageIndex(0)"
                 :disabled="!table.getCanPreviousPage()"
             >
+                <span class="sr-only">First</span>
                 <ChevronDoubleLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
             </button>
             <button
@@ -32,6 +33,7 @@ const { t } = translator('dataTable');
                 @click="() => table.previousPage()"
                 :disabled="!table.getCanPreviousPage()"
             >
+                <span class="sr-only">Prev</span>
                 <ChevronLeftIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
             </button>
             <button
@@ -39,6 +41,7 @@ const { t } = translator('dataTable');
                 @click="() => table.nextPage()"
                 :disabled="!table.getCanNextPage()"
             >
+                <span class="sr-only">Next</span>
                 <ChevronRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
             </button>
             <button
@@ -46,6 +49,7 @@ const { t } = translator('dataTable');
                 @click="() => table.setPageIndex(table.getPageCount() - 1)"
                 :disabled="!table.getCanNextPage()"
             >
+                <span class="sr-only">Last</span>
                 <ChevronDoubleRightIcon class="h-5 w-5 text-gray-500 duration-100 group-hover:text-gray-800" />
             </button>
         </div>

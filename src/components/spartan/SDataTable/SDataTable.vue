@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { Loader } from '@internal';
+import { SPaginator } from '../SPaginator';
 import SimplePaginator from './paginators/SimplePaginator.vue';
-import NumericPaginator from './paginators/NumericPaginator.vue';
 import {
     FlexRender,
     getCoreRowModel,
@@ -50,6 +50,12 @@ const columns = props.cols.map((col) => {
             sortDescFirst: Boolean(col.sortDescFirst),
         });
     }
+});
+
+const numericPaginatorProp = computed(() => {
+    if (typeof props.numericPaginator === 'number') return props.numericPaginator;
+    if (props.numericPaginator === true) return '5';
+    return undefined;
 });
 
 const hasFilter = computed(() => props.filter !== undefined);
@@ -107,6 +113,14 @@ const table = useVueTable({
     manualSorting: true,
     manualFiltering: true,
 });
+
+const updatePagination = (data: { page: number; size: number; count: number }) => {
+    if (table.getState().pagination.pageSize !== data.size) {
+        table.setPageSize(data.size);
+    } else {
+        table.setPageIndex(data.page - 1);
+    }
+};
 </script>
 
 <template>
@@ -190,11 +204,16 @@ const table = useVueTable({
             class="border-t border-gray-300 bg-gray-50 px-5 py-3"
             v-if="pagination && table.getState().pagination.pageIndex >= 0 && table.getPageCount() !== -1"
         >
-            <NumericPaginator
-                v-if="numericPaginator || numericPaginator === 0"
-                :size="numericPaginator"
-                :table="table"
-                :pagination="pagination"
+            <SPaginator
+                v-if="numericPaginator || numericPaginator === '0'"
+                :paginatorSize="numericPaginatorProp"
+                :pageSizes="pagination.sizes"
+                :modelValue="{
+                    page: table.getState().pagination.pageIndex + 1,
+                    size: table.getState().pagination.pageSize,
+                    count: table.getPageCount(),
+                }"
+                @update:model-value="updatePagination"
             />
             <SimplePaginator v-else :table="table" :pagination="pagination" />
         </div>

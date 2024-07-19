@@ -48,6 +48,44 @@ describe('SDataTable', () => {
         screen.getByRole('table');
     });
 
+    test('Can change pages', async () => {
+        // Arrange
+        const user = await userEvent.setup();
+
+        // Act
+        const { emitted } = render(SDataTable, {
+            props: {
+                cols: table.colsData,
+                data: table.rows,
+                pageSizes: [1, 5, 10],
+                pagination: { page: 2, size: 3, count: 4 },
+            },
+        });
+
+        const firstButton = screen.getByRole('button', { name: 'First' });
+        const lastButton = screen.getByRole('button', { name: 'Last' });
+        await user.click(firstButton);
+        await user.click(lastButton);
+
+        const nextButton = screen.getByRole('button', { name: 'Next' });
+        await user.click(nextButton);
+        await user.click(nextButton);
+
+        const prevButton = screen.getByRole('button', { name: 'Prev' });
+        await user.click(prevButton);
+
+        // Assert
+        screen.getByRole('table');
+        expect(emitted().paginationChange).toEqual([
+            [{ page: 1, size: 3 }],
+            [{ page: 4, size: 3 }],
+            [{ page: 3, size: 3 }],
+            [{ page: 3, size: 3 }],
+            [{ page: 1, size: 3 }],
+        ]);
+        screen.debug();
+    });
+
     test('Can be rendered with numeric paginator', async () => {
         // Arrange
         const user = userEvent.setup();
@@ -115,7 +153,5 @@ describe('SDataTable', () => {
                 },
             },
         ]);
-        console.log('emitted', emitted().sortingChange[0]);
-        screen.debug();
     });
 });

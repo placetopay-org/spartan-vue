@@ -137,7 +137,7 @@ export const Default = createDefault({
     v-bind="args" 
     :cols="cols" 
     :data="rows"
-    :numericPaginator="1"
+    numericPaginator="1"
     :pagination="pagination" 
     @paginationChange="pagination = {...pagination, ...$event}"
     :filter="filter"
@@ -254,7 +254,7 @@ export const NumericPagination = createVariation({
     :cols="cols" 
     :data="rows" 
     :pagination="pagination" 
-    :numericPaginator="1"
+    numericPaginator="1"
     @paginationChange="pagination = {...pagination, ...$event}"
 />
 
@@ -262,7 +262,7 @@ export const NumericPagination = createVariation({
     :cols="cols" 
     :data="rows" 
     :pagination="pagination" 
-    :numericPaginator="2"
+    numericPaginator="2"
     @paginationChange="pagination = {...pagination, ...$event}"
 />`,
 });

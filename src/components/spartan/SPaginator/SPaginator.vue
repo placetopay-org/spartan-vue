@@ -95,7 +95,7 @@ const selectPage = (page: number) => {
                     class="px-4"
                     :active="Number(page) === props.modelValue.page"
                     :key="page"
-                    :class="String(page) === '...' && 'pointer-events-none'"
+                    :class="String(page) === '...' ? 'pointer-events-none' : ''"
                     @click="() => Number(page) && selectPage(Number(page))"
                 >
                     {{ page }}

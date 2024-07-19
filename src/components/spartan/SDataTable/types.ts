@@ -16,7 +16,7 @@ export type TDataTableProps = {
     pagination?: { page?: number; count: number; size?: number; sizes?: number[] };
     sorting?: ColumnSort;
     containerClass?: string;
-    numericPaginator?: boolean | number;
+    numericPaginator?: boolean | string;
 };
 
 export type TDataTableEmits = {
