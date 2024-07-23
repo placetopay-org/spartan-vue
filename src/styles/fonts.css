@@ -1,7 +1,12 @@
-@font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    src:
-        local('Inter'),
-        url(./fonts/InterVariable.ttf) format('truetype');
+/* INTER FONT ~ RSMS */
+@import url('https://rsms.me/inter/inter.css');
+
+:root {
+    font-family: Inter, sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: InterVariable, sans-serif;
+    }
 }
