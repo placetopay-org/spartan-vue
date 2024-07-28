@@ -66,6 +66,7 @@ const close = () => {
     isOpen.value = false;
     focusFirstChild(reference.value, true);
     (reference.value?.firstElementChild as HTMLElement)?.focus();
+    emit('close');
 };
 
 const toggle = () => {
@@ -80,7 +81,6 @@ const focusout = () => {
         if (floating.value?.contains(document.activeElement)) return;
 
         if (!props.preventClose) close();
-        emit('close');
     });
 };
 

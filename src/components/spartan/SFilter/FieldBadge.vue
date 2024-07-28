@@ -16,10 +16,10 @@ const removing = ref(false);
 const toggle = () => {
     if (popover.value?.isOpen || !removing.value) context.togglePopover(popover.value);
 
-    if (removing.value) {
-        delete props.field.state;
-        removing.value = false;
-    }
+if (removing.value) {
+    delete props.field.state;
+    removing.value = false;
+}
 };
 </script>
 
