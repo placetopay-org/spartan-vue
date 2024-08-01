@@ -1,53 +1,79 @@
 import { reactive, inject, provide, type InjectionKey, computed } from 'vue';
-import type { SFilterEmits, SFilterProps, TField, TOperatorData, TInterfaceId } from './types';
-import { buildLabel } from './helpers';
+import { SPopover } from '..';
+import type { SFilterProps, SFilterEmits, TField, TInterfaceId, TOperatorData } from './types';
+import { buildLabel, getOptions } from './helpers';
 
 type ContextState = {
-    activePopoverCloser?: () => boolean;
-    apply: () => void;
-    clear: () => void;
-    togglePopover: (activePopover: any, force?: boolean) => void;
+    fields?: TField[];
+    activeField?: TField;
+    responsive: boolean;
+    switchPopover: (popover?: InstanceType<typeof SPopover>) => void;
+    selectField: (id: string) => void;
+    getOperatorLabel: (field: TField) => string | undefined;
     operatorData: TOperatorData;
-    applyFilter: (field: TField, state: TField['state']) => void;
-    getOperatorLabel: (field: TField) => string;
 };
 
 const contextKey = Symbol('SFilterContext') as InjectionKey<ContextState>;
 
 export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) => {
+    let currentPopover: InstanceType<typeof SPopover> | undefined;
+
     const state: ContextState = reactive({
-        activePopoverCloser: undefined,
-        operatorData: computed(() => {
+         fields: props.fields,
+         activeField: undefined,
+         responsive: !props.notResponsive,
+         switchPopover: (popover?: InstanceType<typeof SPopover>) => {
+            currentPopover?.close();
+            currentPopover = popover;
+            currentPopover?.open();
+         },
+         selectField: (id: string) => {
+            state.activeField = state.fields?.find((field) => field.id === id);
+         },
+         getOperatorLabel: (field: TField) => {
+            const fieldState = field.state;
+            if (!fieldState) return;
+
+            const operator = fieldState.operator;
+            let value = fieldState.value;
+
+            if (state.operatorData[field.id].interfaces[operator] === 'options') {
+                const options = getOptions(field.interfaces.options!.options);
+                value = options.filter((option) => fieldState.value.includes(option.id)).map((option) => option.label);
+            };
+
+            return buildLabel(operator, value);
+        },
+         operatorData: computed(() => {
             const data: TOperatorData = {};
 
             props.fields?.forEach((field) => {
+                data[field.id] = {
+                    operators: [],
+                    interfaces: {},
+                };
+
                 if (!field.interfaces) return;
+
                 Object.keys(field.interfaces).forEach((value) => {
                     const key = value as TInterfaceId;
                     const interfaceData = field.interfaces[key];
                     if (interfaceData) {
                         if (interfaceData.operators) {
                             interfaceData.operators.forEach((operator) => {
-                                data[field.id] = {
-                                    ...data[field.id],
-                                    [operator]: {
-                                        label: null,
-                                        interface: key,
-                                    },
-                                };
+                                data[field.id].operators.push({ id: operator, label: operator });
+                                data[field.id].interfaces[operator] = key;
                             });
                         }
 
                         if (interfaceData.customOperators) {
                             interfaceData.customOperators.forEach((operator) => {
                                 const isString = typeof operator === 'string';
-                                data[field.id] = {
-                                    ...data[field.id],
-                                    [isString ? operator : operator.id]: {
-                                        label: isString ? null : operator.label,
-                                        interface: key,
-                                    },
-                                };
+                                const operatorId = isString ? operator : operator.id;
+                                const operatorLabel = isString ? operator : operator.label;
+
+                                data[field.id].operators.push({ id: operatorId, label: operatorLabel });
+                                data[field.id].interfaces[operatorId] = key;
                             });
                         }
                     }
@@ -56,42 +82,6 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
 
             return data;
         }),
-        apply: () => {
-            const fields: Omit<TField, 'interfaces'>[] = [];
-            props.fields?.forEach((field) => {
-                if (field.state) {
-                    const { interfaces, ...rest } = field;
-                    fields.push({ ...rest });
-                }
-            });
-            emit('apply', fields);
-        },
-        clear: () => {
-            props.fields?.forEach((filter) => {
-                delete filter.state;
-            });
-        },
-        togglePopover: (activePopover: any) => {
-            if (activePopover?.isOpen) {
-                activePopover?.close();
-                state.activePopoverCloser = undefined;
-            } else {
-                state.activePopoverCloser?.();
-                activePopover?.open();
-                state.activePopoverCloser = activePopover?.close;
-            }
-        },
-        applyFilter: (field: TField, state: TField['state']) => {
-            field.state = state;
-        },
-        getOperatorLabel: (field: TField) => {
-            const fieldState = field.state!;
-            const label = state.operatorData[field.id][fieldState.operator].label;
-            if (!label) return buildLabel(fieldState.operator, fieldState.value);
-            if (typeof label === 'string') return label;
-
-            return label(fieldState.value);
-        },
     });
 
     provide(contextKey, state);

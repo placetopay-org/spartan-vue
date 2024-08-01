@@ -28,7 +28,7 @@ const openFieldPopover = () => {
 </script>
 
 <template>
-    <SPopover ref="popover" :offset="8" prevent-close>
+    <SPopover ref="popover" :responsive="context.responsive" :offset="8" prevent-close>
         <template #reference>
             <button @click="openFieldPopover">
                 <SBadge 

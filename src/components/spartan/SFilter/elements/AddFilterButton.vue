@@ -16,7 +16,7 @@ const popover = ref<InstanceType<typeof SPopover>>();
 const query = ref('');
 
 const options = computed(() => {
-    const filteredOptions = context.fields?.filter((field) => field.name.toLowerCase().includes(query.value.toLowerCase()));
+    const filteredOptions = context.fields?.filter((field) => (field.name.toLowerCase().includes(query.value.toLowerCase()) && !field.state));
     return filteredOptions?.map((field) => ({id: field.id, name: field.name}));
 });
 
@@ -34,7 +34,7 @@ const selectField = (id: string) => {
 </script>
 
 <template>
-    <SPopover ref="popover" :offset="8" :prevent-close="!selectFieldStep" @close="selectFieldStep = true">
+    <SPopover ref="popover" :responsive="context.responsive" :offset="8" :prevent-close="!selectFieldStep" @close="selectFieldStep = true">
         <template #reference>
             <button @click="openPopover"
                 class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring"
@@ -70,3 +70,25 @@ const selectField = (id: string) => {
         </FadeTransition>
     </SPopover>
 </template>
+
+<style scoped>
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+</style>

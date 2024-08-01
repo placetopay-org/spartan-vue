@@ -5,6 +5,7 @@ import { SRadio, SCheckbox } from '../../';
 import { translator } from '@/helpers';
 import { SBadge, SInput } from '@spartan';
 import type { TOptionsInterface } from '../types';
+import { getOptions } from '../helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -17,11 +18,7 @@ const { t } = translator('filter');
 
 const search = ref('');
 
-const options = computed(() => {
-    return props.config.options.map((option) => {
-        return typeof option === 'object' ? option : { id: option, label: option };
-    });
-});
+const options = computed(() => getOptions(props.config.options));
 
 const checked = computed({
     get() {

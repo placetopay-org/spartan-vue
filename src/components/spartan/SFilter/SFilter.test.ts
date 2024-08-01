@@ -3,12 +3,15 @@ import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SFilter from './SFilter.vue';
 import userEvent from '@testing-library/user-event';
-import { h } from 'vue';
 
 describe('SFilter', () => {
     test('Can be rendered', async () => {
         // Act
-        render(SFilter);
+        render(SFilter, {
+            props: {
+                fields: [],
+            }
+        });
 
         // Assert
         screen.getByRole('button', { name: '$spartan.filter.applyBtn' });
