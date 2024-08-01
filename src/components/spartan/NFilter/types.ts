@@ -1,14 +1,48 @@
+import { predefinedOperators } from './constants';
+import { Currencies } from '@/constants';
+
+export type TOperatorId = (typeof predefinedOperators)[number];
+
 export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options';
+
+export type TOperator = {
+    id: string;
+    label: string;
+};
+
+export type TOperatorData = Record<
+    string,
+    { operators: TOperator[]; interfaces: Record<string, TInterfaceId> }
+>;
+
+export type TBaseInterface = {
+    operators?: TOperatorId[];
+    customOperators?: (TOperator | string)[];
+};
+
+export type TNoneInterface = TBaseInterface;
+
+export type TInputInterface = TBaseInterface & {
+    type?: 'number' | 'date' | 'amount';
+    minorUnitMode?: boolean;
+    currency?: keyof typeof Currencies;
+    currencies?: (keyof typeof Currencies)[];
+};
+
+export type TOptionsInterface = TBaseInterface & {
+    options: (string | { id: string; label: string })[];
+    multiple?: boolean;
+};
 
 export type TField = {
     id: string;
     name: string;
     permanent?: boolean;
     interfaces: {
-        none?: any;
-        oneInput?: any;
-        twoInputs?: any;
-        options?: any;
+        none?: TNoneInterface;
+        oneInput?: TInputInterface;
+        twoInputs?: TInputInterface;
+        options?: TOptionsInterface;
     };
     state?: {
         operator: string;

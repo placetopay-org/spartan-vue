@@ -66,7 +66,7 @@ const selectField = (id: string) => {
                 </ul>
             </div>
 
-            <SelectFilterDialog v-else @cancel="popover?.close" />
+            <SelectFilterDialog v-else @close="popover?.close" />
         </FadeTransition>
     </SPopover>
 </template>

@@ -40,12 +40,15 @@ const openFieldPopover = () => {
                     @removed="removing = true"
                 >
                     <span class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</span>
+                    <span class="max-w-[220px] truncate">
+                        {{ context.getOperatorLabel(field) }}
+                    </span>  
                 </SBadge>
             </button>
         </template>
 
         <template #default="{close}">
-            <SelectFilterDialog @cancel="close" />
+            <SelectFilterDialog @close="close" />
         </template>
     </SPopover>
 </template>
