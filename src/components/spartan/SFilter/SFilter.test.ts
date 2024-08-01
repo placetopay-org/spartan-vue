@@ -88,7 +88,67 @@ describe('SFilter', () => {
         
 
         // Assert
-        screen.debug();
         screen.getByText('Adidas,Puma');
+    });
+
+    test('Can be update a field with input interfaces', async () => {
+        // Arrange
+        const fields = [];
+        const user = userEvent.setup();
+
+        // Act
+        render(SFilter, {
+            props: {
+                onApply: (fields: any) => console.log(fields),
+                fields: [{
+                    id: 'price',
+                    name: 'Price',
+                    interfaces: {
+                        oneInput: {
+                            type: 'amount',
+                            currency: 'EUR',
+                            currencies: ['USD', 'EUR', 'GBP'],
+                            operators: [
+                                'equal',
+                                'notEqual',
+                                'greaterThan',
+                                'lessThan',
+                                'greaterThanOrEqual',
+                                'lessThanOrEqual',
+                            ],
+                        },
+                        twoInputs: {
+                            type: 'amount',
+                            currency: 'USD',
+                            operators: ['between', 'notBetween'],
+                        },
+                    },
+                    state: {
+                        operator: 'equal',
+                        value: '100',
+                    },
+                }]
+            }
+        });
+
+        let filterBadge = screen.getByRole('button', { name: 'Price | 100 Remove' });
+        
+        await user.click(filterBadge);
+        
+        const input = screen.getByPlaceholderText('$spartan.filter.inputSelectorPlaceholder');
+
+        await user.clear(input);
+        await user.type(input, '200');
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.addBtn' }));
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
+        
+        filterBadge = screen.getByRole('button', { name: 'Price | 200 Remove' });
+
+        await user.click(filterBadge);
+
+        // Assert
+        screen.debug();
     });
 });
