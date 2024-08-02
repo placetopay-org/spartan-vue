@@ -91,7 +91,7 @@ describe('SFilter', () => {
         screen.getByText('Adidas,Puma');
     });
 
-    test('Can be update a field with input interfaces', async () => {
+    test('Can be update a field with one input interfaces', async () => {
         // Arrange
         const fields = [];
         const user = userEvent.setup();
@@ -108,19 +108,7 @@ describe('SFilter', () => {
                             type: 'amount',
                             currency: 'EUR',
                             currencies: ['USD', 'EUR', 'GBP'],
-                            operators: [
-                                'equal',
-                                'notEqual',
-                                'greaterThan',
-                                'lessThan',
-                                'greaterThanOrEqual',
-                                'lessThanOrEqual',
-                            ],
-                        },
-                        twoInputs: {
-                            type: 'amount',
-                            currency: 'USD',
-                            operators: ['between', 'notBetween'],
+                            operators: ['equal', 'notEqual'],
                         },
                     },
                     state: {
@@ -144,11 +132,54 @@ describe('SFilter', () => {
 
         await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
         
-        filterBadge = screen.getByRole('button', { name: 'Price | 200 Remove' });
-
-        await user.click(filterBadge);
-
         // Assert
-        screen.debug();
+        screen.getByRole('button', { name: 'Price | 200 Remove' });
+    });
+
+    test('Can be update a field with two input interfaces', async () => {
+        // Arrange
+        const fields = [];
+        const user = userEvent.setup();
+
+        // Act
+        render(SFilter, {
+            props: {
+                onApply: (fields: any) => console.log(fields),
+                fields: [{
+                    id: 'price',
+                    name: 'Price',
+                    interfaces: {
+                        twoInputs: {
+                            type: 'amount',
+                            currency: 'USD',
+                            operators: ['between', 'notBetween'],
+                        },
+                    },
+                    state: {
+                        operator: 'between',
+                        value: ['100', '200'],
+                    },
+                }]
+            }
+        });
+
+        let filterBadge = screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 100,200 Remove' });
+        
+        await user.click(filterBadge);
+        
+        const inputs = screen.getAllByPlaceholderText('$spartan.filter.inputSelectorPlaceholder');
+
+        await user.clear(inputs[0]);
+        await user.type(inputs[0], '300');
+
+        await user.clear(inputs[1]);
+        await user.type(inputs[1], '600');
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.addBtn' }));
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
+        
+        // Assert
+        screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 300,600 Remove' });
     });
 });

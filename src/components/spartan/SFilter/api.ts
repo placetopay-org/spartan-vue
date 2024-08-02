@@ -39,7 +39,8 @@ export const createContext = (props: Partial<SFilterProps>, emit: SFilterEmits) 
 
             if (state.operatorData[field.id].interfaces[operator] === 'options') {
                 const options = getOptions(field.interfaces.options!.options);
-                value = options.filter((option) => fieldState.value.includes(option.id)).map((option) => option.label);
+                if (typeof value === 'string') value = options.find((option) => option.id === value)?.label;
+                else value = options.filter((option) => value.includes(option.id)).map((option) => option.label);
             };
 
             return buildLabel(operator, value);
