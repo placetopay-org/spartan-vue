@@ -4,44 +4,37 @@ import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { SRadio, SCheckbox } from '../../';
 import { translator } from '@/helpers';
 import { SBadge, SInput } from '@spartan';
-import type { TField } from '../types';
+import type { TOptionsInterface } from '../types';
+import { getOptions } from '../helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string | string[];
-    field: TField;
+    config: TOptionsInterface;
 }>();
 
 const { t } = translator('filter');
 
-const interfaceData = computed(() => props.field.interfaces.options!);
-
 const search = ref('');
+
+const options = computed(() => getOptions(props.config.options));
 
 const checked = computed({
     get() {
-        return props.modelValue || (interfaceData.value.multiple ? [] : false);
+        return props.modelValue || (props.config.multiple ? [] : false);
     },
     set(value) {
         emit('update:modelValue', value);
     },
 });
 
-const getOptionId = (option: any) => {
-    try {
-        return JSON.parse(option).id as string;
-    } catch {
-        return option;
-    }
-};
-const getOptionLabel = (option: { id: string; label: string } | string) => {
-    return typeof option === 'object' ? option.label : option;
+const getOptionLabel = (optionId: string) => {
+    return options.value.find((option) => option.id === optionId)?.label;
 };
 
-const computedOptions = computed(() => {
-    const optionLabels = interfaceData.value.options.map((option) => getOptionLabel(option));
-    return optionLabels.filter((option) => option.toLowerCase().includes(search.value.toLowerCase()));
+const filteredOptions = computed(() => {
+    return options.value.filter((option) => option.label.toLowerCase().includes(search.value.toLowerCase()));
 });
 
 const removeCheck = (option: string) => {
@@ -58,12 +51,12 @@ const clear = () => {
 <template>
     <div class="flex flex-col gap-4">
         <SInput
-            v-if="!interfaceData.multiple && interfaceData.options.length > 5"
+            v-if="!config.multiple && config.options.length > 5"
             v-model="search"
             :placeholder="t('inputSelectorPlaceholder')"
         />
         <div
-            v-if="interfaceData.multiple"
+            v-if="config.multiple"
             :tabindex="-1"
             class="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:border-primary-300 focus-within:ring focus-within:ring-primary-100"
             @focus="
@@ -75,7 +68,7 @@ const clear = () => {
                 <template v-if="checked">
                     <SBadge
                         v-for="option in checked"
-                        :key="getOptionId(option)"
+                        :key="option"
                         removable
                         pill
                         size="sm"
@@ -99,14 +92,10 @@ const clear = () => {
             </div>
         </div>
         <div class="flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
-            <div v-for="option in computedOptions" :key="getOptionId(option)" class="flex items-center gap-2">
+            <div v-for="option in filteredOptions" :key="option.id" class="flex items-center gap-2">
                 <!-- @vue-ignore -->
-                <component
-                    :is="interfaceData.multiple ? SCheckbox : SRadio"
-                    v-model="checked"
-                    :value="option"
-                >
-                    {{ getOptionLabel(option) }}
+                <component :is="config.multiple ? SCheckbox : SRadio" v-model="checked" :value="option.id">
+                    {{ option.label }}
                 </component>
             </div>
         </div>

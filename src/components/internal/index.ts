@@ -5,3 +5,4 @@ export { ModalBackdropWrapper } from './ModalBackdropWrapper';
 export { default as Loader } from './Loader.vue';
 export { default as LinkButton } from './LinkButton.vue';
 export { default as Mesh } from './Mesh.vue';
+export { default as FadeTransition } from './Transitions/FadeTransition.vue';

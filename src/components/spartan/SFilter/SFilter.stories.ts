@@ -1,7 +1,6 @@
 import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
 import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
-import { type TField } from './types';
 
 export default {
     component: SFilter,
@@ -36,14 +35,7 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     containerClass: 'h-[500px]',
     components: { SFilter, StoryPanel },
-    template: `<StoryPanel /><SFilter v-bind="args" @apply="show" />`,
-    setup: () => {
-        const show = (value: string) => {
-            console.log(JSON.parse(JSON.stringify(value)));
-        };
-
-        return { show };
-    },
+    template: `<StoryPanel /><SFilter v-bind="args" @apply="console.log" />`,
     args: {
         fields: [
             {
@@ -215,33 +207,6 @@ export const Default = createDefault({
                 id: 'another12',
                 name: 'Another 12',
             },
-        ] as TField[],
+        ],
     },
 });
-
-// const createVariation = (template: string) => ({
-//   decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
-//   render: () => ({
-//     components: { SFilter },
-//     template,
-//   }),
-//   parameters: {
-//     design,
-//     controls: { disable: true },
-//     actions: { disable: true },
-//     docs: {
-//       source: {
-//         code: template,
-//         language: 'html',
-//       },
-//     },
-//   },
-// });
-
-// export const Size = createVariation(
-//   `
-// <SFilter color="blue" size="sm"> Small </SFilter>
-// <SFilter color="blue" size="md"> Medium </SFilter>
-// <SFilter color="blue" size="lg"> Large </SFilter>
-// `
-// );

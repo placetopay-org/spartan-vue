@@ -79,7 +79,7 @@ jobs:
 
             - name: Publish
               env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_V2 }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN_PLACETOPAY_DEV }}
               run: npm publish --tag=${{ env.RELEASE_TAG }} --access=public
 
             - name: Push changes to repository

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { SInput, SInputAmount } from '@spartan';
-import type { TField } from '../types';
+import type { TInputInterface } from '../types';
 import { translator } from '@/helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string[] | number[];
-    field: TField;
+    config: TInputInterface;
 }>();
 
 const { t } = translator('filter');
@@ -21,47 +21,45 @@ watch([value1, value2], () => {
 });
 
 const updateCurrency = (currency?: string) => {
-    props.field.interfaces.twoInputs!.currency = currency as any;
+    props.config.currency = currency as any;
 };
-
-const interfaceData = computed(() => props.field.interfaces.twoInputs!);
 </script>
 
 <template>
     <div class="flex gap-4">
         <SInputAmount
-            v-if="interfaceData.type === 'amount'"
+            v-if="config.type === 'amount'"
             v-model="(value1 as number)"
-            :currency="interfaceData.currency ?? interfaceData.currencies![0]"
-            :currencies="interfaceData.currencies"
-            :type="interfaceData.type"
+            :currency="config.currency ?? config.currencies![0]"
+            :currencies="config.currencies"
+            :type="config.type"
             :placeholder="t('inputSelectorPlaceholder')"
-            :minor-unit-mode="interfaceData.minorUnitMode"
+            :minor-unit-mode="config.minorUnitMode"
             @update:currency="updateCurrency"
         />
         <SInput
             v-else
             v-model="value1"
             class="w-48"
-            :type="interfaceData.type"
+            :type="config.type"
             :placeholder="t('inputSelectorPlaceholder')"
         />
 
         <SInputAmount
-            v-if="interfaceData.type === 'amount'"
+            v-if="config.type === 'amount'"
             v-model="(value2 as number)"
-            :currency="interfaceData.currency ?? interfaceData.currencies![0]"
-            :currencies="interfaceData.currencies"
-            :type="interfaceData.type"
+            :currency="config.currency ?? config.currencies![0]"
+            :currencies="config.currencies"
+            :type="config.type"
             :placeholder="t('inputSelectorPlaceholder')"
-            :minor-unit-mode="interfaceData.minorUnitMode"
+            :minor-unit-mode="config.minorUnitMode"
             @update:currency="updateCurrency"
         />
         <SInput
             v-else
             v-model="value2"
             class="w-48"
-            :type="interfaceData.type"
+            :type="config.type"
             :placeholder="t('inputSelectorPlaceholder')"
         />
     </div>

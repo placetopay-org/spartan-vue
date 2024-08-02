@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { SInput, SInputAmount } from '@spartan';
-import type { TField } from '../types';
+import type { TInputInterface } from '../types';
 import { translator } from '@/helpers';
-import type { Currencies } from '@/constants';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string | number;
-    field: TField;
+    config: TInputInterface;
 }>();
 
 const { t } = translator('filter');
@@ -24,27 +23,25 @@ const value = computed({
 });
 
 const updateCurrency = (currency?: string) => {
-    props.field.interfaces.oneInput!.currency = currency as any;
+    props.config.currency = currency as any;
 };
-
-const interfaceData = computed(() => props.field.interfaces.oneInput!);
 </script>
 
 <template>
     <SInputAmount
-        v-if="interfaceData.type === 'amount'"
+        v-if="config.type === 'amount'"
         v-model="(value as number)"
-        :currency="interfaceData.currency ?? interfaceData.currencies![0]"
-        :currencies="interfaceData.currencies"
-        :type="interfaceData.type"
+        :currency="config.currency ?? config.currencies![0]"
+        :currencies="config.currencies"
+        :type="config.type"
         :placeholder="t('inputSelectorPlaceholder')"
-        :minor-unit-mode="interfaceData.minorUnitMode"
+        :minor-unit-mode="config.minorUnitMode"
         @update:currency="updateCurrency"
     />
     <SInput
         v-else
         v-model="value"
-        :type="props.field.interfaces.oneInput?.type"
+        :type="config.type"
         :placeholder="t('inputSelectorPlaceholder')"
     />
 </template>

@@ -5,12 +5,17 @@ export type TOperatorId = (typeof predefinedOperators)[number];
 
 export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options';
 
-type customOperatorLabel = string | ((value?: string | string[]) => string);
-
 export type TOperator = {
     id: string;
-    label: customOperatorLabel;
+    label: string;
 };
+
+export type TOptions = (string | { id: string; label: string })[];
+
+export type TOperatorData = Record<
+    string,
+    { operators: TOperator[]; interfaces: Record<string, TInterfaceId> }
+>;
 
 export type TBaseInterface = {
     operators?: TOperatorId[];
@@ -27,7 +32,7 @@ export type TInputInterface = TBaseInterface & {
 };
 
 export type TOptionsInterface = TBaseInterface & {
-    options: (string | { id: string; label: string })[];
+    options: TOptions;
     multiple?: boolean;
 };
 
@@ -47,23 +52,13 @@ export type TField = {
     };
 };
 
-export type TOperatorData = Record<
-    string,
-    Record<string, { label: customOperatorLabel | null; interface: TInterfaceId }>
->;
-
-export type TOption = {
-    label: string;
-    value: string;
-};
-
 export type SFilterProps = {
     fields: TField[];
     hideApplyButton?: boolean;
     hideClearButton?: boolean;
     applyWhenClear?: boolean;
     immediateApply?: boolean;
-    responsive?: boolean;
+    notResponsive?: boolean;
 };
 
 export type SFilterEmits = {

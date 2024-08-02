@@ -1,36 +1,40 @@
 <script setup lang="ts">
-import FilterSelector from './popovers/FilterSelector.vue';
+import { SBadge, SPopover } from '../..';
+import SelectFilterDialog from './SelectFilterDialog.vue';
+import type { TField } from '../types';
+import { useContext } from '../api';
 import { ref } from 'vue';
-import { SBadge, SPopover } from '@spartan';
-import type { TField } from './types';
-import { useContext } from './api';
 
 const props = defineProps<{
     field: TField;
-    responsive: boolean;
 }>();
 
 const context = useContext('FieldBadge');
-const popover = ref<InstanceType<typeof SPopover>>();
 const removing = ref(false);
-const toggle = () => {
-    if (popover.value?.isOpen || !removing.value) context.togglePopover(popover.value);
+const popover = ref<InstanceType<typeof SPopover>>();
 
+const openFieldPopover = () => {
+    if (popover.value?.isOpen) popover.value?.close();
+    else {
+        context.switchPopover(popover.value);
+        if (!removing.value) context.selectField(props.field.id);
+    }
+ 
     if (removing.value) {
         delete props.field.state;
         removing.value = false;
     }
-};
+}
 </script>
 
 <template>
-    <SPopover v-if="field.state" ref="popover" :offset="12" prevent-close :responsive="responsive" >
+    <SPopover ref="popover" :responsive="context.responsive" :offset="8" prevent-close>
         <template #reference>
-            <button @click="toggle">
-                <SBadge
+            <button @click="openFieldPopover">
+                <SBadge 
                     color="white"
                     class="whitespace-nowrap"
-                    pill
+                    pill 
                     border
                     :removable="!field.permanent"
                     @removed="removing = true"
@@ -43,6 +47,8 @@ const toggle = () => {
             </button>
         </template>
 
-        <FilterSelector :field="field" @close="popover?.close" />
+        <template #default="{close}">
+            <SelectFilterDialog @close="close" />
+        </template>
     </SPopover>
 </template>
