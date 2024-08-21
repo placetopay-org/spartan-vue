@@ -1,4 +1,3 @@
-// import '../../dist/style.css';
 import plugin from 'tailwindcss/plugin';
 import tailwindForms from '@tailwindcss/forms';
 
