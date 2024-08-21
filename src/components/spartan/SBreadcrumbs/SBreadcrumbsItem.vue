@@ -10,7 +10,7 @@ defineProps<Partial<TBreadcrumbsItemProps>>();
     <li>
         <div class="flex items-center space-x-3">
             <template v-if="!first">
-                <slot v-if="hasSlotContent($slots.separator)" />
+                <slot name="separator" v-if="hasSlotContent($slots.separator)" />
                 <ChevronRightIcon v-else class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
             </template>
             <a
