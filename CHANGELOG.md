@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.93 - 2024-08-21
+
+## 2.0.0-beta.92 - 2024-08-21
+### Added
+- functionality to `SBreadcrumbsItem.vue` to render content from the separator slot if present. If the slot is empty, the ChevronRightIcon is displayed as a fallback.
+
+### Removed
+- Removed an unused commented line that imported a CSS file (style.css) in plugin.js.
+
 ## 2.0.0-beta.91 - 2024-08-02
 
 ## 2.0.0-beta.90 - 2024-08-01
