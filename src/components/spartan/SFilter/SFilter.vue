@@ -54,18 +54,12 @@ defineExpose({
         </div>
 
         <div class="flex gap-3" v-if="!hideApplyButton && !hideClearButton">
-            <SButton v-if="!hideApplyButton" class="btn" @click="apply">
+            <SButton v-if="!hideApplyButton" class="whitespace-nowrap rounded-full py-0.5" @click="apply">
                 {{ t('applyBtn') }}
             </SButton>
-            <SButton v-if="!hideClearButton" class="btn" variant="secondary" @click="clear">
+            <SButton v-if="!hideClearButton" class="whitespace-nowrap rounded-full py-0.5" variant="secondary" @click="clear">
                 {{ t('clearBtn') }}
             </SButton>
         </div>
     </div>
 </template>
-
-<style>
-.btn {
-    @apply whitespace-nowrap rounded-full py-0.5;
-}
-</style>
