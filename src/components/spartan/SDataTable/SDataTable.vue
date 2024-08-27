@@ -135,7 +135,7 @@ const updatePagination = (data: { page: number; size: number; count: number }) =
                 :placeholder="`${t('searchPlaceholder')}...`"
             />
         </div>
-        <STable v-bind="tableProps" :borderless="Boolean(hasFilter || pagination)">
+        <STable v-bind="tableProps" :borderless="Boolean(hasFilter || pagination || props.borderless)">
             <STableHead>
                 <STableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
                     <STableHeadCell v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan">
