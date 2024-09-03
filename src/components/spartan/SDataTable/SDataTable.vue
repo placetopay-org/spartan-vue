@@ -1,8 +1,16 @@
 <script setup lang="ts">
+import SimplePaginator from './paginators/SimplePaginator.vue';
 import { computed, ref } from 'vue';
 import { Loader } from '@internal';
 import { SPaginator } from '../SPaginator';
-import SimplePaginator from './paginators/SimplePaginator.vue';
+import { STable, STableHead, STableBody, STableRow, STableCell, STableHeadCell, type TTableProps } from '../STable';
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
+import { twMerge } from 'tailwind-merge';
+import { BORDER_STYLE } from '../STable/styles';
+import { SInput } from '..';
+import { translator } from '@/helpers';
+import { adaptFromPagination, adaptToPagination, adaptToSorting } from './helpers';
+import type { TDataTableProps, TDataTableEmits } from './types';
 import {
     FlexRender,
     getCoreRowModel,
@@ -12,14 +20,6 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
 } from '@tanstack/vue-table';
-import { STable, STableHead, STableBody, STableRow, STableCell, STableHeadCell, type TTableProps } from '../STable';
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
-import { twMerge } from 'tailwind-merge';
-import { BORDER_STYLE } from '../STable/styles';
-import { SInput } from '..';
-import type { TDataTableProps, TDataTableEmits } from './types';
-import { translator } from '@/helpers';
-import { adaptFromPagination, adaptToPagination, adaptToSorting } from './helpers';
 
 const emits = defineEmits<TDataTableEmits>();
 const props = withDefaults(defineProps<TDataTableProps & Partial<Omit<TTableProps, 'cols' | 'rows'>>>(), {

@@ -27,7 +27,8 @@ export default defineConfig({
         outDir: './dist',
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            name: 'SpartanVue',
+            name: 'spartan-vue',
+            fileName: (format) => `spartan-vue.${format}.js`,
         },
         rollupOptions: {
             external: [
