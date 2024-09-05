@@ -8,9 +8,15 @@
             "@/*": ["./src/*"],
             "@spartan*": ["./src/components/spartan"],
             "@internal*": ["./src/components/internal"],
-            "vue-i18n": ["./node_modules/vue-i18n/dist/vue-i18n.d.ts"]
-        }
+            "vue-i18n": ["./node_modules/vue-i18n/dist/vue-i18n.d.ts"],
+        },
     },
-    "include": ["src/vitest-setup.ts", "src/**/*.vue", "src/**/*.js", "src/**/*.ts", "src/stories/examples/SidebarLayouts/components/stories.stories.ts"],
-    "exclude": ["src/stories/**/*"]
+    "include": [
+        "src/vitest-setup.ts",
+        "src/**/*.vue",
+        "src/**/*.js",
+        "src/**/*.ts",
+        "src/stories/examples/SidebarLayouts/components/stories.stories.ts",
+    ],
+    "exclude": ["node_modules", "src/stories/**/*", "**/*.test.ts"],
 }

@@ -11,6 +11,7 @@ import {
     createColumnHelper,
     getFilteredRowModel,
     getPaginationRowModel,
+    type ColumnDef,
 } from '@tanstack/vue-table';
 import { STable, STableHead, STableBody, STableRow, STableCell, STableHeadCell, type TTableProps } from '../STable';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
@@ -50,7 +51,7 @@ const columns = props.cols.map((col) => {
             sortDescFirst: Boolean(col.sortDescFirst),
         });
     }
-});
+}) as ColumnDef<unknown, any>[];
 
 const numericPaginatorProp = computed(() => {
     if (typeof props.numericPaginator === 'number') return props.numericPaginator;
