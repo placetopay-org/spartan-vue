@@ -56,7 +56,8 @@ export default {
                 name: 'pagination',
                 type: 'custom-type: pagination',
                 default: 'undefined',
-                description: 'Enable the pagination for the table. It can be an object with the properties: page, count, size, sizes.',
+                description:
+                    'Enable the pagination for the table. It can be an object with the properties: page, count, size, sizes.',
             },
             {
                 name: 'sorting',
@@ -90,7 +91,7 @@ export default {
                 name: 'highlight',
                 description: '[STable](/?path=/docs/tables-table--docs)',
                 subcategory: 'Inherited from the STable',
-            }
+            },
         ],
         events: [
             {
@@ -112,8 +113,8 @@ export default {
                 name: 'change',
                 description: 'Change event. (pagination | sorting | filter)',
                 type: 'custom-type: change',
-            }
-        ]
+            },
+        ],
     }),
 };
 

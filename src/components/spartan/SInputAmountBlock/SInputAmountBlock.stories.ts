@@ -1,12 +1,7 @@
 import SInputAmountBlock from './SInputAmountBlock.vue';
 import { ref } from 'vue';
 import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
-import {
-    InformationCircleIcon,
-    CurrencyDollarIcon,
-    MapPinIcon,
-    MagnifyingGlassIcon,
-} from '@heroicons/vue/24/outline';
+import { InformationCircleIcon, CurrencyDollarIcon, MapPinIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { EnvelopeIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
 export default {

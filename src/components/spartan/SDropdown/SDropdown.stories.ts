@@ -114,9 +114,9 @@ export const Default = createDefault({
         return { getIcon, ChevronDownIcon };
     },
     args: {
-      itemSlotDefault: 'Title',
-      itemPropIcon: 'PuzzlePieceIcon',
-      itemSlotDescription: 'Description',
+        itemSlotDefault: 'Title',
+        itemPropIcon: 'PuzzlePieceIcon',
+        itemSlotDescription: 'Description',
     },
     template: `
 <SDropdown v-bind="args">

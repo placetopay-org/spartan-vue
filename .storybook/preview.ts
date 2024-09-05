@@ -22,6 +22,7 @@ const preview: Preview = {
             },
         },
     },
+    tags: ['autodocs']
 };
 
 const i18n = createI18n({

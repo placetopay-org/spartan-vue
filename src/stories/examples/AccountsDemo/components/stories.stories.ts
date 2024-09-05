@@ -141,7 +141,7 @@ export const FormStory = createDefault({
                 </div>
             </template>
         </form>
-    </template>`
+    </template>`,
 });
 
 export const FooterStory = createDefault({
@@ -176,5 +176,5 @@ export const FooterStory = createDefault({
             </SDropdown>
         </footer>
     </template>
-    `
+    `,
 });

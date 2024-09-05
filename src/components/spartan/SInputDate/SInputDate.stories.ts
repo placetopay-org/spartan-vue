@@ -13,7 +13,7 @@ export default {
                 type: 'string | null',
                 description: 'The value of the input.',
                 default: 'null',
-                control: null
+                control: null,
             },
             {
                 name: 'hideInputIcon',
@@ -32,23 +32,23 @@ export default {
                 type: 'string',
                 description: 'The class to apply to the input.',
                 default: '',
-                control: null
+                control: null,
             },
             {
                 name: 'placeholder',
                 type: 'string',
                 description: 'The placeholder to display in the input.',
                 default: '',
-                control: 'text'
-            }
+                control: 'text',
+            },
         ],
         events: [
             {
                 name: 'update:modelValue',
                 description: 'Emitted when the value of the input changes.',
-                type: 'string | null'
-            }
-        ]
+                type: 'string | null',
+            },
+        ],
     }),
 };
 
@@ -80,4 +80,4 @@ export const Base = createVariation({
     containerClass: 'h-[500px] w-[300px]',
     template: `<SInputDate v-model="value" v-bind="args" model-type="dd-MM-yyyy HH:mm" />
 <pre>{{value}}</pre>`,
-})
+});

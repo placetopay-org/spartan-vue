@@ -13,7 +13,7 @@ export default {
             {
                 name: 'default',
                 description: 'The content of the tab container.',
-            }
+            },
         ],
         props: [
             {
@@ -21,7 +21,7 @@ export default {
                 description: 'The value of the tab container (variant).',
                 type: 'underline | pills | vetches',
                 default: 'undefined',
-                control: null
+                control: null,
             },
             {
                 name: 'full',
@@ -56,15 +56,15 @@ export default {
                 type: 'FunctionalComponent',
                 default: 'undefined',
                 subcategory: 'STabItem',
-            }
+            },
         ],
         events: [
             {
                 name: 'update:modelValue',
                 description: 'The event emitted when the tab container value changes.',
                 type: 'underline | pills | vetches',
-            }
-        ]
+            },
+        ],
     }),
 };
 

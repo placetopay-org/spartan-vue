@@ -10,7 +10,7 @@ export default {
             {
                 name: 'default',
                 description: 'The content of the description.',
-                control: true
+                control: true,
             },
         ],
         props: [
@@ -20,8 +20,8 @@ export default {
                 default: 'undefined',
                 description: 'Custom classes to be applied to the component.',
                 control: null,
-            }
-        ]
+            },
+        ],
     }),
 };
 

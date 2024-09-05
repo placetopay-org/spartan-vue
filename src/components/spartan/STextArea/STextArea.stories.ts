@@ -26,9 +26,9 @@ export default {
                 type: 'string',
                 default: 'undefined',
                 description: 'The class to apply to the component.',
-                control: null
-            }
-        ]
+                control: null,
+            },
+        ],
     }),
 };
 
@@ -92,4 +92,3 @@ export const MultiLine = createVariation({
 </SLabel>
 `,
 });
-

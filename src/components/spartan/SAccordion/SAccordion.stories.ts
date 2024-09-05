@@ -33,7 +33,7 @@ export default {
 };
 
 const sourceBinding = buildSourceBinding({
-    check: ['vertical']
+    check: ['vertical'],
 });
 
 export const Default = createDefault({

@@ -14,13 +14,13 @@ export default {
             {
                 name: 'close',
                 description: 'Emitted when the modal is closed.',
-            }
+            },
         ],
         slots: [
             {
                 name: 'default',
                 description: 'The content of the modal.',
-            }
+            },
         ],
         props: [
             {
@@ -44,8 +44,8 @@ export default {
                 description: 'The position of the modal.',
                 options: ['top', 'nearTop', 'center', 'bottom'],
                 control: 'select',
-            }
-        ]
+            },
+        ],
     }),
 };
 

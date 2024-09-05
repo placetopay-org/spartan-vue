@@ -116,7 +116,8 @@ export const Default = createDefault({
         variant: 'primary',
     },
     transform: (args) => `<SButton ${sourceBinding(args)}>${args.default}</SButton>`,
-    template: '<SButton v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" @click="onClick"> {{ args.default }} </SButton>',
+    template:
+        '<SButton v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" @click="onClick"> {{ args.default }} </SButton>',
 });
 
 const createVariation = (template: string, icons?: Record<string, FunctionalComponent>) =>
@@ -168,13 +169,19 @@ export const Loading = createVariation(`
 <SButton loading> Loading </SButton>
 `);
 
-export const OnlyIcon = createVariation(`
+export const OnlyIcon = createVariation(
+    `
 <SButton :leftIcon="MagnifyingGlassIcon" rounded="right"/>
 <SButton :rightIcon="PencilIcon" size="sm" rounded="none"/>
 <SButton :leftIcon="PlusIcon" size="sm" rounded="full"/>
-`, { MagnifyingGlassIcon, PencilIcon, PlusIcon });
+`,
+    { MagnifyingGlassIcon, PencilIcon, PlusIcon },
+);
 
-export const IconWithText = createVariation(`
+export const IconWithText = createVariation(
+    `
 <SButton :icon="MagnifyingGlassIcon">Search</SButton>
 <SButton :icon="PlusIcon" endIcon>Create QR</SButton>
-`, { MagnifyingGlassIcon, PlusIcon });
+`,
+    { MagnifyingGlassIcon, PlusIcon },
+);
