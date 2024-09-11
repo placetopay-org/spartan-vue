@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { TTooltipEmits, TTooltipProps } from './types';
+import type { TTooltipProps } from './types';
 import { SPopover } from '../SPopover';
-
-defineEmits<TTooltipEmits>();
 
 withDefaults(defineProps<TTooltipProps>(), {
     title: '',
@@ -19,7 +17,7 @@ withDefaults(defineProps<TTooltipProps>(), {
             </div>
         </template>
 
-        <div class="bg-white focus-visible:outline-none text-[#344054] dark:bg-[#101828] dark:text-white shadow-lg px-3 py-2 rounded-lg">
+        <div role="tooltip" class="bg-white focus-visible:outline-none text-[#344054] dark:bg-[#101828] dark:text-white shadow-lg px-3 py-2 rounded-lg">
             {{ title }}
         </div>
     </SPopover>
