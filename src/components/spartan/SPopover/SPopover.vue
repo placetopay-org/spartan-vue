@@ -152,6 +152,7 @@ const arrowPosition = computed(() => {
             >
                 <slot v-bind="handlers" />
                 <div
+                    v-if="arrow"
                     ref="arrow"
                     class="pointer-events-none absolute -z-[1] h-3 w-3 rounded-sm bg-white dark:bg-[#101828]"
                     :style="arrowPosition"

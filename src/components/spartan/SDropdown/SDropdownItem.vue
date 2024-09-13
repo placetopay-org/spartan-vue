@@ -2,6 +2,7 @@
 import { MenuItem } from '@headlessui/vue';
 import { twMerge } from 'tailwind-merge';
 import type { TDropdownItemProps } from './types';
+import { hasSlotContent } from '@/helpers';
 
 withDefaults(defineProps<Partial<TDropdownItemProps>>(), {
     disabled: false,
@@ -11,8 +12,10 @@ withDefaults(defineProps<Partial<TDropdownItemProps>>(), {
 
 <template>
     <MenuItem v-slot="{ active }" :disabled="disabled">
-        <button
-            type="button"
+        <component
+            :is="link ? 'a' : 'button'"
+            :type="link ? undefined : 'button'"
+            :href="link"
             v-bind="$attrs"
             :class="
                 twMerge(
@@ -26,8 +29,8 @@ withDefaults(defineProps<Partial<TDropdownItemProps>>(), {
             <component :is="icon" class="h-5 w-5 text-gray-400" aria-hidden="true" />
             <div class="flex flex-col items-start">
                 <span class="text-sm font-medium text-gray-800"><slot /></span>
-                <span class="text-xs font-normal text-gray-400"><slot name="description" /></span>
+                <span v-if="hasSlotContent($slots.description)" class="text-xs font-normal text-gray-400"><slot name="description" /></span>
             </div>
-        </button>
+        </component>
     </MenuItem>
 </template>
