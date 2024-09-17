@@ -3,7 +3,7 @@ import SDropdownItem from './SDropdownItem.vue';
 import { SAvatar, SButton } from '@spartan';
 import type { SourceProps } from '@storybook/blocks';
 import { action } from '@storybook/addon-actions';
-import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
+import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import {
     Cog8ToothIcon,
@@ -114,9 +114,9 @@ export const Default = createDefault({
         return { getIcon, ChevronDownIcon };
     },
     args: {
-      itemSlotDefault: 'Title',
-      itemPropIcon: 'PuzzlePieceIcon',
-      itemSlotDescription: 'Description',
+        itemSlotDefault: 'Title',
+        itemPropIcon: 'PuzzlePieceIcon',
+        itemSlotDescription: 'Description',
     },
     template: `
 <SDropdown v-bind="args">
@@ -259,6 +259,38 @@ export const WithIcon = createVariation(`
   <SDropdownItem :icon="Cog8ToothIcon"> Settings </SDropdownItem>
 </SDropdown>
 `);
+
+export const AsLink = buildVariation({
+  containerClass: 'h-[250px] w-[500px]',
+  components: {
+    SDropdown,
+    SDropdownItem,
+    SButton,
+  },
+  setup() {
+    return {
+      ChevronDownIcon,
+      UserCircleIcon,
+      PencilIcon,
+      PlusIcon,
+      Cog8ToothIcon,
+    };
+  },
+  template: `
+<SDropdown>
+  <template #reference>
+    <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
+  </template>
+
+  <SDropdownItem :icon="UserCircleIcon" link="/profile"> My Profile </SDropdownItem>
+  <SDropdownItem :icon="PencilIcon" link="/edit"> Edit </SDropdownItem>
+  <SDropdownItem :icon="PlusIcon" link="/add"> Add </SDropdownItem>
+  <SDropdownItem :icon="Cog8ToothIcon" link="/settings"> Settings </SDropdownItem>
+</SDropdown>  
+`
+
+
+})
 
 export const OnAvatarElement = createVariation(`
 <SDropdown leftToRight>

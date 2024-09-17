@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
-import { ref, computed, nextTick, watch } from 'vue';
-import { useFloating, autoUpdate, flip, offset as setOffset } from '@floating-ui/vue';
+import { ref, computed, nextTick, watch, h } from 'vue';
+import { useFloating, autoUpdate, flip, offset as setOffset, arrow as setArrow } from '@floating-ui/vue';
 import { useMediaQuery } from '@vueuse/core';
 import { popoverContainerStyles, popoverFloatingStyles } from './styles';
 import { TranStyle } from '@/constants';
@@ -24,16 +24,19 @@ const isOpen = ref(false);
 const isLargeScreen = useMediaQuery('(min-width: 768px)');
 const reference = ref<HTMLElement | null>(null);
 const floating = ref<HTMLElement | null>(null);
+const arrow = ref<HTMLElement | null>(null);
 
 const middleware = computed(() => {
     const group = [];
     !props.static && group.push(flip());
-    props.offset && group.push(setOffset(props.offset));
+    group.push(setOffset(props.offset));
+    group.push(setOffset(props.offset || 0 + (props.arrow ? Math.sqrt(288) / 2 : 0)));
+    props.arrow && group.push(setArrow({ element: arrow, padding: 16 }));
 
     return group;
 });
 
-const { floatingStyles } = useFloating(reference, floating, {
+const { floatingStyles, middlewareData } = useFloating(reference, floating, {
     transform: false,
     placement: computed(() => props.placement),
     middleware: middleware,
@@ -93,6 +96,33 @@ const handlers = {
 };
 
 defineExpose(handlers);
+
+const arrowPosition = computed(() => {
+    const side = props.placement.split('-')[0];
+
+    const staticSide = {
+        top: 'bottom',
+        right: 'left',
+        bottom: 'top',
+        left: 'right',
+    }[side as 'top' | 'right' | 'bottom' | 'left'];
+
+    const style = {
+        transform: 'rotate(45deg)',
+        left: middlewareData.value.arrow?.x != null ? `${middlewareData.value.arrow.x}px` : '',
+        top: middlewareData.value.arrow?.y != null ? `${middlewareData.value.arrow.y}px` : '',
+        right: '',
+        bottom: '',
+    };
+
+    if (arrow.value) {
+        Object.assign(style, {
+            [staticSide]: '-4px',
+        });
+    }
+
+    return style;
+});
 </script>
 
 <template>
@@ -114,12 +144,19 @@ defineExpose(handlers);
                 v-if="isOpen"
                 :class="popoverFloatingStyles({ responsive })"
                 ref="floating"
+                class="focus-visible:outline-none"
                 :style="styles"
                 tabindex="-1"
                 @focus="focusFirstChild"
                 @focusout="focusout"
             >
                 <slot v-bind="handlers" />
+                <div
+                    v-if="arrow"
+                    ref="arrow"
+                    class="pointer-events-none absolute -z-[1] h-3 w-3 rounded-sm bg-white dark:bg-[#101828]"
+                    :style="arrowPosition"
+                />
             </div>
         </Transition>
     </div>

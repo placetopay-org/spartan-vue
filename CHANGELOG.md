@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.99 - 2024-09-13
+
+## 2.0.0-beta.98 - 2024-09-11
+### Added
+- New `STooltip` component.
+- `STooltip` tests.
+
+## 2.0.0-beta.97 - 2024-09-05
+
 ## 2.0.0-beta.95 - 2024-08-27
 
 ## 2.0.0-beta.94 - 2024-08-26

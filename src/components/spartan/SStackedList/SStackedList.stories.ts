@@ -20,7 +20,7 @@ export default {
             {
                 name: 'dropdown',
                 description: 'The slot to show the dropdown menu.',
-            }   
+            },
         ],
         props: [
             {
@@ -28,9 +28,9 @@ export default {
                 type: 'string',
                 description: 'The class to apply to the component.',
                 default: '',
-                control: null
-            }
-        ]
+                control: null,
+            },
+        ],
     }),
 };
 

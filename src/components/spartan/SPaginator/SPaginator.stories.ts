@@ -37,7 +37,7 @@ export const Default = createDefault({
     setup: () => {
         const state = ref({ page: 3, size: 5, count: 25 });
 
-        return { state }
+        return { state };
     },
     template: `<SPaginator v-bind="args" v-model="state" />`,
     transform: (args) => `<SPaginator v-model="state" ${sourceBinding(args)}/>`,
@@ -52,7 +52,7 @@ export const Base = createVariation({
     setup: () => {
         const state = ref({ page: 3, size: 5, count: 25 });
 
-        return { state }
+        return { state };
     },
     template: `<SPaginator v-model="state" />`,
 });
@@ -62,7 +62,7 @@ export const PageSize = createVariation({
     setup: () => {
         const state = ref({ page: 23, size: 20, count: 25 });
 
-        return { state }
+        return { state };
     },
     template: `<SPaginator v-model="state" :pageSizes="[10, 20, 30, 100]" />`,
 });
@@ -73,7 +73,7 @@ export const PaginatorSize = createVariation({
     setup: () => {
         const state = ref({ page: 18, size: 5, count: 25 });
 
-        return { state }
+        return { state };
     },
     template: `
 <SPaginator v-model="state"  />
@@ -83,4 +83,3 @@ export const PaginatorSize = createVariation({
 <SPaginator v-model="state" paginatorSize="4" />
 `,
 });
-

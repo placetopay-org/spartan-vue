@@ -36,7 +36,7 @@ export default {
 };
 
 const sourceBinding = buildSourceBinding({
-    check: ['borderless']
+    check: ['borderless'],
 });
 
 export const Default = createDefault({
@@ -139,7 +139,7 @@ export const Base = createVariation({
     setup: () => {
         const getRoleColor = (role: string) => {
             return role === 'Admin' ? 'yellow' : 'green';
-        }
+        };
 
         return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4), getRoleColor };
     },
@@ -180,7 +180,7 @@ export const InlineAutoGeneration = createVariation({
     setup: () => {
         const getRoleColor = (role: string) => {
             return role === 'Admin' ? 'yellow' : 'green';
-        }
+        };
 
         return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4), getRoleColor };
     },
@@ -204,7 +204,7 @@ export const Borderless = createVariation({
     setup: () => {
         const getRoleColor = (role: string) => {
             return role === 'Admin' ? 'yellow' : 'green';
-        }
+        };
 
         return { cols: table.cols.slice(0, 2), rows: table.rows.slice(0, 4), getRoleColor };
     },
@@ -228,7 +228,7 @@ export const HighlightColumn = createVariation({
     setup: () => {
         const getRoleColor = (role: string) => {
             return role === 'Admin' ? 'yellow' : 'green';
-        }
+        };
 
         return { cols: table.cols.slice(0, 3), rows: table.rows.slice(0, 4), getRoleColor };
     },
@@ -266,7 +266,7 @@ export const HighlightColumnForInlineAutoGenerationMode = createVariation({
     setup: () => {
         const getRoleColor = (role: string) => {
             return role === 'Admin' ? 'yellow' : 'green';
-        }
+        };
 
         return { cols: table.cols.slice(0, 3), rows: table.rows.slice(0, 4), getRoleColor };
     },
@@ -289,7 +289,7 @@ export const Customize = createVariation({
     setup: () => {
         const getRoleColor = (role: string) => {
             return role === 'Admin' ? 'yellow' : 'green';
-        }
+        };
 
         return { cols: table.cols, rows: table.rows, getRoleColor };
     },

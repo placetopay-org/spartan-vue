@@ -10,19 +10,20 @@ export default {
     component: SPopover,
     title: 'misc/Popover',
     ...createHistory({
-        description: 'Popover is used to display content referenced by any element. It can be used to display a dropdown, a tooltip, or any other content that needs to be displayed on top of the reference element.',
+        description:
+            'Popover is used to display content referenced by any element. It can be used to display a dropdown, a tooltip, or any other content that needs to be displayed on top of the reference element.',
         slots: [
             {
                 name: 'default',
                 description: 'The content to be displayed when the popover is open.',
-            }
+            },
         ],
         props: [
             {
                 name: 'offset',
                 description: 'The offset of the popover from the reference element.',
                 default: '0',
-                type: 'number'
+                type: 'number',
             },
             {
                 name: 'placement',
@@ -43,31 +44,31 @@ export default {
                     'left-start',
                     'left-end',
                 ],
-                type: 'button | submit'
+                type: 'button | submit',
             },
             {
                 name: 'static',
                 description: 'Whether the popover should be static or not.',
                 default: 'false',
-                type: 'boolean'
+                type: 'boolean',
             },
             {
                 name: 'preventClose',
                 description: 'Whether the popover should prevent closing when clicking outside.',
                 default: 'false',
-                type: 'boolean'
+                type: 'boolean',
             },
             {
                 name: 'responsive',
                 description: 'Whether the popover should be responsive or not.',
                 default: 'true',
-                type: 'boolean'
+                type: 'boolean',
             },
             {
                 name: 'testScroll',
                 description: '"Test on window with scroll."',
-                type: 'TEST'
-            }
+                type: 'TEST',
+            },
         ],
     }),
 };
@@ -79,7 +80,7 @@ const sourceBinding = buildSourceBinding({
     check: ['static'],
 });
 
-export const Default  = createDefault({
+export const Default = createDefault({
     containerClass: 'flex justify-center items-center h-[500px] w-[500px]',
     components: { SPopover, SButton },
     setup: () => {
@@ -124,5 +125,5 @@ export const Default  = createDefault({
       </template>
     
       <div class="yellow-element">Any Element Too!</div>
-    </SPopover>`
-})
+    </SPopover>`,
+});

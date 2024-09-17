@@ -39,7 +39,7 @@ export const Login = createDefault({
             </section>
         </div>
     </template>
-    `
+    `,
 });
 
 export const LoginUW = createDefault({
@@ -68,7 +68,7 @@ export const LoginUW = createDefault({
             </section>
         </div>
     </template>
-    `
+    `,
 });
 
 export const LoginBento = createDefault({
@@ -97,7 +97,7 @@ export const LoginBento = createDefault({
             </section>
         </div>
     </template>
-    `
+    `,
 });
 
 export const Register = createDefault({
@@ -126,7 +126,7 @@ export const Register = createDefault({
             </section>
         </div>
     </template>
-    `
+    `,
 });
 
 export const RestorePassword = createDefault({
@@ -153,7 +153,7 @@ export const RestorePassword = createDefault({
             </section>
         </div>
     </template>
-    `
+    `,
 });
 
 export const OTP = createDefault({
@@ -180,7 +180,7 @@ export const OTP = createDefault({
             </section>
         </div>
     </template>
-    `
+    `,
 });
 
 export const RecoveryCode = createDefault({
@@ -207,7 +207,7 @@ export const RecoveryCode = createDefault({
             </section>
         </div>
     </template>
-    `
+    `,
 });
 
 export const Auth = createDefault({

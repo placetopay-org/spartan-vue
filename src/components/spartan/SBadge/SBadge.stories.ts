@@ -1,5 +1,11 @@
 import SBadge from './SBadge.vue';
-import { createDefault, createVariation as buildVariation, buildDesign, buildSourceBinding, createHistory } from '@/helpers';
+import {
+    createDefault,
+    createVariation as buildVariation,
+    buildDesign,
+    buildSourceBinding,
+    createHistory,
+} from '@/helpers';
 
 export default {
     component: SBadge,
@@ -94,13 +100,14 @@ export const Default = createDefault({
     },
     transform: (args) => `<SBadge ${sourceBinding(args)}> ${args.default} </SBadge>`,
     template: '<SBadge v-bind="args"> {{ args.default }} </SBadge>',
-})
-
-const createVariation = (template: string) => buildVariation({
-    components: { SBadge },
-    containerClass: 'flex gap-5',
-    template
 });
+
+const createVariation = (template: string) =>
+    buildVariation({
+        components: { SBadge },
+        containerClass: 'flex gap-5',
+        template,
+    });
 
 export const Size = createVariation(
     `

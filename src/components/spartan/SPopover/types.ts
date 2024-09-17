@@ -5,6 +5,7 @@ export type TPopoverEmits = {
 };
 
 export type TPopoverProps = {
+    arrow?: boolean;
     static?: boolean;
     offset?: number;
     placement?: Placement;
