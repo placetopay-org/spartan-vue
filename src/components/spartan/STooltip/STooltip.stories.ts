@@ -27,27 +27,37 @@ export default {
                 'The content of the tooltip. This is the text that will be displayed when the tooltip is triggered.',
             table: { type: { summary: 'string' } },
         },
+        color: {
+            control: 'select',
+            options: ['dark', 'light', 'auto'],
+            description:
+                'The color scheme of the tooltip. This will determine the background and text color of the tooltip.',
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'auto' },
+            },
+        },
     },
 };
 
 const sourceBinding = buildSourceBinding({
-    prop: { title: undefined },
+    prop: { title: undefined, color: 'auto' },
 });
 
 export const Default = createDefault({
     components: { STooltip },
     containerClass: 'mb-20',
     template: `
-<div class="dark">
 <STooltip v-bind="args">
     <div class="bg-yellow-300 w-full md:w-80 h-20 px-8 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">Any Element</div>
 </STooltip>
-</div>`,
+`,
     transform: (args) => `
 <STooltip ${sourceBinding(args)}>
     <div class="bg-yellow-300 w-full md:w-80 h-20 px-8 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 flex justify-center items-center">Any Element</div>
 </STooltip>`,
     args: {
         title: 'Tooltip!',
+        color: 'dark',
     },
 });

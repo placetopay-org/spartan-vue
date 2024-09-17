@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import type { TTooltipProps } from './types';
 import { SPopover } from '../SPopover';
+import { tooltipStyles } from './styles';
+import { computed } from 'vue';
 
-withDefaults(defineProps<TTooltipProps>(), {
-    title: '',
-    placement: 'bottom',
-    arrow: true,
-});
+const { placement = 'bottom', arrow = true, color = 'auto' } = defineProps<TTooltipProps>();
+
+const popoverArrow = computed(() => (arrow ? color : undefined));
 </script>
 
 <template>
-    <SPopover :static="static" :responsive="false" :placement="placement" :arrow="arrow" :offset="offset">
-        <template #reference="{open, close}">
-            <div @mouseenter="open" @mouseleave="close">
+    <SPopover :static="static" :responsive="false" :placement="placement" :arrow="popoverArrow" :offset="offset">
+        <template #reference="{ open, close }">
+            <div @mouseenter="open" @mouseleave="">
                 <slot />
             </div>
         </template>
 
-        <div role="tooltip" class="bg-white focus-visible:outline-none text-[#344054] dark:bg-[#101828] dark:text-white shadow-lg px-3 py-2 rounded-lg">
+        <div role="tooltip" :class="tooltipStyles({ color })">
             {{ title }}
         </div>
     </SPopover>

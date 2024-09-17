@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { ref, computed, nextTick, watch, h } from 'vue';
 import { useFloating, autoUpdate, flip, offset as setOffset, arrow as setArrow } from '@floating-ui/vue';
 import { useMediaQuery } from '@vueuse/core';
-import { popoverContainerStyles, popoverFloatingStyles } from './styles';
+import { arrowStyles, popoverContainerStyles, popoverFloatingStyles } from './styles';
 import { TranStyle } from '@/constants';
 import type { TPopoverEmits, TPopoverProps } from './types';
 import { focusFirstChild } from '@/helpers';
@@ -24,14 +24,14 @@ const isOpen = ref(false);
 const isLargeScreen = useMediaQuery('(min-width: 768px)');
 const reference = ref<HTMLElement | null>(null);
 const floating = ref<HTMLElement | null>(null);
-const arrow = ref<HTMLElement | null>(null);
+const arrowRef = ref<HTMLElement | null>(null);
 
 const middleware = computed(() => {
     const group = [];
     !props.static && group.push(flip());
     group.push(setOffset(props.offset));
     group.push(setOffset(props.offset || 0 + (props.arrow ? Math.sqrt(288) / 2 : 0)));
-    props.arrow && group.push(setArrow({ element: arrow, padding: 16 }));
+    props.arrow && group.push(setArrow({ element: arrowRef, padding: 16 }));
 
     return group;
 });
@@ -115,7 +115,7 @@ const arrowPosition = computed(() => {
         bottom: '',
     };
 
-    if (arrow.value) {
+    if (arrowRef.value) {
         Object.assign(style, {
             [staticSide]: '-4px',
         });
@@ -153,8 +153,8 @@ const arrowPosition = computed(() => {
                 <slot v-bind="handlers" />
                 <div
                     v-if="arrow"
-                    ref="arrow"
-                    class="pointer-events-none absolute -z-[1] h-3 w-3 rounded-sm bg-white dark:bg-[#101828]"
+                    ref="arrowRef"
+                    :class="arrowStyles({ color: arrow })"
                     :style="arrowPosition"
                 />
             </div>
