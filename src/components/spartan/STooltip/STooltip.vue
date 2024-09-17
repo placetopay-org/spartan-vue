@@ -12,7 +12,7 @@ const popoverArrow = computed(() => (arrow ? color : undefined));
 <template>
     <SPopover :static="static" :responsive="false" :placement="placement" :arrow="popoverArrow" :offset="offset">
         <template #reference="{ open, close }">
-            <div @mouseenter="open" @mouseleave="">
+            <div @mouseenter="open" @mouseleave="close">
                 <slot />
             </div>
         </template>
