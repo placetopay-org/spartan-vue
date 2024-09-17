@@ -1,4 +1,3 @@
-
 export type TTableProps = {
     class: string;
     borderless: boolean;

@@ -7,7 +7,9 @@ export const roundedClass = {
     none: '',
 };
 
-export const createBooleanVariation = (trueStyle: string | string[], falseStyle?: string | string[]) => ({
+export const createBooleanVariation = (trueStyle?: string | string[], falseStyle?: string | string[]) => ({
     true: trueStyle,
     false: falseStyle,
 });
+
+export const cbv = createBooleanVariation;
