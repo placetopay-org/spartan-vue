@@ -1,37 +1,25 @@
-import { reactive, inject, provide, watch, type InjectionKey, computed, type ComputedRef } from 'vue';
-import type { TDTableProps, TDTableEmits } from './types';
+import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
+import type { TDTableProps, TDTableEmits, TDColumnProps } from './types';
 
-type Col = {
-    field: string;
-    header?: string;
-};
-
-type TUpdateCol = (id: string, col: Partial<Col>) => void;
+type TUpdateCol = (data: TDColumnProps) => void;
 
 type TState = {
-    cols: Record<string, Col>;
-    colsArray: Col[];
+    cols: Record<string, TDColumnProps>;
+    colsArray: TDColumnProps[];
     updateCol: TUpdateCol;
 };
 
 const contextKey = Symbol('STableContext') as InjectionKey<TState>;
 
 export const createContext = (props: TDTableProps, emit?: TDTableEmits) => {
-    // const cols = computed(() => {
-    //     return Object.keys(props.data[0]).reduce((acc, key) => {
-    //         acc[key] = {};
-    //         return acc;
-    //     }, {} as TState['cols']);
-    // });
-
     const state: TState = reactive({
         cols: {},
         colsArray: computed(() => {
             return Object.keys(state.cols).map((key) => ({ ...state.cols[key], field: key }));
         }),
-        updateCol: (id: string, col: Partial<Col>) => {
-            state.cols[id] = { ...state.cols[id], ...col };
-        },  
+        updateCol: ({ field, ...rest }: TDColumnProps) => {
+            state.cols[field] = { ...state.cols[field], ...rest };
+        },
     });
 
     provide(contextKey, state);
@@ -46,4 +34,3 @@ export const useContext = (component: string) => {
     }
     return context;
 };
-

@@ -2,17 +2,17 @@
 import { twMerge } from 'tailwind-merge';
 import { useContext } from './api';
 import { cellStyles, tableStyles } from './styles';
-import type { TDTableProps } from './types';
+import type { TDColumnProps } from './types';
+import { useSlots } from 'vue';
 
-const props = defineProps<{
-    field: string;
-    header: string;
-}>();
+const props = defineProps<TDColumnProps>();
 
 const context = useContext('SDColumn');
+const slots = useSlots();
 
-context.updateCol(props.field, {
-    header: props.header,
+context.updateCol({
+    ...props,
+    slots,
 });
 </script>
 
