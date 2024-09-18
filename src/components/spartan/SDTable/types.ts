@@ -13,4 +13,6 @@ export type TDColumnProps = {
     sort?: 'asc' | 'des';
 };
 
-export type TDTableEmits = {};
+export type TDTableEmits = {
+    (event: 'sort', value: Pick<TDColumnProps, 'field' | 'sort'>): void;
+};

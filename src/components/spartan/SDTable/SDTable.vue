@@ -4,9 +4,9 @@ import { twMerge } from 'tailwind-merge';
 import { createContext } from './api';
 import { cellStyles, tableStyles } from './styles';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
-import type { TDColumnProps, TDTableProps } from './types';
+import type { TDColumnProps, TDTableProps, TDTableEmits } from './types';
 
-const emit = defineEmits(['sort']);
+const emit = defineEmits<TDTableEmits>();
 const props = defineProps<TDTableProps>();
 
 const { rowLink = () => {} } = props;
