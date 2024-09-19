@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.104 - 2024-09-19
+
 ## 2.0.0-beta.103 - 2024-09-18
 ### Added
 - Initial release of `SDTable.vue` with dynamic data display and customizable row content.
