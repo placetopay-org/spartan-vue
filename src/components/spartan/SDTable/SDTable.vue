@@ -22,6 +22,7 @@ const sort = ({ field, sort }: TDColumnProps) => {
 
 <template>
     <table :class="twMerge(tableStyles({ borderless }), $props.class)">
+        <slot />
         <thead class="border-b border-gray-300 bg-gray-50">
             <th v-for="col in context.colsArray" scope="col" :class="twMerge(cellStyles({ head: true }))">
                 <Wrapper :as="col.sort ? 'button' : 'div'" @click="sort(col)" class="flex w-fit group">
@@ -66,6 +67,4 @@ const sort = ({ field, sort }: TDColumnProps) => {
             </tr>
         </tbody>
     </table>
-
-    <slot />
 </template>
