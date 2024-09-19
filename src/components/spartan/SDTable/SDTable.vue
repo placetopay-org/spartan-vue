@@ -38,7 +38,7 @@ const sort = ({ field, sort }: TDColumnProps) => {
                     >
                         <component
                             v-if="col.sort"
-                            :is="col.sort === 'des' ? ChevronDownIcon : ChevronUpIcon"
+                            :is="col.sort === 'asc' ? ChevronUpIcon : ChevronDownIcon"
                             class="h-5 w-5"
                         />
                     </span>
