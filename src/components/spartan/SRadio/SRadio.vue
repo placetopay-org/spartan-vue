@@ -35,7 +35,7 @@ const computedId = computed(() => props.id ?? uuidv4());
             :id="computedId"
             v-bind="$attrs"
             v-model="model"
-            class="cursor-pointer rounded-full border border-gray-300 bg-white text-primary-600 accent-primary-600 focus:ring-offset-0 focus:s-ring"
+            class="cursor-pointer rounded-full border border-gray-300 bg-white text-spartan-primary-600 accent-spartan-primary-600 focus:ring-offset-0 focus:s-ring"
             type="radio"
             :disabled="disabled"
             :name="name"

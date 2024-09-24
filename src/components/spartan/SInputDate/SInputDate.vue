@@ -42,7 +42,7 @@ input[aria-label='Datepicker input'] {
 }
 
 .dp__theme_light {
-    --dp-primary-color: rgb(var(--color-primary-500));
+    --dp-spartan-primary-color: rgb(var(--color-spartan-primary-500));
     --dp-border-color: #d1d5db;
     --dp-border-color-hover: #d1d5db;
     --dp-icon-color: #9ca3af;

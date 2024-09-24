@@ -31,9 +31,9 @@ const roundedStyle = computed(() => (props.size === 'md' ? 'rounded-xl' : 'round
 const paddingMainStyle = computed(() => (props.size === 'md' ? 'px-4 py-5 sm:p-6' : 'px-2 py-1 sm:px-4 sm:py-2'));
 const iconData = {
     primary: {
-        background: 'bg-primary-100',
+        background: 'bg-spartan-primary-100',
         icon: SquaresPlusIcon,
-        color: 'text-primary-600',
+        color: 'text-spartan-primary-600',
     },
     success: {
         background: 'bg-green-100',

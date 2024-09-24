@@ -29,7 +29,7 @@ onMounted(() => {
         :type="as === 'button' ? 'button' : undefined"
         :class="[
             active
-                ? 'border-primary-500 text-primary-600'
+                ? 'border-spartan-primary-500 text-spartan-primary-600'
                 : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
             'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium',
         ]"
@@ -40,7 +40,7 @@ onMounted(() => {
             v-if="icon"
             :is="icon"
             :class="[
-                active ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500',
+                active ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
                 '-ml-0.5 mr-2 h-5 w-5',
             ]"
             aria-hidden="true"

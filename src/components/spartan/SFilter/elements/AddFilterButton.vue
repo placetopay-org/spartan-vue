@@ -57,7 +57,7 @@ const selectField = (id: string) => {
                         v-else
                         v-for="item in options"
                         :key="item.id"
-                        class="rounded-lg hover:bg-gray-50 hover:text-primary-600"
+                        class="rounded-lg hover:bg-gray-50 hover:text-spartan-primary-600"
                     >
                         <button class="w-full px-4 py-2 text-left" @click="selectField(item.id)">
                             {{ item.name }}

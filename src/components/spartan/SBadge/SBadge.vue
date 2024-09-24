@@ -25,12 +25,12 @@ const colorOption = {
         },
     },
     primary: {
-        textClass: 'text-primary-800',
-        dotClass: 'fill-primary-400',
+        textClass: 'text-spartan-primary-800',
+        dotClass: 'fill-spartan-primary-400',
         styleClass: {
-            solid: 'bg-primary-100',
-            outline: 'outline-primary-800',
-            border: 'border-primary-300',
+            solid: 'bg-spartan-primary-100',
+            outline: 'outline-spartan-primary-800',
+            border: 'border-spartan-primary-300',
         },
     },
     gray: {

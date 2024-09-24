@@ -2,6 +2,7 @@ import type { Component, FunctionalComponent } from 'vue';
 
 export type TSidebarEmits = {
     (event: 'update:modelValue', value?: string): void;
+    (event: 'clickHeader'): void;
 };
 
 export type TSidebarProps = {

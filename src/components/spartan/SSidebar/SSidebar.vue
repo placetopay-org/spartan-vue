@@ -16,7 +16,7 @@ createContext(props, emit);
 
 <template>
     <aside :class="twMerge('flex h-full w-72 flex-col gap-y-6 overflow-y-auto bg-white p-4', props.class)">
-        <header v-if="placetopayHeader || hasSlotContent($slots.header)">
+        <header v-if="placetopayHeader || hasSlotContent($slots.header)"  @click="$emit('clickHeader')">
             <SPlacetopayLogo v-if="placetopayHeader" :height="32" />
             <slot v-else name="header" />
         </header>

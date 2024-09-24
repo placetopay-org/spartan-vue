@@ -23,7 +23,7 @@ export const sidebarItemIconStyles = cva(
     ['h-6 w-6 text-gray-400'],
     {
         variants: {
-            active: cbv('text-primary-600'),
+            active: cbv('text-spartan-primary-600'),
         },
     },
 );
@@ -32,7 +32,7 @@ export const sidebarItemContentStyles = cva(
     ['text-sm font-medium text-gray-700'],
     {
         variants: {
-            active: cbv('text-primary-600'),
+            active: cbv('text-spartan-primary-600'),
         },
     },
 );
@@ -41,7 +41,7 @@ export const sidebarItemGroupIconStyles = cva(
     ['h-6 w-6 text-gray-400'],
     {
         variants: {
-            active: cbv('text-primary-600'),
+            active: cbv('text-spartan-primary-600'),
         },
     },
 );
@@ -50,7 +50,7 @@ export const sidebarItemGroupContentStyles = cva(
     ['text-sm font-medium text-gray-700'],
     {
         variants: {
-            active: cbv('text-primary-600'),
+            active: cbv('text-spartan-primary-600'),
         },
     },
 );
@@ -62,7 +62,7 @@ export const sidebarItemGroupChevronStyles = cva(
     {
         variants: {
             open: cbv('rotate-180'),
-            active: cbv('text-primary-400'),
+            active: cbv('text-spartan-primary-400'),
         },
     },
 );

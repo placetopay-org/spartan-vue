@@ -37,9 +37,9 @@ const open = ref(false);
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="h-[150px] w-full blur-2xl">
                     <defs>
                         <pattern id="patt" x="0" y="0" width="1100" height="150" patternUnits="userSpaceOnUse">
-                            <ellipse cx="0" cy="150" rx="500" ry="50" class="fill-primary-600/50" />
-                            <ellipse cx="550" cy="0" rx="150" ry="50" class="fill-primary-600/30" />
-                            <ellipse cx="850" cy="150" rx="100" ry="90" class="fill-primary-600/20" />
+                            <ellipse cx="0" cy="150" rx="500" ry="50" class="fill-spartan-primary-600/50" />
+                            <ellipse cx="550" cy="0" rx="150" ry="50" class="fill-spartan-primary-600/30" />
+                            <ellipse cx="850" cy="150" rx="100" ry="90" class="fill-spartan-primary-600/20" />
                         </pattern>
                     </defs>
 
@@ -144,7 +144,7 @@ const open = ref(false);
                         </div>
 
                         <footer class="flex justify-end">
-                            <a href="#" class="flex items-center gap-2 text-xs font-normal text-primary-600">
+                            <a href="#" class="flex items-center gap-2 text-xs font-normal text-spartan-primary-600">
                                 <span class="whitespace-nowrap">Ver detalle</span>
                                 <ArrowRightIcon class="h-4 w-4" />
                             </a>
@@ -161,7 +161,7 @@ const open = ref(false);
                         </div>
 
                         <footer class="flex justify-end">
-                            <a href="#" class="flex items-center gap-2 text-xs font-normal text-primary-600">
+                            <a href="#" class="flex items-center gap-2 text-xs font-normal text-spartan-primary-600">
                                 <span class="whitespace-nowrap">Ver detalle</span>
                                 <ArrowRightIcon class="h-4 w-4" />
                             </a>
@@ -178,7 +178,7 @@ const open = ref(false);
                         </div>
 
                         <footer class="flex justify-end">
-                            <a href="#" class="flex items-center gap-2 text-xs font-normal text-primary-600">
+                            <a href="#" class="flex items-center gap-2 text-xs font-normal text-spartan-primary-600">
                                 <span class="whitespace-nowrap">Ver detalle</span>
                                 <ArrowRightIcon class="h-4 w-4" />
                             </a>

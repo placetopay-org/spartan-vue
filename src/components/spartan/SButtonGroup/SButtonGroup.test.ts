@@ -61,7 +61,7 @@ describe('SButtonGroup', () => {
 
             // Assert
             const button = screen.getByRole('button');
-            expect(button.firstElementChild).toHaveClass('w-5 h-5 text-gray-900 text-primary-600');
+            expect(button.firstElementChild).toHaveClass('w-5 h-5 text-gray-900 text-spartan-primary-600');
         });
 
         test('Can be rendered with icon', () => {

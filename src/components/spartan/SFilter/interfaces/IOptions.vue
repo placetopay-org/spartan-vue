@@ -58,7 +58,7 @@ const clear = () => {
         <div
             v-if="config.multiple"
             :tabindex="-1"
-            class="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:border-primary-300 focus-within:ring focus-within:ring-primary-100"
+            class="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:border-spartan-primary-300 focus-within:ring focus-within:ring-spartan-primary-100"
             @focus="
                 (event: FocusEvent) =>
                     ((event.target as HTMLDivElement).querySelector('input') as HTMLInputElement).focus()

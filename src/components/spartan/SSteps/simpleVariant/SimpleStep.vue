@@ -14,14 +14,14 @@ defineProps<
 >();
 
 const indicatorStyle = {
-    complete: 'group border-primary-600 hover:border-primary-800',
-    current: 'border-primary-600',
+    complete: 'group border-spartan-primary-600 hover:border-spartan-primary-800',
+    current: 'border-spartan-primary-600',
     upcoming: 'group border-gray-200 hover:border-gray-300',
 };
 
 const nameStyle = {
-    complete: 'text-primary-600 group-hover:text-primary-800',
-    current: 'text-primary-600',
+    complete: 'text-spartan-primary-600 group-hover:text-spartan-primary-800',
+    current: 'text-spartan-primary-600',
     upcoming: 'text-gray-500 group-hover:text-gray-700',
 };
 </script>

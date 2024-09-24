@@ -15,8 +15,8 @@ defineProps<
 >();
 
 const indicatorStyle = {
-    complete: 'bg-primary-500 group-hover:bg-primary-700',
-    current: 'border-2 border-primary-500 bg-white',
+    complete: 'bg-spartan-primary-500 group-hover:bg-spartan-primary-700',
+    current: 'border-2 border-spartan-primary-500 bg-white',
     upcoming: 'border-2 border-gray-300 bg-white group-hover:border-gray-400',
 };
 </script>
@@ -31,8 +31,8 @@ const indicatorStyle = {
                 <span
                     v-else
                     :class="[
-                        'h-2.5 w-2.5 rounded-full bg-primary-500',
-                        isCurrent ? 'bg-primary-500' : 'bg-transparent group-hover:bg-gray-300',
+                        'h-2.5 w-2.5 rounded-full bg-spartan-primary-500',
+                        isCurrent ? 'bg-spartan-primary-500' : 'bg-transparent group-hover:bg-gray-300',
                     ]"
                 />
             </span>

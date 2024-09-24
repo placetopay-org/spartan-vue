@@ -21,7 +21,7 @@
                     </div>
                     <img class="h-[280px] w-[320px] rounded-2xl object-cover opacity-80" src="../assets/bento-6.png" />
                     <div
-                        class="box-border flex h-[208px] w-[320px] items-center justify-center rounded-2xl bg-primary-600 px-6 text-sm opacity-90"
+                        class="box-border flex h-[208px] w-[320px] items-center justify-center rounded-2xl bg-spartan-primary-600 px-6 text-sm opacity-90"
                     >
                         <p>
                             Aquí, tendrás el control total sobre tu perfil y acceso a las diversas secciones y

@@ -1,12 +1,12 @@
 :root {
-    --color-primary-50: 255 246 234;  /* #fff6ea */
-    --color-primary-100: 255 227 188; /* #ffe3bc */
-    --color-primary-200: 255 204 141; /* #ffcc8d */
-    --color-primary-300: 255 179 98; /* #ffb362 */
-    --color-primary-400: 255 148 64; /* #ff9440 */
-    --color-primary-500: 255 126 41; /* #ff7e29 */ 
-    --color-primary-600: 255 108 12; /* #ff6c0c */
-    --color-primary-700: 218 90 13; /* #da5a0d */
-    --color-primary-800: 192 61 17; /* #c03d11 */
-    --color-primary-900: 161 56 21; /* #a13815 */
+    --color-spartan-primary-50: 255 246 234;  /* #fff6ea */
+    --color-spartan-primary-100: 255 227 188; /* #ffe3bc */
+    --color-spartan-primary-200: 255 204 141; /* #ffcc8d */
+    --color-spartan-primary-300: 255 179 98; /* #ffb362 */
+    --color-spartan-primary-400: 255 148 64; /* #ff9440 */
+    --color-spartan-primary-500: 255 126 41; /* #ff7e29 */ 
+    --color-spartan-primary-600: 255 108 12; /* #ff6c0c */
+    --color-spartan-primary-700: 218 90 13; /* #da5a0d */
+    --color-spartan-primary-800: 192 61 17; /* #c03d11 */
+    --color-spartan-primary-900: 161 56 21; /* #a13815 */
 }

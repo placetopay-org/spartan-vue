@@ -12,9 +12,9 @@ defineProps<TRadioGroupItemProps>();
         <div
             :class="[
                 checked
-                    ? 'border-primary-600 outline outline-1 -outline-offset-2 outline-primary-600'
+                    ? 'border-spartan-primary-600 outline outline-1 -outline-offset-2 outline-spartan-primary-600'
                     : 'border-gray-300',
-                'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:border-primary-300 focus:s-ring',
+                'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:border-spartan-primary-300 focus:s-ring',
             ]"
         >
             <span class="flex flex-1">
@@ -46,7 +46,7 @@ defineProps<TRadioGroupItemProps>();
                     </RadioGroupDescription>
                 </span>
             </span>
-            <CheckCircleIcon :class="['h-5 w-5 text-primary-600', !checked && 'opacity-0']" :aria-hidden="!checked" />
+            <CheckCircleIcon :class="['h-5 w-5 text-spartan-primary-600', !checked && 'opacity-0']" :aria-hidden="!checked" />
         </div>
     </RadioGroupOption>
 </template>

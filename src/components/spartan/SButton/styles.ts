@@ -22,8 +22,8 @@ export const buttonStyles = cva(
             variant: {
                 primary: [
                     'text-white',
-                    'bg-primary-600 hover:bg-primary-700',
-                    'border-primary-600 shadow-sm',
+                    'bg-spartan-primary-600 hover:bg-spartan-primary-700',
+                    'border-spartan-primary-600 shadow-sm',
                     SCN.focusRingPrimary,
                 ],
                 secondary: [
@@ -39,12 +39,12 @@ export const buttonStyles = cva(
                     SCN.focusRingDanger,
                 ],
                 outline: [
-                    'text-primary-600',
-                    'bg-white hover:bg-primary-50',
-                    'border-primary-600 shadow-sm',
+                    'text-spartan-primary-600',
+                    'bg-white hover:bg-spartan-primary-50',
+                    'border-spartan-primary-600 shadow-sm',
                     SCN.focusRingPrimary,
                 ],
-                link: ['text-primary-600 hover:text-primary-700', 'bg-transparent', 'border-transparent'],
+                link: ['text-spartan-primary-600 hover:text-spartan-primary-700', 'bg-transparent', 'border-transparent'],
             },
             rounded: {
                 left: 'rounded-l-lg',

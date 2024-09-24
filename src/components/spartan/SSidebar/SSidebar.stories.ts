@@ -134,11 +134,11 @@ export const Base = createVariation({
 </SSidebar>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <h1>{{ value }}</h1>
 
-    <button @click="value = 'Security/Logs'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
-    <button @click="value = 'Dashboard'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+    <button @click="value = 'Security/Logs'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });
 
@@ -175,7 +175,7 @@ export const AccordionWrapper = createVariation({
 </SAccordion>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 flex items-start gap-4 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 flex items-start gap-4 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <button @click="open = !open"><Bars4Icon class="h-7 w-7"/></button>
     <h1>{{ value }}</h1>
 </main>`,
@@ -213,7 +213,7 @@ export const ModalLeftWrapper = createVariation({
 </SModalLeft>
 
 <!-- Example of view -->
-<main class="p-4 flex items-start gap-4 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex items-start gap-4 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <button @click="() => state = true"><Bars4Icon class="h-7 w-7"/></button>
     <h1>{{ value }}</h1>
 </main>`,
@@ -249,11 +249,11 @@ export const UsingPaths = createVariation({
 </SSidebar>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <h1>{{ value }}</h1>
 
-    <button @click="value = 'metrics'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
-    <button @click="value = 'home'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+    <button @click="value = 'metrics'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'home'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });
 
@@ -287,10 +287,10 @@ export const IntegratedScroll = createVariation({
 </SSidebar>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <h1>{{ value }}</h1>
 
-    <button @click="value = 'Security/Logs'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
-    <button @click="value = 'Dashboard'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+    <button @click="value = 'Security/Logs'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });

@@ -76,7 +76,7 @@ const classes = computed(() =>
         <span
             v-if="indicator"
             :class="[indicatorClass[size], indicatorPositionClass[indicatorPosition]]"
-            class="absolute block rounded-full bg-primary-500 ring-2 ring-white"
+            class="absolute block rounded-full bg-spartan-primary-500 ring-2 ring-white"
         />
     </div>
 </template>

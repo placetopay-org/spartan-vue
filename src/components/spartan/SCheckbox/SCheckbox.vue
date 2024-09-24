@@ -44,7 +44,7 @@ const updateModelValue = (event: Event) => {
             :id="computedId"
             v-bind="$attrs"
             :checked="isChecked"
-            class="cursor-pointer rounded border border-gray-300 bg-white text-primary-600 accent-primary-600 focus:ring-offset-0 focus:s-ring"
+            class="cursor-pointer rounded border border-gray-300 bg-white text-spartan-primary-600 accent-spartan-primary-600 focus:ring-offset-0 focus:s-ring"
             type="checkbox"
             :disabled="disabled"
             :name="name"
