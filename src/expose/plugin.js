@@ -43,7 +43,7 @@ export default plugin.withOptions(
             theme: {
                 extend: {
                     colors: {
-                        'spartan-spartan-primary': {
+                        'spartan-primary': {
                             50: 'rgb(var(--color-spartan-primary-50) / <alpha-value>)', // 255 246 234
                             100: 'rgb(var(--color-spartan-primary-100) / <alpha-value>)', // 255 227 188
                             200: 'rgb(var(--color-spartan-primary-200) / <alpha-value>)', // 255 204 141
