@@ -12,14 +12,20 @@ const props = withDefaults(defineProps<TSidebarProps>(), {
 });
 
 createContext(props, emit);
+
+const headerCallback = typeof props.placetopayHeader === 'function' && props.placetopayHeader;
 </script>
 
 <template>
     <aside :class="twMerge('flex h-full w-72 flex-col gap-y-6 overflow-y-auto bg-white p-4', props.class)">
-        <header v-if="placetopayHeader || hasSlotContent($slots.header)"  @click="$emit('clickHeader')">
+        <component
+            :is="headerCallback ? 'button' : 'header'"
+            v-if="placetopayHeader || hasSlotContent($slots.header)"
+            @click="headerCallback ? headerCallback() : undefined"
+        >
             <SPlacetopayLogo v-if="placetopayHeader" :height="32" />
             <slot v-else name="header" />
-        </header>
+        </component>
 
         <nav v-if="hasSlotContent($slots.default)">
             <ul class="space-y-1">
@@ -27,7 +33,6 @@ createContext(props, emit);
             </ul>
         </nav>
 
-        <footer class="mt-auto -m-4" v-if="hasSlotContent($slots.footer)"><slot name="footer" /></footer>
+        <footer class="-m-4 mt-auto" v-if="hasSlotContent($slots.footer)"><slot name="footer" /></footer>
     </aside>
 </template>
-
