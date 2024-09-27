@@ -43,6 +43,12 @@ export const createContext = (props: TSidebarProps, emit: TSidebarEmits) => {
             state.path = curr;
             if (old) state.paths[old]?.deactivate();
             if (curr) state.paths[curr]?.activate();
+
+            if (props.startWithPath) {
+                Object.keys(state.paths).forEach((path) => {
+                    if (path.startsWith(curr)) state.paths[path]?.activate();
+                });
+            }
         },
     );
 

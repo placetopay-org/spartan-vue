@@ -8,6 +8,7 @@ export type TSidebarProps = {
     modelValue: string;
     class?: string;
     placetopayHeader?: boolean | (() => void);
+    startWithPath?: boolean;
 };
 
 export type TSidebarItemProps = {

@@ -5,3 +5,4 @@ export * from './styles';
 export * from './sanitizer';
 export * from './blockWrapper';
 export * from './dom';
+export * from './api';

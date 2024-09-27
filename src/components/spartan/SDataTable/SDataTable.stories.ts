@@ -7,7 +7,7 @@ import { computed, ref } from 'vue';
 
 export default {
     component: SDataTable,
-    title: 'tables/DataTable',
+    title: 'tables/[Deprecated] DataTable',
     ...createHistory({
         description: 'The DataTable component is used to display data in a table format.',
         slots: [
@@ -140,7 +140,7 @@ export const Default = createDefault({
     :data="rows"
     numericPaginator="1"
     :pagination="pagination" 
-    @paginationChange="pagination = {...pagination, ...$event}"
+    @paginationChange=""
     :filter="filter"
     @filterChange="filter = $event"
     >  
@@ -203,111 +203,111 @@ export const Sortable = createVariation({
     />`,
 });
 
-export const Pagination = createVariation({
-    components: { SDataTable },
-    containerClass: 'w-fit',
-    setup: () => {
-        const pagination = ref({ page: 1, size: 3, count: -1 });
-
-        const rows = computed(() => {
-            pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
-            const start = (pagination.value.page - 1) * pagination.value.size;
-            const end = start + pagination.value.size;
-            return table.rows.slice(start, end);
-        });
-
-        return { cols: table.colsData.slice(0, 4), rows, pagination };
-    },
-    template: `<!-- pagination = { size: 3, count: 4 } -->
-<SDataTable 
-    :cols="cols" 
-    :data="rows" 
-    :pagination="pagination" 
-    @paginationChange="pagination = {...pagination, ...$event}"
-/>`,
-});
-
-export const NumericPagination = createVariation({
-    components: { SDataTable },
-    containerClass: 'w-[800px] flex flex-col gap-8',
-    setup: () => {
-        const pagination = ref({ page: 1, size: 3, count: -1 });
-
-        const rows = computed(() => {
-            pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
-            const start = (pagination.value.page - 1) * pagination.value.size;
-            const end = start + pagination.value.size;
-            return table.rows.slice(start, end);
-        });
-
-        return { cols: table.colsData.slice(0, 4), rows, pagination };
-    },
-    template: `<!-- pagination = { size: 3, count: 4 } -->
-<SDataTable 
-    :cols="cols" 
-    :data="rows" 
-    :pagination="pagination" 
-    numericPaginator
-    @paginationChange="pagination = {...pagination, ...$event}"
-/>
-
-<SDataTable 
-    :cols="cols" 
-    :data="rows" 
-    :pagination="pagination" 
-    numericPaginator="1"
-    @paginationChange="pagination = {...pagination, ...$event}"
-/>
-
-<SDataTable 
-    :cols="cols" 
-    :data="rows" 
-    :pagination="pagination" 
-    numericPaginator="2"
-    @paginationChange="pagination = {...pagination, ...$event}"
-/>`,
-});
-
-export const PageSizes = createVariation({
-    components: { SDataTable },
-    containerClass: 'w-[800px] flex flex-col gap-8',
-    setup: () => {
-        const pagination = ref({ page: 1, size: 3, sizes: [1, 2, 3, 4], count: -1 });
-
-        const rows = computed(() => {
-            pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
-            const start = (pagination.value.page - 1) * pagination.value.size;
-            const end = start + pagination.value.size;
-            return table.rows.slice(start, end);
-        });
-
-        return { cols: table.colsData.slice(0, 4), rows, pagination };
-    },
-    template: `<!-- pagination = { size: 3, sizes: [1, 2, 3, 4], count: 4 } -->
-<SDataTable 
-    :cols="cols" 
-    :data="rows" 
-    :pagination="pagination" 
-    @paginationChange="pagination = {...pagination, ...$event}"
-/>
-
-<SDataTable 
-    :cols="cols" 
-    :data="rows" 
-    numericPaginator
-    :pagination="pagination" 
-    @paginationChange="pagination = {...pagination, ...$event}"
-/>`,
-});
-
-// export const Filtrable = createVariation({
+// export const Pagination = createVariation({
 //     components: { SDataTable },
 //     containerClass: 'w-fit',
 //     setup: () => {
-//         return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+//         const pagination = ref({ page: 1, size: 3, count: -1 });
+
+//         const rows = computed(() => {
+//             pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
+//             const start = (pagination.value.page - 1) * pagination.value.size;
+//             const end = start + pagination.value.size;
+//             return table.rows.slice(start, end);
+//         });
+
+//         return { cols: table.colsData.slice(0, 4), rows, pagination };
 //     },
-//     template: `<SDataTable filtrable :cols="cols" :data="rows" />`,
+//     template: `<!-- pagination = { size: 3, count: 4 } -->
+// <SDataTable 
+//     :cols="cols" 
+//     :data="rows" 
+//     :pagination="pagination" 
+//     @paginationChange="pagination = {...pagination, ...$event}"
+// />`,
 // });
+
+// export const NumericPagination = createVariation({
+//     components: { SDataTable },
+//     containerClass: 'w-[800px] flex flex-col gap-8',
+//     setup: () => {
+//         const pagination = ref({ page: 1, size: 3, count: -1 });
+
+//         const rows = computed(() => {
+//             pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
+//             const start = (pagination.value.page - 1) * pagination.value.size;
+//             const end = start + pagination.value.size;
+//             return table.rows.slice(start, end);
+//         });
+
+//         return { cols: table.colsData.slice(0, 4), rows, pagination };
+//     },
+//     template: `<!-- pagination = { size: 3, count: 4 } -->
+// <SDataTable 
+//     :cols="cols" 
+//     :data="rows" 
+//     :pagination="pagination" 
+//     numericPaginator
+//     @paginationChange="pagination = {...pagination, ...$event}"
+// />
+
+// <SDataTable 
+//     :cols="cols" 
+//     :data="rows" 
+//     :pagination="pagination" 
+//     numericPaginator="1"
+//     @paginationChange="pagination = {...pagination, ...$event}"
+// />
+
+// <SDataTable 
+//     :cols="cols" 
+//     :data="rows" 
+//     :pagination="pagination" 
+//     numericPaginator="2"
+//     @paginationChange="pagination = {...pagination, ...$event}"
+// />`,
+// });
+
+// export const PageSizes = createVariation({
+//     components: { SDataTable },
+//     containerClass: 'w-[800px] flex flex-col gap-8',
+//     setup: () => {
+//         const pagination = ref({ page: 1, size: 3, sizes: [1, 2, 3, 4], count: -1 });
+
+//         const rows = computed(() => {
+//             pagination.value = { ...pagination.value, count: Math.ceil(table.rows.length / pagination.value.size) };
+//             const start = (pagination.value.page - 1) * pagination.value.size;
+//             const end = start + pagination.value.size;
+//             return table.rows.slice(start, end);
+//         });
+
+//         return { cols: table.colsData.slice(0, 4), rows, pagination };
+//     },
+//     template: `<!-- pagination = { size: 3, sizes: [1, 2, 3, 4], count: 4 } -->
+// <SDataTable 
+//     :cols="cols" 
+//     :data="rows" 
+//     :pagination="pagination" 
+//     @paginationChange="pagination = {...pagination, ...$event}"
+// />
+
+// <SDataTable 
+//     :cols="cols" 
+//     :data="rows" 
+//     numericPaginator
+//     :pagination="pagination" 
+//     @paginationChange="pagination = {...pagination, ...$event}"
+// />`,
+// });
+
+// // export const Filtrable = createVariation({
+// //     components: { SDataTable },
+// //     containerClass: 'w-fit',
+// //     setup: () => {
+// //         return { cols: table.colsData, rows: table.rows.slice(0, 4) };
+// //     },
+// //     template: `<SDataTable filtrable :cols="cols" :data="rows" />`,
+// // });
 
 export const CustomCells = createVariation({
     components: { SDataTable, SBadge },
