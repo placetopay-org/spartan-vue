@@ -2,15 +2,15 @@
 import { twMerge } from 'tailwind-merge';
 import type { TAccordionProps } from './types';
 
-const props = defineProps<TAccordionProps>();
+const { appear = true } = defineProps<TAccordionProps>();
 </script>
 
 <template>
-    <Transition appear :name="`${vertical ? 'vertical' : 'horizontal'}-accordion`">
+    <Transition :appear="appear" :name="`${vertical ? 'vertical' : 'horizontal'}-accordion`">
         <div
             v-show="open"
             :class="
-                twMerge(vertical ? 'max-h-screen overflow-y-hidden' : 'max-w-screen overflow-x-hidden', props.class)
+                twMerge(vertical ? 'max-h-screen overflow-y-hidden' : 'max-w-screen overflow-x-hidden', $props.class)
             "
         >
             <slot />
