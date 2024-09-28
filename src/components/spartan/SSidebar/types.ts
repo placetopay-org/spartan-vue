@@ -8,7 +8,7 @@ export type TSidebarProps = {
     modelValue: string;
     class?: string;
     placetopayHeader?: boolean | (() => void);
-    startWithPath?: boolean;
+    nested?: boolean;
 };
 
 export type TSidebarItemProps = {
