@@ -7,6 +7,7 @@ defineEmits(['close']);
 
 const props = defineProps<{
     show: boolean;
+    class?: string;
     backdropClass?: string;
     breakpoint?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | number;
 }>();
@@ -31,7 +32,7 @@ if (props.breakpoint) {
 
 <template>
     <TransitionRoot v-if="mediaShow" appear :show="show">
-        <Dialog as="div" :class="twMerge('relative z-50')" @close="$emit('close')">
+        <Dialog as="div" :class="twMerge('relative z-50', $props.class)" @close="$emit('close')">
             <!-- Backdrop -->
             <TransitionChild
                 as="template"

@@ -19,6 +19,7 @@ withDefaults(defineProps<Partial<TModalLeftProps>>(), {
     <ModalBackdropWrapper
         :breakpoint="breakpoint"
         :show="open"
+        :class="$props.class"
         :backdrop-class="twMerge('bg-gray-900/80', backdropClass)"
         @close="$emit('backdropClick')"
     >
