@@ -7,7 +7,7 @@ export type TSidebarEmits = {
 export type TSidebarProps = {
     modelValue: string;
     class?: string;
-    placetopayHeader?: boolean | (() => void);
+    placetopayHeader?: boolean | Function;
     nested?: boolean;
 };
 
