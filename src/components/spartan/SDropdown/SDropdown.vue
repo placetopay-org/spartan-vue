@@ -26,7 +26,7 @@ defineOptions({ inheritAttrs: false });
 
         <template #default="handlers">
             <Menu>
-                <MenuItems @click="handlers.close" static class="divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-gray-100 focus:outline-none">
+                <MenuItems @click="handlers.close" static :class="twMerge('divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-gray-100 focus:outline-none', floatingClass)">
                     <slot v-bind="handlers" />
                 </MenuItems>
             </Menu>
