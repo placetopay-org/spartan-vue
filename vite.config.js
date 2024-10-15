@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import { componentsEntryMap } from './scripts/components';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,11 +26,17 @@ export default defineConfig({
     },
     build: {
         outDir: './dist',
-        lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
-            name: 'SpartanVue',
+        lib: { entry: componentsEntryMap },
+        name: 'SpartanVue',
+        rollupOptions: [
+        {
+            input: 'src/expose/plugin.js',
+            output: {
+                file: 'dist/plugin.js',
+                format: 'es',
+            },
         },
-        rollupOptions: {
+        {
             external: [
                 'vue',
                 'vue-i18n',
@@ -56,8 +63,10 @@ export default defineConfig({
                     // 'vue-currency-input': 'VueCurrencyInput',
                     // 'vue-imask': 'VueIMask',
                 },
+                entryFileNames: 'components/[name]/[name].[format].js',
+                chunkFileNames: 'shared/[name].js',
             },
-        },
+        }],
     },
     test: {
         globals: true,

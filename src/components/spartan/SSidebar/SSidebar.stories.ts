@@ -332,3 +332,42 @@ export const IntegratedScroll = createVariation({
     <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });
+
+export const PlacetopayHeaderCallback = createVariation({
+    components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
+    setup: () => {
+        const value = ref('Administration/Merchants');
+        const callback = () => value.value = 'Dashboard';
+        return { value, callback, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
+    },
+    containerClass: 'flex gap-5 h-[550px]',
+    template: `<SSidebar class="w-60 pb-8" :placetopayHeader="callback" v-model="value">
+    <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
+
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
+        <template #title>Administration</template>
+
+        <SSidebarItem>Merchants</SSidebarItem>
+        <SSidebarItem>Sites</SSidebarItem>
+        <SSidebarItem>Users</SSidebarItem>
+    </SSidebarItemGroup>
+
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
+        <template #title>Security</template>
+
+        <SSidebarItem>Roles</SSidebarItem>
+        <SSidebarItem>Permissions</SSidebarItem>
+        <SSidebarItem>Logs</SSidebarItem>
+    </SSidebarItemGroup>
+</SSidebar>
+
+<!-- Example of view -->
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
+    <h1>{{ value }}</h1>
+
+    <button @click="value = 'Security/Logs'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+</main>`,
+});
