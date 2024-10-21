@@ -3,7 +3,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
-import svgLoader from 'vite-svg-loader'
+import svgLoader from 'vite-svg-loader';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import { componentsEntryMap } from './scripts/components';
 
@@ -26,17 +26,9 @@ export default defineConfig({
     },
     build: {
         outDir: './dist',
-        lib: { entry: componentsEntryMap },
+        lib: { entry: componentsEntryMap, formats: ['es'] },
         name: 'SpartanVue',
-        rollupOptions: [
-        {
-            input: 'src/expose/plugin.js',
-            output: {
-                file: 'dist/plugin.js',
-                format: 'es',
-            },
-        },
-        {
+        rollupOptions: {
             external: [
                 'vue',
                 'vue-i18n',
@@ -63,10 +55,10 @@ export default defineConfig({
                     // 'vue-currency-input': 'VueCurrencyInput',
                     // 'vue-imask': 'VueIMask',
                 },
-                entryFileNames: 'components/[name]/[name].[format].js',
-                chunkFileNames: 'shared/[name].js',
+                entryFileNames: 'components/[name]/index.mjs',
+                chunkFileNames: 'shared/[name].mjs',
             },
-        }],
+        },
     },
     test: {
         globals: true,
@@ -79,6 +71,6 @@ export default defineConfig({
             extension: ['.vue'],
             include: ['src/components/spartan/'],
             clean: false,
-        }
-    }
+        },
+    },
 });

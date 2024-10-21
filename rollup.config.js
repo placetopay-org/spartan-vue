@@ -3,16 +3,19 @@ import terser from '@rollup/plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
-export default [
-  {
+export default {
     input: 'src/expose/plugin.js',
     output: {
-      file: 'dist/plugin.js',
-      format: 'es',
+        file: 'dist/plugin.js',
+        format: 'es',
     },
-    plugins: [nodeResolve(), commonjs(), terser(), postcss({
-      minimize: true,
-      inject: true,
-    })]
-  },
-];
+    plugins: [
+        nodeResolve(),
+        commonjs(),
+        terser(),
+        postcss({
+            minimize: true,
+            inject: true,
+        }),
+    ],
+};
