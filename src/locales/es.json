@@ -9,6 +9,12 @@
             "results": "resultados",
             "searchPlaceholder": "Buscar en todas las columnas"
         },
+        "inputDate": {
+            "select": "Seleccionar",
+            "cancel": "Cancelar",
+            "now": "Ahora",
+            "week": "W"
+        },
         "filter": {
             "addBtn": "Agregar",
             "addFilterBtn": "Agregar filtro",

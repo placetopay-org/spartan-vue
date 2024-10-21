@@ -27,7 +27,7 @@ describe('SInputDateBlock', () => {
 
         await user.click(screen.getByText('8'));
 
-        await user.click(screen.getByText('Select'));
+        await user.click(screen.getByText('$spartan.inputDate.select'));
         
         // Assert
         expect(datePicker).toBeInTheDocument();
