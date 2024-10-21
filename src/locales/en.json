@@ -9,6 +9,12 @@
             "results": "results",
             "searchPlaceholder": "Search all columns"
         },
+        "inputDate": {
+            "select": "Select",
+            "cancel": "Cancel",
+            "now": "Now",
+            "week": "W"
+        },
         "filter": {
             "addBtn": "Add",
             "addFilterBtn": "Add filter",

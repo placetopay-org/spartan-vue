@@ -9,6 +9,12 @@
             "results": "resultados",
             "searchPlaceholder": "Pesquisar todas as colunas"
         },
+        "inputDate": {
+            "select": "Selecionar",
+            "cancel": "Cancelar",
+            "now": "Agora",
+            "week": "W"
+        },
         "filter": {
             "yes": "Sim",
             "no": "Não",

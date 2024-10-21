@@ -5,6 +5,11 @@ import type { TInputDateProps, TInputDateEmits } from './types';
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
+import { useI18n } from 'vue-i18n';
+import { translator } from '@/helpers';
+
+const { locale } = useI18n();
+const { t } = translator('inputDate');
 
 const props = defineProps<TInputDateProps & VueDatePickerProps>();
 const emit = defineEmits<TInputDateEmits>();
@@ -18,6 +23,11 @@ const value = computed({
 <template>
     <VueDatePicker
         v-bind="{ ...$props, modelValue: undefined }"
+        :locale="locale"
+        :select-text="t('select')"
+        :cancel-text="t('cancel')"
+        :now-button-label="t('now')"
+        :week-num-name="t('week')"
         :uid="id"
         v-model="value"
         :class="
