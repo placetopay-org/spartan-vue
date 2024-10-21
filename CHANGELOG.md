@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.2.0 - 2024-10-21
+
 ## 1.1.5-beta.0 - 2023-09-18
 ### Added
 - Slot for button content in SCombobox component.
