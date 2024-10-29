@@ -4,7 +4,7 @@ import type { TBadgeProps, TBadgeEmits } from './types';
 
 defineEmits<TBadgeEmits>();
 
-const props = withDefaults(defineProps<Partial<TBadgeProps>>(), {
+const props = withDefaults(defineProps<TBadgeProps>(), {
     color: 'gray',
     dot: false,
     outline: false,
