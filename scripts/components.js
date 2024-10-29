@@ -1,0 +1,66 @@
+export const components = [
+    'SAccordion',
+    'SAvatar',
+    'SBadge',
+    'SBreadcrumbs',
+    'SButton',
+    'SButtonGroup',
+    'SCaption',
+    'SCard',
+    'SCardBrand',
+    'SCheckbox',
+    'SCombobox',
+    'SComboboxBlock',
+    'SDataTable',
+    'SDefinitionTerm',
+    'SDropdown',
+    'SDTable',
+    'SFilter',
+    'SInput',
+    'SInputAmount',
+    'SInputAmountBlock',
+    'SInputBlock',
+    'SInputDate',
+    'SInputDateBlock',
+    'SInputIncrement',
+    'SInputIncrementBlock',
+    'SInputMask',
+    'SInputMaskBlock',
+    'SInputOTP',
+    'SLabel',
+    'SLink',
+    'SModal',
+    'SModalCard',
+    'SModalLeft',
+    'SPageTitle',
+    'SPaginator',
+    'SPlacetopayLogo',
+    'SPopover',
+    'SRadio',
+    'SRadioGroup',
+    'SSectionDescription',
+    'SSectionTitle',
+    'SSelect',
+    'SSelectBlock',
+    'SSidebar',
+    'SSkeleton',
+    'SStackedList',
+    'SSteps',
+    'SSwitch',
+    'STab',
+    'STable',
+    'STextArea',
+    'STextAreaBlock',
+    'SToast',
+    'STooltip',
+];
+
+export const componentsEntryMap = components.reduce((acc, component) => {
+    acc[component] = `./src/components/spartan/${component}/index.ts`;
+    return acc;
+}, {});
+
+export const componentsTypesMap = components.reduce((acc, component) => {
+    acc[component] = `./dist/types/components/spartan/${component}/index.d.ts`;
+    return acc;
+}, {});

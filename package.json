@@ -1,21 +1,28 @@
 {
   "name": "@placetopay/spartan-vue",
-  "version": "2.0.0-beta.115",
+  "version": "2.0.0-beta.116",
   "type": "module",
   "description": "spartan vue lib",
   "main": "./dist/spartan-vue.umd.cjs",
   "module": "./dist/spartan-vue.js",
   "types": "./dist/types/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist/*"
   ],
   "exports": {
     ".": {
-      "import": "./dist/spartan-vue.js",
-      "require": "./dist/spartan-vue.umd.cjs",
-      "types": "./dist/types/index.d.ts"
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
     },
-    "./locales": "./dist/locales/index.ts",
+    "./locales": {
+      "import": "./dist/locales/index.js",
+      "types": "./dist/locales/index.d.ts"
+    },
+    "./i18n": {
+      "import": "./dist/expose/i18n.js",
+      "types": "./dist/expose/i18n.d.ts"
+    },
     "./plugin": "./dist/plugin.js",
     "./style.css": "./dist/style.css"
   },
@@ -24,7 +31,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "vite build && rollup -c && npm run build:types && cp -r src/locales dist/locales",
+    "build": "vite build && npm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/sanitizeBuild.js",
     "build:storybook": "storybook build",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
@@ -56,6 +63,7 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.1",
     "@storybook/addon-a11y": "^8.3.0",
     "@storybook/addon-designs": "^8.0.3",
     "@storybook/addon-essentials": "^8.3.0",
@@ -102,12 +110,15 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "rimraf": "^6.0.1",
     "rollup": "^4.12.1",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0",
     "storybook": "^8.2.9",
     "storybook-addon-pseudo-states": "^3.1.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss": "3.4.3",
+    "tslib": "^2.8.0",
     "typescript": "5.3.3",
     "uuid": "^9.0.1",
     "vite": "^4.5.3",
