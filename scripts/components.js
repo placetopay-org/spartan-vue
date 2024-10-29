@@ -58,4 +58,9 @@ export const components = [
 export const componentsEntryMap = components.reduce((acc, component) => {
     acc[component] = `./src/components/spartan/${component}/index.ts`;
     return acc;
-}, {} as Record<string, string>);
+}, {});
+
+export const componentsTypesMap = components.reduce((acc, component) => {
+    acc[component] = `./dist/types/components/spartan/${component}/index.d.ts`;
+    return acc;
+}, {});

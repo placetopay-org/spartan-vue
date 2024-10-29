@@ -12,11 +12,17 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/spartan-vue.js",
-      "require": "./dist/spartan-vue.umd.cjs",
-      "types": "./dist/types/index.d.ts"
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
     },
-    "./locales": "./dist/locales/index.js",
+    "./locales": {
+      "import": "./dist/locales/index.js",
+      "types": "./dist/locales/index.d.ts"
+    },
+    "./i18n": {
+      "import": "./dist/expose/i18n.js",
+      "types": "./dist/expose/i18n.d.ts"
+    },
     "./plugin": "./dist/plugin.js",
     "./style.css": "./dist/style.css"
   },
@@ -25,7 +31,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "vite build && rollup -c && npm run build:types && cp -r src/locales dist/locales && node scripts/sanitizeBuild.js",
+    "build": "vite build && npm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/sanitizeBuild.js",
     "build:storybook": "storybook build",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
