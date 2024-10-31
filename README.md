@@ -25,7 +25,7 @@ You can find the documentation and components of this design system by clicking 
    ```javascript
       content: [
          //...
-         "node_modules/@placetopay/spartan-vue/dist/*.js",
+         "node_modules/@placetopay/spartan-vue/dist/**/*.js",
       ],
       plugins: [
          //...

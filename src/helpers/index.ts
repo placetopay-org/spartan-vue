@@ -6,3 +6,4 @@ export * from './sanitizer';
 export * from './blockWrapper';
 export * from './dom';
 export * from './api';
+export * from './passThrough';
