@@ -89,7 +89,6 @@ export const Default = createDefault({
     design: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=220-2083',
     components: { SBadge },
     args: {
-        'pt:root:variant': 'black-freezer',
         default: 'Badge',
         color: 'gray',
         dot: false,
