@@ -101,7 +101,7 @@ export const dotStyles = cva('h-1.5 w-1.5', {
 });
 
 export type TTagStyles = VariantProps<typeof tagStyles>;
-export const tagStyles = cva('px-2 font-medium', {
+export const tagStyles = cva('px-2 font-medium rounded-sm', {
     variants: {
         color: {
             primary: 'bg-spartan-primary-50',
