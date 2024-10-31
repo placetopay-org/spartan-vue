@@ -1,128 +1,44 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import type { TBadgeProps, TBadgeEmits } from './types';
+import { badgeStyles, dotStyles, tagStyles, bodyStyles } from './styles';
+import { usePassthrough, hasSlotContent } from '@/helpers';
+import { useSlots } from 'vue';
+import { twMerge } from 'tailwind-merge';
 
 defineEmits<TBadgeEmits>();
+const slots = useSlots();
+const tagSlot = hasSlotContent(slots.tag);
 
-const props = withDefaults(defineProps<Partial<TBadgeProps>>(), {
-    color: 'gray',
-    dot: false,
-    outline: false,
-    pill: false,
-    removable: false,
-    size: 'md',
-    border: false,
-});
+const { color = 'gray', size = 'md', dot, outline, removable, pill, reverse } = defineProps<TBadgeProps>();
 
-const colorOption = {
-    white: {
-        textClass: 'text-gray-800',
-        dotClass: 'fill-gray-400',
-        styleClass: {
-            solid: 'bg-white',
-            outline: 'outline-black',
-            border: 'border-gray-300',
-        },
-    },
-    primary: {
-        textClass: 'text-spartan-primary-800',
-        dotClass: 'fill-spartan-primary-400',
-        styleClass: {
-            solid: 'bg-spartan-primary-100',
-            outline: 'outline-spartan-primary-800',
-            border: 'border-spartan-primary-300',
-        },
-    },
-    gray: {
-        textClass: 'text-gray-800',
-        dotClass: 'fill-gray-400',
-        styleClass: {
-            solid: 'bg-gray-100',
-            outline: 'outline-gray-800',
-            border: 'border-gray-300',
-        },
-    },
-    red: {
-        textClass: 'text-red-800',
-        dotClass: 'fill-red-400',
-        styleClass: {
-            solid: 'bg-red-100',
-            outline: 'outline-red-800',
-            border: 'border-red-300',
-        },
-    },
-    blue: {
-        textClass: 'text-blue-800',
-        dotClass: 'fill-blue-400',
-        styleClass: {
-            solid: 'bg-blue-100',
-            outline: 'outline-blue-800',
-            border: 'border-blue-300',
-        },
-    },
-    green: {
-        textClass: 'text-green-800',
-        dotClass: 'fill-green-400',
-        styleClass: {
-            solid: 'bg-green-100',
-            outline: 'outline-green-800',
-            border: 'border-green-300',
-        },
-    },
-    yellow: {
-        textClass: 'text-yellow-800',
-        dotClass: 'fill-yellow-400',
-        styleClass: {
-            solid: 'bg-yellow-100',
-            outline: 'outline-yellow-800',
-            border: 'border-yellow-300',
-        },
-    },
-    indigo: {
-        textClass: 'text-indigo-800',
-        dotClass: 'fill-indigo-400',
-        styleClass: {
-            solid: 'bg-indigo-100',
-            outline: 'outline-indigo-800',
-            border: 'border-indigo-300',
-        },
-    },
-};
+const { pt, extractor } = usePassthrough();
 
-const sizeOptions = {
-    sm: 'px-2.5 py-0.5 text-xs',
-    md: 'px-3 py-0.5 text-sm',
-    lg: 'px-3 py-1.5 text-sm',
-};
-
-const classes = computed(() => [
-    'inline-flex items-center font-medium',
-    props.pill ? 'rounded-xl' : 'rounded',
-    props.border && `border ${colorOption[props.color].styleClass.border}`,
-    props.outline
-        ? 'outline outline-1 -outline-offset-1 ' + colorOption[props.color].styleClass.outline
-        : colorOption[props.color].styleClass.solid,
-    sizeOptions[props.size],
-    colorOption[props.color].textClass,
-]);
+const [bodyClass, bodyProps] = extractor(pt.value.body);
+const [dotClass, dotProps] = extractor(pt.value.dot);
+const [tagClass, tagProps] = extractor(pt.value.tag);
+const [crossClass, crossProps] = extractor(pt.value.cross);
 </script>
 
 <template>
-    <span :class="classes">
-        <svg
-            v-if="dot"
-            class="mr-1.5 h-2 w-2"
-            :class="colorOption[props.color].dotClass"
-            viewBox="0 0 8 8"
-            aria-hidden="true"
-        >
-            <circle cx="4" cy="4" r="4" />
+    <span :class="twMerge(badgeStyles({ color, size, outline, pill, dot, removable, reverse, tag: tagSlot }), $props.class)">
+        <svg v-if="dot" v-bind="dotProps" data-s-dot :class="twMerge(dotStyles({ color }), dotClass)" viewBox="0 0 6 6" aria-hidden="true">
+            <circle cx="3" cy="3" r="3" />
         </svg>
-        <slot />
+
+        <div data-s-body v-bind="bodyProps" :class="twMerge(bodyStyles({ reverse }), bodyClass)">
+            <div v-if="tagSlot" v-bind="tagProps" data-s-tag :class="twMerge(tagStyles({ color, pill, outline }), tagClass)">
+                <slot name="tag" />
+            </div>
+    
+            <slot />
+        </div>
+
         <button
             v-if="removable"
+            v-bind="crossProps"
+            data-s-cross
             type="button"
-            class="group relative -mr-1 ml-0.5 h-4 w-4 rounded-sm hover:bg-gray-500/20"
+            :class="twMerge('-mx-1 rounded-sm active:scale-90', crossClass)"
             @click="$emit('removed')"
         >
             <span class="sr-only">Remove</span>

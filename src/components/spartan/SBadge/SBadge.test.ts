@@ -36,20 +36,7 @@ describe('SBadge', () => {
         });
 
         // Assert
-        expect(wrapper.html()).toContain('rounded-xl');
-    });
-
-    test('Can be rendered with border', () => {
-        // Act
-        const wrapper = mount(SBadge, {
-            props: { border: true },
-            slots: {
-                default: 'Test Content',
-            },
-        });
-
-        // Assert
-        expect(wrapper.html()).toContain('border border-gray-300');
+        expect(wrapper.html()).toContain('rounded-full');
     });
 
     test('Can be rendered in outline mode', () => {
@@ -62,7 +49,7 @@ describe('SBadge', () => {
         });
 
         // Assert
-        expect(wrapper.html()).toContain('outline outline-1 -outline-offset-1 outline-gray-800');
+        expect(wrapper.html()).toContain('outline outline-1 -outline-offset-1 bg-gray-50 outline-gray-300');
     });
 
     test('Can be rendered in removable mode', async () => {
