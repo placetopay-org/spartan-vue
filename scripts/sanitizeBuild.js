@@ -1,4 +1,4 @@
-import { rimraf } from 'rimraf';
+import { rimrafSync } from 'rimraf'
 import fs from 'fs';
 
 (async () => {
@@ -18,7 +18,7 @@ import fs from 'fs';
     fs.renameSync('./dist/types/components/spartan/index.d.ts', './dist/components/index.js');
     fs.cpSync('./dist/components/index.js', './dist/components/index.d.ts');
 
-    rimraf('./dist/types');
+    rimrafSync('./dist/types');
 
     console.log('types folder cleaned');
 })();
