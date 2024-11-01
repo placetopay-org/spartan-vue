@@ -27,16 +27,16 @@ export type TBadgeStyles = VariantProps<typeof badgeStyles>;
 export const badgeStyles = cva('inline-flex items-center font-medium h-fit w-fit rounded gap-2', {
     variants: {
         color: {
-            primary: 'bg-spartan-primary-100 text-spartan-primary-600 border-spartan-primary-200',
-            gray: 'bg-gray-100 text-gray-700 border-gray-200',
-            red: 'bg-red-100 text-red-700 border-red-200',
-            blue: 'bg-blue-100 text-blue-700 border-blue-200',
-            green: 'bg-green-100 text-green-700 border-green-200',
-            yellow: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-            indigo: 'bg-indigo-100 text-indigo-700 border-indigo-200',
-            white: 'bg-white text-gray-700 border-gray-200',
-            purlpe: 'bg-purple-100 text-purple-700 border-purple-200',
-            neutral: 'bg-neutral-950 text-white border-neutral-200',
+            primary: 'bg-spartan-primary-100 text-spartan-primary-600',
+            gray: 'bg-gray-100 text-gray-700',
+            red: 'bg-red-100 text-red-700',
+            blue: 'bg-blue-100 text-blue-700',
+            green: 'bg-green-100 text-green-700',
+            yellow: 'bg-yellow-100 text-yellow-700',
+            indigo: 'bg-indigo-100 text-indigo-700',
+            white: 'bg-white text-gray-700',
+            purlpe: 'bg-purple-100 text-purple-700',
+            neutral: 'bg-neutral-950 text-white',
         },
         size: {
             sm: 'px-2.5 py-0.5 text-xs',

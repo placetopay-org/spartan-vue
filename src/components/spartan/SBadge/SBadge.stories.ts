@@ -132,21 +132,6 @@ export const Color = buildVariation(
 `,
 );
 
-export const Border = buildVariation(
-    `
-<SBadge class="border" color="primary"> Primary </SBadge>
-<SBadge class="border" color="gray"> Gray </SBadge>
-<SBadge class="border" color="red"> Red </SBadge>
-<SBadge class="border" color="blue"> Blue </SBadge>
-<SBadge class="border" color="green"> Green </SBadge>
-<SBadge class="border" color="yellow"> Yellow </SBadge>
-<SBadge class="border" color="indigo"> Indigo </SBadge>
-<SBadge class="border" color="white"> White </SBadge>
-<SBadge class="border" color="purlpe"> Purple </SBadge>
-<SBadge class="border" color="neutral"> Neutral </SBadge>
-`,
-);
-
 export const Outline = buildVariation(
     `
 <SBadge outline color="primary"> Primary </SBadge>
