@@ -1,8 +1,8 @@
 import SCopy from './SCopy.vue';
+import { SDefinitionTerm } from '../SDefinitionTerm';
 import {
     createDefault,
     createVariation,
-    buildDesign,
     buildSourceBinding,
     createHistory,
 } from '@/helpers';
@@ -72,5 +72,19 @@ export const CopyFromSlotScrapping = createVariation({
     containerClass: 'h-[50px] flex items-end',
     template: `
 <SCopy> <div> <main> <span> Slot Scrapping </span> </main> </div> </SCopy>
+    `,
+})
+
+export const UseWithDefinitionTerm = createVariation({
+    components: { SCopy, SDefinitionTerm },
+    containerClass: 'h-[50px] flex items-end',
+    template: `
+<SDefinitionTerm labels="Label">
+    <template #description>
+        <SCopy>
+            <span class="bg-white border border-gray-300 rounded px-1 font-mono"> Lorem ipsum </span>
+        </SCopy>
+    </template>
+</SDefinitionTerm>
     `,
 })
