@@ -1,5 +1,8 @@
 {
     "$spartan": {
+        "copy": {
+            "copied": "Copied!"
+        },
         "dataTable": {
             "of": "of",
             "page": "Page",

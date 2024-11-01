@@ -7,4 +7,5 @@ export type TTooltipProps = {
     arrow?: boolean;
     offset?: TPopoverProps['offset'];
     static?: TPopoverProps['static'];
+    manual?: boolean;
 };
