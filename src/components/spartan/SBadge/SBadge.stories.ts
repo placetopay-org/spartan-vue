@@ -19,6 +19,11 @@ export default {
                 description: 'Default slot for badge content.',
                 control: true,
             },
+            {
+                name: 'tag',
+                description: 'Slot for badge tag.',
+                control: undefined,
+            },
         ],
         events: [
             {
@@ -33,7 +38,7 @@ export default {
                 type: 'string',
                 default: 'gray',
                 description: "Determines the badge's color theme.",
-                options: ['blue', 'gray', 'green', 'indigo', 'primary', 'red', 'yellow', 'white'],
+                options: ['primary', 'gray', 'red', 'blue', 'green', 'yellow', 'indigo', 'white', 'purlpe', 'neutral'],
             },
             {
                 name: 'dot',
@@ -69,12 +74,6 @@ export default {
                 description: 'Dictates the size of the badge.',
                 options: ['sm', 'md', 'lg'],
             },
-            {
-                name: 'border',
-                type: 'boolean',
-                default: 'false',
-                description: 'If `true`, the badge will have a border.',
-            },
         ],
     }),
 };
@@ -90,6 +89,7 @@ export const Default = createDefault({
     components: { SBadge },
     args: {
         default: 'Badge',
+        tag: null,
         color: 'gray',
         dot: false,
         outline: false,
