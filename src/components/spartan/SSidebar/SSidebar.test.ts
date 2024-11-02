@@ -74,7 +74,7 @@ describe('SSidebar', () => {
         screen.getByRole('complementary');
         screen.getByRole('navigation');
         screen.getByRole('list');
-        expect(screen.getAllByRole('listitem').length).toBe(2);
+        expect(screen.getAllByRole('listitem').length).toBe(4);
         screen.getByRole('button', { name: 'ThirdLink' });
     });
 

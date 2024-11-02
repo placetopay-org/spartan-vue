@@ -67,7 +67,7 @@ store.registerGroup(updatedPath.value, setActive);
             <ChevronDownIcon :class="twMerge(sidebarItemGroupChevronStyles({ open, active: isActive }))" />
         </button>
 
-        <component :is="accordion ? SAccordion : 'ul'" v-show="open || accordion" v-bind="accordionProps">
+        <component :is="accordion ? SAccordion : 'ul'" v-bind="accordionProps">
             <slot />
         </component>
     </li>

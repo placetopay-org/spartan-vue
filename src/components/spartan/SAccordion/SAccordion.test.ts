@@ -1,5 +1,5 @@
 import { expect, test, describe, vi } from 'vitest';
-import { mount } from '@vue/test-utils';
+import { render, screen } from '@testing-library/vue';
 import SAccordion from './SAccordion.vue';
 
 describe('SAccordion', () => {
@@ -8,7 +8,7 @@ describe('SAccordion', () => {
         const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
 
         // Act
-        mount(SAccordion);
+        render(SAccordion);
 
         // Assert
         expect(warn).toHaveBeenCalledOnce();
@@ -16,36 +16,37 @@ describe('SAccordion', () => {
 
     test('Can be rendered', () => {
         // Act
-        const wrapper = mount(SAccordion, { props: { open: true } });
+        render(SAccordion, { props: { open: true }, slots: { default: 'Test Content' } });
 
         // Assert
-        expect(wrapper.html()).toContain('appear="true"');
-        expect(wrapper.html()).toContain('name="horizontal-accordion"');
-        expect(wrapper.html()).toContain('class="max-w-screen overflow-x-hidden"');
+        expect(screen.queryByText('Test Content')?.parentElement).toHaveClass('[grid-template-columns:1fr]');
     });
 
     test('It is hidden with open=false', () => {
         // Act
-        const wrapper = mount(SAccordion, { props: { open: false } });
+        render(SAccordion, { props: { open: false }, slots: { default: 'Test Content' }  });
 
         // Assert
-        expect(wrapper.html()).toContain('style="display: none;"');
+        expect(screen.queryByText('Test Content')?.parentElement).toHaveClass('[grid-template-columns:0fr]');
     });
 
     test('Can be rendered in vertical mode', () => {
         // Act
-        const wrapper = mount(SAccordion, { props: { open: true, vertical: true } });
+        render(SAccordion, { props: { open: true, vertical: true }, slots: { default: 'Test Content' } });
 
         // Assert
-        expect(wrapper.html()).toContain('name="vertical-accordion"');
+        expect(screen.queryByText('Test Content')?.parentElement).toHaveClass('[grid-template-rows:1fr]');
     });
 
     test('Can be change his visibility', async () => {
         // Act
-        const wrapper = mount(SAccordion, { props: { open: true } });
-        await wrapper.setProps({ open: false })
+        const { rerender } = render(SAccordion, { props: { open: true }, slots: { default: 'Test Content' } });
+        
+        expect(screen.queryByText('Test Content')?.parentElement).toHaveClass('[grid-template-columns:1fr]');
+
+        await rerender({ open: false });
 
         // Assert
-        expect(wrapper.html()).toContain('style="display: none;"');
+        expect(screen.queryByText('Test Content')?.parentElement).toHaveClass('[grid-template-columns:0fr]');
     });
 });
