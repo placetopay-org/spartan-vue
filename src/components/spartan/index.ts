@@ -52,3 +52,4 @@ export * from './SStackedList';
 export * from './SPaginator';
 export * from './STooltip';
 export * from './SDTable';
+export * from './SCopy';
