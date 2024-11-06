@@ -4,6 +4,7 @@ import { ref, useSlots } from 'vue';
 import { STooltip } from '../STooltip';
 import { CopyIcon, CopySuccessIcon } from '@placetopay/iconsax-vue/bulk';
 import { translator } from '@/helpers';
+import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TCopyEmits>();
 const slots = useSlots();
