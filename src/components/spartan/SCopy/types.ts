@@ -4,4 +4,5 @@ export type TCopyEmits = {
 
 export type TCopyProps = {
     value?: string;
+    class?: string;
 };
