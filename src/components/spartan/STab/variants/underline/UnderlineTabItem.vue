@@ -62,7 +62,7 @@ const updatePath = () => {
         />
 
         <div ref="dropdownContainerRef" class="flex items-center gap-1" v-if="dropdown">
-            <SDropdown ref="dropdownRef" :offset="9" manual>
+            <SDropdown ref="dropdownRef" :offset="9" manual useShow>
                 <template #reference>
                     <slot />
                 </template>

@@ -12,4 +12,5 @@ export type TPopoverProps = {
     preventClose?: boolean;
     responsive?: boolean;
     class?: string;
+    useShow?: boolean;
 };
