@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { SDropdownItem } from '../SDropdown';
 import { useContext } from './api';
+import type { TTabDropdownItemProps } from './types';
 
-const { path } = defineProps<{ path: string }>();
+const { path } = defineProps<TTabDropdownItemProps>();
 const context = useContext('STabDropdownItem');
 </script>
 

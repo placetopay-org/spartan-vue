@@ -23,3 +23,7 @@ export type TTabItemProps = {
     icon?: FunctionalComponent;
     dropdown?: boolean;
 };
+
+export type TTabDropdownItemProps = {
+    path: string;
+}
