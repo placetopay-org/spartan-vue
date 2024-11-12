@@ -18,7 +18,8 @@ export type TTabEmits = {
 };
 
 export type TTabItemProps = {
-    path: string;
-    as: string | Component;
-    icon: FunctionalComponent;
+    path?: string;
+    as?: string | Component;
+    icon?: FunctionalComponent;
+    dropdown?: boolean;
 };

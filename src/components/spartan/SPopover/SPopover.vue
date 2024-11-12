@@ -141,7 +141,7 @@ const arrowPosition = computed(() => {
     <div :class="popoverContainerStyles({ responsive })">
         <Transition v-bind="TranStyle.vertical">
             <div
-                v-if="isOpen"
+                v-show="isOpen"
                 :class="popoverFloatingStyles({ responsive })"
                 ref="floating"
                 class="focus-visible:outline-none"

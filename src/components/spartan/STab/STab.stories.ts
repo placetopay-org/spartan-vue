@@ -1,8 +1,10 @@
 import STab from './STab.vue';
 import STabItem from './STabItem.vue';
+import { SDropdown, SDropdownItem } from '../SDropdown';
 import { buildSourceBinding, createDefault, createVariation, createHistory } from '@/helpers';
 import { BuildingOfficeIcon, CreditCardIcon, UserIcon, UsersIcon } from '@heroicons/vue/20/solid';
 import { ref } from 'vue';
+import STabDropdownItem from './STabDropdownItem.vue';
 
 export default {
     component: STab,
@@ -196,5 +198,28 @@ export const VetchesVariant = createVariation({
     <STabItem :icon="BuildingOfficeIcon">Company</STabItem>
     <STabItem :icon="UsersIcon">Team Members</STabItem>
     <STabItem :icon="CreditCardIcon">Billing</STabItem>
+</STab>`,
+});
+
+export const WithDropdown = createVariation({
+    components: { STab, STabItem, SDropdown, STabDropdownItem },
+    containerClass: 'bg-white -m-4 p-8 h-[300px]',
+    setup: () => {
+        const value = ref('tab3/item1');
+
+        return { value };
+    },
+    template: `<STab v-model="value">
+    <STabItem>Tab 1</STabItem>
+    <STabItem>Tab 2</STabItem>
+    <STabItem dropdown>
+        Tab 3
+        
+        <template #items>
+            <STabDropdownItem path="tab3/item1">Item 1</STabDropdownItem>
+            <STabDropdownItem path="tab3/item2">Item 2</STabDropdownItem>
+            <STabDropdownItem path="tab3/item3">Item 3</STabDropdownItem>
+        </template>
+    </STabItem>  
 </STab>`,
 });

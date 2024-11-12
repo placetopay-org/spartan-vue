@@ -5,7 +5,7 @@ import type { TTabItemProps } from './types';
 
 defineOptions({ inheritAttrs: false });
 const props = defineProps<Partial<TTabItemProps>>();
-const store = useContext('STabItem');
+const context = useContext('STabItem');
 
 const variants = {
     underline: UnderlineTabItem,
@@ -15,9 +15,13 @@ const variants = {
 </script>
 
 <template>
-    <li :class="store.full ? 'w-full' : ''">
-        <component class="w-full inline-flex justify-center" :is="variants[store.variant]" v-bind="{ ...props, ...$attrs }">
+    <li :class="context.full ? 'w-full' : ''">
+        <component class="w-full inline-flex justify-center" :is="variants[context.variant]" v-bind="{ ...props, ...$attrs }">
             <slot />
+
+            <template #items>
+                <slot name="items" />
+            </template>
         </component>
     </li>
 </template>
