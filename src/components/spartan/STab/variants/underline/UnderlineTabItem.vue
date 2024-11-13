@@ -29,9 +29,16 @@ onMounted(() => {
     }
 });
 
+const open = ref(false);
 const updatePath = () => {
     if (!dropdown) context.updateTab(updatedPath.value);
-    else dropdownRef.value?.toggle();
+    else if(open.value) {
+        if (dropdownRef.value?.isOpen) dropdownRef.value?.close();
+        open.value = false;
+    } else {
+        dropdownRef.value?.open();
+        open.value = true;
+    }
 };
 </script>
 

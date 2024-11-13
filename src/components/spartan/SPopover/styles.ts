@@ -3,7 +3,7 @@ import { createBooleanVariation as cbv } from '@/helpers';
 
 export const popoverContainerStyles = cva('z-40', {
     variants: {
-        responsive: cbv('absolute bottom-0 left-0 w-full md:bottom-auto md:left-auto md:w-auto'),
+        responsive: cbv('absolute md:block bottom-0 left-0 w-full md:bottom-auto md:left-auto md:w-auto'),
     },
 });
 
