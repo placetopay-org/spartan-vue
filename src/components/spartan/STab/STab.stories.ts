@@ -221,5 +221,7 @@ export const WithDropdown = createVariation({
             <STabDropdownItem path="tab3/item3">Item 3</STabDropdownItem>
         </template>
     </STabItem>  
-</STab>`,
+</STab>
+
+<pre>{{value}}</pre>`,
 });
