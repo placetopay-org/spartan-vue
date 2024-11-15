@@ -145,7 +145,7 @@ const arrowPosition = computed(() => {
                 v-show="isOpen"
                 :class="popoverFloatingStyles({ responsive })"
                 ref="floating"
-                class="focus-visible:outline-none"
+                class="focus-visible:outline-none z-40"
                 :style="styles"
                 tabindex="-1"
                 @focus="focusFirstChild"
