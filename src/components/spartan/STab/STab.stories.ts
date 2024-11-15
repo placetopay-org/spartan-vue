@@ -225,3 +225,22 @@ export const WithDropdown = createVariation({
 
 <pre>{{value}}</pre>`,
 });
+
+export const Nested = createVariation({
+    components: { STab, STabItem, SDropdown, STabDropdownItem },
+    containerClass: 'bg-white -m-4 p-8 h-[300px]',
+    setup: () => {
+        const value = ref('Tab 1/nested');
+
+        return { value };
+    },
+    template: `<STab v-model="value" nested>
+    <STabItem>Tab 1</STabItem>
+    <STabItem>Tab 2</STabItem>
+    <STabItem>Tab 3</STabItem>
+    </STabItem>  
+</STab>
+
+<button @click="value = 'Tab 1/nested'">Set Tab 1/nested</button>
+<pre>{{value}}</pre>`,
+});

@@ -20,6 +20,7 @@ export const { createContext, useContext } = buildContext<TState, TTabProps, TTa
             registerTab: (tab: TTab) => {
                 state.tabs[tab.path] = tab.setActive;
                 if (props.modelValue === tab.path) tab.setActive(true);
+                if (props.nested && props.modelValue.startsWith(tab.path)) tab.setActive(true);
             },
             updateTab: (path?: string) => emit('update:modelValue', path),
         });
@@ -27,8 +28,15 @@ export const { createContext, useContext } = buildContext<TState, TTabProps, TTa
         watch(
             () => props.modelValue,
             (curr, old) => {
-                if (old) state.tabs[old]?.(false);
-                if (curr) state.tabs[curr]?.(true);
+                if (props.nested) {
+                    Object.keys(state.tabs).forEach((tab) => {
+                        if (old.startsWith(tab)) state.tabs[tab]?.(false);
+                        if (curr.startsWith(tab)) state.tabs[tab]?.(true);
+                    });
+                } else {
+                    if (old) state.tabs[old]?.(false);
+                    if (curr) state.tabs[curr]?.(true);
+                }
             },
         );
 

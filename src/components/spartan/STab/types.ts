@@ -11,6 +11,7 @@ export type TTabProps = {
     variant?: Variants;
     modelValue: string;
     full?: boolean;
+    nested?: boolean;
 };
 
 export type TTabEmits = {
