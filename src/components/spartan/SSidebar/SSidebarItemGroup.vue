@@ -41,12 +41,13 @@ const setActive = (value: boolean) => {
 const accordionProps = computed(() => {
     const baseProps: any = {
         'data-group-name': updatedPath.value,
-        class: 'p-1 space-y-1',
+        class: 'space-y-1',
     };
 
     if (props.accordion) {
         baseProps.open = open.value;
         baseProps.vertical = true;
+        baseProps['pt:body'] = 'p-1 space-y-1';
     }
 
     return baseProps;
