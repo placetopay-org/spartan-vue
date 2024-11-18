@@ -4,6 +4,7 @@ import { buildContext } from '@/helpers';
 
 type TState = {
     tabs: Record<TTab['path'], TTab['setActive']>;
+    dropdownResponsive: boolean;
     variant: Variants;
     full: boolean;
     registerTab: (tab: TTab) => void;
@@ -15,6 +16,7 @@ export const { createContext, useContext } = buildContext<TState, TTabProps, TTa
     state: (props, emit) => {
         const state: TState = reactive({
             tabs: {},
+            dropdownResponsive: computed(() => props.dropdownResponsive || false),
             full: computed(() => props.full || false),
             variant: computed(() => props.variant || 'underline'),
             registerTab: (tab: TTab) => {

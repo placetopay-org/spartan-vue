@@ -8,7 +8,7 @@ const context = useContext('STabDropdownItem');
 </script>
 
 <template>
-    <SDropdownItem  :data-item-path="path" @click="() => context.updateTab(path)">
+    <SDropdownItem :data-item-path="path" @click="() => context.updateTab(path)">
         <slot />
     </SDropdownItem>
 </template>

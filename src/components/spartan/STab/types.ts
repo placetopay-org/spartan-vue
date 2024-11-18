@@ -12,6 +12,7 @@ export type TTabProps = {
     modelValue: string;
     full?: boolean;
     nested?: boolean;
+    dropdownResponsive?: boolean;
 };
 
 export type TTabEmits = {

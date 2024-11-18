@@ -31,7 +31,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <SDropdown v-if="dropdown" ref="dropdownRef" useShow>
+    <SDropdown v-if="dropdown" ref="dropdownRef" useShow :responsive="context.dropdownResponsive">
         <template #reference>
             <component
                 ref="el"
