@@ -238,7 +238,6 @@ export const Nested = createVariation({
     <STabItem>Tab 1</STabItem>
     <STabItem>Tab 2</STabItem>
     <STabItem>Tab 3</STabItem>
-    </STabItem>  
 </STab>
 
 <button @click="value = 'Tab 1/nested'">Set Tab 1/nested</button>

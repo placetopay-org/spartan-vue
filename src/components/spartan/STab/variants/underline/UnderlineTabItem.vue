@@ -4,6 +4,7 @@ import type { TTabItemProps } from '../../types';
 import { useContext } from '../../api';
 import { SDropdown } from '../../../SDropdown';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
+import { twMerge } from 'tailwind-merge';
 
 const { as = 'button', path, dropdown } = defineProps<TTabItemProps>();
 
@@ -31,7 +32,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <SDropdown v-if="dropdown" ref="dropdownRef" useShow :responsive="context.dropdownResponsive">
+    <SDropdown v-if="dropdown" :class="twMerge($props.class)" ref="dropdownRef" useShow :responsive="context.dropdownResponsive">
         <template #reference>
             <component
                 ref="el"
