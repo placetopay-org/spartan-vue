@@ -206,70 +206,6 @@ export const Default = createDefault({
     },
 });
 
-export const AccentParts = createVariation({
-    components: { SCard },
-    containerClass: 'flex flex-wrap gap-4',
-    template: `<SCard footer-accent size='sm'>
-    <p class="w-60">This is a free plan. It has limited features.</p>
-    
-    <template #footer>
-        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
-    </template>
-</SCard>
-    
-<SCard header-accent size='sm'>
-    <template #header>
-        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
-    </template>
-
-    <p class="w-60">This is a free plan. It has limited features.</p>
-</SCard>
-
-<SCard size='sm'>
-    <template #header>
-        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
-    </template>
-
-    <p class="w-60">This is a free plan. It has limited features.</p>
-
-    <template #footer>
-        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
-    </template>
-</SCard>
-
-<SCard body-accent size='sm'>
-    <template #header>
-        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
-    </template>
-
-    <p class="w-60">This is a free plan. It has limited features.</p>
-</SCard>
-
-<SCard body-accent size='sm'>
-    <template #header>
-        <p class="text-gray-500 font-semibold p-2">💰 Free Plan</p>
-    </template>
-
-    <p class="w-60">This is a free plan. It has limited features.</p>
-
-    <template #footer>
-        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
-    </template>
-</SCard>
-
-<SCard header-accent footer-accent size='sm'>
-    <template #header>
-        <p class="text-gray-500 font-semibold px-2">💰 Free Plan</p>
-    </template>
-
-    <p class="w-60">This is a free plan. It has limited features.</p>
-
-    <template #footer>
-        <p class="text-gray-500 italic px-2">Promotion valid until 31/12/2023</p>
-    </template>
-</SCard>`,
-});
-
 export const ActionButtons = createVariation({
     components: { SCard, SAvatar, SBadge },
     containerClass: 'flex flex-wrap gap-4',
@@ -307,15 +243,17 @@ export const ActionButtons = createVariation({
 
         return { contactActions, socialActions };
     },
-    template: `<SCard :actions="contactActions" bodyClass="flex items-center justify-between w-80">
-    <div class="flex flex-col gap-2">
-        <div class="flex gap-2">
-            <span class="text-gray-900 font-semibold">Jane Cooper</span>
-            <SBadge pill color="primary">Admin</SBadge>
+    template: `<SCard :actions="contactActions">
+    <div class="flex items-center justify-between w-80">
+        <div class="flex flex-col gap-2">
+            <div class="flex gap-2">
+                <span class="text-gray-900 font-semibold">Jane Cooper</span>
+                <SBadge pill color="primary">Admin</SBadge>
+            </div>
+            <span class="text-gray-500 font-normal">Regional Paradigm Technician</span>
         </div>
-        <span class="text-gray-500 font-normal">Regional Paradigm Technician</span>
+        <SAvatar name="Jane Cooper" />
     </div>
-    <SAvatar name="Jane Cooper" />
 </SCard>
 
 <SCard :actions="socialActions" class="w-[500px]">
@@ -325,7 +263,7 @@ export const ActionButtons = createVariation({
 
 export const ActionsSlot = createVariation({
     components: { SCard, SButton },
-    containerClass: 'grid grid-cols-2 gap-4',
+    containerClass: 'grid grid-cols-2 gap-4 items-center',
     template: `<SCard iconVariant="success">
     <template #title>Confirm payment</template>
     <template #description>A voucher will be sent to your email.</template>
@@ -402,6 +340,41 @@ export const VariantIcon = createVariation({
 </SCard>`,
 });
 
+export const IconType = createVariation({
+    components: { SCard },
+    containerClass: 'grid grid-cols-3 gap-4',
+    setup: () => ({ SquaresPlusIcon }),
+    template: `<SCard iconType="ping" iconVariant="primary">
+    <template #title>
+        Primary Style
+    </template>
+</SCard>
+
+<SCard iconType="ping" iconVariant="success">
+    <template #title>
+        Success Style
+    </template>
+</SCard>
+
+<SCard iconType="ping" iconVariant="danger">
+    <template #title>
+        Danger Style
+    </template>
+</SCard>
+
+<SCard iconType="ping" iconVariant="warning">
+    <template #title>
+        Warning Style
+    </template>
+</SCard>
+
+<SCard iconType="ping" iconVariant="info">
+    <template #title>
+        Info Style
+    </template>
+</SCard>`,
+});
+
 export const CustomIconStyle = createVariation({
     components: { SCard },
     containerClass: 'grid grid-cols-3 gap-4',
@@ -426,7 +399,7 @@ export const CustomIconStyle = createVariation({
 });
 
 export const EmptyState = createVariation({
-    components: { SCard },
+    components: { SCard, SButton },
     containerClass: 'flex flex-wrap gap-4',
     template: `<SCard iconVariant="primary">
     <template #title>
