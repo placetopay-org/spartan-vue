@@ -264,7 +264,7 @@ export const ActionButtons = createVariation({
 export const ActionsSlot = createVariation({
     components: { SCard, SButton },
     containerClass: 'grid grid-cols-2 gap-4 items-center',
-    template: `<SCard iconVariant="success">
+    template: `<SCard icon="success">
     <template #title>Confirm payment</template>
     <template #description>A voucher will be sent to your email.</template>
     <template #actions>
@@ -273,7 +273,7 @@ export const ActionsSlot = createVariation({
     </template>
 </SCard>
 
-<SCard iconVariant="info">
+<SCard icon="info">
     <template #title>Don't forget!</template>
     <template #description>Check your email to confirm your account.</template>
     <template #actions>
