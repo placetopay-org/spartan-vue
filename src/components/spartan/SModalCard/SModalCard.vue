@@ -14,12 +14,6 @@ const props = withDefaults(defineProps<Partial<TModalProps> & Partial<TCardProps
     // SCard props
     class: '',
     size: 'md',
-    bodyClass: '',
-    headerClass: '',
-    footerClass: '',
-    iconClass: '',
-    iconContainerClass: '',
-    iconVariant: undefined,
     icon: undefined,
     actions: undefined,
 });
@@ -31,14 +25,8 @@ const modalProps = computed(() => ({
 const cardProps = computed(() => ({
     class: twMerge('w-full sm:max-w-lg', props.class),
     size: props.size,
-    bodyClass: props.bodyClass,
-    headerClass: props.headerClass,
-    footerClass: props.footerClass,
-    iconClass: props.iconClass,
-    iconContainerClass: props.iconContainerClass,
     icon: props.icon,
     actions: props.actions,
-    iconVariant: props.iconVariant,
 }));
 </script>
 

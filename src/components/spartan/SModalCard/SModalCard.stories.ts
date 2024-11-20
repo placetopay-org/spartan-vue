@@ -186,7 +186,7 @@ export const ConfirmModal = createVariation({
 
 <!-- Modal #3 -->
 <SModalCard
-    iconVariant="danger"
+    icon="danger"
     :open="open3" 
     @close="() => open3 = false"
 >
