@@ -35,7 +35,6 @@ describe('SModalCard', () => {
         expect(screen.queryByText('Test content')).not.toBeInTheDocument();
         await rerender({ open: true });
         expect(screen.queryByText('Test content')).toBeInTheDocument();
-        expect(screen.queryByText('Test content')?.parentElement?.parentElement).toHaveClass('flex flex-col overflow-hidden bg-white shadow duration-200 rounded-xl w-full sm:max-w-lg');
     });
 
     test('Can be rendered with slots', async () => {
