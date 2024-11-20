@@ -126,7 +126,10 @@ const createVariation = (template: string, placeholder?: boolean) => ({
         template,
         setup() {
             const value = ref(placeholder ? undefined : 'option');
-            return { value };
+            const value1 = ref(placeholder ? undefined : 'option');
+            const value2 = ref(placeholder ? undefined : 'option');
+            const value3 = ref('');
+            return { value, value1, value2, value3 };
         },
     }),
     parameters: {
@@ -144,7 +147,26 @@ const createVariation = (template: string, placeholder?: boolean) => ({
 
 export const Placeholder = createVariation(
     `
-<SSelect v-model="value" placeholder="Select an option">
+<!-- initial value: undefined -->
+<SSelect v-model="value1" placeholder="Select an option">
+  <option value="option">option</option>
+  <option value="option2">option2</option>
+  <option value="option3">option3</option>
+  <option value="option4">option4</option>
+  <option value="option5">option5</option>
+</SSelect>
+
+<!-- initial value: undefined -->
+<SSelect v-model="value2" placeholder="Select an option" pt:placeholder="text-red-500">
+  <option value="option">option</option>
+  <option value="option2">option2</option>
+  <option value="option3">option3</option>
+  <option value="option4">option4</option>
+  <option value="option5">option5</option>
+</SSelect>
+
+<!-- initial value: '' -->
+<SSelect v-model="value3" placeholder="Select an option" :placeholderValue="''">
   <option value="option">option</option>
   <option value="option2">option2</option>
   <option value="option3">option3</option>
