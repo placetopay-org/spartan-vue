@@ -305,70 +305,70 @@ export const CustomIcon = createVariation({
 </SCard>`,
 });
 
-export const VariantIcon = createVariation({
+export const Icon = createVariation({
     components: { SCard },
     containerClass: 'grid grid-cols-3 gap-4',
     setup: () => ({ SquaresPlusIcon }),
-    template: `<SCard iconVariant="primary">
+    template: `<SCard icon="primary">
     <template #title>
         Primary Style
     </template>
 </SCard>
 
-<SCard iconVariant="success">
+<SCard icon="success">
     <template #title>
         Success Style
     </template>
 </SCard>
 
-<SCard iconVariant="danger">
+<SCard icon="danger">
     <template #title>
         Danger Style
     </template>
 </SCard>
 
-<SCard iconVariant="warning">
+<SCard icon="warning">
     <template #title>
         Warning Style
     </template>
 </SCard>
 
-<SCard iconVariant="info">
+<SCard icon="info">
     <template #title>
         Info Style
     </template>
 </SCard>`,
 });
 
-export const IconType = createVariation({
+export const PingIcon = createVariation({
     components: { SCard },
     containerClass: 'grid grid-cols-3 gap-4',
     setup: () => ({ SquaresPlusIcon }),
-    template: `<SCard iconType="ping" iconVariant="primary">
+    template: `<SCard iconType="ping" icon="primary">
     <template #title>
         Primary Style
     </template>
 </SCard>
 
-<SCard iconType="ping" iconVariant="success">
+<SCard iconType="ping" icon="success">
     <template #title>
         Success Style
     </template>
 </SCard>
 
-<SCard iconType="ping" iconVariant="danger">
+<SCard iconType="ping" icon="danger">
     <template #title>
         Danger Style
     </template>
 </SCard>
 
-<SCard iconType="ping" iconVariant="warning">
+<SCard iconType="ping" icon="warning">
     <template #title>
         Warning Style
     </template>
 </SCard>
 
-<SCard iconType="ping" iconVariant="info">
+<SCard iconType="ping" icon="info">
     <template #title>
         Info Style
     </template>
@@ -379,19 +379,19 @@ export const CustomIconStyle = createVariation({
     components: { SCard },
     containerClass: 'grid grid-cols-3 gap-4',
     setup: () => ({ CubeTransparentIcon, CloudIcon }),
-    template: `<SCard :icon="CubeTransparentIcon" iconContainerClass="bg-black" iconClass="text-white">
+    template: `<SCard :icon="CubeTransparentIcon" pt:iconContainer="bg-black" pt:icon="text-white">
     <template #title>
         Fully customized
     </template>
 </SCard>
 
-<SCard :icon="CloudIcon" iconVariant="warning" iconContainerClass="rounded shadow">
+<SCard :icon="CloudIcon" pt:iconContainer="rounded shadow">
     <template #title>
         Hybrid #1
     </template>
 </SCard>
 
-<SCard iconVariant="success" iconClass="h-10 w-10 stroke-2" iconContainerClass="p-1">
+<SCard icon="success" pt:icon="h-10 w-10 stroke-2" pt:iconContainer="p-1">
     <template #title>
         Hybrid #2
     </template>
@@ -401,13 +401,31 @@ export const CustomIconStyle = createVariation({
 export const EmptyState = createVariation({
     components: { SCard, SButton },
     containerClass: 'flex flex-wrap gap-4',
-    template: `<SCard iconVariant="primary">
+    template: `<SCard icon="warning" iconType="ping" pt:actions="mx-auto">
     <template #title>
         You dont have any reports
     </template>
 
     <template #description>
         There are no records available. you can start by adding a new one.
+    </template>
+
+    <template #actions>
+        <SButton>Create new report</SButton>
+    </template>
+</SCard>
+
+<SCard icon="danger" iconType="ping" pt:actions="mx-auto">
+    <template #title>
+        No results for the search
+    </template>
+
+    <template #description>
+        We couldn't find any records matching your search. Please try again.
+    </template>
+
+    <template #actions>
+        <SButton variant="secondary">Clean search</SButton>
     </template>
 </SCard>`,
 });

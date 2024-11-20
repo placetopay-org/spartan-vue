@@ -8,9 +8,9 @@ type TAction = {
 
 export type TCardProps = {
     class?: string;
+    title?: string;
     size?: 'sm' | 'md';
-    icon?: FunctionalComponent;
-    iconVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'info';
+    icon?: FunctionalComponent | 'primary' | 'success' | 'danger' | 'warning' | 'info';
     iconType?: 'solid' | 'ping';
     actions?: TAction[];
 };

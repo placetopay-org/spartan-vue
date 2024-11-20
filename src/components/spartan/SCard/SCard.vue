@@ -17,9 +17,10 @@ import {
     ExclamationTriangleIcon as ExclamationTriangleIconSolid,
     InformationCircleIcon as InformationCircleIconSolid,
 } from '@heroicons/vue/24/solid';
+import { Warning2Icon, DangerIcon, InformationIcon } from '@placetopay/iconsax-vue/bold';
 import { bodyStyles, cardStyles } from './styles';
 
-const { size = 'md', iconVariant, iconType = 'solid' } = defineProps<TCardProps>();
+const { size = 'md', iconType = 'solid', icon } = defineProps<TCardProps>();
 
 const { pt, extractor } = usePassthrough();
 
@@ -27,14 +28,16 @@ const [headerClass, headerProps] = extractor(pt.value.header);
 const [bodyClass, bodyProps] = extractor(pt.value.body);
 const [footerClass, footerProps] = extractor(pt.value.footer);
 const [actionsClass, actionsProps] = extractor(pt.value.actions);
+const [iconClass, iconProps] = extractor(pt.value.icon);
+const [iconContainerClass, iconContainerProps] = extractor(pt.value.iconContainer);
 
 const availableVariants = ['primary', 'success', 'danger', 'warning', 'info'];
 
 const iconData = {
     primary: {
         icon: {
-            solid: SquaresPlusIconSolid,
-            outline: SquaresPlusIcon,
+            normal: SquaresPlusIcon,
+            ping: SquaresPlusIconSolid,
         },
         background: 'bg-spartan-primary-100',
         color: 'text-spartan-primary-600',
@@ -42,8 +45,8 @@ const iconData = {
     },
     success: {
         icon: {
-            solid: CheckCircleIconSolid,
-            outline: CheckCircleIcon,
+            normal: CheckCircleIcon,
+            ping: CheckCircleIconSolid,
         },
         background: 'bg-green-100',
         color: 'text-green-600',
@@ -51,8 +54,8 @@ const iconData = {
     },
     danger: {
         icon: {
-            solid: ExclamationCircleIconSolid,
-            outline: ExclamationCircleIcon,
+            normal: ExclamationCircleIcon,
+            ping: Warning2Icon,
         },
         background: 'bg-red-100',
         color: 'text-red-600',
@@ -60,8 +63,8 @@ const iconData = {
     },
     warning: {
         icon: {
-            solid: ExclamationTriangleIconSolid,
-            outline: ExclamationTriangleIcon,
+            normal: ExclamationTriangleIcon,
+            ping: DangerIcon,
         },
         background: 'bg-yellow-100',
         color: 'text-yellow-600',
@@ -69,8 +72,8 @@ const iconData = {
     },
     info: {
         icon: {
-            solid: InformationCircleIconSolid,
-            outline: InformationCircleIcon,
+            normal: InformationCircleIcon,
+            ping: InformationIcon,
         },
         background: 'bg-cyan-100',
         color: 'text-cyan-600',
@@ -79,13 +82,13 @@ const iconData = {
 };
 
 const computedIcon = computed(() => {
-    if (!iconVariant || !availableVariants.includes(iconVariant)) return null;
+    if (typeof icon !== 'string' || !availableVariants.includes(icon)) return null;
 
     return {
-        background: iconData[iconVariant].background,
-        icon: iconData[iconVariant].icon,
-        color: iconData[iconVariant].color,
-        radial: iconData[iconVariant].radial
+        background: iconData[icon].background,
+        icon: iconData[icon].icon,
+        color: iconData[icon].color,
+        radial: iconData[icon].radial
     };
 });
 </script>
@@ -98,40 +101,45 @@ const computedIcon = computed(() => {
         </template>
 
         <main :class="twMerge(bodyStyles({ size }), bodyClass)" data-s-body v-bind="bodyProps">
-            <template v-if="icon || computedIcon">
-                <div v-if="iconType === 'solid'"
+            <template v-if="icon">
+                <div v-if="iconType === 'solid'" data-s-iconContainer v-bind="iconContainerProps"
                     :class="
                         twMerge(
                             'mx-auto mb-4 flex justify-center rounded-full bg-gray-100 p-3',
                             computedIcon?.background,
+                            iconContainerClass
                         )
                     "
                 >
                     <component
-                        :is="icon ? icon : computedIcon?.icon.outline"
-                        :class="twMerge('h-6 w-6 text-gray-600', computedIcon?.color)"
+                        data-s-icon
+                        v-bind="iconProps"
+                        :is="computedIcon ? computedIcon?.icon.normal : icon"
+                        :class="twMerge('h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
                         aria-hidden="true"
                     />
                 </div>
 
-                <div v-if="iconType === 'ping'" :class="['relative mt-3 mb-11', computedIcon?.radial]">
+                <div v-if="iconType === 'ping'" data-s-iconContainer v-bind="iconContainerProps" :class="twMerge('relative mt-3 mb-11', computedIcon?.radial, iconContainerClass)">
                     <div class="absolute h-[156px] w-[156px] right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 rounded-full border border-opacity-20" />
                     <div class="absolute h-[120px] w-[120px] right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 rounded-full border border-opacity-40" />
                     <div class="absolute h-[84px] w-[84px] right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 rounded-full border border-opacity-60" />
                     <div class="absolute h-[48px] w-[48px] right-1/2 translate-x-1/2 top-1/2 -translate-y-1/2 rounded-full border border-opacity-100" />
                     <component
-                        :is="icon ? icon : computedIcon?.icon.solid"
-                        :class="twMerge('h-6 w-6 text-gray-600 mx-auto relative', computedIcon?.color)"
+                        data-s-icon
+                        v-bind="iconProps"
+                        :is="computedIcon ? computedIcon?.icon.ping : icon"
+                        :class="twMerge('h-6 w-6 text-gray-600 mx-auto relative', computedIcon?.color, iconClass)"
                         aria-hidden="true"
                     />
                 </div>
             </template>
 
-            <h3 v-if="hasSlotContent($slots.title)" class="mb-2 text-center text-lg font-semibold text-gray-900">
+            <h3 v-if="hasSlotContent($slots.title)" class="text-center text-lg font-semibold text-gray-900">
                 <slot name="title" />
             </h3>
 
-            <p v-if="hasSlotContent($slots.description)" class="text-center text-base text-gray-500">
+            <p v-if="hasSlotContent($slots.description)" class="mt-2 text-center text-sm font-medium text-gray-500">
                 <slot name="description" />
             </p>
 
@@ -183,7 +191,7 @@ const computedIcon = computed(() => {
 }
 .radial-gradient-green > div:first-of-type {
     background: rgb(187, 247, 208);
-    background: radial-gradient(circle, rgba(187, 247, 208, 0.2) 0%, rgba(0,0,0,0) 50%);
+    background: radial-gradient(circle, rgba(187, 247, 208, 0.6) 0%, rgba(0,0,0,0) 50%);
 }
 
 .radial-gradient-red > div {
@@ -191,7 +199,7 @@ const computedIcon = computed(() => {
 }
 .radial-gradient-red > div:first-of-type {
     background: rgb(254, 202, 202);
-    background: radial-gradient(circle, rgba(254, 202, 202, 0.2) 0%, rgba(0,0,0,0) 50%);
+    background: radial-gradient(circle, rgba(254, 202, 202, 0.6) 0%, rgba(0,0,0,0) 50%);
 }
 
 .radial-gradient-yellow > div {
