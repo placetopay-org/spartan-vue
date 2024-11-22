@@ -1,46 +1,47 @@
-import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
+import { reactive, inject, provide, watch, type InjectionKey, computed, type Component } from 'vue';
+import { UnderlineTab, PillTab, VetchTab, UnderlineTabItem, PillTabItem, VetchTabItem } from './variants';
 import type { TTabProps, TTabEmits, TTab, Variants } from './types';
 import { buildContext } from '@/helpers';
 
 type TState = {
-    tabs: Record<TTab['path'], TTab['setActive']>;
-    dropdownResponsive: boolean;
-    variant: Variants;
-    full: boolean;
-    registerTab: (tab: TTab) => void;
-    updateTab: (path?: string) => void;
-};
+    modelValue: string;
+    updateModelValue: (value: string) => void;
+    variant: { tab: Component; item: Component };
+    dropdowns: Record<string, RegExp[]>;
+    addDropdown: (id: string, regex: RegExp) => void;
+}
 
 export const { createContext, useContext } = buildContext<TState, TTabProps, TTabEmits>({
     name: 'STab',
     state: (props, emit) => {
         const state: TState = reactive({
-            tabs: {},
-            dropdownResponsive: computed(() => props.dropdownResponsive || false),
-            full: computed(() => props.full || false),
-            variant: computed(() => props.variant || 'underline'),
-            registerTab: (tab: TTab) => {
-                state.tabs[tab.path] = tab.setActive;
-                if (props.modelValue === tab.path) tab.setActive(true);
-                if (props.nested && props.modelValue.startsWith(tab.path)) tab.setActive(true);
-            },
-            updateTab: (path?: string) => emit('update:modelValue', path),
-        });
-
-        watch(
-            () => props.modelValue,
-            (curr, old) => {
-                if (props.nested) {
-                    Object.keys(state.tabs).forEach((tab) => {
-                        if (old.startsWith(tab)) state.tabs[tab]?.(false);
-                        if (curr.startsWith(tab)) state.tabs[tab]?.(true);
-                    });
-                } else {
-                    if (old) state.tabs[old]?.(false);
-                    if (curr) state.tabs[curr]?.(true);
+            modelValue: computed(() => props.modelValue),
+            updateModelValue: (value: string) => emit('update:modelValue', value),
+            variant: computed(() => {
+                const variants = {
+                    underline: {
+                        tab: UnderlineTab,
+                        item: UnderlineTabItem,
+                    },
+                    pills: {
+                        tab: PillTab,
+                        item: PillTabItem,
+                    },
+                    vetches: {
+                        tab: VetchTab,
+                        item: VetchTabItem,
+                    }
                 }
-            },
-        );
+
+                return variants[props.variant || 'underline'];
+            }),
+            dropdowns: {},
+            addDropdown: (id: string, regex: RegExp) => {
+                if (!id || String(regex) === '/^$/') return;
+                
+                state.dropdowns[id] = [...(state.dropdowns[id] || []), regex];
+            }
+        });
 
         return state;
     },

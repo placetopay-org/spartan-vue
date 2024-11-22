@@ -1,4 +1,4 @@
-import type { Component, FunctionalComponent } from 'vue';
+import type { Component, FunctionalComponent, Ref } from 'vue';
 
 export type Variants = 'underline' | 'pills' | 'vetches';
 
@@ -11,7 +11,6 @@ export type TTabProps = {
     variant?: Variants;
     modelValue: string;
     full?: boolean;
-    nested?: boolean;
     dropdownResponsive?: boolean;
 };
 
@@ -20,12 +19,17 @@ export type TTabEmits = {
 };
 
 export type TTabItemProps = {
+    regex?: RegExp;
     path?: string;
+    active?: boolean;
     as?: string | Component;
     icon?: FunctionalComponent;
     dropdown?: boolean;
 };
 
 export type TTabDropdownItemProps = {
-    path: string;
+    path?: string;
+    regex?: RegExp;
 }
+
+export type TDropdownContextKey = Ref<string>;

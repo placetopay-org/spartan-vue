@@ -205,7 +205,7 @@ export const WithDropdown = createVariation({
     components: { STab, STabItem, SDropdown, STabDropdownItem },
     containerClass: 'bg-white -m-4 p-8 h-[300px]',
     setup: () => {
-        const value = ref('tab3/item1');
+        const value = ref('Item 1');
 
         return { value };
     },
@@ -216,9 +216,9 @@ export const WithDropdown = createVariation({
         Tab 3
         
         <template #items>
-            <STabDropdownItem path="tab3/item1">Item 1</STabDropdownItem>
-            <STabDropdownItem path="tab3/item2">Item 2</STabDropdownItem>
-            <STabDropdownItem path="tab3/item3">Item 3</STabDropdownItem>
+            <STabDropdownItem>Item 1</STabDropdownItem>
+            <STabDropdownItem>Item 2</STabDropdownItem>
+            <STabDropdownItem>Item 3</STabDropdownItem>
         </template>
     </STabItem>  
 </STab>
@@ -234,8 +234,8 @@ export const Nested = createVariation({
 
         return { value };
     },
-    template: `<STab v-model="value" nested>
-    <STabItem>Tab 1</STabItem>
+    template: `<STab v-model="value">
+    <STabItem :regex="/^Tab 1/">Tab 1</STabItem>
     <STabItem>Tab 2</STabItem>
     <STabItem>Tab 3</STabItem>
 </STab>

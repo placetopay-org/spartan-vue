@@ -1,37 +1,45 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import type { TTabItemProps } from '../../types';
+import type { TTabItemProps, TDropdownContextKey } from '../../types';
 import { useContext } from '../../api';
 import { SDropdown } from '../../../SDropdown';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
+import { computed, onMounted, provide, ref } from 'vue';
 
-const { as = 'button', path, dropdown } = defineProps<TTabItemProps>();
-
-const el = ref<HTMLElement>();
-const updatedPath = ref(path);
-const active = ref(false);
-const setActive = (value: boolean) => (active.value = value);
-const itemsRef = ref<HTMLElement>();
-const dropdownRef = ref<InstanceType<typeof SDropdown>>();
+const { as = 'button', path, dropdown, active, regex } = defineProps<TTabItemProps>();
 
 const context = useContext('STabItem');
 
-onMounted(() => {
-    const elInnerText = el.value?.innerText;
-    if (!updatedPath.value && elInnerText) updatedPath.value = elInnerText;
-    if (updatedPath.value) {
-        if (!dropdown) context.registerTab({ path: updatedPath.value, setActive });
-        else {
-            itemsRef.value?.querySelectorAll('[data-item-path]').forEach((item: any) => {
-                context.registerTab({ path: item.dataset.itemPath, setActive });
-            });
+const el = ref<HTMLElement>();
+const vPath = ref(path || '');
+const vRegex = computed(() => regex || new RegExp(`^${vPath.value}$`));
+const vActive = computed(() => {
+    if (active || vRegex.value.test(context.modelValue)) return true;
+
+    if (dropdown && Object.keys(context.dropdowns).length) {
+        for (const reg of context.dropdowns[vPath.value]) {
+            if (reg.test(context.modelValue)) {
+                return true;
+            }
         }
     }
+
+    return false;
 });
+const itemsRef = ref<HTMLElement>();
+const dropdownRef = ref<InstanceType<typeof SDropdown>>();
+
+provide<TDropdownContextKey>('dropdown', vPath);
+
+onMounted(() => {
+    const elInnerText = el.value?.innerText;
+    if (!vPath.value && elInnerText) vPath.value = elInnerText;
+});
+
+// console.log(vRegex);
 </script>
 
 <template>
-    <SDropdown v-if="dropdown" ref="dropdownRef" useShow :responsive="context.dropdownResponsive">
+    <SDropdown v-if="dropdown" ref="dropdownRef" useShow :responsive="false">
         <template #reference>
             <component
                 ref="el"
@@ -39,19 +47,18 @@ onMounted(() => {
                 :is="as"
                 :type="as === 'button' ? 'button' : undefined"
                 :class="[
-                    active
+                    vActive
                         ? 'border-spartan-primary-500 text-spartan-primary-600'
                         : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                     'group inline-flex items-center gap-1 border-b-2 px-1 py-4 text-sm font-medium',
                 ]"
-                :aria-current="active ? 'page' : undefined"
-                :data-path="updatedPath"
+                :aria-current="vActive ? 'page' : undefined"
             >
                 <component
                     v-if="icon"
                     :is="icon"
                     :class="[
-                        active ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
+                        vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
                         '-ml-0.5 mr-2 h-5 w-5',
                     ]"
                     aria-hidden="true"
@@ -61,7 +68,7 @@ onMounted(() => {
                     v-if="dropdown"
                     :class="[
                         'h-5 w-5 text-gray-400',
-                        active ? 'text-spartan-primary-600' : 'group-hover:text-gray-500',
+                        vActive ? 'text-spartan-primary-600' : 'group-hover:text-gray-500',
                     ]"
                 />
             </component>
@@ -79,20 +86,20 @@ onMounted(() => {
         :is="as"
         :type="as === 'button' ? 'button' : undefined"
         :class="[
-            active
+            vActive
                 ? 'border-spartan-primary-500 text-spartan-primary-600'
                 : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
             'group inline-flex items-center gap-1 border-b-2 px-1 py-4 text-sm font-medium',
         ]"
-        :aria-current="active ? 'page' : undefined"
-        :data-path="updatedPath"
-        @click="() => context.updateTab(updatedPath)"
+        :aria-current="vActive ? 'page' : undefined"
+        :data-path="vPath"
+        @click="() => context.updateModelValue(vPath)"
     >
         <component
             v-if="icon"
             :is="icon"
             :class="[
-                active ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
+                vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
                 '-ml-0.5 mr-2 h-5 w-5',
             ]"
             aria-hidden="true"

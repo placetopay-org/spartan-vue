@@ -1,14 +1,31 @@
 <script setup lang="ts">
+import { computed, inject, onMounted, ref, watch } from 'vue';
 import { SDropdownItem } from '../SDropdown';
 import { useContext } from './api';
-import type { TTabDropdownItemProps } from './types';
+import type { TDropdownContextKey, TTabDropdownItemProps } from './types';
 
-const { path } = defineProps<TTabDropdownItemProps>();
+const { path, regex } = defineProps<TTabDropdownItemProps>();
 const context = useContext('STabDropdownItem');
+
+const el = ref<HTMLElement>();
+const vPath = ref(path || '');
+const vRegex = computed(() => regex || new RegExp(`^${vPath.value}$`));
+const dropdown = inject<TDropdownContextKey>('dropdown');
+
+onMounted(() => {
+    const elInnerText = el.value?.innerText;
+    if (!vPath.value && elInnerText) vPath.value = elInnerText;
+});
+
+watch(dropdown!, (value) => {
+    if (value) context.addDropdown(value, vRegex.value);
+}, { immediate: true });
 </script>
 
 <template>
-    <SDropdownItem :data-item-path="path" @click="() => context.updateTab(path)">
-        <slot />
-    </SDropdownItem>
+    <div ref="el">
+        <SDropdownItem :data-item-path="vPath" @click="() => context.updateModelValue(vPath)">
+            <slot />
+        </SDropdownItem>
+    </div>
 </template>
