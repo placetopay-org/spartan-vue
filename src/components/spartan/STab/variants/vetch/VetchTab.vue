@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { usePassthrough } from '@/helpers';
 import { twMerge } from 'tailwind-merge';
-import type { TTabProps } from '../../types';
 
-defineProps<TTabProps>();
+defineProps<{ class?: string }>();
 
 const { pt, extractor } = usePassthrough();
 
