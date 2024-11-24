@@ -46,8 +46,8 @@ onMounted(() => {
                 :type="as === 'button' ? 'button' : undefined"
                 :class="[
                     vActive
-                        ? 'border-spartan-primary-500 text-spartan-primary-600'
-                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                        ? 'border-spartan-primary-500 text-gray-900'
+                        : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700',
                     'group inline-flex items-center gap-1 border-b-2 px-4 py-2 text-sm font-medium',
                     $props.class,
                 ]"
@@ -67,7 +67,7 @@ onMounted(() => {
                     v-if="dropdown"
                     :class="[
                         'h-5 w-5 text-gray-400',
-                        vActive ? 'text-spartan-primary-600' : 'group-hover:text-gray-500',
+                        vActive ? 'text-gray-900' : 'group-hover:text-gray-500',
                     ]"
                 />
             </component>
