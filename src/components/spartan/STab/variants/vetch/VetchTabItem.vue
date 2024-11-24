@@ -27,6 +27,7 @@ onMounted(() => {
         :class="[
             vActive ? 'bg-white text-spartan-primary-600 shadow' : 'text-gray-500 hover:text-gray-700',
             'group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium',
+            $props.class,
         ]"
         :aria-current="vActive ? 'page' : undefined"
         @click="() => context.updateModelValue(vPath)"

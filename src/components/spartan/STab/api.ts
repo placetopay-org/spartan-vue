@@ -35,6 +35,10 @@ export const { createContext, useContext } = buildContext<TState, TTabProps, TTa
 
                 return variants[props.variant || 'underline'];
             }),
+            tabs: [],
+            addTabs: (tab: TTab) => {
+                
+            },
             dropdowns: {},
             addDropdown: (id: string, regex: RegExp) => {
                 if (!id || String(regex) === '/^$/') return;

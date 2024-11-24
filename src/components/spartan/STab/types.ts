@@ -12,6 +12,8 @@ export type TTabProps = {
     modelValue: string;
     full?: boolean;
     dropdownResponsive?: boolean;
+    longestCommonPrefix?: boolean;
+    class?: string;
 };
 
 export type TTabEmits = {
@@ -25,6 +27,7 @@ export type TTabItemProps = {
     as?: string | Component;
     icon?: FunctionalComponent;
     dropdown?: boolean;
+    class?: string;
 };
 
 export type TTabDropdownItemProps = {

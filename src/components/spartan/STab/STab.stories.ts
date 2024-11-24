@@ -123,16 +123,28 @@ export const Base = createVariation({
 
 export const Full = createVariation({
     components: { STab, STabItem },
-    containerClass: 'bg-white -m-4 p-8',
+    containerClass: 'bg-white -m-4 p-8 space-y-4',
     setup: () => {
         const value = ref('Tab 1');
 
         return { value };
     },
-    template: `<STab v-model="value" full>
-    <STabItem>Tab 1</STabItem>
-    <STabItem>Tab 2</STabItem>
-    <STabItem>Tab 3</STabItem>
+    template: `<STab v-model="value" variant="underline" pt:tab="space-x-0">
+    <STabItem class="w-full" pt:item="w-full">Tab 1</STabItem>
+    <STabItem class="w-full" pt:item="w-full">Tab 2</STabItem>
+    <STabItem class="w-full" pt:item="w-full">Tab 3</STabItem>
+</STab>
+
+<STab v-model="value" variant="pills">
+    <STabItem pt:item="w-full">Tab 1</STabItem>
+    <STabItem pt:item="w-full">Tab 2</STabItem>
+    <STabItem pt:item="w-full">Tab 3</STabItem>
+</STab>
+
+<STab v-model="value" variant="vetches" pt:tab="w-full">
+    <STabItem pt:item="w-full">Tab 1</STabItem>
+    <STabItem pt:item="w-full">Tab 2</STabItem>
+    <STabItem pt:item="w-full">Tab 3</STabItem>
 </STab>`,
 });
 

@@ -34,8 +34,6 @@ onMounted(() => {
     const elInnerText = el.value?.innerText;
     if (!vPath.value && elInnerText) vPath.value = elInnerText;
 });
-
-// console.log(vRegex);
 </script>
 
 <template>
@@ -51,6 +49,7 @@ onMounted(() => {
                         ? 'border-spartan-primary-500 text-spartan-primary-600'
                         : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                     'group inline-flex items-center gap-1 border-b-2 px-1 py-4 text-sm font-medium',
+                    $props.class,
                 ]"
                 :aria-current="vActive ? 'page' : undefined"
             >
@@ -90,6 +89,7 @@ onMounted(() => {
                 ? 'border-spartan-primary-500 text-spartan-primary-600'
                 : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
             'group inline-flex items-center gap-1 border-b-2 px-1 py-4 text-sm font-medium',
+            $props.class,
         ]"
         :aria-current="vActive ? 'page' : undefined"
         :data-path="vPath"
