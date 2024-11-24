@@ -129,7 +129,7 @@ export const Full = createVariation({
 
         return { value };
     },
-    template: `<STab v-model="value" variant="underline" pt:tab="space-x-0">
+    template: `<STab v-model="value" variant="underline">
     <STabItem class="w-full" pt:item="w-full">Tab 1</STabItem>
     <STabItem class="w-full" pt:item="w-full">Tab 2</STabItem>
     <STabItem class="w-full" pt:item="w-full">Tab 3</STabItem>
