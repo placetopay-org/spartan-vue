@@ -1,11 +1,15 @@
 export type TPaginatorProps = {
     paginatorSize?: string;
     pageSizes?: number[];
-    modelValue: { page: number; size: number; count: number };
+    variant?: 'numeric' | 'compact';
+    page: number; 
+    size: number; 
+    count: number;
+    class?: string;
 };
 
 export type TPaginatorEmits = {
-    (event: 'update:modelValue', value: { page: number; size: number; count: number}): void
+    (event: 'change', value: { page?: number; size?: number; count?: number}): void
     (event: 'update:size', value: number): void
     (event: 'update:page', value: number): void
 };

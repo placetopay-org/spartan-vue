@@ -3,6 +3,7 @@ import SDColumn from './SDColumn.vue';
 import { rows as data } from '@/data/table';
 import { DirectIcon } from '@placetopay/iconsax-vue/twotone'
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { ref } from 'vue';
 
 export default {
     component: SDTable,
@@ -134,6 +135,21 @@ export const Borderless = createVariation({
     ...variationConfig,
     template: `
 <SDTable :data="data" borderless>
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" noLink header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const Pagination = createVariation({
+    components: { SDTable, SDColumn },
+    setup: () => {
+        const pagination = ref({ page: 1, size: 5, count: 5, pageSizes: [5, 10, 15] });
+        return { data: data.slice(0, 5), pagination };
+    },
+    template: `
+<SDTable :data="data" :pagination="pagination" @paginationChange="newState => pagination = {...pagination, ...newState}">
     <SDColumn field="name" header="Nombre" />
     <SDColumn field="email" header="Correo" />
     <SDColumn field="title" noLink header="Titulo" />

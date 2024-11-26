@@ -39,8 +39,9 @@ export const Default = createDefault({
 
         return { state };
     },
-    template: `<SPaginator v-bind="args" v-model="state" />`,
-    transform: (args) => `<SPaginator v-model="state" ${sourceBinding(args)}/>`,
+    template: `<!-- state: { page: 3, size: 5, count: 25 } -->
+    <SPaginator v-bind="args" v-bind="state" @change="newState => state = {...state, ...newState}" />`,
+    transform: (args) => `<SPaginator v-bind="state" ${sourceBinding(args)} @change="newState => state = {...state, ...newState}" />`,
     args: {
         paginatorSize: '0',
         pageSizes: [1, 5, 10, 15],
@@ -54,17 +55,29 @@ export const Base = createVariation({
 
         return { state };
     },
-    template: `<SPaginator v-model="state" />`,
+    template: `<SPaginator v-bind="state" @change="newState => state = {...state, ...newState}" />`,
+});
+
+export const Variant = createVariation({
+    components: { SPaginator },
+    setup: () => {
+        const state = ref({ page: 3, size: 5, count: 25 });
+
+        return { state };
+    },
+    template: `<SPaginator v-bind="state" variant="compact" @change="newState => state = {...state, ...newState}"/>`,
 });
 
 export const PageSize = createVariation({
+    containerClass: 'flex flex-col gap-4',
     components: { SPaginator },
     setup: () => {
         const state = ref({ page: 23, size: 20, count: 25 });
 
         return { state };
     },
-    template: `<SPaginator v-model="state" :pageSizes="[10, 20, 30, 100]" />`,
+    template: `<SPaginator v-bind="state" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
+    <SPaginator v-bind="state" variant="compact" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>`,
 });
 
 export const PaginatorSize = createVariation({
@@ -76,10 +89,10 @@ export const PaginatorSize = createVariation({
         return { state };
     },
     template: `
-<SPaginator v-model="state"  />
-<SPaginator v-model="state" paginatorSize="1" />
-<SPaginator v-model="state" paginatorSize="2" />
-<SPaginator v-model="state" paginatorSize="3" />
-<SPaginator v-model="state" paginatorSize="4" />
+<SPaginator v-bind="state"  @change="newState => state = {...state, ...newState}"/>
+<SPaginator v-bind="state" paginatorSize="1" @change="newState => state = {...state, ...newState}"/>
+<SPaginator v-bind="state" paginatorSize="2" @change="newState => state = {...state, ...newState}"/>
+<SPaginator v-bind="state" paginatorSize="3" @change="newState => state = {...state, ...newState}"/>
+<SPaginator v-bind="state" paginatorSize="4" @change="newState => state = {...state, ...newState}"/>
 `,
 });
