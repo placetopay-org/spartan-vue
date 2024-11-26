@@ -7,12 +7,11 @@ import userEvent from '@testing-library/user-event';
 describe('SPaginator', () => {
     test('Can be rendered', async () => {
         // Arrange
-        let modelValue = { page: 3, size: 5, count: 25 };
         const user = userEvent.setup();
 
         // Act
         render(SPaginator, {
-            props: { modelValue },
+            props: { page: 3, size: 5, count: 25 },
         });
 
         // Assert
@@ -25,17 +24,16 @@ describe('SPaginator', () => {
 
     test('Can be emit events', async () => {
         // Arrange
-        let modelValue = { page: 16, size: 5, count: 25 };
+        let state = { page: 16, size: 5, count: 25 };
         const user = userEvent.setup();
 
         // Act
         const { rerender } = render(SPaginator, {
             props: {
-                modelValue,
+                ...state,
                 paginatorSize: "3",
-                'onUpdate:modelValue': (e: { page: number, size: number, count: number }) => {
-                    modelValue = e;
-                    rerender({ modelValue });
+                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                    rerender({...state, ...e});
                 },
             },
         });
@@ -77,17 +75,16 @@ describe('SPaginator', () => {
 
     test('Can be render fully', async () => {
         // Arrange
-        let modelValue = { page: 4, size: 5, count: 6 };
+        let state = { page: 4, size: 5, count: 6 };
         const user = userEvent.setup();
 
         // Act
         const { rerender } = render(SPaginator, {
             props: {
-                modelValue,
+                ...state,
                 paginatorSize: "3",
-                'onUpdate:modelValue': (e: { page: number, size: number, count: number }) => {
-                    modelValue = e;
-                    rerender({ modelValue });
+                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                    rerender({...state, ...e});
                 },
             },
         });
@@ -107,17 +104,16 @@ describe('SPaginator', () => {
 
     test('Cannot prev on first page', async () => {
         // Arrange
-        let modelValue = { page: 3, size: 5, count: 5 };
+        let state = { page: 3, size: 5, count: 5 };
         const user = userEvent.setup();
 
         // Act
         const { rerender, emitted } = render(SPaginator, {
             props: {
-                modelValue,
+                ...state,
                 paginatorSize: "3",
-                'onUpdate:modelValue': (e: { page: number, size: number, count: number }) => {
-                    modelValue = e;
-                    rerender({ modelValue });
+                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                    rerender({...state, ...e});
                 },
             },
         });
@@ -143,22 +139,21 @@ describe('SPaginator', () => {
         screen.getByRole('button', { name: '5' });
 
         expect(emitted()['update:page'].length).toBe(2);
-        expect(emitted()['update:modelValue'].length).toBe(2);
+        expect(emitted()['change'].length).toBe(2);
     });
 
     test('Cannot next on last page', async () => {
         // Arrange
-        let modelValue = { page: 3, size: 5, count: 5 };
+        let state = { page: 3, size: 5, count: 5 };
         const user = userEvent.setup();
 
         // Act
         const { rerender, emitted } = render(SPaginator, {
             props: {
-                modelValue,
+                ...state,
                 paginatorSize: "3",
-                'onUpdate:modelValue': (e: { page: number, size: number, count: number }) => {
-                    modelValue = e;
-                    rerender({ modelValue });
+                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                    rerender({...state, ...e});
                 },
             },
         });
@@ -183,6 +178,6 @@ describe('SPaginator', () => {
         screen.getByRole('button', { name: '5' });
 
         expect(emitted()['update:page'].length).toBe(2);
-        expect(emitted()['update:modelValue'].length).toBe(2);
+        expect(emitted()['change'].length).toBe(2);
     });
 });
