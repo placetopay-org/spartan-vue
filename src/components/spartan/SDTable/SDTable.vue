@@ -9,7 +9,7 @@ import type { TDColumnProps, TDTableProps, TDTableEmits } from './types';
 
 const emit = defineEmits<TDTableEmits>();
 const props = defineProps<TDTableProps>();
-const { rowLink = () => {}, pagination } = props;
+const { rowLink = () => {}, paginator } = props;
 
 const context = createContext(props);
 
@@ -69,8 +69,8 @@ const sort = ({ field, sort }: TDColumnProps) => {
             </tbody>
         </table>
 
-        <section v-if="props.pagination" class="p-[14px] border-t border-gray-300 bg-gray-50">
-            <SPaginator :class="props.pagination.pageSizes ? '': 'justify-end'" v-bind="props.pagination" @change="newState => $emit('paginationChange', newState)" />
+        <section v-if="props.paginator" class="p-[14px] border-t border-gray-300 bg-gray-50">
+            <SPaginator :class="props.paginator.pageSizes ? '': 'justify-end'" v-bind="props.paginator" @change="newState => $emit('paginatorChange', newState)" />
         </section>
     </div>
 </template>

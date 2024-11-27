@@ -3,7 +3,7 @@ import type { TPaginatorProps } from "@spartan";
 export type TDTableProps = {
     class?: string;
     borderless?: boolean;
-    pagination?: TPaginatorProps;
+    paginator?: TPaginatorProps;
     data: any[];
     rowLink?: (row: any) => string;
 };
@@ -18,5 +18,5 @@ export type TDColumnProps = {
 
 export type TDTableEmits = {
     (event: 'sort', value: Pick<TDColumnProps, 'field' | 'sort'>): void;
-    (event: 'paginationChange', value: { page?: number; size?: number; count?: number}): void
+    (event: 'paginatorChange', value: { page?: number; size?: number; count?: number}): void
 };

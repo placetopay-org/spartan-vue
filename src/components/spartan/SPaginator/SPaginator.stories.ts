@@ -9,10 +9,34 @@ export default {
         description: 'The paginator component is used to navigate between pages.',
         props: [
             {
-                name: 'state',
-                type: '{ page: number; size: number; count: number; }',
+                name: 'page',
+                type: 'number',
                 default: 'undefined',
-                description: 'The state of paginator.',
+                description: 'The current page.',
+            },
+            {
+                name: 'size',
+                type: 'number',
+                default: 'undefined',
+                description: 'The current page size.',
+            },
+            {
+                name: 'count',
+                type: 'number',
+                default: 'undefined',
+                description: 'The total count of items.',
+            },
+            {
+                name: 'variant',
+                type: 'string',
+                default: 'undefined',
+                description: 'The variant of paginator component.',
+            },
+            {
+                name: 'hideWhenSinglePage',
+                type: 'boolean',
+                default: 'undefined',
+                description: 'Hide paginator when there is only one page',
             },
             {
                 name: 'paginatorSize',

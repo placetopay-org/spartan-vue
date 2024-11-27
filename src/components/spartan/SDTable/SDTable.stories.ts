@@ -145,11 +145,11 @@ export const Borderless = createVariation({
 export const Pagination = createVariation({
     components: { SDTable, SDColumn },
     setup: () => {
-        const pagination = ref({ page: 1, size: 5, count: 5, pageSizes: [5, 10, 15] });
-        return { data: data.slice(0, 5), pagination };
+        const paginator = ref({ page: 1, size: 5, count: 5, pageSizes: [5, 10, 15] });
+        return { data: data.slice(0, 5), paginator };
     },
     template: `
-<SDTable :data="data" :pagination="pagination" @paginationChange="newState => pagination = {...pagination, ...newState}">
+<SDTable :data="data" :paginator="paginator" @paginatorChange="newState => paginator = {...paginator, ...newState}">
     <SDColumn field="name" header="Nombre" />
     <SDColumn field="email" header="Correo" />
     <SDColumn field="title" noLink header="Titulo" />

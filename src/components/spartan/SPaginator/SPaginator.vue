@@ -7,7 +7,7 @@ import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TPaginatorEmits>();
-const { variant = 'numeric', paginatorSize, count, page, pageSizes, size } = defineProps<TPaginatorProps>();
+const { variant = 'numeric', paginatorSize, count, page, pageSizes, size, hideWhenSinglePage } = defineProps<TPaginatorProps>();
 
 const { t } = translator('dataTable');
 
@@ -63,7 +63,7 @@ const selectPage = (page: number) => {
 </script>
 
 <template>
-    <div :class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)">
+    <div v-if="!hideWhenSinglePage || !count":class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)">
         <div v-if="pageSizes" class="flex items-center gap-1 text-sm text-gray-700">
             <span>{{ t('showing') }}</span>
 
