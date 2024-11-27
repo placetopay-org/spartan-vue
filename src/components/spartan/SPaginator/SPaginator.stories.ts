@@ -137,7 +137,7 @@ export const PageSizeRestrictions = createVariation({
 <!-- state3: { page: 23, size: 29 } -->
 <SPaginator v-bind="state3" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
 
-<!-- state4: { page: 23, size: 29, total: 799 } -->
+<!-- state4: { page: 23, size: 799 } -->
 <SPaginator v-bind="state4" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>`,
 });
 
