@@ -7,6 +7,7 @@ import { cellStyles, tableStyles } from './styles';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
 import type { TDColumnProps, TDTableProps, TDTableEmits } from './types';
 import { usePassthrough } from '@/helpers';
+import { computed } from 'vue';
 
 const emit = defineEmits<TDTableEmits>();
 const props = defineProps<TDTableProps>();
@@ -18,6 +19,8 @@ const { pt, extractor } = usePassthrough();
 
 const [tableClass, tableProps] = extractor(pt.value.table);
 const [paginatorClass, paginatorProps] = extractor(pt.value.paginator);
+
+const count = computed(() => props.paginator?.count || (props.paginator?.total && props.paginator?.size && Math.ceil(props.paginator.total / props.paginator.size)));
 
 const sort = ({ field, sort }: TDColumnProps) => {
     if (!sort) return;
@@ -76,7 +79,7 @@ const sort = ({ field, sort }: TDColumnProps) => {
         </table>
 
         <template v-if="props.paginator">
-            <section data-s-paginator v-if="!props.paginator.hideWhenSinglePage || Math.ceil(props.paginator.total / props.paginator.size) > 1"  v-bind="paginatorProps" :class="twMerge('p-[14px] border-t border-gray-300 bg-gray-50', paginatorClass)">
+            <section data-s-paginator v-if="!props.paginator.hideWhenSinglePage || (count && count > 1)"  v-bind="paginatorProps" :class="twMerge('p-[14px] border-t border-gray-300 bg-gray-50', paginatorClass)">
                 <SPaginator :class="props.paginator.pageSizes ? '': 'justify-end'" v-bind="props.paginator" @change="newState => $emit('paginatorChange', newState)" />
             </section>
         </template>
