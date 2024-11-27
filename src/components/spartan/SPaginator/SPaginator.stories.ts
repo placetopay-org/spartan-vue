@@ -21,7 +21,7 @@ export default {
                 description: 'The current page size.',
             },
             {
-                name: 'count',
+                name: 'total',
                 type: 'number',
                 default: 'undefined',
                 description: 'The total count of items.',
@@ -59,12 +59,12 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     components: { SPaginator },
     setup: () => {
-        const state = ref({ page: 3, size: 5, count: 25 });
+        const state = ref({ page: 3, size: 5, total: 125 });
 
         return { state };
     },
-    template: `<!-- state: { page: 3, size: 5, count: 25 } -->
-    <SPaginator v-bind="args" v-bind="state" @change="newState => state = {...state, ...newState}" />`,
+    template: `<!-- state: { page: 3, size: 5, total: 125 } -->
+    <SPaginator v-bind="state" @change="newState => state = {...state, ...newState}" />`,
     transform: (args) => `<SPaginator v-bind="state" ${sourceBinding(args)} @change="newState => state = {...state, ...newState}" />`,
     args: {
         paginatorSize: '0',
@@ -75,7 +75,7 @@ export const Default = createDefault({
 export const Base = createVariation({
     components: { SPaginator },
     setup: () => {
-        const state = ref({ page: 3, size: 5, count: 25 });
+        const state = ref({ page: 3, size: 5, total: 125 });
 
         return { state };
     },
@@ -85,7 +85,7 @@ export const Base = createVariation({
 export const Variant = createVariation({
     components: { SPaginator },
     setup: () => {
-        const state = ref({ page: 3, size: 5, count: 25 });
+        const state = ref({ page: 3, size: 5, total: 125 });
 
         return { state };
     },
@@ -96,7 +96,7 @@ export const PageSize = createVariation({
     containerClass: 'flex flex-col gap-4',
     components: { SPaginator },
     setup: () => {
-        const state = ref({ page: 23, size: 20, count: 25 });
+        const state = ref({ page: 23, size: 20, total: 125 });
 
         return { state };
     },
@@ -108,7 +108,7 @@ export const PaginatorSize = createVariation({
     components: { SPaginator },
     containerClass: 'flex flex-col items-center gap-4',
     setup: () => {
-        const state = ref({ page: 18, size: 5, count: 25 });
+        const state = ref({ page: 18, size: 5, total: 125 });
 
         return { state };
     },

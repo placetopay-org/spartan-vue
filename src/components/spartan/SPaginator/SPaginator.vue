@@ -7,27 +7,44 @@ import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TPaginatorEmits>();
-const { variant = 'numeric', paginatorSize, count, page, pageSizes, size, hideWhenSinglePage } = defineProps<TPaginatorProps>();
+const { variant = 'numeric', paginatorSize, page, pageSizes, size, hideWhenSinglePage, total } = defineProps<TPaginatorProps>();
 
 const { t } = translator('dataTable');
 
+const pages = computed(() => Math.ceil(total / size));
+const vPageSizes = computed(() => {
+    if (!pageSizes) return;
+
+    let data;
+
+    if (!pageSizes?.includes(size)) {
+        data = pageSizes.concat(size).sort((a, b) => a - b);
+    }
+
+    if (size > total) {
+        data = pageSizes.filter((item) => item < total);
+    }
+
+    return data;
+});
+
 const quantity = computed(() => Number(paginatorSize) || 0);
 
-const pages = computed(() => {
+const vPages = computed(() => {
     let arr: (string | number)[] = [];
 
-    if (count <= quantity.value * 2 + 5) return count;
+    if (pages.value <= quantity.value * 2 + 5) return pages.value;
 
     if (page - quantity.value < 4) {
         arr = Array.apply(null, Array(quantity.value * 2 + 3)).map((_, i) => i + 1);
         arr.push('...');
-        arr.push(count);
-    } else if (count - page - quantity.value < 3) {
+        arr.push(pages.value);
+    } else if (pages.value - page - quantity.value < 3) {
         arr.push(1);
         arr.push('...');
         arr = arr.concat(
             Array.apply(null, Array(quantity.value * 2 + 3)).map(
-                (_, i) => count - quantity.value * 2 - 2 + i,
+                (_, i) => pages.value - quantity.value * 2 - 2 + i,
             ),
         );
     } else {
@@ -37,7 +54,7 @@ const pages = computed(() => {
             Array.apply(null, Array(1 + quantity.value * 2)).map((_, i) => page - quantity.value + i),
         );
         arr.push('...');
-        arr.push(count);
+        arr.push(pages.value);
     }
 
     return arr;
@@ -50,20 +67,21 @@ const prev = () => {
 };
 
 const next = () => {
-    if (page === count) return;
+    if (page === pages.value) return;
     emit('change', { page: page + 1 });
     emit('update:page', page + 1);
 };
 
-const selectPage = (page: number) => {
-    emit('change', { page });
-    emit('update:page', page);
+const selectPage = (pageItem: number) => {
+    if (pageItem === page) return;
+    emit('change', { page: pageItem });
+    emit('update:page', pageItem);
 
 };
 </script>
 
 <template>
-    <div v-if="!hideWhenSinglePage || count":class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)">
+    <div v-if="!hideWhenSinglePage || pages":class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)">
         <div v-if="pageSizes" class="flex items-center gap-1 text-sm text-gray-700">
             <span>{{ t('showing') }}</span>
 
@@ -82,10 +100,9 @@ const selectPage = (page: number) => {
                 </option>
             </SSelect>
 
-            <span>{{ t('results') }}</span>
             <span>{{ t('of') }}</span>
-            <span class="font-bold">{{ count }}</span>
-            <span>{{ t('pages') }}</span>
+            <span class="font-bold">{{ total }}</span>
+            <span>{{ t('results') }}</span>
         </div>
         <div>
             <SButtonGroup aria-label="pagination">
@@ -93,7 +110,7 @@ const selectPage = (page: number) => {
 
                 <template v-if="variant === 'numeric'">
                     <SButtonGroupItem
-                        v-for="pageItem in pages"
+                        v-for="pageItem in vPages"
                         class="px-4"
                         :active="Number(pageItem) === page"
                         :key="pageItem"

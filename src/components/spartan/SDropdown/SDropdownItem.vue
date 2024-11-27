@@ -4,14 +4,11 @@ import { twMerge } from 'tailwind-merge';
 import type { TDropdownItemProps } from './types';
 import { hasSlotContent } from '@/helpers';
 
-withDefaults(defineProps<Partial<TDropdownItemProps>>(), {
-    disabled: false,
-    icon: undefined,
-});
+defineProps<TDropdownItemProps>();
 </script>
 
 <template>
-    <MenuItem v-slot="{ active }" :disabled="disabled">
+    <MenuItem v-slot="{ active }" :disabled="disabled" @click="">
         <component
             :is="link ? 'a' : 'button'"
             :type="link ? undefined : 'button'"

@@ -11,7 +11,7 @@ describe('SPaginator', () => {
 
         // Act
         render(SPaginator, {
-            props: { page: 3, size: 5, count: 25 },
+            props: { page: 3, size: 5, total: 125 },
         });
 
         // Assert
@@ -24,7 +24,7 @@ describe('SPaginator', () => {
 
     test('Can be emit events', async () => {
         // Arrange
-        let state = { page: 16, size: 5, count: 25 };
+        let state = { page: 16, size: 5, total: 125 };
         const user = userEvent.setup();
 
         // Act
@@ -75,7 +75,7 @@ describe('SPaginator', () => {
 
     test('Can be render fully', async () => {
         // Arrange
-        let state = { page: 4, size: 5, count: 6 };
+        let state = { page: 4, size: 5, total: 30 };
         const user = userEvent.setup();
 
         // Act
@@ -83,7 +83,7 @@ describe('SPaginator', () => {
             props: {
                 ...state,
                 paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                onChange: (e: { page?: number, size?: number }) => {
                     rerender({...state, ...e});
                 },
             },
@@ -104,7 +104,7 @@ describe('SPaginator', () => {
 
     test('Cannot prev on first page', async () => {
         // Arrange
-        let state = { page: 3, size: 5, count: 5 };
+        let state = { page: 3, size: 5, total: 25 };
         const user = userEvent.setup();
 
         // Act
@@ -112,7 +112,7 @@ describe('SPaginator', () => {
             props: {
                 ...state,
                 paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                onChange: (e: { page?: number, size?: number }) => {
                     rerender({...state, ...e});
                 },
             },
@@ -144,7 +144,7 @@ describe('SPaginator', () => {
 
     test('Cannot next on last page', async () => {
         // Arrange
-        let state = { page: 3, size: 5, count: 5 };
+        let state = { page: 3, size: 5, total: 25 };
         const user = userEvent.setup();
 
         // Act
@@ -152,7 +152,7 @@ describe('SPaginator', () => {
             props: {
                 ...state,
                 paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                onChange: (e: { page?: number, size?: number }) => {
                     rerender({...state, ...e});
                 },
             },

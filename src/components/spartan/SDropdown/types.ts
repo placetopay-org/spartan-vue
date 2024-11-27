@@ -7,7 +7,7 @@ export type TDropdownItemProps = {
     class?: string;
     labelClass?: string;
     iconClass?: string;
-    disabled: boolean;
-    icon: FunctionalComponent;
+    disabled?: boolean;
+    icon?: FunctionalComponent;
     link?: string;
 };
