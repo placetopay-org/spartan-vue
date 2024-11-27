@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
-import { ref, computed, nextTick, watch, h } from 'vue';
+import { ref, computed, nextTick, watch, h, Teleport } from 'vue';
 import { useFloating, autoUpdate, flip, offset as setOffset, arrow as setArrow } from '@floating-ui/vue';
 import { useMediaQuery } from '@vueuse/core';
 import { arrowStyles, popoverContainerStyles, popoverFloatingStyles } from './styles';
@@ -130,35 +130,37 @@ const arrowPosition = computed(() => {
         <slot name="reference" v-bind="handlers" />
     </div>
 
-    <Transition v-bind="TranStyle.fade">
-        <div
-            v-if="!isLargeScreen && isOpen && responsive"
-            :class="twMerge('fixed inset-0 bg-black/30', '')"
-            aria-hidden="true"
-        />
-    </Transition>
-
-    <div :class="popoverContainerStyles({ responsive })">
-        <Transition v-bind="TranStyle.vertical">
+    <Teleport to="body">
+        <Transition v-bind="TranStyle.fade">
             <div
-                v-if="isOpen || useShow"
-                v-show="isOpen"
-                :class="popoverFloatingStyles({ responsive })"
-                ref="floating"
-                class="focus-visible:outline-none z-40"
-                :style="styles"
-                tabindex="-1"
-                @focus="focusFirstChild"
-                @focusout="focusout"
-            >
-                <slot v-bind="handlers" />
-                <div
-                    v-if="arrow"
-                    ref="arrowRef"
-                    :class="arrowStyles({ color: arrow })"
-                    :style="arrowPosition"
-                />
-            </div>
+                v-if="!isLargeScreen && isOpen && responsive"
+                :class="twMerge('fixed inset-0 bg-black/30', '')"
+                aria-hidden="true"
+            />
         </Transition>
-    </div>
+
+        <div :class="popoverContainerStyles({ responsive })">
+            <Transition v-bind="TranStyle.vertical">
+                <div
+                    v-if="isOpen || useShow"
+                    v-show="isOpen"
+                    :class="popoverFloatingStyles({ responsive })"
+                    ref="floating"
+                    class="focus-visible:outline-none z-40"
+                    :style="styles"
+                    tabindex="-1"
+                    @focus="focusFirstChild"
+                    @focusout="focusout"
+                >
+                    <slot v-bind="handlers" />
+                    <div
+                        v-if="arrow"
+                        ref="arrowRef"
+                        :class="arrowStyles({ color: arrow })"
+                        :style="arrowPosition"
+                    />
+                </div>
+            </Transition>
+        </div>
+    </Teleport>
 </template>
