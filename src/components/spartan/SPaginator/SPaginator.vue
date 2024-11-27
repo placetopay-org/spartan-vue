@@ -81,7 +81,7 @@ const selectPage = (pageItem: number) => {
 </script>
 
 <template>
-    <div v-if="!hideWhenSinglePage || pages":class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)">
+    <div v-if="!hideWhenSinglePage || pages > 1":class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)">
         <div v-if="pageSizes" class="flex items-center gap-1 text-sm text-gray-700">
             <span>{{ t('showing') }}</span>
 

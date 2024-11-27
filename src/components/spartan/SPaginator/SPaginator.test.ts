@@ -32,7 +32,7 @@ describe('SPaginator', () => {
             props: {
                 ...state,
                 paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number, count?: number }) => {
+                onChange: (e: { page?: number, size?: number }) => {
                     rerender({...state, ...e});
                 },
             },

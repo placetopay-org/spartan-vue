@@ -75,8 +75,10 @@ const sort = ({ field, sort }: TDColumnProps) => {
             </tbody>
         </table>
 
-        <section data-s-paginator v-if="props.paginator && !props.paginator?.hideWhenSinglePage || props.paginator?.count"  v-bind="paginatorProps" :class="twMerge('p-[14px] border-t border-gray-300 bg-gray-50', paginatorClass)">
-            <SPaginator :class="props.paginator.pageSizes ? '': 'justify-end'" v-bind="props.paginator" @change="newState => $emit('paginatorChange', newState)" />
-        </section>
+        <template v-if="props.paginator">
+            <section data-s-paginator v-if="!props.paginator.hideWhenSinglePage || Math.ceil(props.paginator.total / props.paginator.size) > 1"  v-bind="paginatorProps" :class="twMerge('p-[14px] border-t border-gray-300 bg-gray-50', paginatorClass)">
+                <SPaginator :class="props.paginator.pageSizes ? '': 'justify-end'" v-bind="props.paginator" @change="newState => $emit('paginatorChange', newState)" />
+            </section>
+        </template>
     </div>
 </template>
