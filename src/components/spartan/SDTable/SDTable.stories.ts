@@ -145,7 +145,7 @@ export const Borderless = createVariation({
 export const Pagination = createVariation({
     components: { SDTable, SDColumn },
     setup: () => {
-        const paginator = ref({ page: 1, size: 5, count: 5, pageSizes: [5, 10, 15] });
+        const paginator = ref({ page: 1, size: 5, count: 3, pageSizes: [5, 10, 15] });
         return { data: data.slice(0, 5), paginator };
     },
     template: `
