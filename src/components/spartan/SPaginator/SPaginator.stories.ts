@@ -82,26 +82,63 @@ export const Base = createVariation({
     template: `<SPaginator v-bind="state" @change="newState => state = {...state, ...newState}" />`,
 });
 
-export const Variant = createVariation({
+export const HideNumbers = createVariation({
     components: { SPaginator },
+    containerClass: 'flex flex-col gap-4',
     setup: () => {
-        const state = ref({ page: 3, size: 5, total: 125 });
+        const state1 = ref({ page: 3, size: 5, total: 125 });
+        const state2 = ref({ page: 3, size: 5 });
 
-        return { state };
+        return { state1, state2 };
     },
-    template: `<SPaginator v-bind="state" variant="compact" @change="newState => state = {...state, ...newState}"/>`,
+    template: `<!-- state1: { page: 3, size: 5, total: 125 } -->
+<SPaginator v-bind="state1" @change="newState => state1 = {...state1, ...newState}"/>
+
+<SPaginator v-bind="state1" hideNumbers @change="newState => state2 = {...state2, ...newState}"/>
+
+<!-- state2: { page: 3, size: 5 } -->
+<SPaginator v-bind="state2" @change="newState => state2 = {...state2, ...newState}"/>`,
 });
 
 export const PageSize = createVariation({
     containerClass: 'flex flex-col gap-4',
     components: { SPaginator },
     setup: () => {
-        const state = ref({ page: 23, size: 20, total: 125 });
+        const state1 = ref({ page: 23, size: 20, total: 125 });
+        const state2 = ref({ page: 23, size: 20 });
 
-        return { state };
+        return { state1, state2 };
     },
-    template: `<SPaginator v-bind="state" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
-    <SPaginator v-bind="state" variant="compact" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>`,
+    template: `<!-- state1: { page: 23, size: 20, total: 125 } -->
+<SPaginator v-bind="state1" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
+<SPaginator v-bind="state1" hideNumbers :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
+
+<!-- state2: { page: 23, size: 20 } -->
+<SPaginator v-bind="state2" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>`,
+});
+
+export const PageSizeRestrictions = createVariation({
+    containerClass: 'flex flex-col gap-4',
+    components: { SPaginator },
+    setup: () => {
+        const state = ref({ page: 23, size: 29, total: 125 });
+        const state2 = ref({ page: 23, size: 799, total: 125 });
+        const state3 = ref({ page: 23, size: 29 });
+        const state4 = ref({ page: 23, size: 799 });
+
+        return { state, state2, state3, state4 };
+    },
+    template: `<!-- state: { page: 23, size: 29, total: 125 } -->
+<SPaginator v-bind="state" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
+
+<!-- state2: { page: 23, size: 799, total: 125 } -->
+<SPaginator v-bind="state2" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
+
+<!-- state3: { page: 23, size: 29 } -->
+<SPaginator v-bind="state3" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
+
+<!-- state4: { page: 23, size: 29, total: 799 } -->
+<SPaginator v-bind="state4" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>`,
 });
 
 export const PaginatorSize = createVariation({
