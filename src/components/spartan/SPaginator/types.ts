@@ -11,9 +11,7 @@ export type TPaginatorProps = {
 };
 
 export type TPaginatorEmits = {
-    (event: 'change', value: { page?: number; size?: number }): void
+    (event: 'change', value: { page?: number; size?: number, dir?: 'prev' | 'next' }): void
     (event: 'update:size', value: number): void
     (event: 'update:page', value: number): void
-    (event: 'prev'): void
-    (event: 'next'): void
 };

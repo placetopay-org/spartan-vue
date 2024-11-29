@@ -7,15 +7,7 @@ import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TPaginatorEmits>();
-const {
-    paginatorSize,
-    page,
-    pageSizes,
-    size,
-    count,
-    hideWhenSinglePage,
-    total,
-} = defineProps<TPaginatorProps>();
+const { paginatorSize, page, pageSizes, size, count, hideWhenSinglePage, total } = defineProps<TPaginatorProps>();
 
 const { t } = translator('dataTable');
 
@@ -73,16 +65,20 @@ const vPages = computed(() => {
 });
 
 const prev = () => {
-    emit('prev');
-    if (!page || page === 1) return;
-    emit('change', { page: page - 1 });
+    if (!page || page === 1) {
+        emit('change', { dir: 'prev' });
+        return;
+    }
+    emit('change', { page: page - 1 , dir: 'prev' });
     emit('update:page', page - 1);
 };
 
 const next = () => {
-    emit('next');
-    if (!page || page === vCount.value) return;
-    emit('change', { page: page + 1 });
+    if (!page || page === vCount.value) {
+        emit('change', { dir: 'next' });
+        return;
+    }
+    emit('change', { page: page + 1, dir: 'next' });
     emit('update:page', page + 1);
 };
 

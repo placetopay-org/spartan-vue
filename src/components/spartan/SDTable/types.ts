@@ -1,4 +1,4 @@
-import type { TPaginatorProps } from "@spartan";
+import type { TPaginatorProps, TPaginatorEmits } from "@spartan";
 
 export type TDTableProps = {
     class?: string;
@@ -18,7 +18,5 @@ export type TDColumnProps = {
 
 export type TDTableEmits = {
     (event: 'sort', value: Pick<TDColumnProps, 'field' | 'sort'>): void;
-    (event: 'paginatorChange', value: { page?: number; size?: number; count?: number}): void
-    (event: 'paginatorPrev'): void;
-    (event: 'paginatorNext'): void;
+    (event: 'paginatorChange', value: { page?: number; size?: number, dir?: 'prev' | 'next' }): void
 };
