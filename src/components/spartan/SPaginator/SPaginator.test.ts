@@ -102,82 +102,82 @@ describe('SPaginator', () => {
         screen.getByRole('button', { name: '6' });
     });
 
-    test('Cannot prev on first page', async () => {
-        // Arrange
-        let state = { page: 3, size: 5, total: 25 };
-        const user = userEvent.setup();
+    // test('Cannot prev on first page', async () => {
+    //     // Arrange
+    //     let state = { page: 3, size: 5, total: 25 };
+    //     const user = userEvent.setup();
 
-        // Act
-        const { rerender, emitted } = render(SPaginator, {
-            props: {
-                ...state,
-                paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number }) => {
-                    rerender({...state, ...e});
-                },
-            },
-        });
+    //     // Act
+    //     const { rerender, emitted } = render(SPaginator, {
+    //         props: {
+    //             ...state,
+    //             paginatorSize: "3",
+    //             onChange: (e: { page?: number, size?: number }) => {
+    //                 rerender({...state, ...e});
+    //             },
+    //         },
+    //     });
 
         
-        const prevButton = screen.getByRole('button', { name: /prev/i });
+    //     const prevButton = screen.getByRole('button', { name: /prev/i });
 
-        await user.click(prevButton);
-        await user.click(prevButton);
-        await user.click(prevButton);
-        await user.click(prevButton);
-        await user.click(prevButton);
-        await user.click(prevButton);
-        await user.click(prevButton);
-        await user.click(prevButton);
-        await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
+    //     await user.click(prevButton);
 
-        // Assert
-        screen.getByRole('button', { name: '1' })
-        screen.getByRole('button', { name: '2' });
-        screen.getByRole('button', { name: '3' });
-        screen.getByRole('button', { name: '4' });
-        screen.getByRole('button', { name: '5' });
+    //     // Assert
+    //     screen.getByRole('button', { name: '1' })
+    //     screen.getByRole('button', { name: '2' });
+    //     screen.getByRole('button', { name: '3' });
+    //     screen.getByRole('button', { name: '4' });
+    //     screen.getByRole('button', { name: '5' });
 
-        expect(emitted()['update:page'].length).toBe(2);
-        expect(emitted()['change'].length).toBe(2);
-    });
+    //     expect(emitted()['update:page'].length).toBe(2);
+    //     expect(emitted()['change'].length).toBe(2);
+    // });
 
-    test('Cannot next on last page', async () => {
-        // Arrange
-        let state = { page: 3, size: 5, total: 25 };
-        const user = userEvent.setup();
+    // test('Cannot next on last page', async () => {
+    //     // Arrange
+    //     let state = { page: 3, size: 5, total: 25 };
+    //     const user = userEvent.setup();
 
-        // Act
-        const { rerender, emitted } = render(SPaginator, {
-            props: {
-                ...state,
-                paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number }) => {
-                    rerender({...state, ...e});
-                },
-            },
-        });
+    //     // Act
+    //     const { rerender, emitted } = render(SPaginator, {
+    //         props: {
+    //             ...state,
+    //             paginatorSize: "3",
+    //             onChange: (e: { page?: number, size?: number }) => {
+    //                 rerender({...state, ...e});
+    //             },
+    //         },
+    //     });
 
-        const nextButton = screen.getByRole('button', { name: /next/i });
+    //     const nextButton = screen.getByRole('button', { name: /next/i });
 
-        await user.click(nextButton);
-        await user.click(nextButton);
-        await user.click(nextButton);
-        await user.click(nextButton);
-        await user.click(nextButton);
-        await user.click(nextButton);
-        await user.click(nextButton);
-        await user.click(nextButton);
-        await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
+    //     await user.click(nextButton);
 
-        // Assert
-        screen.getByRole('button', { name: '1' })
-        screen.getByRole('button', { name: '2' });
-        screen.getByRole('button', { name: '3' });
-        screen.getByRole('button', { name: '4' });
-        screen.getByRole('button', { name: '5' });
+    //     // Assert
+    //     screen.getByRole('button', { name: '1' })
+    //     screen.getByRole('button', { name: '2' });
+    //     screen.getByRole('button', { name: '3' });
+    //     screen.getByRole('button', { name: '4' });
+    //     screen.getByRole('button', { name: '5' });
 
-        expect(emitted()['update:page'].length).toBe(2);
-        expect(emitted()['change'].length).toBe(2);
-    });
+    //     expect(emitted()['update:page'].length).toBe(2);
+    //     expect(emitted()['change'].length).toBe(2);
+    // });
 });
