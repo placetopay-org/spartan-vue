@@ -19,4 +19,6 @@ export type TDColumnProps = {
 export type TDTableEmits = {
     (event: 'sort', value: Pick<TDColumnProps, 'field' | 'sort'>): void;
     (event: 'paginatorChange', value: { page?: number; size?: number; count?: number}): void
+    (event: 'paginationPrev'): void;
+    (event: 'paginationNext'): void;
 };
