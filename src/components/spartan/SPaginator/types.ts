@@ -8,6 +8,9 @@ export type TPaginatorProps = {
     count?: number;
     class?: string;
     hideWhenSinglePage?: boolean;
+    canGoPrev?: boolean;
+    canGoNext?: boolean;
+    fitSize?: boolean;
 };
 
 export type TPaginatorEmits = {

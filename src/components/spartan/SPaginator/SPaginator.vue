@@ -3,14 +3,26 @@ import type { TPaginatorProps, TPaginatorEmits } from './types';
 import { translator } from '@/helpers';
 import { SSelect } from '../SSelect';
 import { SButtonGroup, SButtonGroupItem } from '../SButtonGroup';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { twMerge } from 'tailwind-merge';
+import { ChevronLeftIcon } from '@heroicons/vue/20/solid';
 
 const emit = defineEmits<TPaginatorEmits>();
-const { paginatorSize, page, pageSizes, size, count, hideWhenSinglePage, total } = defineProps<TPaginatorProps>();
+const {
+    paginatorSize,
+    page,
+    pageSizes,
+    size,
+    count,
+    hideWhenSinglePage,
+    total,
+    canGoPrev = undefined,
+    canGoNext = undefined,
+} = defineProps<TPaginatorProps>();
 
 const { t } = translator('dataTable');
 
+const vSize = ref(size);
 const vCount = computed(() => count || (total && size && Math.ceil(total / size)));
 const vPageSizes = computed(() => {
     if (!pageSizes || !size) return;
@@ -25,10 +37,12 @@ const vPageSizes = computed(() => {
     }
 
     if (!data?.includes(size)) {
-        if (total) {
-            if (size >= total) data = data.concat(total).sort((a, b) => a - b);
-            else data = data.concat(size).sort((a, b) => a - b);
-        } else if (size < data[data.length - 1]) data = data.concat(size).sort((a, b) => a - b);
+        const max = total ? total : data[data.length - 1];
+        if (size < max) data = data.concat(size).sort((a, b) => a - b);
+        else {
+            data = data.concat(max).sort((a, b) => a - b);
+            vSize.value = max;
+        }
     }
 
     return [...new Set(data)];
@@ -64,12 +78,22 @@ const vPages = computed(() => {
     return arr;
 });
 
+const vCanGoPrev = computed(() => {
+    if (canGoPrev !== undefined) return canGoPrev;
+    return Boolean(page && page > 1);
+});
+
+const vCanGoNext = computed(() => {
+    if (canGoNext !== undefined) return canGoNext;
+    return Boolean(page && vCount.value && page < vCount.value);
+});
+
 const prev = () => {
     if (!page || page === 1) {
         emit('change', { dir: 'prev' });
         return;
     }
-    emit('change', { page: page - 1 , dir: 'prev' });
+    emit('change', { page: page - 1, dir: 'prev' });
     emit('update:page', page - 1);
 };
 
@@ -99,7 +123,7 @@ const selectPage = (pageItem: number) => {
 
             <SSelect
                 class="py-1 text-xs"
-                :modelValue="size"
+                :modelValue="vSize"
                 @update:model-value="
                     (value) => {
                         emit('change', { size: Number(value) });
@@ -120,7 +144,7 @@ const selectPage = (pageItem: number) => {
         </div>
         <div>
             <SButtonGroup aria-label="pagination">
-                <SButtonGroupItem first prev class="px-2" @click="prev" />
+                <SButtonGroupItem first prev class="px-2" @click="prev" :disabled="!vCanGoPrev" />
 
                 <template v-if="!hideNumbers">
                     <SButtonGroupItem
@@ -135,7 +159,7 @@ const selectPage = (pageItem: number) => {
                     </SButtonGroupItem>
                 </template>
 
-                <SButtonGroupItem last next class="px-2" @click="next" />
+                <SButtonGroupItem last next class="px-2" @click="next" :disabled="!vCanGoNext" />
             </SButtonGroup>
         </div>
     </div>
