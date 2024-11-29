@@ -145,11 +145,11 @@ export const Borderless = createVariation({
 export const Pagination = createVariation({
     components: { SDTable, SDColumn },
     setup: () => {
-        const paginator = ref({ page: 1, size: 5, pageSizes: [5, 10, 15] });
+        const paginator = ref({ page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] });
         const paginatorChange = (newState: any) => { };
         return { data: data.slice(0, 5), paginator, paginatorChange };
     },
-    template: `<!-- paginator: { page: 1, size: 5, total: 5, pageSizes: [5, 10, 15] } -->
+    template: `<!-- paginator: { page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] } -->
 <SDTable :data="data" :paginator="paginator" @paginatorChange="paginatorChange">
     <SDColumn field="name" header="Nombre" />
     <SDColumn field="email" header="Correo" />
@@ -171,4 +171,23 @@ export const HidePaginationWhenSinglePage = createVariation({
     <SDColumn field="title" noLink header="Titulo" />
     <SDColumn field="role" header="Rol" />
 </SDTable>`,
+});
+
+export const Scroll = createVariation({
+    components: { SDTable, SDColumn },
+    setup: () => {
+        const paginator = ref({ page: 1, size: 5, pageSizes: [5, 10, 15] });
+        return { data: data.slice(0, 5).map(i => ({...i, email2: i.email, email3: i.email})), paginator };
+    },
+    template: `<!-- paginator: { page: 1, size: 5, pageSizes: [5, 10, 15] } -->
+<div class="w-1/2">
+    <SDTable :data="data" :paginator="paginator" @paginatorChange="newState => paginator = {...paginator, ...newState}">
+        <SDColumn field="name" header="Nombre" />
+        <SDColumn field="email" header="Correo" />
+        <SDColumn field="email2" header="Correo" />
+        <SDColumn field="email3" header="Correo" />
+        <SDColumn field="title" noLink header="Titulo" />
+        <SDColumn field="role" header="Rol" />
+    </SDTable>
+</div>`,
 });

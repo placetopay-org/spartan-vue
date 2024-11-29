@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cbv } from '@/helpers';
 
-export const tableStyles = cva('w-full', {
+export const tableStyles = cva('w-full overflow-hidden', {
     variants: {
-        borderless: cbv('', 'shadow overflow-hidden rounded-2xl outline outline-1 outline-gray-300'),
+        borderless: cbv('', 'shadow rounded-2xl outline outline-1 outline-gray-300'),
     },
 });
 export type TTableStyles = VariantProps<typeof tableStyles>;
