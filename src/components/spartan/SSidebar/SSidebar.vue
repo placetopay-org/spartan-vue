@@ -23,8 +23,8 @@ const headerCallback = typeof props.placetopayHeader === 'function' && props.pla
             v-if="placetopayHeader || hasSlotContent($slots.header)"
             @click="headerCallback ? headerCallback() : undefined"
         >
-            <SPlacetopayLogo v-if="placetopayHeader" :height="32" />
-            <slot v-else name="header" />
+            <slot v-if="hasSlotContent($slots.header)" name="header" />
+            <SPlacetopayLogo v-else :height="32" />
         </component>
 
         <nav v-if="hasSlotContent($slots.default)">
