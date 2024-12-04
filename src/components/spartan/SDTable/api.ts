@@ -1,12 +1,12 @@
 import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
 import type { TDTableProps, TDTableEmits, TDColumnProps } from './types';
 
-type TUpdateCol = (data: TDColumnProps) => void;
+type TUpdateColData = TDColumnProps & { slots?: any };
 
 type TState = {
-    cols: Record<string, TDColumnProps>;
-    colsArray: TDColumnProps[];
-    updateCol: TUpdateCol;
+    cols: Record<string, TUpdateColData>;
+    colsArray: TUpdateColData[];
+    updateCol: (data: TUpdateColData) => void;
 };
 
 const contextKey = Symbol('STableContext') as InjectionKey<TState>;
@@ -17,7 +17,7 @@ export const createContext = (props: TDTableProps, emit?: TDTableEmits) => {
         colsArray: computed(() => {
             return Object.keys(state.cols).map((key) => ({ ...state.cols[key], field: key }));
         }),
-        updateCol: ({ field, ...rest }: TDColumnProps) => {
+        updateCol: ({ field, ...rest }: TUpdateColData) => {
             state.cols[field] = { ...state.cols[field], ...rest };
         },
     });

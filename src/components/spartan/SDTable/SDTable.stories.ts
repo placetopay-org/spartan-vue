@@ -191,3 +191,31 @@ export const Scroll = createVariation({
     </SDTable>
 </div>`,
 });
+
+export const WithoutHeader = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data" pt:thead="hidden">
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const CustomCellStyle = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data">
+    <SDColumn field="name" header="Nombre"/>
+    <SDColumn field="email" header="Correo" />
+    <SDColumn unstyled field="title" header="Titulo">
+        <template #body="{ value }">
+            <div :class="['p-3.5', value[0] === 'F' ? 'bg-yellow-400' : 'bg-blue-400']">
+                {{ value }}
+            </div>
+        </template>
+    </SDColumn>
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});

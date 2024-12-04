@@ -10,10 +10,10 @@ export type TDTableProps = {
 
 export type TDColumnProps = {
     field: string;
-    slots?: any;
     header?: string;
     noLink?: boolean;
     sort?: 'asc' | 'des';
+    unstyled?: boolean;
 };
 
 export type TDTableEmits = {

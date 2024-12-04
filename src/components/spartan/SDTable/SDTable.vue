@@ -18,6 +18,7 @@ const context = createContext(props);
 const { pt, extractor } = usePassthrough();
 
 const [tableClass, tableProps] = extractor(pt.value.table);
+const [theadClass, theadProps] = extractor(pt.value.thead);
 const [paginatorClass, paginatorProps] = extractor(pt.value.paginator);
 
 const count = computed(() => props.paginator?.count || (props.paginator?.total && props.paginator?.size && Math.ceil(props.paginator.total / props.paginator.size)));
@@ -34,7 +35,7 @@ const sort = ({ field, sort }: TDColumnProps) => {
         <div class="overflow-auto">
             <table data-s-table v-bind="tableProps" :class="twMerge('w-full', tableClass)">
                 <slot />
-                <thead class="border-b border-gray-300 bg-gray-50">
+                <thead data-s-thead v-bind="theadProps" :class="twMerge('border-b border-gray-300 bg-gray-50', theadClass)">
                     <th v-for="col in context.colsArray" scope="col" :class="twMerge(cellStyles({ head: true }))">
                         <Wrapper :as="col.sort ? 'button' : 'div'" @click="sort(col)" class="flex w-fit group">
                             <template v-if="col.slots?.header">
@@ -60,9 +61,9 @@ const sort = ({ field, sort }: TDColumnProps) => {
     
                 <tbody class="divide-y divide-gray-200 bg-white">
                     <tr v-for="row in props.data" :class="rowLink(row) && 'hover:bg-gray-100'">
-                        <td v-for="col in context.colsArray" :class="twMerge((!rowLink(row) || col.noLink) && cellStyles())">
+                        <td v-for="col in context.colsArray" :class="twMerge(!col.unstyled && (!rowLink(row) || col.noLink) ? cellStyles() : 'p-0')">
                             <Wrapper
-                                :as="!!rowLink(row) && !col.noLink && 'a'"
+                                :as="Boolean(rowLink(row)) && !col.noLink && 'a'"
                                 :href="rowLink(row)"
                                 :class="twMerge(cellStyles(), 'block h-full w-full')"
                             >
