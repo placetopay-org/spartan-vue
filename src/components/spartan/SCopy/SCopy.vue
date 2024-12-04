@@ -42,7 +42,7 @@ const copy = () => {
     <div :class="twMerge('group inline-flex cursor-pointer select-none items-center gap-2', $props.class)" @click="copy">
         <slot />
 
-        <STooltip ref="tooltip" :title="t('copied')" color="dark" placement="top" manual>
+        <STooltip ref="tooltip" :title="t('copied')" color="dark" placement="top" static manual>
             <div class="relative">
                 <CopyIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-600" />
                 <Transition

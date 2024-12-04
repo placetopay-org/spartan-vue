@@ -1,3 +1,3 @@
 export { default as SPaginator } from './SPaginator.vue';
 
-export type { TPaginatorProps } from './types';
+export type { TPaginatorProps, TPaginatorEmits } from './types';

@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { createBooleanVariation as cbv } from '@/helpers';
 
-export const popoverContainerStyles = cva('absolute z-40', {
+export const popoverContainerStyles = cva('', {
     variants: {
-        responsive: cbv('bottom-0 left-0 w-full md:bottom-auto md:left-auto md:w-auto'),
+        responsive: cbv('absolute md:static bottom-0 left-0 w-full md:bottom-auto md:left-auto md:w-auto'),
     },
 });
 

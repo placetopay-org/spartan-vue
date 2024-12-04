@@ -35,7 +35,7 @@ const openFieldPopover = () => {
                     color="white"
                     class="whitespace-nowrap"
                     pill 
-                    border
+                    outline
                     :removable="!field.permanent"
                     @removed="removing = true"
                 >

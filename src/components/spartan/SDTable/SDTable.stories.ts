@@ -3,6 +3,7 @@ import SDColumn from './SDColumn.vue';
 import { rows as data } from '@/data/table';
 import { DirectIcon } from '@placetopay/iconsax-vue/twotone'
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { ref } from 'vue';
 
 export default {
     component: SDTable,
@@ -137,6 +138,84 @@ export const Borderless = createVariation({
     <SDColumn field="name" header="Nombre" />
     <SDColumn field="email" header="Correo" />
     <SDColumn field="title" noLink header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const Pagination = createVariation({
+    components: { SDTable, SDColumn },
+    setup: () => {
+        const paginator = ref({ page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] });
+        const paginatorChange = (newState: any) => { };
+        return { data: data.slice(0, 5), paginator, paginatorChange };
+    },
+    template: `<!-- paginator: { page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] } -->
+<SDTable :data="data" :paginator="paginator" @paginatorChange="paginatorChange">
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" noLink header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const HidePaginationWhenSinglePage = createVariation({
+    components: { SDTable, SDColumn },
+    setup: () => {
+        const paginator = ref({ page: 1, size: 5, total: 5, pageSizes: [5, 10, 15], hideWhenSinglePage: true });
+        return { data: data.slice(0, 5), paginator };
+    },
+    template: `<!-- paginator: { page: 1, size: 5, total: 5, pageSizes: [5, 10, 15], hideWhenSinglePage: true } -->
+<SDTable :data="data" :paginator="paginator" @paginatorChange="newState => paginator = {...paginator, ...newState}">
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" noLink header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const Scroll = createVariation({
+    components: { SDTable, SDColumn },
+    setup: () => {
+        const paginator = ref({ page: 1, size: 5, pageSizes: [5, 10, 15] });
+        return { data: data.slice(0, 5).map(i => ({...i, email2: i.email, email3: i.email})), paginator };
+    },
+    template: `<!-- paginator: { page: 1, size: 5, pageSizes: [5, 10, 15] } -->
+<div class="w-1/2">
+    <SDTable :data="data" :paginator="paginator" @paginatorChange="newState => paginator = {...paginator, ...newState}">
+        <SDColumn field="name" header="Nombre" />
+        <SDColumn field="email" header="Correo" />
+        <SDColumn field="email2" header="Correo" />
+        <SDColumn field="email3" header="Correo" />
+        <SDColumn field="title" noLink header="Titulo" />
+        <SDColumn field="role" header="Rol" />
+    </SDTable>
+</div>`,
+});
+
+export const WithoutHeader = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data" pt:thead="hidden">
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const CustomCellStyle = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data">
+    <SDColumn field="name" header="Nombre"/>
+    <SDColumn field="email" header="Correo" />
+    <SDColumn unstyled field="title" header="Titulo">
+        <template #body="{ value }">
+            <div :class="['p-3.5', value[0] === 'F' ? 'bg-yellow-400' : 'bg-blue-400']">
+                {{ value }}
+            </div>
+        </template>
+    </SDColumn>
     <SDColumn field="role" header="Rol" />
 </SDTable>`,
 });

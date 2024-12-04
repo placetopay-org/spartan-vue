@@ -1,23 +1,27 @@
 <script setup lang="ts">
+import { usePassthrough } from '@/helpers';
 import { useContext } from './api';
-import { UnderlineTabItem, PillTabItem, VetchTabItem } from './variants';
 import type { TTabItemProps } from './types';
+import { twMerge } from 'tailwind-merge';
 
 defineOptions({ inheritAttrs: false });
-const props = defineProps<Partial<TTabItemProps>>();
-const store = useContext('STabItem');
+const props = defineProps<TTabItemProps>();
 
-const variants = {
-    underline: UnderlineTabItem,
-    pills: PillTabItem,
-    vetches: VetchTabItem,
-};
+const context = useContext('STabItem');
+
+const { pt, extractor } = usePassthrough();
+const [itemClass, itemProps] = extractor(pt.value.item);
 </script>
 
 <template>
-    <li :class="store.full ? 'w-full' : ''">
-        <component class="w-full inline-flex justify-center" :is="variants[store.variant]" v-bind="{ ...props, ...$attrs }">
+    <!-- <li :class="context.full ? 'w-full' : ''"> -->
+    <li data-s-item v-bind="itemProps" :class="twMerge(itemClass)">
+        <component class="w-full inline-flex justify-center" :is="context.variant.item" v-bind="{ ...props, ...$attrs }">
             <slot />
+
+            <template #items>
+                <slot name="items" />
+            </template>
         </component>
     </li>
 </template>

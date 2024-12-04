@@ -124,7 +124,7 @@ export const Default = createDefault({
     <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
   </template>
 
-  <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
+  <SDropdownItem @click="console.log('title')" :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
     {{ args.itemSlotDefault }}
 
     <template #description>
@@ -288,8 +288,6 @@ export const AsLink = buildVariation({
   <SDropdownItem :icon="Cog8ToothIcon" link="/settings"> Settings </SDropdownItem>
 </SDropdown>  
 `
-
-
 })
 
 export const OnAvatarElement = createVariation(`
