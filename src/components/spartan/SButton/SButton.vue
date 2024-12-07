@@ -12,23 +12,8 @@ export default {
 import { buttonStyles } from './styles';
 import { twMerge } from 'tailwind-merge';
 import type { TButtonProps } from './types';
-import { computed } from 'vue';
 
-const props = withDefaults(defineProps<Partial<TButtonProps>>(), {
-    as: 'button',
-    disabled: false,
-    loading: false,
-    rounded: 'both',
-    size: 'md',
-    type: 'button',
-    variant: 'primary',
-});
-
-// TODO: Remove icon prop in favor of leftIcon use
-const finalLeftIcon = computed(() => {
-    if (props.leftIcon) return props.leftIcon;
-    return props.icon;
-});
+const { as = 'button', rounded = 'both', type = 'button', variant = 'primary', size = 'md', leftIcon, icon } = defineProps<TButtonProps>();
 </script>
 
 <template>
@@ -36,22 +21,22 @@ const finalLeftIcon = computed(() => {
         :is="as || 'button'"
         :ref="$attrs.reference"
         :type="as && as === 'button' ? type : undefined"
+        :disabled="disabled"
         :class="
             twMerge(
                 buttonStyles({
                     variant,
-                    [$slots.default?.()[0].children ? 'size:text' : 'size:noText']: props.size,
                     rounded,
                     loading,
                     disabled,
+                    [$slots.default?.()[0].children ? 'size:text' : 'size:noText']: size,
                 }),
                 $props.class
             )
         "
-        :disabled="disabled"
     >
         <component
-            :is="finalLeftIcon"
+            :is="leftIcon || icon"
             :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-ml-0.5')"
         />
         <slot />

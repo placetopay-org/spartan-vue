@@ -5,6 +5,7 @@ export const roundedClass = {
     right: 'rounded-r-lg',
     both: 'rounded-lg',
     none: '',
+    full: 'rounded-full',
 };
 
 export const createBooleanVariation = (trueStyle?: string | string[], falseStyle?: string | string[]) => ({

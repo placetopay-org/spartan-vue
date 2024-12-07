@@ -1,58 +1,49 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { SCN } from '@/constants';
-import { createBooleanVariation as cbv } from '@/helpers';
+import { createBooleanVariation as cbv, roundedClass } from '@/helpers';
 
-type TSizeVariant = 'sm' | 'md';
+type TSizeVariant = 'sm' | 'md' | 'lg';
 const size: Record<'text' | 'noText', Record<TSizeVariant, string>> = {
     text: {
-        sm: 'py-2 px-3 text-xs',
-        md: 'py-3 px-6 text-sm',
+        sm: 'h-7 py-1.5 px-[10px] text-xs',
+        md: 'h-9 py-2 px-4 text-sm',
+        lg: 'h-12 py-3 px-6 text-base',
     },
     noText: {
-        sm: 'p-1',
-        md: 'p-3',
+        sm: 'h-7 p-1.5',
+        md: 'h-9 p-2',
+        lg: 'h-12 p-3',
     },
 };
 
 export type TButtonStyles = VariantProps<typeof buttonStyles> & { size: TSizeVariant };
 export const buttonStyles = cva(
-    'inline-flex items-center justify-center h-fit w-fit border font-medium transition focus:outline-none gap-2',
+    'inline-flex items-center justify-center h-fit w-fit border font-medium transition focus:outline-none gap-2 box-border',
     {
         variants: {
             variant: {
                 primary: [
-                    'text-white',
+                    'text-white focus-within:s-ring',
                     'bg-spartan-primary-600 hover:bg-spartan-primary-700',
-                    'border-spartan-primary-600 shadow-sm',
-                    SCN.focusRingPrimary,
+                    'border-spartan-primary-600 shadow-sm'
                 ],
                 secondary: [
-                    'text-gray-900',
+                    'text-gray-900 focus-within:s-ring-secondary',
                     'bg-white hover:bg-gray-50',
                     'border-gray-300 focus:ring-gray-300 shadow-sm',
-                    SCN.focusRingSecondary,
                 ],
                 danger: [
-                    'text-white',
+                    'text-white focus-within:s-ring-error',
                     'bg-red-500 hover:bg-red-600',
                     'border-red-500 focus:ring-red-300 shadow-sm',
-                    SCN.focusRingDanger,
                 ],
                 outline: [
-                    'text-spartan-primary-600',
+                    'text-spartan-primary-600 focus-within:s-ring',
                     'bg-white hover:bg-spartan-primary-50',
                     'border-spartan-primary-600 shadow-sm',
-                    SCN.focusRingPrimary,
                 ],
                 link: ['text-spartan-primary-600 hover:text-spartan-primary-700', 'bg-transparent', 'border-transparent'],
             },
-            rounded: {
-                left: 'rounded-l-lg',
-                right: 'rounded-r-lg',
-                both: 'rounded-lg',
-                none: '',
-                full: 'rounded-full',
-            },
+            rounded: roundedClass,
             loading: cbv('loading'),
             disabled: cbv('opacity-50 pointer-events-none'),
             'size:text': size.text,

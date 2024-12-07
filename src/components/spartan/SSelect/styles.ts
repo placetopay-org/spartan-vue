@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority';
 import { createBooleanVariation as cbv, roundedClass } from '@/helpers';
 
 export const selectStyles = cva(
-    'h-9 bg-white text-base font-normal py-1.5 pl-3 pr-8 text-gray-900 border border-gray-300',
+    'h-9 bg-white text-base font-normal py-[5px] pl-3 pr-8 text-gray-900 border border-gray-300',
     {
         variants: {
             disabled: cbv('text-gray-400 bg-gray-50 pointer-events-none'),
