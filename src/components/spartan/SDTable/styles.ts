@@ -8,8 +8,9 @@ export const tableStyles = cva('w-full overflow-hidden', {
 });
 export type TTableStyles = VariantProps<typeof tableStyles>;
 
-export const cellStyles = cva('first:pl-5 last:pr-5 p-3.5 text-sm text-left', {
+export const cellStyles = cva('', {
     variants: {
+        unstyled: cbv('p-0', 'first:pl-5 last:pr-5 p-3.5 text-sm text-left'),
         head: cbv('text-gray-900 font-semibold', 'text-gray-500'),
     },
 });

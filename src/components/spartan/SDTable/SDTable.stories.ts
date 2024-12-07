@@ -119,6 +119,25 @@ export const RowLink = createVariation({
 </SDTable>`,
 });
 
+export const CollapsibleRows = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data">
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+    <SDColumn expander />
+
+    <template #expansion="{ row }">
+        <div class="bg-yellow-500 text-white flex flex-col p-4 justify-center">
+            <p class="font-bold">Any element!</p>
+            <p><span class="font-bold">row.name:</span> {{ row.name }}</p>
+        </div>
+    </template>
+</SDTable>`,
+});
+
 export const Sorting = createVariation({
     ...variationConfig,
     setup: () => ({ data: data.slice(0, 5), alert: (e: any) => alert(JSON.stringify(e)) }),
