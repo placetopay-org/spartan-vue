@@ -6,12 +6,12 @@ const size: Record<'text' | 'noText', Record<TSizeVariant, string>> = {
     text: {
         sm: 'h-7 py-1.5 px-[10px] text-xs',
         md: 'h-9 py-2 px-4 text-sm',
-        lg: 'h-12 py-3 px-6 text-base',
+        lg: 'h-11 py-[10px] px-6 text-base',
     },
     noText: {
         sm: 'h-7 p-1.5',
         md: 'h-9 p-2',
-        lg: 'h-12 p-3',
+        lg: 'h-11 p-[10px]',
     },
 };
 
