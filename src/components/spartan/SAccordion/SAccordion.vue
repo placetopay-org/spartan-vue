@@ -12,7 +12,7 @@ const [bodyClass, bodyProps] = extractor(pt.value.body);
 </script>
 
 <template>
-    <div :class="twMerge(accordionStyles({ vertical, open }), $props.class)">
+    <div :class="twMerge(accordionStyles({ vertical, open: Boolean(open) }), $props.class)">
         <div data-s-body v-bind="bodyProps" :class="twMerge('overflow-hidden', bodyClass)">
             <slot />
         </div>

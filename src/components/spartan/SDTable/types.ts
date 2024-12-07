@@ -1,4 +1,4 @@
-import type { TPaginatorProps, TPaginatorEmits } from "@spartan";
+import type { TPaginatorProps } from "@spartan";
 
 export type TDTableProps = {
     class?: string;
@@ -9,11 +9,12 @@ export type TDTableProps = {
 };
 
 export type TDColumnProps = {
-    field: string;
+    field?: string | symbol;
     header?: string;
     noLink?: boolean;
     sort?: 'asc' | 'des';
     unstyled?: boolean;
+    expander?: boolean;
 };
 
 export type TDTableEmits = {
