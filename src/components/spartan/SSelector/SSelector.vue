@@ -55,8 +55,6 @@ const selectOption = (option: TOption) => {
                 :class="twMerge('py-1 shadow-lg max-h-80 overflow-auto', optionsClass)"
                 :style="{ minWidth: `${button?.clientWidth}px` }"
             >
-                <slot />
-
                 <template v-for="option in options">
                     <span v-if="optionGroupLabel && option[optionGroupLabel]" class="py-2 pl-3 uppercase text-gray-400 text-xs font-medium">{{ option[optionGroupLabel] }}</span>
 
