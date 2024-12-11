@@ -415,7 +415,7 @@ export const PrecastAndCustomSlots = createVariation({
             </template>
         
             <template #right>
-                <SButton rounded="none">Send</SButton>
+                <SButton rounded="none" class="-m-px">Send</SButton>
             </template>
         </SInput>
         `,

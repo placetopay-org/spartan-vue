@@ -158,6 +158,7 @@ export const Rounded = createVariation(`
 export const Sizes = createVariation(`
 <SButton size="sm"> Small </SButton>
 <SButton> Medium </SButton>
+<SButton size="lg"> Large </SButton>
 `);
 
 export const Disabled = createVariation(`

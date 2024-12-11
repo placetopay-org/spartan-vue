@@ -1,43 +1,42 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { roundedClass, usePassthrough } from '@/helpers';
+import { ref, watchEffect } from 'vue';
+import { usePassthrough } from '@/helpers';
 import type { TSelectEmits, TSelectProps } from './types';
 import { twMerge } from 'tailwind-merge';
+import { selectStyles } from './styles';
 
-const emit = defineEmits<TSelectEmits>();
-
-const { rounded = 'both', modelValue, placeholderValue } = defineProps<TSelectProps>();
-
-const value = ref(modelValue);
-const model = computed({
-    get() {
-        return modelValue ?? value.value;
-    },
-    set(newValue) {
-        value.value = newValue;
-        emit('update:modelValue', newValue);
-    },
-});
-
+defineEmits<TSelectEmits>();
+const { rounded = 'both', modelValue } = defineProps<TSelectProps>();
 
 const { pt, extractor } = usePassthrough();
+const [phClass] = extractor(pt.value.placeholder);
 
-const [placeholderClass] = extractor(pt.value.placeholder);
+const select = ref<HTMLSelectElement | null>(null);
+
+const placeholderClass = ref(phClass);
+
+watchEffect(() => {
+    placeholderClass.value = modelValue ? '' : (phClass || 'text-gray-400');
+})
 </script>
 
 <template>
     <select
-        :id="id"
-        v-model="model"
+        ref="select"
+        :value="modelValue"
+        @change="$emit('update:modelValue', ($event.target as any).value)"
         :disabled="disabled"
-        :name="name"
-        :class="twMerge('block border py-2 pl-3 pr-8 text-base text-gray-800',
-            error ? 'border-red-500 focus:s-ring-error' : 'border-gray-300 focus:s-ring',
-            roundedClass[rounded], $props.class, value === placeholderValue && placeholderClass)"
+        :class="twMerge(selectStyles({ rounded, error, disabled }), $props.class, placeholderClass)"
     >
-        <option v-if="placeholder" disabled :value="placeholderValue">
+        <option v-if="placeholder" disabled value selected>
             {{ placeholder }}
         </option>
         <slot />
     </select>
 </template>
+
+<style>
+select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+}
+</style>

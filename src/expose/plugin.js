@@ -32,8 +32,11 @@ export default plugin.withOptions(
                 '.s-ring': {
                     '@apply duration-150 ring ring-spartan-primary-100 border-spartan-primary-300 z-10': {},
                 },
+                '.s-ring-secondary': {
+                    '@apply duration-150 ring ring-gray-100 border-gray-300 z-10': {},
+                },
                 '.s-ring-error': {
-                    '@apply duration-150 ring ring-red-300 border-red-500 z-10': {},
+                    '@apply duration-150 ring ring-red-200 border-red-500 z-10': {},
                 },
             });
         };

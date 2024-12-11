@@ -61,7 +61,10 @@ const focus = () => {
 const open = () => {
     isOpen.value = true;
     nextTick(() => {
-        focus();
+        // prevent jumping
+        setTimeout(() => {
+            focus();
+        }, 0);
     });
 };
 

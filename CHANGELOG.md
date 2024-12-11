@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.159 - 2024-12-11
+
 ## 2.0.0-beta.158 - 2024-12-09
 ### Added
 - Collapsible rows in `SDTable` component.

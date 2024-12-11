@@ -1,6 +1,6 @@
 {
   "name": "@placetopay/spartan-vue",
-  "version": "2.0.0-beta.158",
+  "version": "2.0.0-beta.159",
   "type": "module",
   "description": "spartan vue lib",
   "main": "./dist/spartan-vue.umd.cjs",
@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "clsx": "2.1.1",
-    "vue": "3.5.12",
+    "vue": "^3.5.12",
     "vue-i18n": "^9.14.1"
   },
   "peerDependencies": {
@@ -60,6 +60,7 @@
     "@headlessui/vue": "1.7.17",
     "@heroicons/vue": "2.1.1",
     "@intlify/unplugin-vue-i18n": "^2.0.0",
+    "@placetopay/flagicons-vue": "^0.1.0",
     "@placetopay/iconsax-vue": "^1.0.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -83,6 +84,7 @@
     "@testing-library/vue": "^8.0.3",
     "@types/big.js": "^6.2.2",
     "@types/lodash": "^4.14.202",
+    "@types/lodash.isequal": "^4.5.8",
     "@types/node": "20.11.7",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
@@ -106,6 +108,7 @@
     "imask": "^7.3.0",
     "jsdom": "^24.0.0",
     "lodash": "^4.17.21",
+    "lodash.isequal": "^4.5.0",
     "postcss": "8.4.33",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "0.5.14",

@@ -1,15 +1,8 @@
 import { cva } from 'class-variance-authority';
-import { createBooleanVariation as cbv } from '@/helpers';
-
-const roundedStyles = {
-    left: 'rounded-l-lg',
-    right: 'rounded-r-lg',
-    both: 'rounded-lg',
-    none: '',
-}
+import { createBooleanVariation as cbv, roundedClass } from '@/helpers';
 
 export const containerStyles = cva(
-    'relative flex gap-2 border border-gray-300 bg-white',
+    'h-9 relative flex gap-2 border border-gray-300 bg-white',
     {
         variants: {
             disabled: cbv('opacity-50 cursor-not-allowed'),
@@ -17,7 +10,7 @@ export const containerStyles = cva(
             borderless: cbv('border-0'),
             rightOptions: cbv('pr-0', 'pr-3'),
             leftOptions: cbv('pl-0', 'pl-3'),
-            rounded: roundedStyles
+            rounded: roundedClass
         },
         compoundVariants: [
             {
@@ -30,10 +23,10 @@ export const containerStyles = cva(
 );
 
 export const inputStyles = cva(
-    'w-full border-none px-0 py-2 text-gray-900 outline-none placeholder:text-gray-400 focus:ring-0',
+    'w-full border-none px-0 py-1.5 text-gray-900 outline-none placeholder:text-gray-400 focus:ring-0',
     {
         variants: {
-            rounded: roundedStyles
+            rounded: roundedClass
         }
     }
 );

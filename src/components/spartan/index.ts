@@ -52,3 +52,5 @@ export * from './SPaginator';
 export * from './STooltip';
 export * from './SDTable';
 export * from './SCopy';
+export * from './SSelector';
+export * from './SSelectorBlock';
