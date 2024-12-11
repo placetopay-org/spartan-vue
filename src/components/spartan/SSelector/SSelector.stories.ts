@@ -293,7 +293,8 @@ export const Template = createVariation({
         return { value, countries, clear };
     },
     template: `
-<!-- countries: [
+<!-- import { FlagIcon } from '@placetopay/flagicons-vue'; 
+countries: [
     { name: 'Australia', code: 'AU' },
     { name: 'Brazil', code: 'BR' },
     { name: 'China', code: 'CN' },
