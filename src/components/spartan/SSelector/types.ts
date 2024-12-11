@@ -1,5 +1,3 @@
-import type { TRounded } from '@/helpers';
-
 export type TOption = Record<string, any>;
 
 export type TSelectorEmits = {

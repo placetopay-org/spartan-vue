@@ -1,23 +1,18 @@
 <script setup lang="ts">
-import { createContext } from './api';
 import { hasSlotContent, usePassthrough } from '@/helpers';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { buttonStyles, optionStyles } from './styles';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';
-import { useDebounceFn } from '@vueuse/core';
 import { SPopover } from '../SPopover';
 import { ref } from 'vue';
 import isEqual from 'lodash.isequal';
-import { isTemplateMiddleOrTemplateTail } from 'typescript';
 
 const emit = defineEmits<TSelectorEmits>();
-const props = defineProps<TSelectorProps>();
+defineProps<TSelectorProps>();
 const { pt, extractor } = usePassthrough();
 
 const [optionsClass, optionsProps] = extractor(pt.value.options);
-
-const store = createContext({ props, emit });
 
 const popover = ref<InstanceType<typeof SPopover> | null>(null);
 const button = ref<HTMLButtonElement | null>(null);
@@ -27,10 +22,6 @@ const selectOption = (option: TOption) => {
      emit('update:modelValue', option);
      popover.value?.close();
 }
-
-// const updateQuery = useDebounceFn((query) => {
-//     store.value.updateQuery(query);
-// }, props.queryDebounce ?? 500);
 </script>
 
 <template>
