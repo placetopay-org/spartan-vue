@@ -230,11 +230,17 @@ export const CustomCellStyle = createVariation({
     <SDColumn field="email" header="Correo" />
     <SDColumn unstyled field="title" header="Titulo">
         <template #body="{ value }">
-            <div :class="['p-3.5', value[0] === 'F' ? 'bg-yellow-400' : 'bg-blue-400']">
+            <div :class="['absolute inset-0', 'flex items-center', value[0] === 'F' ? 'bg-yellow-400' : 'bg-blue-400']">
                 {{ value }}
             </div>
         </template>
     </SDColumn>
-    <SDColumn field="role" header="Rol" />
+    <SDColumn field="role" header="Rol">
+        <template #body="{ value }">
+            <div class="py-4">
+                {{ value }}
+            </div>
+        </template>
+    </SDColumn>
 </SDTable>`,
 });
