@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { SButton } from '../SButton';
 import AddFilterButton from './elements/AddFilterButton.vue';
+import FieldBadge from './elements/FieldBadge.vue';
+import SavedButton from './elements/SavedButton.vue';
 import type { SFilterProps, SFilterEmits, TField } from './types';
 import { createContext } from './api';
 import { computed, onMounted } from 'vue';
 import { translator } from '@/helpers';
-import FieldBadge from './elements/FieldBadge.vue';
 
 const emit = defineEmits<SFilterEmits>();
-const props = defineProps<SFilterProps>();
+const props = withDefaults(defineProps<SFilterProps>(), {
+    responsive: true,
+});
 
 const { t } = translator('filter');
 
@@ -47,17 +50,18 @@ defineExpose({
 </script>
 
 <template>
-    <div class="flex gap-3">
+    <div class="flex gap-3 justify-between">
         <div class="flex w-full flex-wrap gap-3">
             <FieldBadge v-for="field in activeFields" :key="field.id" :field="field" />
             <AddFilterButton />
         </div>
 
         <div class="flex gap-3" v-if="!hideApplyButton && !hideClearButton">
-            <SButton v-if="!hideApplyButton" class="whitespace-nowrap rounded-full py-0.5" @click="apply">
+            <SavedButton v-if="saved" />
+            <SButton v-if="!hideApplyButton" class="whitespace-nowrap h-[26px]" size="sm" rounded="full" @click="apply">
                 {{ t('applyBtn') }}
             </SButton>
-            <SButton v-if="!hideClearButton" class="whitespace-nowrap rounded-full py-0.5" variant="secondary" @click="clear">
+            <SButton v-if="!hideClearButton" class="whitespace-nowrap h-[26px]" size="sm" rounded="full" variant="secondary" @click="clear">
                 {{ t('clearBtn') }}
             </SButton>
         </div>

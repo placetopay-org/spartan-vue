@@ -58,9 +58,17 @@ export type SFilterProps = {
     hideClearButton?: boolean;
     applyWhenClear?: boolean;
     immediateApply?: boolean;
-    notResponsive?: boolean;
+    responsive?: boolean;
+    saved?: TSaveData[];
 };
 
 export type SFilterEmits = {
     (event: 'apply', fields: Omit<TField, 'interfaces'>[] | undefined): void;
+    (event: 'save', data: TSaveData[]): void
+    (event: 'load', data: TSaveData['filters']): void
 };
+
+export type TSaveData = {
+    name: string;
+    filters: Omit<TField, 'interfaces'>[];
+}

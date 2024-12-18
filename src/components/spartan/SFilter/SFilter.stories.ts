@@ -1,6 +1,8 @@
 import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
-import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
+import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { ref } from 'vue';
+import type { TField, TSaveData } from './types';
 
 export default {
     component: SFilter,
@@ -158,55 +160,155 @@ export const Default = createDefault({
             {
                 id: 'another',
                 name: 'Another',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another1',
                 name: 'Another 1',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another2',
                 name: 'Another 2',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another3',
                 name: 'Another 3',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another4',
                 name: 'Another 4',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another5',
                 name: 'Another 5',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another6',
                 name: 'Another 6',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another7',
                 name: 'Another 7',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another8',
                 name: 'Another 8',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another9',
                 name: 'Another 9',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another10',
                 name: 'Another 10',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another11',
                 name: 'Another 11',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
             {
                 id: 'another12',
                 name: 'Another 12',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                }
             },
         ],
     },
+});
+
+export const Saved = createVariation({
+    components: { SFilter },
+    containerClass: 'wfull h-[250px]',
+    setup: () => {
+        const fields = ref([
+            {
+                id: 'test',
+                name: 'Test',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
+                state: {
+                    operator: 'exist',
+                    value: null,
+                }
+            }
+        ]);
+        const saved = ref<TSaveData[]>([]);
+
+        const save = (data: TSaveData[]) => {
+            console.log('Saved:', data);
+            saved.value = data;
+        }
+
+        const load = (data: TSaveData[]) => {
+            console.log('Loaded:', data);
+        }
+
+        return { fields, saved, save, load };
+    },
+    template: `<SFilter :fields="fields" :saved="saved" :responsive="false" @apply="console.log" @save="save" @load="load"/>`,
 });

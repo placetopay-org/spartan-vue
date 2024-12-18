@@ -42,7 +42,7 @@ const disabled = computed(() => (!value.value || value.value.length === 0) && in
         <div class="flex items-center gap-3">
             <span>{{ field.name }}</span>
             
-            <SPopover :offset="8">
+            <SPopover :offset="8" :responsive="context.responsive">
                 <template #reference="{ toggle }">
                     <button
                         class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pl-3 pr-2 text-gray-800"
