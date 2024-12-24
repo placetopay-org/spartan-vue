@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
-import { ref, computed, nextTick, watch, h, Teleport } from 'vue';
+import { ref, computed, nextTick, Teleport } from 'vue';
 import { useFloating, autoUpdate, flip, offset as setOffset, arrow as setArrow } from '@floating-ui/vue';
 import { useMediaQuery } from '@vueuse/core';
 import { arrowStyles, popoverContainerStyles, popoverFloatingStyles } from './styles';
@@ -136,8 +135,8 @@ const arrowPosition = computed(() => {
     <Teleport to="body">
         <Transition v-bind="TranStyle.fade">
             <div
-                v-if="!isLargeScreen && isOpen && responsive"
-                :class="twMerge('fixed inset-0 bg-black/30', '')"
+                v-if="isOpen && !isLargeScreen && responsive"
+                class="fixed inset-0 bg-black/30 z-40"
                 aria-hidden="true"
             />
         </Transition>

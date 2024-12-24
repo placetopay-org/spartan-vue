@@ -2,7 +2,7 @@
 import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 import { SCard, type TCardProps } from '../SCard';
-import { SModal, SModalTitle, SModalDescription, type TModalProps } from '../SModal';
+import { SModal, type TModalProps } from '../SModal';
 import type { TModalCardEmits } from './types';
 
 defineEmits<TModalCardEmits>();
@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<Partial<TModalProps> & Partial<TCardProps
 
 const modalProps = computed(() => ({
     open: props.open,
+    preventClose: props.preventClose,
 }));
 
 const cardProps = computed(() => ({
@@ -33,13 +34,7 @@ const cardProps = computed(() => ({
 <template>
     <SModal v-bind="modalProps" @close="$emit('close')">
         <SCard v-bind="cardProps">
-            <template #title>
-                <SModalTitle><slot name="title" /></SModalTitle>
-            </template>
             <slot />
-            <template #description>
-                <SModalDescription><slot name="description" /></SModalDescription>
-            </template>
             <template #actions>
                 <slot name="actions" />
             </template>

@@ -518,3 +518,10 @@ export const Customize = buildVariation(
 </div>
 `,
 );
+
+export const LongText = buildVariation(
+    `
+    <SBadge color="blue" class="w-40"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </SBadge>
+<SBadge color="primary"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </SBadge>
+`,
+);

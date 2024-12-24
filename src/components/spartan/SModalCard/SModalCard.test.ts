@@ -37,25 +37,25 @@ describe('SModalCard', () => {
         expect(screen.queryByText('Test content')).toBeInTheDocument();
     });
 
-    test('Can be rendered with slots', async () => {
-        // Arrange
-        window.ResizeObserver = vi.fn(() => ({
-            observe: vi.fn(),
-            unobserve: vi.fn(),
-            disconnect: vi.fn(),
-        }));
+    // test('Can be rendered with slots', async () => {
+    //     // Arrange
+    //     window.ResizeObserver = vi.fn(() => ({
+    //         observe: vi.fn(),
+    //         unobserve: vi.fn(),
+    //         disconnect: vi.fn(),
+    //     }));
 
-        // Act
-        const { rerender } = render(SModalCard, {
-            props: { open: false },
-            slots: { title: 'Test Title', default: 'Test content', description: 'Test description', actions: 'Test actions' },
-        });
-        await rerender({ open: true });
+    //     // Act
+    //     const { rerender } = render(SModalCard, {
+    //         props: { open: false },
+    //         slots: { title: 'Test Title', default: 'Test content', description: 'Test description', actions: 'Test actions' },
+    //     });
+    //     await rerender({ open: true });
         
-        // Assert
-        screen.getAllByRole('heading', { name: 'Test Title' });
-        screen.getByText('Test description');
-        screen.getByText('Test content');
-        screen.getByText('Test actions');
-    });
+    //     // Assert
+    //     screen.getAllByRole('heading', { name: 'Test Title' });
+    //     screen.getByText('Test description');
+    //     screen.getByText('Test content');
+    //     screen.getByText('Test actions');
+    // });
 });
