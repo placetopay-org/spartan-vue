@@ -4,12 +4,12 @@ import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { buttonStyles, optionStyles } from './styles';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';
-import { SPopover } from '../SPopover';
+import { SPopover, type TPopoverProps } from '../SPopover';
 import { ref } from 'vue';
 import isEqual from 'lodash.isequal';
 
 const emit = defineEmits<TSelectorEmits>();
-defineProps<TSelectorProps>();
+defineProps<TSelectorProps & TPopoverProps>();
 const { pt, extractor } = usePassthrough();
 
 const [optionsClass, optionsProps] = extractor(pt.value.options);
@@ -25,7 +25,7 @@ const selectOption = (option: TOption) => {
 </script>
 
 <template>
-    <SPopover :offset="2" ref="popover">
+    <SPopover :offset="2" ref="popover" :static="static" :responsive="responsive">
         <template #reference="{ toggle }">
             <button
                 :disabled="disabled"
