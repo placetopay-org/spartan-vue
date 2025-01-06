@@ -30,7 +30,9 @@ const [crossClass, crossProps] = extractor(pt.value.cross);
                 <slot name="tag" />
             </div>
     
-            <slot />
+            <div>
+                <slot />
+            </div>
         </div>
 
         <button

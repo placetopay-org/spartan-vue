@@ -1,11 +1,12 @@
 import { reactive, type InjectionKey, computed } from 'vue';
 import { SPopover } from '..';
 import type { SFilterProps, SFilterEmits, TField, TInterfaceId, TOperatorData, TSaveData } from './types';
-import { buildLabel, getOptions } from './helpers';
+import { buildLabel, getOperatorId, getOptions } from './helpers';
 import { buildContext } from '@/helpers';
 
 type TState = {
     fields?: TField[];
+    activeFields?: TField[];
     saved?: TSaveData[];
     activeField?: TField;
     responsive: boolean;
@@ -26,6 +27,7 @@ export const { createContext, useContext } = buildContext<TState, SFilterProps, 
 
         const state: TState = reactive({
             fields: props.fields,
+            activeFields: computed(() => state.fields?.filter((field) => field.state)),
             saved: computed(() => props.saved),
             activeField: undefined,
             responsive: !!props.responsive,
@@ -55,11 +57,13 @@ export const { createContext, useContext } = buildContext<TState, SFilterProps, 
                 const operator = fieldState.operator;
                 let value = fieldState.value;
 
-                if (state.operatorData[field.id].interfaces[operator] === 'options') {
-                    const options = getOptions(field.interfaces.options!.options);
-                    if (typeof value === 'string') value = options.find((option) => option.id === value)?.label;
-                    else value = options.filter((option) => value.includes(option.id)).map((option) => option.label);
-                }
+                // if (state.operatorData[field.id].interfaces[operator] === 'options') {
+                //     const options = getOptions(field.interfaces.options!.options);
+                //     if (typeof value === 'string') value = options.find((option) => option.id === value)?.label;
+                //     else value = options.filter((option) => value.includes(option.id)).map((option) => option.label);
+                // }
+
+                console.log('field: ', field);
 
                 return buildLabel(operator, value);
             },
@@ -80,24 +84,16 @@ export const { createContext, useContext } = buildContext<TState, SFilterProps, 
                         if (interfaceData) {
                             if (interfaceData.operators) {
                                 interfaceData.operators.forEach((operator) => {
-                                    data[field.id].operators.push({ id: operator, label: operator });
-                                    data[field.id].interfaces[operator] = key;
-                                });
-                            }
+                                    data[field.id].operators.push(operator);
 
-                            if (interfaceData.customOperators) {
-                                interfaceData.customOperators.forEach((operator) => {
-                                    const isString = typeof operator === 'string';
-                                    const operatorId = isString ? operator : operator.id;
-                                    const operatorLabel = isString ? operator : operator.label;
-
-                                    data[field.id].operators.push({ id: operatorId, label: operatorLabel });
-                                    data[field.id].interfaces[operatorId] = key;
+                                    data[field.id].interfaces[getOperatorId(operator)] = key;
                                 });
                             }
                         }
                     });
                 });
+
+                console.log('operatorData: ', data);
 
                 return data;
             }),

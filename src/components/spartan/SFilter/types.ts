@@ -7,8 +7,9 @@ export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options';
 
 export type TOperator = {
     id: string;
-    label: string;
-};
+    label?: string;
+    tag?: string | ((value: any) => string);
+} | string;
 
 export type TOptions = (string | { id: string; label: string })[];
 
@@ -18,8 +19,7 @@ export type TOperatorData = Record<
 >;
 
 export type TBaseInterface = {
-    operators?: TOperatorId[];
-    customOperators?: (TOperator | string)[];
+    operators?: TOperator[];
 };
 
 export type TNoneInterface = TBaseInterface;
@@ -47,7 +47,7 @@ export type TField = {
         options?: TOptionsInterface;
     };
     state?: {
-        operator: string;
+        operator: TOperator;
         value: any;
     };
 };

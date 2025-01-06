@@ -5,6 +5,7 @@ import { useContext } from '../api';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { computed, ref } from 'vue';
 import { interfaceComponents } from '../constants';
+import { getOperatorId, getOperatorLabel } from '../helpers';
 
 const emit = defineEmits<{
     (event: 'close'): void;
@@ -16,8 +17,8 @@ const context = useContext('SelectFilterDialog');
 const field = context.activeField!;
 
 const operators = ref(context.operatorData[field.id].operators);
-const operator = ref(operators.value[0]);
-const interfaceId = computed(() => context.operatorData[field.id].interfaces[operator.value.id]);
+const operator = ref(operators.value.find((op) => op === field.state?.operator) ?? operators.value[0]);
+const interfaceId = computed(() => context.operatorData[field.id].interfaces[getOperatorId(operator.value)]);
 
 const selectOperator = (newOperator: typeof operator.value, close: () => void) => {
     operator.value = newOperator;
@@ -28,13 +29,15 @@ const value = ref(field.state?.value ?? undefined);
 
 const add = () => {
     field.state = {
-        operator: operator.value.id,
+        operator: operator.value,
         value: value.value,
     };
     emit('close');
 };
 
 const disabled = computed(() => (!value.value || value.value.length === 0) && interfaceId.value !== 'none');
+
+console.log(field);
 </script>
 
 <template>
@@ -48,19 +51,19 @@ const disabled = computed(() => (!value.value || value.value.length === 0) && in
                         class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pl-3 pr-2 text-gray-800"
                         @click="toggle"
                     >
-                        <span>{{ t(`operator.${operator.id}`) }}</span>
+                        <span>{{ getOperatorLabel(operator) }}</span>
                         <ChevronDownIcon class="h-5 w-5 text-gray-600" />
                     </button>
                 </template>
 
                 <template #default="{ close }">
                     <ul class="divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white shadow-2xl">
-                        <li v-for="operator in operators" :key="operator.id">
+                        <li v-for="operator in operators" :key="getOperatorId(operator)">
                             <button
                                 class="w-full whitespace-nowrap p-3 text-left text-sm font-medium text-gray-800 hover:bg-gray-50"
                                 @click="selectOperator(operator, close)"
                             >
-                                {{ t(`operator.${operator.id}`) }}
+                                {{ getOperatorLabel(operator) }}
                             </button>
                         </li>
                     </ul>

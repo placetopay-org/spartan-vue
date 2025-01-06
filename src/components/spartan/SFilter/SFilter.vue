@@ -5,7 +5,7 @@ import FieldBadge from './elements/FieldBadge.vue';
 import SavedButton from './elements/SavedButton.vue';
 import type { SFilterProps, SFilterEmits, TField } from './types';
 import { createContext } from './api';
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { translator } from '@/helpers';
 
 const emit = defineEmits<SFilterEmits>();
@@ -15,11 +15,7 @@ const props = withDefaults(defineProps<SFilterProps>(), {
 
 const { t } = translator('filter');
 
-createContext(props, emit);
-
-const activeFields = computed(() => {
-    return props.fields.filter((field) => field.state);
-});
+const context = createContext(props, emit);
 
 const apply = () => {
     const fields: Omit<TField, 'interfaces'>[] = [];
@@ -52,7 +48,7 @@ defineExpose({
 <template>
     <div class="flex gap-3 justify-between">
         <div class="flex w-full flex-wrap gap-3">
-            <FieldBadge v-for="field in activeFields" :key="field.id" :field="field" />
+            <FieldBadge v-for="field in context.activeFields" :key="field.id" :field="field" />
             <AddFilterButton />
         </div>
 

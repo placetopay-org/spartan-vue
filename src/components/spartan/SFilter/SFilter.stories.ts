@@ -46,9 +46,8 @@ export const Default = createDefault({
                 interfaces: {
                     options: {
                         multiple: true,
-                        operators: ['equal', 'notEqual', 'contains'],
                         options: [{ id: '1', label: 'Nike' }, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                        customOperators: [{ id: 'custom', label: 'customOper' }],
+                        operators: ['equal', 'notEqual', 'contains', { id: 'custom', label: 'customOper', tag: (value: string) => `custom -> ${value}` }],
                     },
                 },
                 state: {
@@ -61,8 +60,7 @@ export const Default = createDefault({
                 name: 'Description',
                 interfaces: {
                     oneInput: {
-                        operators: ['contains', 'notContains', 'startsWith', 'endsWith'],
-                        customOperators: [{ id: 'custom', label: () => 'customOper' }],
+                        operators: ['contains', 'notContains', 'startsWith', 'endsWith', { id: 'custom', label: 'customOper' }],
                     },
                 },
                 state: {
@@ -129,8 +127,7 @@ export const Default = createDefault({
                 interfaces: {
                     twoInputs: {
                         type: 'date',
-                        operators: ['between', 'notBetween'],
-                        customOperators: [{ id: 'custom', label: 'customOper' }],
+                        operators: ['between', 'notBetween', { id: 'custom', label: 'customOper' }],
                     },
                 },
                 state: {
