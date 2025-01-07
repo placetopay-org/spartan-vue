@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
 import type { TInterfaceId } from './types';
-import { IOneInput, ITwoInputs, IOptions } from './interfaces';
+import { IOneInput, ITwoInputs, IOptions, ISelection } from './interfaces';
 
 export const predefinedOperators = [
     'between',
@@ -29,4 +29,5 @@ export const interfaceComponents: Record<TInterfaceId, Component | null> = {
     oneInput: IOneInput,
     twoInputs: ITwoInputs,
     options: IOptions,
+    selection: ISelection
 };

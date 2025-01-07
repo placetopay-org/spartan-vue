@@ -3,7 +3,7 @@ import { Currencies } from '@/constants';
 
 export type TOperatorId = (typeof predefinedOperators)[number];
 
-export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options';
+export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options' | 'selection';
 
 export type TOperator = {
     id: string;
@@ -36,6 +36,8 @@ export type TOptionsInterface = TBaseInterface & {
     multiple?: boolean;
 };
 
+export type TSelectionInterface = TBaseInterface
+
 export type TField = {
     id: string;
     name: string;
@@ -45,6 +47,7 @@ export type TField = {
         oneInput?: TInputInterface;
         twoInputs?: TInputInterface;
         options?: TOptionsInterface;
+        selection?: TSelectionInterface;
     };
     state?: {
         operator: TOperator;

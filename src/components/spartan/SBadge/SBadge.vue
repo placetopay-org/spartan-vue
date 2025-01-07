@@ -14,6 +14,7 @@ const { color = 'gray', size = 'md', dot, outline, removable, pill, reverse } = 
 const { pt, extractor } = usePassthrough();
 
 const [bodyClass, bodyProps] = extractor(pt.value.body);
+const [contentClass, contentProps] = extractor(pt.value.content);
 const [dotClass, dotProps] = extractor(pt.value.dot);
 const [tagClass, tagProps] = extractor(pt.value.tag);
 const [crossClass, crossProps] = extractor(pt.value.cross);
@@ -30,7 +31,7 @@ const [crossClass, crossProps] = extractor(pt.value.cross);
                 <slot name="tag" />
             </div>
     
-            <div>
+            <div data-s-content v-bind="contentProps" :class="twMerge(contentClass)">
                 <slot />
             </div>
         </div>

@@ -139,10 +139,13 @@ export const Default = createDefault({
                 id: 'gender',
                 name: 'Gender',
                 interfaces: {
-                    option: {
+                    options: {
                         operators: ['equal', 'notEqual'],
                         options: ['man', 'woman', 'kid'],
                     },
+                    selection: {
+                        operators: [{ id: 'in', label: 'Dentro de', tag: (value: string) => `Dentro de -> ${value}` }],
+                    }
                 },
             },
             {

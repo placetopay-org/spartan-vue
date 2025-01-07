@@ -8,6 +8,7 @@ export * from './SComboboxBlock';
 export * from './SDropdown';
 export * from './SFilter';
 export * from './SInput';
+export * from './SInputTag';
 export * from './SInputBlock';
 export * from './SLabel';
 export * from './SPopover';

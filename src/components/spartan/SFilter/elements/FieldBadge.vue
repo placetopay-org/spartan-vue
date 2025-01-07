@@ -34,15 +34,16 @@ const openFieldPopover = () => {
                 <SBadge 
                     color="white"
                     class="whitespace-nowrap"
+                    pt:content="flex"
                     pill 
                     outline
                     :removable="!field.permanent"
                     @removed="removing = true"
                 >
-                    <span class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</span>
-                    <span class="max-w-[220px] truncate">
+                    <div class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</div>
+                    <div class="max-w-[220px] truncate">
                         {{ context.getOperatorLabel(field) }}
-                    </span>  
+                    </div>  
                 </SBadge>
             </button>
         </template>
