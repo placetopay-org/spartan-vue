@@ -18,7 +18,6 @@ const popover = ref<InstanceType<typeof SPopover> | null>(null);
 const button = ref<HTMLButtonElement | null>(null);
 
 const selectOption = (option: TOption) => {
-     console.log('select', option);
      emit('update:modelValue', option);
      popover.value?.close();
 }

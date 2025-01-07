@@ -36,8 +36,6 @@ const add = () => {
 };
 
 const disabled = computed(() => (!value.value || value.value.length === 0) && interfaceId.value !== 'none');
-
-console.log(field);
 </script>
 
 <template>

@@ -57,14 +57,6 @@ export const { createContext, useContext } = buildContext<TState, SFilterProps, 
                 const operator = fieldState.operator;
                 let value = fieldState.value;
 
-                // if (state.operatorData[field.id].interfaces[operator] === 'options') {
-                //     const options = getOptions(field.interfaces.options!.options);
-                //     if (typeof value === 'string') value = options.find((option) => option.id === value)?.label;
-                //     else value = options.filter((option) => value.includes(option.id)).map((option) => option.label);
-                // }
-
-                console.log('field: ', field);
-
                 return buildLabel(operator, value);
             },
             operatorData: computed(() => {
@@ -92,8 +84,6 @@ export const { createContext, useContext } = buildContext<TState, SFilterProps, 
                         }
                     });
                 });
-
-                console.log('operatorData: ', data);
 
                 return data;
             }),
