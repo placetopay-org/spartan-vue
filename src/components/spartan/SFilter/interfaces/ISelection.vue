@@ -7,7 +7,7 @@ import { translator } from '@/helpers';
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
-    modelValue?: string[];
+    modelValue?: string[] | string;
     config: TSelectionInterface;
 }>();
 
@@ -15,7 +15,9 @@ const { t } = translator('filter');
 
 const value = computed({
     get() {
-        return props.modelValue || [];
+        if (Array.isArray(props.modelValue)) return props.modelValue;
+        if (typeof props.modelValue === 'string') return props.modelValue.split(',');
+        return [];
     },
     set(newValue) {
         emit('update:modelValue', newValue);
