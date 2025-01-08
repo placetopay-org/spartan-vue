@@ -1,7 +1,7 @@
 import SSelector from './SSelector.vue';
 import { SButton } from '@spartan';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { FlagIcon } from '@placetopay/flagicons-vue';
 
 export default {
@@ -314,4 +314,42 @@ countries: [
     </div>
 </template>
 </SSelector>`,
+});
+
+export const Search = createVariation({
+    components: { SSelector, SButton },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const query = ref('');
+        const computedCities = ref(cities.value);
+        const isLoading = ref(false);
+
+        const updateQuery = (q: string) => query.value = q;
+        
+        watch(query, () => {
+            isLoading.value = true;
+            setTimeout(() => {
+                computedCities.value = cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));
+                isLoading.value = false
+            }, 500);
+        })
+
+        
+
+        return { value, computedCities, query, updateQuery, isLoading };
+    },
+    template: `
+<!-- cities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+] 
+computedCities: cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));    
+-->
+<SSelector v-model="value" search :loading="isLoading" :options="computedCities" optionLabel="name" placeholder="Select a City" class="w-80" @query="updateQuery" />
+
+<p>Query: <span>{{ query }}</span></p>`,
 });

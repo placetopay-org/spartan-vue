@@ -1,5 +1,9 @@
 {
     "$spartan": {
+        "selector": {
+            "noResults": "Nessun risultato",
+            "loading": "Caricamento..."
+        },
         "copy": {
             "copied": "Copiato!"
         },

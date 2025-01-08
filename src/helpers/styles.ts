@@ -1,5 +1,7 @@
+//TODO: Move to style constants
 export type TRounded = keyof typeof roundedClass;
 
+//TODO: Move to style constants
 export const roundedClass = {
     left: 'rounded-l-lg',
     right: 'rounded-r-lg',

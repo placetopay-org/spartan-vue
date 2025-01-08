@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<TPopoverProps>(), {
     offset: 0,
     placement: 'bottom-start',
     preventClose: false,
+    preventFocus: false,
     responsive: true,
 });
 
@@ -59,6 +60,7 @@ const focus = () => {
 
 const open = () => {
     isOpen.value = true;
+    if (props.preventFocus) return;
     nextTick(() => {
         // prevent jumping
         setTimeout(() => {
@@ -95,6 +97,7 @@ const handlers = {
     close,
     toggle,
     focus,
+    focusout
 };
 
 defineExpose(handlers);

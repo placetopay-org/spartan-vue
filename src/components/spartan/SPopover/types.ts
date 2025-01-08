@@ -2,6 +2,8 @@ import type { Placement } from '@floating-ui/vue';
 
 export type TPopoverEmits = {
     (event: 'close'): void;
+    (event: 'focusFloating'): void;
+    (event: 'focusoutFloating'): void;
 };
 
 export type TPopoverProps = {
@@ -11,6 +13,7 @@ export type TPopoverProps = {
     offset?: number;
     placement?: Placement;
     preventClose?: boolean;
+    preventFocus?: boolean;
     responsive?: boolean;
     class?: string;
     useShow?: boolean;

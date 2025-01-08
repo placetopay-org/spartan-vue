@@ -23,6 +23,7 @@ const tags = computed<string[]>({
     },
 });
 const current = ref('');
+const inputElement = ref<HTMLInputElement>();
 
 const addTag = (tag: string) => {
     if (tag && !tags.value.includes(tag)) {
@@ -40,6 +41,8 @@ const onKeyPress = (event: KeyboardEvent) => {
 const removeTag = (tag: string) => {
     tags.value = tags.value.filter((t) => t !== tag);
 };
+
+const focusInput = () => inputElement.value?.focus();
 </script>
 
 <template>
@@ -58,6 +61,7 @@ const removeTag = (tag: string) => {
             )
         "
         v-bind="containerProps"
+        @click="focusInput"
     >
         <div v-for="tag in tags" class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900">
             {{ tag }}
