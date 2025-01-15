@@ -21,7 +21,7 @@ const [tableClass, tableProps] = extractor(pt.value.table);
 const [theadClass, theadProps] = extractor(pt.value.thead);
 const [paginatorClass, paginatorProps] = extractor(pt.value.paginator);
 
-const rows = ref([...props.data]);
+const rows = computed(() => [...props.data]);
 
 const count = computed(
     () =>
