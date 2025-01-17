@@ -146,7 +146,40 @@ export const Sorting = createVariation({
     <SDColumn field="name" header="Nombre" sort="asc" />
     <SDColumn field="email" header="Correo" sort="des" />
     <SDColumn field="title" noLink header="Titulo" :sort="true" />
-    <SDColumn field="role" header="Rol" />
+    <SDColumn field="role" header="Rol" :sort="false" />
+</SDTable>`,
+});
+
+export const HandleSorting = createVariation({
+    ...variationConfig,
+    setup: () => {
+        const nameSort = ref<string | boolean>('asc');
+        const handle = (e: any): any => {
+            switch(e.field) {
+                case 'name':
+                    if (e.sort === 'des') {
+                        nameSort.value = 'asc';
+                    }
+
+                    if (e.sort === 'asc') {
+                        nameSort.value = true;
+                    }
+
+                    if (e.sort === true) {
+                        nameSort.value = 'des';
+                    }
+                    break;
+            }
+        };
+
+        return { data: data.slice(0, 5), handle, nameSort };
+    },
+    template: `
+<SDTable :data="data" @sort="handle">
+    <SDColumn field="name" header="Nombre" :sort="nameSort" />
+    <SDColumn field="email" header="Correo" sort="des" />
+    <SDColumn field="title" noLink header="Titulo" :sort="true" />
+    <SDColumn field="role" header="Rol" :sort="false" />
 </SDTable>`,
 });
 

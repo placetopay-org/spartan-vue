@@ -19,14 +19,13 @@ export const createContext = (props: TDTableProps, emit?: TDTableEmits) => {
     const state: TState = reactive({
         config: { expander: false, totalCols },
         cols: {},
-        colsArray: [],
+        colsArray: computed(() => Object.keys(state.cols).map(field => ({ ...state.cols[field], field }))),
         updateCol: ({ field, expander, ...rest }: TUpdateColData) => {
-            if (field && !state.cols[field]) {
+            if (field) {
                 totalCols.value++;
                 state.cols[field] = { ...rest, pos: totalCols.value };
-                state.colsArray.push({ ...state.cols[field], field });
             }
-            
+             
             if (expander && !state.config.expander) {
                 state.config.expander = true;
                 totalCols.value++;
