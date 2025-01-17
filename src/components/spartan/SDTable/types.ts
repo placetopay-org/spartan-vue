@@ -12,7 +12,7 @@ export type TDColumnProps = {
     field?: string | symbol;
     header?: string;
     noLink?: boolean;
-    sort?: 'asc' | 'des';
+    sort?: 'asc' | 'des' | boolean;
     unstyled?: boolean;
     expander?: boolean;
 };

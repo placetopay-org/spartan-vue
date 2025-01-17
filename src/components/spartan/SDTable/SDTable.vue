@@ -76,13 +76,13 @@ const toggleExpIsOpen = () => {
                                 {{ col.header || '' }}
                             </template>
 
-                            <span class="ml-2 flex-none rounded bg-gray-200 text-gray-900 group-hover:bg-gray-300">
+                            <Wrapper :as="typeof col.sort === 'string' && 'span'" :class="typeof col.sort === 'string' && 'ml-2 flex-none rounded bg-gray-200 text-gray-900 group-hover:bg-gray-300'">
                                 <component
                                     v-if="col.sort"
                                     :is="col.sort === 'asc' ? ChevronUpIcon : ChevronDownIcon"
-                                    class="h-5 w-5"
+                                    :class="['h-5 w-5', typeof col.sort === 'boolean' && 'ml-2 opacity-0 group-hover:opacity-50']"
                                 />
-                            </span>
+                            </Wrapper>
                         </Wrapper>
                     </th>
                 </thead>

@@ -145,7 +145,7 @@ export const Sorting = createVariation({
 <SDTable :data="data" @sort="alert">
     <SDColumn field="name" header="Nombre" sort="asc" />
     <SDColumn field="email" header="Correo" sort="des" />
-    <SDColumn field="title" noLink header="Titulo" />
+    <SDColumn field="title" noLink header="Titulo" :sort="true" />
     <SDColumn field="role" header="Rol" />
 </SDTable>`,
 });
