@@ -315,6 +315,12 @@ export const Icon = createVariation({
     </template>
 </SCard>
 
+<SCard icon="secondary">
+    <template #title>
+        Secondary Style
+    </template>
+</SCard>
+
 <SCard icon="success">
     <template #title>
         Success Style
@@ -347,6 +353,12 @@ export const PingIcon = createVariation({
     template: `<SCard iconType="ping" icon="primary">
     <template #title>
         Primary Style
+    </template>
+</SCard>
+
+<SCard iconType="ping" icon="secondary">
+    <template #title>
+        Secondary Style
     </template>
 </SCard>
 
