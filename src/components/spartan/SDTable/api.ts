@@ -5,7 +5,7 @@ type TUpdateColData = TDColumnProps & { slots?: any };
 type TColData = TUpdateColData & { pos: number };
 
 type TState = {
-    config: { expander: boolean };
+    config: { slim: boolean, expander: boolean };
     cols: Record<string | symbol, TColData>;
     colsArray: Array<TColData & { field: string | symbol }>;
     updateCol: (data: TUpdateColData) => void;
@@ -14,10 +14,11 @@ type TState = {
 const contextKey = Symbol('STableContext') as InjectionKey<TState>;
 
 export const createContext = (props: TDTableProps, emit?: TDTableEmits) => {
+    console.log('createContext', props);
     let totalCols = ref(0);
 
     const state: TState = reactive({
-        config: { expander: false, totalCols },
+        config: { slim: !!props.slim, expander: false, totalCols },
         cols: {},
         colsArray: computed(() => Object.keys(state.cols).map(field => ({ ...state.cols[field], field }))),
         updateCol: ({ field, expander, ...rest }: TUpdateColData) => {

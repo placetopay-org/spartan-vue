@@ -95,6 +95,7 @@ const toggleExpIsOpen = () => {
                                 :class="
                                     twMerge(
                                         cellStyles({
+                                            slim: context.config.slim,
                                             unstyled: Boolean(
                                                 col.unstyled || col.expander || (rowLink(row) && !col.noLink),
                                             ),

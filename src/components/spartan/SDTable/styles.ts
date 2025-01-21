@@ -8,10 +8,11 @@ export const tableStyles = cva('w-full overflow-hidden', {
 });
 export type TTableStyles = VariantProps<typeof tableStyles>;
 
-export const cellStyles = cva('relative', {
+export const cellStyles = cva('relative first:pl-5 last:pr-5 p-3.5 text-sm text-left', {
     variants: {
-        unstyled: cbv('p-0', 'first:pl-5 last:pr-5 p-3.5 text-sm text-left'),
         head: cbv('text-gray-900 font-semibold', 'text-gray-500'),
+        slim: cbv('first:pl-4 last:pr-4 py-2 px-3 text-sm text-left'),
+        unstyled: cbv('p-0 first:pl-0 last:pr-0 text-normal'),
     },
 });
 export type TCellStyles = VariantProps<typeof cellStyles>;

@@ -194,6 +194,28 @@ export const Borderless = createVariation({
 </SDTable>`,
 });
 
+export const Slim = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data" slim>
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const UnstyledColumnBody = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data">
+    <SDColumn field="name" header="Nombre" unstyled/>
+    <SDColumn field="email" header="Correo" unstyled/>
+    <SDColumn field="title" header="Titulo" unstyled/>
+    <SDColumn field="role" header="Rol" unstyled/>
+</SDTable>`,
+});
+
 export const Pagination = createVariation({
     components: { SDTable, SDColumn },
     setup: () => {

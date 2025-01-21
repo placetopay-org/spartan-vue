@@ -6,6 +6,7 @@ export type TDTableProps = {
     paginator?: TPaginatorProps;
     data: any[];
     rowLink?: (row: any) => string;
+    slim?: boolean;
 };
 
 export type TDColumnProps = {
