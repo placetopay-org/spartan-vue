@@ -183,6 +183,17 @@ export const HandleSorting = createVariation({
 </SDTable>`,
 });
 
+export const Loading = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data" loading>
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
 export const Borderless = createVariation({
     ...variationConfig,
     template: `

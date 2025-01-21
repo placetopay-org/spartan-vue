@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SAccordion, SPaginator } from '@spartan';
-import { Wrapper } from '@internal';
+import { Wrapper, Loader } from '@internal';
 import { twMerge } from 'tailwind-merge';
 import { createContext } from './api';
 import { cellStyles, tableStyles } from './styles';
@@ -88,61 +88,72 @@ const toggleExpIsOpen = () => {
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 bg-white -space-y-px">
-                    <template v-for="row in rows">
-                        <tr :class="rowLink(row) && 'hover:bg-gray-100'">
-                            <td
-                                v-for="col in context.colsArray"
-                                :class="
-                                    twMerge(
-                                        cellStyles({
-                                            slim: context.config.slim,
-                                            unstyled: Boolean(
-                                                col.unstyled || col.expander || (rowLink(row) && !col.noLink),
-                                            ),
-                                        }),
-                                    )
-                                "
-                            >
-                                <button
-                                    v-if="col.expander"
-                                    @click="row.expIsOpen = !row.expIsOpen"
-                                    class="group flex h-full w-full justify-center p-3.5"
+                    <template v-if="loading">
+                        <tr>
+                            <td :colspan="context.colsArray.length">
+                                <div class="flex w-full justify-center p-4">
+                                    <Loader :size="50" />
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                    <template v-else>
+                        <template v-for="row in rows">
+                            <tr :class="rowLink(row) && 'hover:bg-gray-100'">
+                                <td
+                                    v-for="col in context.colsArray"
+                                    :class="
+                                        twMerge(
+                                            cellStyles({
+                                                slim: context.config.slim,
+                                                unstyled: Boolean(
+                                                    col.unstyled || col.expander || (rowLink(row) && !col.noLink),
+                                                ),
+                                            }),
+                                        )
+                                    "
                                 >
-                                    <ChevronDownIcon
-                                        :class="[row.expIsOpen && 'rotate-180', 'transform h-6 w-6 text-gray-400 duration-75 group-hover:scale-110 group-hover:text-gray-600']"
-                                    />
-                                </button>
-
-                                <Wrapper
-                                    v-else
-                                    :as="Boolean(rowLink(row)) && !col.noLink && 'a'"
-                                    :href="rowLink(row)"
-                                    :class="twMerge(cellStyles({ unstyled: false }), 'block h-full w-full')"
-                                >
-                                    <template v-if="col.slots?.body">
-                                        <component
-                                            v-for="slot in col.slots.body({ row, value: row[col.field] })"
-                                            :is="slot"
+                                    <button
+                                        v-if="col.expander"
+                                        @click="row.expIsOpen = !row.expIsOpen"
+                                        class="group flex h-full w-full justify-center p-3.5"
+                                    >
+                                        <ChevronDownIcon
+                                            :class="[row.expIsOpen && 'rotate-180', 'transform h-6 w-6 text-gray-400 duration-75 group-hover:scale-110 group-hover:text-gray-600']"
                                         />
-                                    </template>
-
-                                    <template v-else>
-                                        {{ row[col.field] }}
-                                    </template>
-                                </Wrapper>
-                            </td>
-                        </tr>
-
-                        <tr class="border-none">
-                            <td :colspan="context.colsArray.length" class="bg-gray-50 p-0">
-                                <SAccordion
-                                    :open="row.expIsOpen"
-                                    vertical
-                                >
-                                    <slot name="expansion" v-bind="{ row }" />
-                                </SAccordion>
-                            </td>
-                        </tr>
+                                    </button>
+    
+                                    <Wrapper
+                                        v-else
+                                        :as="Boolean(rowLink(row)) && !col.noLink && 'a'"
+                                        :href="rowLink(row)"
+                                        :class="twMerge(cellStyles({ unstyled: false }), 'block h-full w-full')"
+                                    >
+                                        <template v-if="col.slots?.body">
+                                            <component
+                                                v-for="slot in col.slots.body({ row, value: row[col.field] })"
+                                                :is="slot"
+                                            />
+                                        </template>
+    
+                                        <template v-else>
+                                            {{ row[col.field] }}
+                                        </template>
+                                    </Wrapper>
+                                </td>
+                            </tr>
+    
+                            <tr class="border-none">
+                                <td :colspan="context.colsArray.length" class="bg-gray-50 p-0">
+                                    <SAccordion
+                                        :open="row.expIsOpen"
+                                        vertical
+                                    >
+                                        <slot name="expansion" v-bind="{ row }" />
+                                    </SAccordion>
+                                </td>
+                            </tr>
+                        </template>
                     </template>
                 </tbody>
             </table>

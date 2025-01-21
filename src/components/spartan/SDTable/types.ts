@@ -7,6 +7,7 @@ export type TDTableProps = {
     data: any[];
     rowLink?: (row: any) => string;
     slim?: boolean;
+    loading?: boolean;
 };
 
 export type TDColumnProps = {
