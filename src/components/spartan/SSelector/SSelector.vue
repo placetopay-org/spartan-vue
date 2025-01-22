@@ -19,9 +19,8 @@ const { t } = translator('selector');
 const [optionsClass, optionsProps] = extractor(pt.value.options);
 
 const popover = ref<InstanceType<typeof SPopover> | null>(null);
-const button = ref<HTMLButtonElement | null>(null);
-
-const inputElement = ref<HTMLInputElement | null>(null);
+const $button = ref<HTMLButtonElement | null>(null);
+const $input = ref<HTMLInputElement | null>(null);
 
 const selectOption = (option: TOption) => {
      emit('update:modelValue', option);
@@ -32,7 +31,7 @@ const focusout = () => popover.value?.focusout();
 
 const refreshInput = () => {
     if (search && modelValue) {
-        inputElement.value!.value = modelValue[optionLabel];
+        $input.value!.value = modelValue[optionLabel];
         emit('query', modelValue[optionLabel]);
     }
 };
@@ -42,12 +41,12 @@ const refreshInput = () => {
     <SPopover :offset="2" ref="popover" :static="static" :responsive="responsive" :prevent-focus="search" @close="refreshInput">
         <template #reference="{ toggle, open, close }">
             <div v-if="search" :class="twMerge(inputContainerStyles({ disabled, error, rounded }))">
-                <input ref="inputElement" :class="twMerge(inputStyles({ rounded }))" @focusin="open" @focusout="focusout()" @input="(e: any) => $emit('query', e.target.value)" />
+                <input ref="$input" :class="twMerge(inputStyles({ rounded }))" @focusin="open" @focusout="focusout()" @input="(e: any) => $emit('query', e.target.value)" />
             </div>
             <button
                 v-else
                 :disabled="disabled"
-                ref="button"
+                ref="$button"
                 @click="toggle"
                 :class="twMerge(buttonStyles({ disabled, error, rounded }), $props.class)"
             >
@@ -62,7 +61,7 @@ const refreshInput = () => {
                 data-s-options
                 v-bind="optionsProps"
                 :class="twMerge('py-1 shadow-lg max-h-80 overflow-auto', optionsClass)"
-                :style="{ minWidth: `${button?.clientWidth}px` }"
+                :style="{ minWidth: `${(search ? $input : $button)?.clientWidth}px` }"
             >
                 <template v-if="loading">
                     <p class="relative flex py-2 px-3 gap-2 uppercase text-gray-400 text-xs font-medium">
