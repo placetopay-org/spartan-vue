@@ -127,7 +127,7 @@ const toggleExpIsOpen = () => {
                                         v-else
                                         :as="Boolean(rowLink(row)) && !col.noLink && 'a'"
                                         :href="rowLink(row)"
-                                        :class="twMerge(cellStyles({ unstyled: false }), 'block h-full w-full')"
+                                        :class="twMerge(cellStyles({ slim: context.config.slim, unstyled: false }), 'block h-full w-full')"
                                     >
                                         <template v-if="col.slots?.body">
                                             <component
