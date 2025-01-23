@@ -203,7 +203,6 @@ export const Default = createDefault({
         title: '',
         description: '',
         icon: undefined,
-        class: 'rounded-none'
     },
 });
 
