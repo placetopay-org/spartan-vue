@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { inputContainerStyles, inputStyles, buttonStyles, optionStyles } from './styles';
 import type { TMultiSelectorProps, TMultiSelectorEmits, TOption } from './types';
 import { SPopover, type TPopoverProps } from '../SPopover';
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import isEqual from 'lodash.isequal';
 import { translator } from '@/helpers';
 import { Loader, InputContainer } from '@internal';
@@ -34,6 +34,18 @@ const selectOption = (option: TOption) => {
 
 const focusout = () => $popover.value?.focusout();
 
+const toggleOptions = () => {
+    $popover.value?.toggle();
+    if (search && $popover.value?.isOpen) {
+        nextTick(() => {
+            // prevent jumping
+            setTimeout(() => {
+                $input.value?.focus();
+            }, 0);
+        });
+    }
+};
+
 const refreshInput = () => {
     // if (search && modelValue) {
     //     inputElement.value!.value = modelValue[optionLabel];
@@ -48,7 +60,7 @@ const removeOption = (option: TOption) => {
 
 <template>
     <SPopover :offset="2" ref="$popover" :static="static" :responsive="responsive" :prevent-focus="search" @close="refreshInput">
-        <template #reference="{ toggle, open, close }">
+        <!-- <template #reference="{ toggle, open, close }">
             <InputContainer>
                 <input v-if="search" ref="$input" :class="twMerge(inputStyles({ rounded }))" @focusin="open" @focusout="focusout()" @input="(e: any) => $emit('query', e.target.value)" />
                 <button ref="$button" v-else class="flex items-center gap-2 px-3 py-1.5" @click="toggle">
@@ -71,6 +83,25 @@ const removeOption = (option: TOption) => {
                     <ChevronDownIcon class="shrink-0 -mr-1 ml-auto h-5 w-5 text-gray-400" />
                 </button>
             </InputContainer>
+        </template> -->
+
+        <template #reference>
+            <button
+                :disabled="disabled"
+                ref="$button"
+                @click="toggleOptions"
+                :class="twMerge(buttonStyles({ disabled, error, rounded }), $props.class)"
+            >
+                <span v-if="modelValue" class="text-nowrap">{{ modelValue?.[optionLabel] }}</span>
+                <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
+
+                <div class="-mr-1 ml-auto flex gap-1 text-gray-400">
+                    <button @click.stop="clear" v-if="showClearButton" class="group">
+                        <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600" />
+                    </button>
+                    <ChevronDownIcon class="h-5 w-5 shrink-0" />
+                </div>
+            </button>
         </template>
 
         <div class="rounded-md overflow-hidden border border-gray-950/5 bg-white shadow-lg">

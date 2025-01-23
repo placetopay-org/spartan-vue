@@ -1,9 +1,8 @@
 
 import { cva, type VariantProps } from 'class-variance-authority';
-import { createBooleanVariation as cbv } from '@/helpers';
 
 export type TContainerStyles = VariantProps<typeof containerStyles>;
-export const containerStyles = cva('flex flex-col bg-white shadow overflow-hidden h-auto', {
+export const containerStyles = cva('flex flex-col bg-white shadow overflow-hidden h-fit', {
     variants: {
         size: {
             sm: 'rounded-md',
@@ -12,8 +11,8 @@ export const containerStyles = cva('flex flex-col bg-white shadow overflow-hidde
     },
 });
 
-export type TCardStyles = VariantProps<typeof cardStyles>;
-export const cardStyles = cva('flex flex-col h-full', {
+export type TBodyStyles = VariantProps<typeof bodyStyles>;
+export const bodyStyles = cva('flex flex-col', {
     variants: {
         size: {
             sm: 'px-2 py-1 sm:px-4 sm:py-2',

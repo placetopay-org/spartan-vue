@@ -12,7 +12,7 @@ export const inputContainerStyles = cva(`h-9 relative flex gap-2 ${inputStyle.ro
 });
 
 export type TInputStyles = VariantProps<typeof inputStyles>;
-export const inputStyles = cva(`${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} ${inputStyle.padding} w-full border-none outline-none focus:ring-0`, {
+export const inputStyles = cva(`${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} w-full border-none outline-none focus:ring-0 p-0`, {
     variants: {
         rounded: roundedStyle,
     },

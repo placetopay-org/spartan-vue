@@ -373,3 +373,41 @@ computedCities: cities.value.filter(city => city.name.toLowerCase().includes(que
 
 <p>Query: <span>{{ query }}</span></p>`,
 });
+
+export const SearchClearable = createVariation({
+    components: { SSelector, SButton },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const query = ref('');
+        const computedCities = ref(cities.value);
+        const isLoading = ref(false);
+
+        const updateQuery = (q: string) => query.value = q;
+        
+        watch(query, () => {
+            isLoading.value = true;
+            setTimeout(() => {
+                computedCities.value = cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));
+                isLoading.value = false
+            }, 500);
+        })
+
+        
+
+        return { value, computedCities, query, updateQuery, isLoading };
+    },
+    template: `
+<!-- cities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+] 
+computedCities: cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));    
+-->
+<SSelector v-model="value" search clearable :loading="isLoading" :options="computedCities" optionLabel="name" placeholder="Select a City" class="w-80" @query="updateQuery" />
+
+<p>Query: <span>{{ query }}</span></p>`,
+});
