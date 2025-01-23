@@ -3,12 +3,13 @@ import type { TRounded } from "@/constants";
 export type TOption = Record<string, any>;
 
 export type TSelectorEmits = {
-    (event: 'update:modelValue', value: TOption): void;
+    (event: 'update:modelValue', value?: TOption): void;
     (event: 'query', value: string): void;
 };
 
 export type TSelectorProps = {
     class?: string;
+    clearable?: boolean;
     search?: boolean;
     loading?: boolean;
     placeholder?: string;

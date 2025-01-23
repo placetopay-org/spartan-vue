@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { hasSlotContent, usePassthrough } from '@/helpers';
-import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
+import { CheckIcon, ChevronDownIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { inputContainerStyles, inputStyles, buttonStyles, optionStyles } from './styles';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';
 import { SPopover, type TPopoverProps } from '../SPopover';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import isEqual from 'lodash.isequal';
 import { translator } from '@/helpers';
 import { Loader } from '@internal';
 
 const emit = defineEmits<TSelectorEmits>();
-const { rounded = 'both', modelValue, optionLabel, search } = defineProps<TSelectorProps & TPopoverProps>();
+const { rounded = 'both', modelValue, optionLabel, search, clearable } = defineProps<TSelectorProps & TPopoverProps>();
 const { pt, extractor } = usePassthrough();
 
 const { t } = translator('selector');
@@ -22,10 +22,15 @@ const popover = ref<InstanceType<typeof SPopover> | null>(null);
 const $button = ref<HTMLButtonElement | null>(null);
 const $input = ref<HTMLInputElement | null>(null);
 
-const selectOption = (option: TOption) => {
-     emit('update:modelValue', option);
-     popover.value?.close();
-}
+const showClearButton = computed(() => clearable && modelValue);
+
+const actionAndClose = (action: () => void) => {
+    action();
+    popover.value?.close();
+};
+
+const selectOption = (option: TOption) => actionAndClose(() => emit('update:modelValue', option));
+const clear = () => actionAndClose(() => emit('update:modelValue'));
 
 const focusout = () => popover.value?.focusout();
 
@@ -52,7 +57,12 @@ const refreshInput = () => {
             >
                 <span v-if="modelValue" class="text-nowrap">{{ modelValue?.[optionLabel] }}</span>
                 <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
-                <ChevronDownIcon class="shrink-0 -mr-1 ml-auto h-5 w-5 text-gray-400" />
+                <div class="flex gap-1 -mr-1 ml-auto text-gray-400">
+                    <button @click.stop="clear" v-if="showClearButton" class="group">
+                        <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600"/>
+                    </button>
+                    <ChevronDownIcon class="h-5 w-5 shrink-0" />
+                </div>
             </button>
         </template>
 

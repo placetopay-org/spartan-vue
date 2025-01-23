@@ -3,7 +3,7 @@ import { createBooleanVariation as cbv } from '@/helpers';
 import { inputStyle, roundedStyle } from '@/constants';
 
 export type TInputContainerStyles = VariantProps<typeof inputContainerStyles>;
-export const inputContainerStyles = cva(`h-9 relative flex gap-2 ${inputStyle.background}`, {
+export const inputContainerStyles = cva(`h-9 relative flex gap-2 ${inputStyle.root}`, {
     variants: {
         disabled: cbv(inputStyle.disabled),
         error: cbv(`${inputStyle.border.error} ${inputStyle.ring.error}`, `${inputStyle.border.base} ${inputStyle.ring.base}`),
@@ -20,7 +20,7 @@ export const inputStyles = cva(`${inputStyle.root} ${inputStyle.text} ${inputSty
 
 export type TSelectButtonStyles = VariantProps<typeof buttonStyles>;
 export const buttonStyles = cva(
-    [inputStyle.root, inputStyle.background, inputStyle.padding, 'gap-3 inline-flex h-9'],
+    [inputStyle.root, inputStyle.padding, 'gap-3 inline-flex items-center'],
     {
         variants: {
             disabled: cbv('bg-gray-50 pointer-events-none'),
