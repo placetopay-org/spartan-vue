@@ -9,7 +9,7 @@ export const roundedStyle = {
 };
 
 export const inputStyle = {
-    root: 'w-full outline-none focus:outline-none bg-white',
+    root: 'w-full outline-none focus:outline-none bg-white h-9',
     disabled: 'opacity-50 cursor-not-allowed',
     padding: 'px-3 py-1.5',
     text: 'text-gray-900 font-normal',

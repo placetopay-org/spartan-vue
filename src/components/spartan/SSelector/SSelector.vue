@@ -2,13 +2,14 @@
 import { hasSlotContent, usePassthrough } from '@/helpers';
 import { CheckIcon, ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
-import { inputStyles, buttonStyles, optionStyles } from './styles';
+import { buttonStyles, optionStyles } from './styles';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';
 import { SPopover, type TPopoverProps } from '../SPopover';
 import { ref, computed, nextTick } from 'vue';
 import isEqual from 'lodash.isequal';
 import { translator } from '@/helpers';
 import { Loader } from '@internal';
+import { inputStyle } from '@/constants';
 
 const emit = defineEmits<TSelectorEmits>();
 const { rounded = 'both', modelValue, optionLabel, search, clearable } = defineProps<TSelectorProps & TPopoverProps>();
@@ -71,7 +72,8 @@ const refreshInput = () => {
                     <button @click.stop="clear" v-if="showClearButton" class="group">
                         <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600" />
                     </button>
-                    <ChevronDownIcon class="h-5 w-5 shrink-0" />
+                    <Loader v-if="loading" class="h-5 w-5 shrink-0" />
+                    <ChevronDownIcon v-else class="h-5 w-5 shrink-0" />
                 </div>
             </button>
         </template>
@@ -87,17 +89,11 @@ const refreshInput = () => {
                     <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
                     <input
                         ref="$input"
-                        :class="twMerge(inputStyles({ rounded }))"
+                        :class="twMerge(`${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} w-full border-none outline-none focus:ring-0 p-0`)"
                         @input="(e: any) => $emit('query', e.target.value)"
                     />
                 </div>
-                <template v-if="loading">
-                    <p class="relative flex gap-2 px-3 py-2 text-xs font-medium text-gray-400">
-                        <Loader class="h-4 w-4" />
-                        <span>{{ t('loading') }}</span>
-                    </p>
-                </template>
-                <template v-else-if="!options.length">
+                <template v-if="!options.length">
                     <span class="relative flex px-3 py-2 text-xs font-medium text-gray-400">{{
                         t('noResults')
                     }}</span>

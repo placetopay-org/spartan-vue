@@ -1,6 +1,7 @@
 {
     "$spartan": {
         "selector": {
+            "selections": "Selezioni",
             "noResults": "Nessun risultato",
             "loading": "Caricamento..."
         },

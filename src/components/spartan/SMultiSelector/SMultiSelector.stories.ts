@@ -198,6 +198,46 @@ export const Base = createVariation({
 <SMultiSelector v-model="value" :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />`,
 });
 
+export const CompactMode = createVariation({
+    components: { SMultiSelector, SButton },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const clear = () => value.value = null;
+
+        return { value, cities, clear };
+    },
+    template: `
+<!-- cities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+] -->
+<SMultiSelector v-model="value" compact :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />`,
+});
+
+export const Clearable = createVariation({
+    components: { SMultiSelector, SButton },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const clear = () => value.value = null;
+
+        return { value, cities, clear };
+    },
+    template: `
+<!-- cities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+] -->
+<SMultiSelector v-model="value" clearable :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />`,
+});
+
 export const BadgesCount = createVariation({
     components: { SMultiSelector, SButton },
     containerClass: 'flex gap-4',

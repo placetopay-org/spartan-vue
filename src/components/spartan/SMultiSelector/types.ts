@@ -9,6 +9,7 @@ export type TMultiSelectorEmits = {
 
 export type TMultiSelectorProps = {
     class?: string;
+    compact?: boolean;
     count?: number;
     search?: boolean;
     loading?: boolean;

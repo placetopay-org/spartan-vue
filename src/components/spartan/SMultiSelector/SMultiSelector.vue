@@ -5,13 +5,14 @@ import { twMerge } from 'tailwind-merge';
 import { inputContainerStyles, inputStyles, buttonStyles, optionStyles } from './styles';
 import type { TMultiSelectorProps, TMultiSelectorEmits, TOption } from './types';
 import { SPopover, type TPopoverProps } from '../SPopover';
-import { computed, nextTick, ref } from 'vue';
+import { computed, nextTick, onMounted, onUpdated, ref, watch } from 'vue';
 import isEqual from 'lodash.isequal';
 import { translator } from '@/helpers';
 import { Loader, InputContainer } from '@internal';
+import { SBadge } from '../SBadge';
 
 const emit = defineEmits<TMultiSelectorEmits>();
-const { rounded = 'both', modelValue, optionLabel, search, count } = defineProps<TMultiSelectorProps & TPopoverProps>();
+const { rounded = 'both', mode = 'compact', modelValue, optionLabel, search, count = 3 } = defineProps<TMultiSelectorProps & TPopoverProps>();
 const { pt, extractor } = usePassthrough();
 
 const { t } = translator('selector');
@@ -21,7 +22,9 @@ const [optionsClass, optionsProps] = extractor(pt.value.options);
 const $popover = ref<InstanceType<typeof SPopover> | null>(null);
 const $button = ref<HTMLButtonElement | null>(null);
 const $input = ref<HTMLInputElement | null>(null);
+const $badgesContainer = ref<HTMLDivElement | null>(null);
 
+const overflowBadges = ref(false);
 const countNumber = computed(() => count ? (modelValue || []).length - count : 0);
 
 const selectOption = (option: TOption) => {
@@ -56,56 +59,40 @@ const refreshInput = () => {
 const removeOption = (option: TOption) => {
     emit('update:modelValue', modelValue!.filter((item) => !isEqual(item, option)));
 };
+
+// watch(() => modelValue, async (curr) => {
+//     if (!curr?.length) return;
+    
+//     await nextTick();
+//     overflowBadges.value = $button.value!.clientWidth - $badgesContainer.value!.clientWidth <= 44;
+
+//     console.log(overflowBadges.value);
+// }, { immediate: true });
 </script>
 
 <template>
-    <SPopover :offset="2" ref="$popover" :static="static" :responsive="responsive" :prevent-focus="search" @close="refreshInput">
-        <!-- <template #reference="{ toggle, open, close }">
-            <InputContainer>
-                <input v-if="search" ref="$input" :class="twMerge(inputStyles({ rounded }))" @focusin="open" @focusout="focusout()" @input="(e: any) => $emit('query', e.target.value)" />
-                <button ref="$button" v-else class="flex items-center gap-2 px-3 py-1.5" @click="toggle">
-                    <template v-if="modelValue && modelValue.length">
-                        <div v-for="option in modelValue.slice(0, count || modelValue.length)" class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900">
-                            {{ option?.[optionLabel] }}
-                            <button @click.stop="removeOption(option)" class="bg-gray-400 rounded-full relative h-3 w-3 flex items-center justify-center self-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="h-3 w-3">
-                                    <path
-                                        d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <div v-if="countNumber > 0" class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900">
-                            +{{ countNumber }}
-                        </div>
-                    </template>
-                    <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
-                    <ChevronDownIcon class="shrink-0 -mr-1 ml-auto h-5 w-5 text-gray-400" />
-                </button>
-            </InputContainer>
-        </template> -->
-
+    <SPopover :offset="2" ref="$popover" :static="static" :responsive="responsive" @close="refreshInput">
         <template #reference>
             <button
                 :disabled="disabled"
                 ref="$button"
                 @click="toggleOptions"
-                :class="twMerge(buttonStyles({ disabled, error, rounded }), $props.class)"
+                :class="twMerge(buttonStyles({ disabled, error, rounded }), 'flex items-center', $props.class)"
             >
             <template v-if="modelValue && modelValue.length">
-                <div v-for="option in modelValue.slice(0, count || modelValue.length)" class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900">
-                    {{ option?.[optionLabel] }}
-                    <button @click.stop="removeOption(option)" class="bg-gray-400 rounded-full relative h-3 w-3 flex items-center justify-center self-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="h-3 w-3">
-                            <path
-                                d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-                            />
-                        </svg>
-                    </button>
-                </div>
-                <div v-if="countNumber > 0" class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900">
-                    +{{ countNumber }}
-                </div>
+                <template v-if="compact">
+                    {{ modelValue.length  }} {{ t('selections') }}
+                </template>
+                <template v-else>
+                    <div ref="$badgesContainer" class="flex gap-1 overflow-auto">
+                        <SBadge v-for="option in modelValue.slice(0, count || modelValue.length)" size="sm" class="self-center whitespace-nowrap" pill>
+                            {{ option?.[optionLabel] }}
+                        </SBadge>
+                    </div>
+                    <SBadge v-if="countNumber > 0" size="sm" class="self-center" pill>
+                        +{{ countNumber }}
+                    </SBadge>
+                </template>
             </template>
             <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
             <ChevronDownIcon class="shrink-0 -mr-1 ml-auto h-5 w-5 text-gray-400" />
@@ -116,7 +103,7 @@ const removeOption = (option: TOption) => {
             <div
                 data-s-options
                 v-bind="optionsProps"
-                :class="twMerge('py-1 shadow-lg max-h-80 overflow-auto', optionsClass)"
+                :class="twMerge('shadow-lg max-h-80 overflow-auto', optionsClass)"
                 :style="{ minWidth: `${(search ? $input : $button)?.clientWidth}px` }"
             >
                 <template v-if="loading">
@@ -147,3 +134,10 @@ const removeOption = (option: TOption) => {
         </div>
     </SPopover>
 </template>
+
+<style scoped>
+/* width */
+::-webkit-scrollbar {
+    height: 0px;
+}
+</style>
