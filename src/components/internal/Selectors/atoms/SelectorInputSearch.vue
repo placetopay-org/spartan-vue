@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Loader } from '@internal';
-import { CheckIcon, ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
+import { XCircleIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { optionStyles } from '../styles';
 import { inputStyle } from '@/constants';
@@ -8,7 +7,7 @@ import { hasSlotContent, translator } from '@/helpers';
 import isEqual from 'lodash.isequal';
 import { useTemplateRef, type ShallowRef } from 'vue';
 
-defineEmits<{
+const emit = defineEmits<{
     (e: 'query', query: string): void;
     (e: 'enter'): void;
 }>();
@@ -16,6 +15,12 @@ defineEmits<{
 const { t } = translator('selector');
 
 const $input = useTemplateRef('$input');
+
+const clear = () => {
+    emit('query', '');
+    $input.value!.value = '';
+    $input.value?.focus();
+};
 
 defineExpose<{
     $input: ShallowRef<HTMLInputElement | null>;
@@ -36,5 +41,8 @@ defineExpose<{
             @input="(e: any) => $emit('query', e.target.value)"
             @keyup.enter="$emit('enter')"
         />
+        <button @click="clear">
+            <XCircleIcon class="h-5 w-5 text-gray-200" />
+        </button>
     </div>
 </template>

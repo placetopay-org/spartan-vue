@@ -117,6 +117,26 @@ const countries = ref([
     { name: 'United States', code: 'US' }
 ]);
 
+const manyCities = ref([
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+    { name: 'Berlin', code: 'BER' },
+    { name: 'Frankfurt', code: 'FRF' },
+    { name: 'Hamburg', code: 'HMB' },
+    { name: 'Munich', code: 'MUN' },
+    { name: 'Chicago', code: 'CHI' },
+    { name: 'Los Angeles', code: 'LAX' },
+    { name: 'New York', code: 'NYC' },
+    { name: 'San Francisco', code: 'SFO' },
+    { name: 'Kyoto', code: 'KYO' },
+    { name: 'Osaka', code: 'OSA' },
+    { name: 'Tokyo', code: 'TYO' },
+    { name: 'Yokohama', code: 'YOK' },
+]);
+
 const cities = ref([
     { name: 'New York', code: 'NY' },
     { name: 'Rome', code: 'RM' },
@@ -340,20 +360,20 @@ export const Search = createVariation({
     setup: () => {
         const value = ref();
         const query = ref('');
-        const computedCities = ref(cities.value);
+        const computedCities = ref(manyCities.value);
         const isLoading = ref(false);
 
         const updateQuery = (q: string) => query.value = q;
         
         watch(query, () => {
             if (query.value === '') {
-                computedCities.value = cities.value;
+                computedCities.value = manyCities.value;
                 return;
             }
 
             isLoading.value = true;
             setTimeout(() => {
-                computedCities.value = cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));
+                computedCities.value = manyCities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));
                 isLoading.value = false
             }, 500);
         })
@@ -361,14 +381,25 @@ export const Search = createVariation({
         return { value, computedCities, query, updateQuery, isLoading };
     },
     template: `
-<!-- cities: [
+    <!-- manyCities: [
     { name: 'New York', code: 'NY' },
     { name: 'Rome', code: 'RM' },
     { name: 'London', code: 'LDN' },
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' },
-] 
-computedCities: cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));    
+    { name: 'Berlin', code: 'BER' },
+    { name: 'Frankfurt', code: 'FRF' },
+    { name: 'Hamburg', code: 'HMB' },
+    { name: 'Munich', code: 'MUN' },
+    { name: 'Chicago', code: 'CHI' },
+    { name: 'Los Angeles', code: 'LAX' },
+    { name: 'New York', code: 'NYC' },
+    { name: 'San Francisco', code: 'SFO' },
+    { name: 'Kyoto', code: 'KYO' },
+    { name: 'Osaka', code: 'OSA' },
+    { name: 'Tokyo', code: 'TYO' },
+    { name: 'Yokohama', code: 'YOK' },
+]     
 -->
 <SSelector v-model="value" search :loading="isLoading" :options="computedCities" optionLabel="name" placeholder="Select a City" class="w-80" @query="updateQuery" />
 

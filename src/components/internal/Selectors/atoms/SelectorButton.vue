@@ -34,7 +34,7 @@ defineExpose<{
             <button @click.stop="$emit('clear')" v-if="showClearButton" class="group">
                 <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600" />
             </button>
-            <Loader v-if="loading" class="h-5 w-5 shrink-0" />
+            <Loader v-if="loading" variant="simple" class="h-5 w-5 shrink-0" />
             <ChevronDownIcon v-else class="h-5 w-5 shrink-0" />
         </div>
     </button>

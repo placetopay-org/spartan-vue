@@ -61,7 +61,7 @@ const refreshInput = () => {
 </script>
 
 <template>
-    <SelectorLayout ref="$selectorLayout" :optionsWidth="optionsWidth" :PtOptions="PtOptions" @close="refreshInput">
+    <SelectorLayout ref="$selectorLayout" :width="optionsWidth" :PtOptions="PtOptions" @close="refreshInput">
         <template #button>
             <SelectorButton
                 ref="$selectorButton"
@@ -79,9 +79,11 @@ const refreshInput = () => {
             </SelectorButton>
         </template>
 
-        <template #dropdown>
+        <template #dropdownHeader>
             <SelectorInputSearch v-if="search" ref="$selectorInputSearch" @query="query => $emit('query', query)" />
+        </template>
 
+        <template #dropdown>
             <SelectorOptions
                 :options="options"
                 :optionLabel="optionLabel"

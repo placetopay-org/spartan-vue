@@ -24,7 +24,7 @@ const { t } = translator('selector');
 
 <template>
     <template v-if="!options.length">
-        <span class="relative flex px-3 pt-2 pb-6 text-xs font-medium text-gray-400">{{ t('noResults') }}</span>
+        <span class="relative flex px-3 py-2 text-xs font-medium text-gray-400">{{ t('noResults') }}</span>
     </template>
     <template v-else>
         <template v-for="option in options">

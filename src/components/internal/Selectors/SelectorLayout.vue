@@ -30,10 +30,16 @@ defineExpose({
                 tabindex="-1"
                 data-s-options
                 v-bind="optionsProps"
-                :class="twMerge('max-h-80 overflow-auto', optionsClass)"
+                :class="twMerge('max-h-80 overflow-auto relative', optionsClass)"
                 :style="{ minWidth: `${String(width)}px` }"
             >
+                <div class="sticky top-0 z-10 bg-white">
+                    <slot name="dropdownHeader" />
+                </div>
                 <slot name="dropdown" />
+                <div class="sticky bottom-0 z-10 bg-white">
+                    <slot name="dropdownFooter" />
+                </div>
             </div>
         </div>
     </SPopover>

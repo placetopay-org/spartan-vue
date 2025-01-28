@@ -5,7 +5,14 @@ import { type TPopoverProps, SBadge } from '@spartan';
 import { computed, nextTick, useTemplateRef } from 'vue';
 import isEqual from 'lodash.isequal';
 import some from 'lodash.some';
-import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch, SelectorBadgeList, SelectorHandler } from '@internal';
+import {
+    SelectorLayout,
+    SelectorButton,
+    SelectorOptions,
+    SelectorInputSearch,
+    SelectorBadgeList,
+    SelectorHandler,
+} from '@internal';
 
 const emit = defineEmits<TMultiSelectorEmits>();
 const {
@@ -43,7 +50,7 @@ const optionsWidth = computed<any>(() => {
 const countNumber = computed(() => (count ? (modelValue || []).length - count : 0));
 const showClearButton = computed(() => Boolean(clearable && modelValue && modelValue.length));
 
-const isSelected = (option: any) => Boolean(modelValue && modelValue.includes(option));
+const isSelected = (option: any) => Boolean(modelValue && some(modelValue, option));
 
 const toggleOptions = () => {
     $popover.value?.toggle();
@@ -62,12 +69,12 @@ const selectOption = (option: TOption) => {
     else $options.value?.focus();
 
     const current = modelValue || [];
-    if (some(current, option))
+    if (some(current, option)) {
         emit(
             'update:modelValue',
             current.filter((item) => !isEqual(item, option)),
         );
-    else emit('update:modelValue', [...current, option]);
+    } else emit('update:modelValue', [...current, option]);
 };
 
 const add = () => {
@@ -132,7 +139,7 @@ const refreshInput = () => {
             </SelectorButton>
         </template>
 
-        <template #dropdown>
+        <template #dropdownHeader>
             <SelectorBadgeList
                 v-if="badgeList"
                 :width="optionsWidth"
@@ -141,8 +148,15 @@ const refreshInput = () => {
                 @removed="(option) => selectOption(option)"
             />
 
-            <SelectorInputSearch v-if="search" ref="$selectorInputSearch" @query="(query) => $emit('query', query)" @enter="add" />
+            <SelectorInputSearch
+                v-if="search"
+                ref="$selectorInputSearch"
+                @query="(query) => $emit('query', query)"
+                @enter="add"
+            />
+        </template>
 
+        <template #dropdown>
             <SelectorOptions
                 :options="options"
                 :optionLabel="optionLabel"
@@ -155,7 +169,9 @@ const refreshInput = () => {
                     <slot name="option" :option="option" />
                 </template>
             </SelectorOptions>
+        </template>
 
+        <template #dropdownFooter>
             <SelectorHandler v-if="search && handler" @add="add" />
         </template>
     </SelectorLayout>
