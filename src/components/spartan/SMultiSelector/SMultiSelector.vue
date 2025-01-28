@@ -4,13 +4,15 @@ import type { TMultiSelectorProps, TMultiSelectorEmits, TOption } from './types'
 import { type TPopoverProps, SBadge } from '@spartan';
 import { computed, nextTick, useTemplateRef } from 'vue';
 import isEqual from 'lodash.isequal';
-import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch, SelectorBadgeList } from '@internal';
+import some from 'lodash.some';
+import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch, SelectorBadgeList, SelectorHandler } from '@internal';
 
 const emit = defineEmits<TMultiSelectorEmits>();
 const {
     modelValue,
     optionLabel,
     search,
+    options,
     clearable,
     count = 3,
     rounded = 'both',
@@ -43,20 +45,6 @@ const showClearButton = computed(() => Boolean(clearable && modelValue && modelV
 
 const isSelected = (option: any) => Boolean(modelValue && modelValue.includes(option));
 
-const focusInput = (immediate?: boolean) => {
-    if (search && $popover.value?.isOpen) {
-        if (immediate) $input.value?.focus();
-        else {
-            nextTick(() => {
-                // prevent jumping
-                setTimeout(() => {
-                    $input.value?.focus();
-                }, 0);
-            });
-        }
-    }
-};
-
 const toggleOptions = () => {
     $popover.value?.toggle();
     if (search && $popover.value?.isOpen) {
@@ -74,12 +62,23 @@ const selectOption = (option: TOption) => {
     else $options.value?.focus();
 
     const current = modelValue || [];
-    if (current.includes(option))
+    if (some(current, option))
         emit(
             'update:modelValue',
             current.filter((item) => !isEqual(item, option)),
         );
     else emit('update:modelValue', [...current, option]);
+};
+
+const add = () => {
+    $input.value?.focus();
+    const value = $input.value?.value.trim();
+    if (!value) return;
+
+    const option = { [optionLabel]: value };
+    emit('add', option);
+    selectOption(option);
+    refreshInput();
 };
 
 const clear = () => {
@@ -142,7 +141,7 @@ const refreshInput = () => {
                 @removed="(option) => selectOption(option)"
             />
 
-            <SelectorInputSearch v-if="search" ref="$selectorInputSearch" @query="(query) => $emit('query', query)" />
+            <SelectorInputSearch v-if="search" ref="$selectorInputSearch" @query="(query) => $emit('query', query)" @enter="add" />
 
             <SelectorOptions
                 :options="options"
@@ -156,6 +155,8 @@ const refreshInput = () => {
                     <slot name="option" :option="option" />
                 </template>
             </SelectorOptions>
+
+            <SelectorHandler v-if="search && handler" @add="add" />
         </template>
     </SelectorLayout>
 </template>

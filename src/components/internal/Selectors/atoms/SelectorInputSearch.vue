@@ -10,6 +10,7 @@ import { useTemplateRef, type ShallowRef } from 'vue';
 
 defineEmits<{
     (e: 'query', query: string): void;
+    (e: 'enter'): void;
 }>();
 
 const { t } = translator('selector');
@@ -33,6 +34,7 @@ defineExpose<{
                 )
             "
             @input="(e: any) => $emit('query', e.target.value)"
+            @keyup.enter="$emit('enter')"
         />
     </div>
 </template>

@@ -1,6 +1,7 @@
 {
     "$spartan": {
         "selector": {
+            "add": "Agregar",
             "search": "Buscar",
             "selection": "Selección",
             "selections": "Selecciones",

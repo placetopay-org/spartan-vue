@@ -1,6 +1,7 @@
 import SMultiSelector from './SMultiSelector.vue';
 import { buildSourceBinding, createVariation } from '@/helpers';
 import { ref, watch } from 'vue';
+import some from 'lodash.some';
 
 export default {
     component: SMultiSelector,
@@ -427,6 +428,50 @@ export const ClearableBadgeList = createVariation({
     { name: 'Yokohama', code: 'YOK' },
 ] -->
 <SMultiSelector v-model="value" search clearable :loading="isLoading" :options="computedCities" badgeList optionLabel="name" placeholder="Select a City" class="w-80" @query="updateQuery" />`,
+});
+
+export const Handler = createVariation({
+    components: { SMultiSelector },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const query = ref('');
+        const baseCities = ref(cities.value);
+        const computedCities = ref(baseCities.value);
+        const isLoading = ref(false);
+        
+        const clear = () => (value.value = null);
+        const updateQuery = (q: string) => (query.value = q);
+        const addOption = (option: any) => {
+            if (!some(baseCities.value, option)) baseCities.value.push(option);   
+        }
+
+        watch(query, () => {
+            if (query.value === '') {
+                computedCities.value = baseCities.value;
+                return;
+            }
+
+            isLoading.value = true;
+            setTimeout(() => {
+                computedCities.value = baseCities.value.filter((city) =>
+                    city.name.toLowerCase().includes(query.value.toLowerCase()),
+                );
+                isLoading.value = false;
+            }, 500);
+        });
+
+        return { value, computedCities, query, updateQuery, isLoading, clear, addOption };
+    },
+    template: `
+<!-- cities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+] -->
+<SMultiSelector v-model="value" :options="computedCities" @add="addOption" search handler clearable :loading="isLoading" optionLabel="name" placeholder="Select a City" class="w-80" @query="updateQuery"/>`,
 });
 
 export const Removable = createVariation({
