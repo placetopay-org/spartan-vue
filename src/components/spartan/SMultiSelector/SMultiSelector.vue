@@ -30,20 +30,20 @@ const { t } = translator('selector');
 
 const PtOptions = extractor(pt.value.options);
 
-const $selectorLayout = useTemplateRef('$selectorLayout');
-const $selectorButton = useTemplateRef('$selectorButton');
-const $selectorInputSearch = useTemplateRef('$selectorInputSearch');
+const $selectorLayout = useTemplateRef<any>('$selectorLayout');
+const $selectorButton = useTemplateRef<any>('$selectorButton');
+const $selectorInputSearch = useTemplateRef<any>('$selectorInputSearch');
 
 const $popover = computed(() => $selectorLayout.value?.$popover);
 const $options = computed(() => $selectorLayout.value?.$options);
 const $button = computed(() => $selectorButton.value?.$button);
 const $input = computed(() => $selectorInputSearch.value?.$input);
 
-const buttonWidth = computed<any>(() => {
+const buttonWidth = computed(() => {
     return $button.value?.clientWidth || 320;
 });
 
-const optionsWidth = computed<any>(() => {
+const optionsWidth = computed(() => {
     return $options.value?.clientWidth || 320;
 });
 
