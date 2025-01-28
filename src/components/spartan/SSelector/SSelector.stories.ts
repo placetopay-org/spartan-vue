@@ -159,13 +159,12 @@ const groupedCities = ref([
 ]);
 
 export const Default = createVariation({
-    components: { SSelector, SButton },
+    components: { SSelector },
     containerClass: 'flex gap-4',
     setup: () => {
         const value = ref();
-        const clear = () => value.value = null;
 
-        return { value, cities, clear };
+        return { value, cities };
     },
     template: `
 <!-- cities: [
@@ -175,8 +174,7 @@ export const Default = createVariation({
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' },
 ] -->
-<SSelector v-model="value" :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />
-<SButton @click="clear">Clear</SButton>`,
+<SSelector v-model="value" :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />`,
 });
 
 export const Base = createVariation({
@@ -348,14 +346,17 @@ export const Search = createVariation({
         const updateQuery = (q: string) => query.value = q;
         
         watch(query, () => {
+            if (query.value === '') {
+                computedCities.value = cities.value;
+                return;
+            }
+
             isLoading.value = true;
             setTimeout(() => {
                 computedCities.value = cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));
                 isLoading.value = false
             }, 500);
         })
-
-        
 
         return { value, computedCities, query, updateQuery, isLoading };
     },
@@ -386,14 +387,17 @@ export const SearchClearable = createVariation({
         const updateQuery = (q: string) => query.value = q;
         
         watch(query, () => {
+            if (query.value === '') {
+                computedCities.value = cities.value;
+                return;
+            }
+
             isLoading.value = true;
             setTimeout(() => {
                 computedCities.value = cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));
                 isLoading.value = false
             }, 500);
         })
-
-        
 
         return { value, computedCities, query, updateQuery, isLoading };
     },

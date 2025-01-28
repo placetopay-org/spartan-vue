@@ -7,7 +7,7 @@ export type TBadgeProps = {
     dot?: boolean;
     outline?: boolean;
     pill?: boolean;
-    removable?: boolean;
+    removable?: boolean | 'stopPropagation';
     size?: 'sm' | 'md' | 'lg';
     reverse?: boolean;
     class?: string;

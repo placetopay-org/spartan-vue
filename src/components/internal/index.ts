@@ -8,3 +8,4 @@ export { default as LinkButton } from './LinkButton.vue';
 export { default as Mesh } from './Mesh.vue';
 export { default as FadeTransition } from './Transitions/FadeTransition.vue';
 export { default as Wrapper } from './Wrapper.vue';
+export * from './Selectors';

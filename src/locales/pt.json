@@ -1,8 +1,9 @@
 {
     "$spartan": {
         "selector": {
+            "selection": "Seleção",
             "selections": "Seleções",
-            "noResults": "Nenhum resultado",
+            "noResults": "Não há dados relacionados",
             "loading": "Carregando..."
         },
         "copy": {

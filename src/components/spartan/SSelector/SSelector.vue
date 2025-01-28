@@ -1,38 +1,36 @@
 <script setup lang="ts">
-import { hasSlotContent, usePassthrough } from '@/helpers';
-import { CheckIcon, ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
-import { twMerge } from 'tailwind-merge';
-import { buttonStyles, optionStyles } from './styles';
+import { usePassthrough } from '@/helpers';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';
-import { SPopover, type TPopoverProps } from '../SPopover';
-import { ref, computed, nextTick } from 'vue';
+import { type TPopoverProps } from '@spartan';
+import { computed, nextTick, useTemplateRef } from 'vue';
 import isEqual from 'lodash.isequal';
-import { translator } from '@/helpers';
-import { Loader } from '@internal';
-import { inputStyle } from '@/constants';
+import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch } from '@internal';
 
 const emit = defineEmits<TSelectorEmits>();
 const { rounded = 'both', modelValue, optionLabel, search, clearable } = defineProps<TSelectorProps & TPopoverProps>();
 const { pt, extractor } = usePassthrough();
 
-const { t } = translator('selector');
+const PtOptions = extractor(pt.value.options);
 
-const [optionsClass, optionsProps] = extractor(pt.value.options);
+const $selectorLayout = useTemplateRef('$selectorLayout');
+const $selectorButton = useTemplateRef('$selectorButton');
+const $selectorInputSearch = useTemplateRef('$selectorInputSearch');
 
-const popover = ref<InstanceType<typeof SPopover> | null>(null);
-const $button = ref<HTMLButtonElement | null>(null);
-const $input = ref<HTMLInputElement | null>(null);
+const $popover = computed(() => $selectorLayout.value?.$popover);
+const $button = computed(() => $selectorButton.value?.$button);
+const $input = computed(() => $selectorInputSearch.value?.$input);
 
-const showClearButton = computed(() => clearable && modelValue);
+const optionsWidth = computed<any>(() => {
+    return $button.value?.clientWidth || 20;
+});
 
-const actionAndClose = (action: () => void) => {
-    action();
-    popover.value?.close();
-};
+const showClearButton = computed(() => Boolean(clearable && modelValue));
+
+const isSelected = (option: any) => isEqual(option, modelValue);
 
 const toggleOptions = () => {
-    popover.value?.toggle();
-    if (search && popover.value?.isOpen) {
+    $popover.value?.toggle();
+    if (search && $popover.value?.isOpen) {
         nextTick(() => {
             // prevent jumping
             setTimeout(() => {
@@ -42,89 +40,60 @@ const toggleOptions = () => {
     }
 };
 
-const selectOption = (option: TOption) => actionAndClose(() => emit('update:modelValue', option));
+const selectOption = (option: TOption) => {
+    emit('update:modelValue', option);
+    // delay closing after selection
+    setTimeout(() => {
+        $popover.value?.close();
+    }, 0);
+};
 const clear = () => {
     emit('update:modelValue');
     $input.value?.focus();
 };
 
 const refreshInput = () => {
-    if (search && modelValue) {
-        $input.value!.value = modelValue[optionLabel];
+    if (search) {
+        $input.value!.value = '';
         emit('query', '');
     }
 };
 </script>
 
 <template>
-    <SPopover :offset="2" ref="popover" :static="static" :responsive="responsive" @close="refreshInput">
-        <template #reference>
-            <button
+    <SelectorLayout ref="$selectorLayout" :optionsWidth="optionsWidth" :PtOptions="PtOptions" @close="refreshInput">
+        <template #button>
+            <SelectorButton
+                ref="$selectorButton"
+                :class="$props.class"
                 :disabled="disabled"
-                ref="$button"
+                :rounded="rounded"
+                :error="error"
+                :loading="loading"
+                :showClearButton="showClearButton"
                 @click="toggleOptions"
-                :class="twMerge(buttonStyles({ disabled, error, rounded }), $props.class)"
+                @clear="clear"
             >
                 <span v-if="modelValue" class="text-nowrap">{{ modelValue?.[optionLabel] }}</span>
                 <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
-
-                <div class="-mr-1 ml-auto flex gap-1 text-gray-400">
-                    <button @click.stop="clear" v-if="showClearButton" class="group">
-                        <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600" />
-                    </button>
-                    <Loader v-if="loading" class="h-5 w-5 shrink-0" />
-                    <ChevronDownIcon v-else class="h-5 w-5 shrink-0" />
-                </div>
-            </button>
+            </SelectorButton>
         </template>
 
-        <div class="overflow-hidden rounded-md border border-gray-950/5 bg-white shadow-lg">
-            <div
-                data-s-options
-                v-bind="optionsProps"
-                :class="twMerge('max-h-80 overflow-auto', optionsClass)"
-                :style="{ minWidth: `${$button?.clientWidth}px` }"
+        <template #dropdown>
+            <SelectorInputSearch v-if="search" ref="$selectorInputSearch" @query="query => $emit('query', query)" />
+
+            <SelectorOptions
+                :options="options"
+                :optionLabel="optionLabel"
+                :optionGroupLabel="optionGroupLabel"
+                :optionGroupItems="optionGroupItems"
+                :isSelected="isSelected"
+                @select="(item: any) => selectOption(item)"
             >
-                <div v-if="search" class="flex items-center gap-2.5 border-b border-gray-950/5 px-3 py-1.5">
-                    <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
-                    <input
-                        ref="$input"
-                        :class="twMerge(`${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} w-full border-none outline-none focus:ring-0 p-0`)"
-                        @input="(e: any) => $emit('query', e.target.value)"
-                    />
-                </div>
-                <template v-if="!options.length">
-                    <span class="relative flex px-3 py-2 text-xs font-medium text-gray-400">{{
-                        t('noResults')
-                    }}</span>
+                <template #option="{ option }">
+                    <slot name="option" :option="option" />
                 </template>
-                <template v-else>
-                    <template v-for="option in options">
-                        <span
-                            v-if="optionGroupLabel && option[optionGroupLabel]"
-                            class="py-2 pl-3 text-xs font-medium uppercase text-gray-400"
-                            >{{ option[optionGroupLabel] }}</span
-                        >
-
-                        <button
-                            v-for="item in optionGroupItems ? option[optionGroupItems] : [option]"
-                            @click="selectOption(item)"
-                            :disabled="item.disabled"
-                            :class="
-                                twMerge(optionStyles({ selected: isEqual(item, modelValue), disabled: item.disabled }))
-                            "
-                        >
-                            <slot name="option" :option="item" v-if="hasSlotContent($slots.option)" />
-                            <span v-else>{{ item[optionLabel] }}</span>
-
-                            <CheckIcon
-                                v-if="isEqual(item, modelValue)"
-                                class="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-spartan-primary-500"
-                            />
-                        </button>
-                    </template>
-                </template>
-            </div>
-        </div>
-    </SPopover>
+            </SelectorOptions>
+        </template>
+    </SelectorLayout>
 </template>

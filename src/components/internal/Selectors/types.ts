@@ -6,10 +6,12 @@ export type TSelectorLayoutProps = {
     modelValue?: TOption | TOption[];
     disabled?: boolean;
     error?: boolean;
-    rounded: 'both' | 'left' | 'right' | 'none';
+    rounded?: 'both' | 'left' | 'right' | 'none';
     search?: boolean;
-    options: TOption[];
-    optionLabel: string;
+    options?: TOption[];
+    optionLabel?: string;
     optionGroupLabel?: string;
     optionGroupItems?: string;
+    optionsWidth: number;
+    PtOptions: any[];
 }
