@@ -26,6 +26,7 @@ defineExpose<{
         <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
         <input
             ref="$input"
+            :placeholder="t('search')"
             :class="
                 twMerge(
                     `${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} w-full border-none p-0 outline-none focus:ring-0`,

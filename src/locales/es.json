@@ -1,6 +1,7 @@
 {
     "$spartan": {
         "selector": {
+            "search": "Buscar",
             "selection": "Selección",
             "selections": "Selecciones",
             "noResults": "No hay datos relacionados",

@@ -1,5 +1,4 @@
 import type { TRounded } from "@/constants";
-import type { TBadgeProps } from "@spartan";
 
 export type TOption = Record<string, any>;
 
@@ -11,7 +10,8 @@ export type TMultiSelectorEmits = {
 export type TMultiSelectorProps = {
     class?: string;
     clearable?: boolean;
-    removable?: TBadgeProps['removable'];
+    removable?: boolean;
+    badgeList?: boolean;
     compact?: boolean;
     count?: number;
     search?: boolean;
