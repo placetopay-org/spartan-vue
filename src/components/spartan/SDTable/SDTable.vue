@@ -7,7 +7,7 @@ import { cellStyles, tableStyles } from './styles';
 import { ChevronUpIcon, ChevronDownIcon, ChevronDoubleDownIcon } from '@heroicons/vue/20/solid';
 import type { TDColumnProps, TDTableProps, TDTableEmits } from './types';
 import { usePassthrough } from '@/helpers';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import RowsSkeleton from './atoms/RowsSkeleton.vue';
 
 const emit = defineEmits<TDTableEmits>();
@@ -22,7 +22,8 @@ const [tableClass, tableProps] = extractor(pt.value.table);
 const [theadClass, theadProps] = extractor(pt.value.thead);
 const [paginatorClass, paginatorProps] = extractor(pt.value.paginator);
 
-const rows = computed(() => [...props.data]);
+const rows = ref([...props.data]);
+watch(() => props.data, (newData) => rows.value = [...newData])
 
 const count = computed(
     () =>
@@ -141,7 +142,7 @@ const toggleExpIsOpen = () => {
                             <tr class="border-none">
                                 <td :colspan="context.colsArray.length" class="bg-gray-50 p-0">
                                     <SAccordion
-                                        :open="row.expIsOpen"
+                                        :open="!!row.expIsOpen"
                                         vertical
                                     >
                                         <slot name="expansion" v-bind="{ row }" />
