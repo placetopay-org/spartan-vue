@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SAccordion, SPaginator } from '@spartan';
+import { SAccordion, SPaginator, SSkeleton } from '@spartan';
 import { Wrapper, Loader } from '@internal';
 import { twMerge } from 'tailwind-merge';
 import { createContext } from './api';
@@ -8,6 +8,7 @@ import { ChevronUpIcon, ChevronDownIcon, ChevronDoubleDownIcon } from '@heroicon
 import type { TDColumnProps, TDTableProps, TDTableEmits } from './types';
 import { usePassthrough } from '@/helpers';
 import { computed, ref } from 'vue';
+import RowsSkeleton from './atoms/RowsSkeleton.vue';
 
 const emit = defineEmits<TDTableEmits>();
 const props = defineProps<TDTableProps>();
@@ -89,13 +90,7 @@ const toggleExpIsOpen = () => {
 
                 <tbody class="divide-y divide-gray-200 bg-white -space-y-px">
                     <template v-if="loading">
-                        <tr>
-                            <td :colspan="context.colsArray.length">
-                                <div class="flex w-full justify-center p-4">
-                                    <Loader :size="50" />
-                                </div>
-                            </td>
-                        </tr>
+                        <RowsSkeleton :cols="context.colsArray" :slim="context.config.slim" />
                     </template>
                     <template v-else>
                         <template v-for="row in rows">
