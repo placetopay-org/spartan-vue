@@ -93,3 +93,22 @@ export const OneLine = createVariation({
 </SCard>
 `,
 });
+
+export const OneLine2 = createVariation({
+    components: { SDefinitionTerm, SCard },
+    template: `
+<SCard class="w-[1000px]" pt:body="grid grid-cols-3 divide-y divide-gray-200 [&_:nth-child(2)]:!border-t-0">
+    <SDefinitionTerm oneline pt:dt="p-4 col-span-1" pt:dd="p-4 col-span-2" labels="Usuario responsable" description="guest" />
+    <SDefinitionTerm oneline pt:dt="p-4 col-span-1" pt:dd="p-4 col-span-2" labels="IdEmpresa" description="123" />
+    <SDefinitionTerm oneline pt:dt="p-4 col-span-1" pt:dd="p-4 col-span-2" labels="userAgent" description="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" />
+    <SDefinitionTerm oneline pt:dt="p-4 col-span-1" pt:dd="p-4 col-span-2" labels="returnUrl">
+        <template #description>
+            <a href="#" class="text-spartan-primary-500 underline text-sm">https://mysite.com/response</a>
+        </template>
+    </SDefinitionTerm>
+    <SDefinitionTerm oneline pt:dt="p-4 col-span-1" pt:dd="p-4 col-span-2" labels="_session_" description="88879" />
+    <SDefinitionTerm oneline pt:dt="p-4 col-span-1" pt:dd="p-4 col-span-2" labels="_wcTransactionId_" description="34266" />
+    <SDefinitionTerm oneline pt:dt="p-4 col-span-1" pt:dd="p-4 col-span-2" labels="_walletMethodId_" description="434344" />
+</SCard>
+`,
+});
