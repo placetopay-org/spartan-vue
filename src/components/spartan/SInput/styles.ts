@@ -20,7 +20,7 @@ export const containerStyles = cva(`h-9 relative flex gap-2 ${inputStyle.root}`,
     ],
 });
 
-export const inputStyles = cva(`${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} ${inputStyle.padding} px-0 w-full border-none outline-none focus:ring-0`, {
+export const inputStyles = cva(`${inputStyle.text} ${inputStyle.placeholder} ${inputStyle.padding} px-0 w-full border-none outline-none focus:ring-0`, {
     variants: {
         rounded: roundedStyle,
     },
