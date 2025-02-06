@@ -111,7 +111,7 @@ export const FeedbackPanel = createVariation({
     components: { SInputPassword, SInputPasswordPanel },
     containerClass: 'flex flex-col w-[340px]',
     setup: () => {
-        const value = ref('');
+        const value = ref();
         const state = ref();
         const isValid = ref();
 

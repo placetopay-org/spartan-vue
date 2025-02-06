@@ -23,7 +23,7 @@ const validationState = computed(() => {
 
     const newState = (Object.keys(props.rules) as TValidatorKey[]).reduce((acc, key) => {
         const value = props.rules![key] as any;
-        const isValid = validators[key](modelValue, value);
+        const isValid = !!modelValue && validators[key](modelValue, value);
         acc[key] = { isValid, value };
         return acc;
     }, {} as TState);
