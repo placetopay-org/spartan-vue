@@ -33,7 +33,7 @@ const validationState = computed(() => {
 
 const isValid = computed(() => {
     if (!props.modelValue) return;
-    return validationState.value ? Object.values(validationState.value).every(Boolean) : true;
+    return validationState.value ? Object.values(validationState.value).every(val => val.isValid) : true;
 });
 
 watchEffect(() => {

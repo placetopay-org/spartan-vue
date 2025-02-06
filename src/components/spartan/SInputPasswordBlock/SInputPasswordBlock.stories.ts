@@ -1,4 +1,5 @@
 import SInputPasswordBlock from './SInputPasswordBlock.vue';
+import { SInputPasswordPanel } from '../SInputPassword';
 import { ref } from 'vue';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
@@ -52,7 +53,7 @@ export const Default = createDefault({
     components: { SInputPasswordBlock },
     containerClass: 'h-[500px]',
     setup: () => {
-        const value = ref(0);
+        const value = ref();
 
         return { value };
     },
@@ -68,7 +69,7 @@ export const Default = createDefault({
 export const Base = createVariation({
     components: { SInputPasswordBlock },
     setup: () => {
-        const value = ref(0);
+        const value = ref();
 
         return { value };
     },
@@ -78,7 +79,7 @@ export const Base = createVariation({
 export const ErrorText = createVariation({
     components: { SInputPasswordBlock },
     setup: () => {
-        const value = ref(0);
+        const value = ref();
 
         return { value };
     },
@@ -88,9 +89,33 @@ export const ErrorText = createVariation({
 export const HelpText = createVariation({
     components: { SInputPasswordBlock },
     setup: () => {
-        const value = ref(0);
+        const value = ref();
 
         return { value };
     },
     template: '<SInputPasswordBlock v-model="value" label="Custom label" helpText="Help message" />',
+});
+
+export const WithPanel = createVariation({
+    components: { SInputPasswordBlock, SInputPasswordPanel },
+    setup: () => {
+        const value = ref();
+        const rules = ref({
+            min: 6,
+            max: 12,
+            lowercase: true,
+            uppercase: true,
+            digit: true,
+            special: true,
+        });
+        const state = ref();
+        const isValid = ref();
+
+        return { value, rules, state, isValid };
+    },
+    template: `
+    <pre>isValid: {{ isValid }}</pre>
+<SInputPasswordBlock v-model="value" label="Custom label" helpText="Help message" :rules="rules" @state="e => state = e" @isValid="e => isValid = e" />
+<SInputPasswordPanel :state="state" />
+`,
 });
