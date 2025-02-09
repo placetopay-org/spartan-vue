@@ -137,3 +137,35 @@ export const FeedbackPanel = createVariation({
 <SInputPassword v-model="value" :rules="rules" @state="e => state = e" />
 <SInputPasswordPanel class="mt-6" :state="state" />`,
 });
+
+export const FeedbackPanelWithAccordion = createVariation({
+    components: { SInputPassword, SInputPasswordPanel },
+    containerClass: 'flex flex-col w-[340px]',
+    setup: () => {
+        const value = ref();
+        const state = ref();
+        const isValid = ref();
+        const isFocused = ref(false);
+
+        const rules = ref({
+            min: 6,
+            max: 12,
+            lowercase: true,
+            uppercase: true,
+            digit: true,
+            special: true,
+        });
+
+        return { value, rules, state, isValid, isFocused };
+    },
+    template: `<!-- rules: {
+    min: 6,
+    max: 12,
+    lowercase: true,
+    uppercase: true,
+    digit: true,
+    special: true,
+} -->
+<SInputPassword v-model="value" :rules="rules" @state="e => state = e" @focus="isFocused = true" @blur="isFocused = false"  />
+<SInputPasswordPanel class="mt-6" :state="state" :open="isFocused" />`,
+});
