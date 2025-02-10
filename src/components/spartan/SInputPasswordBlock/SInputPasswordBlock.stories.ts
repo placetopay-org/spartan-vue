@@ -98,6 +98,7 @@ export const HelpText = createVariation({
 
 export const WithPanel = createVariation({
     components: { SInputPasswordBlock, SInputPasswordPanel },
+    containerClass: 'flex flex-col',
     setup: () => {
         const value = ref();
         const rules = ref({
@@ -114,7 +115,6 @@ export const WithPanel = createVariation({
         return { value, rules, state, isValid };
     },
     template: `
-    <pre>isValid: {{ isValid }}</pre>
 <SInputPasswordBlock v-model="value" label="Custom label" helpText="Help message" :rules="rules" @state="e => state = e" @isValid="e => isValid = e" />
 <SInputPasswordPanel :state="state" />
 `,

@@ -5,7 +5,7 @@ import { CheckCircleIcon } from '@heroicons/vue/24/solid';
 import { translator } from '@/helpers';
 import { twMerge } from 'tailwind-merge';
 
-const { open = true } = defineProps<{ class?: string; state: TState, open: boolean }>();
+const { open = true } = defineProps<{ class?: string; state: TState, open?: boolean }>();
 
 const { t } = translator('inputPasswordPanel');
 </script>

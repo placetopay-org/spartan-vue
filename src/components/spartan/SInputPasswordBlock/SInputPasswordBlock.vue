@@ -3,7 +3,7 @@ import { SInputPassword, type TInputPasswordProps, type TInputPasswordEmits, typ
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 import { extractWrapperProps } from '@/helpers';
 
-defineEmits<TInputPasswordEmits>();
+defineEmits<TInputPasswordEmits & { (event: 'focus', value?: any): void; (event: 'blur', value?: any): void }>();
 const props = defineProps<Partial<TBlockWrapperProps> & TInputPasswordProps & Partial<TInputProps>>();
 const [blockWrapperProps, inputPasswordProps] = extractWrapperProps<TInputPasswordProps & Partial<TInputProps>>(props);
 </script>

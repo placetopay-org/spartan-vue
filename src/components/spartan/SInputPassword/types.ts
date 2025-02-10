@@ -4,8 +4,6 @@ export type TInputPasswordEmits = {
     (event: 'update:modelValue', value?: string): void;
     (event: 'state', value?: TState): void;
     (event: 'isValid', value?: boolean): void;
-    (event: 'focus', value?: any): void;
-    (event: 'blur', value?: any): void;
 };
 
 export type TValidatorKey = keyof typeof validators;
