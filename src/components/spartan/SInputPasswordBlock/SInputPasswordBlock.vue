@@ -17,6 +17,8 @@ const [blockWrapperProps, inputPasswordProps] = extractWrapperProps<TInputPasswo
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
             @state="$emit('state', $event)"
             @isValid="$emit('isValid', $event)"
+            @focus="$emit('focus', $event)"
+            @blur="$emit('blur', $event)"
         />
     </BlockWrapper>
 </template>
