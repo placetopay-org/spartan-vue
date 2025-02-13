@@ -30,7 +30,7 @@ describe('SToast', () => {
         const user = userEvent.setup();
 
         // Act
-        const { emitted } = render(SToast, { slots: { default: 'Toast test', description: 'A test description' } });
+        const { emitted } = render(SToast, { props: { closeable: true }, slots: { default: 'Toast test', description: 'A test description' } });
 
         const closeButton = screen.getByRole('button');
 
@@ -38,7 +38,7 @@ describe('SToast', () => {
 
         // Assert
         screen.getByText('Toast test');
-        expect(emitted()).toHaveProperty('close');
-        expect(emitted().close).toHaveLength(1);
+        expect(emitted()).toHaveProperty('closeToast');
+        expect(emitted().closeToast).toHaveLength(1);
     });
 });
