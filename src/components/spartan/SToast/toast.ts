@@ -6,5 +6,6 @@ import type { TToastProps } from './types';
 export { SToaster };
 export const toast = (props: TToastProps & ToasterProps) => {
     const { type, title, description, closeable, leftBorder, ...toastProps } = props;
-    vsToast.custom(markRaw(SToast), { ...toastProps,  componentProps: props });
+    const componentProps = { type, title, description, closeable, leftBorder };
+    vsToast.custom(markRaw(SToast), { ...toastProps,  componentProps });
 };

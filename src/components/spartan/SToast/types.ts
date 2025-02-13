@@ -3,7 +3,7 @@ export type TToastEmits = {
 };
 
 export type TToastProps = {
-    type?: 'success' | 'danger';
+    type?: 'success' | 'error';
     leftBorder?: boolean;
     title?: string;
     description?: string;

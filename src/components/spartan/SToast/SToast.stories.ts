@@ -177,6 +177,7 @@ export const DisplayToast = createVariation({
 import { toast, SToaster } from '@spartan';
 
 display: () => toast({
+    leftBorder: true,
     title: 'Successfully saved!',
     description: 'Anyone with a link can now view this file.',
     type: 'success',

@@ -21,7 +21,7 @@ const typeStyles = {
         iconColor: 'text-yellow-500',
         icon: ExclamationCircleIcon,
     },
-    danger: {
+    error: {
         leftBarColor: 'border-red-400',
         iconColor: 'text-red-500',
         icon: XCircleIcon,
