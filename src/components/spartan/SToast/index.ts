@@ -1,4 +1,4 @@
 export { default as SToast } from './SToast.vue';
-export * from './toast';
+export { SToaster, toast } from './toast';
 
 export type { TToastEmits, TToastProps } from './types';
