@@ -1,4 +1,6 @@
 import SToast from './SToast.vue';
+import { toast, SToaster } from './toast';
+import { SButton } from '@spartan';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 
 export default {
@@ -64,9 +66,32 @@ export const Base = createVariation({
     template: `<SToast>Successfully saved!</SToast>`,
 });
 
+export const MessageByProp = createVariation({
+    components: { SToast },
+    template: `<SToast title="Successfully saved!" />`,
+});
+
+export const Description = createVariation({
+    components: { SToast },
+    template: `<SToast>
+    Successfully saved!
+    
+    <template #description>
+        Anyone with a link can now view this file.
+    </template>
+</SToast>`,
+});
+
+export const DescriptionByProp = createVariation({
+    components: { SToast },
+    template: `<SToast description="Anyone with a link can now view this file.">
+    Successfully saved!
+</SToast>`,
+});
+
 export const ToastTypes = createVariation({
     components: { SToast },
-    containerClass: 'grid gap-3 grid-cols-3',
+    containerClass: 'grid gap-3 grid-cols-1',
     template: `<SToast type="success">
     Successfully saved!
 
@@ -94,7 +119,7 @@ export const ToastTypes = createVariation({
 
 export const WithLeftBorder = createVariation({
     components: { SToast },
-    containerClass: 'grid gap-3 grid-cols-3',
+    containerClass: 'grid gap-3 grid-cols-1',
     template: `<SToast type="success" leftBorder>
     Successfully saved!
 
@@ -118,4 +143,47 @@ export const WithLeftBorder = createVariation({
         Please save your changes.
     </template>
 </SToast>`,
+});
+
+export const Closeable = createVariation({
+    components: { SToast },
+    containerClass: 'grid gap-3 grid-cols-1',
+    template: `
+<SToast title="Successfully saved!" closeable />
+<SToast title="Successfully saved!" description="Anyone with a link can now view this file." closeable />    
+`,
+});
+
+export const DisplayToast = createVariation({
+    components: { SToast, SButton, SToaster },
+    containerClass: 'grid gap-3 grid-cols-1 h-[150px]',
+    setup: () => {
+
+        const display = () => {
+            toast({
+                leftBorder: true,
+                title: 'Successfully saved!',
+                description: 'Anyone with a link can now view this file.',
+                type: 'success',
+                closeable: true,
+                duration: Infinity,
+                position: 'bottom-left',
+            })
+        }
+        return { display };
+    },
+    template: `
+<!-- Toaster component is required to display the toast
+import { toast, SToaster } from '@spartan';
+
+display: () => toast({
+    title: 'Successfully saved!',
+    description: 'Anyone with a link can now view this file.',
+    type: 'success',
+    closeable: true,
+    duration: Infinity,
+}) -->
+<SButton @click="display">Display Toast</SButton>
+<SToaster /> 
+`,
 });
