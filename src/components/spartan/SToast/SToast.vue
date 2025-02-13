@@ -47,12 +47,12 @@ const typeStyle = computed(() => typeStyles[type]);
                 <component :is="typeStyle.icon" class="h-5 w-5" :class="[typeStyle.iconColor]" aria-hidden="true" />
                 <span class="text-sm font-medium text-gray-900">
                     <slot v-if="hasSlotContent($slots.default)" />
-                    <template v-else>{{ title }}</template>
+                    <span v-else v-html="title" />
                 </span>
             </div>
             <p v-if="description || hasSlotContent($slots.description)" class="text-xs font-normal text-gray-400 ml-[26px]">
                 <slot v-if="hasSlotContent($slots.description)" name="description" />
-                <template v-else>{{ description }}</template>
+                <span v-else v-html="description" />
             </p>
         </div>
 

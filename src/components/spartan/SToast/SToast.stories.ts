@@ -100,7 +100,7 @@ export const ToastTypes = createVariation({
     </template>
 </SToast>
 
-<SToast type="danger">
+<SToast type="error">
     Something went wrong!
 
     <template #description>
@@ -128,7 +128,7 @@ export const WithLeftBorder = createVariation({
     </template>
 </SToast>
 
-<SToast type="danger" leftBorder>
+<SToast type="error" leftBorder>
     Something went wrong!
 
     <template #description>
