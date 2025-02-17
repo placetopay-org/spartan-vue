@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useContext } from './api';
 import type { TDColumnProps } from './types';
-import { useSlots, watch } from 'vue';
+import { useSlots, watch, onUnmounted } from 'vue';
 
 const props = defineProps<TDColumnProps>();
 
@@ -13,7 +13,13 @@ watch(props, () => {
         ...props,
         slots,
     });
-}, { immediate: true });
+}, { immediate: true, deep: true });
+
+onUnmounted(() => {
+    if (props.field) {
+        context.removeCol(props.field);
+    }
+});
 </script>
 
 <template></template>

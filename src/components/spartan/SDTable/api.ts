@@ -1,22 +1,46 @@
-import { reactive, inject, provide, type InjectionKey, computed, ref } from 'vue';
+import { reactive, inject, provide, type InjectionKey, computed, ref, watch } from 'vue';
 import type { TDTableProps, TDTableEmits, TDColumnProps } from './types';
 
-type TUpdateColData = TDColumnProps & { slots?: any };
+type TDTableSlots = {
+    expansion?: (context: { row: any }) => any[];
+};
+
+type TColumnSlots = {
+    header?: () => any[];
+    body?: (context: { row: any; value: any }) => any[];
+};
+
+type TUpdateColData = TDColumnProps & { slots?: TColumnSlots };
+
 type TColData = TUpdateColData & { pos: number };
 
+type TRow = {
+    data: Record<string|symbol, any>;
+    isExpanded: boolean;
+};
+
 type TState = {
-    config: { slim: boolean; expander: boolean };
+    emit: TDTableEmits;
+    props: TDTableProps;
+    slots: TDTableSlots;
+    config: { slim: boolean; expander: boolean; totalCols: number };
+    rows: TRow[];
     cols: Record<string | symbol, TColData>;
     colsArray: Array<TColData & { field: string | symbol }>;
     updateCol: (data: TUpdateColData) => void;
+    removeCol: (field: string | symbol) => void;
 };
 
 const contextKey = Symbol('STableContext') as InjectionKey<TState>;
 
-export const createContext = (props: TDTableProps, emit?: TDTableEmits) => {
+export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: any) => {
     let totalCols = ref(0);
 
     const state: TState = reactive({
+        emit,
+        props: computed(() => props),
+        slots,
+        rows: [],
         config: { slim: !!props.slim, expander: false, totalCols },
         cols: {},
         colsArray: computed(() => Reflect.ownKeys(state.cols).map((field) => ({ ...state.cols[field], field }))),
@@ -33,7 +57,17 @@ export const createContext = (props: TDTableProps, emit?: TDTableEmits) => {
                 state.cols[expanderField] = { ...rest, pos: totalCols.value, expander };
             }
         },
+        removeCol: (field: string | symbol) => {
+            delete state.cols[field];
+            totalCols.value--;
+        },
     });
+
+    watch(
+        () => props.data,
+        (newData) => (state.rows = newData.map((row) => ({ data: row, isExpanded: false }))),
+        { immediate: true },
+    );
 
     provide(contextKey, state);
     return state;

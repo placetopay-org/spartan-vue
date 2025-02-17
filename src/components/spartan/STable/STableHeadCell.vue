@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { useContext } from './api';
 import type { TTableHeadCellProps } from './types';
 
-defineProps<Partial<TTableHeadCellProps>>();
+defineProps<TTableHeadCellProps>();
 
 const context = useContext('STableHeadCell');
 context.register('col');

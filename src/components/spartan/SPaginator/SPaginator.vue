@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { TPaginatorProps, TPaginatorEmits } from './types';
 import { translator } from '@/helpers';
-import { SSelect } from '../SSelect';
+import { SSelect } from '@spartan';
 import { SButtonGroup, SButtonGroupItem } from '../SButtonGroup';
 import { computed, ref } from 'vue';
 import { twMerge } from 'tailwind-merge';
-import { ChevronLeftIcon } from '@heroicons/vue/20/solid';
 
 const emit = defineEmits<TPaginatorEmits>();
 const {
@@ -122,7 +121,7 @@ const selectPage = (pageItem: number) => {
             <span>{{ t('showing') }}</span>
 
             <SSelect
-                class="py-1 text-xs"
+                class="h-8 text-xs"
                 :modelValue="vSize"
                 @update:model-value="
                     (value) => {

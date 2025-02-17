@@ -231,7 +231,7 @@ export const Pagination = createVariation({
     components: { SDTable, SDColumn },
     setup: () => {
         const paginator = ref({ page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] });
-        const paginatorChange = (newState: any) => { };
+        const paginatorChange = (newState: any) => alert(JSON.stringify(newState));
         return { data: data.slice(0, 5), paginator, paginatorChange };
     },
     template: `<!-- paginator: { page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] } -->

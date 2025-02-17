@@ -1,11 +1,12 @@
 import type { TPaginatorProps } from "@spartan";
+import type { ClassNameValue } from 'tailwind-merge';
 
 export type TDTableProps = {
-    class?: string;
+    class?: ClassNameValue;
     borderless?: boolean;
     paginator?: TPaginatorProps;
-    data: any[];
-    rowLink?: (row: any) => string;
+    data: Record<string, any>[];
+    rowLink?: (row: Record<string, any>) => string;
     slim?: boolean;
     loading?: boolean;
 };
