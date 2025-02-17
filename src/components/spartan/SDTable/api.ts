@@ -45,16 +45,15 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
         cols: {},
         colsArray: computed(() => Reflect.ownKeys(state.cols).map((field) => ({ ...state.cols[field], field }))),
         updateCol: ({ field, expander, ...rest }: TUpdateColData) => {
-            if (field) {
+            if (!field) return;
+
+            if (typeof field !== 'symbol') {
                 totalCols.value++;
                 state.cols[field] = { ...rest, pos: totalCols.value };
-            }
-
-            if (expander && !state.config.expander) {
+            } else if (expander && !state.config.expander) {
                 state.config.expander = true;
                 totalCols.value++;
-                const expanderField = Symbol();
-                state.cols[expanderField] = { ...rest, pos: totalCols.value, expander };
+                state.cols[field] = { ...rest, pos: totalCols.value, expander };
             }
         },
         removeCol: (field: string | symbol) => {

@@ -63,6 +63,32 @@ const variationConfig = {
     setup: () => ({ data: data.slice(0, 5) }),
 }
 
+// export const Shuffle = createVariation({
+//     ...variationConfig,
+//     setup: () => {
+//         const cols = ref([
+//             { field: 'name', header: 'Nombre' },
+//             { field: 'email', header: 'Correo' },
+//             { field: 'title', header: 'Titulo' },
+//             { field: 'role', header: 'Rol' },
+//         ]);
+
+//         const shuffle = () => {
+//             cols.value = [
+//                 { field: 'new', header: 'Nueva' },
+//             ];
+//         };
+
+//         return { cols, data: data.slice(0, 5), shuffle };
+//     },
+//     template: `
+// <pre>{{ cols }}</pre>
+// <button @click="shuffle">shuffle</button>
+// <SDTable :data="data">
+//     <SDColumn v-for="{field, header, sort} in cols" :key="field" :field :header :sort />
+// </SDTable>`,
+// });
+
 export const Base = createVariation({
     ...variationConfig,
     template: `
