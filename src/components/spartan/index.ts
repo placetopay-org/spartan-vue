@@ -57,3 +57,4 @@ export * from './SSelector';
 export * from './SSelectorBlock';
 export * from './SInputPassword';
 export * from './SInputPasswordBlock';
+export * from './SMultiSelector';
