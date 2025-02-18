@@ -81,7 +81,7 @@ const focusInput = () => inputElement.value?.focus();
             :placeholder="placeholder"
             :type="type"
             v-bind="{ ...$attrs, ...inputProps }"
-            @keypress="onKeyPress"
+            @keyup.enter="addTag(current)"
         />
     </div>
 </template>
