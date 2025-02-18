@@ -6,7 +6,7 @@ defineOptions({
 })
 
 defineProps<{
-    as?: string | boolean | null | Component;
+    as?: string | boolean | null | Component | Object;
 }>();
 </script>
 
