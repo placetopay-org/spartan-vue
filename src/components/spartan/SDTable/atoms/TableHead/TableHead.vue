@@ -25,7 +25,8 @@ const toggleAllExpanders = () => {
 <template>
     <thead data-s-thead v-bind="theadProps" :class="twMerge('border-b border-gray-300 bg-gray-50', theadClass)">
         <th
-            v-for="col in context.colsArray"
+            v-for="col in context.colsArray.sort((a, b) => a.pos - b.pos)"
+            :key="col.field"
             scope="col"
             :class="twMerge(cellStyles({ head: true, unstyled: Boolean(col.expander) }))"
         >
