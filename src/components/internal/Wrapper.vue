@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
+
 defineOptions({
     inheritAttrs: false,
 })
 
 defineProps<{
-    as?: string | boolean | null;
+    as?: string | boolean | null | Component;
 }>();
 </script>
 

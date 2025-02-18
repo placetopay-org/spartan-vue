@@ -1,5 +1,6 @@
 import type { TPaginatorProps } from "@spartan";
 import type { ClassNameValue } from 'tailwind-merge';
+import type { Component } from "vue";
 
 export type TDTableProps = {
     class?: ClassNameValue;
@@ -7,6 +8,7 @@ export type TDTableProps = {
     paginator?: TPaginatorProps;
     data: Record<string, any>[];
     rowLink?: (row: Record<string, any>) => string;
+    rowLinkAs?: Component;
     slim?: boolean;
     loading?: boolean;
 };

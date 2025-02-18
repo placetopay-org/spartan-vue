@@ -49,7 +49,11 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
 
                         <Wrapper
                             v-else
-                            :as="Boolean(rowLink(row.data)) && !col.noLink && 'a'"
+                            :as="
+                                Boolean(rowLink(row.data)) &&
+                                !col.noLink &&
+                                (context.props.rowLinkAs ? context.props.rowLinkAs : 'a')
+                            "
                             :href="rowLink(row.data)"
                             :class="
                                 twMerge(
