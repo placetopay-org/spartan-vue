@@ -32,12 +32,6 @@ const addTag = (tag: string) => {
     }
 };
 
-const onKeyPress = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-        addTag(current.value);
-    }
-};
-
 const removeTag = (tag: string) => {
     tags.value = tags.value.filter((t) => t !== tag);
 };
@@ -81,7 +75,7 @@ const focusInput = () => inputElement.value?.focus();
             :placeholder="placeholder"
             :type="type"
             v-bind="{ ...$attrs, ...inputProps }"
-            @keyup.enter="addTag(current)"
+            @keydown.prevent.enter="addTag(current)"
         />
     </div>
 </template>
