@@ -20,4 +20,5 @@ export type TState = {
 };
 export type TInputPasswordProps = {
     rules?: TRules;
+    meter?: boolean;
 };

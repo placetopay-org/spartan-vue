@@ -86,6 +86,12 @@ export const Base = createVariation({
     template: `<SInputPassword v-model="value"/>`,
 });
 
+export const Meter = createVariation({
+    components: { SInputPassword },
+    containerClass: 'flex w-[320px]',
+    template: `<SInputPassword v-model="value" meter/>`,
+});
+
 export const Rules = createVariation({
     components: { SInputPassword },
     containerClass: 'flex flex-col w-[320px]',

@@ -52,11 +52,11 @@ watchEffect(() => {
         @update:modelValue="$emit('update:modelValue', String($event))"
     >
         <template #right>
-            <button type="button" @click.prevent="showPassword = !showPassword">
+            <button tabindex="-1" type="button" @click.prevent="showPassword = !showPassword">
                 <component :is="showPassword ? EyeIcon : EyeSlashIcon" class="h-6 w-6 text-gray-500" />
             </button>
 
-            <StatusBar :isValid="isValid" />
+            <StatusBar v-if="meter" :isValid="isValid" />
         </template>
     </SInput>
 </template>
