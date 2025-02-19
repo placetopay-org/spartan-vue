@@ -21,30 +21,23 @@ const {
 
 const { t } = translator('dataTable');
 
-const vSize = ref(size);
 const vCount = computed(() => count || (total && size && Math.ceil(total / size)));
 const vPageSizes = computed(() => {
     if (!pageSizes || !size) return;
 
-    let data = pageSizes;
+    let data = [];
 
     if (total) {
-        pageSizes.forEach((item) => {
-            if (item < total) data.push(item);
-            else data.push(total);
-        });
-    }
-
-    if (!data?.includes(size)) {
-        const max = total ? total : data[data.length - 1];
-        if (size < max) data = data.concat(size).sort((a, b) => a - b);
-        else {
-            data = data.concat(max).sort((a, b) => a - b);
-            vSize.value = max;
+        for (const item of pageSizes) {
+            if (item >= total) {
+                data.push(total);
+                break;
+            }
+            data.push(item);
         }
     }
 
-    return [...new Set(data)];
+    return data;
 });
 
 const quantity = computed(() => Number(paginatorSize) || 0);
@@ -122,11 +115,12 @@ const selectPage = (pageItem: number) => {
 
             <SSelect
                 class="h-8 text-xs"
-                :modelValue="vSize"
+                :modelValue="size"
                 @update:model-value="
                     (value) => {
-                        emit('change', { size: Number(value) });
+                        emit('change', { size: Number(value), page: 1 });
                         emit('update:size', Number(value));
+                        emit('update:page', 1);
                     }
                 "
             >
