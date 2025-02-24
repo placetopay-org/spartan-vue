@@ -5,7 +5,7 @@ export type TInputOTPEmits = {
 };
 
 export type TInputOTPProps = {
-    modelValue: string;
+    modelValue?: string;
     class?: HTMLAttributes['class'];
     disabled?: boolean;
     success?: boolean;
