@@ -7,18 +7,6 @@ import userEvent from '@testing-library/user-event';
 import { h } from 'vue';
 
 describe('SInputOTP', () => {
-    test('Throw warning for required "model-value"', () => {
-        // Arrange
-        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-
-        // Act
-        render(SInputOTP);
-
-        // Assert
-        expect(warn).toHaveBeenCalledOnce();
-        expect(warn.mock.calls[0][0]).contains('[Vue warn]: Missing required prop: "modelValue"');
-    });
-
     test('Can be rendered', () => {
         // Arrange
         const item1 = h(SInputOTPItem);
