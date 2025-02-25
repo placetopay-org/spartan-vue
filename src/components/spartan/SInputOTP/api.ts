@@ -74,7 +74,7 @@ export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
 
     watch(
         () => props.modelValue,
-        (currentValue) => state.items.forEach(({ setValue }, index) => setValue(currentValue.charAt(index))),
+        (currentValue) => state.items.forEach(({ setValue }, index) => setValue(currentValue?.charAt(index) || '')),
     );
 
     provide(contextKey, state);
