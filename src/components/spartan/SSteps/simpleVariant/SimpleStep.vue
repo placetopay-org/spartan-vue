@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
 import type { TStepsItemsProps } from '../types';
 
-defineProps<
+const { as = 'a' } = defineProps<
     TStepsItemsProps & {
+        as?: string | Component;
         isComplete: boolean;
         isCurrent: boolean;
         isUpcoming: boolean;
@@ -27,7 +29,7 @@ const nameStyle = {
 </script>
 
 <template>
-    <a
+    <component :is="as"
         :href="href"
         :class="[
             'flex flex-col border-l-4 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4',
@@ -43,5 +45,5 @@ const nameStyle = {
             <slot name="description" v-if="hasDescription.slot" />
             <template v-else>{{ description }}</template>
         </span>
-    </a>
+    </component>
 </template>
