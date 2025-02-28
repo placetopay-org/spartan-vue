@@ -36,7 +36,7 @@ const typeStyle = computed(() => typeStyles[type]);
         aria-live="assertive"
         :class="
             twMerge(
-                'flex min-w-96 justify-between gap-3 overflow-hidden rounded-lg bg-white p-4 pl-3 shadow-md',
+                'flex min-w-96 justify-between gap-3 overflow-hidden rounded-lg bg-white p-4 pl-3 shadow-md ring-1 ring-gray-200',
                 leftBorder ? 'border-l-4' : '',
                 typeStyle.leftBarColor,
             )
@@ -44,13 +44,13 @@ const typeStyle = computed(() => typeStyles[type]);
     >
         <div class="flex flex-col justify-center">
             <div class="flex items-center gap-1.5">
-                <component :is="typeStyle.icon" class="h-5 w-5" :class="[typeStyle.iconColor]" aria-hidden="true" />
+                <component :is="typeStyle.icon" class="h-6 w-6 shrink-0" :class="[typeStyle.iconColor]" aria-hidden="true" />
                 <span class="text-sm font-medium text-gray-900">
                     <slot v-if="hasSlotContent($slots.default)" />
                     <span v-else v-html="title" />
                 </span>
             </div>
-            <p v-if="description || hasSlotContent($slots.description)" class="text-xs font-normal text-gray-400 ml-[26px]">
+            <p v-if="description || hasSlotContent($slots.description)" class="text-sm font-normal text-gray-400 ml-[26px]">
                 <slot v-if="hasSlotContent($slots.description)" name="description" />
                 <span v-else v-html="description" />
             </p>
