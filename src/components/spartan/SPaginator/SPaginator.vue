@@ -25,8 +25,10 @@ const vCount = computed(() => count || (total && size && Math.ceil(total / size)
 const vPageSizes = computed(() => {
     if (!pageSizes || !size) return;
 
+    let data = [...pageSizes];
+
     if (total) {
-        let data = [];
+        data = [];
 
         for (const item of pageSizes) {
             if (item >= total) {
@@ -35,11 +37,14 @@ const vPageSizes = computed(() => {
             }
             data.push(item);
         }
-
-        return data;
     }
 
-    return pageSizes;
+    if (!data.includes(size)) {
+        data.push(size);
+        data.sort((a, b) => a - b);
+    }
+
+    return data;
 });
 
 const quantity = computed(() => Number(paginatorSize) || 0);
