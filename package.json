@@ -1,6 +1,6 @@
 {
   "name": "@placetopay/spartan-vue",
-  "version": "2.0.0-beta.204",
+  "version": "2.0.0-beta.205",
   "type": "module",
   "description": "spartan vue lib",
   "main": "./dist/spartan-vue.umd.cjs",
