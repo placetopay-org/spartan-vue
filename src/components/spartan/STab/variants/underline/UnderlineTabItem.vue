@@ -5,6 +5,8 @@ import { SDropdown } from '../../../SDropdown';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { computed, onMounted, provide, ref } from 'vue';
 
+defineOptions({ inheritAttrs: false });
+
 const { as = 'button', path, dropdown, active, regex } = defineProps<TTabItemProps>();
 
 const context = useContext('STabItem');
@@ -40,6 +42,7 @@ onMounted(() => {
     <SDropdown v-if="dropdown" ref="dropdownRef" useShow :responsive="false">
         <template #reference>
             <component
+                v-bind="$attrs"
                 ref="el"
                 v-if="as"
                 :is="as"
@@ -82,6 +85,7 @@ onMounted(() => {
         v-else
         ref="el"
         v-if="as"
+        v-bind="$attrs"
         :is="as"
         :type="as === 'button' ? 'button' : undefined"
         :class="[
