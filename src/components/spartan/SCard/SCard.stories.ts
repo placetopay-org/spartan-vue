@@ -450,40 +450,22 @@ export const EmptyState = createVariation({
 
 export const IconColorCombinations = createVariation({
     components: { SCard },
-    containerClass: 'grid grid-cols-3 gap-4',
-    template: `<SCard icon="primary" iconColor="primary">
+    containerClass: 'flex gap-4',
+    template: `<SCard icon="primary">
     <template #title>
-        Icono Primary, Color Primary
+        Default behavior
+    </template>
+    <template #description>
+        When iconColor is not specified, it uses the color corresponding to the icon
     </template>
 </SCard>
 
-<SCard icon="primary" iconColor="success">
+<SCard icon="warning" iconColor="info">
     <template #title>
-        Icono Primary, Color Success
+        Custom color
     </template>
-</SCard>
-
-<SCard icon="success" iconColor="warning">
-    <template #title>
-        Icono Success, Color Warning
-    </template>
-</SCard>
-
-<SCard icon="warning" iconColor="danger">
-    <template #title>
-        Icono Warning, Color Danger
-    </template>
-</SCard>
-
-<SCard icon="info" iconColor="primary">
-    <template #title>
-        Icono Info, Color Primary
-    </template>
-</SCard>
-
-<SCard icon="danger" iconColor="info">
-    <template #title>
-        Icono Danger, Color Info
+    <template #description>
+        You can specify a different color than the icon's default
     </template>
 </SCard>`,
 });
