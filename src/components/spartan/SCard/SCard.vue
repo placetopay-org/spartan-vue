@@ -6,7 +6,7 @@ import { bodyStyles, containerStyles } from './styles';
 import VIcon from './atoms/Icon.vue';
 import VActions from './atoms/Actions.vue';
 
-withDefaults(defineProps<TCardProps>(), { size: 'md', iconType: 'solid' });
+const { size = 'md', iconType = 'solid' } = defineProps<TCardProps>();
 const { pt, extractor } = usePassthrough();
 
 const [bodyClass, bodyProps] = extractor(pt.value.body);
@@ -17,7 +17,7 @@ const PtIconContainer = extractor(pt.value.iconContainer);
 
 <template>
     <article :class="twMerge(containerStyles({ size }), $props.class)">
-        <VIcon v-bind="{ icon, iconType, PtIcon, PtIconContainer }" />
+        <VIcon v-bind="{ icon, iconColor, iconType, PtIcon, PtIconContainer }" />
 
         <main data-s-body v-bind="bodyProps" :class="twMerge(bodyStyles({ size }), bodyClass)">
             <h3 v-if="hasSlotContent($slots.title)" class="text-center text-lg font-semibold text-gray-900">

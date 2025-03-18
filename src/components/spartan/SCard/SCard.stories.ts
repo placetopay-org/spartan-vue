@@ -63,9 +63,15 @@ export default {
         },
         icon: {
             control: 'select',
-            options: ['SquaresPlusIcon', 'PhoneIcon', 'ShareIcon'],
-            description: 'The icon of the card.',
-            table: { type: { summary: 'FunctionalComponent' } },
+            options: ['SquaresPlusIcon', 'PhoneIcon', 'ShareIcon', 'primary', 'success', 'danger', 'warning', 'info'],
+            description: 'El icono a mostrar en la tarjeta. Puede ser un componente funcional o un string con el nombre del icono predefinido.',
+            table: { type: { summary: 'FunctionalComponent | primary | success | danger | warning | info' } },
+        },
+        iconColor: {
+            control: 'select',
+            options: ['primary', 'success', 'danger', 'warning', 'info'],
+            description: 'El color del icono. Si no se especifica, usará el color correspondiente al icono seleccionado.',
+            table: { type: { summary: 'primary | success | danger | warning | info' } },
         },
         actions: {
             control: 'select',
@@ -438,6 +444,46 @@ export const EmptyState = createVariation({
 
     <template #actions>
         <SButton variant="secondary">Clean search</SButton>
+    </template>
+</SCard>`,
+});
+
+export const IconColorCombinations = createVariation({
+    components: { SCard },
+    containerClass: 'grid grid-cols-3 gap-4',
+    template: `<SCard icon="primary" iconColor="primary">
+    <template #title>
+        Icono Primary, Color Primary
+    </template>
+</SCard>
+
+<SCard icon="primary" iconColor="success">
+    <template #title>
+        Icono Primary, Color Success
+    </template>
+</SCard>
+
+<SCard icon="success" iconColor="warning">
+    <template #title>
+        Icono Success, Color Warning
+    </template>
+</SCard>
+
+<SCard icon="warning" iconColor="danger">
+    <template #title>
+        Icono Warning, Color Danger
+    </template>
+</SCard>
+
+<SCard icon="info" iconColor="primary">
+    <template #title>
+        Icono Info, Color Primary
+    </template>
+</SCard>
+
+<SCard icon="danger" iconColor="info">
+    <template #title>
+        Icono Danger, Color Info
     </template>
 </SCard>`,
 });

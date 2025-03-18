@@ -13,8 +13,9 @@ import { computed } from 'vue';
 import type { TCardProps } from '../types';
 import { twMerge } from 'tailwind-merge';
 
-const { icon, PtIcon, PtIconContainer } = defineProps<{
+const { icon, iconColor, PtIcon, PtIconContainer } = defineProps<{
     icon: TCardProps['icon'];
+    iconColor?: TCardProps['iconColor'];
     iconType: TCardProps['iconType'];
     PtIcon: any[];
     PtIconContainer: any[];
@@ -85,11 +86,14 @@ const iconData = {
 const computedIcon = computed(() => {
     if (typeof icon !== 'string' || !availableVariants.includes(icon)) return null;
 
+    const iconVariant = iconData[icon];
+    const colorVariant = iconColor ? iconData[iconColor] : iconVariant;
+
     return {
-        background: iconData[icon].background,
-        icon: iconData[icon].icon,
-        color: iconData[icon].color,
-        radial: iconData[icon].radial,
+        background: colorVariant.background,
+        icon: iconVariant.icon,
+        color: colorVariant.color,
+        radial: colorVariant.radial,
     };
 });
 </script>
