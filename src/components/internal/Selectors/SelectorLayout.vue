@@ -9,8 +9,8 @@ const { PtOptions } = defineProps<TSelectorLayoutProps & TPopoverProps>();
 
 const [optionsClass, optionsProps] = PtOptions;
 
-const $popover = useTemplateRef('$popover');
-const $options = useTemplateRef('$options');
+const $popover = useTemplateRef('popover');
+const $options = useTemplateRef('options');
 
 defineExpose({
     $popover,
@@ -19,14 +19,14 @@ defineExpose({
 </script>
 
 <template>
-    <SPopover :offset="2" ref="$popover" :static="static" :responsive="responsive" @close="$emit('close')">
+    <SPopover :offset="2" ref="popover" :static="static" :responsive="responsive" @close="$emit('close')">
         <template #reference>
             <slot name="button" />
         </template>
 
         <div class="overflow-hidden rounded-md border border-gray-950/5 bg-white shadow-lg">
             <div
-                ref="$options"
+                ref="options"
                 tabindex="-1"
                 data-s-options
                 v-bind="optionsProps"

@@ -2,7 +2,7 @@
 import { usePassthrough } from '@/helpers';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';
 import { type TPopoverProps } from '@spartan';
-import { computed, nextTick, useTemplateRef } from 'vue';
+import { computed, useTemplateRef } from 'vue';
 import isEqual from 'lodash.isequal';
 import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch } from '@internal';
 
@@ -12,9 +12,9 @@ const { pt, extractor } = usePassthrough();
 
 const PtOptions = extractor(pt.value.options);
 
-const $selectorLayout = useTemplateRef<any>('$selectorLayout');
-const $selectorButton = useTemplateRef<any>('$selectorButton');
-const $selectorInputSearch = useTemplateRef<any>('$selectorInputSearch');
+const $selectorLayout = useTemplateRef<typeof SelectorLayout>('selectorLayout');
+const $selectorButton = useTemplateRef<typeof SelectorButton>('selectorButton');
+const $selectorInputSearch = useTemplateRef<typeof SelectorInputSearch>('selectorInputSearch');
 
 const $popover = computed(() => $selectorLayout.value?.$popover);
 const $button = computed(() => $selectorButton.value?.$button);
@@ -30,22 +30,12 @@ const isSelected = (option: any) => isEqual(option, modelValue);
 
 const toggleOptions = () => {
     $popover.value?.toggle();
-    if (search && $popover.value?.isOpen) {
-        nextTick(() => {
-            // prevent jumping
-            setTimeout(() => {
-                $input.value?.focus();
-            }, 0);
-        });
-    }
+    if (search && $popover.value?.isOpen) $input.value?.focus();
 };
 
 const selectOption = (option: TOption) => {
     emit('update:modelValue', option);
-    // delay closing after selection
-    setTimeout(() => {
-        $popover.value?.close();
-    }, 0);
+    $popover.value?.close();
 };
 const clear = () => {
     emit('update:modelValue');
@@ -61,10 +51,10 @@ const refreshInput = () => {
 </script>
 
 <template>
-    <SelectorLayout ref="$selectorLayout" :width="optionsWidth" :PtOptions="PtOptions" @close="refreshInput">
+    <SelectorLayout ref="selectorLayout" :width="optionsWidth" :PtOptions="PtOptions" @close="refreshInput">
         <template #button>
             <SelectorButton
-                ref="$selectorButton"
+                ref="selectorButton"
                 :class="$props.class"
                 :disabled="disabled"
                 :rounded="rounded"
@@ -80,7 +70,7 @@ const refreshInput = () => {
         </template>
 
         <template #dropdownHeader>
-            <SelectorInputSearch v-if="search" ref="$selectorInputSearch" @query="query => $emit('query', query)" />
+            <SelectorInputSearch v-if="search" ref="selectorInputSearch" @query="(query) => $emit('query', query)" />
         </template>
 
         <template #dropdown>

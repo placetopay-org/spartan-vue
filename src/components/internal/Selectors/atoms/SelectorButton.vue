@@ -15,7 +15,7 @@ defineProps<{
     showClearButton?: boolean;
 }>();
 
-const $button = useTemplateRef('$button');
+const $button = useTemplateRef<HTMLButtonElement>('button')
 
 defineExpose<{
     $button: ShallowRef<HTMLButtonElement | null>;
@@ -25,7 +25,7 @@ defineExpose<{
 <template>
     <button
         :disabled="disabled"
-        ref="$button"
+        ref="button"
         :class="twMerge(buttonStyles({ disabled, error, rounded }), 'flex items-center', $props.class)"
     >
         <slot />

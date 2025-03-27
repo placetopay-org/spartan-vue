@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { Loader } from '@internal';
 import { CheckIcon, ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { optionStyles } from '../styles';
-import { inputStyle } from '@/constants';
 import { hasSlotContent, translator } from '@/helpers';
-import isEqual from 'lodash.isequal';
 
 defineEmits<{
     (e: 'select', option: Record<string, any>): void;

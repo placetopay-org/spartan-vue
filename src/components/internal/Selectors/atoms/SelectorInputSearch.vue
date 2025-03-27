@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { XCircleIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
-import { optionStyles } from '../styles';
 import { inputStyle } from '@/constants';
-import { hasSlotContent, translator } from '@/helpers';
-import isEqual from 'lodash.isequal';
+import { translator } from '@/helpers';
 import { useTemplateRef, type ShallowRef } from 'vue';
 
 const emit = defineEmits<{
@@ -14,7 +12,7 @@ const emit = defineEmits<{
 
 const { t } = translator('selector');
 
-const $input = useTemplateRef('$input');
+const $input = useTemplateRef('input');
 
 const clear = () => {
     emit('query', '');
@@ -31,7 +29,7 @@ defineExpose<{
     <div class="flex items-center gap-2.5 border-b border-gray-950/5 px-3 py-1">
         <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
         <input
-            ref="$input"
+            ref="input"
             :placeholder="t('search')"
             :class="
                 twMerge(
