@@ -17,24 +17,28 @@ import type { TButtonProps } from './types';
 import { usePassthrough } from '@/helpers';
 
 // Props and Defaults
-const props = defineProps<TButtonProps>();
-const { as = 'button', rounded = 'both', variant = 'primary', size = 'md', type, loading, disabled } = props;
+const props = withDefaults(defineProps<TButtonProps>(), {
+    as: 'button',
+    rounded: 'both',
+    variant: 'primary',
+    size: 'md',
+});
 
 // Composables
 const slots = useSlots();
 const refButton = useTemplateRef<HTMLButtonElement>('ref_button');
 
 // Computed properties
-const buttonType = computed(() => (as !== 'button' || type ? type : 'button'));
+const buttonType = computed(() => (props.as !== 'button' || props.type ? props.type : 'button'));
 const rootClass = computed(() => {
     const hasText = slots.default?.()[0].children;
     return twMerge(
         buttonStyles({
-            variant,
-            rounded,
-            loading,
-            disabled,
-            [hasText ? 'size:text' : 'size:noText']: size,
+            variant: props.variant,
+            rounded: props.rounded,
+            loading: props.loading,
+            disabled: props.disabled,
+            [hasText ? 'size:text' : 'size:noText']: props.size,
         }),
         props.class,
     );

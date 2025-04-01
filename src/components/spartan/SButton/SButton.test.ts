@@ -25,7 +25,7 @@ describe('SButton', () => {
     test('Can be polimorphic', async () => {
         // Act
         render(SButton, { props: { as: 'a', href: 'test.com' }, slots: { default: 'As link' }});
-        render(SButton, { props: { as: '' }, slots: { default: 'Without as' }});
+        render(SButton, { slots: { default: 'Without as' }});
         const buttonAsLink = screen.getByRole('link', { name: 'As link' });
         const buttonWithoutAs = screen.getByRole('button', { name: 'Without as' });
 
@@ -45,7 +45,7 @@ describe('SButton', () => {
         const buttonUseIcon = screen.getByRole('button', { name: 'With icon' });
 
         // Assert
-        expect(buttonUseLeftIcon.firstChild).toHaveClass('h-5 w-5 -ml-0.5')
-        expect(buttonUseIcon.firstChild).toHaveClass('h-5 w-5 -ml-0.5')
+        expect(buttonUseLeftIcon.firstElementChild).toHaveClass('h-5 w-5 -ml-0.5')
+        expect(buttonUseIcon.firstElementChild).toHaveClass('h-5 w-5 -ml-0.5')
     });
 });
