@@ -69,6 +69,7 @@ export type SFilterEmits = {
     (event: 'apply', fields: Omit<TField, 'interfaces'>[] | undefined): void;
     (event: 'save', data: TSaveData[]): void
     (event: 'load', data: TSaveData['filters']): void
+    (event: 'clear', fields: Omit<TField, 'interfaces'>[]): void
 };
 
 export type TSaveData = {

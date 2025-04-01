@@ -33,6 +33,7 @@ const clear = () => {
         if (filter.permanent) return;
         delete filter.state;
     });
+    emit('clear', props.fields);
 };
 
 onMounted(() => {
