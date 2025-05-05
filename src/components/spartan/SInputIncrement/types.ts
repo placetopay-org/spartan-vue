@@ -9,4 +9,6 @@ export type TInputIncrementProps = {
     disabled?: boolean;
     modelValue: number;
     error?: boolean;
+    min?: number;
+    max?: number;
 };

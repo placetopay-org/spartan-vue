@@ -10,7 +10,7 @@ const props = defineProps<TInputIncrementProps>();
 defineOptions({ inheritAttrs: false });
 
 const value = computed({
-    get: () => props.modelValue ?? 0,
+    get: () => props.modelValue || props.min || 0,
     set: (newValue) => emit('update:modelValue', newValue),
 });
 
@@ -18,8 +18,13 @@ const updateValue = (event: Event) => {
     const $input = event.target as HTMLInputElement;
 
     if (!$input.value) {
-        value.value = 0;
-        $input.value = '0';
+        if (props.min) {
+            value.value = props.min;
+            $input.value = String(props.min);
+        } else {
+            value.value = 0;
+            $input.value = '0';
+        }
         return;
     }
 
@@ -28,18 +33,67 @@ const updateValue = (event: Event) => {
         return;
     }
 
+    if (props.min && Number($input.value) < props.min) {
+        $input.value = String(props.min);
+        return;
+    }
+
+    if (props.max && Number($input.value) > props.max) {
+        $input.value = String(props.max);
+        return;
+    }
+
     value.value = Number($input.value);
 };
+
+const decrementDisabled = computed(() => props.disabled || Boolean(props.min && value.value <= props.min));
+const incrementDisabled = computed(() => props.disabled || Boolean(props.max && value.value >= props.max));
 </script>
 
 <template>
     <div :class="twMerge(inputStyles({ error, disabled }), containerClass)">
-        <button aria-label="decrement" type="button" :disabled="disabled" class="group p-2 pr-3 focus-visible:outline-none" @click="value--">
-            <MinusCircleIcon :class="twMerge(iconStyles({ disabled }))" />
+        <button
+            aria-label="decrement"
+            type="button"
+            :disabled="decrementDisabled"
+            class="group p-2 pr-3 focus-visible:outline-none"
+            @click="value--"
+        >
+            <MinusCircleIcon :class="twMerge(iconStyles({ disabled: decrementDisabled }))" />
         </button>
-        <input v-bind="$attrs" :disabled="disabled" :value="value" @input="updateValue" class="border-none text-center focus:ring-0" />
-        <button aria-label="increment" type="button" :disabled="disabled" class="group p-2 pl-3 focus-visible:outline-none" @click="value++">
-            <PlusCircleIcon :class="twMerge(iconStyles({ disabled }))" />
+        <input
+            v-bind="$attrs"
+            type="number"
+            :min
+            :max
+            :disabled
+            :value
+            @input="updateValue"
+            class="border-none text-center focus:ring-0"
+        />
+        <button
+            aria-label="increment"
+            type="button"
+            :disabled="incrementDisabled"
+            class="group p-2 pl-3 focus-visible:outline-none"
+            @click="value++"
+        >
+            <PlusCircleIcon :class="twMerge(iconStyles({ disabled: incrementDisabled }))" />
         </button>
     </div>
 </template>
+
+<style scoped>
+/* Chrome, Safari, Edge, Opera */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+</style>
