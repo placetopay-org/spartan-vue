@@ -25,6 +25,7 @@ defineExpose<{
 <template>
     <button
         :disabled="disabled"
+        type="button"
         ref="button"
         :class="twMerge(buttonStyles({ disabled, error, rounded }), 'flex items-center', $props.class)"
     >
