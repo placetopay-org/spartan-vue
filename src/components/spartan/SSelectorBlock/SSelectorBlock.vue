@@ -14,6 +14,7 @@ const [blockWrapperProps, selectorProps] = extractWrapperProps<TSelectorProps>(p
             class="w-full"
             v-bind="selectorProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
+            @query="(query) => $emit('query', query)"
         >
             <template #option>
                 <slot name="options" />
