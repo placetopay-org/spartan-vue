@@ -10,7 +10,7 @@ export type TSelectorEmits = {
 export type TSelectorProps = {
     class?: string;
     clearable?: boolean;
-    search?: boolean;
+    search?: boolean | 'manual';
     loading?: boolean;
     placeholder?: string;
     error?: boolean;

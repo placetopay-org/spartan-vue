@@ -2,12 +2,20 @@
 import { usePassthrough } from '@/helpers';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';
 import { type TPopoverProps } from '@spartan';
-import { computed, useTemplateRef } from 'vue';
+import { computed, useTemplateRef, ref, watch } from 'vue';
 import isEqual from 'lodash.isequal';
 import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch } from '@internal';
 
 const emit = defineEmits<TSelectorEmits>();
-const { rounded = 'both', optionLabel = 'label', optionValue, modelValue, search, clearable } = defineProps<TSelectorProps & TPopoverProps>();
+const {
+    rounded = 'both',
+    optionLabel = 'label',
+    optionValue,
+    modelValue,
+    search,
+    clearable,
+    options,
+} = defineProps<TSelectorProps & TPopoverProps>();
 const { pt, extractor } = usePassthrough();
 
 const PtOptions = extractor(pt.value.options);
@@ -43,8 +51,10 @@ const toggleOptions = () => {
 
 const selectOption = (option: TOption) => {
     emit('update:modelValue', option);
+    resetOptions();
     $popover.value?.close();
 };
+
 const clear = () => {
     emit('update:modelValue');
     $input.value?.focus();
@@ -57,10 +67,38 @@ const refreshInput = () => {
     }
 };
 
+const resetOptions = () => {
+    computedOptions.value = structuredClone(options);
+};
+
 const label = computed(() => {
     if (typeof modelValue === 'string') return modelValue;
     return modelValue?.[optionLabel];
 });
+
+const computedOptions = ref(structuredClone(options));
+
+const updateQuery = (query: string) => {
+    emit('query', query);
+
+    if (search && search !== 'manual') {
+        const getOptionLabel = (option: TOption) => {
+            if (typeof option === 'object') return option[optionLabel];
+            return option;
+        };
+
+        computedOptions.value = structuredClone(options).filter((option) =>
+            getOptionLabel(option).toLowerCase().includes(query),
+        );
+    }
+};
+
+watch(
+    () => options,
+    (value) => {
+        resetOptions();
+    },
+);
 </script>
 
 <template>
@@ -83,12 +121,12 @@ const label = computed(() => {
         </template>
 
         <template #dropdownHeader>
-            <SelectorInputSearch v-if="search" ref="selectorInputSearch" @query="(query) => $emit('query', query)" />
+            <SelectorInputSearch v-if="search" ref="selectorInputSearch" @query="updateQuery" />
         </template>
 
         <template #dropdown>
             <SelectorOptions
-                :options
+                :options="computedOptions"
                 :optionValue
                 :optionLabel
                 :optionGroupLabel
