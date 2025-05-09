@@ -1,20 +1,36 @@
 <script setup lang="ts">
-import { CheckIcon, ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
+import { CheckIcon } from '@heroicons/vue/20/solid';
 import { twMerge } from 'tailwind-merge';
 import { optionStyles } from '../styles';
 import { hasSlotContent, translator } from '@/helpers';
 
+type TOption = Record<string, any> | string;
+
 defineEmits<{
-    (e: 'select', option: Record<string, any>): void;
+    (e: 'select', option: TOption): void;
 }>();
 
-defineProps<{
-    options: Record<string, any>[];
-    optionLabel: string;
+const {
+    optionLabel = 'label',
+    options,
+    optionValue,
+} = defineProps<{
+    options: TOption[];
+    optionLabel?: string;
+    optionValue?: string;
     optionGroupLabel?: string;
     optionGroupItems?: string;
-    isSelected: (option: any) => boolean;
+    isSelected: (option: TOption) => boolean;
 }>();
+
+const getOptionLabel = (option: TOption) => {
+    if (typeof option === 'object') return option[optionLabel];
+    return option;
+};
+
+const getOptionValue = (option: TOption) => {
+    return typeof option === 'object' && optionValue ? option[optionValue] : option;
+};
 
 const { t } = translator('selector');
 </script>
@@ -24,22 +40,22 @@ const { t } = translator('selector');
         <span class="relative flex px-3 py-2 text-xs font-medium text-gray-400">{{ t('noResults') }}</span>
     </template>
     <template v-else>
-        <template v-for="option in options">
+        <template v-for="(option, index) in options" :key="index">
             <span
-                v-if="optionGroupLabel && option[optionGroupLabel]"
+                v-if="typeof option === 'object' && optionGroupLabel && option[optionGroupLabel]"
                 class="py-2 pl-3 text-xs font-medium uppercase text-gray-400"
             >
                 {{ option[optionGroupLabel] }}
             </span>
 
             <button
-                v-for="item in optionGroupItems ? option[optionGroupItems] : [option]"
-                @click="$emit('select', item)"
+                v-for="item in typeof option === 'object' && optionGroupItems ? option[optionGroupItems] : [option]"
+                @click="$emit('select', getOptionValue(item))"
                 :disabled="item.disabled"
                 :class="twMerge(optionStyles({ selected: isSelected(item), disabled: item.disabled }))"
             >
                 <slot name="option" :option="item" v-if="hasSlotContent($slots.option)" />
-                <span v-else>{{ item[optionLabel] }}</span>
+                <span v-else>{{ getOptionLabel(item) }}</span>
 
                 <CheckIcon
                     v-if="isSelected(item)"

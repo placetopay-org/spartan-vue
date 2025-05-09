@@ -7,7 +7,7 @@ import isEqual from 'lodash.isequal';
 import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch } from '@internal';
 
 const emit = defineEmits<TSelectorEmits>();
-const { rounded = 'both', modelValue, optionLabel, search, clearable } = defineProps<TSelectorProps & TPopoverProps>();
+const { rounded = 'both', optionLabel = 'label', optionValue, modelValue, search, clearable } = defineProps<TSelectorProps & TPopoverProps>();
 const { pt, extractor } = usePassthrough();
 
 const PtOptions = extractor(pt.value.options);
@@ -26,7 +26,15 @@ const optionsWidth = computed(() => {
 
 const showClearButton = computed(() => Boolean(clearable && modelValue));
 
-const isSelected = (option: any) => isEqual(option, modelValue);
+const isSelected = (option: TOption) => {
+    if (!modelValue) return false;
+
+    if (typeof option === 'object') {
+        return optionValue ? isEqual(option[optionValue], modelValue) : isEqual(option, modelValue);
+    }
+
+    return option === modelValue;
+};
 
 const toggleOptions = () => {
     $popover.value?.toggle();
@@ -48,6 +56,11 @@ const refreshInput = () => {
         emit('query', '');
     }
 };
+
+const label = computed(() => {
+    if (typeof modelValue === 'string') return modelValue;
+    return modelValue?.[optionLabel];
+});
 </script>
 
 <template>
@@ -64,7 +77,7 @@ const refreshInput = () => {
                 @click="toggleOptions"
                 @clear="clear"
             >
-                <span v-if="modelValue" class="text-nowrap">{{ modelValue?.[optionLabel] }}</span>
+                <span v-if="modelValue" class="text-nowrap">{{ label }}</span>
                 <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
             </SelectorButton>
         </template>
@@ -75,11 +88,12 @@ const refreshInput = () => {
 
         <template #dropdown>
             <SelectorOptions
-                :options="options"
-                :optionLabel="optionLabel"
-                :optionGroupLabel="optionGroupLabel"
-                :optionGroupItems="optionGroupItems"
-                :isSelected="isSelected"
+                :options
+                :optionValue
+                :optionLabel
+                :optionGroupLabel
+                :optionGroupItems
+                :isSelected
                 @select="(item: any) => selectOption(item)"
             >
                 <template #option="{ option }">

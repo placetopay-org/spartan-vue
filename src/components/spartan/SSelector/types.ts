@@ -1,6 +1,6 @@
 import type { TRounded } from "@/constants";
 
-export type TOption = Record<string, any>;
+export type TOption = Record<string, any> | string;
 
 export type TSelectorEmits = {
     (event: 'update:modelValue', value?: TOption): void;
@@ -18,7 +18,8 @@ export type TSelectorProps = {
     disabled?: boolean;
     modelValue?: TOption;
     options: TOption[];
-    optionLabel: string;
+    optionLabel?: string;
+    optionValue?: string;
     optionGroupLabel?: string;
     optionGroupItems?: string;
 };
