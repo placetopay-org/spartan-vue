@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { SInput, SInputAmount } from '@spartan';
-import type { TInputInterface } from '../types';
+import type { IInputConfig } from './types';
 import { translator } from '@/helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string[] | number[];
-    config: TInputInterface;
+    config: IInputConfig;
 }>();
 
 const { t } = translator('filter');
@@ -28,11 +28,11 @@ const updateCurrency = (currency?: string) => {
 <template>
     <div class="flex gap-4">
         <SInputAmount
-            v-if="config.type === 'amount'"
-            v-model="(value1 as number)"
+            v-if="config.inputType === 'amount'"
+            v-model="value1 as number"
             :currency="config.currency ?? config.currencies![0]"
             :currencies="config.currencies"
-            :type="config.type"
+            :type="config.inputType"
             :placeholder="t('inputSelectorPlaceholder')"
             :minor-unit-mode="config.minorUnitMode"
             @update:currency="updateCurrency"
@@ -41,16 +41,16 @@ const updateCurrency = (currency?: string) => {
             v-else
             v-model="value1"
             class="w-48"
-            :type="config.type"
+            :type="config.inputType"
             :placeholder="t('inputSelectorPlaceholder')"
         />
 
         <SInputAmount
-            v-if="config.type === 'amount'"
-            v-model="(value2 as number)"
+            v-if="config.inputType === 'amount'"
+            v-model="value2 as number"
             :currency="config.currency ?? config.currencies![0]"
             :currencies="config.currencies"
-            :type="config.type"
+            :type="config.inputType"
             :placeholder="t('inputSelectorPlaceholder')"
             :minor-unit-mode="config.minorUnitMode"
             @update:currency="updateCurrency"
@@ -59,7 +59,7 @@ const updateCurrency = (currency?: string) => {
             v-else
             v-model="value2"
             class="w-48"
-            :type="config.type"
+            :type="config.inputType"
             :placeholder="t('inputSelectorPlaceholder')"
         />
     </div>

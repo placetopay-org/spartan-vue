@@ -30,7 +30,9 @@ const iconClass = computed(() => [
             twMerge([
                 SCN.focusRingPrimary,
                 'group relative inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:z-20 focus:outline-spartan-primary-300 active:bg-spartan-primary-50 active:text-spartan-primary-600',
-                active ? 'z-10 bg-spartan-primary-50 text-spartan-primary-600 outline-spartan-primary-300' : 'bg-white hover:bg-gray-50',
+                active
+                    ? 'z-10 bg-spartan-primary-50 text-spartan-primary-600 outline-spartan-primary-300'
+                    : 'bg-white hover:bg-gray-50',
                 endIcon && 'flex-row-reverse',
                 disabled && 'pointer-events-none opacity-50',
                 first && 'rounded-l-md',

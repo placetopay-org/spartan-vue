@@ -34,4 +34,3 @@ export { default as transerverPoints } from './transerver_points.svg';
 export { default as tuya } from './tuya.svg';
 export { default as visaElectron } from './visa_electron.svg';
 export { default as visa } from './visa.svg';
-

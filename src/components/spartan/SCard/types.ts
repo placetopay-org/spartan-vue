@@ -11,6 +11,7 @@ export type TCardProps = {
     title?: string;
     size?: 'sm' | 'md';
     icon?: FunctionalComponent | 'primary' | 'success' | 'danger' | 'warning' | 'info';
+    iconColor?: 'primary' | 'success' | 'danger' | 'warning' | 'info';
     iconType?: 'solid' | 'ping';
     actions?: TAction[];
 };

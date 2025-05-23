@@ -12,21 +12,9 @@ describe('SDropdown', () => {
         // Arrange
         const user = userEvent.setup();
 
-        const Item1 = h(
-            SDropdownItem,
-            null,
-            { default: () => 'Title', description: () => 'Description' },
-        );
-        const Item2 = h(
-            SDropdownItem,
-            null,
-            { default: () => 'Option', description: () => 'Device' },
-        );
-        const Item3 = h(
-            SDropdownItem,
-            null,
-            { default: () => 'Profile', description: () => 'Edit' },
-        );
+        const Item1 = h(SDropdownItem, null, { default: () => 'Title', description: () => 'Description' });
+        const Item2 = h(SDropdownItem, null, { default: () => 'Option', description: () => 'Device' });
+        const Item3 = h(SDropdownItem, null, { default: () => 'Profile', description: () => 'Edit' });
 
         // Act
         render(SDropdown, {
@@ -44,7 +32,7 @@ describe('SDropdown', () => {
 
         screen.getByText('Option');
         screen.getByText('Device');
-        
+
         screen.getByText('Option');
         screen.getByText('Edit');
         screen.debug();

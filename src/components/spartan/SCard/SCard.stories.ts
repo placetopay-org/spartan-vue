@@ -63,9 +63,17 @@ export default {
         },
         icon: {
             control: 'select',
-            options: ['SquaresPlusIcon', 'PhoneIcon', 'ShareIcon'],
-            description: 'The icon of the card.',
-            table: { type: { summary: 'FunctionalComponent' } },
+            options: ['SquaresPlusIcon', 'PhoneIcon', 'ShareIcon', 'primary', 'success', 'danger', 'warning', 'info'],
+            description:
+                'El icono a mostrar en la tarjeta. Puede ser un componente funcional o un string con el nombre del icono predefinido.',
+            table: { type: { summary: 'FunctionalComponent | primary | success | danger | warning | info' } },
+        },
+        iconColor: {
+            control: 'select',
+            options: ['primary', 'success', 'danger', 'warning', 'info'],
+            description:
+                'El color del icono. Si no se especifica, usará el color correspondiente al icono seleccionado.',
+            table: { type: { summary: 'primary | success | danger | warning | info' } },
         },
         actions: {
             control: 'select',
@@ -315,6 +323,12 @@ export const Icon = createVariation({
     </template>
 </SCard>
 
+<SCard icon="secondary">
+    <template #title>
+        Secondary Style
+    </template>
+</SCard>
+
 <SCard icon="success">
     <template #title>
         Success Style
@@ -347,6 +361,12 @@ export const PingIcon = createVariation({
     template: `<SCard iconType="ping" icon="primary">
     <template #title>
         Primary Style
+    </template>
+</SCard>
+
+<SCard iconType="ping" icon="secondary">
+    <template #title>
+        Secondary Style
     </template>
 </SCard>
 
@@ -426,6 +446,28 @@ export const EmptyState = createVariation({
 
     <template #actions>
         <SButton variant="secondary">Clean search</SButton>
+    </template>
+</SCard>`,
+});
+
+export const IconColorCombinations = createVariation({
+    components: { SCard },
+    containerClass: 'flex gap-4',
+    template: `<SCard icon="primary">
+    <template #title>
+        Default behavior
+    </template>
+    <template #description>
+        When iconColor is not specified, it uses the color corresponding to the icon
+    </template>
+</SCard>
+
+<SCard icon="warning" iconColor="info">
+    <template #title>
+        Custom color
+    </template>
+    <template #description>
+        You can specify a different color than the icon's default
     </template>
 </SCard>`,
 });

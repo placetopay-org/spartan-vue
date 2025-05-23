@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { textAreaStyles } from './styles';
-import type { TTextAreaProps } from './types';
+import type { TTextAreaProps, TTextAreaEmits } from './types';
 import { twMerge } from 'tailwind-merge';
+
+defineEmits<TTextAreaEmits>();
 
 defineProps<TTextAreaProps>();
 </script>
@@ -9,9 +11,9 @@ defineProps<TTextAreaProps>();
 <template>
     <textarea
         :value="modelValue"
-        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
         v-bind="$attrs"
         :disabled="disabled"
         :class="twMerge(textAreaStyles({ error, disabled }))"
+        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
 </template>

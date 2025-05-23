@@ -1,8 +1,11 @@
 export type TToastEmits = {
-    (event: 'close'): void;
+    (event: 'closeToast'): void;
 };
 
 export type TToastProps = {
-    type?: 'success' | 'danger';
+    type?: 'success' | 'error';
     leftBorder?: boolean;
+    title?: string;
+    description?: string;
+    closeable?: boolean;
 };

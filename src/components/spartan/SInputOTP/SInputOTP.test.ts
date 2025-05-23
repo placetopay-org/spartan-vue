@@ -7,18 +7,6 @@ import userEvent from '@testing-library/user-event';
 import { h } from 'vue';
 
 describe('SInputOTP', () => {
-    test('Throw warning for required "model-value"', () => {
-        // Arrange
-        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-
-        // Act
-        render(SInputOTP);
-
-        // Assert
-        expect(warn).toHaveBeenCalledOnce();
-        expect(warn.mock.calls[0][0]).contains('[Vue warn]: Missing required prop: "modelValue"');
-    });
-
     test('Can be rendered', () => {
         // Arrange
         const item1 = h(SInputOTPItem);
@@ -35,7 +23,7 @@ describe('SInputOTP', () => {
         screen.getByRole('textbox');
         expect(items).toHaveLength(4);
 
-        const itemClass = "text-xl font-semibold text-gray-300"
+        const itemClass = 'text-xl font-semibold text-gray-300';
         expect(items[0]).toHaveClass(itemClass);
         expect(items[1]).toHaveClass(itemClass);
         expect(items[2]).toHaveClass(itemClass);
@@ -92,6 +80,5 @@ describe('SInputOTP', () => {
         expect(items[1]).toHaveTextContent('9');
         expect(items[2]).toHaveTextContent('0');
         expect(items[3]).toHaveTextContent('1');
-
     });
 });

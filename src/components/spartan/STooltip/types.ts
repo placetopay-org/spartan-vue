@@ -1,4 +1,4 @@
-import type { TPopoverProps } from "../SPopover";
+import type { TPopoverProps } from '../SPopover';
 
 export type TTooltipProps = {
     title: string;

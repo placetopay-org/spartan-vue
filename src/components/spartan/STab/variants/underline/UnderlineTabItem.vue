@@ -5,6 +5,8 @@ import { SDropdown } from '../../../SDropdown';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { computed, onMounted, provide, ref } from 'vue';
 
+defineOptions({ inheritAttrs: false });
+
 const { as = 'button', path, dropdown, active, regex } = defineProps<TTabItemProps>();
 
 const context = useContext('STabItem');
@@ -37,25 +39,26 @@ onMounted(() => {
 </script>
 
 <template>
-    <SDropdown v-if="dropdown" ref="dropdownRef" useShow :responsive="false">
+    <SDropdown v-if="dropdown" ref="dropdownRef" use-show :responsive="false">
         <template #reference>
             <component
-                ref="el"
-                v-if="as"
+                v-bind="$attrs"
                 :is="as"
+                v-if="as"
+                ref="el"
                 :type="as === 'button' ? 'button' : undefined"
                 :class="[
                     vActive
                         ? 'border-spartan-primary-500 text-gray-900'
-                        : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700',
+                        : 'border-transparent text-gray-400 hover:text-gray-800',
                     'group inline-flex items-center gap-1 border-b-2 px-4 py-2 text-sm font-medium',
                     $props.class,
                 ]"
                 :aria-current="vActive ? 'page' : undefined"
             >
                 <component
-                    v-if="icon"
                     :is="icon"
+                    v-if="icon"
                     :class="[
                         vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
                         '-ml-0.5 mr-2 h-5 w-5',
@@ -65,10 +68,7 @@ onMounted(() => {
                 <slot />
                 <ChevronDownIcon
                     v-if="dropdown"
-                    :class="[
-                        'h-5 w-5 text-gray-400',
-                        vActive ? 'text-gray-900' : 'group-hover:text-gray-500',
-                    ]"
+                    :class="['h-5 w-5 text-gray-400', vActive ? 'text-gray-900' : 'group-hover:text-gray-500']"
                 />
             </component>
         </template>
@@ -79,15 +79,15 @@ onMounted(() => {
     </SDropdown>
 
     <component
-        v-else
-        ref="el"
-        v-if="as"
+        v-bind="$attrs"
         :is="as"
+        v-else-if="as"
+        ref="el"
         :type="as === 'button' ? 'button' : undefined"
         :class="[
             vActive
                 ? 'border-spartan-primary-500 text-gray-900'
-                : 'border-transparent text-gray-400 hover:border-gray-300 hover:text-gray-700',
+                : 'border-transparent text-gray-400 hover:text-gray-800',
             'group inline-flex items-center gap-1 border-b-2 px-4 py-2 text-sm font-medium',
             $props.class,
         ]"
@@ -96,8 +96,8 @@ onMounted(() => {
         @click="() => context.updateModelValue(vPath)"
     >
         <component
-            v-if="icon"
             :is="icon"
+            v-if="icon"
             :class="[
                 vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
                 '-ml-0.5 mr-2 h-5 w-5',

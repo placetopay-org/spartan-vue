@@ -1,7 +1,7 @@
 import SDTable from './SDTable.vue';
 import SDColumn from './SDColumn.vue';
 import { rows as data } from '@/data/table';
-import { DirectIcon } from '@placetopay/iconsax-vue/twotone'
+import { DirectIcon } from '@placetopay/iconsax-vue/twotone';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
 
@@ -11,7 +11,8 @@ export default {
     parameters: {
         docs: {
             description: {
-                component: 'The component is a flexible and feature-rich table solution designed for dynamic data display. It provides capabilities such as customizable row content, sortable columns, and interactive rows with clickable links. Additionally, it supports custom headers and an option for a borderless layout, offering versatility and adaptability for a wide range of data presentation scenarios in professional environments.',
+                component:
+                    'The component is a flexible and feature-rich table solution designed for dynamic data display. It provides capabilities such as customizable row content, sortable columns, and interactive rows with clickable links. Additionally, it supports custom headers and an option for a borderless layout, offering versatility and adaptability for a wide range of data presentation scenarios in professional environments.',
             },
         },
     },
@@ -33,7 +34,7 @@ export default {
 
 const sourceBinding = buildSourceBinding({
     check: ['borderless'],
-    prop: {}
+    prop: {},
 });
 
 export const Default = createDefault({
@@ -56,12 +57,38 @@ export const Default = createDefault({
     <SDColumn field="category" header="CATEGORÍA" />
     <SDColumn field="quantity" header="CANTIDAD" />    
 </SDTable>`,
-})
+});
 
 const variationConfig = {
     components: { SDTable, SDColumn },
     setup: () => ({ data: data.slice(0, 5) }),
-}
+};
+
+// export const Shuffle = createVariation({
+//     ...variationConfig,
+//     setup: () => {
+//         const cols = ref([
+//             { field: 'name', header: 'Nombre' },
+//             { field: 'email', header: 'Correo' },
+//             { field: 'title', header: 'Titulo' },
+//             { field: 'role', header: 'Rol' },
+//         ]);
+
+//         const shuffle = () => {
+//             cols.value = [
+//                 { field: 'new', header: 'Nueva' },
+//             ];
+//         };
+
+//         return { cols, data: data.slice(0, 5), shuffle };
+//     },
+//     template: `
+// <pre>{{ cols }}</pre>
+// <button @click="shuffle">shuffle</button>
+// <SDTable :data="data">
+//     <SDColumn v-for="{field, header, sort} in cols" :key="field" :field :header :sort />
+// </SDTable>`,
+// });
 
 export const Base = createVariation({
     ...variationConfig,
@@ -145,7 +172,51 @@ export const Sorting = createVariation({
 <SDTable :data="data" @sort="alert">
     <SDColumn field="name" header="Nombre" sort="asc" />
     <SDColumn field="email" header="Correo" sort="des" />
-    <SDColumn field="title" noLink header="Titulo" />
+    <SDColumn field="title" noLink header="Titulo" :sort="true" />
+    <SDColumn field="role" header="Rol" :sort="false" />
+</SDTable>`,
+});
+
+export const HandleSorting = createVariation({
+    ...variationConfig,
+    setup: () => {
+        const nameSort = ref<string | boolean>('asc');
+        const handle = (e: any): any => {
+            switch (e.field) {
+                case 'name':
+                    if (e.sort === 'des') {
+                        nameSort.value = 'asc';
+                    }
+
+                    if (e.sort === 'asc') {
+                        nameSort.value = true;
+                    }
+
+                    if (e.sort === true) {
+                        nameSort.value = 'des';
+                    }
+                    break;
+            }
+        };
+
+        return { data: data.slice(0, 5), handle, nameSort };
+    },
+    template: `
+<SDTable :data="data" @sort="handle">
+    <SDColumn field="name" header="Nombre" :sort="nameSort" />
+    <SDColumn field="email" header="Correo" sort="des" />
+    <SDColumn field="title" noLink header="Titulo" :sort="true" />
+    <SDColumn field="role" header="Rol" :sort="false" />
+</SDTable>`,
+});
+
+export const Loading = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data" loading>
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" header="Titulo" />
     <SDColumn field="role" header="Rol" />
 </SDTable>`,
 });
@@ -161,11 +232,33 @@ export const Borderless = createVariation({
 </SDTable>`,
 });
 
+export const Slim = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data" slim>
+    <SDColumn field="name" header="Nombre" />
+    <SDColumn field="email" header="Correo" />
+    <SDColumn field="title" header="Titulo" />
+    <SDColumn field="role" header="Rol" />
+</SDTable>`,
+});
+
+export const UnstyledColumnBody = createVariation({
+    ...variationConfig,
+    template: `
+<SDTable :data="data">
+    <SDColumn field="name" header="Nombre" unstyled/>
+    <SDColumn field="email" header="Correo" unstyled/>
+    <SDColumn field="title" header="Titulo" unstyled/>
+    <SDColumn field="role" header="Rol" unstyled/>
+</SDTable>`,
+});
+
 export const Pagination = createVariation({
     components: { SDTable, SDColumn },
     setup: () => {
         const paginator = ref({ page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] });
-        const paginatorChange = (newState: any) => { };
+        const paginatorChange = (newState: any) => alert(JSON.stringify(newState));
         return { data: data.slice(0, 5), paginator, paginatorChange };
     },
     template: `<!-- paginator: { page: 1, size: 5, total: 15, pageSizes: [5, 10, 15] } -->
@@ -196,7 +289,7 @@ export const Scroll = createVariation({
     components: { SDTable, SDColumn },
     setup: () => {
         const paginator = ref({ page: 1, size: 5, pageSizes: [5, 10, 15] });
-        return { data: data.slice(0, 5).map(i => ({...i, email2: i.email, email3: i.email})), paginator };
+        return { data: data.slice(0, 5).map((i) => ({ ...i, email2: i.email, email3: i.email })), paginator };
     },
     template: `<!-- paginator: { page: 1, size: 5, pageSizes: [5, 10, 15] } -->
 <div class="w-1/2">

@@ -1,5 +1,21 @@
 {
     "$spartan": {
+        "inputPasswordPanel": {
+            "min": "Mínimo de {value} caracteres",
+            "max": "Máximo de {value} caracteres",
+            "lowercase": "Tenha pelo menos uma letra minúscula (a, b, c...)",
+            "uppercase": "Tenha pelo menos uma letra maiúscula (A, B, C...)",
+            "digit": "Tenha pelo menos um dígito (1, 2, 3...)",
+            "special": "Tenha pelo menos um caractere especial (!, {'@'}, #...)"
+        },
+        "selector": {
+            "add": "Adicionar",
+            "search": "Procurar",
+            "selection": "Seleção",
+            "selections": "Seleções",
+            "noResults": "Não há dados relacionados",
+            "loading": "Carregando..."
+        },
         "copy": {
             "copied": "Copiado!"
         },

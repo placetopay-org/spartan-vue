@@ -19,50 +19,33 @@ export const sidebarItemStyles = cva(
     },
 );
 
-export const sidebarItemIconStyles = cva(
-    ['h-6 w-6 text-gray-400'],
-    {
-        variants: {
-            active: cbv('text-spartan-primary-600'),
-        },
+export const sidebarItemIconStyles = cva(['h-6 w-6 text-gray-400'], {
+    variants: {
+        active: cbv('text-spartan-primary-600'),
     },
-);
+});
 
-export const sidebarItemContentStyles = cva(
-    ['text-sm font-medium text-gray-700'],
-    {
-        variants: {
-            active: cbv('text-spartan-primary-600'),
-        },
+export const sidebarItemContentStyles = cva(['text-sm font-medium text-gray-700'], {
+    variants: {
+        active: cbv('text-spartan-primary-600'),
     },
-);
+});
 
-export const sidebarItemGroupIconStyles = cva(
-    ['h-6 w-6 text-gray-400'],
-    {
-        variants: {
-            active: cbv('text-spartan-primary-600'),
-        },
+export const sidebarItemGroupIconStyles = cva(['h-6 w-6 text-gray-400'], {
+    variants: {
+        active: cbv('text-spartan-primary-600'),
     },
-);
+});
 
-export const sidebarItemGroupContentStyles = cva(
-    ['text-sm font-medium text-gray-700'],
-    {
-        variants: {
-            active: cbv('text-spartan-primary-600'),
-        },
+export const sidebarItemGroupContentStyles = cva(['text-sm font-medium text-gray-700'], {
+    variants: {
+        active: cbv('text-spartan-primary-600'),
     },
-);
+});
 
-export const sidebarItemGroupChevronStyles = cva(
-    [
-        'h-5 w-5 transition text-gray-400 duration-200 ml-auto',
-    ],
-    {
-        variants: {
-            open: cbv('rotate-180'),
-            active: cbv('text-spartan-primary-400'),
-        },
+export const sidebarItemGroupChevronStyles = cva(['h-5 w-5 transition text-gray-400 duration-200 ml-auto'], {
+    variants: {
+        open: cbv('rotate-180'),
+        active: cbv('text-spartan-primary-400'),
     },
-);
+});

@@ -1,20 +1,8 @@
 <script setup lang="ts">
 import QrCode from '../components/QrCode.vue';
-import {
-    SModalLeft,
-    SBadge,
-    SButton,
-    SInputBlock,
-    SSelectBlock,
-    SPlacetopayLogo,
-    SSteps,
-    SStepsItem,
-    SDefinitionTerm,
-} from '@spartan';
-import { LockIcon, UserTagIcon, SmsEditIcon, ShieldTickIcon } from '@placetopay/iconsax-vue/linear';
-import { AndroidIcon, AppleIcon, WindowsIcon } from '@placetopay/iconsax-vue/Crypto/bold';
-import { ArrowLeftIcon } from '@heroicons/vue/24/solid';
-import { EyeSlashIcon, Bars3Icon } from '@heroicons/vue/24/outline';
+import { SModalLeft, SButton, SInputBlock, SPlacetopayLogo, SSteps, SStepsItem, SDefinitionTerm } from '@spartan';
+import { LockIcon } from '@placetopay/iconsax-vue/linear';
+import { Bars3Icon } from '@heroicons/vue/24/outline';
 import VSidebar from '../components/VSidebar.vue';
 import { ref } from 'vue';
 
@@ -33,7 +21,7 @@ const open = ref(false);
             <div class="flex w-full items-center justify-between border-b border-gray-200 p-4 lg:hidden">
                 <SPlacetopayLogo :height="35" />
 
-                <button @click="open = true" class="p-2.5">
+                <button class="p-2.5" @click="open = true">
                     <Bars3Icon class="h-6 w-6 text-gray-500" />
                 </button>
             </div>
@@ -54,7 +42,7 @@ const open = ref(false);
                     </p>
                 </section>
 
-                <section class="flex flex-col md:flex-row gap-6 items-center">
+                <section class="flex flex-col items-center gap-6 md:flex-row">
                     <QrCode />
 
                     <div class="space-y-4 self-start md:self-center">
@@ -79,7 +67,12 @@ const open = ref(false);
                 </section>
 
                 <section class="grid grid-cols-1 items-end gap-4 lg:grid-cols-2">
-                    <SInputBlock type="password" label="Código de 6 dígitos" :right-icon="LockIcon" :iconRight="true" />
+                    <SInputBlock
+                        type="password"
+                        label="Código de 6 dígitos"
+                        :right-icon="LockIcon"
+                        :icon-right="true"
+                    />
                     <SButton
                         class="w-full"
                         as="a"

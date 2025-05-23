@@ -33,6 +33,6 @@ const headerCallback = typeof props.placetopayHeader === 'function' && props.pla
             </ul>
         </nav>
 
-        <footer class="-m-4 mt-auto" v-if="hasSlotContent($slots.footer)"><slot name="footer" /></footer>
+        <footer v-if="hasSlotContent($slots.footer)" class="-m-4 mt-auto"><slot name="footer" /></footer>
     </aside>
 </template>

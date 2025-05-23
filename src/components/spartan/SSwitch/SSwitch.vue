@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type FunctionalComponent } from 'vue';
+import { computed } from 'vue';
 import { Switch, SwitchGroup, SwitchLabel, SwitchDescription } from '@headlessui/vue';
 import { hasSlotContent } from '@/helpers';
 import type { TSwitchEmits, TSwitchProps } from './types';

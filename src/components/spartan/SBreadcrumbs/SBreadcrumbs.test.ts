@@ -63,7 +63,11 @@ describe('SBreadcrumbs', () => {
 
         test('Can be render with icon', () => {
             // Arrange
-            const Item = h(SBreadcrumbsItem, { href: 'my-test-link', icon: HomeIcon }, { default: () => 'Test Content' });
+            const Item = h(
+                SBreadcrumbsItem,
+                { href: 'my-test-link', icon: HomeIcon },
+                { default: () => 'Test Content' },
+            );
 
             // Act
             render(SBreadcrumbs, {

@@ -66,8 +66,8 @@ describe('SInputBlock', () => {
         // Act
         const { rerender } = render(SInputBlock, {
             props: {
-                prefix: "https://",
-                suffix: ".com",
+                prefix: 'https://',
+                suffix: '.com',
                 modelValue,
                 'onUpdate:modelValue': (e: string) => {
                     modelValue = e;
@@ -93,7 +93,10 @@ describe('SInputBlock', () => {
         const { rerender } = render(SInputBlock, {
             props: {
                 rightOption: 'Test 1',
-                rightOptions: [{ value: '1', label: 'Test 1' }, { value: '2', label: 'Test 2' }],
+                rightOptions: [
+                    { value: '1', label: 'Test 1' },
+                    { value: '2', label: 'Test 2' },
+                ],
                 modelValue,
                 'onUpdate:modelValue': (e: string) => {
                     modelValue = e;
@@ -122,7 +125,11 @@ describe('SInputBlock', () => {
 
         // Assert
         expect(error).toHaveBeenCalledTimes(2);
-        expect(error.mock.calls[0][0]).contains('The <SCheckbox /> component should be used instead of the <SInput type="checkbox"/>');
-        expect(error.mock.calls[1][0]).contains('The <SRadio /> component should be used instead of the <SInput type="radio"/>');
+        expect(error.mock.calls[0][0]).contains(
+            'The <SCheckbox /> component should be used instead of the <SInput type="checkbox"/>',
+        );
+        expect(error.mock.calls[1][0]).contains(
+            'The <SRadio /> component should be used instead of the <SInput type="radio"/>',
+        );
     });
 });

@@ -6,8 +6,8 @@ import SCardBrand from './SCardBrand.vue';
 describe('SCardBrand', () => {
     test('Can be rendered', () => {
         // Act
-        render(SCardBrand, { props: { name: 'visa' }});
-        
+        render(SCardBrand, { props: { name: 'visa' } });
+
         // Assert
         const brand = screen.getByRole('img');
         expect(brand).toHaveAttribute('viewBox');

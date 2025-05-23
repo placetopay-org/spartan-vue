@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { SSidebar, SSidebarItem, SSidebarItemGroup } from '@spartan';
-import { HomeIcon, DocumentCodeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon } from '@placetopay/iconsax-vue/linear';
+import {
+    HomeIcon,
+    DocumentCodeIcon,
+    ReceiptTextIcon,
+    ClipboardTickIcon,
+    ShieldSecurityIcon,
+} from '@placetopay/iconsax-vue/linear';
 
 defineEmits(['update:modelValue']);
 
@@ -10,7 +16,12 @@ defineProps<{
 </script>
 
 <template>
-    <SSidebar class="w-60 pb-8" placetopayHeader :modelValue="modelValue" @update:modelValue="$emit('update:modelValue', $event)">
+    <SSidebar
+        class="w-60 pb-8"
+        placetopay-header
+        :model-value="modelValue"
+        @update:model-value="$emit('update:modelValue', $event)"
+    >
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
         <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
         <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>

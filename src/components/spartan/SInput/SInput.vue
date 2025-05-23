@@ -78,7 +78,7 @@ defineExpose({ inputElement });
             <slot v-else name="left" />
         </template>
         <input
-            :id="id"
+            :id
             ref="inputElement"
             :value="modelValue"
             :class="twMerge(inputStyles({ rounded }), $props.inputClass)"

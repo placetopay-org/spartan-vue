@@ -7,7 +7,7 @@ export const selectStyles = cva(
         variants: {
             disabled: cbv('text-gray-400 bg-gray-50 pointer-events-none'),
             error: cbv('border-red-600 focus:s-ring-error', 'border-gray-300 focus:s-ring'),
-            rounded: roundedClass
+            rounded: roundedClass,
         },
     },
-); 
+);

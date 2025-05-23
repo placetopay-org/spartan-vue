@@ -21,16 +21,14 @@ const open = ref(false);
             <div class="flex w-full justify-between lg:hidden">
                 <SPlacetopayLogo :height="35" />
 
-                <button @click="open = true" class="p-2.5">
+                <button class="p-2.5" @click="open = true">
                     <Bars3Icon class="h-6 w-6 text-gray-500" />
                 </button>
             </div>
 
             <nav class="flex w-full items-center gap-2">
-                <a
-                    href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--home"
-                >
-                    <ArrowLeftIcon class="h-5 w-5 text-gray-500"/>
+                <a href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--home">
+                    <ArrowLeftIcon class="h-5 w-5 text-gray-500" />
                 </a>
                 <span class="text-2xl font-semibold">Editar perfil</span>
             </nav>
@@ -61,9 +59,9 @@ const open = ref(false);
                             </div>
                         </div>
 
-                        <SInputBlock modelValue="John Doe" label="Nombre completo" placeholder="Nombre completo" />
+                        <SInputBlock model-value="John Doe" label="Nombre completo" placeholder="Nombre completo" />
 
-                        <SSelectBlock modelValue="UTC" label="Zona Horaria" class="w-1/2">
+                        <SSelectBlock model-value="UTC" label="Zona Horaria" class="w-1/2">
                             <option value="UTC">UTC</option>
                             <option value="America/Bogota">America/Bogota</option>
                             <option value="America/New_York">America/New_York</option>

@@ -20,8 +20,7 @@ const value = ref('Dashboard');
         </SModalLeft>
 
         <main class="flex flex-1 items-start py-10 font-bold text-gray-600">
-            <div class="px-4 sm:px-6 lg:px-8 h-full w-full">
-
+            <div class="h-full w-full px-4 sm:px-6 lg:px-8">
                 <!-- Example content -->
                 <Mesh class="p-4">
                     <button @click="open = !open"><Bars3Icon class="relative h-6 w-6 text-gray-400" /></button>

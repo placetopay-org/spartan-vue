@@ -24,7 +24,7 @@ export const buttonStyles = cva(
                 primary: [
                     'text-white focus-within:s-ring',
                     'bg-spartan-primary-600 hover:bg-spartan-primary-700',
-                    'border-spartan-primary-600 shadow-sm'
+                    'border-spartan-primary-600 shadow-sm',
                 ],
                 secondary: [
                     'text-gray-900 focus-within:s-ring-secondary',
@@ -41,7 +41,11 @@ export const buttonStyles = cva(
                     'bg-white hover:bg-spartan-primary-50',
                     'border-spartan-primary-600 shadow-sm',
                 ],
-                link: ['text-spartan-primary-600 hover:text-spartan-primary-700', 'bg-transparent', 'border-transparent'],
+                link: [
+                    'text-spartan-primary-600 hover:text-spartan-primary-700',
+                    'bg-transparent',
+                    'border-transparent',
+                ],
             },
             rounded: roundedClass,
             loading: cbv('loading'),

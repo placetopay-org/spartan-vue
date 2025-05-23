@@ -120,7 +120,10 @@ describe('SSwitch', () => {
 
     test('Can be rendered in reverse mode', async () => {
         // Act
-        const { container } = render(SSwitch, { props: { reverse: true }, slots: { default: 'Test label', description: 'Test description' } });
+        const { container } = render(SSwitch, {
+            props: { reverse: true },
+            slots: { default: 'Test label', description: 'Test description' },
+        });
 
         // Assert
         expect(container.firstElementChild).toHaveClass('flex-row-reverse');
@@ -131,7 +134,7 @@ describe('SSwitch', () => {
         render(SSwitch, { props: { icon: true }, slots: { default: 'Test label', description: 'Test description' } });
 
         const button = screen.getByRole('switch');
-        
+
         // Assert
         expect(button.firstElementChild?.firstElementChild?.firstElementChild).toHaveClass('h-3 w-3 text-gray-400');
     });

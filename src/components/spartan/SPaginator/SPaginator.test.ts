@@ -24,16 +24,16 @@ describe('SPaginator', () => {
 
     test('Can be emit events', async () => {
         // Arrange
-        let state = { page: 16, size: 5, total: 125 };
+        const state = { page: 16, size: 5, total: 125 };
         const user = userEvent.setup();
 
         // Act
         const { rerender } = render(SPaginator, {
             props: {
                 ...state,
-                paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number }) => {
-                    rerender({...state, ...e});
+                paginatorSize: '3',
+                onChange: (e: { page?: number; size?: number }) => {
+                    rerender({ ...state, ...e });
                 },
             },
         });
@@ -42,8 +42,8 @@ describe('SPaginator', () => {
 
         // Assert
         expect(screen.getAllByRole('button', { name: '...' }).length).toBe(2);
-        screen.getByRole('button', { name: '1' })
-        
+        screen.getByRole('button', { name: '1' });
+
         screen.getByRole('button', { name: '13' });
         screen.getByRole('button', { name: '14' });
         screen.getByRole('button', { name: '15' });
@@ -75,16 +75,16 @@ describe('SPaginator', () => {
 
     test('Can be render fully', async () => {
         // Arrange
-        let state = { page: 4, size: 5, total: 30 };
+        const state = { page: 4, size: 5, total: 30 };
         const user = userEvent.setup();
 
         // Act
         const { rerender } = render(SPaginator, {
             props: {
                 ...state,
-                paginatorSize: "3",
-                onChange: (e: { page?: number, size?: number }) => {
-                    rerender({...state, ...e});
+                paginatorSize: '3',
+                onChange: (e: { page?: number; size?: number }) => {
+                    rerender({ ...state, ...e });
                 },
             },
         });
@@ -94,7 +94,7 @@ describe('SPaginator', () => {
         await user.click(button);
 
         // Assert
-        screen.getByRole('button', { name: '1' })
+        screen.getByRole('button', { name: '1' });
         screen.getByRole('button', { name: '2' });
         screen.getByRole('button', { name: '3' });
         screen.getByRole('button', { name: '4' });
@@ -118,7 +118,6 @@ describe('SPaginator', () => {
     //         },
     //     });
 
-        
     //     const prevButton = screen.getByRole('button', { name: /prev/i });
 
     //     await user.click(prevButton);

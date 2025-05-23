@@ -1,4 +1,4 @@
-import { reactive, inject, provide, watch, type InjectionKey, computed, type Ref } from 'vue';
+import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
 import type { TInputOTPProps, TInputOTPEmits } from './types';
 
 type TItem = {
@@ -57,7 +57,7 @@ export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
 
             if (!value || /^[0-9]+$/.test(value)) emit('update:modelValue', value);
 
-            activate({...state, value });
+            activate({ ...state, value });
         },
         focusInput: () => activate(state),
         focusoutInput: () => deactivate(state),
@@ -74,7 +74,7 @@ export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
 
     watch(
         () => props.modelValue,
-        (currentValue) => state.items.forEach(({ setValue }, index) => setValue(currentValue.charAt(index))),
+        (currentValue) => state.items.forEach(({ setValue }, index) => setValue(currentValue?.charAt(index) || '')),
     );
 
     provide(contextKey, state);

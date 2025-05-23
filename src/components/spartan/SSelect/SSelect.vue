@@ -16,17 +16,17 @@ const select = ref<HTMLSelectElement | null>(null);
 const placeholderClass = ref(phClass);
 
 watchEffect(() => {
-    placeholderClass.value = modelValue ? '' : (phClass || 'text-gray-400');
-})
+    placeholderClass.value = modelValue ? '' : phClass || 'text-gray-400';
+});
 </script>
 
 <template>
     <select
         ref="select"
         :value="modelValue"
-        @change="$emit('update:modelValue', ($event.target as any).value)"
         :disabled="disabled"
         :class="twMerge(selectStyles({ rounded, error, disabled }), $props.class, placeholderClass)"
+        @change="$emit('update:modelValue', ($event.target as any).value)"
     >
         <option v-if="placeholder" disabled value selected>
             {{ placeholder }}

@@ -13,7 +13,7 @@ createContext(props);
 const containerStyle = {
     simple: 'space-y-4 md:flex md:space-x-8 md:space-y-0',
     circlesWithText: 'overflow-hidden',
-}
+};
 </script>
 
 <template>

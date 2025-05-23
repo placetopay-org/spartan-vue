@@ -12,7 +12,7 @@ export function usePassthrough() {
         const className = bind?.class;
         const props = { ...bind };
         delete props.class;
-        
+
         return [className, props];
     };
 
@@ -24,11 +24,13 @@ export function usePassthrough() {
             const detailedRegex = new RegExp(`^pt:([^:]+):([^:]+)$`);
 
             if (baseRegex.test(key)) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const [_, name] = key.match(baseRegex)!;
                 add(ptData, name, { class: value });
             }
 
             if (detailedRegex.test(key)) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const [_, name, content] = key.match(detailedRegex)!;
                 add(ptData, name, { [content]: value });
             }

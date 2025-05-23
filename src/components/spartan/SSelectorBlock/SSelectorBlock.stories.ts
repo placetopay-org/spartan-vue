@@ -120,6 +120,6 @@ export const Default = createDefault({
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
             { name: 'Paris', code: 'PRS' },
-        ]
+        ],
     },
 });

@@ -8,7 +8,11 @@ import { h } from 'vue';
 describe('SSteps', () => {
     test('Can be rendered', async () => {
         const Item1 = h(SStepsItem, { href: 'link-1', status: 'complete' }, { default: () => 'First step' });
-        const Item2 = h(SStepsItem, { href: 'link-2', status: 'current' }, { default: () => 'Second step', description: 'test description' });
+        const Item2 = h(
+            SStepsItem,
+            { href: 'link-2', status: 'current' },
+            { default: () => 'Second step', description: 'test description' },
+        );
         const Item3 = h(
             SStepsItem,
             { href: 'link-3', status: 'upcoming', last: true },
@@ -30,7 +34,6 @@ describe('SSteps', () => {
     });
 
     test('Can be rendered with array', async () => {
-
         // Act
         render(SSteps, {
             props: {
@@ -64,7 +67,11 @@ describe('SSteps', () => {
 
     test('Can be rendered with simple variant', async () => {
         const Item1 = h(SStepsItem, { href: 'link-1', status: 'complete' }, { default: () => 'First step' });
-        const Item2 = h(SStepsItem, { href: 'link-2', status: 'current' }, { default: () => 'Second step', description: 'test description' });
+        const Item2 = h(
+            SStepsItem,
+            { href: 'link-2', status: 'current' },
+            { default: () => 'Second step', description: 'test description' },
+        );
         const Item3 = h(
             SStepsItem,
             { href: 'link-3', status: 'upcoming', last: true },
@@ -73,7 +80,7 @@ describe('SSteps', () => {
 
         // Act
         render(SSteps, {
-            props: { variant: "simple" },
+            props: { variant: 'simple' },
             slots: {
                 default: [Item1, Item2, Item3],
             },

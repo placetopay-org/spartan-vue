@@ -65,7 +65,8 @@ export const Default = createDefault({
     },
     template: `<!-- state: { page: 3, size: 5, total: 125 } -->
     <SPaginator v-bind="state" @change="newState => state = {...state, ...newState}" />`,
-    transform: (args) => `<SPaginator v-bind="state" ${sourceBinding(args)} @change="newState => state = {...state, ...newState}" />`,
+    transform: (args) =>
+        `<SPaginator v-bind="state" ${sourceBinding(args)} @change="newState => state = {...state, ...newState}" />`,
     args: {
         paginatorSize: '0',
         pageSizes: [1, 5, 10, 15],

@@ -5,32 +5,59 @@ import { usePassthrough, hasSlotContent } from '@/helpers';
 import { useSlots } from 'vue';
 import { twMerge } from 'tailwind-merge';
 
-defineEmits<TBadgeEmits>();
+const emit = defineEmits<TBadgeEmits>();
 const slots = useSlots();
 const tagSlot = hasSlotContent(slots.tag);
 
-const { color = 'gray', size = 'md', dot, outline, removable, pill, reverse } = defineProps<TBadgeProps>();
+const { color = 'gray', size = 'md', dot, outline, pill, reverse, removable } = defineProps<TBadgeProps>();
 
 const { pt, extractor } = usePassthrough();
 
 const [bodyClass, bodyProps] = extractor(pt.value.body);
+const [contentClass, contentProps] = extractor(pt.value.content);
 const [dotClass, dotProps] = extractor(pt.value.dot);
 const [tagClass, tagProps] = extractor(pt.value.tag);
 const [crossClass, crossProps] = extractor(pt.value.cross);
+
+const remove = (e: Event) => {
+    removable === 'stopPropagation' && e.stopPropagation();
+    emit('removed');
+};
 </script>
 
 <template>
-    <span :class="twMerge(badgeStyles({ color, size, outline, pill, dot, removable, reverse, tag: tagSlot }), $props.class)">
-        <svg v-if="dot" v-bind="dotProps" data-s-dot :class="twMerge(dotStyles({ color }), dotClass)" viewBox="0 0 6 6" aria-hidden="true">
+    <span
+        :class="
+            twMerge(
+                badgeStyles({ color, size, outline, pill, dot, removable: Boolean(removable), reverse, tag: tagSlot }),
+                $props.class,
+            )
+        "
+    >
+        <svg
+            v-if="dot"
+            v-bind="dotProps"
+            data-s-dot
+            :class="twMerge(dotStyles({ color }), dotClass)"
+            viewBox="0 0 6 6"
+            aria-hidden="true"
+        >
             <circle cx="3" cy="3" r="3" />
         </svg>
 
         <div data-s-body v-bind="bodyProps" :class="twMerge(bodyStyles({ reverse }), bodyClass)">
-            <div v-if="tagSlot" v-bind="tagProps" data-s-tag :class="twMerge(tagStyles({ color, pill, outline }), tagClass)">
+            <div
+                v-if="tagSlot"
+                v-bind="tagProps"
+                data-s-tag
+                :class="twMerge(tagStyles({ color, pill, outline }), tagClass)"
+            >
                 <slot name="tag" />
             </div>
-    
-            <slot />
+
+            <div data-s-content v-bind="contentProps" :class="twMerge(contentClass)">
+                <slot />
+            </div>
         </div>
 
         <button
@@ -39,7 +66,7 @@ const [crossClass, crossProps] = extractor(pt.value.cross);
             data-s-cross
             type="button"
             :class="twMerge('-mx-1 rounded-sm active:scale-90', crossClass)"
-            @click="$emit('removed')"
+            @click="remove"
         >
             <span class="sr-only">Remove</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">

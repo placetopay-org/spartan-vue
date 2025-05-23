@@ -1,8 +1,8 @@
 import SPopover from './SPopover.vue';
-import { SButton } from '@spartan';
+import { SButton, SCard } from '@spartan';
 import type { SourceProps } from '@storybook/blocks';
 import { action } from '@storybook/addon-actions';
-import { buildDesign, buildSourceBinding, createHistory, createDefault } from '@/helpers';
+import { buildDesign, buildSourceBinding, createHistory, createDefault, createVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { watch, nextTick } from 'vue';
 
@@ -120,10 +120,21 @@ export const Default = createDefault({
     `,
     transform: (args) => `
     <SPopover ${sourceBinding(args)}>
-      <template #reference="{ display }">
-        <button class="blue-element" @click="display">Any Element!</button>
+      <template #reference="{ toggle }">
+        <button class="blue-element" @click="toggle">Any Element!</button>
       </template>
     
       <div class="yellow-element">Any Element Too!</div>
+    </SPopover>`,
+});
+
+export const WithBackdrop = createVariation({
+    components: { SPopover, SButton, SCard },
+    template: `<SPopover backdrop>
+      <template #reference="{ toggle }">
+        <SButton  @click="toggle">Open</SButton>
+      </template>
+    
+      <SCard>Any Element Too!</SCard>
     </SPopover>`,
 });

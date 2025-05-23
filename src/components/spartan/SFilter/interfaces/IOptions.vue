@@ -4,14 +4,14 @@ import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { SRadio, SCheckbox } from '../../';
 import { translator } from '@/helpers';
 import { SBadge, SInput } from '@spartan';
-import type { TOptionsInterface } from '../types';
+import type { IOptionsConfig } from './types';
 import { getOptions } from '../helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string | string[];
-    config: TOptionsInterface;
+    config: IOptionsConfig;
 }>();
 
 const { t } = translator('filter');
@@ -101,3 +101,10 @@ const clear = () => {
         </div>
     </div>
 </template>
+
+<style scoped>
+/* width */
+::-webkit-scrollbar {
+    width: 0;
+}
+</style>

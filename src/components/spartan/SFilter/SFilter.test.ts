@@ -10,7 +10,7 @@ describe('SFilter', () => {
         render(SFilter, {
             props: {
                 fields: [],
-            }
+            },
         });
 
         // Assert
@@ -23,28 +23,30 @@ describe('SFilter', () => {
         render(SFilter, {
             props: {
                 immediateApply: true,
-                fields: [{
-                    id: 'brand',
-                    name: 'Brand',
-                    interfaces: {
-                        options: {
-                            multiple: true,
-                            operators: ['equal', 'notEqual', 'contains'],
-                            options: [{id: '1', label: 'Nike'}, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                            customOperators: [{ id: 'custom', label: 'customOper' }],
+                fields: [
+                    {
+                        id: 'brand',
+                        name: 'Brand',
+                        interfaces: {
+                            options: {
+                                multiple: true,
+                                operators: ['equal', 'notEqual', 'contains'],
+                                options: [{ id: '1', label: 'Nike' }, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
+                                customOperators: [{ id: 'custom', label: 'customOper' }],
+                            },
+                        },
+                        state: {
+                            operator: 'equal',
+                            value: ['Adidas'],
                         },
                     },
-                    state: {
-                        operator: 'equal',
-                        value: ['Adidas'],
-                    },
-                }]
-            }
+                ],
+            },
         });
 
         // Assert
         screen.getByText('Brand |');
-        screen.getByText('Adidas');
+        screen.getByText('$spartan.filter.operator.equal Adidas');
         screen.getByRole('button', { name: 'Remove' });
     });
 
@@ -57,26 +59,28 @@ describe('SFilter', () => {
         render(SFilter, {
             props: {
                 onApply: (fields: any) => console.log(fields),
-                fields: [{
-                    id: 'brand',
-                    name: 'Brand',
-                    interfaces: {
-                        options: {
-                            multiple: true,
-                            operators: ['equal', 'notEqual', 'contains'],
-                            options: [{id: '1', label: 'Nike'}, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                            customOperators: [{ id: 'custom', label: 'customOper' }],
+                fields: [
+                    {
+                        id: 'brand',
+                        name: 'Brand',
+                        interfaces: {
+                            options: {
+                                multiple: true,
+                                operators: ['equal', 'notEqual', 'contains'],
+                                options: [{ id: '1', label: 'Nike' }, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
+                                customOperators: [{ id: 'custom', label: 'customOper' }],
+                            },
+                        },
+                        state: {
+                            operator: 'equal',
+                            value: ['Adidas'],
                         },
                     },
-                    state: {
-                        operator: 'equal',
-                        value: ['Adidas'],
-                    },
-                }]
-            }
+                ],
+            },
         });
 
-        const filterBadge = screen.getByRole('button', { name: 'Brand | Adidas Remove' });
+        const filterBadge = screen.getByRole('button', { name: 'Brand | $spartan.filter.operator.equal Adidas Remove' });
 
         await user.click(filterBadge);
 
@@ -85,10 +89,9 @@ describe('SFilter', () => {
         await user.click(screen.getByRole('button', { name: '$spartan.filter.addBtn' }));
 
         await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
-        
 
         // Assert
-        screen.getByText('Adidas,Puma');
+        screen.getByText('$spartan.filter.operator.equal Adidas, Puma');
     });
 
     test('Can be update a field with one input interfaces', async () => {
@@ -100,29 +103,31 @@ describe('SFilter', () => {
         render(SFilter, {
             props: {
                 onApply: (fields: any) => console.log(fields),
-                fields: [{
-                    id: 'price',
-                    name: 'Price',
-                    interfaces: {
-                        oneInput: {
-                            type: 'amount',
-                            currency: 'EUR',
-                            currencies: ['USD', 'EUR', 'GBP'],
-                            operators: ['equal', 'notEqual'],
+                fields: [
+                    {
+                        id: 'price',
+                        name: 'Price',
+                        interfaces: {
+                            oneInput: {
+                                type: 'amount',
+                                currency: 'EUR',
+                                currencies: ['USD', 'EUR', 'GBP'],
+                                operators: ['equal', 'notEqual'],
+                            },
+                        },
+                        state: {
+                            operator: 'equal',
+                            value: '100',
                         },
                     },
-                    state: {
-                        operator: 'equal',
-                        value: '100',
-                    },
-                }]
-            }
+                ],
+            },
         });
 
-        let filterBadge = screen.getByRole('button', { name: 'Price | 100 Remove' });
-        
+        const filterBadge = screen.getByRole('button', { name: 'Price | $spartan.filter.operator.equal 100 Remove' });
+
         await user.click(filterBadge);
-        
+
         const input = screen.getByPlaceholderText('$spartan.filter.inputSelectorPlaceholder');
 
         await user.clear(input);
@@ -131,9 +136,9 @@ describe('SFilter', () => {
         await user.click(screen.getByRole('button', { name: '$spartan.filter.addBtn' }));
 
         await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
-        
+
         // Assert
-        screen.getByRole('button', { name: 'Price | 200 Remove' });
+        screen.getByRole('button', { name: 'Price | $spartan.filter.operator.equal 200 Remove' });
     });
 
     test('Can be update a field with two input interfaces', async () => {
@@ -145,28 +150,32 @@ describe('SFilter', () => {
         render(SFilter, {
             props: {
                 onApply: (fields: any) => console.log(fields),
-                fields: [{
-                    id: 'price',
-                    name: 'Price',
-                    interfaces: {
-                        twoInputs: {
-                            type: 'amount',
-                            currency: 'USD',
-                            operators: ['between', 'notBetween'],
+                fields: [
+                    {
+                        id: 'price',
+                        name: 'Price',
+                        interfaces: {
+                            twoInputs: {
+                                type: 'amount',
+                                currency: 'USD',
+                                operators: ['between', 'notBetween'],
+                            },
+                        },
+                        state: {
+                            operator: 'between',
+                            value: ['100', '200'],
                         },
                     },
-                    state: {
-                        operator: 'between',
-                        value: ['100', '200'],
-                    },
-                }]
-            }
+                ],
+            },
         });
 
-        let filterBadge = screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 100,200 Remove' });
-        
+        const filterBadge = screen.getByRole('button', {
+            name: 'Price | $spartan.filter.operator.between 100, 200 Remove',
+        });
+
         await user.click(filterBadge);
-        
+
         const inputs = screen.getAllByPlaceholderText('$spartan.filter.inputSelectorPlaceholder');
 
         await user.clear(inputs[0]);
@@ -178,8 +187,8 @@ describe('SFilter', () => {
         await user.click(screen.getByRole('button', { name: '$spartan.filter.addBtn' }));
 
         await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
-        
+
         // Assert
-        screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 300,600 Remove' });
+        screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 300, 600 Remove' });
     });
 });

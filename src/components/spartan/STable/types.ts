@@ -1,5 +1,7 @@
+import type { ClassNameValue } from 'tailwind-merge';
+
 export type TTableProps = {
-    class: string;
+    class?: ClassNameValue;
     borderless: boolean;
     cols: string[];
     rows: string[];
@@ -7,7 +9,7 @@ export type TTableProps = {
 };
 
 export type TTableHeadCellProps = {
-    class?: string;
+    class?: ClassNameValue;
 };
 
-export type TTableEmits = {};
+export type TTableEmits = Record<string, never>;

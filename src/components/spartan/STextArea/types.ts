@@ -4,3 +4,7 @@ export type TTextAreaProps = {
     error?: boolean;
     disabled?: boolean;
 };
+
+export type TTextAreaEmits = {
+    (e: 'update:modelValue', value: string): void;
+};

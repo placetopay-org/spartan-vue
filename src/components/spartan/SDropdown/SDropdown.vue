@@ -6,12 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import { ref, computed } from 'vue';
 import { focusFirstChild } from '@/helpers';
 
-const {
-    offset = 2,
-    placement = 'bottom-start',
-    responsive = true,
-    manual
-} = defineProps<TDropdownProps>();
+const { offset = 2, placement = 'bottom-start', responsive = true, manual } = defineProps<TDropdownProps>();
 
 defineOptions({ inheritAttrs: false });
 
@@ -45,7 +40,7 @@ const closeCallback = () => {
 <template>
     <SPopover ref="popover" v-bind="{ ...$props, class: undefined }" :class="twMerge('w-fit', $props.class)">
         <template #reference>
-            <button @click="toggleCallback" :class="referenceClass" @focus="focusFirstChild" :tabindex="-1">
+            <button :class="referenceClass" :tabindex="-1" @click="toggleCallback" @focus="focusFirstChild">
                 <slot name="reference" />
             </button>
         </template>
@@ -53,7 +48,6 @@ const closeCallback = () => {
         <template #default>
             <Menu>
                 <MenuItems
-                    @click="closeCallback"
                     static
                     :class="
                         twMerge(
@@ -61,6 +55,7 @@ const closeCallback = () => {
                             floatingClass,
                         )
                     "
+                    @click="closeCallback"
                 >
                     <slot />
                 </MenuItems>

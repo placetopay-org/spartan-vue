@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "vue";
+import type { HTMLAttributes } from 'vue';
 
 export type TStackedListProps = {
     class?: HTMLAttributes['class'];

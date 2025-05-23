@@ -11,21 +11,9 @@ describe('SStackedList', () => {
         // Arrange
         const user = userEvent.setup();
 
-        const Item1 = h(
-            SStackedListItem,
-            null,
-            { default: () => 'Item 1' },
-        );
-        const Item2 = h(
-            SStackedListItem,
-            null,
-            { default: () => 'Item 2' },
-        );
-        const Item3 = h(
-            SStackedListItem,
-            null,
-            { default: () => 'Item 3' },
-        );
+        const Item1 = h(SStackedListItem, null, { default: () => 'Item 1' });
+        const Item2 = h(SStackedListItem, null, { default: () => 'Item 2' });
+        const Item3 = h(SStackedListItem, null, { default: () => 'Item 3' });
 
         // Act
         render(SStackedList, {

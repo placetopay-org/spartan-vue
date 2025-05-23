@@ -38,7 +38,7 @@ const updateQuery = useDebounceFn((query) => {
         >
             <ComboboxInput
                 v-if="search"
-                :id="id"
+                :id
                 autocomplete="off"
                 :disabled="disabled"
                 :display-value="
@@ -48,7 +48,7 @@ const updateQuery = useDebounceFn((query) => {
                 @change="updateQuery($event.target.value)"
             />
             <ComboboxButton
-                :id="id"
+                :id
                 :tabindex="search ? -1 : 0"
                 :disabled="disabled"
                 :class="twMerge(comboboxButtonStyles({ rounded, search: Boolean(search) }))"

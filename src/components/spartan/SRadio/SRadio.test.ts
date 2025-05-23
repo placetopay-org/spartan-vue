@@ -2,7 +2,7 @@ import { test, describe } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SRadio from './SRadio.vue';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 
 describe('SRadio', () => {
     test('Throw warning for required v-model and value', () => {
@@ -19,10 +19,9 @@ describe('SRadio', () => {
     });
 
     test('Can be rendered', () => {
-
         // Act
         render(SRadio);
-        
+
         // Assert
         screen.getByRole('radio');
     });
@@ -36,7 +35,7 @@ describe('SRadio', () => {
         const checkbox = screen.getByRole('radio');
 
         await user.click(checkbox);
-        
+
         // Assert
         expect(checkbox).toBeChecked();
     });
@@ -48,14 +47,13 @@ describe('SRadio', () => {
         // Act
         render(SRadio, { slots: { default: 'first' }, props: { value: 'first', modelValue: [] } });
         render(SRadio, { slots: { default: 'second' }, props: { value: 'second', modelValue: [] } });
-        
 
         const firstCheckbox = screen.getByRole('radio', { name: 'first' });
         const secondCheckbox = screen.getByRole('radio', { name: 'second' });
 
         await user.click(firstCheckbox);
         await user.click(secondCheckbox);
-        
+
         // Assert
         expect(firstCheckbox).toBeChecked();
         expect(secondCheckbox).toBeChecked();

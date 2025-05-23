@@ -7,7 +7,7 @@ defineOptions({ inheritAttrs: false });
 </script>
 
 <template>
-    <ul role="list" :class="twMerge('divide-y divide-gray-100 shadow bg-white', $props.class)">
+    <ul role="list" :class="twMerge('divide-y divide-gray-100 bg-white shadow', $props.class)">
         <slot />
     </ul>
 </template>

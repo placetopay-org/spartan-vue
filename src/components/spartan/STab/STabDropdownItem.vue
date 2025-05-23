@@ -17,9 +17,13 @@ onMounted(() => {
     if (!vPath.value && elInnerText) vPath.value = elInnerText;
 });
 
-watch(dropdown!, (value) => {
-    if (value) context.addDropdown(value, vRegex.value);
-}, { immediate: true });
+watch(
+    dropdown!,
+    (value) => {
+        if (value) context.addDropdown(value, vRegex.value);
+    },
+    { immediate: true },
+);
 </script>
 
 <template>

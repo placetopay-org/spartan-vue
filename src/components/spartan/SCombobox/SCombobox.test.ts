@@ -106,7 +106,6 @@ describe('SCombobox', () => {
         expect(item2.parentElement?.firstElementChild?.firstElementChild).toHaveTextContent('Group 1');
         expect(item4.parentElement?.firstElementChild?.firstElementChild).toHaveClass('font-semibold text-gray-700');
         expect(item4.parentElement?.firstElementChild?.firstElementChild).toHaveTextContent('Group 2');
-
     });
 
     test('Can autosearch', async () => {

@@ -7,7 +7,14 @@ defineProps<{
 </script>
 
 <template>
-    <div :class="twMerge('relative h-full w-full overflow-hidden rounded-xl border border-dashed border-gray-400 opacity-75', $props.class)">
+    <div
+        :class="
+            twMerge(
+                'relative h-full w-full overflow-hidden rounded-xl border border-dashed border-gray-400 opacity-75',
+                $props.class,
+            )
+        "
+    >
         <svg class="absolute inset-0 h-full w-full stroke-gray-900/10" fill="none">
             <defs>
                 <pattern

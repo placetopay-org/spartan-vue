@@ -6,8 +6,8 @@ import SCard from './SCard.vue';
 describe('SCard', () => {
     test('Can be rendered', () => {
         // Act
-        render(SCard, { slots: { default: 'test content' }});
-        
+        render(SCard, { slots: { default: 'test content' } });
+
         // Assert
         screen.getByText('test content');
         const card = screen.getByRole('article');
@@ -16,7 +16,7 @@ describe('SCard', () => {
 
     test('Can be render with small size', () => {
         // Act
-        render(SCard, { props: { size: 'sm' }, slots: { default: 'test content' }});
+        render(SCard, { props: { size: 'sm' }, slots: { default: 'test content' } });
 
         // Assert
         screen.getByText('test content');
@@ -26,11 +26,11 @@ describe('SCard', () => {
 
     test('Can be render with icon', () => {
         // Act
-        render(SCard, { props: { icon: 'success' }, slots: { default: 'test content' }});
+        render(SCard, { props: { icon: 'success' }, slots: { default: 'test content' } });
 
         // Assert
         screen.getByText('test content');
         const card = screen.getByRole('article');
-        expect(card.firstElementChild?.firstElementChild?.firstElementChild).toHaveClass('h-6 w-6 text-green-600');
+        expect(card?.firstElementChild?.firstElementChild).toHaveClass('h-6 w-6 text-green-600');
     });
 });

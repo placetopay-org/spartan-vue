@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { twMerge, type ClassNameValue } from 'tailwind-merge';
 import { useContext } from './api';
 
 defineProps<{
-    class?: string;
+    class?: ClassNameValue;
 }>();
 
 const context = useContext('STableHeadCell');

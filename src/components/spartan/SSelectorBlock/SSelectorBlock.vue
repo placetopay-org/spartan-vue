@@ -9,11 +9,13 @@ const [blockWrapperProps, selectorProps] = extractWrapperProps<TSelectorProps>(p
 </script>
 
 <template>
-    <BlockWrapper wrapper="SSelectorBlock" v-bind="blockWrapperProps" v-slot="{ id }">
+    <BlockWrapper v-slot="{ id }" wrapper="SSelectorBlock" v-bind="blockWrapperProps">
         <SSelector
+            :id
             class="w-full"
             v-bind="selectorProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
+            @query="(query) => $emit('query', query)"
         >
             <template #option>
                 <slot name="options" />

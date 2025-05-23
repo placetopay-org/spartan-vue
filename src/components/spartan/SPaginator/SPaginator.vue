@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { TPaginatorProps, TPaginatorEmits } from './types';
 import { translator } from '@/helpers';
-import { SSelect } from '../SSelect';
+import { SSelect } from '@spartan';
 import { SButtonGroup, SButtonGroupItem } from '../SButtonGroup';
 import { computed, ref } from 'vue';
 import { twMerge } from 'tailwind-merge';
-import { ChevronLeftIcon } from '@heroicons/vue/20/solid';
 
 const emit = defineEmits<TPaginatorEmits>();
 const {
@@ -22,30 +21,30 @@ const {
 
 const { t } = translator('dataTable');
 
-const vSize = ref(size);
 const vCount = computed(() => count || (total && size && Math.ceil(total / size)));
 const vPageSizes = computed(() => {
     if (!pageSizes || !size) return;
 
-    let data = pageSizes;
+    let data = [...pageSizes];
 
     if (total) {
-        pageSizes.forEach((item) => {
-            if (item < total) data.push(item);
-            else data.push(total);
-        });
-    }
+        data = [];
 
-    if (!data?.includes(size)) {
-        const max = total ? total : data[data.length - 1];
-        if (size < max) data = data.concat(size).sort((a, b) => a - b);
-        else {
-            data = data.concat(max).sort((a, b) => a - b);
-            vSize.value = max;
+        for (const item of pageSizes) {
+            if (item >= total) {
+                data.push(total);
+                break;
+            }
+            data.push(item);
         }
     }
 
-    return [...new Set(data)];
+    if (!data.includes(size)) {
+        data.push(size);
+        data.sort((a, b) => a - b);
+    }
+
+    return data;
 });
 
 const quantity = computed(() => Number(paginatorSize) || 0);
@@ -122,12 +121,13 @@ const selectPage = (pageItem: number) => {
             <span>{{ t('showing') }}</span>
 
             <SSelect
-                class="py-1 text-xs"
-                :modelValue="vSize"
+                class="h-8 text-xs"
+                :model-value="size"
                 @update:model-value="
                     (value) => {
-                        emit('change', { size: Number(value) });
+                        emit('change', { size: Number(value), page: 1 });
                         emit('update:size', Number(value));
+                        emit('update:page', 1);
                     }
                 "
             >
@@ -144,14 +144,14 @@ const selectPage = (pageItem: number) => {
         </div>
         <div>
             <SButtonGroup aria-label="pagination">
-                <SButtonGroupItem first prev class="px-2" @click="prev" :disabled="!vCanGoPrev" />
+                <SButtonGroupItem first prev class="px-2" :disabled="!vCanGoPrev" @click="prev" />
 
                 <template v-if="!hideNumbers">
                     <SButtonGroupItem
                         v-for="pageItem in vPages"
+                        :key="pageItem"
                         class="px-4"
                         :active="Number(pageItem) === page"
-                        :key="pageItem"
                         :class="String(pageItem) === '...' ? 'pointer-events-none' : ''"
                         @click="() => Number(pageItem) && selectPage(Number(pageItem))"
                     >
@@ -159,7 +159,7 @@ const selectPage = (pageItem: number) => {
                     </SButtonGroupItem>
                 </template>
 
-                <SButtonGroupItem last next class="px-2" @click="next" :disabled="!vCanGoNext" />
+                <SButtonGroupItem last next class="px-2" :disabled="!vCanGoNext" @click="next" />
             </SButtonGroup>
         </div>
     </div>

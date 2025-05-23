@@ -2,7 +2,7 @@ import { test, describe } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import STextAreaBlock from './STextAreaBlock.vue';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 
 describe('STextAreaBlock', () => {
     test('Throw warning for required v-model', () => {
@@ -19,7 +19,7 @@ describe('STextAreaBlock', () => {
 
     test('Can be rendered', async () => {
         // Act
-        render(STextAreaBlock, { props: { modelValue: '' }});
+        render(STextAreaBlock, { props: { modelValue: '' } });
         const textArea = screen.getByRole('textbox');
 
         // Assert
@@ -57,34 +57,34 @@ describe('STextAreaBlock', () => {
 
     test('Can be written', async () => {
         // Arrange
-        const user = userEvent.setup()
+        const user = userEvent.setup();
 
         // Act
-        render(STextAreaBlock, { props: { modelValue: '' }});
+        render(STextAreaBlock, { props: { modelValue: '' } });
         const textArea = screen.getByRole('textbox');
 
         await user.type(textArea, 'Hello, World!');
 
         // Assert
-        expect(textArea).toHaveValue('Hello, World!')
+        expect(textArea).toHaveValue('Hello, World!');
     });
 
     test('Can be render with error style', async () => {
         // Act
-        render(STextAreaBlock, { props: { modelValue: '', error: true }});
+        render(STextAreaBlock, { props: { modelValue: '', error: true } });
         const textArea = screen.getByRole('textbox');
 
         // Assert
-        expect(textArea).toHaveClass('border-red-500 focus-within:s-ring-error')
+        expect(textArea).toHaveClass('border-red-500 focus-within:s-ring-error');
     });
 
     test('Can be render with disabled style', async () => {
         // Act
-        render(STextAreaBlock, { props: { modelValue: '', disabled: true }});
+        render(STextAreaBlock, { props: { modelValue: '', disabled: true } });
         const textArea = screen.getByRole('textbox');
 
         // Assert
-        expect(textArea).toHaveAttribute('disabled')
-        expect(textArea).toHaveClass('pointer-events-none')
+        expect(textArea).toHaveAttribute('disabled');
+        expect(textArea).toHaveClass('pointer-events-none');
     });
 });

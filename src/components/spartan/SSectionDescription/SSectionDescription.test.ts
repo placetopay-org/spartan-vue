@@ -17,10 +17,9 @@ describe('SSectionDescription', () => {
     });
 
     test('Can be rendered', () => {
-
         // Act
         render(SSectionDescription, { props: { as: 'p' }, slots: { default: 'My test description' } });
-        
+
         // Assert
         screen.getByText('My test description');
     });

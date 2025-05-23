@@ -2,7 +2,7 @@
 import { SBadge, SPopover } from '../..';
 import SelectFilterDialog from './SelectFilterDialog.vue';
 import type { TField } from '../types';
-import { useContext } from '../api';
+import { useContext } from '../context';
 import { ref } from 'vue';
 
 const props = defineProps<{
@@ -19,35 +19,36 @@ const openFieldPopover = () => {
         context.switchPopover(popover.value);
         if (!removing.value) context.selectField(props.field.id);
     }
- 
+
     if (removing.value) {
         delete props.field.state;
         removing.value = false;
     }
-}
+};
 </script>
 
 <template>
     <SPopover ref="popover" :responsive="context.responsive" :offset="8" prevent-close>
         <template #reference>
             <button @click="openFieldPopover">
-                <SBadge 
+                <SBadge
                     color="white"
                     class="whitespace-nowrap"
-                    pill 
+                    pt:content="flex"
+                    pill
                     outline
                     :removable="!field.permanent"
                     @removed="removing = true"
                 >
-                    <span class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</span>
-                    <span class="max-w-[220px] truncate">
+                    <div class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</div>
+                    <div class="max-w-[220px] truncate">
                         {{ context.getOperatorLabel(field) }}
-                    </span>  
+                    </div>
                 </SBadge>
             </button>
         </template>
 
-        <template #default="{close}">
+        <template #default="{ close }">
             <SelectFilterDialog @close="close" />
         </template>
     </SPopover>

@@ -1,4 +1,3 @@
-
 import { cva, type VariantProps } from 'class-variance-authority';
 import { createBooleanVariation as cbv } from '@/helpers';
 
@@ -36,7 +35,7 @@ export const badgeStyles = cva('inline-flex items-center font-medium h-fit w-fit
             yellow: 'bg-yellow-100 text-yellow-700',
             indigo: 'bg-indigo-100 text-indigo-700',
             white: 'bg-white text-gray-700',
-            purlpe: 'bg-purple-100 text-purple-700',
+            purple: 'bg-purple-100 text-purple-700',
             neutral: 'bg-neutral-950 text-white',
         },
         size: {
@@ -61,7 +60,7 @@ export const badgeStyles = cva('inline-flex items-center font-medium h-fit w-fit
         compoundColor('yellow', 'bg-yellow-50 outline-yellow-300'),
         compoundColor('indigo', 'bg-indigo-50 outline-indigo-300'),
         compoundColor('white', 'bg-white outline-gray-300'),
-        compoundColor('purlpe', 'bg-purple-50 outline-purple-300'),
+        compoundColor('purple', 'bg-purple-50 outline-purple-300'),
         compoundColor('neutral', 'bg-neutral-700 outline-neutral-950'),
         compoundPaddingDot('sm', 'pl-0.5 pr-2.5'),
         compoundPaddingDot('md', 'pl-0.5 pr-3'),
@@ -71,8 +70,8 @@ export const badgeStyles = cva('inline-flex items-center font-medium h-fit w-fit
         compoundPaddingCross('lg', 'pr-1.5 pl-3'),
         {
             tag: true,
-            class: 'font-normal'
-        }
+            class: 'font-normal',
+        },
     ],
 });
 
@@ -95,7 +94,7 @@ export const dotStyles = cva('h-1.5 w-1.5', {
             yellow: 'fill-yellow-400',
             indigo: 'fill-indigo-400',
             white: 'fill-gray-400',
-            purlpe: 'fill-purple-400',
+            purple: 'fill-purple-400',
             neutral: 'fill-white',
         },
     },
@@ -113,7 +112,7 @@ export const tagStyles = cva('px-2 font-medium rounded-sm', {
             yellow: 'bg-yellow-50',
             indigo: 'bg-indigo-50',
             white: 'bg-gray-100',
-            purlpe: 'bg-purple-50',
+            purple: 'bg-purple-50',
             neutral: 'bg-neutral-700',
         },
         pill: cbv('rounded-full'),

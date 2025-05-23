@@ -32,14 +32,17 @@ const copy = () => {
             else valueToCopy = slot.el?.innerText || '';
         }
     }
-    
+
     navigator.clipboard.writeText(valueToCopy);
     emit('copied', valueToCopy);
 };
 </script>
 
 <template>
-    <div :class="twMerge('group inline-flex cursor-pointer select-none items-center gap-2', $props.class)" @click="copy">
+    <div
+        :class="twMerge('group inline-flex cursor-pointer select-none items-center gap-2', $props.class)"
+        @click="copy"
+    >
         <slot />
 
         <STooltip ref="tooltip" :title="t('copied')" color="dark" placement="top" static manual>
@@ -54,7 +57,7 @@ const copy = () => {
                     leave-from-class="opacity-100"
                     leave-to-class="opacity-0"
                 >
-                    <CopySuccessIcon v-if="copying" class="absolute inset-0 h-5 w-5 text-gray-900 bg-white" />
+                    <CopySuccessIcon v-if="copying" class="absolute inset-0 h-5 w-5 bg-white text-gray-900" />
                 </Transition>
             </div>
         </STooltip>

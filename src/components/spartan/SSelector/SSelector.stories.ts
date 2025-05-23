@@ -1,7 +1,7 @@
 import SSelector from './SSelector.vue';
 import { SButton } from '@spartan';
-import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { ref } from 'vue';
+import { buildSourceBinding, createVariation } from '@/helpers';
+import { ref, watch } from 'vue';
 import { FlagIcon } from '@placetopay/flagicons-vue';
 
 export default {
@@ -85,24 +85,24 @@ export default {
 
 // const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
 
-const sourceBinding = buildSourceBinding({
-    prop: { rounded: 'both', errorText: undefined, helpText: undefined },
-    check: ['disabled', 'error'],
-});
+// const sourceBinding = buildSourceBinding({
+//     prop: { rounded: 'both', errorText: undefined, helpText: undefined },
+//     check: ['disabled', 'error'],
+// });
 
-const options = [
-    { name: "🪪 Cédula de ciudadanía", value: "CC" },
-    { name: "🪪 Cédula de extranjería", value: "CE" },
-    { name: "🪪 Tarjeta de identidad", value: "TI" },
-    { name: "🪪 NIT", value: "NIT" },
-    { name: "🪪 Social Security Number", value: "SSN" },
-    { name: "🪪 Individual Taxpayer Identification Number", value: "ITIN" },
-    { name: "🪪 Employer Identification Number", value: "EIN" },
-    { name: "🪪 National Insurance Number", value: "NINO" },
-    { name: "🪪 Unique Taxpayer Reference", value: "UTR" },
-    { name: "🪪 Pasaporte", value: "PA" },
-    { name: "🪪 Registro civil", value: "RC" }
-];
+// const options = [
+//     { name: '🪪 Cédula de ciudadanía', value: 'CC' },
+//     { name: '🪪 Cédula de extranjería', value: 'CE' },
+//     { name: '🪪 Tarjeta de identidad', value: 'TI' },
+//     { name: '🪪 NIT', value: 'NIT' },
+//     { name: '🪪 Social Security Number', value: 'SSN' },
+//     { name: '🪪 Individual Taxpayer Identification Number', value: 'ITIN' },
+//     { name: '🪪 Employer Identification Number', value: 'EIN' },
+//     { name: '🪪 National Insurance Number', value: 'NINO' },
+//     { name: '🪪 Unique Taxpayer Reference', value: 'UTR' },
+//     { name: '🪪 Pasaporte', value: 'PA' },
+//     { name: '🪪 Registro civil', value: 'RC' },
+// ];
 
 const countries = ref([
     { name: 'Australia', code: 'AU' },
@@ -114,7 +114,27 @@ const countries = ref([
     { name: 'India', code: 'IN' },
     { name: 'Japan', code: 'JP' },
     { name: 'Spain', code: 'ES' },
-    { name: 'United States', code: 'US' }
+    { name: 'United States', code: 'US' },
+]);
+
+const manyCities = ref([
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+    { name: 'Berlin', code: 'BER' },
+    { name: 'Frankfurt', code: 'FRF' },
+    { name: 'Hamburg', code: 'HMB' },
+    { name: 'Munich', code: 'MUN' },
+    { name: 'Chicago', code: 'CHI' },
+    { name: 'Los Angeles', code: 'LAX' },
+    { name: 'New York', code: 'NYC' },
+    { name: 'San Francisco', code: 'SFO' },
+    { name: 'Kyoto', code: 'KYO' },
+    { name: 'Osaka', code: 'OSA' },
+    { name: 'Tokyo', code: 'TYO' },
+    { name: 'Yokohama', code: 'YOK' },
 ]);
 
 const cities = ref([
@@ -133,8 +153,8 @@ const groupedCities = ref([
             { name: 'Berlin', value: 'Berlin' },
             { name: 'Frankfurt', value: 'Frankfurt' },
             { name: 'Hamburg', value: 'Hamburg' },
-            { name: 'Munich', value: 'Munich' }
-        ]
+            { name: 'Munich', value: 'Munich' },
+        ],
     },
     {
         label: 'USA',
@@ -143,8 +163,8 @@ const groupedCities = ref([
             { name: 'Chicago', value: 'Chicago' },
             { name: 'Los Angeles', value: 'Los Angeles' },
             { name: 'New York', value: 'New York' },
-            { name: 'San Francisco', value: 'San Francisco' }
-        ]
+            { name: 'San Francisco', value: 'San Francisco' },
+        ],
     },
     {
         label: 'Japan',
@@ -153,19 +173,18 @@ const groupedCities = ref([
             { name: 'Kyoto', value: 'Kyoto' },
             { name: 'Osaka', value: 'Osaka' },
             { name: 'Tokyo', value: 'Tokyo' },
-            { name: 'Yokohama', value: 'Yokohama' }
-        ]
-    }
+            { name: 'Yokohama', value: 'Yokohama' },
+        ],
+    },
 ]);
 
 export const Default = createVariation({
-    components: { SSelector, SButton },
+    components: { SSelector },
     containerClass: 'flex gap-4',
     setup: () => {
         const value = ref();
-        const clear = () => value.value = null;
 
-        return { value, cities, clear };
+        return { value, cities };
     },
     template: `
 <!-- cities: [
@@ -175,8 +194,7 @@ export const Default = createVariation({
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' },
 ] -->
-<SSelector v-model="value" :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />
-<SButton @click="clear">Clear</SButton>`,
+<SSelector v-model="value" :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />`,
 });
 
 export const Base = createVariation({
@@ -184,7 +202,7 @@ export const Base = createVariation({
     containerClass: 'flex gap-4',
     setup: () => {
         const value = ref();
-        const clear = () => value.value = null;
+        const clear = () => (value.value = null);
 
         return { value, cities, clear };
     },
@@ -199,12 +217,32 @@ export const Base = createVariation({
 <SSelector v-model="value" :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" />`,
 });
 
+export const Clearable = createVariation({
+    components: { SSelector, SButton },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const clear = () => (value.value = null);
+
+        return { value, cities, clear };
+    },
+    template: `
+<!-- cities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+] -->
+<SSelector v-model="value" :options="cities" optionLabel="name" placeholder="Select a City" class="w-80" clearable />`,
+});
+
 export const Groups = createVariation({
     components: { SSelector, SButton },
     containerClass: 'flex gap-4',
     setup: () => {
         const value = ref();
-        const clear = () => value.value = null;
+        const clear = () => (value.value = null);
 
         return { value, groupedCities, clear };
     },
@@ -249,7 +287,7 @@ export const Disabled = createVariation({
     containerClass: 'flex gap-4',
     setup: () => {
         const value = ref();
-        const clear = () => value.value = null;
+        const clear = () => (value.value = null);
 
         return { value, cities, clear };
     },
@@ -261,7 +299,7 @@ export const DisabledOption = createVariation({
     containerClass: 'flex gap-4',
     setup: () => {
         const value = ref();
-        const clear = () => value.value = null;
+        const clear = () => (value.value = null);
         const citiesWithDisabled = ref([
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM', disabled: true },
@@ -288,7 +326,7 @@ export const Template = createVariation({
     containerClass: 'flex gap-4',
     setup: () => {
         const value = ref();
-        const clear = () => value.value = null;
+        const clear = () => (value.value = null);
 
         return { value, countries, clear };
     },
@@ -314,4 +352,101 @@ countries: [
     </div>
 </template>
 </SSelector>`,
+});
+
+export const Search = createVariation({
+    components: { SSelector, SButton },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const query = ref('');
+        const computedCities = ref(manyCities.value);
+        const isLoading = ref(false);
+
+        const updateQuery = (q: string) => (query.value = q);
+
+        watch(query, () => {
+            if (query.value === '') {
+                computedCities.value = manyCities.value;
+                return;
+            }
+
+            isLoading.value = true;
+            setTimeout(() => {
+                computedCities.value = manyCities.value.filter((city) =>
+                    city.name.toLowerCase().includes(query.value.toLowerCase()),
+                );
+                isLoading.value = false;
+            }, 500);
+        });
+
+        return { value, computedCities, query, updateQuery, isLoading };
+    },
+    template: `
+    <!-- manyCities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+    { name: 'Berlin', code: 'BER' },
+    { name: 'Frankfurt', code: 'FRF' },
+    { name: 'Hamburg', code: 'HMB' },
+    { name: 'Munich', code: 'MUN' },
+    { name: 'Chicago', code: 'CHI' },
+    { name: 'Los Angeles', code: 'LAX' },
+    { name: 'New York', code: 'NYC' },
+    { name: 'San Francisco', code: 'SFO' },
+    { name: 'Kyoto', code: 'KYO' },
+    { name: 'Osaka', code: 'OSA' },
+    { name: 'Tokyo', code: 'TYO' },
+    { name: 'Yokohama', code: 'YOK' },
+]     
+-->
+<SSelector v-model="value" search :loading="isLoading" :options="computedCities" optionLabel="name" placeholder="Select a City" class="w-80" @query="updateQuery" />
+
+<p>Query: <span>{{ query }}</span></p>`,
+});
+
+export const SearchClearable = createVariation({
+    components: { SSelector, SButton },
+    containerClass: 'flex gap-4',
+    setup: () => {
+        const value = ref();
+        const query = ref('');
+        const computedCities = ref(cities.value);
+        const isLoading = ref(false);
+
+        const updateQuery = (q: string) => (query.value = q);
+
+        watch(query, () => {
+            if (query.value === '') {
+                computedCities.value = cities.value;
+                return;
+            }
+
+            isLoading.value = true;
+            setTimeout(() => {
+                computedCities.value = cities.value.filter((city) =>
+                    city.name.toLowerCase().includes(query.value.toLowerCase()),
+                );
+                isLoading.value = false;
+            }, 500);
+        });
+
+        return { value, computedCities, query, updateQuery, isLoading };
+    },
+    template: `
+<!-- cities: [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+] 
+computedCities: cities.value.filter(city => city.name.toLowerCase().includes(query.value.toLowerCase()));    
+-->
+<SSelector v-model="value" search clearable :loading="isLoading" :options="computedCities" optionLabel="name" placeholder="Select a City" class="w-80" @query="updateQuery" />
+
+<p>Query: <span>{{ query }}</span></p>`,
 });

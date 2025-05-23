@@ -1,4 +1,6 @@
 export type TDefinitionTermProps = {
-    labels: string | string[];
-    description: string;
+    class?: string;
+    labels?: string | string[];
+    description?: string;
+    oneline?: boolean;
 };

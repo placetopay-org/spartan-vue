@@ -55,7 +55,7 @@ const indicatorStyle = {
                     { 'text-gray-600': isComplete, 'text-gray-900': isCurrent, 'text-gray-400': isUpcoming },
                 ]"
             >
-                <slot name="description" v-if="hasDescription.slot" />
+                <slot v-if="hasDescription.slot" name="description" />
                 <template v-else>{{ description }}</template>
             </span>
         </span>

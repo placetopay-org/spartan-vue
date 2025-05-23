@@ -1,6 +1,6 @@
 import STab from './STab.vue';
 import STabItem from './STabItem.vue';
-import { SDropdown, SDropdownItem } from '../SDropdown';
+import { SDropdown } from '../SDropdown';
 import { buildSourceBinding, createDefault, createVariation, createHistory } from '@/helpers';
 import { BuildingOfficeIcon, CreditCardIcon, UserIcon, UsersIcon } from '@heroicons/vue/20/solid';
 import { ref } from 'vue';

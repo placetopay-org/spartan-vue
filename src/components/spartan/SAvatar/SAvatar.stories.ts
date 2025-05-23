@@ -90,7 +90,7 @@ const createVariation = (
         template,
         setup: () => {
             return { ArrowLeftEndOnRectangleIcon };
-        }
+        },
     });
 
 export const Size = createVariation(

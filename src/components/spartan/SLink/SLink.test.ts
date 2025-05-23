@@ -19,7 +19,7 @@ describe('SLInk', () => {
         const wrapper = mount(SLink, {
             props: { href: 'https://www.test-url.com' },
         });
-    
+
         // Assert
         expect(wrapper.html()).toContain('href="https://www.test-url.com"');
         expect(wrapper.html()).toContain('class="cursor-pointer font-medium hover:text-gray-700 hover:underline"');
@@ -27,12 +27,12 @@ describe('SLInk', () => {
 
     test('Renders optional properties', () => {
         // Arrange
-        const baseProps = { href: 'https://www.test-url.com' };	
+        const baseProps = { href: 'https://www.test-url.com' };
 
         // Act
         const noTarget = mount(SLink, { props: baseProps });
         const withTarget = mount(SLink, { props: { ...baseProps, target: '_blank' } });
-    
+
         // Assert
         expect(noTarget.html()).not.toContain('target="_blank"');
         expect(withTarget.html()).toContain('target="_blank"');

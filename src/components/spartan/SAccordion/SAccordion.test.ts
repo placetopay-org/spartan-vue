@@ -24,7 +24,7 @@ describe('SAccordion', () => {
 
     test('It is hidden with open=false', () => {
         // Act
-        render(SAccordion, { props: { open: false }, slots: { default: 'Test Content' }  });
+        render(SAccordion, { props: { open: false }, slots: { default: 'Test Content' } });
 
         // Assert
         expect(screen.queryByText('Test Content')?.parentElement).toHaveClass('[grid-template-columns:0fr]');
@@ -41,7 +41,7 @@ describe('SAccordion', () => {
     test('Can be change his visibility', async () => {
         // Act
         const { rerender } = render(SAccordion, { props: { open: true }, slots: { default: 'Test Content' } });
-        
+
         expect(screen.queryByText('Test Content')?.parentElement).toHaveClass('[grid-template-columns:1fr]');
 
         await rerender({ open: false });

@@ -30,7 +30,7 @@ const hasOnlyOneSlot = computed(() => {
 });
 
 const ariaCurrent = computed<{ 'aria-current': 'step' } | undefined>(() =>
-    isCurrent ? { 'aria-current': 'step' } : undefined,
+    isCurrent.value ? { 'aria-current': 'step' } : undefined,
 );
 
 const context = useContext('SStepsItem');
@@ -57,7 +57,7 @@ const itemData = computed<TStepItemData>(() => ({
 <template>
     <li :class="itemStyle">
         <template v-if="context.variant === 'circlesWithText'">
-            <StepLine :last="props.last" :isComplete="isComplete" />
+            <StepLine :last="props.last" :is-complete="isComplete" />
             <CircleWithText v-bind="itemData">
                 <slot />
                 <template #description><slot name="description" /></template>

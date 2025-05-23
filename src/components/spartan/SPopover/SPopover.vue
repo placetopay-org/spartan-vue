@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
-import { ref, computed, nextTick, watch, h, Teleport } from 'vue';
+import { ref, computed, nextTick, Teleport } from 'vue';
 import { useFloating, autoUpdate, flip, offset as setOffset, arrow as setArrow } from '@floating-ui/vue';
 import { useMediaQuery } from '@vueuse/core';
 import { arrowStyles, popoverContainerStyles, popoverFloatingStyles } from './styles';
@@ -17,6 +16,7 @@ const props = withDefaults(defineProps<TPopoverProps>(), {
     offset: 0,
     placement: 'bottom-start',
     preventClose: false,
+    preventFocus: false,
     responsive: true,
 });
 
@@ -60,6 +60,7 @@ const focus = () => {
 
 const open = () => {
     isOpen.value = true;
+    if (props.preventFocus) return;
     nextTick(() => {
         // prevent jumping
         setTimeout(() => {
@@ -96,6 +97,7 @@ const handlers = {
     close,
     toggle,
     focus,
+    focusout,
 };
 
 defineExpose(handlers);
@@ -129,15 +131,15 @@ const arrowPosition = computed(() => {
 </script>
 
 <template>
-    <div :class="$props.class" ref="reference" tabindex="-1">
+    <div ref="reference" :class="$props.class" tabindex="-1">
         <slot name="reference" v-bind="handlers" />
     </div>
 
     <Teleport to="body">
         <Transition v-bind="TranStyle.fade">
             <div
-                v-if="!isLargeScreen && isOpen && responsive"
-                :class="twMerge('fixed inset-0 bg-black/30', '')"
+                v-if="isOpen && !isLargeScreen && responsive"
+                class="fixed inset-0 z-40 bg-black/30"
                 aria-hidden="true"
             />
         </Transition>
@@ -147,21 +149,16 @@ const arrowPosition = computed(() => {
                 <div
                     v-if="isOpen || useShow"
                     v-show="isOpen"
-                    :class="popoverFloatingStyles({ responsive })"
                     ref="floating"
-                    class="focus-visible:outline-none z-40"
+                    :class="popoverFloatingStyles({ responsive })"
+                    class="z-40 focus-visible:outline-none"
                     :style="styles"
                     tabindex="-1"
                     @focus="focusFirstChild"
                     @focusout="focusout"
                 >
                     <slot v-bind="handlers" />
-                    <div
-                        v-if="arrow"
-                        ref="arrowRef"
-                        :class="arrowStyles({ color: arrow })"
-                        :style="arrowPosition"
-                    />
+                    <div v-if="arrow" ref="arrowRef" :class="arrowStyles({ color: arrow })" :style="arrowPosition" />
                 </div>
             </Transition>
         </div>

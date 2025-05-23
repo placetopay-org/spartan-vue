@@ -1,6 +1,5 @@
 import SModal from './SModal.vue';
-import SModalTitle from './SModalTitle.vue';
-import SModalDescription from './SModalDescription.vue';
+import { SSelectorBlock } from '@spartan';
 import { ref } from 'vue';
 import { SButton } from '../SButton';
 import { createDefault, createVariation, createHistory } from '@/helpers';
@@ -101,36 +100,60 @@ export const WithCloseTrigger = createVariation({
 <SButton @click="() => open = true">Open Modal</SButton>`,
 });
 
-export const WithAccessibleTitle = createVariation({
-    components: { SModal, SButton, SModalTitle },
+export const PreventClose = createVariation({
+    components: { SModal, SButton },
     setup: () => {
         const open = ref(false);
 
         return { open };
     },
-    template: `<SModal :open="open" @close="() => open = false">
+    template: `<SModal :open="open" @close="() => open = false" preventClose>
     <div class="bg-yellow-300 flex flex-col gap-10 w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 justify-center items-center">
-        <SModalTitle class="bg-red-300 px-4 py-1 border-4 border-dashed border-red-600">Modal Title</SModalTitle>
-    
         <span>Any Element</span>
+
+        <button class="bg-blue-300 px-4 py-2 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex items-center" @click="() => open = false">Close trigger!</button>
     </div>
 </SModal>
     
 <SButton @click="() => open = true">Open Modal</SButton>`,
 });
 
-export const WithAccessibleDescription = createVariation({
-    components: { SModal, SButton, SModalDescription },
+export const NoResponsive = createVariation({
+    components: { SModal, SButton },
     setup: () => {
         const open = ref(false);
 
         return { open };
     },
-    template: `<SModal :open="open" @close="() => open = false">
-    <div class="p-4 bg-yellow-300 gap-4 flex flex-col w-80 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 items-center">
+    template: `<SModal :open="open" @close="() => open = false" :responsive="false">
+    <div class="bg-yellow-300 flex flex-col gap-10 w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 justify-center items-center">
         <span>Any Element</span>
 
-        <SModalDescription class="bg-green-300 px-10 py-20 border-4 border-dashed border-green-600 text-base">Modal Description!</SModalDescription>
+        <button class="bg-blue-300 px-4 py-2 border-dashed border-4 border-blue-600 font-bold text-blue-800 flex items-center" @click="() => open = false">Close trigger!</button>
+    </div>
+</SModal>
+    
+<SButton @click="() => open = true">Open Modal</SButton>`,
+});
+
+export const Custom = createVariation({
+    components: { SModal, SButton, SSelectorBlock },
+    setup: () => {
+        const open = ref(false);
+        const option = ref({ label: 'Option 1', value: '1' });
+
+        const options = [
+            { label: 'Option 1', value: '1' },
+            { label: 'Option 2', value: '2' },
+        ];
+
+        return { open, option, options };
+    },
+    template: `<SModal :open="open" @close="() => open = false">
+    <div class="bg-yellow-300 p-8 flex flex-col gap-10 w-80 h-36 border-dashed border-4 border-yellow-600 font-bold text-yellow-800 justify-center items-center">
+        <SSelectorBlock v-model="option" :options="options" optionLabel="label" />
+    
+        <span>Custom: {{ option.value }}</span>
     </div>
 </SModal>
     

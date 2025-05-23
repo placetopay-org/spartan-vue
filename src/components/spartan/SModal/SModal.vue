@@ -1,58 +1,58 @@
 <script setup lang="ts">
-import { TransitionChild, DialogPanel } from '@headlessui/vue';
-import { ModalBackdropWrapper } from '@internal';
 import type { TModalProps } from './types';
 import { twMerge } from 'tailwind-merge';
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
+import { TranStyle } from '@/constants';
+import { usePassthrough } from '@/helpers';
 
 defineOptions({ inheritAttrs: false });
-defineEmits(['close']);
+const emit = defineEmits(['close']);
 
-const props = withDefaults(defineProps<Partial<TModalProps>>(), {
+const { pt, extractor } = usePassthrough();
+
+const [containerClass, containerProps] = extractor(pt.value.container);
+
+const props = withDefaults(defineProps<TModalProps>(), {
     open: false,
     responsive: true,
 });
 
-const finalPosition = computed(() => {
-    let positionStyle = 'items-center';
-
-    if (props.position === 'top') positionStyle = 'items-start';
-    if (props.position === 'nearTop') positionStyle = 'items-start mt-20';
-    if (props.position === 'bottom') positionStyle = 'items-end';
-
-    // included in the tailwind safelist
-    if (props.responsive) return `items-end sm:${positionStyle}`;
-
-    return positionStyle;
+watchEffect(() => {
+    if (props.open) {
+        document.documentElement.style.overflow = 'hidden';
+    } else {
+        setTimeout(() => {
+            document.documentElement.style.overflow = '';
+        }, 150);
+    }
 });
+
+const containerStyles = computed(() =>
+    props.responsive
+        ? 'bottom-4 px-4 w-full sm:w-auto sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto'
+        : 'top-1/2 -translate-y-1/2',
+);
 </script>
 
 <template>
-    <ModalBackdropWrapper :show="open" @close="$emit('close')">
-        <div class="fixed inset-0 w-screen overflow-y-auto">
-            <div
-                :class="
-                    twMerge(
-                        'flex min-h-full justify-center p-4',
-                        responsive && 'items-end sm:items-center',
-                        finalPosition,
-                    )
-                "
-            >
-                <TransitionChild
-                    as="template"
-                    enter="duration-300 ease-out"
-                    enter-from="opacity-0 scale-50"
-                    enter-to="opacity-100 scale-100"
-                    leave="duration-200 ease-in"
-                    leave-from="opacity-100 scale-100"
-                    leave-to="opacity-0 scale-50"
-                >
-                    <DialogPanel class="flex w-full justify-center sm:max-w-max">
-                        <slot />
-                    </DialogPanel>
-                </TransitionChild>
+    <Teleport to="body">
+        <Transition v-bind="TranStyle.fade">
+            <div v-if="open" class="fixed inset-0 z-40">
+                <div class="absolute inset-0 z-40 bg-black/30" aria-hidden="true" />
             </div>
-        </div>
-    </ModalBackdropWrapper>
+        </Transition>
+
+        <Transition v-bind="TranStyle.vertical">
+            <div v-if="open" class="fixed inset-0 z-40" @click="!preventClose && $emit('close')">
+                <div
+                    data-s-container
+                    v-bind="containerProps"
+                    :class="twMerge('absolute left-1/2 z-40 -translate-x-1/2', containerStyles, containerClass)"
+                    @click.stop
+                >
+                    <slot />
+                </div>
+            </div>
+        </Transition>
+    </Teleport>
 </template>

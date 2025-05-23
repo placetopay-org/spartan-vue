@@ -20,7 +20,7 @@ const inputProps = computed<Partial<TInputProps>>(() => {
             label: currency,
             value: currency,
         })),
-        prefix: symbol ? Currencies[currency].symbol ?? '$' : undefined,
+        prefix: symbol ? (Currencies[currency].symbol ?? '$') : undefined,
         suffix: suffixCurrency ? currency : undefined,
     };
 });
@@ -95,7 +95,7 @@ watch(currencyOptions, (options) => {
     <SInput
         ref="inputRef"
         v-bind="inputProps"
-        :modelValue="formattedValue"
+        :model-value="formattedValue"
         @update:right-option="(value) => updateCurrencyAndInfo(value as keyof typeof Currencies)"
     >
         <template #left><slot name="left" /></template>

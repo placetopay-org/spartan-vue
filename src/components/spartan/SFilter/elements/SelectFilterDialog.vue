@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { translator } from '@/helpers';
 import { SButton, SPopover } from '../..';
-import { useContext } from '../api';
+import { useContext } from '../context';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { computed, ref } from 'vue';
 import { interfaceComponents } from '../constants';
+import { getOperatorId, getOperatorLabel, getOperators } from '../helpers';
+import type { TField, TInterfaceId, TOperator } from '../types';
 
 const emit = defineEmits<{
     (event: 'close'): void;
@@ -14,53 +16,66 @@ const { t } = translator('filter');
 
 const context = useContext('SelectFilterDialog');
 const field = context.activeField!;
+const operators = getOperators(field);
 
-const operators = ref(context.operatorData[field.id].operators);
-const operator = ref(operators.value[0]);
-const interfaceId = computed(() => context.operatorData[field.id].interfaces[operator.value.id]);
+const tempOperator = ref(field.state?.operator || operators[0]);
+const tempInterface = computed<TInterfaceId>(() => {
+    if (!field.interfaces) return 'none';
 
-const selectOperator = (newOperator: typeof operator.value, close: () => void) => {
-    operator.value = newOperator;
+    const entry = Object.entries(field.interfaces).find(([, interfaceData]) =>
+        interfaceData.operators.some((o) => o === tempOperator.value),
+    );
+
+    return entry![0] as TInterfaceId;
+});
+const tempInterfaceConfig = computed(() => {
+    if (!field.interfaces || !tempInterface.value) return {};
+    return (field.interfaces as any)[tempInterface.value];
+});
+
+const selectOperator = (newOperator: TOperator, close: () => void) => {
+    tempOperator.value = newOperator;
     close();
-}
+};
 
-const value = ref(field.state?.value ?? undefined);
+const value = ref(field.state?.value);
 
 const add = () => {
+    if (!tempOperator.value) return;
     field.state = {
-        operator: operator.value.id,
+        operator: tempOperator.value,
         value: value.value,
-    };
+    } as TField['state'];
     emit('close');
 };
 
-const disabled = computed(() => (!value.value || value.value.length === 0) && interfaceId.value !== 'none');
+const disabled = computed(() => (!value.value || value.value.length === 0) && tempInterface.value !== 'none');
 </script>
 
 <template>
-    <div class="flex max-h-96 min-w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl">
+    <div class="flex max-h-96 w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl">
         <div class="flex items-center gap-3">
             <span>{{ field.name }}</span>
-            
-            <SPopover :offset="8">
+
+            <SPopover :offset="8" :responsive="context.responsive">
                 <template #reference="{ toggle }">
                     <button
                         class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pl-3 pr-2 text-gray-800"
                         @click="toggle"
                     >
-                        <span>{{ t(`operator.${operator.id}`) }}</span>
+                        <span>{{ getOperatorLabel(tempOperator) }}</span>
                         <ChevronDownIcon class="h-5 w-5 text-gray-600" />
                     </button>
                 </template>
 
                 <template #default="{ close }">
                     <ul class="divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white shadow-2xl">
-                        <li v-for="operator in operators" :key="operator.id">
+                        <li v-for="operator in operators" :key="getOperatorId(operator)">
                             <button
                                 class="w-full whitespace-nowrap p-3 text-left text-sm font-medium text-gray-800 hover:bg-gray-50"
                                 @click="selectOperator(operator, close)"
                             >
-                                {{ t(`operator.${operator.id}`) }}
+                                {{ getOperatorLabel(operator) }}
                             </button>
                         </li>
                     </ul>
@@ -68,7 +83,7 @@ const disabled = computed(() => (!value.value || value.value.length === 0) && in
             </SPopover>
         </div>
 
-        <component :is="interfaceComponents[interfaceId]" :config="field.interfaces[interfaceId]" v-model="value"/>
+        <component :is="interfaceComponents[tempInterface]" v-model="value" :config="tempInterfaceConfig" />
 
         <div class="flex gap-3">
             <SButton class="w-full" variant="secondary" @click="$emit('close')">{{ t('cancelBtn') }}</SButton>

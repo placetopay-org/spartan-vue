@@ -1,6 +1,5 @@
 import { ref } from 'vue';
 import STextArea from './STextArea.vue';
-import { SLabel } from '../SLabel';
 import { buildSourceBinding, createDefault, createHistory, createVariation } from '@/helpers';
 
 export default {

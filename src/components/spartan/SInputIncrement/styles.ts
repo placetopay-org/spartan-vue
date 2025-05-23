@@ -18,7 +18,7 @@ export const iconStyles = cva(
     ],
     {
         variants: {
-            disabled: cbv('pointer-events-none', 'group-hover:text-spartan-primary-600'),
+            disabled: cbv('pointer-events-none opacity-50', 'group-hover:text-spartan-primary-600'),
         },
     },
 );

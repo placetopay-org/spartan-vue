@@ -31,10 +31,25 @@ export default {
             description: 'When true, disables user interaction.',
             table: { type: { summary: 'boolean' } },
         },
+        min: {
+            control: 'number',
+            description: 'The minimum value of the input.',
+            table: { type: { summary: 'number' } },
+        },
+        max: {
+            control: 'number',
+            description: 'The maximum value of the input.',
+            table: { type: { summary: 'number' } },
+        },
     },
 };
 
-const sourceBinding = buildSourceBinding({});
+const sourceBinding = buildSourceBinding({
+    prop: {
+        min: undefined,
+        max: undefined,
+    },
+});
 
 export const Default = createDefault({
     components: { SInputIncrement },
@@ -43,10 +58,12 @@ export const Default = createDefault({
 
         return { value };
     },
-    template: `<SInputIncrement v-model="value" v-bind="args">{{args.default}}</SInputIncrement>`,
-    transform: (args) => `<SInputIncrement ${sourceBinding(args)}>${args.default}</SInputIncrement>`,
+    template: `<SInputIncrement v-model="value" v-bind="args" />`,
+    transform: (args) => `<SInputIncrement ${sourceBinding(args)} />`,
     args: {
         disabled: false,
+        min: 3,
+        max: 10,
     },
 });
 

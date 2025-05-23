@@ -1,7 +1,6 @@
 import SSelect from './SSelect.vue';
 import { SButton } from '@spartan';
-import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
 
 export default {
@@ -67,11 +66,10 @@ export default {
     },
 };
 
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
-
-const sourceBinding = buildSourceBinding({});
+// const sourceBinding = buildSourceBinding({});
 
 export const Default = createDefault({
+    design: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842',
     components: { SSelect },
     template: `
 <SSelect v-bind="args" v-model="args.modelValue">
@@ -112,8 +110,8 @@ export const Placeholder = createVariation({
     <option value="3">option 3</option>
 </SSelect>
 
-<SButton @click="reset">Reset</SButton>`
-})
+<SButton @click="reset">Reset</SButton>`,
+});
 
 export const Error = createVariation({
     components: { SSelect, SButton },
@@ -129,8 +127,8 @@ export const Error = createVariation({
     <option value="1">option 1</option>
     <option value="2">option 2</option>
     <option value="3">option 3</option>
-</SSelect>`
-})
+</SSelect>`,
+});
 
 export const Disabled = createVariation({
     components: { SSelect, SButton },
@@ -146,8 +144,8 @@ export const Disabled = createVariation({
     <option value="1">option 1</option>
     <option value="2">option 2</option>
     <option value="3">option 3</option>
-</SSelect>`
-})
+</SSelect>`,
+});
 
 // const createVariation = (template: string, placeholder?: boolean) => ({
 //     decorators: [
@@ -178,8 +176,6 @@ export const Disabled = createVariation({
 //         },
 //     },
 // });
-
-
 
 // export const Disabled = createVariation(
 //     `
