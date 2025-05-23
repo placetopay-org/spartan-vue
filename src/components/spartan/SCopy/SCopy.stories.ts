@@ -23,6 +23,13 @@ export default {
         ],
         props: [
             {
+                name: 'class',
+                control: 'text',
+                type: 'string',
+                default: undefined,
+                description: 'The class to be applied to the component.',
+            },
+            {
                 name: 'value',
                 control: 'text',
                 type: 'string',
@@ -34,9 +41,8 @@ export default {
 };
 
 const sourceBinding = buildSourceBinding({
-    check: ['dot', 'outline', 'pill', 'removable'],
-    prop: { color: 'gray', size: 'md' },
-    emit: ['removed'],
+    prop: { class: undefined, value: undefined },
+    emit: ['copied'],
 });
 
 export const Default = createDefault({

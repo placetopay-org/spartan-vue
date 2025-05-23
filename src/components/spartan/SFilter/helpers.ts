@@ -1,5 +1,5 @@
 import { translator } from '@/helpers';
-import type { TField, TOperator, TOptions } from './types';
+import type { TCustomOperator, TField, TOperator, TOptions } from './types';
 
 export const buildLabel = (operator: string | TOperator, value?: any) => {
     const { t } = translator('filter.operator');
@@ -44,8 +44,7 @@ export const getOperatorLabel = (operator?: TOperator) => {
     return typeof operator === 'object' ? operator.label : t(getOperatorId(operator));
 };
 
-export const getOperatorTag = (operator: TOperator, value?: string | string[] | number | Date) => {
-    if (typeof operator === 'string') return '';
+export const getOperatorTag = (operator: TCustomOperator, value?: any) => {
     if (typeof operator.tag === 'function') return operator.tag(value);
-    return operator.tag || '';
+    return operator.tag || value || '';
 };

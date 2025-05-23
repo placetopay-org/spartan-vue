@@ -20,7 +20,7 @@ import type { TCardProps } from '../types';
 import { twMerge } from 'tailwind-merge';
 
 const { icon, iconColor, ptIcon, ptIconContainer } = defineProps<{
-    icon: TCardProps['icon'];
+    icon?: TCardProps['icon'];
     iconColor?: TCardProps['iconColor'];
     iconType: TCardProps['iconType'];
     ptIcon: any[];
