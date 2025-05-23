@@ -24,11 +24,13 @@ export default plugin.withOptions(
                 return acc;
             }, {});
 
+            if (options.includeFont !== false) {
+                config.addBase({ '@import': "url('https://rsms.me/inter/inter.css')" });
+            }
+
             config.addUtilities({
                 ':root': colorUtilities,
                 html: { '@apply antialiased': {} },
-                // "@import '@placetopay/spartan-vue/style.css';": true, NOT WORKS
-                // "@import url('https://rsms.me/inter/inter.css')": true, NOT WORKS
                 '.s-ring': {
                     '@apply duration-150 ring ring-spartan-primary-100 border-spartan-primary-300 z-10': {},
                 },

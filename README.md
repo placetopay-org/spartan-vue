@@ -63,6 +63,14 @@ If you desire to establish a custom primary color, you may incorporate the `prim
       }),
    ```
 
+If you want to avoid including the Inter font in your project, you can add the following parameter:
+
+```javascript
+require('@placetopay/spartan-vue/plugin')({
+   includeFont: false,
+}),
+```
+
 ## Usage
 ```html
 <script setup>
