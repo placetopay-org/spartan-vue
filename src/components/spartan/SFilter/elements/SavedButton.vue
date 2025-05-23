@@ -4,7 +4,7 @@ import { SPopover } from '../../SPopover';
 import { SInput } from '../../SInput';
 import { SCard } from '../../SCard';
 import { translator } from '@/helpers';
-import { useContext } from '../api';
+import { useContext } from '../context';
 import { FilterIcon, InfoCircleIcon } from '@placetopay/iconsax-vue/outline';
 import { InboxArrowDownIcon } from '@heroicons/vue/20/solid';
 import { computed, ref } from 'vue';
@@ -32,11 +32,81 @@ const closeSaveModal = () => {
 const saveNewFilter = () => {
     if (!savedFilterName.value.trim()) return;
 
-    const fields: Omit<TField, 'interfaces'>[] = [];
+    const fields: TField[] = [];
     context.fields?.forEach((field) => {
         if (field.state) {
-            const { interfaces, ...rest } = field;
-            fields.push({ ...rest });
+            let cleanField: TField;
+
+            if (field.interfaces?.none) {
+                cleanField = {
+                    id: field.id,
+                    name: field.name,
+                    interfaces: {
+                        none: {
+                            operators: field.interfaces.none.operators
+                        }
+                    },
+                    state: field.state
+                };
+            } else if (field.interfaces?.single) {
+                cleanField = {
+                    id: field.id,
+                    name: field.name,
+                    interfaces: {
+                        single: {
+                            inputType: field.interfaces.single.inputType,
+                            minorUnitMode: field.interfaces.single.minorUnitMode,
+                            currency: field.interfaces.single.currency,
+                            currencies: field.interfaces.single.currencies,
+                            operators: field.interfaces.single.operators
+                        }
+                    },
+                    state: field.state
+                };
+            } else if (field.interfaces?.range) {
+                cleanField = {
+                    id: field.id,
+                    name: field.name,
+                    interfaces: {
+                        range: {
+                            inputType: field.interfaces.range.inputType,
+                            minorUnitMode: field.interfaces.range.minorUnitMode,
+                            currency: field.interfaces.range.currency,
+                            currencies: field.interfaces.range.currencies,
+                            operators: field.interfaces.range.operators
+                        }
+                    },
+                    state: field.state
+                };
+            } else if (field.interfaces?.options) {
+                cleanField = {
+                    id: field.id,
+                    name: field.name,
+                    interfaces: {
+                        options: {
+                            options: field.interfaces.options.options,
+                            multiple: field.interfaces.options.multiple,
+                            operators: field.interfaces.options.operators
+                        }
+                    },
+                    state: field.state
+                };
+            } else if (field.interfaces?.selection) {
+                cleanField = {
+                    id: field.id,
+                    name: field.name,
+                    interfaces: {
+                        selection: {
+                            operators: field.interfaces.selection.operators
+                        }
+                    },
+                    state: field.state
+                };
+            } else {
+                return; // Skip invalid types
+            }
+
+            fields.push(cleanField);
         }
     });
 

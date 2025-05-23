@@ -1,15 +1,29 @@
+<script lang="ts">
+/**
+ * A versatile button component with multiple styles and appearances.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SFilter Github}.
+ * @see {@link https://develop--646e732a14dfaa707ad59b33.chromatic.com/?path=/docs/misc-filter--docs Storybook}.
+ */
+export default {
+    name: 'SFilter',
+};
+</script>
+
 <script setup lang="ts">
-import { SButton } from '../SButton';
-import AddFilterButton from './elements/AddFilterButton.vue';
 import FieldBadge from './elements/FieldBadge.vue';
 import SavedButton from './elements/SavedButton.vue';
-import type { SFilterProps, SFilterEmits, TField } from './types';
-import { createContext } from './api';
+import AddFilterButton from './elements/AddFilterButton.vue';
 import { onMounted } from 'vue';
+import { SButton } from '../SButton';
+import { createContext } from './context';
 import { translator } from '@/helpers';
+import type { TFilterProps, TFilterEmits, TField } from './types';
 
-const emit = defineEmits<SFilterEmits>();
-const props = withDefaults(defineProps<SFilterProps>(), {
+// Emits
+const emit = defineEmits<TFilterEmits>();
+
+// Props and Defaults
+const props = withDefaults(defineProps<TFilterProps>(), {
     responsive: true,
 });
 
@@ -18,11 +32,10 @@ const { t } = translator('filter');
 const context = createContext(props, emit);
 
 const apply = () => {
-    const fields: Omit<TField, 'interfaces'>[] = [];
+    const fields: TField[] = [];
     props.fields?.forEach((field) => {
         if (field.state) {
-            const { interfaces, ...rest } = field;
-            fields.push({ ...rest });
+            fields.push({ ...field });
         }
     });
     emit('apply', fields);
@@ -40,6 +53,7 @@ onMounted(() => {
     if (props.immediateApply) apply();
 });
 
+// Expose
 defineExpose({
     apply,
     clear,
@@ -47,17 +61,23 @@ defineExpose({
 </script>
 
 <template>
+    <!-- root -->
     <div class="flex gap-3 justify-between">
+        <!-- field badges -->
         <div class="flex w-full flex-wrap gap-3">
             <FieldBadge v-for="field in context.activeFields" :key="field.id" :field="field" />
+
             <AddFilterButton />
         </div>
 
+        <!-- action buttons -->
         <div class="flex gap-3" v-if="!hideApplyButton && !hideClearButton">
             <SavedButton v-if="saved" />
+
             <SButton v-if="!hideApplyButton" class="whitespace-nowrap h-[26px]" size="sm" rounded="full" @click="apply">
                 {{ t('applyBtn') }}
             </SButton>
+            
             <SButton v-if="!hideClearButton" class="whitespace-nowrap h-[26px]" size="sm" rounded="full" variant="secondary" @click="clear">
                 {{ t('clearBtn') }}
             </SButton>

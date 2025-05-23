@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { SInputTag } from '@spartan';
-import type { TSelectionInterface } from '../types';
+import type { ISelectionConfig } from './types';
 import { translator } from '@/helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string[] | string;
-    config: TSelectionInterface;
+    config: ISelectionConfig;
 }>();
 
 const { t } = translator('filter');

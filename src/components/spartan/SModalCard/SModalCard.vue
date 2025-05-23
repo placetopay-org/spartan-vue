@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { twMerge, type ClassNameValue } from 'tailwind-merge';
 import { computed } from 'vue';
 import { SCard, type TCardProps } from '../SCard';
 import { SModal, type TModalProps } from '../SModal';

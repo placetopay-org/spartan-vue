@@ -2,7 +2,7 @@
 import { SBadge, SPopover } from '../..';
 import SelectFilterDialog from './SelectFilterDialog.vue';
 import type { TField } from '../types';
-import { useContext } from '../api';
+import { useContext } from '../context';
 import { ref } from 'vue';
 
 const props = defineProps<{
