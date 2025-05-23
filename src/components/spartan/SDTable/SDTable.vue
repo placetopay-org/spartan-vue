@@ -18,8 +18,8 @@ createContext(props, emit, slots);
 const { pt, extractor } = usePassthrough();
 
 const [tableClass, tableProps] = extractor(pt.value.table);
-const PtThead = extractor(pt.value.thead);
-const PtPaginator = extractor(pt.value.paginator);
+const ptThead = extractor(pt.value.thead);
+const ptPaginator = extractor(pt.value.paginator);
 </script>
 
 <template>

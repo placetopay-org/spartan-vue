@@ -13,6 +13,7 @@ export const roundedClass = {
 export const createBooleanVariation = (trueStyle?: string | string[], falseStyle?: string | string[]) => ({
     true: trueStyle,
     false: falseStyle,
+    undefined: falseStyle,
 });
 
 export const cbv = createBooleanVariation;

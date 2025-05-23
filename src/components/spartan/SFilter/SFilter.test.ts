@@ -46,7 +46,7 @@ describe('SFilter', () => {
 
         // Assert
         screen.getByText('Brand |');
-        screen.getByText('Adidas');
+        screen.getByText('$spartan.filter.operator.equal Adidas');
         screen.getByRole('button', { name: 'Remove' });
     });
 
@@ -80,7 +80,7 @@ describe('SFilter', () => {
             },
         });
 
-        const filterBadge = screen.getByRole('button', { name: 'Brand | Adidas Remove' });
+        const filterBadge = screen.getByRole('button', { name: 'Brand | $spartan.filter.operator.equal Adidas Remove' });
 
         await user.click(filterBadge);
 
@@ -91,7 +91,7 @@ describe('SFilter', () => {
         await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
 
         // Assert
-        screen.getByText('Adidas,Puma');
+        screen.getByText('$spartan.filter.operator.equal Adidas, Puma');
     });
 
     test('Can be update a field with one input interfaces', async () => {
@@ -124,7 +124,7 @@ describe('SFilter', () => {
             },
         });
 
-        const filterBadge = screen.getByRole('button', { name: 'Price | 100 Remove' });
+        const filterBadge = screen.getByRole('button', { name: 'Price | $spartan.filter.operator.equal 100 Remove' });
 
         await user.click(filterBadge);
 
@@ -138,7 +138,7 @@ describe('SFilter', () => {
         await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
 
         // Assert
-        screen.getByRole('button', { name: 'Price | 200 Remove' });
+        screen.getByRole('button', { name: 'Price | $spartan.filter.operator.equal 200 Remove' });
     });
 
     test('Can be update a field with two input interfaces', async () => {
@@ -171,7 +171,7 @@ describe('SFilter', () => {
         });
 
         const filterBadge = screen.getByRole('button', {
-            name: 'Price | $spartan.filter.operator.between 100,200 Remove',
+            name: 'Price | $spartan.filter.operator.between 100, 200 Remove',
         });
 
         await user.click(filterBadge);
@@ -189,6 +189,6 @@ describe('SFilter', () => {
         await user.click(screen.getByRole('button', { name: '$spartan.filter.applyBtn' }));
 
         // Assert
-        screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 300,600 Remove' });
+        screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 300, 600 Remove' });
     });
 });

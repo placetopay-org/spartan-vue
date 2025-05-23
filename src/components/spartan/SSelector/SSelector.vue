@@ -68,7 +68,7 @@ const refreshInput = () => {
 };
 
 const resetOptions = () => {
-    computedOptions.value = structuredClone(options);
+    computedOptions.value = [...options];
 };
 
 const label = computed(() => {
@@ -76,7 +76,7 @@ const label = computed(() => {
     return modelValue?.[optionLabel];
 });
 
-const computedOptions = ref(structuredClone(options));
+const computedOptions = ref([...options]);
 
 const updateQuery = (query: string) => {
     emit('query', query);
@@ -87,7 +87,7 @@ const updateQuery = (query: string) => {
             return option;
         };
 
-        computedOptions.value = structuredClone(options).filter((option) =>
+        computedOptions.value = [...options].filter((option) =>
             getOptionLabel(option).toLowerCase().includes(query),
         );
     }
@@ -102,7 +102,7 @@ watch(
 </script>
 
 <template>
-    <SelectorLayout ref="selectorLayout" :width="optionsWidth" :pt-options @close="refreshInput">
+    <SelectorLayout ref="selectorLayout" :width="optionsWidth" :ptOptions @close="refreshInput">
         <template #button>
             <SelectorButton
                 ref="selectorButton"

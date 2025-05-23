@@ -102,7 +102,7 @@ const refreshInput = () => {
 </script>
 
 <template>
-    <SelectorLayout ref="$selectorLayout" :width="buttonWidth" :pt-options @close="refreshInput">
+    <SelectorLayout ref="$selectorLayout" :width="buttonWidth" :ptOptions @close="refreshInput">
         <template #button>
             <SelectorButton
                 ref="$selectorButton"
