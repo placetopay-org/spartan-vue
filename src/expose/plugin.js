@@ -24,8 +24,6 @@ export default plugin.withOptions(
                 return acc;
             }, {});
 
-            config.addBase({ "@import '@placetopay/spartan-vue/style.css'": true });
-
             if (options.includeFont !== false) {
                 config.addBase({ '@import': "url('https://rsms.me/inter/inter.css')" });
             }
