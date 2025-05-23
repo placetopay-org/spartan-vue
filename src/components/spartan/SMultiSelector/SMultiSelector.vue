@@ -28,7 +28,7 @@ const { pt, extractor } = usePassthrough();
 
 const { t } = translator('selector');
 
-const PtOptions = extractor(pt.value.options);
+const ptOptions = extractor(pt.value.options);
 
 const $selectorLayout = useTemplateRef<any>('$selectorLayout');
 const $selectorButton = useTemplateRef<any>('$selectorButton');
@@ -102,7 +102,7 @@ const refreshInput = () => {
 </script>
 
 <template>
-    <SelectorLayout ref="$selectorLayout" :width="buttonWidth" :PtOptions="PtOptions" @close="refreshInput">
+    <SelectorLayout ref="$selectorLayout" :width="buttonWidth" :pt-options @close="refreshInput">
         <template #button>
             <SelectorButton
                 ref="$selectorButton"

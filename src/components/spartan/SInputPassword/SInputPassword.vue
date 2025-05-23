@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { SInput, type TInputProps } from '@spartan';
 import type { TInputPasswordProps, TInputPasswordEmits, TState, TValidatorKey } from './types';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline';

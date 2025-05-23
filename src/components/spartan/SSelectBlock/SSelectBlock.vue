@@ -11,7 +11,7 @@ const [blockWrapperProps, selectProps] = extractWrapperProps<Partial<TSelectProp
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SSelectBlock" v-bind="blockWrapperProps">
         <SSelect
-            :id="id"
+            :id
             class="w-full"
             v-bind="selectProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"

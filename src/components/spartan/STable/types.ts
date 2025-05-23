@@ -12,4 +12,4 @@ export type TTableHeadCellProps = {
     class?: ClassNameValue;
 };
 
-export type TTableEmits = {};
+export type TTableEmits = Record<string, never>;

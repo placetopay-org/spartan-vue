@@ -11,7 +11,7 @@ const [blockWrapperProps, inputProps] = extractWrapperProps<Partial<TInputProps>
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SInputBlock" v-bind="blockWrapperProps">
         <SInput
-            :id="id"
+            :id
             class="w-full"
             v-bind="inputProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"

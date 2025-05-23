@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import { SquaresPlusIcon, CheckCircleIcon } from '@heroicons/vue/24/outline';
-import {
-    SquaresPlusIcon as SquaresPlusIconSolid,
-    CheckCircleIcon as CheckCircleIconSolid,
-} from '@heroicons/vue/24/solid';
 import {
     ElementPlusIcon as ElementPlusIconBulk,
     MessageSearchIcon as MessageSearchIconBulk,
@@ -24,16 +19,16 @@ import { computed } from 'vue';
 import type { TCardProps } from '../types';
 import { twMerge } from 'tailwind-merge';
 
-const { icon, iconColor, PtIcon, PtIconContainer } = defineProps<{
+const { icon, iconColor, ptIcon, ptIconContainer } = defineProps<{
     icon: TCardProps['icon'];
     iconColor?: TCardProps['iconColor'];
     iconType: TCardProps['iconType'];
-    PtIcon: any[];
-    PtIconContainer: any[];
+    ptIcon: any[];
+    ptIconContainer: any[];
 }>();
 
-const [iconClass, iconProps] = PtIcon;
-const [iconContainerClass, iconContainerProps] = PtIconContainer;
+const [iconClass, iconProps] = ptIcon;
+const [iconContainerClass, iconContainerProps] = ptIconContainer;
 
 const availableVariants = ['primary', 'secondary', 'success', 'danger', 'warning', 'info'];
 

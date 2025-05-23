@@ -95,7 +95,9 @@ const lang = ref(0);
                     </div>
                 </template>
 
-                <SDropdownItem v-for="(item, index) in langs" @click="lang = index">{{ item }}</SDropdownItem>
+                <SDropdownItem v-for="(item, index) in langs" :key="index" @click="lang = index">{{
+                    item
+                }}</SDropdownItem>
             </SDropdown>
         </footer>
     </div>

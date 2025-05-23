@@ -7,13 +7,13 @@ import { twMerge } from 'tailwind-merge';
 import { cellStyles } from '../../styles';
 import ExpanderButton from '../ExpanderButton.vue';
 
-const { PtThead } = defineProps<{
-    PtThead: any[];
+const { ptThead } = defineProps<{
+    ptThead: any[];
 }>();
 
 const context = useContext('TableHead');
 
-const [theadClass, theadProps] = PtThead;
+const [theadClass, theadProps] = ptThead;
 
 const isAllExpanded = computed(() => context.rows.every((row) => row.isExpanded));
 const toggleAllExpanders = () => {

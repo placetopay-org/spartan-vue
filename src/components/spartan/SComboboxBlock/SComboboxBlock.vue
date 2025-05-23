@@ -11,7 +11,7 @@ const [blockWrapperProps, comboboxProps] = extractWrapperProps<TComboboxProps>(p
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SComboboxBlock" v-bind="blockWrapperProps">
         <SCombobox
-            :id="id"
+            :id
             class="w-full"
             v-bind="comboboxProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"

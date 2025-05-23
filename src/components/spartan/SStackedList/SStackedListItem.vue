@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
-import { SDropdown, SDropdownItem } from '..';
+import { SDropdown } from '..';
 import type { TStackedListItemProps } from './types';
 import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid';
 import { hasSlotContent } from '@/helpers';

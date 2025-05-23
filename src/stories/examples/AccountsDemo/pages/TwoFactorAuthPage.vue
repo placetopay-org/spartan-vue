@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { SModalLeft, SAvatar, SButton, SInputBlock, SSelectBlock, SPlacetopayLogo } from '@spartan';
-import { LockIcon, UserTagIcon, SmsEditIcon, ShieldTickIcon } from '@placetopay/iconsax-vue/linear';
-import { ArrowLeftIcon } from '@heroicons/vue/24/solid';
-import { EyeSlashIcon, Bars3Icon } from '@heroicons/vue/24/outline';
+import { SModalLeft, SButton, SPlacetopayLogo } from '@spartan';
+import { ShieldTickIcon } from '@placetopay/iconsax-vue/linear';
+import { Bars3Icon } from '@heroicons/vue/24/outline';
 import VSidebar from '../components/VSidebar.vue';
 import { ref } from 'vue';
 

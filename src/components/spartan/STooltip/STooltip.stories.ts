@@ -1,5 +1,5 @@
 import STooltip from './STooltip.vue';
-import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { buildSourceBinding, createDefault } from '@/helpers';
 
 export default {
     component: STooltip,

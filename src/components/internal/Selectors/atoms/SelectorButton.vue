@@ -6,6 +6,10 @@ import { twMerge } from 'tailwind-merge';
 import { buttonStyles } from '../styles';
 import type { TRounded } from '@/constants';
 
+defineEmits<{
+    (e: 'clear'): void;
+}>();
+
 defineProps<{
     class?: string;
     disabled?: boolean;

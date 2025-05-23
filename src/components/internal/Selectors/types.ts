@@ -11,5 +11,5 @@ export type TSelectorLayoutProps = {
     optionGroupLabel?: string;
     optionGroupItems?: string;
     width: number;
-    PtOptions: any[];
+    ptOptions: any[];
 };

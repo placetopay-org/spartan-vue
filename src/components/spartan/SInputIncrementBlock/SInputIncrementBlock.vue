@@ -11,7 +11,7 @@ const [blockWrapperProps, inputIncrementProps] = extractWrapperProps<TInputIncre
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SInputBlock" v-bind="blockWrapperProps">
         <SInputIncrement
-            :id="id"
+            :id
             class="w-full"
             v-bind="inputIncrementProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"

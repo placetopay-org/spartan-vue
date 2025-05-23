@@ -18,7 +18,7 @@ const {
 } = defineProps<TSelectorProps & TPopoverProps>();
 const { pt, extractor } = usePassthrough();
 
-const PtOptions = extractor(pt.value.options);
+const ptOptions = extractor(pt.value.options);
 
 const $selectorLayout = useTemplateRef<typeof SelectorLayout>('selectorLayout');
 const $selectorButton = useTemplateRef<typeof SelectorButton>('selectorButton');
@@ -95,14 +95,14 @@ const updateQuery = (query: string) => {
 
 watch(
     () => options,
-    (value) => {
+    () => {
         resetOptions();
     },
 );
 </script>
 
 <template>
-    <SelectorLayout ref="selectorLayout" :width="optionsWidth" :PtOptions="PtOptions" @close="refreshInput">
+    <SelectorLayout ref="selectorLayout" :width="optionsWidth" :pt-options @close="refreshInput">
         <template #button>
             <SelectorButton
                 ref="selectorButton"

@@ -4,13 +4,13 @@ import { useContext } from '../../api';
 import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 
-const { PtPaginator } = defineProps<{
-    PtPaginator: any[];
+const { ptPaginator } = defineProps<{
+    ptPaginator: any[];
 }>();
 
 const context = useContext('TablePaginator');
 
-const [paginatorClass, paginatorProps] = PtPaginator;
+const [paginatorClass, paginatorProps] = ptPaginator;
 
 const count = computed(() => {
     return (

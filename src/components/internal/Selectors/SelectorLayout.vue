@@ -5,9 +5,13 @@ import { SPopover } from '@spartan';
 import { twMerge } from 'tailwind-merge';
 import { useTemplateRef } from 'vue';
 
-const { PtOptions } = defineProps<TSelectorLayoutProps & TPopoverProps>();
+defineEmits<{
+    (e: 'close'): void;
+}>();
 
-const [optionsClass, optionsProps] = PtOptions;
+const { ptOptions } = defineProps<TSelectorLayoutProps & TPopoverProps>();
+
+const [optionsClass, optionsProps] = ptOptions;
 
 const $popover = useTemplateRef('popover');
 const $options = useTemplateRef('options');

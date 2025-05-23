@@ -1,7 +1,6 @@
 import type { Component } from 'vue';
 import type {
     TInterfaceId,
-    TOperator,
     TExistenceOperator,
     TComparisonOperator,
     TTextOperator,

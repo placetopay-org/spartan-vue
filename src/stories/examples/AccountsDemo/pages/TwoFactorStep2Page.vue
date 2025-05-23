@@ -1,20 +1,8 @@
 <script setup lang="ts">
 import QrCode from '../components/QrCode.vue';
-import {
-    SModalLeft,
-    SBadge,
-    SButton,
-    SInputBlock,
-    SSelectBlock,
-    SPlacetopayLogo,
-    SSteps,
-    SStepsItem,
-    SDefinitionTerm,
-} from '@spartan';
-import { LockIcon, UserTagIcon, SmsEditIcon, ShieldTickIcon } from '@placetopay/iconsax-vue/linear';
-import { AndroidIcon, AppleIcon, WindowsIcon } from '@placetopay/iconsax-vue/Crypto/bold';
-import { ArrowLeftIcon } from '@heroicons/vue/24/solid';
-import { EyeSlashIcon, Bars3Icon } from '@heroicons/vue/24/outline';
+import { SModalLeft, SButton, SInputBlock, SPlacetopayLogo, SSteps, SStepsItem, SDefinitionTerm } from '@spartan';
+import { LockIcon } from '@placetopay/iconsax-vue/linear';
+import { Bars3Icon } from '@heroicons/vue/24/outline';
 import VSidebar from '../components/VSidebar.vue';
 import { ref } from 'vue';
 

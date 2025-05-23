@@ -81,8 +81,7 @@ onMounted(() => {
     <component
         v-bind="$attrs"
         :is="as"
-        v-else
-        v-if="as"
+        v-else-if="as"
         ref="el"
         :type="as === 'button' ? 'button' : undefined"
         :class="[

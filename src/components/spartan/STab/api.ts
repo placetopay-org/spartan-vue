@@ -1,9 +1,10 @@
-import { reactive, inject, provide, watch, type InjectionKey, computed, type Component } from 'vue';
+import { reactive, computed, type Component } from 'vue';
 import { UnderlineTab, PillTab, VetchTab, UnderlineTabItem, PillTabItem, VetchTabItem } from './variants';
-import type { TTabProps, TTabEmits, TTab, Variants } from './types';
+import type { TTabProps, TTabEmits, TTab } from './types';
 import { buildContext } from '@/helpers';
 
 type TState = {
+    tabs: TTab[];
     modelValue: string;
     updateModelValue: (value: string) => void;
     variant: { tab: Component; item: Component };
@@ -36,7 +37,6 @@ export const { createContext, useContext } = buildContext<TState, TTabProps, TTa
                 return variants[props.variant || 'underline'];
             }),
             tabs: [],
-            addTabs: (tab: TTab) => {},
             dropdowns: {},
             addDropdown: (id: string, regex: RegExp) => {
                 if (!id || String(regex) === '/^$/') return;

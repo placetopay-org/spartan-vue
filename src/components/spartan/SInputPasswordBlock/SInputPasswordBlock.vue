@@ -11,7 +11,7 @@ const [blockWrapperProps, inputPasswordProps] = extractWrapperProps<TInputPasswo
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SInputPasswordBlock" v-bind="blockWrapperProps">
         <SInputPassword
-            :id="id"
+            :id
             class="w-full"
             v-bind="inputPasswordProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"

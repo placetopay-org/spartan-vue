@@ -1,7 +1,7 @@
 import SSelector from './SSelector.vue';
 import { SButton } from '@spartan';
-import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { computed, ref, watch } from 'vue';
+import { buildSourceBinding, createVariation } from '@/helpers';
+import { ref, watch } from 'vue';
 import { FlagIcon } from '@placetopay/flagicons-vue';
 
 export default {
@@ -85,24 +85,24 @@ export default {
 
 // const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
 
-const sourceBinding = buildSourceBinding({
-    prop: { rounded: 'both', errorText: undefined, helpText: undefined },
-    check: ['disabled', 'error'],
-});
+// const sourceBinding = buildSourceBinding({
+//     prop: { rounded: 'both', errorText: undefined, helpText: undefined },
+//     check: ['disabled', 'error'],
+// });
 
-const options = [
-    { name: '🪪 Cédula de ciudadanía', value: 'CC' },
-    { name: '🪪 Cédula de extranjería', value: 'CE' },
-    { name: '🪪 Tarjeta de identidad', value: 'TI' },
-    { name: '🪪 NIT', value: 'NIT' },
-    { name: '🪪 Social Security Number', value: 'SSN' },
-    { name: '🪪 Individual Taxpayer Identification Number', value: 'ITIN' },
-    { name: '🪪 Employer Identification Number', value: 'EIN' },
-    { name: '🪪 National Insurance Number', value: 'NINO' },
-    { name: '🪪 Unique Taxpayer Reference', value: 'UTR' },
-    { name: '🪪 Pasaporte', value: 'PA' },
-    { name: '🪪 Registro civil', value: 'RC' },
-];
+// const options = [
+//     { name: '🪪 Cédula de ciudadanía', value: 'CC' },
+//     { name: '🪪 Cédula de extranjería', value: 'CE' },
+//     { name: '🪪 Tarjeta de identidad', value: 'TI' },
+//     { name: '🪪 NIT', value: 'NIT' },
+//     { name: '🪪 Social Security Number', value: 'SSN' },
+//     { name: '🪪 Individual Taxpayer Identification Number', value: 'ITIN' },
+//     { name: '🪪 Employer Identification Number', value: 'EIN' },
+//     { name: '🪪 National Insurance Number', value: 'NINO' },
+//     { name: '🪪 Unique Taxpayer Reference', value: 'UTR' },
+//     { name: '🪪 Pasaporte', value: 'PA' },
+//     { name: '🪪 Registro civil', value: 'RC' },
+// ];
 
 const countries = ref([
     { name: 'Australia', code: 'AU' },

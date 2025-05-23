@@ -27,7 +27,7 @@ const PtPaginator = extractor(pt.value.paginator);
     <div :class="twMerge(tableStyles({ borderless }), $props.class)">
         <div class="overflow-auto">
             <table data-s-table v-bind="tableProps" :class="twMerge('w-full', tableClass)">
-                <TableHead v-bind="{ PtThead }" />
+                <TableHead v-bind="{ ptThead }" />
                 <TableBody />
                 <!-- <template #expansion="{ row }">
                         <slot name="expansion" v-bind="{ row }" />
@@ -36,6 +36,6 @@ const PtPaginator = extractor(pt.value.paginator);
             </table>
         </div>
 
-        <TablePaginator v-if="props.paginator" v-bind="{ PtPaginator }" />
+        <TablePaginator v-if="props.paginator" v-bind="{ ptPaginator }" />
     </div>
 </template>

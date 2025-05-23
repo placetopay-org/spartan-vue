@@ -11,13 +11,13 @@ const { pt, extractor } = usePassthrough();
 
 const [bodyClass, bodyProps] = extractor(pt.value.body);
 const [actionsClass, actionsProps] = extractor(pt.value.actions);
-const PtIcon = extractor(pt.value.icon);
-const PtIconContainer = extractor(pt.value.iconContainer);
+const ptIcon = extractor(pt.value.icon);
+const ptIconContainer = extractor(pt.value.iconContainer);
 </script>
 
 <template>
     <article :class="twMerge(containerStyles({ size }), $props.class)">
-        <VIcon v-bind="{ icon, iconColor, iconType, PtIcon, PtIconContainer }" />
+        <VIcon v-bind="{ icon, iconColor, iconType, ptIcon, ptIconContainer }" />
 
         <main data-s-body v-bind="bodyProps" :class="twMerge(bodyStyles({ size }), bodyClass)">
             <h3 v-if="hasSlotContent($slots.title)" class="text-center text-lg font-semibold text-gray-900">

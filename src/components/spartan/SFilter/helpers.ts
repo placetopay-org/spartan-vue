@@ -2,8 +2,6 @@ import { translator } from '@/helpers';
 import type { TField, TOperator, TOptions } from './types';
 
 export const buildLabel = (operator: string | TOperator, value?: any) => {
-    console.log('--operator', operator);
-    console.log('--value', value);
     const { t } = translator('filter.operator');
 
     if (typeof operator === 'object') {

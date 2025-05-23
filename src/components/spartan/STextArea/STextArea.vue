@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { textAreaStyles } from './styles';
-import type { TTextAreaProps } from './types';
+import type { TTextAreaProps, TTextAreaEmits } from './types';
 import { twMerge } from 'tailwind-merge';
+
+defineEmits<TTextAreaEmits>();
 
 defineProps<TTextAreaProps>();
 </script>

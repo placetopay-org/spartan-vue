@@ -1,4 +1,4 @@
-import { reactive, inject, provide, watch, type InjectionKey, computed, type Ref } from 'vue';
+import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
 import type { TInputOTPProps, TInputOTPEmits } from './types';
 
 type TItem = {

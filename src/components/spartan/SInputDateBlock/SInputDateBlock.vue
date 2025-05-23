@@ -12,7 +12,7 @@ const [blockWrapperProps, inputDateProps] = extractWrapperProps<TInputDateProps>
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SInputDateBlock" v-bind="blockWrapperProps" use-dp-uid>
         <SInputDate
-            :id="id"
+            :id
             class="w-full"
             v-bind="inputDateProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"

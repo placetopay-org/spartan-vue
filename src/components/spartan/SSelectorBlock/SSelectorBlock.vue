@@ -11,6 +11,7 @@ const [blockWrapperProps, selectorProps] = extractWrapperProps<TSelectorProps>(p
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SSelectorBlock" v-bind="blockWrapperProps">
         <SSelector
+            :id
             class="w-full"
             v-bind="selectorProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
