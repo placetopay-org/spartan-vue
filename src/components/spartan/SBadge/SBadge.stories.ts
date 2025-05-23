@@ -32,7 +32,7 @@ export default {
                 type: 'string',
                 default: 'gray',
                 description: "Determines the badge's color theme.",
-                options: ['primary', 'gray', 'red', 'blue', 'green', 'yellow', 'indigo', 'white', 'purlpe', 'neutral'],
+                options: ['primary', 'gray', 'red', 'blue', 'green', 'yellow', 'indigo', 'white', 'purple', 'neutral'],
             },
             {
                 name: 'dot',
@@ -121,7 +121,7 @@ export const Color = buildVariation(
 <SBadge color="yellow"> Yellow </SBadge>
 <SBadge color="indigo"> Indigo </SBadge>
 <SBadge color="white"> White </SBadge>
-<SBadge color="purlpe"> Purple </SBadge>
+<SBadge color="purple"> Purple </SBadge>
 <SBadge color="neutral"> Neutral </SBadge>
 `,
 );
@@ -136,7 +136,7 @@ export const Outline = buildVariation(
 <SBadge outline color="yellow"> Yellow </SBadge>
 <SBadge outline color="indigo"> Indigo </SBadge>
 <SBadge outline color="white"> White </SBadge>
-<SBadge outline color="purlpe"> Purple </SBadge>
+<SBadge outline color="purple"> Purple </SBadge>
 <SBadge outline color="neutral"> Neutral </SBadge>
 `,
 );
@@ -151,7 +151,7 @@ export const Pill = buildVariation(
 <SBadge class="rounded-full" color="yellow"> Yellow </SBadge>
 <SBadge class="rounded-full" color="indigo"> Indigo </SBadge>
 <SBadge class="rounded-full" color="white"> White </SBadge>
-<SBadge class="rounded-full" color="purlpe"> Purple </SBadge>
+<SBadge class="rounded-full" color="purple"> Purple </SBadge>
 <SBadge class="rounded-full" color="neutral"> Neutral </SBadge>
 `,
 );
@@ -166,7 +166,7 @@ export const Dot = buildVariation(
 <SBadge dot color="yellow"> Yellow </SBadge>
 <SBadge dot color="indigo"> Indigo </SBadge>
 <SBadge dot color="white"> White </SBadge>
-<SBadge dot color="purlpe"> Purple </SBadge>
+<SBadge dot color="purple"> Purple </SBadge>
 <SBadge dot color="neutral"> Neutral </SBadge>
 `,
 );
@@ -181,7 +181,7 @@ export const Removable = buildVariation(
 <SBadge removable color="yellow"> Yellow </SBadge>
 <SBadge removable color="indigo"> Indigo </SBadge>
 <SBadge removable color="white"> White </SBadge>
-<SBadge removable color="purlpe"> Purple </SBadge>
+<SBadge removable color="purple"> Purple </SBadge>
 <SBadge removable color="neutral"> Neutral </SBadge>
 `,
 );
@@ -220,7 +220,7 @@ export const Tag = buildVariation(
     <template #tag> Aa </template>
     White
 </SBadge>
-<SBadge color="purlpe">
+<SBadge color="purple">
     <template #tag> Aa </template>
     Purple
 </SBadge>
@@ -265,7 +265,7 @@ export const RoundedTag = buildVariation(
     <template #tag> Aa </template>
     White
 </SBadge>
-<SBadge pill color="purlpe">
+<SBadge pill color="purple">
     <template #tag> Aa </template>
     Purple
 </SBadge>
@@ -310,7 +310,7 @@ export const TagReverse = buildVariation(
     <template #tag> Aa </template>
     White
 </SBadge>
-<SBadge reverse color="purlpe">
+<SBadge reverse color="purple">
     <template #tag> Aa </template>
     Purple
 </SBadge>
