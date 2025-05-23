@@ -30,7 +30,7 @@ const updateCurrency = (currency?: string) => {
 <template>
     <SInputAmount
         v-if="config.inputType === 'amount'"
-        v-model="(value as number)"
+        v-model="value as number"
         :currency="config.currency ?? config.currencies![0]"
         :currencies="config.currencies"
         :type="config.inputType"
@@ -38,10 +38,5 @@ const updateCurrency = (currency?: string) => {
         :minor-unit-mode="config.minorUnitMode"
         @update:currency="updateCurrency"
     />
-    <SInput
-        v-else
-        v-model="value"
-        :type="config.inputType"
-        :placeholder="t('inputSelectorPlaceholder')"
-    />
+    <SInput v-else v-model="value" :type="config.inputType" :placeholder="t('inputSelectorPlaceholder')" />
 </template>

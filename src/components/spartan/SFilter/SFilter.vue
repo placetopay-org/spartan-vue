@@ -62,7 +62,7 @@ defineExpose({
 
 <template>
     <!-- root -->
-    <div class="flex gap-3 justify-between">
+    <div class="flex justify-between gap-3">
         <!-- field badges -->
         <div class="flex w-full flex-wrap gap-3">
             <FieldBadge v-for="field in context.activeFields" :key="field.id" :field="field" />
@@ -71,14 +71,21 @@ defineExpose({
         </div>
 
         <!-- action buttons -->
-        <div class="flex gap-3" v-if="!hideApplyButton && !hideClearButton">
+        <div v-if="!hideApplyButton && !hideClearButton" class="flex gap-3">
             <SavedButton v-if="saved" />
 
-            <SButton v-if="!hideApplyButton" class="whitespace-nowrap h-[26px]" size="sm" rounded="full" @click="apply">
+            <SButton v-if="!hideApplyButton" class="h-[26px] whitespace-nowrap" size="sm" rounded="full" @click="apply">
                 {{ t('applyBtn') }}
             </SButton>
-            
-            <SButton v-if="!hideClearButton" class="whitespace-nowrap h-[26px]" size="sm" rounded="full" variant="secondary" @click="clear">
+
+            <SButton
+                v-if="!hideClearButton"
+                class="h-[26px] whitespace-nowrap"
+                size="sm"
+                rounded="full"
+                variant="secondary"
+                @click="clear"
+            >
                 {{ t('clearBtn') }}
             </SButton>
         </div>

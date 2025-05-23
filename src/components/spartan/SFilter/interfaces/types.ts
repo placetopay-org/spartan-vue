@@ -23,4 +23,4 @@ export interface IOptionsConfig extends IBaseConfig {
 // Selection interface configuration
 export interface ISelectionConfig extends IBaseConfig {
     operators: (TOperatorId | TCustomOperator)[];
-} 
+}

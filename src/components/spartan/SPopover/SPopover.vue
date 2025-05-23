@@ -97,7 +97,7 @@ const handlers = {
     close,
     toggle,
     focus,
-    focusout
+    focusout,
 };
 
 defineExpose(handlers);
@@ -131,7 +131,7 @@ const arrowPosition = computed(() => {
 </script>
 
 <template>
-    <div :class="$props.class" ref="reference" tabindex="-1">
+    <div ref="reference" :class="$props.class" tabindex="-1">
         <slot name="reference" v-bind="handlers" />
     </div>
 
@@ -139,7 +139,7 @@ const arrowPosition = computed(() => {
         <Transition v-bind="TranStyle.fade">
             <div
                 v-if="isOpen && !isLargeScreen && responsive"
-                class="fixed inset-0 bg-black/30 z-40"
+                class="fixed inset-0 z-40 bg-black/30"
                 aria-hidden="true"
             />
         </Transition>
@@ -149,21 +149,16 @@ const arrowPosition = computed(() => {
                 <div
                     v-if="isOpen || useShow"
                     v-show="isOpen"
-                    :class="popoverFloatingStyles({ responsive })"
                     ref="floating"
-                    class="focus-visible:outline-none z-40"
+                    :class="popoverFloatingStyles({ responsive })"
+                    class="z-40 focus-visible:outline-none"
                     :style="styles"
                     tabindex="-1"
                     @focus="focusFirstChild"
                     @focusout="focusout"
                 >
                     <slot v-bind="handlers" />
-                    <div
-                        v-if="arrow"
-                        ref="arrowRef"
-                        :class="arrowStyles({ color: arrow })"
-                        :style="arrowPosition"
-                    />
+                    <div v-if="arrow" ref="arrowRef" :class="arrowStyles({ color: arrow })" :style="arrowPosition" />
                 </div>
             </Transition>
         </div>

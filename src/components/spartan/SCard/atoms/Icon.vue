@@ -1,14 +1,25 @@
 <script setup lang="ts">
-import {
-    SquaresPlusIcon,
-    CheckCircleIcon,
-} from '@heroicons/vue/24/outline';
+import { SquaresPlusIcon, CheckCircleIcon } from '@heroicons/vue/24/outline';
 import {
     SquaresPlusIcon as SquaresPlusIconSolid,
     CheckCircleIcon as CheckCircleIconSolid,
 } from '@heroicons/vue/24/solid';
-import { ElementPlusIcon as ElementPlusIconBulk, MessageSearchIcon as MessageSearchIconBulk, VerifyIcon as VerifyIconBulk, Warning2Icon as Warning2IconBulk, DangerIcon as DangerIconBulk, InformationIcon as InformationIconBulk } from '@placetopay/iconsax-vue/bulk';
-import { ElementPlusIcon, MessageSearchIcon, VerifyIcon, Warning2Icon, DangerIcon, InformationIcon } from '@placetopay/iconsax-vue/outline';
+import {
+    ElementPlusIcon as ElementPlusIconBulk,
+    MessageSearchIcon as MessageSearchIconBulk,
+    VerifyIcon as VerifyIconBulk,
+    Warning2Icon as Warning2IconBulk,
+    DangerIcon as DangerIconBulk,
+    InformationIcon as InformationIconBulk,
+} from '@placetopay/iconsax-vue/bulk';
+import {
+    ElementPlusIcon,
+    MessageSearchIcon,
+    VerifyIcon,
+    Warning2Icon,
+    DangerIcon,
+    InformationIcon,
+} from '@placetopay/iconsax-vue/outline';
 import { computed } from 'vue';
 import type { TCardProps } from '../types';
 import { twMerge } from 'tailwind-merge';
@@ -113,9 +124,9 @@ const computedIcon = computed(() => {
             "
         >
             <component
-                data-s-icon
                 v-bind="iconProps"
                 :is="computedIcon ? computedIcon?.icon.normal : icon"
+                data-s-icon
                 :class="twMerge('h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />
@@ -140,9 +151,9 @@ const computedIcon = computed(() => {
                 class="absolute right-1/2 top-1/2 h-[48px] w-[48px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-100"
             />
             <component
-                data-s-icon
                 v-bind="iconProps"
                 :is="computedIcon ? computedIcon?.icon.ping : icon"
+                data-s-icon
                 :class="twMerge('relative mx-auto h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />

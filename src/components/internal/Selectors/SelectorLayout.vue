@@ -19,7 +19,7 @@ defineExpose({
 </script>
 
 <template>
-    <SPopover :offset="2" ref="popover" :static="static" :responsive="responsive" @close="$emit('close')">
+    <SPopover ref="popover" :offset="2" :static="static" :responsive="responsive" @close="$emit('close')">
         <template #reference>
             <slot name="button" />
         </template>
@@ -30,7 +30,7 @@ defineExpose({
                 tabindex="-1"
                 data-s-options
                 v-bind="optionsProps"
-                :class="twMerge('max-h-80 overflow-auto relative', optionsClass)"
+                :class="twMerge('relative max-h-80 overflow-auto', optionsClass)"
                 :style="{ minWidth: `${String(width)}px` }"
             >
                 <div class="sticky top-0 z-10 bg-white">

@@ -16,7 +16,7 @@ describe('SModalLeft', () => {
         // Assert
         expect(warn).not.toHaveBeenCalledOnce();
     });
-    
+
     test('Can be rendered', async () => {
         // Arrange
         window.ResizeObserver = vi.fn(() => ({
@@ -30,12 +30,14 @@ describe('SModalLeft', () => {
             props: { open: false },
             slots: { default: 'Test content' },
         });
-        
+
         // Assert
         expect(screen.queryByText('Test content')).not.toBeInTheDocument();
         await rerender({ open: true });
         expect(screen.queryByText('Test content')).toBeInTheDocument();
-        expect(screen.queryByText('Test content')?.parentElement?.parentElement).toHaveClass('fixed inset-0 w-screen overflow-y-auto');
+        expect(screen.queryByText('Test content')?.parentElement?.parentElement).toHaveClass(
+            'fixed inset-0 w-screen overflow-y-auto',
+        );
     });
 
     test('Can be closed with button', async () => {
@@ -57,7 +59,7 @@ describe('SModalLeft', () => {
         const closeButton = screen.getByRole('button');
 
         await user.click(closeButton);
-        
+
         // Assert
         expect(emitted()).toHaveProperty('backdropClick');
         expect(emitted()).toHaveProperty('close');

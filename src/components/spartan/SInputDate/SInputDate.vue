@@ -23,13 +23,13 @@ const value = computed({
 <template>
     <VueDatePicker
         v-bind="{ ...$props, modelValue: undefined }"
+        v-model="value"
         :locale="locale"
         :select-text="t('select')"
         :cancel-text="t('cancel')"
         :now-button-label="t('now')"
         :week-num-name="t('week')"
         :uid="id"
-        v-model="value"
         :class="
             twMerge(
                 error

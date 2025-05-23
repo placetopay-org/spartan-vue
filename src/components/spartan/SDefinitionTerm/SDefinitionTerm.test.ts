@@ -37,7 +37,9 @@ describe('SDefinitionTerm', () => {
 
     test('Can be rendered multiple labels by props', () => {
         // Act
-        render(SDefinitionTerm, { props: { labels: ['Test label 1', 'Test label 2'], description: 'Test description' } });
+        render(SDefinitionTerm, {
+            props: { labels: ['Test label 1', 'Test label 2'], description: 'Test description' },
+        });
         const terms = screen.getAllByRole('term');
         const definition = screen.getByRole('definition');
 
@@ -49,7 +51,9 @@ describe('SDefinitionTerm', () => {
 
     test('Can be rendered multiple labels by slots', () => {
         // Act
-        render(SDefinitionTerm, { slots: { '1': 'Test label 1', '2': 'Test label 2', description: 'Test description' } });
+        render(SDefinitionTerm, {
+            slots: { '1': 'Test label 1', '2': 'Test label 2', description: 'Test description' },
+        });
         const terms = screen.getAllByRole('term');
         const definition = screen.getByRole('definition');
 

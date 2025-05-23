@@ -10,7 +10,7 @@ describe('SButtonGroup', () => {
     test('Can be rendered', async () => {
         // Act
         const { container } = render(SButtonGroup);
-         
+
         // Assert
         expect(container.firstChild).toHaveClass('isolate inline-flex -space-x-px');
     });
@@ -115,5 +115,4 @@ describe('SButtonGroup', () => {
             expect(nextButton.children[1]).toHaveClass(' w-5 h-5 text-gray-900');
         });
     });
-
 });

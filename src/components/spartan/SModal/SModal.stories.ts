@@ -142,7 +142,10 @@ export const Custom = createVariation({
         const open = ref(false);
         const option = ref({ label: 'Option 1', value: '1' });
 
-        const options = [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }];
+        const options = [
+            { label: 'Option 1', value: '1' },
+            { label: 'Option 2', value: '2' },
+        ];
 
         return { open, option, options };
     },

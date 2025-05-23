@@ -74,8 +74,7 @@ const sourceBinding = buildSourceBinding({
 
 export const Default = createDefault({
     components: { SInputPassword },
-    args: {
-    },
+    args: {},
     template: `<SInputPassword v-model="value" />`,
     transform: (args) => `<SInputPassword ${sourceBinding(args)} v-model=value />`,
 });

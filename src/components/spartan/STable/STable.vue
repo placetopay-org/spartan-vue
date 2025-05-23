@@ -11,7 +11,7 @@ const context = createContext(props);
 </script>
 
 <template>
-    <table :class="twMerge(tableStyles({ borderless }), $props.class)" >
+    <table :class="twMerge(tableStyles({ borderless }), $props.class)">
         <STableHead v-if="context.autoCols">
             <STableHeadCell v-for="col in context.autoCols" :key="col">
                 {{ col }}

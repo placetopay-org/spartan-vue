@@ -50,7 +50,7 @@
             "optionsSelectorPlaceholder": "Seleziona una o più opzioni",
             "saveBtn": "Salva",
             "savedFiltersText": "I miei filtri salvati",
-       
+
             "operator": {
                 "between": "È tra",
                 "contains": "Contiene",

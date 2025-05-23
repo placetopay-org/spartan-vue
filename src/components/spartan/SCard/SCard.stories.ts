@@ -64,13 +64,15 @@ export default {
         icon: {
             control: 'select',
             options: ['SquaresPlusIcon', 'PhoneIcon', 'ShareIcon', 'primary', 'success', 'danger', 'warning', 'info'],
-            description: 'El icono a mostrar en la tarjeta. Puede ser un componente funcional o un string con el nombre del icono predefinido.',
+            description:
+                'El icono a mostrar en la tarjeta. Puede ser un componente funcional o un string con el nombre del icono predefinido.',
             table: { type: { summary: 'FunctionalComponent | primary | success | danger | warning | info' } },
         },
         iconColor: {
             control: 'select',
             options: ['primary', 'success', 'danger', 'warning', 'info'],
-            description: 'El color del icono. Si no se especifica, usará el color correspondiente al icono seleccionado.',
+            description:
+                'El color del icono. Si no se especifica, usará el color correspondiente al icono seleccionado.',
             table: { type: { summary: 'primary | success | danger | warning | info' } },
         },
         actions: {

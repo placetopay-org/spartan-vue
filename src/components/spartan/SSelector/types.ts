@@ -1,4 +1,4 @@
-import type { TRounded } from "@/constants";
+import type { TRounded } from '@/constants';
 
 export type TOption = Record<string, any> | string;
 

@@ -19,23 +19,23 @@ const openFieldPopover = () => {
         context.switchPopover(popover.value);
         if (!removing.value) context.selectField(props.field.id);
     }
- 
+
     if (removing.value) {
         delete props.field.state;
         removing.value = false;
     }
-}
+};
 </script>
 
 <template>
     <SPopover ref="popover" :responsive="context.responsive" :offset="8" prevent-close>
         <template #reference>
             <button @click="openFieldPopover">
-                <SBadge 
+                <SBadge
                     color="white"
                     class="whitespace-nowrap"
                     pt:content="flex"
-                    pill 
+                    pill
                     outline
                     :removable="!field.permanent"
                     @removed="removing = true"
@@ -43,12 +43,12 @@ const openFieldPopover = () => {
                     <div class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</div>
                     <div class="max-w-[220px] truncate">
                         {{ context.getOperatorLabel(field) }}
-                    </div>  
+                    </div>
                 </SBadge>
             </button>
         </template>
 
-        <template #default="{close}">
+        <template #default="{ close }">
             <SelectFilterDialog @close="close" />
         </template>
     </SPopover>

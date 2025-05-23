@@ -1,6 +1,6 @@
 import { expect, test, describe, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/vue';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 import SCopy from './SCopy.vue';
 import { h } from 'vue';
 
@@ -46,7 +46,7 @@ describe('SCopy', () => {
             },
             props: {
                 value: 'Test from prop',
-            }
+            },
         });
 
         const element = screen.getByText('Test Content');
@@ -67,7 +67,7 @@ describe('SCopy', () => {
             },
             props: {
                 value: 'Test from prop',
-            }
+            },
         });
 
         const element = screen.getByText('Test Content');

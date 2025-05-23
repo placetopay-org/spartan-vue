@@ -1,13 +1,6 @@
 import { reactive, computed } from 'vue';
 import { SPopover } from '..';
-import type { 
-    TFilterProps, 
-    TFilterEmits, 
-    TField, 
-    TOperator,
-    TOperatorData,
-    TSaveData,
-} from './types';
+import type { TFilterProps, TFilterEmits, TField, TOperator, TOperatorData, TSaveData } from './types';
 import { buildLabel, getOperatorId } from './helpers';
 import { buildContext } from '@/helpers';
 
@@ -47,7 +40,7 @@ export const { createContext, useContext } = buildContext<TState, TFilterProps, 
             saved: computed(() => props.saved),
             activeField: undefined,
             responsive: !!props.responsive,
-            
+
             switchPopover: (popover?: InstanceType<typeof SPopover>) => {
                 currentPopover?.close();
                 currentPopover = popover;

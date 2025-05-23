@@ -83,11 +83,7 @@ const disabled = computed(() => (!value.value || value.value.length === 0) && te
             </SPopover>
         </div>
 
-        <component
-            :is="interfaceComponents[tempInterface]"
-            :config="tempInterfaceConfig"
-            v-model="value"
-        />
+        <component :is="interfaceComponents[tempInterface]" v-model="value" :config="tempInterfaceConfig" />
 
         <div class="flex gap-3">
             <SButton class="w-full" variant="secondary" @click="$emit('close')">{{ t('cancelBtn') }}</SButton>

@@ -26,8 +26,5 @@ const value = computed({
 </script>
 
 <template>
-    <SInputTag
-        v-model="value"
-        :placeholder="t('inputSelectorPlaceholder')"
-    />
+    <SInputTag v-model="value" :placeholder="t('inputSelectorPlaceholder')" />
 </template>

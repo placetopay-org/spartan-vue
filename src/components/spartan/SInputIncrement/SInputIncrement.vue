@@ -68,8 +68,8 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
             :max
             :disabled
             :value
-            @input="updateValue"
             class="border-none text-center focus:ring-0"
+            @input="updateValue"
         />
         <button
             aria-label="increment"

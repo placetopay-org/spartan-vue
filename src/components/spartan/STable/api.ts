@@ -20,7 +20,7 @@ export const createContext = (props: Partial<TTableProps>, emit?: TTableEmits) =
         register: (type: 'row' | 'col') => {
             if (type === 'row') state.rows++;
             else state.cols++;
-        }
+        },
     });
 
     // watch(() => props.modelValue, (curr, old) => {

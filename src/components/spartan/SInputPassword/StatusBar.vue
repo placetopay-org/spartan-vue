@@ -7,9 +7,9 @@ const color = computed(() => {
     if (isValid) return 'bg-green-500';
     if (isValid === false) return 'bg-red-500';
     return;
-})
+});
 </script>
 
 <template>
-    <div :class="[color, 'absolute left-0 bottom-0 w-full h-[3px]']" />
+    <div :class="[color, 'absolute bottom-0 left-0 h-[3px] w-full']" />
 </template>

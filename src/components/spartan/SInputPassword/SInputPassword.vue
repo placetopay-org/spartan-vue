@@ -33,7 +33,7 @@ const validationState = computed(() => {
 
 const isValid = computed(() => {
     if (!props.modelValue) return;
-    return validationState.value ? Object.values(validationState.value).every(val => val.isValid) : true;
+    return validationState.value ? Object.values(validationState.value).every((val) => val.isValid) : true;
 });
 
 watchEffect(() => {
@@ -44,19 +44,19 @@ watchEffect(() => {
 
 <template>
     <SInput
-        class="overflow-hidden"
         ref="inputRef"
+        class="overflow-hidden"
         v-bind="inputProps"
         :type="showPassword ? 'text' : 'password'"
-        :modelValue="modelValue"
-        @update:modelValue="$emit('update:modelValue', String($event))"
+        :model-value="modelValue"
+        @update:model-value="$emit('update:modelValue', String($event))"
     >
         <template #right>
             <button tabindex="-1" type="button" @click.prevent="showPassword = !showPassword">
                 <component :is="showPassword ? EyeIcon : EyeSlashIcon" class="h-6 w-6 text-gray-500" />
             </button>
 
-            <StatusBar v-if="meter" :isValid="isValid" />
+            <StatusBar v-if="meter" :is-valid="isValid" />
         </template>
     </SInput>
 </template>

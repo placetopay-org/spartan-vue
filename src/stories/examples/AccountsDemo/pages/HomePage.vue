@@ -24,10 +24,10 @@ const open = ref(false);
             <VSidebar current="Inicio" />
         </SModalLeft>
 
-        <div class="flex w-full items-center justify-between p-4 lg:hidden border-b border-gray-200">
+        <div class="flex w-full items-center justify-between border-b border-gray-200 p-4 lg:hidden">
             <SPlacetopayLogo :height="35" />
 
-            <button @click="open = true" class="p-2.5">
+            <button class="p-2.5" @click="open = true">
                 <Bars3Icon class="h-6 w-6 text-gray-500" />
             </button>
         </div>
@@ -48,7 +48,7 @@ const open = ref(false);
             </div>
 
             <section class="mt-16 w-full max-w-6xl space-y-8 px-10 lg:mt-36">
-                <div class="flex flex-col gap-4 lg:gap-0 lg:flex-row lg:items-center lg:justify-between">
+                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
                     <div class="flex items-end gap-4 lg:items-center">
                         <SAvatar
                             class="h-16 w-16 border-4 border-white lg:h-32 lg:w-32"
@@ -62,10 +62,17 @@ const open = ref(false);
                         </div>
                     </div>
 
-                    <SButton as="a" href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--edit-profile" class="lg:w-auto w-full" size="sm" variant="secondary">Editar perfil</SButton>
+                    <SButton
+                        as="a"
+                        href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--edit-profile"
+                        class="w-full lg:w-auto"
+                        size="sm"
+                        variant="secondary"
+                        >Editar perfil</SButton
+                    >
                 </div>
 
-                <div class="grid lg:grid-cols-2 gap-4">
+                <div class="grid gap-4 lg:grid-cols-2">
                     <div class="w-full overflow-hidden rounded-xl border border-gray-200">
                         <header class="flex items-center gap-3 border-b border-gray-100 bg-gray-50 p-3 text-gray-900">
                             <FlagIcon class="m-2 h-6 w-6" />
@@ -133,7 +140,7 @@ const open = ref(false);
                     </div>
                 </div>
 
-                <div class="grid lg:grid-cols-3 gap-4">
+                <div class="grid gap-4 lg:grid-cols-3">
                     <div class="flex w-full flex-col rounded-xl border border-gray-200 p-4">
                         <ShieldTickIcon class="mb-3 h-6 w-6" />
                         <div class="mb-2 flex-1">

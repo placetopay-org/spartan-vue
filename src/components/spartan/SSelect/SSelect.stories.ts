@@ -112,8 +112,8 @@ export const Placeholder = createVariation({
     <option value="3">option 3</option>
 </SSelect>
 
-<SButton @click="reset">Reset</SButton>`
-})
+<SButton @click="reset">Reset</SButton>`,
+});
 
 export const Error = createVariation({
     components: { SSelect, SButton },
@@ -129,8 +129,8 @@ export const Error = createVariation({
     <option value="1">option 1</option>
     <option value="2">option 2</option>
     <option value="3">option 3</option>
-</SSelect>`
-})
+</SSelect>`,
+});
 
 export const Disabled = createVariation({
     components: { SSelect, SButton },
@@ -146,8 +146,8 @@ export const Disabled = createVariation({
     <option value="1">option 1</option>
     <option value="2">option 2</option>
     <option value="3">option 3</option>
-</SSelect>`
-})
+</SSelect>`,
+});
 
 // const createVariation = (template: string, placeholder?: boolean) => ({
 //     decorators: [
@@ -178,8 +178,6 @@ export const Disabled = createVariation({
 //         },
 //     },
 // });
-
-
 
 // export const Disabled = createVariation(
 //     `

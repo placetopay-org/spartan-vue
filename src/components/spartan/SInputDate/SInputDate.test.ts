@@ -28,7 +28,7 @@ describe('SInputDate', () => {
         await user.click(screen.getByText('8'));
 
         await user.click(screen.getByText('$spartan.inputDate.select'));
-        
+
         // Assert
         expect(datePicker).toBeInTheDocument();
         expect(modelValue).toBe('08-01-2000');

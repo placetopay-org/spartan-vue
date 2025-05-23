@@ -50,8 +50,15 @@ defineExpose(handlers);
 </script>
 
 <template>
-    <SPopover ref="popover" :static="static" :responsive="false" :placement="placement" :arrow="popoverArrow" :offset="offset">
-        <template #reference=>
+    <SPopover
+        ref="popover"
+        :static="static"
+        :responsive="false"
+        :placement="placement"
+        :arrow="popoverArrow"
+        :offset="offset"
+    >
+        <template #reference="">
             <div @mouseenter="openCallback" @mouseleave="closeCallback">
                 <slot />
             </div>

@@ -57,13 +57,23 @@ defineExpose({ refButton });
     <!-- root -->
     <component :is="as" ref="ref_button" :type="buttonType" :disabled="disabled" :class="rootClass">
         <!-- icon or leftIcon -->
-        <component data-s-icon v-bind="leftIconProps" :is="leftIcon || icon" :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-ml-0.5', leftIconClass)" />
+        <component
+            v-bind="leftIconProps"
+            :is="leftIcon || icon"
+            data-s-icon
+            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-ml-0.5', leftIconClass)"
+        />
 
         <!-- slot -->
         <slot />
 
         <!-- rightIcon -->
-        <component data-s-icon v-bind="rightIconProps" :is="rightIcon" :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-mr-0.5', rightIconClass)" />
+        <component
+            v-bind="rightIconProps"
+            :is="rightIcon"
+            data-s-icon
+            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-mr-0.5', rightIconClass)"
+        />
     </component>
 </template>
 

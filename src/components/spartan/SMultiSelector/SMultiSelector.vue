@@ -111,7 +111,7 @@ const refreshInput = () => {
                 :rounded="rounded"
                 :error="error"
                 :loading="loading"
-                :showClearButton="showClearButton"
+                :show-clear-button="showClearButton"
                 @click="toggleOptions"
                 @clear="clear"
             >
@@ -144,7 +144,7 @@ const refreshInput = () => {
                 v-if="badgeList"
                 :width="optionsWidth"
                 :options="modelValue"
-                :optionLabel="optionLabel"
+                :option-label="optionLabel"
                 @removed="(option) => selectOption(option)"
             />
 
@@ -159,10 +159,10 @@ const refreshInput = () => {
         <template #dropdown>
             <SelectorOptions
                 :options="options"
-                :optionLabel="optionLabel"
-                :optionGroupLabel="optionGroupLabel"
-                :optionGroupItems="optionGroupItems"
-                :isSelected="isSelected"
+                :option-label="optionLabel"
+                :option-group-label="optionGroupLabel"
+                :option-group-items="optionGroupItems"
+                :is-selected="isSelected"
                 @select="(item: any) => selectOption(item)"
             >
                 <template #option="{ option }">

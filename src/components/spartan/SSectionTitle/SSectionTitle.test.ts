@@ -17,10 +17,9 @@ describe('SSectionTitle', () => {
     });
 
     test('Can be rendered', () => {
-
         // Act
         render(SSectionTitle, { props: { as: 'h1' }, slots: { default: 'My test title' } });
-        
+
         // Assert
         screen.getByRole('heading', { name: 'My test title' });
     });

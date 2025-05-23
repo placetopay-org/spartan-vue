@@ -32,7 +32,7 @@ const open = ref(false);
             <div class="flex w-full items-center justify-between border-b border-gray-200 p-4 lg:hidden">
                 <SPlacetopayLogo :height="35" />
 
-                <button @click="open = true" class="p-2.5">
+                <button class="p-2.5" @click="open = true">
                     <Bars3Icon class="h-6 w-6 text-gray-500" />
                 </button>
             </div>
@@ -46,15 +46,20 @@ const open = ref(false);
                     <SStepsItem name="Paso 3" description="Clave de recuperación" href="#" status="current" />
                 </SSteps>
 
-                <section class="space-y-2 mt-8">
-                    <h2 class="text-base font-semibold text-gray-900">Guarda esta clave de recuperación de emergencia</h2>
+                <section class="mt-8 space-y-2">
+                    <h2 class="text-base font-semibold text-gray-900">
+                        Guarda esta clave de recuperación de emergencia
+                    </h2>
                     <p class="text-sm font-normal text-gray-700">
-                        Si dejas de tener acceso al teléfono, no podrás iniciar sesión en la cuenta sin esta clave. Imprime, copia o anota esta clave sin que nadie la vea.
+                        Si dejas de tener acceso al teléfono, no podrás iniciar sesión en la cuenta sin esta clave.
+                        Imprime, copia o anota esta clave sin que nadie la vea.
                     </p>
                 </section>
 
-                <section class="mt-6 gap-4 flex flex-col md:flex-row">
-                    <SButton class="w-full md:w-fit" variant="secondary" :rightIcon="CloudArrowDownIcon">Descargar clave</SButton>
+                <section class="mt-6 flex flex-col gap-4 md:flex-row">
+                    <SButton class="w-full md:w-fit" variant="secondary" :right-icon="CloudArrowDownIcon"
+                        >Descargar clave</SButton
+                    >
                     <SButton class="w-full md:w-fit">Finalizar autenticación</SButton>
                 </section>
             </main>

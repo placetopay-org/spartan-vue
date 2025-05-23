@@ -46,7 +46,10 @@ defineProps<TRadioGroupItemProps>();
                     </RadioGroupDescription>
                 </span>
             </span>
-            <CheckCircleIcon :class="['h-5 w-5 text-spartan-primary-600', !checked && 'opacity-0']" :aria-hidden="!checked" />
+            <CheckCircleIcon
+                :class="['h-5 w-5 text-spartan-primary-600', !checked && 'opacity-0']"
+                :aria-hidden="!checked"
+            />
         </div>
     </RadioGroupOption>
 </template>

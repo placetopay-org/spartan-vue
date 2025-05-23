@@ -29,7 +29,8 @@ const nameStyle = {
 </script>
 
 <template>
-    <component :is="as"
+    <component
+        :is="as"
         :href="href"
         :class="[
             'flex flex-col border-l-4 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4',
@@ -42,7 +43,7 @@ const nameStyle = {
             <template v-else>{{ name }}</template>
         </span>
         <span v-if="hasDescription" class="text-sm font-medium">
-            <slot name="description" v-if="hasDescription.slot" />
+            <slot v-if="hasDescription.slot" name="description" />
             <template v-else>{{ description }}</template>
         </span>
     </component>

@@ -261,22 +261,22 @@ export const WithIcon = createVariation(`
 `);
 
 export const AsLink = buildVariation({
-  containerClass: 'h-[250px] w-[500px]',
-  components: {
-    SDropdown,
-    SDropdownItem,
-    SButton,
-  },
-  setup() {
-    return {
-      ChevronDownIcon,
-      UserCircleIcon,
-      PencilIcon,
-      PlusIcon,
-      Cog8ToothIcon,
-    };
-  },
-  template: `
+    containerClass: 'h-[250px] w-[500px]',
+    components: {
+        SDropdown,
+        SDropdownItem,
+        SButton,
+    },
+    setup() {
+        return {
+            ChevronDownIcon,
+            UserCircleIcon,
+            PencilIcon,
+            PlusIcon,
+            Cog8ToothIcon,
+        };
+    },
+    template: `
 <SDropdown>
   <template #reference>
     <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
@@ -287,8 +287,8 @@ export const AsLink = buildVariation({
   <SDropdownItem :icon="PlusIcon" link="/add"> Add </SDropdownItem>
   <SDropdownItem :icon="Cog8ToothIcon" link="/settings"> Settings </SDropdownItem>
 </SDropdown>  
-`
-})
+`,
+});
 
 export const OnAvatarElement = createVariation(`
 <SDropdown leftToRight>

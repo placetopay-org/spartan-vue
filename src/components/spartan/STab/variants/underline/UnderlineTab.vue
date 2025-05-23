@@ -10,8 +10,13 @@ const [tabClass, tabProps] = extractor(pt.value.tab);
 </script>
 
 <template>
-    <nav data-s-tabContainer v-bind="tabContainerProps" :class="twMerge('border-b border-gray-200', tabContainerClass, $props.class)" aria-label="Tabs">
-        <ul data-s-tab v-bind="tabProps" :class="twMerge('flex -mb-px', tabClass)">
+    <nav
+        data-s-tabContainer
+        v-bind="tabContainerProps"
+        :class="twMerge('border-b border-gray-200', tabContainerClass, $props.class)"
+        aria-label="Tabs"
+    >
+        <ul data-s-tab v-bind="tabProps" :class="twMerge('-mb-px flex', tabClass)">
             <slot />
         </ul>
     </nav>

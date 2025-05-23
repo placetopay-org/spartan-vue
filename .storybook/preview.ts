@@ -1,5 +1,5 @@
 import '../src/styles/main.css';
-import './styles.css'
+import './styles.css';
 import DocumentationTemplate from './DocumentationTemplate.mdx';
 import { type Preview, setup } from '@storybook/vue3';
 import type { App } from 'vue';
@@ -22,7 +22,7 @@ const preview: Preview = {
             },
         },
     },
-    tags: ['autodocs']
+    tags: ['autodocs'],
 };
 
 const i18n = createI18n({

@@ -65,6 +65,8 @@ describe('SAvatar', () => {
         // Assert
         expect(wrapper.html()).toContain('?');
         expect(wrapper.html()).toContain('<img');
-        expect(wrapper.html()).toContain('src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256"');
+        expect(wrapper.html()).toContain(
+            'src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256"',
+        );
     });
 });

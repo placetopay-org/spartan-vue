@@ -3,7 +3,7 @@ export type TBadgeEmits = {
 };
 
 export type TBadgeProps = {
-    color?: 'gray' | 'white' | 'primary'  | 'red' | 'blue' | 'green' | 'yellow' | 'indigo' | 'purlpe' | 'neutral';
+    color?: 'gray' | 'white' | 'primary' | 'red' | 'blue' | 'green' | 'yellow' | 'indigo' | 'purlpe' | 'neutral';
     dot?: boolean;
     outline?: boolean;
     pill?: boolean;

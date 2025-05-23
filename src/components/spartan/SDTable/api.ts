@@ -15,7 +15,7 @@ type TUpdateColData = TDColumnProps & { slots?: TColumnSlots };
 type TColData = TUpdateColData & { pos: number };
 
 type TRow = {
-    data: Record<string|symbol, any>;
+    data: Record<string | symbol, any>;
     isExpanded: boolean;
 };
 
@@ -34,7 +34,7 @@ type TState = {
 const contextKey = Symbol('STableContext') as InjectionKey<TState>;
 
 export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: any) => {
-    let totalCols = ref(0);
+    const totalCols = ref(0);
 
     const state: TState = reactive({
         emit,

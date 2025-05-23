@@ -43,10 +43,10 @@ const saveNewFilter = () => {
                     name: field.name,
                     interfaces: {
                         none: {
-                            operators: field.interfaces.none.operators
-                        }
+                            operators: field.interfaces.none.operators,
+                        },
                     },
-                    state: field.state
+                    state: field.state,
                 };
             } else if (field.interfaces?.single) {
                 cleanField = {
@@ -58,10 +58,10 @@ const saveNewFilter = () => {
                             minorUnitMode: field.interfaces.single.minorUnitMode,
                             currency: field.interfaces.single.currency,
                             currencies: field.interfaces.single.currencies,
-                            operators: field.interfaces.single.operators
-                        }
+                            operators: field.interfaces.single.operators,
+                        },
                     },
-                    state: field.state
+                    state: field.state,
                 };
             } else if (field.interfaces?.range) {
                 cleanField = {
@@ -73,10 +73,10 @@ const saveNewFilter = () => {
                             minorUnitMode: field.interfaces.range.minorUnitMode,
                             currency: field.interfaces.range.currency,
                             currencies: field.interfaces.range.currencies,
-                            operators: field.interfaces.range.operators
-                        }
+                            operators: field.interfaces.range.operators,
+                        },
                     },
-                    state: field.state
+                    state: field.state,
                 };
             } else if (field.interfaces?.options) {
                 cleanField = {
@@ -86,10 +86,10 @@ const saveNewFilter = () => {
                         options: {
                             options: field.interfaces.options.options,
                             multiple: field.interfaces.options.multiple,
-                            operators: field.interfaces.options.operators
-                        }
+                            operators: field.interfaces.options.operators,
+                        },
                     },
-                    state: field.state
+                    state: field.state,
                 };
             } else if (field.interfaces?.selection) {
                 cleanField = {
@@ -97,13 +97,13 @@ const saveNewFilter = () => {
                     name: field.name,
                     interfaces: {
                         selection: {
-                            operators: field.interfaces.selection.operators
-                        }
+                            operators: field.interfaces.selection.operators,
+                        },
                     },
-                    state: field.state
+                    state: field.state,
                 };
             } else {
-                return; // Skip invalid types
+                return;
             }
 
             fields.push(cleanField);
@@ -135,8 +135,8 @@ const selectFilter = (filter: TSaveData) => {
 
         <FadeTransition>
             <SCard
-                pt:body="sm:p-0"
                 v-if="!activeSaving"
+                pt:body="sm:p-0"
                 class="min-w-[220px] overflow-hidden rounded-lg border border-none border-gray-100 bg-white shadow-2xl"
             >
                 <ul class="w-full">

@@ -3,7 +3,7 @@ import type { Component } from 'vue';
 
 defineOptions({
     inheritAttrs: false,
-})
+});
 
 defineProps<{
     as?: string | boolean | null | Component | Object;
@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-    <component v-if="as" :is="as" v-bind="$attrs">
+    <component :is="as" v-if="as" v-bind="$attrs">
         <slot />
     </component>
 

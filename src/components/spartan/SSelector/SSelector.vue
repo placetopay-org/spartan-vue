@@ -111,7 +111,7 @@ watch(
                 :rounded="rounded"
                 :error="error"
                 :loading="loading"
-                :showClearButton="showClearButton"
+                :show-clear-button="showClearButton"
                 @click="toggleOptions"
                 @clear="clear"
             >
@@ -127,11 +127,11 @@ watch(
         <template #dropdown>
             <SelectorOptions
                 :options="computedOptions"
-                :optionValue
-                :optionLabel
-                :optionGroupLabel
-                :optionGroupItems
-                :isSelected
+                :option-value
+                :option-label
+                :option-group-label
+                :option-group-items
+                :is-selected
                 @select="(item: any) => selectOption(item)"
             >
                 <template #option="{ option }">

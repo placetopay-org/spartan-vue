@@ -12,55 +12,23 @@ import { h } from 'vue';
 describe('STable', () => {
     test('Can be rendered', async () => {
         // Act
-        const Cell1 = h(
-            STableCell,
-            null,
-            { default: () => 'John Doe' },
-        );
+        const Cell1 = h(STableCell, null, { default: () => 'John Doe' });
 
-        const Cell2 = h(
-            STableCell,
-            null,
-            { default: () => 'john.doe@email.com' },
-        );
+        const Cell2 = h(STableCell, null, { default: () => 'john.doe@email.com' });
 
-        const BodyRow = h(
-            STableRow,
-            null,
-            { default: () => [Cell1, Cell2] },
-        );
+        const BodyRow = h(STableRow, null, { default: () => [Cell1, Cell2] });
 
-        const Body = h(
-            STableBody,
-            null,
-            { default: () => BodyRow },
-        );
+        const Body = h(STableBody, null, { default: () => BodyRow });
 
-        const HeadCell1 = h(
-            STableHeadCell,
-            null,
-            { default: () => 'Name' },
-        );
+        const HeadCell1 = h(STableHeadCell, null, { default: () => 'Name' });
 
-        const HeadCell2 = h(
-            STableHeadCell,
-            null,
-            { default: () => 'Email' },
-        );
+        const HeadCell2 = h(STableHeadCell, null, { default: () => 'Email' });
 
-        const HeadRow = h(
-            STableRow,
-            null,
-            { default: () => [HeadCell1, HeadCell2] },
-        );
+        const HeadRow = h(STableRow, null, { default: () => [HeadCell1, HeadCell2] });
 
-        const Head = h(
-            STableHead,
-            null,
-            { default: () => HeadRow },
-        );
+        const Head = h(STableHead, null, { default: () => HeadRow });
 
-        render(STable, { slots: { default: [Head, Body] }});
+        render(STable, { slots: { default: [Head, Body] } });
 
         // Assert
         screen.getByRole('table');

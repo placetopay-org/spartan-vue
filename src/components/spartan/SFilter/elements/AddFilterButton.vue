@@ -45,9 +45,9 @@ const selectField = (id: string) => {
     >
         <template #reference>
             <button
-                @click="openPopover"
                 :disabled="!options?.length"
                 class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring disabled:pointer-events-none disabled:opacity-50"
+                @click="openPopover"
             >
                 <AddIcon class="h-5 w-5" />
                 <span>{{ t('addFilterBtn') }}</span>
@@ -67,8 +67,8 @@ const selectField = (id: string) => {
                         {{ t('fieldSelectorNotResults') }}
                     </li>
                     <li
-                        v-else
                         v-for="item in options"
+                        v-else
                         :key="item.id"
                         class="rounded-lg hover:bg-gray-50 hover:text-spartan-primary-600"
                     >

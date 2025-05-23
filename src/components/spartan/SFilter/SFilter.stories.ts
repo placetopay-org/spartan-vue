@@ -47,7 +47,12 @@ export const Default = createDefault({
                     options: {
                         multiple: true,
                         options: [{ id: '1', label: 'Nike' }, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                        operators: ['equal', 'notEqual', 'contains', { id: 'custom', label: 'customOper', tag: (value: string) => `custom -> ${value}` }],
+                        operators: [
+                            'equal',
+                            'notEqual',
+                            'contains',
+                            { id: 'custom', label: 'customOper', tag: (value: string) => `custom -> ${value}` },
+                        ],
                     },
                 },
                 state: {
@@ -60,7 +65,13 @@ export const Default = createDefault({
                 name: 'Description',
                 interfaces: {
                     oneInput: {
-                        operators: ['contains', 'notContains', 'startsWith', 'endsWith', { id: 'custom', label: 'customOper' }],
+                        operators: [
+                            'contains',
+                            'notContains',
+                            'startsWith',
+                            'endsWith',
+                            { id: 'custom', label: 'customOper' },
+                        ],
                     },
                 },
                 state: {
@@ -145,7 +156,7 @@ export const Default = createDefault({
                     },
                     selection: {
                         operators: [{ id: 'in', label: 'Dentro de', tag: (value: string) => `Dentro de -> ${value}` }],
-                    }
+                    },
                 },
             },
             {
@@ -164,7 +175,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another1',
@@ -173,7 +184,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another2',
@@ -182,7 +193,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another3',
@@ -191,7 +202,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another4',
@@ -200,7 +211,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another5',
@@ -209,7 +220,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another6',
@@ -218,7 +229,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another7',
@@ -227,7 +238,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another8',
@@ -236,7 +247,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another9',
@@ -245,7 +256,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another10',
@@ -254,7 +265,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another11',
@@ -263,7 +274,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
             {
                 id: 'another12',
@@ -272,7 +283,7 @@ export const Default = createDefault({
                     none: {
                         operators: ['exist', 'notExist'],
                     },
-                }
+                },
             },
         ],
     },
@@ -294,19 +305,19 @@ export const Saved = createVariation({
                 state: {
                     operator: 'exist',
                     value: null,
-                }
-            }
+                },
+            },
         ]);
         const saved = ref<TSaveData[]>([]);
 
         const save = (data: TSaveData[]) => {
             console.log('Saved:', data);
             saved.value = data;
-        }
+        };
 
         const load = (data: TSaveData[]) => {
             console.log('Loaded:', data);
-        }
+        };
 
         return { fields, saved, save, load };
     },

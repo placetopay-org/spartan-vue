@@ -23,7 +23,7 @@ describe('SInputOTP', () => {
         screen.getByRole('textbox');
         expect(items).toHaveLength(4);
 
-        const itemClass = "text-xl font-semibold text-gray-300"
+        const itemClass = 'text-xl font-semibold text-gray-300';
         expect(items[0]).toHaveClass(itemClass);
         expect(items[1]).toHaveClass(itemClass);
         expect(items[2]).toHaveClass(itemClass);
@@ -80,6 +80,5 @@ describe('SInputOTP', () => {
         expect(items[1]).toHaveTextContent('9');
         expect(items[2]).toHaveTextContent('0');
         expect(items[3]).toHaveTextContent('1');
-
     });
 });

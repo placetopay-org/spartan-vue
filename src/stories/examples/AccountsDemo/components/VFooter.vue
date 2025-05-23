@@ -15,7 +15,7 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
                 </button>
             </template>
 
-            <div class="text-sm font-medium text-gray-800 w-36">
+            <div class="w-36 text-sm font-medium text-gray-800">
                 <SDropdownItem>Español</SDropdownItem>
                 <SDropdownItem>Inglés</SDropdownItem>
             </div>

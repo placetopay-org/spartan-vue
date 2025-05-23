@@ -8,7 +8,7 @@ const [blockWrapperProps, textAreaProps] = extractWrapperProps<TTextAreaProps>(p
 </script>
 
 <template>
-    <BlockWrapper wrapper="SInputBlock" v-bind="blockWrapperProps" v-slot="{ id }">
+    <BlockWrapper v-slot="{ id }" wrapper="SInputBlock" v-bind="blockWrapperProps">
         <STextArea
             :id="id"
             class="w-full"

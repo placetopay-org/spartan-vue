@@ -35,7 +35,7 @@ describe('SInputIncrement', () => {
 
         const decrementButton = screen.getByRole('button', { name: 'decrement' });
         const incrementButton = screen.getByRole('button', { name: 'increment' });
-        
+
         const input = incrementButton.parentElement?.querySelector('input')!;
 
         // Assert

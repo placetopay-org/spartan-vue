@@ -337,7 +337,7 @@ export const PlacetopayHeaderCallback = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
         const value = ref('Administration/Merchants');
-        const callback = () => value.value = 'Dashboard';
+        const callback = () => (value.value = 'Dashboard');
         return { value, callback, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex gap-5 h-[550px]',

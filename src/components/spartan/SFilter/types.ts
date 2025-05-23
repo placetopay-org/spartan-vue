@@ -1,20 +1,20 @@
-import { 
-    predefinedOperators, 
+import {
+    predefinedOperators,
     comparisonOperators,
     textOperators,
     rangeOperators,
     dateOperators,
-    existenceOperators
+    existenceOperators,
 } from './constants';
 import { Currencies } from '@/constants';
 
 // Operator types
-export type TComparisonOperator = typeof comparisonOperators[number];
-export type TTextOperator = typeof textOperators[number];
-export type TRangeOperator = typeof rangeOperators[number];
-export type TDateOperator = typeof dateOperators[number];
-export type TExistenceOperator = typeof existenceOperators[number];
-export type TOperatorId = typeof predefinedOperators[number];
+export type TComparisonOperator = (typeof comparisonOperators)[number];
+export type TTextOperator = (typeof textOperators)[number];
+export type TRangeOperator = (typeof rangeOperators)[number];
+export type TDateOperator = (typeof dateOperators)[number];
+export type TExistenceOperator = (typeof existenceOperators)[number];
+export type TOperatorId = (typeof predefinedOperators)[number];
 
 // Interface types
 export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options' | 'selection';
@@ -43,21 +43,21 @@ export type TField = {
     state?: {
         operator: TOperator;
         value: any;
-    }
+    };
 };
 
 export type TInterfaces = {
-    none?: TNoneInterface,
-    single?: TSingleInterface,
-    range?: TRangeInterface,
-    options?: TOptionsInterface,
-    selection?: TSelectionInterface,
-}
+    none?: TNoneInterface;
+    single?: TSingleInterface;
+    range?: TRangeInterface;
+    options?: TOptionsInterface;
+    selection?: TSelectionInterface;
+};
 
 // Specific interfaces
 type TNoneInterface = {
     operators: (TExistenceOperator | TCustomOperator)[];
-}
+};
 
 type TSingleInterface = {
     inputType: TInputType;
@@ -65,7 +65,7 @@ type TSingleInterface = {
     currency?: keyof typeof Currencies;
     currencies?: (keyof typeof Currencies)[];
     operators: (TComparisonOperator | TTextOperator | TDateOperator | TExistenceOperator | TCustomOperator)[];
-}
+};
 
 type TRangeInterface = {
     inputType: Exclude<TInputType, 'text'>;
@@ -73,17 +73,22 @@ type TRangeInterface = {
     currency?: keyof typeof Currencies;
     currencies?: (keyof typeof Currencies)[];
     operators: (TRangeOperator | TDateOperator | TExistenceOperator | TCustomOperator)[];
-}
+};
 
 type TOptionsInterface = {
     options: TOptions;
     multiple?: boolean;
-    operators: (TComparisonOperator | Extract<TTextOperator, 'contains' | 'notContains'> | TExistenceOperator | TCustomOperator)[];
-}
+    operators: (
+        | TComparisonOperator
+        | Extract<TTextOperator, 'contains' | 'notContains'>
+        | TExistenceOperator
+        | TCustomOperator
+    )[];
+};
 
 type TSelectionInterface = {
     operators: (TComparisonOperator | TExistenceOperator | TCustomOperator)[];
-}
+};
 
 // Specific fields
 // export type TNoneField = TBaseField & {
@@ -145,9 +150,9 @@ type TSelectionInterface = {
 // Operator data type
 export type TOperatorData = Record<
     string,
-    { 
-        operators: (TOperatorId | TCustomOperator)[]; 
-        interfaces: Record<string, TInterfaceId> 
+    {
+        operators: (TOperatorId | TCustomOperator)[];
+        interfaces: Record<string, TInterfaceId>;
     }
 >;
 
@@ -164,12 +169,12 @@ export type TFilterProps = {
 
 export type TFilterEmits = {
     (event: 'apply', fields: TField[]): void;
-    (event: 'save', data: TSaveData[]): void
-    (event: 'load', data: TSaveData['filters']): void
-    (event: 'clear', fields: TField[]): void
+    (event: 'save', data: TSaveData[]): void;
+    (event: 'load', data: TSaveData['filters']): void;
+    (event: 'clear', fields: TField[]): void;
 };
 
 export type TSaveData = {
     name: string;
     filters: TField[];
-}
+};

@@ -1,11 +1,6 @@
 import SCopy from './SCopy.vue';
 import { SDefinitionTerm } from '../SDefinitionTerm';
-import {
-    createDefault,
-    createVariation,
-    buildSourceBinding,
-    createHistory,
-} from '@/helpers';
+import { createDefault, createVariation, buildSourceBinding, createHistory } from '@/helpers';
 
 export default {
     component: SCopy,
@@ -23,7 +18,7 @@ export default {
         events: [
             {
                 name: 'copied',
-                description: "This event is emitted when the copy button is clicked.",
+                description: 'This event is emitted when the copy button is clicked.',
             },
         ],
         props: [
@@ -32,7 +27,7 @@ export default {
                 control: 'text',
                 type: 'string',
                 default: undefined,
-                description: "The value to be copied.",
+                description: 'The value to be copied.',
             },
         ],
     }),
@@ -59,13 +54,13 @@ export const Base = createVariation({
     components: { SCopy },
     containerClass: 'h-[50px] flex items-end',
     template: `<SCopy> Base </SCopy>`,
-})
+});
 
 export const CopyFromProp = createVariation({
     components: { SCopy },
     containerClass: 'h-[50px] flex items-end',
     template: `<SCopy value="Text from prop"> Lorem ipsum </SCopy>`,
-})
+});
 
 export const CopyFromSlotScrapping = createVariation({
     components: { SCopy },
@@ -73,7 +68,7 @@ export const CopyFromSlotScrapping = createVariation({
     template: `
 <SCopy> <div> <main> <span> Slot Scrapping </span> </main> </div> </SCopy>
     `,
-})
+});
 
 export const UseWithDefinitionTerm = createVariation({
     components: { SCopy, SDefinitionTerm },
@@ -87,4 +82,4 @@ export const UseWithDefinitionTerm = createVariation({
     </template>
 </SDefinitionTerm>
     `,
-})
+});

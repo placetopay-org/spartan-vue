@@ -1,11 +1,5 @@
 import SBadge from './SBadge.vue';
-import {
-    createDefault,
-    createVariation,
-    buildDesign,
-    buildSourceBinding,
-    createHistory,
-} from '@/helpers';
+import { createDefault, createVariation, buildDesign, buildSourceBinding, createHistory } from '@/helpers';
 
 export default {
     component: SBadge,

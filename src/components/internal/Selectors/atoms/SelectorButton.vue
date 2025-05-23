@@ -15,7 +15,7 @@ defineProps<{
     showClearButton?: boolean;
 }>();
 
-const $button = useTemplateRef<HTMLButtonElement>('button')
+const $button = useTemplateRef<HTMLButtonElement>('button');
 
 defineExpose<{
     $button: ShallowRef<HTMLButtonElement | null>;
@@ -24,15 +24,15 @@ defineExpose<{
 
 <template>
     <button
+        ref="button"
         :disabled="disabled"
         type="button"
-        ref="button"
         :class="twMerge(buttonStyles({ disabled, error, rounded }), 'flex items-center', $props.class)"
     >
         <slot />
 
         <div class="-mr-1 ml-auto flex gap-1 text-gray-400">
-            <button @click.stop="$emit('clear')" v-if="showClearButton" class="group">
+            <button v-if="showClearButton" class="group" @click.stop="$emit('clear')">
                 <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600" />
             </button>
             <Loader v-if="loading" variant="simple" class="h-5 w-5 shrink-0" />

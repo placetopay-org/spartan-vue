@@ -29,7 +29,7 @@ const updateCurrency = (currency?: string) => {
     <div class="flex gap-4">
         <SInputAmount
             v-if="config.inputType === 'amount'"
-            v-model="(value1 as number)"
+            v-model="value1 as number"
             :currency="config.currency ?? config.currencies![0]"
             :currencies="config.currencies"
             :type="config.inputType"
@@ -47,7 +47,7 @@ const updateCurrency = (currency?: string) => {
 
         <SInputAmount
             v-if="config.inputType === 'amount'"
-            v-model="(value2 as number)"
+            v-model="value2 as number"
             :currency="config.currency ?? config.currencies![0]"
             :currencies="config.currencies"
             :type="config.inputType"

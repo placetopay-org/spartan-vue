@@ -21,7 +21,7 @@ const assets = {
 
 const computedWidth = computed(() => {
     if (props.width) return props.width;
-    
+
     if (props.size === 'md') return 202;
 });
 </script>

@@ -57,7 +57,7 @@ export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
 
             if (!value || /^[0-9]+$/.test(value)) emit('update:modelValue', value);
 
-            activate({...state, value });
+            activate({ ...state, value });
         },
         focusInput: () => activate(state),
         focusoutInput: () => deactivate(state),

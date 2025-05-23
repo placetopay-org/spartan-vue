@@ -14,12 +14,10 @@ export const inputStyles = cva(
     'w-full border-none p-0 text-gray-900 outline-none placeholder:text-gray-400 focus:ring-0',
     {
         variants: {
-            rounded: roundedClass
-        }
-    }
+            rounded: roundedClass,
+        },
+    },
 );
-
-
 
 // export const inputStyle = {
 //     root: 'w-full outline-none focus:outline-none',

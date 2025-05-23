@@ -320,7 +320,7 @@ export const SearchBadgeList = createVariation({
         const query = ref('');
         const computedCities = ref(manyCities.value);
         const isLoading = ref(false);
-        
+
         const clear = () => (value.value = null);
         const updateQuery = (q: string) => (query.value = q);
 
@@ -379,7 +379,7 @@ export const ClearableBadgeList = createVariation({
         const query = ref('');
         const computedCities = ref(manyCities.value);
         const isLoading = ref(false);
-        
+
         const clear = () => (value.value = null);
         const updateQuery = (q: string) => (query.value = q);
 
@@ -439,12 +439,12 @@ export const Handler = createVariation({
         const baseCities = ref(cities.value);
         const computedCities = ref(baseCities.value);
         const isLoading = ref(false);
-        
+
         const clear = () => (value.value = null);
         const updateQuery = (q: string) => (query.value = q);
         const addOption = (option: any) => {
-            if (!some(baseCities.value, option)) baseCities.value.push(option);   
-        }
+            if (!some(baseCities.value, option)) baseCities.value.push(option);
+        };
 
         watch(query, () => {
             if (query.value === '') {

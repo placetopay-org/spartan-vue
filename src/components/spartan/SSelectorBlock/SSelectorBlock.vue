@@ -9,7 +9,7 @@ const [blockWrapperProps, selectorProps] = extractWrapperProps<TSelectorProps>(p
 </script>
 
 <template>
-    <BlockWrapper wrapper="SSelectorBlock" v-bind="blockWrapperProps" v-slot="{ id }">
+    <BlockWrapper v-slot="{ id }" wrapper="SSelectorBlock" v-bind="blockWrapperProps">
         <SSelector
             class="w-full"
             v-bind="selectorProps"

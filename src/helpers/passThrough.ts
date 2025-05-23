@@ -12,7 +12,7 @@ export function usePassthrough() {
         const className = bind?.class;
         const props = { ...bind };
         delete props.class;
-        
+
         return [className, props];
     };
 

@@ -15,7 +15,7 @@ describe('SModal', () => {
     //     // Assert
     //     expect(warn).not.toHaveBeenCalledOnce();
     // });
-    
+
     test('Can be rendered', async () => {
         // Arrange
         window.ResizeObserver = vi.fn(() => ({

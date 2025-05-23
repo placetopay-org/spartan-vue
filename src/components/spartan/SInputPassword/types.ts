@@ -7,12 +7,10 @@ export type TInputPasswordEmits = {
 };
 
 export type TValidatorKey = keyof typeof validators;
-type TValidatorParams<K extends TValidatorKey> = Parameters<typeof validators[K]>;
+type TValidatorParams<K extends TValidatorKey> = Parameters<(typeof validators)[K]>;
 
 export type TRules = {
-    [K in TValidatorKey]: TValidatorParams<K>[1] extends undefined 
-    ? boolean 
-    : TValidatorParams<K>[1]
+    [K in TValidatorKey]: TValidatorParams<K>[1] extends undefined ? boolean : TValidatorParams<K>[1];
 };
 
 export type TState = {

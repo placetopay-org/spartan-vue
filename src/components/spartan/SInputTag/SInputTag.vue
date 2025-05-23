@@ -57,9 +57,15 @@ const focusInput = () => inputElement.value?.focus();
         v-bind="containerProps"
         @click="focusInput"
     >
-        <div v-for="tag in tags" class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900">
+        <div
+            v-for="tag in tags"
+            class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900"
+        >
             {{ tag }}
-            <button @click="removeTag(tag)" class="bg-gray-400 rounded-full relative h-3 w-3 flex items-center justify-center self-center">
+            <button
+                class="relative flex h-3 w-3 items-center justify-center self-center rounded-full bg-gray-400"
+                @click="removeTag(tag)"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="h-3 w-3">
                     <path
                         d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"

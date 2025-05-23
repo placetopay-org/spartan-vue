@@ -36,8 +36,8 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
                     >
                         <button
                             v-if="col.expander"
-                            @click="row.isExpanded = !row.isExpanded"
                             class="group flex h-full w-full justify-center p-3.5"
+                            @click="row.isExpanded = !row.isExpanded"
                         >
                             <ChevronDownIcon
                                 :class="[
@@ -64,8 +64,8 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
                         >
                             <template v-if="col.slots?.body">
                                 <component
-                                    v-for="slot in col.slots.body({ row: row.data, value: row.data[col.field] })"
                                     :is="slot"
+                                    v-for="slot in col.slots.body({ row: row.data, value: row.data[col.field] })"
                                 />
                             </template>
 
@@ -79,7 +79,7 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
                 <tr class="border-none">
                     <td :colspan="context.colsArray.length" class="bg-gray-50 p-0">
                         <SAccordion :open="row.isExpanded" vertical>
-                            <component v-for="slot in context.slots.expansion?.({ row: row.data })" :is="slot" />
+                            <component :is="slot" v-for="slot in context.slots.expansion?.({ row: row.data })" />
                         </SAccordion>
                     </td>
                 </tr>

@@ -79,8 +79,7 @@ describe('SDTable', () => {
             SDColumn,
             { field: 'email', header: 'Correo' },
             {
-                header: () =>
-                    h('span', { class: 'text-blue-500' }, { default: () => 'ALIAS' }),
+                header: () => h('span', { class: 'text-blue-500' }, { default: () => 'ALIAS' }),
             },
         );
         const Column3 = h(SDColumn, { field: 'title', header: 'Titulo' });
@@ -125,7 +124,9 @@ describe('SDTable', () => {
 
         // Assert
         await waitFor(() => {
-            const row = screen.getByRole('row', { name: 'Lindsay Walton lindsay.walton@example.com Front-end Developer Member' });
+            const row = screen.getByRole('row', {
+                name: 'Lindsay Walton lindsay.walton@example.com Front-end Developer Member',
+            });
             const cell1 = screen.getByRole('cell', { name: 'Lindsay Walton' });
             const link1 = cell1.querySelector('a');
 
@@ -180,11 +181,16 @@ describe('SDTable', () => {
             const svg2 = btn2.querySelector('svg');
 
             const path1 = svg1.querySelector('path')!;
-            expect(path1).toHaveAttribute('d', 'M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z');
+            expect(path1).toHaveAttribute(
+                'd',
+                'M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z',
+            );
 
             const path2 = svg2.querySelector('path')!;
-            expect(path2).toHaveAttribute('d', 'M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z');
-
+            expect(path2).toHaveAttribute(
+                'd',
+                'M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z',
+            );
 
             await user.click(btn1);
             await user.click(btn2);

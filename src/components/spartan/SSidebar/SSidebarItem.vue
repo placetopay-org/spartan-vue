@@ -10,7 +10,7 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
     as: 'button',
     path: undefined,
-    icon: undefined, 
+    icon: undefined,
 });
 
 const el = ref<HTMLElement | null>(null);
@@ -39,7 +39,12 @@ onMounted(() => {
 
 <template>
     <li ref="el">
-        <component :is="as" v-bind="$attrs" :class="twMerge(sidebarItemStyles({ isChild }))" @click="store.updatePath(updatedPath)">
+        <component
+            :is="as"
+            v-bind="$attrs"
+            :class="twMerge(sidebarItemStyles({ isChild }))"
+            @click="store.updatePath(updatedPath)"
+        >
             <component :is="icon" :class="twMerge(sidebarItemIconStyles({ active: isActive }))" />
 
             <span :class="twMerge(sidebarItemContentStyles({ active: isActive }))">

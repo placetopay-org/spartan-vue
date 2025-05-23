@@ -50,11 +50,11 @@ const { t } = translator('selector');
 
             <button
                 v-for="item in typeof option === 'object' && optionGroupItems ? option[optionGroupItems] : [option]"
-                @click="$emit('select', getOptionValue(item))"
                 :disabled="item.disabled"
                 :class="twMerge(optionStyles({ selected: isSelected(item), disabled: item.disabled }))"
+                @click="$emit('select', getOptionValue(item))"
             >
-                <slot name="option" :option="item" v-if="hasSlotContent($slots.option)" />
+                <slot v-if="hasSlotContent($slots.option)" name="option" :option="item" />
                 <span v-else>{{ getOptionLabel(item) }}</span>
 
                 <CheckIcon

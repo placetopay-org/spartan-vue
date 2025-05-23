@@ -19,14 +19,10 @@ ctx.register(
     (newValue: string) => (value.value = newValue),
     (newActive: boolean) => (active.value = newActive),
 );
-
 </script>
 
 <template>
-    <div
-        tabindex="-1"
-        :class="twMerge(inputOTPItemStyles({ active, success, error }), $props.class)"
-    >
+    <div tabindex="-1" :class="twMerge(inputOTPItemStyles({ active, success, error }), $props.class)">
         <span :class="twMerge(inputOTPItemTextStyles({ value: !!value, success, error }))">{{ value || '-' }}</span>
     </div>
 </template>

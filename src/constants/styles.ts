@@ -17,10 +17,10 @@ export const inputStyle = {
     rounded: 'rounded-lg',
     border: {
         base: 'border border-gray-300',
-        error: 'border border-red-500'
+        error: 'border border-red-500',
     },
     ring: {
         base: 'focus-within:s-ring',
-        error: 'focus-within:s-ring-error'
-    }
-}
+        error: 'focus-within:s-ring-error',
+    },
+};

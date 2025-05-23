@@ -9,14 +9,14 @@ const [blockWrapperProps, inputPasswordProps] = extractWrapperProps<TInputPasswo
 </script>
 
 <template>
-    <BlockWrapper wrapper="SInputPasswordBlock" v-bind="blockWrapperProps" v-slot="{ id }">
+    <BlockWrapper v-slot="{ id }" wrapper="SInputPasswordBlock" v-bind="blockWrapperProps">
         <SInputPassword
             :id="id"
             class="w-full"
             v-bind="inputPasswordProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
             @state="$emit('state', $event)"
-            @isValid="$emit('isValid', $event)"
+            @is-valid="$emit('isValid', $event)"
             @focus="$emit('focus', $event)"
             @blur="$emit('blur', $event)"
         />

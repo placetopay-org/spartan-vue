@@ -1,6 +1,6 @@
-import type { TPaginatorProps } from "@spartan";
+import type { TPaginatorProps } from '@spartan';
 import type { ClassNameValue } from 'tailwind-merge';
-import type { Component } from "vue";
+import type { Component } from 'vue';
 
 export type TDTableProps = {
     class?: ClassNameValue;
@@ -24,5 +24,5 @@ export type TDColumnProps = {
 
 export type TDTableEmits = {
     (event: 'sort', value: Pick<TDColumnProps, 'field' | 'sort'>): void;
-    (event: 'paginatorChange', value: { page?: number; size?: number, dir?: 'prev' | 'next' }): void
+    (event: 'paginatorChange', value: { page?: number; size?: number; dir?: 'prev' | 'next' }): void;
 };

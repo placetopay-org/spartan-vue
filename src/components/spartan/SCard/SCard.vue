@@ -31,7 +31,7 @@ const PtIconContainer = extractor(pt.value.iconContainer);
             <template v-if="hasSlotContent($slots.default)">
                 <slot />
             </template>
-    
+
             <section
                 v-if="hasSlotContent($slots.actions)"
                 data-s-actions

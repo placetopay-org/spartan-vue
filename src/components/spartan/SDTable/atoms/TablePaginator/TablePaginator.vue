@@ -24,8 +24,8 @@ const count = computed(() => {
 
 <template>
     <section
-        data-s-paginator
         v-if="!context.props.paginator?.hideWhenSinglePage || (count && count > 1)"
+        data-s-paginator
         v-bind="paginatorProps"
         :class="twMerge('overflow-auto border-t border-gray-300 bg-gray-50 p-[14px]', paginatorClass)"
     >

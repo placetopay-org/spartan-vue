@@ -32,18 +32,18 @@ const toggleAllExpanders = () => {
         >
             <ExpanderButton
                 v-if="col.expander"
-                :isAllExpanded="isAllExpanded"
-                @toggleAllExpanders="toggleAllExpanders"
+                :is-all-expanded="isAllExpanded"
+                @toggle-all-expanders="toggleAllExpanders"
             />
 
             <component
-                v-else
                 :is="col.sort ? 'button' : 'div'"
+                v-else
                 class="group flex w-fit"
                 @click="col.sort && context.emit('sort', { field: col.field, sort: col.sort })"
             >
                 <template v-if="col.slots?.header">
-                    <component v-for="slot in col.slots.header()" :is="slot" />
+                    <component :is="slot" v-for="slot in col.slots.header()" />
                 </template>
 
                 <template v-else>
@@ -58,8 +58,8 @@ const toggleAllExpanders = () => {
                     "
                 >
                     <component
-                        v-if="col.sort"
                         :is="col.sort === 'asc' ? ChevronUpIcon : ChevronDownIcon"
+                        v-if="col.sort"
                         :class="['h-5 w-5', typeof col.sort === 'boolean' && 'ml-2 opacity-0 group-hover:opacity-50']"
                     />
                 </Wrapper>

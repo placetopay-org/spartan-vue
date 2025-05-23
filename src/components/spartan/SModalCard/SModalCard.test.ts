@@ -16,7 +16,7 @@ describe('SModalCard', () => {
         // Assert
         expect(warn).not.toHaveBeenCalledOnce();
     });
-    
+
     test('Can be rendered', async () => {
         // Arrange
         window.ResizeObserver = vi.fn(() => ({
@@ -30,7 +30,7 @@ describe('SModalCard', () => {
             props: { open: false },
             slots: { default: 'Test content' },
         });
-        
+
         // Assert
         expect(screen.queryByText('Test content')).not.toBeInTheDocument();
         await rerender({ open: true });
@@ -51,7 +51,7 @@ describe('SModalCard', () => {
     //         slots: { title: 'Test Title', default: 'Test content', description: 'Test description', actions: 'Test actions' },
     //     });
     //     await rerender({ open: true });
-        
+
     //     // Assert
     //     screen.getAllByRole('heading', { name: 'Test Title' });
     //     screen.getByText('Test description');

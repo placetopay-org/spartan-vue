@@ -9,7 +9,7 @@ const [blockWrapperProps, comboboxProps] = extractWrapperProps<TComboboxProps>(p
 </script>
 
 <template>
-    <BlockWrapper wrapper="SComboboxBlock" v-bind="blockWrapperProps" v-slot="{ id }">
+    <BlockWrapper v-slot="{ id }" wrapper="SComboboxBlock" v-bind="blockWrapperProps">
         <SCombobox
             :id="id"
             class="w-full"

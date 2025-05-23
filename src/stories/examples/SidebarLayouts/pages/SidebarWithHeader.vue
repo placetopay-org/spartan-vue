@@ -25,7 +25,6 @@ const value = ref('Dashboard');
             </nav>
             <main class="h-full w-full py-10">
                 <div class="h-full w-full px-4 sm:px-6 lg:px-8">
-
                     <!-- Example content -->
                     <Mesh class="p-4">
                         <p class="absolute left-1/2 top-1/2 -translate-x-1/2">{{ value }}</p>

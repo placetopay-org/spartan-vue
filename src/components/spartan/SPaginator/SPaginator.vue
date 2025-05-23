@@ -122,7 +122,7 @@ const selectPage = (pageItem: number) => {
 
             <SSelect
                 class="h-8 text-xs"
-                :modelValue="size"
+                :model-value="size"
                 @update:model-value="
                     (value) => {
                         emit('change', { size: Number(value), page: 1 });
@@ -144,14 +144,14 @@ const selectPage = (pageItem: number) => {
         </div>
         <div>
             <SButtonGroup aria-label="pagination">
-                <SButtonGroupItem first prev class="px-2" @click="prev" :disabled="!vCanGoPrev" />
+                <SButtonGroupItem first prev class="px-2" :disabled="!vCanGoPrev" @click="prev" />
 
                 <template v-if="!hideNumbers">
                     <SButtonGroupItem
                         v-for="pageItem in vPages"
+                        :key="pageItem"
                         class="px-4"
                         :active="Number(pageItem) === page"
-                        :key="pageItem"
                         :class="String(pageItem) === '...' ? 'pointer-events-none' : ''"
                         @click="() => Number(pageItem) && selectPage(Number(pageItem))"
                     >
@@ -159,7 +159,7 @@ const selectPage = (pageItem: number) => {
                     </SButtonGroupItem>
                 </template>
 
-                <SButtonGroupItem last next class="px-2" @click="next" :disabled="!vCanGoNext" />
+                <SButtonGroupItem last next class="px-2" :disabled="!vCanGoNext" @click="next" />
             </SButtonGroup>
         </div>
     </div>

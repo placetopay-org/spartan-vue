@@ -10,4 +10,4 @@ export type TSelectorLayoutProps = {
     optionLabel: string;
     optionGroupLabel?: string;
     optionGroupItems?: string;
-}
+};

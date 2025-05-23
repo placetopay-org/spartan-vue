@@ -9,7 +9,7 @@ type TState = {
     variant: { tab: Component; item: Component };
     dropdowns: Record<string, RegExp[]>;
     addDropdown: (id: string, regex: RegExp) => void;
-}
+};
 
 export const { createContext, useContext } = buildContext<TState, TTabProps, TTabEmits>({
     name: 'STab',
@@ -30,21 +30,19 @@ export const { createContext, useContext } = buildContext<TState, TTabProps, TTa
                     vetches: {
                         tab: VetchTab,
                         item: VetchTabItem,
-                    }
-                }
+                    },
+                };
 
                 return variants[props.variant || 'underline'];
             }),
             tabs: [],
-            addTabs: (tab: TTab) => {
-                
-            },
+            addTabs: (tab: TTab) => {},
             dropdowns: {},
             addDropdown: (id: string, regex: RegExp) => {
                 if (!id || String(regex) === '/^$/') return;
-                
+
                 state.dropdowns[id] = [...(state.dropdowns[id] || []), regex];
-            }
+            },
         });
 
         return state;

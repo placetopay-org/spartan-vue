@@ -22,20 +22,39 @@ const [crossClass, crossProps] = extractor(pt.value.cross);
 const remove = (e: Event) => {
     removable === 'stopPropagation' && e.stopPropagation();
     emit('removed');
-}
+};
 </script>
 
 <template>
-    <span :class="twMerge(badgeStyles({ color, size, outline, pill, dot, removable: Boolean(removable), reverse, tag: tagSlot }), $props.class)">
-        <svg v-if="dot" v-bind="dotProps" data-s-dot :class="twMerge(dotStyles({ color }), dotClass)" viewBox="0 0 6 6" aria-hidden="true">
+    <span
+        :class="
+            twMerge(
+                badgeStyles({ color, size, outline, pill, dot, removable: Boolean(removable), reverse, tag: tagSlot }),
+                $props.class,
+            )
+        "
+    >
+        <svg
+            v-if="dot"
+            v-bind="dotProps"
+            data-s-dot
+            :class="twMerge(dotStyles({ color }), dotClass)"
+            viewBox="0 0 6 6"
+            aria-hidden="true"
+        >
             <circle cx="3" cy="3" r="3" />
         </svg>
 
         <div data-s-body v-bind="bodyProps" :class="twMerge(bodyStyles({ reverse }), bodyClass)">
-            <div v-if="tagSlot" v-bind="tagProps" data-s-tag :class="twMerge(tagStyles({ color, pill, outline }), tagClass)">
+            <div
+                v-if="tagSlot"
+                v-bind="tagProps"
+                data-s-tag
+                :class="twMerge(tagStyles({ color, pill, outline }), tagClass)"
+            >
                 <slot name="tag" />
             </div>
-    
+
             <div data-s-content v-bind="contentProps" :class="twMerge(contentClass)">
                 <slot />
             </div>

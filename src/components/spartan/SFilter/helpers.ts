@@ -33,7 +33,7 @@ export const getOperators = (field: TField): TOperator[] => {
         acc.push(...field.interfaces[key].operators);
         return acc;
     }, []);
-}
+};
 
 export const getOperatorId = (operator: TOperator) => {
     return typeof operator === 'object' ? operator.id : operator;

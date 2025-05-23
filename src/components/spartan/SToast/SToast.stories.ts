@@ -158,7 +158,6 @@ export const DisplayToast = createVariation({
     components: { SToast, SButton, SToaster },
     containerClass: 'grid gap-3 grid-cols-1 h-[150px]',
     setup: () => {
-
         const display = () => {
             toast({
                 leftBorder: true,
@@ -168,8 +167,8 @@ export const DisplayToast = createVariation({
                 closeable: true,
                 duration: Infinity,
                 position: 'bottom-left',
-            })
-        }
+            });
+        };
         return { display };
     },
     template: `

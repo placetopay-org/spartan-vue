@@ -33,7 +33,7 @@ const recoveryCode = ref('');
         <SPlacetopayLogo class="mb-8" :height="32" />
 
         <template v-if="AuthRoutes.includes(route)">
-            <STab :model-value="route" @update:model-value="(newRoute) => push(newRoute)" full class="mb-6 w-full">
+            <STab :model-value="route" full class="mb-6 w-full" @update:model-value="(newRoute) => push(newRoute)">
                 <STabItem path="login">Ingresar</STabItem>
                 <STabItem path="signup">Soy nuevo</STabItem>
             </STab>
@@ -46,17 +46,28 @@ const recoveryCode = ref('');
 
                 <button
                     type="button"
-                    @click="push('restore-password')"
                     class="text-center text-xs font-medium text-gray-400"
+                    @click="push('restore-password')"
                 >
                     ¿Olvidaste tu contraseña?
                 </button>
-                <SButton as="a" href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--auth" class="w-full">{{ atLogin ? 'Ingresar' : 'Registrarse' }}</SButton>
+                <SButton
+                    as="a"
+                    href="/iframe.html?args=buttonPreviewMode:false&id=examples-accountsdemo-pages--auth"
+                    class="w-full"
+                    >{{ atLogin ? 'Ingresar' : 'Registrarse' }}</SButton
+                >
 
                 <p class="text-xs font-normal text-gray-400">
                     Al continuar acepto las políticas aplicables para el tratamiento de mis datos personales según la
                     jurisdicción local del responsable y de
-                    <a target="_blank" href="https://www.evertecinc.com/wp-content/uploads/2023/04/POL-CMP-004-Poli%25CC%2581ticas-para-la-proteccio%25CC%2581n-de-datos-personales-pu%25CC%2581blica-V-1.0.pdf" class="font-semibold text-gray-500">Evertec PlacetoPay</a> en su calidad de encargado.
+                    <a
+                        target="_blank"
+                        href="https://www.evertecinc.com/wp-content/uploads/2023/04/POL-CMP-004-Poli%25CC%2581ticas-para-la-proteccio%25CC%2581n-de-datos-personales-pu%25CC%2581blica-V-1.0.pdf"
+                        class="font-semibold text-gray-500"
+                        >Evertec PlacetoPay</a
+                    >
+                    en su calidad de encargado.
                 </p>
             </div>
         </template>
@@ -79,7 +90,7 @@ const recoveryCode = ref('');
         </template>
 
         <template v-if="route === 'otp'">
-            <div class="border border-gray-100 rounded-full p-3 mb-6">
+            <div class="mb-6 rounded-full border border-gray-100 p-3">
                 <LockClosedIcon class="mx-auto h-6 w-6 text-gray-900" />
             </div>
             <h2 class="mb-1.5 font-semibold text-gray-900">Código de autenticación</h2>
@@ -107,15 +118,16 @@ const recoveryCode = ref('');
         </template>
 
         <template v-if="route === 'recovery-code'">
-            <div class="border border-gray-100 rounded-full p-3 mb-6">
+            <div class="mb-6 rounded-full border border-gray-100 p-3">
                 <KeyIcon class="mx-auto h-6 w-6 text-gray-900" />
             </div>
             <h2 class="mb-1.5 font-semibold text-gray-900">Código de recuperación</h2>
             <p class="mb-6 text-center text-xs text-gray-600">
-                Si no puede acceder a su dispositivo móvil, ingrese uno de sus códigos de recuperación para verificar su identidad.
+                Si no puede acceder a su dispositivo móvil, ingrese uno de sus códigos de recuperación para verificar su
+                identidad.
             </p>
 
-            <SInput v-model="recoveryCode" type="password" class="w-full mb-6" />
+            <SInput v-model="recoveryCode" type="password" class="mb-6 w-full" />
 
             <div class="flex w-full">
                 <SButton class="mr-4 w-fit" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')">

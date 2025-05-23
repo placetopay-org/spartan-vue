@@ -1,4 +1,3 @@
-
 import { cva, type VariantProps } from 'class-variance-authority';
 import { createBooleanVariation as cbv } from '@/helpers';
 
@@ -71,8 +70,8 @@ export const badgeStyles = cva('inline-flex items-center font-medium h-fit w-fit
         compoundPaddingCross('lg', 'pr-1.5 pl-3'),
         {
             tag: true,
-            class: 'font-normal'
-        }
+            class: 'font-normal',
+        },
     ],
 });
 

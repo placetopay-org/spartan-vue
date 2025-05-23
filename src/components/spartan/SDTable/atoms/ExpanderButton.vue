@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-    <button @click="$emit('toggleAllExpanders')" class="group flex h-full w-full justify-center p-3.5">
+    <button class="group flex h-full w-full justify-center p-3.5" @click="$emit('toggleAllExpanders')">
         <ChevronDoubleDownIcon
             :class="[
                 isAllExpanded && 'rotate-180',
