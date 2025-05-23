@@ -44,7 +44,7 @@ const updateModelValue = (event: Event) => {
             :id="computedId"
             v-bind="$attrs"
             :checked="isChecked"
-            class="cursor-pointer rounded border border-gray-300 bg-white text-primary-600 accent-primary-600 focus:ring-offset-0 focus:s-ring"
+            class="cursor-pointer rounded border border-gray-300 bg-white text-spartan-primary-600 accent-spartan-primary-600 focus:ring-offset-0 focus:s-ring"
             type="checkbox"
             :disabled="disabled"
             :name="name"
@@ -59,11 +59,19 @@ const updateModelValue = (event: Event) => {
                 hasSlotContent($slots.description) ? '-mt-1' : '-mt-0.5',
             ]"
         >
-            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" class="text-sm font-semibold text-gray-900">
+            <label
+                v-if="hasSlotContent($slots.default) && !inline"
+                :for="computedId"
+                class="text-sm font-semibold text-gray-900"
+            >
                 <slot />
             </label>
             <p v-if="hasSlotContent($slots.description)" :class="['text-sm font-normal text-gray-500', inline && '']">
-                <label v-if="hasSlotContent($slots.default) && inline" :for="computedId" class="text-sm font-semibold text-gray-900">
+                <label
+                    v-if="hasSlotContent($slots.default) && inline"
+                    :for="computedId"
+                    class="text-sm font-semibold text-gray-900"
+                >
                     <slot />
                 </label>
                 <slot name="description" />

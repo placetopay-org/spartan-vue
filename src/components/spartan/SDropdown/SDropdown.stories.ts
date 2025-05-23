@@ -3,7 +3,7 @@ import SDropdownItem from './SDropdownItem.vue';
 import { SAvatar, SButton } from '@spartan';
 import type { SourceProps } from '@storybook/blocks';
 import { action } from '@storybook/addon-actions';
-import { buildDesign, buildSourceBinding } from '@/helpers';
+import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import {
     Cog8ToothIcon,
@@ -96,105 +96,62 @@ const itemsSourceBinding = buildSourceBinding(
     'item',
 );
 
-export const Default = {
-    decorators: [() => ({ template: '<div style="padding-bottom: 200px;"><story/></div>' })],
-    render: (args: any) => ({
-        components: {
-            SDropdown,
-            SDropdownItem,
-            SButton,
-            ChevronDownIcon,
-            PuzzlePieceIcon,
-        },
-        setup() {
-            const getIcon = (icon: 'PuzzlePieceIcon' | 'ArrowLeftOnRectangleIcon' | 'PencilIcon') => {
-                if (icon === 'PuzzlePieceIcon') return PuzzlePieceIcon;
-                if (icon === 'ArrowLeftOnRectangleIcon') return ArrowLeftOnRectangleIcon;
-                if (icon === 'PencilIcon') return PencilIcon;
-            };
-            return { args, getIcon, onClick: action('onClick'), ChevronDownIcon };
-        },
-        template: `<SDropdown v-bind="args">
-    <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
-
-    <template #items>
-      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
-        {{ args.itemSlotDefault }}
-        
-        <template #description>
-          {{ args.itemSlotDescription }}
-        </template>
-      </SDropdownItem>
-
-      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
-        {{ args.itemSlotDefault }}
-        
-        <template #description>
-          {{ args.itemSlotDescription }}
-        </template>
-      </SDropdownItem>
-
-      <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
-        {{ args.itemSlotDefault }}
-        
-        <template #description>
-          {{ args.itemSlotDescription }}
-        </template>
-      </SDropdownItem>
-    </template>
-  </SDropdown>`,
-    }),
-    parameters: {
-        design,
-        docs: {
-            canvas: { layout: 'centered' },
-            source: {
-                transform: ((_, storyContext) => `
-<SDropdown ${sourceBinding(storyContext.args)}>
-  <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
-  
-  <template #items>
-    <SDropdownItem ${itemsSourceBinding(storyContext.args)}>
-      ${storyContext.args.itemSlotDefault}
-      
-      <template #description>
-        ${storyContext.args.itemSlotDescription}
-      </template>
-    </SDropdownItem>
-
-    <SDropdownItem ${itemsSourceBinding(storyContext.args)}>
-      ${storyContext.args.itemSlotDefault}
-      
-      <template #description>
-        ${storyContext.args.itemSlotDescription}
-      </template>
-    </SDropdownItem>
-
-    <SDropdownItem ${itemsSourceBinding(storyContext.args)}>
-      ${storyContext.args.itemSlotDefault}
-      
-      <template #description>
-        ${storyContext.args.itemSlotDescription}
-      </template>
-    </SDropdownItem>
-  </template>
-</SDropdown>`) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
+export const Default = createDefault({
+    components: {
+        SDropdown,
+        SDropdownItem,
+        SButton,
+        ChevronDownIcon,
+        PuzzlePieceIcon,
+    },
+    containerClass: 'flex justify-center items-center h-[500px] w-[500px]',
+    setup: () => {
+        const getIcon = (icon: 'PuzzlePieceIcon' | 'ArrowLeftOnRectangleIcon' | 'PencilIcon') => {
+            if (icon === 'PuzzlePieceIcon') return PuzzlePieceIcon;
+            if (icon === 'ArrowLeftOnRectangleIcon') return ArrowLeftOnRectangleIcon;
+            if (icon === 'PencilIcon') return PencilIcon;
+        };
+        return { getIcon, ChevronDownIcon };
     },
     args: {
-        leftToRight: false,
         itemSlotDefault: 'Title',
+        itemPropIcon: 'PuzzlePieceIcon',
         itemSlotDescription: 'Description',
-        itemPropIcon: undefined,
-        itemPropDisabled: false,
     },
-};
+    template: `
+<SDropdown v-bind="args">
+  <template #reference>
+    <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
+  </template>
+
+  <SDropdownItem @click="console.log('title')" :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
+    {{ args.itemSlotDefault }}
+
+    <template #description>
+      {{ args.itemSlotDescription }}
+    </template>
+  </SDropdownItem>
+
+  <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
+    {{ args.itemSlotDefault }}
+
+    <template #description>
+      {{ args.itemSlotDescription }}
+    </template>
+  </SDropdownItem>
+
+  <SDropdownItem :icon="getIcon(args.itemPropIcon)" :disabled="args.itemPropDisabled">
+    {{ args.itemSlotDefault }}
+
+    <template #description>
+      {{ args.itemSlotDescription }}
+    </template>
+  </SDropdownItem>
+</SDropdown>`,
+});
 
 const createVariation = (template: string) => ({
-    decorators: [() => ({ template: '<div style="padding-bottom: 200px;"><story/></div>' })],
+    decorators: [() => ({ template: '<div class="h-[250px] w-[500px]"><story/></div>' })],
     render: () => ({
         components: {
             SDropdown,
@@ -234,85 +191,120 @@ const createVariation = (template: string) => ({
     },
 });
 
-export const LeftToRight = createVariation(`
-<SDropdown leftToRight>
-  <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
-
-  <template #items>
-    <SDropdownItem>
-      Title
-      
-      <template #description>
-        Description
-      </template>
-    </SDropdownItem>
-
-    <SDropdownItem>
-      Title
-      
-      <template #description>
-        Description
-      </template>
-    </SDropdownItem>
-
-    <SDropdownItem>
-      Title
-      
-      <template #description>
-        Description
-      </template>
-    </SDropdownItem>
+export const Placement = createVariation(`
+<SDropdown placement="right-start">
+  <template #reference>
+    <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
   </template>
+
+  <SDropdownItem>
+    Title
+    
+    <template #description>
+      Description
+    </template>
+  </SDropdownItem>
+
+  <SDropdownItem>
+    Title
+    
+    <template #description>
+      Description
+    </template>
+  </SDropdownItem>
+
+  <SDropdownItem>
+    Title
+    
+    <template #description>
+      Description
+    </template>
+  </SDropdownItem>
+</SDropdown>
+`);
+
+export const Offset = createVariation(`
+<SDropdown :offset="16" placement="bottom-end">
+  <template #reference>
+    <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
+  </template>
+
+  <SDropdownItem>
+    Title
+    
+    <template #description>
+      Description
+    </template>
+  </SDropdownItem>
+
+  <SDropdownItem>
+    Title
+    
+    <template #description>
+      Description
+    </template>
+  </SDropdownItem>
 </SDropdown>
 `);
 
 export const WithIcon = createVariation(`
-<SDropdown leftToRight>
-  <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
-
-  <template #items>
-    <SDropdownItem :icon="UserCircleIcon"> My Profile </SDropdownItem>
-    <SDropdownItem :icon="PencilIcon"> Edit </SDropdownItem>
-    <SDropdownItem :icon="PlusIcon"> Add </SDropdownItem>
-    <SDropdownItem :icon="Cog8ToothIcon"> Settings </SDropdownItem>
+<SDropdown placement="bottom-end">
+  <template #reference>
+    <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
   </template>
+
+  <SDropdownItem :icon="UserCircleIcon"> My Profile </SDropdownItem>
+  <SDropdownItem :icon="PencilIcon"> Edit </SDropdownItem>
+  <SDropdownItem :icon="PlusIcon"> Add </SDropdownItem>
+  <SDropdownItem :icon="Cog8ToothIcon"> Settings </SDropdownItem>
 </SDropdown>
 `);
 
-export const WithInfoItem = createVariation(`
-<SDropdown leftToRight>
-  <SButton variant="secondary" :icon="ChevronDownIcon" endIcon>Options</SButton>
-
-  <template #items>
-    <!-- Info Item -->
-    <SDropdownItem disabled>
-      <div class="flex flex-col items-start">
-        <span class="font-normal"> Signed in as </span>
-        <span> tom@example.com </span>
-      </div>
-    </SDropdownItem>
-
-    <SDropdownItem> Account Settings </SDropdownItem>
-    <SDropdownItem :icon="ArrowLeftOnRectangleIcon"> Logout </SDropdownItem>
+export const AsLink = buildVariation({
+    containerClass: 'h-[250px] w-[500px]',
+    components: {
+        SDropdown,
+        SDropdownItem,
+        SButton,
+    },
+    setup() {
+        return {
+            ChevronDownIcon,
+            UserCircleIcon,
+            PencilIcon,
+            PlusIcon,
+            Cog8ToothIcon,
+        };
+    },
+    template: `
+<SDropdown>
+  <template #reference>
+    <SButton variant="secondary" :right-icon="ChevronDownIcon">Options</SButton>
   </template>
-</SDropdown>
-`);
+
+  <SDropdownItem :icon="UserCircleIcon" link="/profile"> My Profile </SDropdownItem>
+  <SDropdownItem :icon="PencilIcon" link="/edit"> Edit </SDropdownItem>
+  <SDropdownItem :icon="PlusIcon" link="/add"> Add </SDropdownItem>
+  <SDropdownItem :icon="Cog8ToothIcon" link="/settings"> Settings </SDropdownItem>
+</SDropdown>  
+`,
+});
 
 export const OnAvatarElement = createVariation(`
 <SDropdown leftToRight>
-  <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
-
-  <template #items>
-    <!-- Info Item -->
-    <SDropdownItem disabled>
-      <div class="flex flex-col items-start">
-        <span class="font-normal"> Signed in as </span>
-        <span> tom@example.com </span>
-      </div>
-    </SDropdownItem>
-
-    <SDropdownItem> Account Settings </SDropdownItem>
-    <SDropdownItem :icon="ArrowLeftOnRectangleIcon"> Logout </SDropdownItem>
+  <template #reference>
+    <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
   </template>
+
+  <!-- Info Item -->
+  <SDropdownItem disabled>
+    <div class="flex flex-col items-start">
+      <span class="font-normal"> Signed in as </span>
+      <span> tom@example.com </span>
+    </div>
+  </SDropdownItem>
+
+  <SDropdownItem> Account Settings </SDropdownItem>
+  <SDropdownItem :icon="ArrowLeftOnRectangleIcon"> Logout </SDropdownItem>
 </SDropdown>
 `);

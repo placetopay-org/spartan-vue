@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { twMerge, type ClassNameValue } from 'tailwind-merge';
 
 defineProps<{
-    class?: string;
+    class?: ClassNameValue;
     highlight?: boolean;
     colspan?: number;
 }>();

@@ -14,7 +14,7 @@ const captionClass = {
 </script>
 
 <template>
-    <p :class="['text-xs font-normal', captionClass[variant]]">
+    <p :class="['text-xs font-normal', captionClass[variant]]" role="caption">
         <slot v-if="hasSlotContent($slots.default)" />
         <template v-else>{{ text }}</template>
     </p>

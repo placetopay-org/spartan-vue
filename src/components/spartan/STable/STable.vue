@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { createContext } from './api';
-import { BORDER_STYLE } from './styles';
+import { tableStyles } from './styles';
 import type { TTableProps } from './types';
 import { STableBody, STableHead, STableHeadCell, STableRow, STableCell } from '.';
 
@@ -11,15 +11,7 @@ const context = createContext(props);
 </script>
 
 <template>
-    <table
-        :class="
-            twMerge(
-                'w-full divide-y divide-gray-300',
-                !borderless && BORDER_STYLE,
-                $props.class,
-            )
-        "
-    >
+    <table :class="twMerge(tableStyles({ borderless }), $props.class)">
         <STableHead v-if="context.autoCols">
             <STableHeadCell v-for="col in context.autoCols" :key="col">
                 {{ col }}
@@ -37,9 +29,3 @@ const context = createContext(props);
         <slot />
     </table>
 </template>
-
-<!-- <style>
-table {
-  border: 4px solid red;
-}
-</style> -->

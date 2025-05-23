@@ -67,7 +67,7 @@ const classes = computed(() =>
 
 <template>
     <div class="group relative focus-visible:outline-none">
-        <img v-if="src" :class="classes" :src="src" :alt="initials || 'avatar'" class="object-cover" />
+        <img v-if="src" :class="classes" :src="src" :alt="initials" class="object-cover" />
         <div v-else :class="classes" class="relative bg-gray-100 text-gray-600">
             <span class="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2" :class="fontClass[size]">
                 {{ initials }}
@@ -76,7 +76,7 @@ const classes = computed(() =>
         <span
             v-if="indicator"
             :class="[indicatorClass[size], indicatorPositionClass[indicatorPosition]]"
-            class="absolute block rounded-full bg-primary-500 ring-2 ring-white"
+            class="absolute block rounded-full bg-spartan-primary-500 ring-2 ring-white"
         />
     </div>
 </template>

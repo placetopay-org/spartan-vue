@@ -1,16 +1,29 @@
-<script setup lang="ts">
-import FieldBadge from './FieldBadge.vue';
-import FieldSelector from './popovers/FieldSelector.vue';
-import FilterSelector from './popovers/FilterSelector.vue';
-import { SButton, SPopover } from '@spartan';
-import { PlusIcon } from '@heroicons/vue/20/solid';
-import { ref, computed } from 'vue';
-import { translator } from '@/helpers';
-import type { TField, SFilterEmits, SFilterProps } from './types';
-import { createContext } from './api';
+<script lang="ts">
+/**
+ * A versatile button component with multiple styles and appearances.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SFilter Github}.
+ * @see {@link https://develop--646e732a14dfaa707ad59b33.chromatic.com/?path=/docs/misc-filter--docs Storybook}.
+ */
+export default {
+    name: 'SFilter',
+};
+</script>
 
-const emit = defineEmits<SFilterEmits>();
-const props = withDefaults(defineProps<Partial<SFilterProps>>(), {
+<script setup lang="ts">
+import FieldBadge from './elements/FieldBadge.vue';
+import SavedButton from './elements/SavedButton.vue';
+import AddFilterButton from './elements/AddFilterButton.vue';
+import { onMounted } from 'vue';
+import { SButton } from '../SButton';
+import { createContext } from './context';
+import { translator } from '@/helpers';
+import type { TFilterProps, TFilterEmits, TField } from './types';
+
+// Emits
+const emit = defineEmits<TFilterEmits>();
+
+// Props and Defaults
+const props = withDefaults(defineProps<TFilterProps>(), {
     responsive: true,
 });
 
@@ -18,78 +31,59 @@ const { t } = translator('filter');
 
 const context = createContext(props, emit);
 
-const activeField = ref<TField>();
-const addFilterPop = ref<InstanceType<typeof SPopover> | undefined>();
-
-const appliedFields = computed(() => props.fields?.filter((field) => field.state));
-
-const openFieldSelector = () => context.togglePopover(addFilterPop.value);
-const closeFilterSelector = () => {
-    addFilterPop.value?.close();
-    activeField.value = undefined;
+const apply = () => {
+    const fields: TField[] = [];
+    props.fields?.forEach((field) => {
+        if (field.state) {
+            fields.push({ ...field });
+        }
+    });
+    emit('apply', fields);
 };
 
 const clear = () => {
-    context.clear();
-    if (props.applyWhenClear) context.apply();
+    props.fields?.forEach((filter) => {
+        if (filter.permanent) return;
+        delete filter.state;
+    });
+    emit('clear', props.fields);
 };
 
+onMounted(() => {
+    if (props.immediateApply) apply();
+});
+
+// Expose
 defineExpose({
-    apply: () => context.apply(),
-    clear: () => context.clear(),
+    apply,
+    clear,
 });
 </script>
 
 <template>
-    <div class="flex w-full justify-between gap-8 pr-1">
-        <div class="flex flex-wrap gap-3 pl-1">
-            <FieldBadge v-if="fields" v-for="field in fields" :key="field.id" :field="field" :responsive="responsive" />
+    <!-- root -->
+    <div class="flex justify-between gap-3">
+        <!-- field badges -->
+        <div class="flex w-full flex-wrap gap-3">
+            <FieldBadge v-for="field in context.activeFields" :key="field.id" :field="field" />
 
-            <SPopover
-                :responsive="responsive"
-                v-if="appliedFields?.length !== fields?.length"
-                ref="addFilterPop"
-                :prevent-close="Boolean(activeField)"
-                :offset="8"
-            >
-                <template #reference>
-                    <button
-                        class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring"
-                        @click="openFieldSelector"
-                    >
-                        <PlusIcon class="h-4 w-4" />
-                        <span>{{ t('addFilterBtn') }}</span>
-                    </button>
-                </template>
-
-                <Transition
-                    mode="out-in"
-                    enter-active-class="duration-150 ease-out"
-                    leave-active-class="duration-150 ease-in"
-                    enter-from-class="opacity-0"
-                    enter-to-class="opacity-100"
-                    leave-from-class="opacity-100"
-                    leave-to-class="opacity-0"
-                >
-                    <FieldSelector
-                        v-if="!activeField"
-                        :fields="fields ? fields.filter((field) => !field.state) : []"
-                        @select="(field) => (activeField = field)"
-                    />
-                    <FilterSelector v-else :field="activeField" @close="closeFilterSelector" />
-                </Transition>
-            </SPopover>
+            <AddFilterButton />
         </div>
 
-        <div class="flex gap-3" v-if="!hideApplyButton && !hideClearButton">
-            <SButton v-if="!hideApplyButton" rounded="full" class="whitespace-nowrap !py-0.5" @click="context.apply">
+        <!-- action buttons -->
+        <div v-if="!hideApplyButton && !hideClearButton" class="flex gap-3">
+            <SavedButton v-if="saved" />
+
+            <SButton v-if="!hideApplyButton" class="h-[26px] whitespace-nowrap" size="sm" rounded="full" @click="apply">
                 {{ t('applyBtn') }}
             </SButton>
+
             <SButton
                 v-if="!hideClearButton"
-                variant="secondary"
+                class="h-[26px] whitespace-nowrap"
+                size="sm"
                 rounded="full"
-                class="whitespace-nowrap !py-0.5"
+                variant="secondary"
                 @click="clear"
             >
                 {{ t('clearBtn') }}

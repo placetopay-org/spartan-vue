@@ -65,5 +65,3 @@ export const SpartanInputSupport = createVariation({
     },
     template: `<SInputMask mask="00.000" prefix="$" v-model="value" />`,
 });
-
-

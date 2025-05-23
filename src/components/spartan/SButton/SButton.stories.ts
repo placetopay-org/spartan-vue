@@ -116,7 +116,8 @@ export const Default = createDefault({
         variant: 'primary',
     },
     transform: (args) => `<SButton ${sourceBinding(args)}>${args.default}</SButton>`,
-    template: '<SButton v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" @click="onClick"> {{ args.default }} </SButton>',
+    template:
+        '<SButton v-bind="args" :leftIcon="getIcon(args.leftIcon)" :rightIcon="getIcon(args.rightIcon)" @click="onClick"> {{ args.default }} </SButton>',
 });
 
 const createVariation = (template: string, icons?: Record<string, FunctionalComponent>) =>
@@ -126,6 +127,17 @@ const createVariation = (template: string, icons?: Record<string, FunctionalComp
         containerClass: 'flex gap-5',
         template,
     });
+
+export const Base = createVariation(`
+<SButton> Base </SButton>
+`);
+
+export const CustomColor = createVariation(`
+<SButton class="bg-yellow-500 border-yellow-600 hover:bg-yellow-600 focus:ring-yellow-100 focus:border-yellow-300"> Yellow </SButton>
+<SButton class="bg-blue-500 border-blue-600 hover:bg-blue-600 focus:ring-blue-100 focus:border-blue-300"> Blue </SButton>
+<SButton class="bg-green-500 border-green-600 hover:bg-green-600 focus:ring-green-100 focus:border-green-300"> Green </SButton>
+<SButton class="bg-pink-500 border-pink-600 hover:bg-pink-600 focus:ring-pink-100 focus:border-pink-300"> Pink </SButton>
+`);
 
 export const Variant = createVariation(`
 <SButton variant="primary"> Primary </SButton>
@@ -146,6 +158,7 @@ export const Rounded = createVariation(`
 export const Sizes = createVariation(`
 <SButton size="sm"> Small </SButton>
 <SButton> Medium </SButton>
+<SButton size="lg"> Large </SButton>
 `);
 
 export const Disabled = createVariation(`
@@ -157,13 +170,19 @@ export const Loading = createVariation(`
 <SButton loading> Loading </SButton>
 `);
 
-export const OnlyIcon = createVariation(`
+export const OnlyIcon = createVariation(
+    `
 <SButton :leftIcon="MagnifyingGlassIcon" rounded="right"/>
 <SButton :rightIcon="PencilIcon" size="sm" rounded="none"/>
 <SButton :leftIcon="PlusIcon" size="sm" rounded="full"/>
-`, { MagnifyingGlassIcon, PencilIcon, PlusIcon });
+`,
+    { MagnifyingGlassIcon, PencilIcon, PlusIcon },
+);
 
-export const IconWithText = createVariation(`
+export const IconWithText = createVariation(
+    `
 <SButton :icon="MagnifyingGlassIcon">Search</SButton>
 <SButton :icon="PlusIcon" endIcon>Create QR</SButton>
-`, { MagnifyingGlassIcon, PlusIcon });
+`,
+    { MagnifyingGlassIcon, PlusIcon },
+);

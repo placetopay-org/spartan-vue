@@ -1,34 +1,36 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
-import placetopayLogo from '/src/assets/placetopay_logo.svg';
-import placetopayLogoDark from '/src/assets/placetopay_logo_dark.svg';
-import placetopayLogoBw from '/src/assets/placetopay_logo_bw.svg';
+import placetopayLogo from './assets/placetopay_logo.svg';
+import placetopayLogoDark from './assets/placetopay_logo_dark.svg';
+import placetopayLogoBw from './assets/placetopay_logo_bw.svg';
 import type { TPlacetopayLogoProps } from './types';
 
 const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
     width: undefined,
     height: undefined,
-    size: 'md',
     mode: 'base',
     class: '',
 });
 
-const asset = computed(() => {
-    const assets = {
-        base: placetopayLogo,
-        dark: placetopayLogoDark,
-        blackAndWhite: placetopayLogoBw,
-    };
-    return assets[props.mode];
-});
+const assets = {
+    base: placetopayLogo,
+    dark: placetopayLogoDark,
+    blackAndWhite: placetopayLogoBw,
+};
 
-const sizeStyle = computed(() => {
-    if (props.size === 'md') return 'h-8 w-auto';
-    return '';
+const computedWidth = computed(() => {
+    if (props.width) return props.width;
+
+    if (props.size === 'md') return 202;
 });
 </script>
 
 <template>
-    <img :width="width" :height="height" :class="twMerge(sizeStyle, props.class)" :src="asset" alt="Placetopay logo" />
+    <component
+        :is="assets[mode]"
+        :width="computedWidth"
+        :height="props.height"
+        :class="twMerge('aspect-[202/45]', props.class)"
+    />
 </template>

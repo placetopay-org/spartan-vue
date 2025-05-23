@@ -79,13 +79,9 @@ export const ActionModal = createVariation({
     :open="open1" 
     @close="() => open1 = false"
 >
-    <template #title>
-        Trial Plan
-    </template>
+    <h2 class="text-center text-lg font-semibold text-gray-900">Trial Plan</h2>
 
-    <template #description>
-        You don't have access to this feature, please upgrade your plan
-    </template>
+    <p class="mt-2 text-center text-sm font-medium text-gray-500">You don't have access to this feature, please upgrade your plan</p>
 </SModalCard>
 
 <!-- Modal #2 -->
@@ -95,11 +91,9 @@ export const ActionModal = createVariation({
     :open="open2" 
     @close="() => open2 = false"
 >
-    <template #title>Trial Plan</template>
+    <h2 class="text-center text-lg font-semibold text-gray-900">Trial Plan</h2>
 
-    <template #description>
-        You don't have access to this feature, please upgrade your plan
-    </template>
+    <p class="mt-2 text-center text-sm font-medium text-gray-500">You don't have access to this feature, please upgrade your plan</p>
 
     <template #actions>
         <SButton :icon="BanknotesIcon" class="w-full" variant="primary" @click="() => open2 = false">
@@ -148,13 +142,9 @@ export const ConfirmModal = createVariation({
     :open="open1" 
     @close="() => open1 = false"
 >
-    <template #title>
-        Delete User
-    </template>
+    <h2 class="text-center text-lg font-semibold text-gray-900">Delete User</h2>
 
-    <template #description>
-        Are you sure you want to delete the user 'Jhon Doe'? This action cannot be undone.
-    </template>
+    <p class="mt-2 text-center text-sm font-medium text-gray-500">Are you sure you want to delete the user 'Jhon Doe'? This action cannot be undone.</p>
 </SModalCard>
 
 <!-- Modal #2 -->
@@ -164,7 +154,7 @@ export const ConfirmModal = createVariation({
     :open="open2" 
     @close="() => open2 = false"
 >
-    <template #title>Edit payment method</template>
+    <h2 class="text-center text-lg font-semibold text-gray-900">Edit payment method</h2>
 
     <form @submit.prevent="onSubmit" id="test-form">
         <SInputBlock
@@ -186,15 +176,14 @@ export const ConfirmModal = createVariation({
 
 <!-- Modal #3 -->
 <SModalCard
-    iconVariant="danger"
+    icon="danger"
     :open="open3" 
+    preventClose
     @close="() => open3 = false"
 >
-    <template #title>Delete means of payment</template>
+    <h2 class="text-center text-lg font-semibold text-gray-900">Delete means of payment</h2>
 
-    <template #description>
-        Are you absolutely sure that you want to delete the payment method that ends in 1155? This action cannot be reversed.
-    </template>
+    <p class="mt-2 text-center text-sm font-medium text-gray-500">Are you absolutely sure that you want to delete the payment method that ends in 1155? This action cannot be reversed.</p>
 
     <template #actions>
         <SButton class="w-full" variant="danger">

@@ -5,12 +5,10 @@ export type TSelectEmits = {
 };
 
 export type TSelectProps = {
-    disabled: boolean;
-    error: boolean;
-    id: string;
-    modelValue: string | number;
-    name: string;
-    placeholder: string;
-    rounded: TRounded;
-    class: string;
+    disabled?: boolean;
+    error?: boolean;
+    modelValue?: string | number;
+    placeholder?: string;
+    rounded?: TRounded;
+    class?: string;
 };

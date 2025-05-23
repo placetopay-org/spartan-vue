@@ -4,12 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 import type { TBlockWrapperProps } from './types';
 import { computed } from 'vue';
 
-const props = defineProps<Partial<TBlockWrapperProps> & { wrapper: string, useDpUid?: boolean }>();
+const props = defineProps<Partial<TBlockWrapperProps> & { wrapper: string; useDpUid?: boolean }>();
 const computedId = computed(() => props.id || uuidv4());
 </script>
 
 <template>
-    <div>
+    <div class="w-full">
         <SLabel v-if="label" :for="useDpUid ? `dp-menu-${computedId}` : computedId">{{ label }}</SLabel>
         <slot :id="computedId" />
         <div v-if="helpText || errorText" class="flex flex-col">

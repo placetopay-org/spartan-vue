@@ -88,16 +88,22 @@ const createVariation = (
         components: { SAvatar, SDropdown, SDropdownItem },
         containerClass: options?.containerClass ?? 'flex gap-5',
         template,
+        setup: () => {
+            return { ArrowLeftEndOnRectangleIcon };
+        },
     });
 
-export const Size = createVariation(`
+export const Size = createVariation(
+    `
 <SAvatar name="John Doe" size="xs" />
 <SAvatar name="John Doe" size="sm" />
 <SAvatar name="John Doe" size="md" />
 <SAvatar name="John Doe" size="lg" />
 <SAvatar name="John Doe" size="xl" />
 <SAvatar name="John Doe" size="2xl" />
-`, { containerClass: 'flex gap-5 items-end' });
+`,
+    { containerClass: 'flex gap-5 items-end' },
+);
 
 export const Name = createVariation(`
 <!-- separators: ' ' - _ . , ; : | \ -->
@@ -128,21 +134,22 @@ export const Indicator = createVariation(`
 <SAvatar name="John Doe" size="2xl" indicator indicatorPosition="right-bottom" />
 `);
 
-export const WithDropdown = createVariation(`
-<SDropdown leftToRight>
-  <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
+export const WithDropdown = createVariation(
+    `
+<SDropdown>
+    <template #reference>
+        <SAvatar size="2xl" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256" />
+    </template>
 
-  <template #items>
     <!-- Info Item -->
     <SDropdownItem static>
-      <div class="flex flex-col items-start">
+        <div class="flex flex-col items-start">
         <span class="font-normal"> Signed in as </span>
         <span> tom@example.com </span>
-      </div>
+        </div>
     </SDropdownItem>
 
     <SDropdownItem :icon="ArrowLeftEndOnRectangleIcon"> Logout </SDropdownItem>
-  </template>
 </SDropdown>
 `,
     { containerClass: 'pb-[200px]' },

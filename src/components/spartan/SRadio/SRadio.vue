@@ -35,7 +35,7 @@ const computedId = computed(() => props.id ?? uuidv4());
             :id="computedId"
             v-bind="$attrs"
             v-model="model"
-            class="cursor-pointer rounded-full border border-gray-300 bg-white text-primary-600 accent-primary-600 focus:ring-offset-0 focus:s-ring"
+            class="cursor-pointer rounded-full border border-gray-300 bg-white text-spartan-primary-600 accent-spartan-primary-600 focus:ring-offset-0 focus:s-ring"
             type="radio"
             :disabled="disabled"
             :name="name"
@@ -49,11 +49,19 @@ const computedId = computed(() => props.id ?? uuidv4());
                 hasSlotContent($slots.description) ? '-mt-1' : '-mt-0.5',
             ]"
         >
-            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" class="text-sm font-semibold text-gray-900">
+            <label
+                v-if="hasSlotContent($slots.default) && !inline"
+                :for="computedId"
+                class="text-sm font-semibold text-gray-900"
+            >
                 <slot />
             </label>
             <p v-if="hasSlotContent($slots.description)" :class="['text-sm font-normal text-gray-500', inline && '']">
-                <label v-if="hasSlotContent($slots.default) && inline" :for="computedId" class="text-sm font-semibold text-gray-900">
+                <label
+                    v-if="hasSlotContent($slots.default) && inline"
+                    :for="computedId"
+                    class="text-sm font-semibold text-gray-900"
+                >
                     <slot />
                 </label>
                 <slot name="description" />

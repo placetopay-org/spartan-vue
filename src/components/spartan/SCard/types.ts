@@ -7,17 +7,11 @@ type TAction = {
 };
 
 export type TCardProps = {
-    class: string;
-    size: 'sm' | 'md';
-    bodyAccent: boolean;
-    headerAccent: boolean;
-    footerAccent: boolean;
-    icon: FunctionalComponent;
-    bodyClass: string;
-    headerClass: string;
-    footerClass: string;
-    iconClass: string;
-    iconVariant: 'primary' | 'success' | 'danger' | 'warning' | 'info';
-    iconContainerClass: string;
-    actions: TAction[];
+    class?: string;
+    title?: string;
+    size?: 'sm' | 'md';
+    icon?: FunctionalComponent | 'primary' | 'success' | 'danger' | 'warning' | 'info';
+    iconColor?: 'primary' | 'success' | 'danger' | 'warning' | 'info';
+    iconType?: 'solid' | 'ping';
+    actions?: TAction[];
 };

@@ -1,7 +1,8 @@
 import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
-import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
-import { type TField } from './types';
+import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { ref } from 'vue';
+import type { TField, TSaveData } from './types';
 
 export default {
     component: SFilter,
@@ -36,14 +37,7 @@ const sourceBinding = buildSourceBinding({});
 export const Default = createDefault({
     containerClass: 'h-[500px]',
     components: { SFilter, StoryPanel },
-    template: `<StoryPanel /><SFilter v-bind="args" @apply="show" />`,
-    setup: () => {
-        const show = (value: string) => {
-            console.log(JSON.parse(JSON.stringify(value)));
-        };
-
-        return { show };
-    },
+    template: `<StoryPanel /><SFilter v-bind="args" @apply="console.log" />`,
     args: {
         fields: [
             {
@@ -52,14 +46,18 @@ export const Default = createDefault({
                 interfaces: {
                     options: {
                         multiple: true,
-                        operators: ['equal', 'notEqual', 'contains'],
-                        options: ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                        customOperators: [{ id: 'custom', label: 'customOper' }],
+                        options: [{ id: '1', label: 'Nike' }, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
+                        operators: [
+                            'equal',
+                            'notEqual',
+                            'contains',
+                            { id: 'custom', label: 'customOper', tag: (value: string) => `custom -> ${value}` },
+                        ],
                     },
                 },
                 state: {
                     operator: 'equal',
-                    value: ['Nike', 'Adidas'],
+                    value: ['Adidas'],
                 },
             },
             {
@@ -67,8 +65,13 @@ export const Default = createDefault({
                 name: 'Description',
                 interfaces: {
                     oneInput: {
-                        operators: ['contains', 'notContains', 'startsWith', 'endsWith'],
-                        customOperators: [{ id: 'custom', label: () => 'customOper' }],
+                        operators: [
+                            'contains',
+                            'notContains',
+                            'startsWith',
+                            'endsWith',
+                            { id: 'custom', label: 'customOper' },
+                        ],
                     },
                 },
                 state: {
@@ -80,7 +83,7 @@ export const Default = createDefault({
                 id: 'seller',
                 name: 'Seller',
                 interfaces: {
-                    option: {
+                    options: {
                         operators: ['equal', 'notEqual'],
                         options: [
                             'Amazon',
@@ -135,8 +138,7 @@ export const Default = createDefault({
                 interfaces: {
                     twoInputs: {
                         type: 'date',
-                        operators: ['between', 'notBetween'],
-                        customOperators: [{ id: 'custom', label: 'customOper' }],
+                        operators: ['between', 'notBetween', { id: 'custom', label: 'customOper' }],
                     },
                 },
                 state: {
@@ -148,9 +150,12 @@ export const Default = createDefault({
                 id: 'gender',
                 name: 'Gender',
                 interfaces: {
-                    option: {
+                    options: {
                         operators: ['equal', 'notEqual'],
                         options: ['man', 'woman', 'kid'],
+                    },
+                    selection: {
+                        operators: [{ id: 'in', label: 'Dentro de', tag: (value: string) => `Dentro de -> ${value}` }],
                     },
                 },
             },
@@ -166,82 +171,155 @@ export const Default = createDefault({
             {
                 id: 'another',
                 name: 'Another',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another1',
                 name: 'Another 1',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another2',
                 name: 'Another 2',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another3',
                 name: 'Another 3',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another4',
                 name: 'Another 4',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another5',
                 name: 'Another 5',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another6',
                 name: 'Another 6',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another7',
                 name: 'Another 7',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another8',
                 name: 'Another 8',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another9',
                 name: 'Another 9',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another10',
                 name: 'Another 10',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another11',
                 name: 'Another 11',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
             {
                 id: 'another12',
                 name: 'Another 12',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
             },
-        ] as TField[],
+        ],
     },
 });
 
-// const createVariation = (template: string) => ({
-//   decorators: [() => ({ template: '<div style="gap: 20px; display: flex; align-items: end;"><story/></div>' })],
-//   render: () => ({
-//     components: { SFilter },
-//     template,
-//   }),
-//   parameters: {
-//     design,
-//     controls: { disable: true },
-//     actions: { disable: true },
-//     docs: {
-//       source: {
-//         code: template,
-//         language: 'html',
-//       },
-//     },
-//   },
-// });
+export const Saved = createVariation({
+    components: { SFilter },
+    containerClass: 'wfull h-[250px]',
+    setup: () => {
+        const fields = ref([
+            {
+                id: 'test',
+                name: 'Test',
+                interfaces: {
+                    none: {
+                        operators: ['exist', 'notExist'],
+                    },
+                },
+                state: {
+                    operator: 'exist',
+                    value: null,
+                },
+            },
+        ]);
+        const saved = ref<TSaveData[]>([]);
 
-// export const Size = createVariation(
-//   `
-// <SFilter color="blue" size="sm"> Small </SFilter>
-// <SFilter color="blue" size="md"> Medium </SFilter>
-// <SFilter color="blue" size="lg"> Large </SFilter>
-// `
-// );
+        const save = (data: TSaveData[]) => {
+            console.log('Saved:', data);
+            saved.value = data;
+        };
+
+        const load = (data: TSaveData[]) => {
+            console.log('Loaded:', data);
+        };
+
+        return { fields, saved, save, load };
+    },
+    template: `<SFilter :fields="fields" :saved="saved" :responsive="false" @apply="console.log" @save="save" @load="load"/>`,
+});

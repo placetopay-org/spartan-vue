@@ -1,5 +1,24 @@
 {
     "$spartan": {
+        "inputPasswordPanel": {
+            "min": "Minimo di {value} caratteri",
+            "max": "Massimo di {value} caratteri",
+            "lowercase": "Deve contenere almeno una lettera minuscola (a, b, c...)",
+            "uppercase": "Deve contenere almeno una lettera maiuscola (A, B, C...)",
+            "digit": "Deve contenere almeno una cifra (1, 2, 3...)",
+            "special": "Deve contenere almeno un carattere speciale (!, {'@'}, #...)"
+        },
+        "selector": {
+            "add": "Aggiungere",
+            "search": "Cercare",
+            "selection": "Selezione",
+            "selections": "Selezioni",
+            "noResults": "Non ci sono dati correlati",
+            "loading": "Caricamento..."
+        },
+        "copy": {
+            "copied": "Copiato!"
+        },
         "dataTable": {
             "of": "di",
             "page": "Pagina",
@@ -8,6 +27,12 @@
             "pageSizePrefix": "Mostra",
             "results": "risultati",
             "searchPlaceholder": "Cerca in tutte le colonne"
+        },
+        "inputDate": {
+            "select": "Seleziona",
+            "cancel": "Annulla",
+            "now": "Ora",
+            "week": "W"
         },
         "filter": {
             "yes": "Si",
@@ -25,7 +50,7 @@
             "optionsSelectorPlaceholder": "Seleziona una o più opzioni",
             "saveBtn": "Salva",
             "savedFiltersText": "I miei filtri salvati",
-       
+
             "operator": {
                 "between": "È tra",
                 "contains": "Contiene",

@@ -7,7 +7,8 @@ export type TSidebarEmits = {
 export type TSidebarProps = {
     modelValue: string;
     class?: string;
-    placetopayHeader?: boolean;
+    placetopayHeader?: boolean | (() => any);
+    nested?: boolean;
 };
 
 export type TSidebarItemProps = {
@@ -38,4 +39,8 @@ export type TStateDefinition = {
     updatePath: (path?: string) => void;
     registerPath: (path: string, setActive: (value: boolean) => void, group?: string) => void;
     registerGroup: (path: string, setActive: (value: boolean) => void) => void;
+};
+
+export type TSidebarSeparatorProps = {
+    title: string;
 };

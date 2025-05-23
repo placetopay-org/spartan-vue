@@ -13,12 +13,12 @@ export const inputStyles = cva(
 
 export const iconStyles = cva(
     [
-        'h-6 w-6 rounded-full text-gray-400 ring-primary-200',
-        'active:scale-95 group-focus:text-primary-600 group-focus:ring-2',
+        'h-6 w-6 rounded-full text-gray-400 ring-spartan-primary-200',
+        'active:scale-95 group-focus:text-spartan-primary-600 group-focus:ring-2',
     ],
     {
         variants: {
-            disabled: cbv('pointer-events-none', 'group-hover:text-primary-600'),
+            disabled: cbv('pointer-events-none opacity-50', 'group-hover:text-spartan-primary-600'),
         },
     },
 );

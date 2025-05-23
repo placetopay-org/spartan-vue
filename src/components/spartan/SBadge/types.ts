@@ -3,11 +3,12 @@ export type TBadgeEmits = {
 };
 
 export type TBadgeProps = {
-    color: 'white' | 'primary' | 'gray' | 'red' | 'blue' | 'green' | 'yellow' | 'indigo';
-    dot: boolean;
-    outline: boolean;
-    pill: boolean;
-    removable: boolean;
-    size: 'sm' | 'md' | 'lg';
-    border: boolean;
+    color?: 'gray' | 'white' | 'primary' | 'red' | 'blue' | 'green' | 'yellow' | 'indigo' | 'purple' | 'neutral';
+    dot?: boolean;
+    outline?: boolean;
+    pill?: boolean;
+    removable?: boolean | 'stopPropagation';
+    size?: 'sm' | 'md' | 'lg';
+    reverse?: boolean;
+    class?: string;
 };

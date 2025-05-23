@@ -1,5 +1,5 @@
-import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
-import type { TTableProps, TTableEmits } from './types';
+import { reactive, inject, provide, type InjectionKey, computed } from 'vue';
+import type { TTableProps } from './types';
 
 type TState = {
     rows: number;
@@ -11,7 +11,7 @@ type TState = {
 
 const contextKey = Symbol('STableContext') as InjectionKey<TState>;
 
-export const createContext = (props: Partial<TTableProps>, emit?: TTableEmits) => {
+export const createContext = (props: Partial<TTableProps>) => {
     const state: TState = reactive({
         rows: 0,
         cols: 0,
@@ -20,13 +20,8 @@ export const createContext = (props: Partial<TTableProps>, emit?: TTableEmits) =
         register: (type: 'row' | 'col') => {
             if (type === 'row') state.rows++;
             else state.cols++;
-        }
+        },
     });
-
-    // watch(() => props.modelValue, (curr, old) => {
-    //     if (old) state.tabs[old]?.(false);
-    //     if (curr) state.tabs[curr]?.(true);
-    // });
 
     provide(contextKey, state);
     return state;

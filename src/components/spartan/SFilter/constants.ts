@@ -1,32 +1,84 @@
 import type { Component } from 'vue';
-import type { TInterfaceId } from './types';
-import { InputSelector, TwoInputSelector, OptionsSelector } from './selectors';
+import type {
+    TInterfaceId,
+    TExistenceOperator,
+    TComparisonOperator,
+    TTextOperator,
+    TDateOperator,
+    TRangeOperator,
+} from './types';
+import { IOneInput, ITwoInputs, IOptions, ISelection } from './interfaces';
 
-export const predefinedOperators = [
-    'between',
-    'contains',
-    'endsWith',
+// Basic comparison operators
+export const comparisonOperators = [
     'equal',
-    'exist',
+    'notEqual',
     'greaterThan',
     'greaterThanOrEqual',
-    'lastMonth',
-    'lastWeek',
-    'lastYear',
     'lessThan',
     'lessThanOrEqual',
-    'notBetween',
-    'notContains',
-    'notEqual',
-    'notExist',
-    'startsWith',
-    'today',
-    'yesterday',
 ] as const;
 
+// Text-specific operators
+export const textOperators = ['contains', 'notContains', 'startsWith', 'endsWith'] as const;
+
+// Range-specific operators
+export const rangeOperators = ['between', 'notBetween'] as const;
+
+// Date-specific operators
+export const dateOperators = ['lastWeek', 'lastMonth', 'lastYear', 'today', 'yesterday'] as const;
+
+// Existence operators
+export const existenceOperators = ['exist', 'notExist'] as const;
+
+// Union of all predefined operators
+export const predefinedOperators = [
+    ...comparisonOperators,
+    ...textOperators,
+    ...rangeOperators,
+    ...dateOperators,
+    ...existenceOperators,
+] as const;
+
+// Operator mapping by field type
+export const operatorsByFieldType = {
+    none: [...existenceOperators] as TExistenceOperator[],
+    single: {
+        text: [...comparisonOperators, ...textOperators, ...existenceOperators] as (
+            | TComparisonOperator
+            | TTextOperator
+            | TExistenceOperator
+        )[],
+        number: [...comparisonOperators, ...existenceOperators] as (TComparisonOperator | TExistenceOperator)[],
+        date: [...comparisonOperators, ...dateOperators, ...existenceOperators] as (
+            | TComparisonOperator
+            | TDateOperator
+            | TExistenceOperator
+        )[],
+        amount: [...comparisonOperators, ...existenceOperators] as (TComparisonOperator | TExistenceOperator)[],
+    },
+    range: {
+        number: [...rangeOperators, ...existenceOperators] as (TRangeOperator | TExistenceOperator)[],
+        date: [...rangeOperators, ...dateOperators, ...existenceOperators] as (
+            | TRangeOperator
+            | TDateOperator
+            | TExistenceOperator
+        )[],
+        amount: [...rangeOperators, ...existenceOperators] as (TRangeOperator | TExistenceOperator)[],
+    },
+    options: [...comparisonOperators, 'contains', 'notContains', ...existenceOperators] as (
+        | TComparisonOperator
+        | Extract<TTextOperator, 'contains' | 'notContains'>
+        | TExistenceOperator
+    )[],
+    selection: [...comparisonOperators, ...existenceOperators] as (TComparisonOperator | TExistenceOperator)[],
+} as const;
+
+// Map of interface components
 export const interfaceComponents: Record<TInterfaceId, Component | null> = {
     none: null,
-    oneInput: InputSelector,
-    twoInputs: TwoInputSelector,
-    options: OptionsSelector,
+    oneInput: IOneInput,
+    twoInputs: ITwoInputs,
+    options: IOptions,
+    selection: ISelection,
 };

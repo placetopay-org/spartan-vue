@@ -1,6 +1,6 @@
 import SSelect from './SSelect.vue';
-import type { SourceProps } from '@storybook/blocks';
-import { buildDesign, buildSourceBinding } from '@/helpers';
+import { SButton } from '@spartan';
+import { createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
 
 export default {
@@ -66,44 +66,17 @@ export default {
     },
 };
 
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
+// const sourceBinding = buildSourceBinding({});
 
-const sourceBinding = buildSourceBinding({});
-
-export const Default = {
-    decorators: [
-        () => ({
-            template: '<div style="gap: 20px; display: flex;"><story/></div>',
-        }),
-    ],
-    render: (args: any) => ({
-        components: { SSelect },
-        setup() {
-            return { args };
-        },
-        template: `
+export const Default = createDefault({
+    design: 'https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842',
+    components: { SSelect },
+    template: `
 <SSelect v-bind="args" v-model="args.modelValue">
   <option value="visa">visa</option> 
   <option value="mastercard">mastercard</option> 
   <option value="american express">american express</option>
-</SSelect>
-`,
-    }),
-    parameters: {
-        design,
-        docs: {
-            canvas: { layout: 'centered' },
-            source: {
-                transform: ((_, storyContext) => `<SSelect ${sourceBinding(storyContext.args)}>
-  <option value="visa">visa</option> 
-  <option value="mastercard">mastercard</option> 
-  <option value="american express">american express</option>
-</SSelect>`) as SourceProps['transform'],
-                type: 'dynamic',
-                language: 'html',
-            },
-        },
-    },
+</SSelect>`,
     args: {
         disabled: false,
         error: false,
@@ -113,68 +86,117 @@ export const Default = {
         placeholder: 'Select an option',
         rounded: 'both',
     },
-};
-
-const createVariation = (template: string, placeholder?: boolean) => ({
-    decorators: [
-        () => ({
-            template: '<div style="gap: 20px; display: flex; max-width: 200px"><story/></div>',
-        }),
-    ],
-    render: () => ({
-        components: { SSelect },
-        template,
-        setup() {
-            const value = ref(placeholder ? undefined : 'option');
-            return { value };
-        },
-    }),
-    parameters: {
-        design,
-        controls: { disable: true },
-        actions: { disable: true },
-        docs: {
-            source: {
-                code: template,
-                language: 'html',
-            },
-        },
-    },
 });
 
-export const Placeholder = createVariation(
-    `
+export const Placeholder = createVariation({
+    components: { SSelect, SButton },
+    setup: () => {
+        const value = ref();
+        const reset = () => {
+            value.value = '';
+        };
+        return { value, reset };
+    },
+    template: `<!-- { value: undefined } -->
 <SSelect v-model="value" placeholder="Select an option">
-  <option value="option">option</option>
-  <option value="option2">option2</option>
-  <option value="option3">option3</option>
-  <option value="option4">option4</option>
-  <option value="option5">option5</option>
+    <option value="1">option 1</option>
+    <option value="2">option 2</option>
+    <option value="3">option 3</option>
 </SSelect>
-`,
-    true,
-);
 
-export const Disabled = createVariation(
-    `
-<SSelect v-model="value" disabled>
-  <option value="option">option</option>
-  <option value="option2">option2</option>
-  <option value="option3">option3</option>
-  <option value="option4">option4</option>
-  <option value="option5">option5</option>
+<SSelect v-model="value" placeholder="Select an option" pt:placeholder="text-red-500">
+    <option value="1">option 1</option>
+    <option value="2">option 2</option>
+    <option value="3">option 3</option>
 </SSelect>
-`,
-);
 
-export const Error = createVariation(
-    `
-<SSelect v-model="value" error>
-  <option value="option">option</option>
-  <option value="option2">option2</option>
-  <option value="option3">option3</option>
-  <option value="option4">option4</option>
-  <option value="option5">option5</option>
-</SSelect>
-`,
-);
+<SButton @click="reset">Reset</SButton>`,
+});
+
+export const Error = createVariation({
+    components: { SSelect, SButton },
+    setup: () => {
+        const value = ref();
+        const reset = () => {
+            value.value = '';
+        };
+        return { value, reset };
+    },
+    template: `<!-- { value: undefined } -->
+<SSelect v-model="value" error placeholder="Select an option">
+    <option value="1">option 1</option>
+    <option value="2">option 2</option>
+    <option value="3">option 3</option>
+</SSelect>`,
+});
+
+export const Disabled = createVariation({
+    components: { SSelect, SButton },
+    setup: () => {
+        const value = ref();
+        const reset = () => {
+            value.value = '';
+        };
+        return { value, reset };
+    },
+    template: `<!-- { value: undefined } -->
+<SSelect v-model="value" disabled placeholder="Select an option">
+    <option value="1">option 1</option>
+    <option value="2">option 2</option>
+    <option value="3">option 3</option>
+</SSelect>`,
+});
+
+// const createVariation = (template: string, placeholder?: boolean) => ({
+//     decorators: [
+//         () => ({
+//             template: '<div style="gap: 20px; display: flex; max-width: 200px"><story/></div>',
+//         }),
+//     ],
+//     render: () => ({
+//         components: { SSelect },
+//         template,
+//         setup() {
+//             const value = ref(placeholder ? undefined : 'option');
+//             const value1 = ref(placeholder ? undefined : 'option');
+//             const value2 = ref(placeholder ? undefined : 'option');
+//             const value3 = ref('');
+//             return { value, value1, value2, value3 };
+//         },
+//     }),
+//     parameters: {
+//         design,
+//         controls: { disable: true },
+//         actions: { disable: true },
+//         docs: {
+//             source: {
+//                 code: template,
+//                 language: 'html',
+//             },
+//         },
+//     },
+// });
+
+// export const Disabled = createVariation(
+//     `
+// <SSelect v-model="value" disabled>
+//   <option value="option">option</option>
+//   <option value="option2">option2</option>
+//   <option value="option3">option3</option>
+//   <option value="option4">option4</option>
+//   <option value="option5">option5</option>
+// </SSelect>
+// `,
+// );
+
+// export const Error = createVariation(
+//     `
+// <SSelect v-model="value" error>
+//   <option value="option">option</option>
+//   <option value="option2">option2</option>
+//   <option value="option3">option3</option>
+//   <option value="option4">option4</option>
+//   <option value="option5">option5</option>
+// </SSelect>
+// `,
+// );

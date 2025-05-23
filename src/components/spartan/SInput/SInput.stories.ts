@@ -3,12 +3,7 @@ import { ref } from 'vue';
 import { SButton } from '@spartan';
 import type { SourceProps } from '@storybook/blocks';
 import { buildDesign, buildSourceBinding, createVariation } from '@/helpers';
-import {
-    InformationCircleIcon,
-    CurrencyDollarIcon,
-    MapPinIcon,
-    MagnifyingGlassIcon,
-} from '@heroicons/vue/24/outline';
+import { InformationCircleIcon, CurrencyDollarIcon, MapPinIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { EnvelopeIcon, KeyIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
 export default {
@@ -84,6 +79,10 @@ export default {
         },
         error: {
             description: 'The error state of the input.',
+            table: { type: { summary: 'boolean' } },
+        },
+        borderless: {
+            description: 'The borderless mode of the input.',
             table: { type: { summary: 'boolean' } },
         },
         id: {
@@ -281,8 +280,27 @@ export const Default = {
         suffix: '',
         rounded: 'both',
         type: 'text',
+        borderless: false,
     },
 };
+
+export const Base = createVariation({
+    components: { SInput },
+    template: `<SInput />`,
+    containerClass: 'w-52',
+});
+
+export const Borderless = createVariation({
+    components: { SInput },
+    template: `
+<!-- The borderless using prop -->
+<SInput borderless class="bg-[#f8f8f8]" inputClass="bg-[#f8f8f8]" value="borderless(props)" />
+
+<!-- The borderless using classes -->
+<SInput class="border-0 focus-within:!ring-0 bg-[#f8f8f8]" inputClass="bg-[#f8f8f8]" value="borderless(classes)" />
+`,
+    containerClass: 'w-52',
+});
 
 export const Disabled = createVariation({
     components: { SInput },
@@ -397,7 +415,7 @@ export const PrecastAndCustomSlots = createVariation({
             </template>
         
             <template #right>
-                <SButton rounded="none">Send</SButton>
+                <SButton rounded="none" class="-m-px">Send</SButton>
             </template>
         </SInput>
         `,

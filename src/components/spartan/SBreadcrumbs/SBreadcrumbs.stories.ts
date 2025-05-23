@@ -7,7 +7,8 @@ export default {
     component: SBreadcrumbs,
     title: 'navigation/Breadcrumbs',
     ...createHistory({
-        description: 'The breadcrumbs component is used to indicate the current page location within a navigational hierarchy.',
+        description:
+            'The breadcrumbs component is used to indicate the current page location within a navigational hierarchy.',
         slots: [
             {
                 name: 'default',
@@ -17,7 +18,7 @@ export default {
                 subcategory: 'SBreadcrumbsItem',
                 name: 'default_',
                 description: 'The content to display.',
-            }
+            },
         ],
         props: [
             {
@@ -51,7 +52,7 @@ export default {
                 description: 'The icon to display.',
                 type: 'FunctionalComponent',
             },
-        ]
+        ],
     }),
 };
 

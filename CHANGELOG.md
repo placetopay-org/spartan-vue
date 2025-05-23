@@ -7,6 +7,451 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.0.0-beta.214 - 2025-05-23
+
+## 2.0.0-beta.213 - 2025-05-23
+
+## 2.0.0-beta.212 - 2025-05-09
+
+## 2.0.0-beta.211 - 2025-05-09
+
+## 2.0.0-beta.210 - 2025-05-06
+
+## 2.0.0-beta.209 - 2025-05-06
+
+## 2.0.0-beta.208 - 2025-05-05
+
+## 2.0.0-beta.207 - 2025-04-01
+
+## 2.0.0-beta.206 - 2025-03-05
+
+## 2.0.0-beta.205 - 2025-03-05
+
+## 2.0.0-beta.204 - 2025-03-04
+
+## 2.0.0-beta.203 - 2025-02-28
+
+## 2.0.0-beta.202 - 2025-02-28
+
+## 2.0.0-beta.201 - 2025-02-26
+
+## 2.0.0-beta.200 - 2025-02-25
+
+## 2.0.0-beta.199 - 2025-02-20
+
+## 2.0.0-beta.198 - 2025-02-19
+
+## 2.0.0-beta.197 - 2025-02-19
+
+## 2.0.0-beta.196 - 2025-02-19
+
+## 2.0.0-beta.195 - 2025-02-19
+
+## 2.0.0-beta.194 - 2025-02-18
+
+## 2.0.0-beta.193 - 2025-02-18
+
+## 2.0.0-beta.192 - 2025-02-18
+
+## 2.0.0-beta.191 - 2025-02-18
+
+## 2.0.0-beta.190 - 2025-02-18
+
+## 2.0.0-beta.189 - 2025-02-17
+
+## 2.0.0-beta.188 - 2025-02-13
+
+## 2.0.0-beta.187 - 2025-02-13
+
+## 2.0.0-beta.186 - 2025-02-13
+
+## 2.0.0-beta.185 - 2025-02-13
+
+## 2.0.0-beta.184 - 2025-02-10
+
+## 2.0.0-beta.183 - 2025-02-10
+
+## 2.0.0-beta.182 - 2025-02-09
+
+## 2.0.0-beta.181 - 2025-02-06
+
+## 2.0.0-beta.180 - 2025-02-06
+
+## 2.0.0-beta.179 - 2025-02-06
+
+## 2.0.0-beta.178 - 2025-02-05
+
+## 2.0.0-beta.177 - 2025-01-31
+
+## 2.0.0-beta.176 - 2025-01-28
+
+## 2.0.0-beta.175 - 2025-01-23
+
+## 2.0.0-beta.174 - 2025-01-22
+
+## 2.0.0-beta.173 - 2025-01-22
+
+## 2.0.0-beta.172 - 2025-01-21
+
+## 2.0.0-beta.171 - 2025-01-21
+
+## 2.0.0-beta.170 - 2025-01-18
+
+## 2.0.0-beta.169 - 2025-01-17
+
+## 2.0.0-beta.168 - 2025-01-17
+
+## 2.0.0-beta.167 - 2025-01-15
+
+## 2.0.0-beta.166 - 2025-01-08
+
+## 2.0.0-beta.165 - 2025-01-07
+
+## 2.0.0-beta.164 - 2025-01-07
+
+## 2.0.0-beta.163 - 2025-01-06
+
+## 2.0.0-beta.162 - 2024-12-24
+
+## 2.0.0-beta.161 - 2024-12-19
+
+## 2.0.0-beta.160 - 2024-12-18
+
+## 2.0.0-beta.159 - 2024-12-11
+
+## 2.0.0-beta.158 - 2024-12-09
+### Added
+- Collapsible rows in `SDTable` component.
+
+## 2.0.0-beta.157 - 2024-12-04
+
+## 2.0.0-beta.156 - 2024-12-02
+
+## 2.0.0-beta.155 - 2024-11-29
+
+## 2.0.0-beta.154 - 2024-11-29
+
+## 2.0.0-beta.153 - 2024-11-29
+
+## 2.0.0-beta.152 - 2024-11-29
+
+## 2.0.0-beta.151 - 2024-11-29
+
+## 2.0.0-beta.150 - 2024-11-27
+
+## 2.0.0-beta.149 - 2024-11-27
+
+## 2.0.0-beta.148 - 2024-11-27
+
+## 2.0.0-beta.147 - 2024-11-27
+
+## 2.0.0-beta.146 - 2024-11-27
+
+## 2.0.0-beta.145 - 2024-11-26
+
+## 2.0.0-beta.144 - 2024-11-25
+
+## 2.0.0-beta.143 - 2024-11-24
+
+## 2.0.0-beta.142 - 2024-11-24
+
+## 2.0.0-beta.141 - 2024-11-24
+
+## 2.0.0-beta.140 - 2024-11-24
+
+## 2.0.0-beta.139 - 2024-11-24
+
+## 2.0.0-beta.138 - 2024-11-24
+
+## 2.0.0-beta.137 - 2024-11-22
+
+## 2.0.0-beta.136 - 2024-11-20
+
+## 2.0.0-beta.135 - 2024-11-19
+
+## 2.0.0-beta.134 - 2024-11-18
+
+## 2.0.0-beta.133 - 2024-11-18
+
+## 2.0.0-beta.132 - 2024-11-15
+
+## 2.0.0-beta.131 - 2024-11-15
+
+## 2.0.0-beta.130 - 2024-11-13
+
+## 2.0.0-beta.129 - 2024-11-13
+
+## 2.0.0-beta.128 - 2024-11-13
+
+## 2.0.0-beta.127 - 2024-11-13
+
+## 2.0.0-beta.126 - 2024-11-13
+
+## 2.0.0-beta.125 - 2024-11-12
+
+## 2.0.0-beta.124 - 2024-11-12
+### Added
+- Improve `SDropdown` with dropdown items.
+
+## 2.0.0-beta.123 - 2024-11-06
+
+## 2.0.0-beta.122 - 2024-11-05
+
+## 2.0.0-beta.121 - 2024-11-05
+
+## 2.0.0-beta.120 - 2024-11-02
+### Added
+- Improve `SAccordion` performance and tests.
+
+## 2.0.0-beta.119 - 2024-11-01
+### Added
+- New `SCopy` component.
+
+## 2.0.0-beta.118 - 2024-10-31
+
+## 2.0.0-beta.117 - 2024-10-31
+
+## 2.0.0-beta.116 - 2024-10-29
+### Added
+- New `inputDate` translations.
+
+## 2.0.0-beta.115 - 2024-10-15
+
+## 2.0.0-beta.114 - 2024-10-09
+
+## 2.0.0-beta.113 - 2024-10-09
+
+## 2.0.0-beta.112 - 2024-10-08
+
+## 2.0.0-beta.111 - 2024-10-02
+
+## 2.0.0-beta.110 - 2024-09-28
+
+## 2.0.0-beta.109 - 2024-09-28
+
+## 2.0.0-beta.108 - 2024-09-27
+
+## 2.0.0-beta.107 - 2024-09-24
+
+## 2.0.0-beta.106 - 2024-09-24
+
+## 2.0.0-beta.105 - 2024-09-24
+### Changed
+- `-primary-` tailwind color class prefix to `-spartan-primary-`.
+
+## 2.0.0-beta.104 - 2024-09-19
+
+## 2.0.0-beta.103 - 2024-09-18
+### Added
+- Initial release of `SDTable.vue` with dynamic data display and customizable row content.
+- Column sorting with ascending and descending order for `SDTable.vue`.
+- Clickable rows with dynamic URL links for `SDTable.vue`.
+- Customizable headers with slots for icons and elements in `SDTable.vue`.
+- Borderless layout option for `SDTable.vue`.
+
+## 2.0.0-beta.102 - 2024-09-17
+
+## 2.0.0-beta.101 - 2024-09-17
+
+## 2.0.0-beta.100 - 2024-09-17
+
+## 2.0.0-beta.99 - 2024-09-13
+
+## 2.0.0-beta.98 - 2024-09-11
+### Added
+- New `STooltip` component.
+- `STooltip` tests.
+
+## 2.0.0-beta.97 - 2024-09-05
+
+## 2.0.0-beta.95 - 2024-08-27
+
+## 2.0.0-beta.94 - 2024-08-26
+
+## 2.0.0-beta.93 - 2024-08-21
+
+## 2.0.0-beta.92 - 2024-08-21
+### Added
+- functionality to `SBreadcrumbsItem.vue` to render content from the separator slot if present. If the slot is empty, the ChevronRightIcon is displayed as a fallback.
+
+### Removed
+- Removed an unused commented line that imported a CSS file (style.css) in plugin.js.
+
+## 2.0.0-beta.91 - 2024-08-02
+
+## 2.0.0-beta.90 - 2024-08-01
+
+## 2.0.0-beta.89 - 2024-07-23
+
+## 2.0.0-beta.88 - 2024-07-17
+### Added
+- `STable` tests.
+- `SStackedList` tests.
+- `SSkeleton` tests.
+- `SPageTitle` tests.
+- `SDataTable` tests.
+- `SFilter` tests.
+- `SDropdown` tests.
+- `SSteps` and `SStepsItem` tests.
+
+## 2.0.0-beta.87 - 2024-07-15
+### Fixed
+- Types wrapped on package.
+
+## 2.0.0-beta.86 - 2024-07-15
+
+## 2.0.0-beta.85 - 2024-07-15
+
+## 2.0.0-beta.84 - 2024-04-23
+### Added
+- `SSidebar` tests.
+- `SSidebarItem` tests.
+- `SSidebarItemGroup` tests.
+- `SPaginator` tests.
+- `SModalLeft` tests.
+- `SModalCard` tests.
+- `SModal` tests.
+- `SPopover` tests.
+- `SInputMaskBlock` tests.
+- `SInputMask` tests.
+- `SRadioGroup` tests.
+- `STab` tests.
+- `SInputAmountBlock` tests.
+- `SInputAmount` tests.
+- `SToast` tests.
+- `SSwitch` tests.
+- `SSelectBlock` tests.
+- `SSelect` tests.
+- `SSectionTitle` tests.
+- `SSectionDescription` tests.
+- `SPlacetopayLogo` tests.
+- `SInputOTP` tests.
+- `SInputIncrementBlock` tests.
+- `SInputIncrement` tests.
+- `SInputDateBlock` tests.
+- `SInputDate` tests.
+- `SInputBlock` tests.
+- `SInput` tests.
+- `SDefinitionTerm` tests.
+- `SComboboxBlock` tests.
+- `SCombobox` tests.
+- `SRadio` tests.
+- `SCheckbox` tests.
+- `SCardBrand` tests.
+- `SCard` tests.
+- `SCaption` tests.
+- `SButtonGroup` and `SButtonGroupItem` tests.
+- `SButton` tests.
+- `STextAreaBlock` tests.
+- `STextArea` tests.
+- `SLabel` tests.
+- `SBreadcrumbs` and `SBreadcrumbsItem` tests.
+- `SLink` tests.
+- `SBadge` tests.
+- `SAvatar` tests.
+- `SAccordion` tests.
+- Testing environment.
+- New `SModal` vertical positions.
+
+## 2.0.0-beta.83 - 2024-04-10
+### Fixed
+- Error on `SFilter` when try to focus first element on popover.
+- Warning for types on `SFilter` use options interface.
+
+## 2.0.0-beta.82 - 2024-04-04
+### Added
+- New `SPaginator` component.
+
+### Fixed
+- `SInput` now is hidden totally when `type` is `hidden`.
+
+## 2.0.0-beta.81 - 2024-04-03
+### Fixed
+- Unified `dist` folder structure.
+
+## 2.0.0-beta.80 - 2024-04-03
+### Added
+- Separator component for SSidebar.
+- Home page example for accounts demo.
+- Auth page example for accounts demo.
+
+### Fixed
+- Plugin file exportation.
+
+## 2.0.0-beta.79 - 2024-03-18
+### Added
+- immediateApply prop to SFilter component.
+- Custom colors for `SButton` component examples.
+- `Tailwind Forms Plugin` now available through the `Spartan` plugin.
+
+### Fixed
+- Inter font weights for documentation.
+
+## 2.0.0-beta.78 - 2024-03-12
+### Added
+- New `SStackedList` and `SStackedListItem` components.
+- `SInput` now uses class variance authority, allowing to use the borderless variant.
+
+## 2.0.0-beta.77 - 2024-03-08
+### Added
+- New Accounts OTP example.
+- New `SInputOTP` component.
+- New `SInputOTPItem` component.
+
+## 2.0.0-beta.76 - 2024-03-04
+### Fixed
+- Reduce to fit the modal width.
+
+## 2.0.0-beta.75 - 2024-03-04
+### Added
+- Use cases for `STextArea` component.
+
+### Fixed
+- v-model link to `STextArea` component.
+
+## 2.0.0-beta.74 - 2024-03-04
+### Added
+- New `STextAreaBlock` component.
+- New `STextArea` component.
+- Internal focus handler on `SPopover` and `SDropdown` components.
+
+### Fixed
+- Error class order on `Block` components.
+
+## 2.0.0-beta.73 - 2024-02-28
+### Changed
+- `SMethodIcon` moved to `SCardBrand` component.
+- `SDropdown` now implements `SPopover` under the hood. This change allows the dropdown to be more flexible on positioning and to be more accessible.
+
+## 2.0.0-beta.72 - 2024-02-26
+### Added
+- French translations.
+
+## 2.0.0-beta.71 - 2024-02-14
+### Fixed
+- Importance of `size` prop on `PlacetopayLogo` component.
+
+## 2.0.0-beta.70 - 2024-02-14
+### Fixed
+- Prop `filter` availability on `SDataTable` component.
+- Aspect ratio of `SPlacetopayLogo` definition.
+
+## 2.0.0-beta.69 - 2024-02-12
+
+## 2.0.0-beta.68 - 2024-02-12
+
+## 2.0.0-beta.67 - 2024-02-12
+### Added
+- New `SPageTitle` component.
+- New `SCardBrand` component.
+- `SSectionDescription` now supports class merging.
+
+## 2.0.0-beta.66 - 2024-02-12
+### Fixed
+- `SSectionTitle` now supports class merging.
+- `STab` underline full style variant.
+- `SDataTable` props documentation.
+
 ## 2.0.0-beta.65 - 2024-02-08
 
 ## 2.0.0-beta.64 - 2024-02-07

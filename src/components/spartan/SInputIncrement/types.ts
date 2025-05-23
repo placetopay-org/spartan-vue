@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "vue";
+import type { HTMLAttributes } from 'vue';
 
 export type TInputIncrementEmits = {
     (event: 'update:modelValue', value: number): void;
@@ -9,4 +9,6 @@ export type TInputIncrementProps = {
     disabled?: boolean;
     modelValue: number;
     error?: boolean;
+    min?: number;
+    max?: number;
 };

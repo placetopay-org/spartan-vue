@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-    <thead :class="twMerge('bg-gray-50', $props.class)">
+    <thead :class="twMerge('border-b border-gray-300 bg-gray-50', $props.class)">
         <slot />
     </thead>
 </template>

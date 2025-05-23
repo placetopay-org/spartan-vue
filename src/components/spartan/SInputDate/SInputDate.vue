@@ -4,8 +4,14 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import type { TInputDateProps, TInputDateEmits } from './types';
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
+import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
+import { useI18n } from 'vue-i18n';
+import { translator } from '@/helpers';
 
-const props = defineProps<TInputDateProps>();
+const { locale } = useI18n();
+const { t } = translator('inputDate');
+
+const props = defineProps<TInputDateProps & VueDatePickerProps>();
 const emit = defineEmits<TInputDateEmits>();
 
 const value = computed({
@@ -16,10 +22,14 @@ const value = computed({
 
 <template>
     <VueDatePicker
-        :uid="id"
+        v-bind="{ ...$props, modelValue: undefined }"
         v-model="value"
-        :hide-input-icon="hideInputIcon"
-        :placeholder="placeholder"
+        :locale="locale"
+        :select-text="t('select')"
+        :cancel-text="t('cancel')"
+        :now-button-label="t('now')"
+        :week-num-name="t('week')"
+        :uid="id"
         :class="
             twMerge(
                 error
@@ -42,9 +52,10 @@ input[aria-label='Datepicker input'] {
 }
 
 .dp__theme_light {
-    --dp-primary-color: rgb(var(--color-primary-500));
+    --dp-primary-color: rgb(var(--color-spartan-primary-500));
     --dp-border-color: #d1d5db;
     --dp-border-color-hover: #d1d5db;
     --dp-icon-color: #9ca3af;
+    --dp-danger-color: transparent;
 }
 </style>

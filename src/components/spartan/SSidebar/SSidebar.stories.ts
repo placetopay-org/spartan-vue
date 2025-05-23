@@ -5,9 +5,15 @@ import { SModalLeft } from '../SModalLeft';
 import { SPlacetopayLogo } from '../SPlacetopayLogo';
 import { SAccordion } from '../SAccordion';
 import { buildSourceBinding, createDefault, createVariation } from '@/helpers';
-import { HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 import { Bars4Icon } from '@heroicons/vue/24/solid';
+import {
+    HomeIcon,
+    DocumentCodeIcon,
+    ReceiptTextIcon,
+    ClipboardTickIcon,
+    ShieldSecurityIcon,
+} from '@placetopay/iconsax-vue/linear';
 
 export default {
     component: SSidebar,
@@ -68,14 +74,14 @@ export const Default = createDefault({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     containerClass: 'flex justify-center py-5 h-[500px] w-[900px] bg-gray-100',
     setup: () => {
-        return { HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     template: `<SSidebar class="w-60 pb-8" v-bind="args" v-model="args.modelValue">
     <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -83,7 +89,7 @@ export const Default = createDefault({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -102,15 +108,15 @@ export const Base = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
         const value = ref('Administration/Merchants');
-        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex gap-5 h-[550px]',
     template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
     <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -118,7 +124,7 @@ export const Base = createVariation({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -128,11 +134,49 @@ export const Base = createVariation({
 </SSidebar>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <h1>{{ value }}</h1>
 
-    <button @click="value = 'Security/Logs'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
-    <button @click="value = 'Dashboard'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+    <button @click="value = 'Security/Logs'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+</main>`,
+});
+
+export const StartWithPath = createVariation({
+    components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
+    setup: () => {
+        const value = ref('Administration/Merchants/any/other/path');
+        return { value, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
+    },
+    containerClass: 'flex gap-5 h-[550px]',
+    template: `<SSidebar class="w-60 pb-8" nested placetopayHeader v-model="value">
+    <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
+
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
+        <template #title>Administration</template>
+
+        <SSidebarItem>Merchants</SSidebarItem>
+        <SSidebarItem>Sites</SSidebarItem>
+        <SSidebarItem>Users</SSidebarItem>
+    </SSidebarItemGroup>
+
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
+        <template #title>Security</template>
+
+        <SSidebarItem>Roles</SSidebarItem>
+        <SSidebarItem>Permissions</SSidebarItem>
+        <SSidebarItem>Logs</SSidebarItem>
+    </SSidebarItemGroup>
+</SSidebar>
+
+<!-- Example of view -->
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
+    <h1>{{ value }}</h1>
+
+    <button @click="value = 'Administration/Merchants/any/other/path'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to a nested path</button>
+    <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });
 
@@ -141,16 +185,16 @@ export const AccordionWrapper = createVariation({
     setup: () => {
         const value = ref('Administration/Merchants');
         const open = ref(false);
-        return { value, open, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, open, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex h-[550px]',
     template: `<SAccordion :open="open">
     <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-        <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-        <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+        <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+        <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon">
+        <SSidebarItemGroup :icon="ClipboardTickIcon">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -158,7 +202,7 @@ export const AccordionWrapper = createVariation({
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon">
+        <SSidebarItemGroup :icon="ShieldSecurityIcon">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>
@@ -169,7 +213,7 @@ export const AccordionWrapper = createVariation({
 </SAccordion>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 flex items-start gap-4 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 flex items-start gap-4 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <button @click="open = !open"><Bars4Icon class="h-7 w-7"/></button>
     <h1>{{ value }}</h1>
 </main>`,
@@ -180,15 +224,15 @@ export const ModalLeftWrapper = createVariation({
     setup: () => {
         const value = ref('Administration/Merchants');
         const state = ref(false);
-        return { value, state, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, state, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     template: `<SModalLeft :open="state" @close="() => state = false">
     <SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
         <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-        <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-        <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+        <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+        <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-        <SSidebarItemGroup :icon="KeyIcon">
+        <SSidebarItemGroup :icon="ClipboardTickIcon">
             <template #title>Administration</template>
 
             <SSidebarItem>Merchants</SSidebarItem>
@@ -196,7 +240,7 @@ export const ModalLeftWrapper = createVariation({
             <SSidebarItem>Users</SSidebarItem>
         </SSidebarItemGroup>
 
-        <SSidebarItemGroup :icon="LockClosedIcon">
+        <SSidebarItemGroup :icon="ShieldSecurityIcon">
             <template #title>Security</template>
 
             <SSidebarItem>Roles</SSidebarItem>
@@ -207,7 +251,7 @@ export const ModalLeftWrapper = createVariation({
 </SModalLeft>
 
 <!-- Example of view -->
-<main class="p-4 flex items-start gap-4 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex items-start gap-4 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <button @click="() => state = true"><Bars4Icon class="h-7 w-7"/></button>
     <h1>{{ value }}</h1>
 </main>`,
@@ -217,15 +261,15 @@ export const UsingPaths = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
         const value = ref('metrics');
-        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex gap-5 h-[550px]',
     template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
     <SSidebarItem path="home" :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem path="balance" :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem path="configuration" :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem path="balance" :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem path="configuration" :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem path="my-merchants">Merchants</SSidebarItem>
@@ -233,7 +277,7 @@ export const UsingPaths = createVariation({
         <SSidebarItem path="my-users">Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem path="roles">Roles</SSidebarItem>
@@ -243,11 +287,11 @@ export const UsingPaths = createVariation({
 </SSidebar>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <h1>{{ value }}</h1>
 
-    <button @click="value = 'metrics'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
-    <button @click="value = 'home'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+    <button @click="value = 'metrics'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'home'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });
 
@@ -255,15 +299,15 @@ export const IntegratedScroll = createVariation({
     components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
     setup: () => {
         const value = ref('Administration/Merchants');
-        return { value, HomeIcon, PaperAirplaneIcon, KeyIcon, LockClosedIcon, CommandLineIcon };
+        return { value, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
     },
     containerClass: 'flex gap-5 h-[300px]',
     template: `<SSidebar class="w-60 pb-8" placetopayHeader v-model="value">
     <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
-    <SSidebarItem :icon="PaperAirplaneIcon">Transactions</SSidebarItem>
-    <SSidebarItem :icon="CommandLineIcon">System</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
 
-    <SSidebarItemGroup :icon="KeyIcon">
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
         <template #title>Administration</template>
 
         <SSidebarItem>Merchants</SSidebarItem>
@@ -271,7 +315,7 @@ export const IntegratedScroll = createVariation({
         <SSidebarItem>Users</SSidebarItem>
     </SSidebarItemGroup>
 
-    <SSidebarItemGroup :icon="LockClosedIcon">
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
         <template #title>Security</template>
 
         <SSidebarItem>Roles</SSidebarItem>
@@ -281,10 +325,49 @@ export const IntegratedScroll = createVariation({
 </SSidebar>
 
 <!-- Example of view -->
-<main class="p-4 flex-1 bg-primary-50 text-primary-700 font-bold border-4 border-dashed border-primary-700">
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
     <h1>{{ value }}</h1>
 
-    <button @click="value = 'Security/Logs'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
-    <button @click="value = 'Dashboard'" class="bg-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+    <button @click="value = 'Security/Logs'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
+</main>`,
+});
+
+export const PlacetopayHeaderCallback = createVariation({
+    components: { SSidebar, SSidebarItem, SSidebarItemGroup, SPlacetopayLogo },
+    setup: () => {
+        const value = ref('Administration/Merchants');
+        const callback = () => (value.value = 'Dashboard');
+        return { value, callback, HomeIcon, ReceiptTextIcon, ClipboardTickIcon, ShieldSecurityIcon, DocumentCodeIcon };
+    },
+    containerClass: 'flex gap-5 h-[550px]',
+    template: `<SSidebar class="w-60 pb-8" :placetopayHeader="callback" v-model="value">
+    <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
+    <SSidebarItem :icon="ReceiptTextIcon">Transactions</SSidebarItem>
+    <SSidebarItem :icon="DocumentCodeIcon">System</SSidebarItem>
+
+    <SSidebarItemGroup :icon="ClipboardTickIcon">
+        <template #title>Administration</template>
+
+        <SSidebarItem>Merchants</SSidebarItem>
+        <SSidebarItem>Sites</SSidebarItem>
+        <SSidebarItem>Users</SSidebarItem>
+    </SSidebarItemGroup>
+
+    <SSidebarItemGroup :icon="ShieldSecurityIcon">
+        <template #title>Security</template>
+
+        <SSidebarItem>Roles</SSidebarItem>
+        <SSidebarItem>Permissions</SSidebarItem>
+        <SSidebarItem>Logs</SSidebarItem>
+    </SSidebarItemGroup>
+</SSidebar>
+
+<!-- Example of view -->
+<main class="p-4 flex-1 bg-spartan-primary-50 text-spartan-primary-700 font-bold border-4 border-dashed border-spartan-primary-700">
+    <h1>{{ value }}</h1>
+
+    <button @click="value = 'Security/Logs'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4 mr-4">Go to Logs</button>
+    <button @click="value = 'Dashboard'" class="bg-spartan-primary-700 text-white px-4 py-1 rounded shadow mt-4">Back to Dashboard</button>
 </main>`,
 });

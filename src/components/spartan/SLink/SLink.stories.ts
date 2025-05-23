@@ -1,37 +1,22 @@
 import SLink from './SLink.vue';
-import { buildSourceBinding, createDefault } from '@/helpers';
+import { buildSourceBinding, createDefault, createHistory } from '@/helpers';
 
 export default {
     component: SLink,
     title: 'navigation/Link',
-    parameters: {
-        docs: {
-            description: {
-                component: 'The link component is used to navigate between pages.',
+    ...createHistory({
+        description: 'The link component is used to navigate between pages.',
+        props: [
+            { name: 'href', type: 'string', default: 'undefined', description: 'The type of the input element.' },
+            {
+                name: 'target',
+                type: '_blank | _parent | _self | _top',
+                default: 'undefined',
+                description: 'The target attribute specifies where to open the linked document.',
             },
-        },
-    },
-    argTypes: {
-        // Slots
-        default: {
-            control: 'text',
-            table: { type: { summary: null }, category: 'Slots' },
-            description: 'The content of the link.',
-        },
-
-        // Props
-        href: {
-            control: 'text',
-            description: 'The type of the input element.',
-            table: { type: { summary: 'string' } },
-        },
-        target: {
-            control: 'select',
-            options: ['_blank', '_parent', '_self', '_top'],
-            description: 'The target attribute specifies where to open the linked document.',
-            table: { type: { summary: '_blank | _parent | _self | _top' } },
-        },
-    },
+        ],
+        slots: [{ name: 'default', description: 'The content of the link.' }],
+    }),
 };
 
 const sourceBinding = buildSourceBinding({});

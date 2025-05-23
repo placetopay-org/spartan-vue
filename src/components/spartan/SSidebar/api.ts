@@ -10,6 +10,7 @@ export const createContext = (props: TSidebarProps, emit: TSidebarEmits) => {
         groups: {},
         path: props.modelValue,
         updatePath: (path?: string) => {
+            if (path === state.path) return;
             emit('update:modelValue', path);
         },
         registerPath: (path: string, setActive: (value: boolean) => void, group?: string) => {
@@ -27,6 +28,8 @@ export const createContext = (props: TSidebarProps, emit: TSidebarEmits) => {
             state.paths[path] = pathData;
 
             if (state.path === path) pathData.activate();
+
+            if (props.nested && state.path?.startsWith(path)) pathData.activate();
         },
         registerGroup: (path: string, setActive: (value: boolean) => void) => {
             state.groups[path] = {
@@ -40,8 +43,18 @@ export const createContext = (props: TSidebarProps, emit: TSidebarEmits) => {
         () => props.modelValue,
         (curr, old) => {
             state.path = curr;
-            if (old) state.paths[old]?.deactivate();
-            if (curr) state.paths[curr]?.activate();
+
+            if (props.nested) {
+                let activationCallback = () => {};
+                Object.keys(state.paths).forEach((path) => {
+                    if (old.startsWith(path)) state.paths[path]?.deactivate();
+                    if (curr.startsWith(path)) activationCallback = () => state.paths[path]?.activate();
+                });
+                activationCallback();
+            } else {
+                if (old) state.paths[old]?.deactivate();
+                if (curr) state.paths[curr]?.activate();
+            }
         },
     );
 

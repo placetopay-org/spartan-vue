@@ -1,33 +1,65 @@
 <script setup lang="ts">
-import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
+import { SPopover } from '../SPopover';
+import { Menu, MenuItems } from '@headlessui/vue';
 import type { TDropdownProps } from './types';
+import { twMerge } from 'tailwind-merge';
+import { ref, computed } from 'vue';
+import { focusFirstChild } from '@/helpers';
 
-withDefaults(defineProps<Partial<TDropdownProps>>(), {
-    leftToRight: false,
+const { offset = 2, placement = 'bottom-start', responsive = true, manual } = defineProps<TDropdownProps>();
+
+defineOptions({ inheritAttrs: false });
+
+const popover = ref<InstanceType<typeof SPopover>>();
+
+const isOpen = computed(() => popover.value?.isOpen);
+const open = () => popover.value?.open();
+const close = () => popover.value?.close();
+const toggle = () => popover.value?.toggle();
+const focus = () => popover.value?.focus();
+
+defineExpose({
+    isOpen,
+    open,
+    close,
+    toggle,
+    focus,
 });
+
+const toggleCallback = () => {
+    if (manual) return;
+    toggle();
+};
+
+const closeCallback = () => {
+    if (manual) return;
+    close();
+};
 </script>
 
 <template>
-    <Menu as="div" class="relative">
-        <div class="flex" :class="[!leftToRight && 'justify-end']">
-            <MenuButton as="template" class="cursor-pointer">
-                <slot />
-            </MenuButton>
-        </div>
-        <Transition
-            enter-active-class="transition ease-out duration-100"
-            enter-from-class="transform opacity-0 scale-95"
-            enter-to-class="transform opacity-100 scale-100"
-            leave-active-class="transition ease-in duration-75"
-            leave-from-class="transform opacity-100 scale-100"
-            leave-to-class="transform opacity-0 scale-95"
-        >
-            <MenuItems
-                :class="[leftToRight ? 'left-0 origin-top-left' : 'right-0 origin-top-right ']"
-                class="absolute z-40 mt-1 min-w-[192px] divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-gray-100 focus:outline-none"
-            >
-                <slot name="items" />
-            </MenuItems>
-        </Transition>
-    </Menu>
+    <SPopover ref="popover" v-bind="{ ...$props, class: undefined }" :class="twMerge('w-fit', $props.class)">
+        <template #reference>
+            <button :class="referenceClass" :tabindex="-1" @click="toggleCallback" @focus="focusFirstChild">
+                <slot name="reference" />
+            </button>
+        </template>
+
+        <template #default>
+            <Menu>
+                <MenuItems
+                    static
+                    :class="
+                        twMerge(
+                            'divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-gray-100 focus:outline-none',
+                            floatingClass,
+                        )
+                    "
+                    @click="closeCallback"
+                >
+                    <slot />
+                </MenuItems>
+            </Menu>
+        </template>
+    </SPopover>
 </template>

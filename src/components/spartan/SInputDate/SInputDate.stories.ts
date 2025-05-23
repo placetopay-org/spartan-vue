@@ -1,5 +1,5 @@
 import SInputDate from './SInputDate.vue';
-import { buildSourceBinding, createDefault, createHistory } from '@/helpers';
+import { buildSourceBinding, createDefault, createHistory, createVariation } from '@/helpers';
 import { ref } from 'vue';
 
 export default {
@@ -13,7 +13,7 @@ export default {
                 type: 'string | null',
                 description: 'The value of the input.',
                 default: 'null',
-                control: null
+                control: null,
             },
             {
                 name: 'hideInputIcon',
@@ -32,23 +32,23 @@ export default {
                 type: 'string',
                 description: 'The class to apply to the input.',
                 default: '',
-                control: null
+                control: null,
             },
             {
                 name: 'placeholder',
                 type: 'string',
                 description: 'The placeholder to display in the input.',
                 default: '',
-                control: 'text'
-            }
+                control: 'text',
+            },
         ],
         events: [
             {
                 name: 'update:modelValue',
                 description: 'Emitted when the value of the input changes.',
-                type: 'string | null'
-            }
-        ]
+                type: 'string | null',
+            },
+        ],
     }),
 };
 
@@ -61,11 +61,23 @@ export const Default = createDefault({
         const value = ref(null);
         return { value };
     },
-    template: `<SInputDate v-model="value" v-bind="args" />`,
+    template: `<SInputDate v-model="value" v-bind="args" model-type="dd-MM-yyyy" /><pre>{{value}}</pre>`,
     transform: (args) => `<SInputDate ${sourceBinding(args)} />`,
     args: {
         hideInputIcon: false,
         error: false,
         placeholder: 'Select a date',
     },
+});
+
+export const Base = createVariation({
+    components: { SInputDate },
+    setup: () => {
+        // const value = ref(null);
+        const value = ref('29-01-2000 14:30');
+        return { value };
+    },
+    containerClass: 'h-[500px] w-[300px]',
+    template: `<SInputDate v-model="value" v-bind="args" model-type="dd-MM-yyyy HH:mm" />
+<pre>{{value}}</pre>`,
 });

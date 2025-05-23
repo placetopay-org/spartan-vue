@@ -1,10 +1,13 @@
-import { type FunctionalComponent } from 'vue';
+import type { FunctionalComponent } from 'vue';
+import type { TPopoverProps } from '../SPopover';
 
-export type TDropdownProps = {
-    leftToRight: boolean;
-};
+export type TDropdownProps = { referenceClass?: string; floatingClass?: string; manual?: boolean } & TPopoverProps;
 
 export type TDropdownItemProps = {
-    disabled: boolean;
-    icon: FunctionalComponent;
-}
+    class?: string;
+    labelClass?: string;
+    iconClass?: string;
+    disabled?: boolean;
+    icon?: FunctionalComponent;
+    link?: string;
+};

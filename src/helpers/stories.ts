@@ -1,5 +1,8 @@
 import type { SourceProps } from '@storybook/blocks';
-import { ref, computed, type Component } from 'vue';
+import { ref, computed } from 'vue';
+
+export const buildExampleLink = (example: string, name: string) =>
+    `/iframe.html?args=buttonPreviewMode:false&id=examples-${example}--${name}&viewMode=story`;
 
 export const buildDesign = (url: string) => ({
     type: 'figma',
@@ -62,7 +65,7 @@ export const createHistory = ({
         subcategory?: string;
         name: string;
         description: string;
-        type: string;
+        type?: string;
         default?: string;
         control?: string | null;
         options?: string[];
@@ -163,6 +166,7 @@ export const createDefault = ({
     transform,
     template,
     containerClass,
+    title,
 }: {
     template: string;
     setup?: () => any;
@@ -171,6 +175,7 @@ export const createDefault = ({
     transform?: (args: any) => string;
     components?: Record<string, any>;
     containerClass?: string;
+    title?: string;
 }) => ({
     decorators: [() => ({ template: `<div ${containerClass ? `class="${containerClass}"` : ''}><story/></div>` })],
     render: (args: any) => ({
@@ -184,6 +189,7 @@ export const createDefault = ({
         template,
     }),
     parameters: {
+        title,
         design: design ? buildDesign(design) : undefined,
         docs: {
             canvas: { layout: 'centered' },

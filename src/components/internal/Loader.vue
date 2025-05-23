@@ -1,17 +1,45 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-    size?: number;
-    color?: string;
-    backgroundColor?: string;
-}>(), {
-    size: 150,
-    color: '#FF7E29',
-    backgroundColor: '#ff7f29a1',
-});
+withDefaults(
+    defineProps<{
+        variant?: 'spartan' | 'simple';
+        size?: number;
+        color?: string;
+        backgroundColor?: string;
+    }>(),
+    {
+        variant: 'spartan',
+        size: 150,
+        color: '#FF7E29',
+        backgroundColor: '#ff7f29a1',
+    },
+);
+
+defineOptions({ inheritAttrs: false });
 </script>
 
 <template>
-    <svg :width="size" :height="size" viewBox="20 20 60 60">
+    <svg v-if="variant === 'simple'" v-bind="$attrs" :width="size" :height="size" viewBox="20 20 60 60">
+        <circle
+            cx="50"
+            cy="50"
+            r="24"
+            fill="none"
+            stroke="#9ca3af"
+            stroke-dasharray="113.0973 39.6991"
+            stroke-width="6"
+        >
+            <animateTransform
+                attributeName="transform"
+                dur="1s"
+                keyTimes="0;1"
+                repeatCount="indefinite"
+                type="rotate"
+                values="0 50 50;360 50 50"
+            />
+        </circle>
+    </svg>
+
+    <svg v-if="variant === 'spartan'" v-bind="$attrs" :width="size" :height="size" viewBox="20 20 60 60">
         <circle cx="75" cy="50" :fill="backgroundColor" r="5">
             <animate
                 attributeName="r"

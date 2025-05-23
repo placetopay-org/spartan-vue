@@ -1,45 +1,105 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import type { TTabItemProps } from '../../types';
+import type { TTabItemProps, TDropdownContextKey } from '../../types';
 import { useContext } from '../../api';
+import { SDropdown } from '../../../SDropdown';
+import { ChevronDownIcon } from '@heroicons/vue/20/solid';
+import { computed, onMounted, provide, ref } from 'vue';
 
-const props = withDefaults(defineProps<Partial<TTabItemProps>>(), {
-    as: 'button',
-});
+defineOptions({ inheritAttrs: false });
+
+const { as = 'button', path, dropdown, active, regex } = defineProps<TTabItemProps>();
+
+const context = useContext('STabItem');
 
 const el = ref<HTMLElement>();
-const updatedPath = ref(props.path);
-const active = ref(false);
-const setActive = (value: boolean) => (active.value = value);
+const vPath = ref(path || '');
+const vRegex = computed(() => regex || new RegExp(`^${vPath.value}$`));
+const vActive = computed(() => {
+    if (active || vRegex.value.test(context.modelValue)) return true;
 
-const store = useContext('STabItem');
+    if (dropdown && Object.keys(context.dropdowns).length) {
+        for (const reg of context.dropdowns[vPath.value]) {
+            if (reg.test(context.modelValue)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+});
+const itemsRef = ref<HTMLElement>();
+const dropdownRef = ref<InstanceType<typeof SDropdown>>();
+
+provide<TDropdownContextKey>('dropdown', vPath);
 
 onMounted(() => {
     const elInnerText = el.value?.innerText;
-    if (!updatedPath.value && elInnerText) updatedPath.value = elInnerText;
-    if (updatedPath.value) store.registerTab({ path: updatedPath.value, setActive });
+    if (!vPath.value && elInnerText) vPath.value = elInnerText;
 });
 </script>
 
 <template>
+    <SDropdown v-if="dropdown" ref="dropdownRef" use-show :responsive="false">
+        <template #reference>
+            <component
+                v-bind="$attrs"
+                :is="as"
+                v-if="as"
+                ref="el"
+                :type="as === 'button' ? 'button' : undefined"
+                :class="[
+                    vActive
+                        ? 'border-spartan-primary-500 text-gray-900'
+                        : 'border-transparent text-gray-400 hover:text-gray-800',
+                    'group inline-flex items-center gap-1 border-b-2 px-4 py-2 text-sm font-medium',
+                    $props.class,
+                ]"
+                :aria-current="vActive ? 'page' : undefined"
+            >
+                <component
+                    :is="icon"
+                    v-if="icon"
+                    :class="[
+                        vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
+                        '-ml-0.5 mr-2 h-5 w-5',
+                    ]"
+                    aria-hidden="true"
+                />
+                <slot />
+                <ChevronDownIcon
+                    v-if="dropdown"
+                    :class="['h-5 w-5 text-gray-400', vActive ? 'text-gray-900' : 'group-hover:text-gray-500']"
+                />
+            </component>
+        </template>
+
+        <div ref="itemsRef">
+            <slot name="items" />
+        </div>
+    </SDropdown>
+
     <component
-        ref="el"
-        v-if="as"
+        v-bind="$attrs"
         :is="as"
+        v-else-if="as"
+        ref="el"
+        :type="as === 'button' ? 'button' : undefined"
         :class="[
-            active
-                ? 'border-primary-500 text-primary-600'
-                : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-            'group inline-flex items-center border-b-2 px-1 py-4 text-sm font-medium',
+            vActive
+                ? 'border-spartan-primary-500 text-gray-900'
+                : 'border-transparent text-gray-400 hover:text-gray-800',
+            'group inline-flex items-center gap-1 border-b-2 px-4 py-2 text-sm font-medium',
+            $props.class,
         ]"
-        :aria-current="active ? 'page' : undefined"
-        @click="() => store.updateTab(updatedPath)"
+        :aria-current="vActive ? 'page' : undefined"
+        :data-path="vPath"
+        @click="() => context.updateModelValue(vPath)"
     >
         <component
-            v-if="icon"
             :is="icon"
+            v-if="icon"
             :class="[
-                active ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500',
+                vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
                 '-ml-0.5 mr-2 h-5 w-5',
             ]"
             aria-hidden="true"
