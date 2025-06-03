@@ -47,7 +47,7 @@ export * from './SCardBrand';
 export * from './SPageTitle';
 export * from './STextArea';
 export * from './STextAreaBlock';
-export * from './SInputOTP';
+export * from './SInputOtp';
 export * from './SInputOtpBlock';
 export * from './SStackedList';
 export * from './SPaginator';

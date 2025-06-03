@@ -1,5 +1,5 @@
 import SInputOtpBlock from './SInputOtpBlock.vue';
-import { SInputOTPItem } from '@spartan';
+import { SInputOtpItem } from '@spartan';
 import { buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
 
 export default {
@@ -7,7 +7,7 @@ export default {
     title: 'inputBlocks/InputOtpBlock',
     parameters: {
         docs: {
-            description: { component: 'The `SInputOTP` component is a container for `SInputOTPItem` components. It is used to input OTP codes.' },
+            description: { component: 'The `SInputOtp` component is a container for `SInputOtpItem` components. It is used to input OTP codes.' },
         },
     },
     argTypes: {
@@ -65,25 +65,25 @@ export const Default = createDefault({
     design: '',
     components: {
         SInputOtpBlock,
-        SInputOTPItem,
+        SInputOtpItem,
     },
     template: `<SInputOtpBlock v-bind="args" v-model="value">
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 </SInputOtpBlock>`,
     transform: (args) => `<SInputOtpBlock ${sourceBinding(args)}>
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 </SInputOtpBlock>`,
     args: {
         id: 'test-id',
@@ -98,7 +98,7 @@ const createVariation = ({ template, ...rest }: { template: string }) =>
         template,
         components: {
             SInputOtpBlock,
-            SInputOTPItem,
+            SInputOtpItem,
         },
         containerClass: 'w-[200px]',
         ...rest,
@@ -106,27 +106,27 @@ const createVariation = ({ template, ...rest }: { template: string }) =>
 
 export const WithLabel = createVariation({
     template: `<SInputOtpBlock label="Otp" id="test-id">
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 </SInputOtpBlock>`,
 });
 
 export const WithHelpText = createVariation({
     template: `<SInputOtpBlock id="test-id" label="Token" helpText="complete the code">
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 </SInputOtpBlock>`,
 });
 
 export const WithErrorText = createVariation({
     template: `<SInputOtpBlock id="test-id" label="Code" errorText="the code is mandatory">
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 </SInputOtpBlock>`,
 });

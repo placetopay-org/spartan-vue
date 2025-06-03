@@ -1,19 +1,19 @@
 import { ref } from 'vue';
 import { SInput } from '../SInput';
-import SInputOTP from './SInputOTP.vue';
-import SInputOTPItem from './SInputOTPItem.vue';
+import SInputOtp from './SInputOtp.vue';
+import SInputOtpItem from './SInputOtpItem.vue';
 import { buildSourceBinding, createDefault, createVariation, createHistory } from '@/helpers';
 
 export default {
-    component: SInputOTP,
-    title: 'inputs/InputOTP',
+    component: SInputOtp,
+    title: 'inputs/InputOtp',
     ...createHistory({
         description:
-            'The `SInputOTP` component is a container for `SInputOTPItem` components. It is used to input OTP codes.',
+            'The `SInputOtp` component is a container for `SInputOtpItem` components. It is used to input Otp codes.',
         slots: [
             {
                 name: 'default',
-                description: 'The default slot for `SInputOTPItem` components.',
+                description: 'The default slot for `SInputOtpItem` components.',
             },
         ],
         props: [
@@ -60,27 +60,27 @@ export default {
 const sourceBinding = buildSourceBinding({});
 
 export const Default = createDefault({
-    components: { SInputOTP, SInputOTPItem, SInput },
+    components: { SInputOtp, SInputOtpItem, SInput },
     setup: () => {
         const value = ref('');
 
         return { value };
     },
-    template: `<SInputOTP v-model="value" v-bind="args">
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    template: `<SInputOtp v-model="value" v-bind="args">
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-</SInputOTP>
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+</SInputOtp>
 
 <hr class="mt-8" />
 <p class="text-xs text-gray-400 mb-2">v-model test: {{ value }}</p>
 
 <SInput type="text" v-model="value" />`,
-    transform: (args) => `<SInputOTP ${sourceBinding(args)}>${args.default}</SInputOTP>`,
+    transform: (args) => `<SInputOtp ${sourceBinding(args)}>${args.default}</SInputOtp>`,
     args: {
         disabled: false,
         success: false,
@@ -89,75 +89,75 @@ export const Default = createDefault({
 });
 
 export const Base = createVariation({
-    components: { SInputOTP, SInputOTPItem },
+    components: { SInputOtp, SInputOtpItem },
     containerClass: 'grid grid-cols-2 gap-4',
     setup: () => {
         const value = ref('');
 
         return { value };
     },
-    template: `<SInputOTP v-model="value">
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    template: `<SInputOtp v-model="value">
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-</SInputOTP>
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+</SInputOtp>
 `,
 });
 
 export const Disabled = createVariation({
-    components: { SInputOTP, SInputOTPItem },
+    components: { SInputOtp, SInputOtpItem },
     setup: () => {
         const value = ref('');
 
         return { value };
     },
-    template: `<SInputOTP v-model="value" disabled>
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    template: `<SInputOtp v-model="value" disabled>
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-</SInputOTP>`,
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+</SInputOtp>`,
 });
 
 export const Success = createVariation({
-    components: { SInputOTP, SInputOTPItem },
+    components: { SInputOtp, SInputOtpItem },
     setup: () => {
         const value = ref('');
 
         return { value };
     },
-    template: `<SInputOTP v-model="value" success>
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    template: `<SInputOtp v-model="value" success>
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-</SInputOTP>`,
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+</SInputOtp>`,
 });
 
 export const Error = createVariation({
-    components: { SInputOTP, SInputOTPItem },
+    components: { SInputOtp, SInputOtpItem },
     setup: () => {
         const value = ref('');
 
         return { value };
     },
-    template: `<SInputOTP v-model="value" error>
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
+    template: `<SInputOtp v-model="value" error>
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
 
-    <SInputOTPItem />
-    <SInputOTPItem />
-    <SInputOTPItem />
-</SInputOTP>`,
+    <SInputOtpItem />
+    <SInputOtpItem />
+    <SInputOtpItem />
+</SInputOtp>`,
 });

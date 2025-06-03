@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { SInputOTP, type TInputOTPProps, type TInputOTPEmits } from '../SInputOTP';
+import { SInputOtp, type TInputOtpProps, type TInputOtpEmits } from '../SInputOtp';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 import { extractWrapperProps } from '@/helpers';
 
-defineEmits<TInputOTPEmits>();
-const props = defineProps<TBlockWrapperProps & TInputOTPProps>();
-const [blockWrapperProps, inputProps] = extractWrapperProps<TInputOTPProps>(props);
+defineEmits<TInputOtpEmits>();
+const props = defineProps<TBlockWrapperProps & TInputOtpProps>();
+const [blockWrapperProps, inputProps] = extractWrapperProps<TInputOtpProps>(props);
 </script>
 
 <template>
     <BlockWrapper v-slot="{ id }" wrapper="SInputOtpBlock" v-bind="blockWrapperProps">
-        <SInputOTP
+        <SInputOtp
             :id
             class="w-full"
             v-bind="inputProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
         >
             <slot />
-        </SInputOTP>
+        </SInputOtp>
     </BlockWrapper>
 </template>

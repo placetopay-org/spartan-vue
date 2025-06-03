@@ -1,9 +1,9 @@
-import { test, describe, expect, vi } from 'vitest';
+import { test, describe, expect } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import { h } from 'vue';
 import SInputOtpBlock from './SInputOtpBlock.vue';
-import { SInputOTPItem } from '../SInputOTP';
+import { SInputOtpItem } from '../SInputOtp';
 import userEvent from '@testing-library/user-event';
 
 describe('SInputOtpBlock', () => {
@@ -23,10 +23,10 @@ describe('SInputOtpBlock', () => {
             },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
@@ -45,10 +45,10 @@ describe('SInputOtpBlock', () => {
             props: { label: 'Código OTP' },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
@@ -64,10 +64,10 @@ describe('SInputOtpBlock', () => {
             props: { errorText: 'Código OTP requerido' },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
@@ -84,10 +84,10 @@ describe('SInputOtpBlock', () => {
             props: { helpText: 'Ingresa el código de 4 dígitos' },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
@@ -114,12 +114,12 @@ describe('SInputOtpBlock', () => {
             },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
@@ -149,10 +149,10 @@ describe('SInputOtpBlock', () => {
             props: { disabled: true },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
@@ -168,10 +168,10 @@ describe('SInputOtpBlock', () => {
             props: { error: true },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
@@ -197,10 +197,10 @@ describe('SInputOtpBlock', () => {
             },
             slots: {
                 default: [
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
-                    h(SInputOTPItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
+                    h(SInputOtpItem),
                 ],
             },
         });
