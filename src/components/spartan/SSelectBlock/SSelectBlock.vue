@@ -9,7 +9,7 @@ const [blockWrapperProps, selectProps] = extractWrapperProps<Partial<TSelectProp
 </script>
 
 <template>
-    <BlockWrapper v-slot="{ id }" wrapper="SSelectBlock" v-bind="blockWrapperProps">
+    <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps">
         <SSelect
             :id
             class="w-full"

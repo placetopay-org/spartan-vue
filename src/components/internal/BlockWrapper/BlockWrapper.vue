@@ -4,8 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import type { TBlockWrapperProps } from './types';
 import { computed } from 'vue';
 
-// TODO: remove wrapper prop
-const props = defineProps<TBlockWrapperProps & { wrapper: string; useDpUid?: boolean }>();
+const props = defineProps<TBlockWrapperProps & { useDpUid?: boolean }>();
 const computedId = computed(() => props.id || uuidv4());
 </script>
 

@@ -9,7 +9,7 @@ const [blockWrapperProps, inputPasswordProps] = extractWrapperProps<TInputPasswo
 </script>
 
 <template>
-    <BlockWrapper v-slot="{ id }" wrapper="SInputPasswordBlock" v-bind="blockWrapperProps">
+    <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps">
         <SInputPassword
             :id
             class="w-full"
