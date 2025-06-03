@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useContext } from './api';
-import { inputOTPItemStyles, inputOTPItemTextStyles } from './styles';
+import { inputOtpItemStyles, inputOtpItemTextStyles } from './styles';
 import { twMerge } from 'tailwind-merge';
-import type { TInputOTPItemProps } from './types';
+import type { TInputOtpItemProps } from './types';
 import { computed } from 'vue';
 
-defineProps<TInputOTPItemProps>();
+defineProps<TInputOtpItemProps>();
 
-const ctx = useContext('SInputOTPItem');
+const ctx = useContext('SInputOtpItem');
 
 const value = ref('');
 const active = ref(false);
@@ -22,7 +22,7 @@ ctx.register(
 </script>
 
 <template>
-    <div tabindex="-1" :class="twMerge(inputOTPItemStyles({ active, success, error }), $props.class)">
-        <span :class="twMerge(inputOTPItemTextStyles({ value: !!value, success, error }))">{{ value || '-' }}</span>
+    <div tabindex="-1" :class="twMerge(inputOtpItemStyles({ active, success, error }), $props.class)">
+        <span :class="twMerge(inputOtpItemTextStyles({ value: !!value, success, error }))">{{ value || '-' }}</span>
     </div>
 </template>

@@ -1,22 +1,22 @@
 <script setup lang="ts">
+import { SInputOtp, type TInputOtpProps, type TInputOtpEmits } from '../SInputOtp';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
-import { SSelect, type TSelectProps, type TSelectEmits } from '../SSelect';
 import { extractWrapperProps } from '@/helpers';
 
-defineEmits<TSelectEmits>();
-const props = defineProps<Partial<TBlockWrapperProps> & Partial<TSelectProps>>();
-const [blockWrapperProps, selectProps] = extractWrapperProps<Partial<TSelectProps>>(props);
+defineEmits<TInputOtpEmits>();
+const props = defineProps<TBlockWrapperProps & TInputOtpProps>();
+const [blockWrapperProps, inputProps] = extractWrapperProps<TInputOtpProps>(props);
 </script>
 
 <template>
     <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps">
-        <SSelect
+        <SInputOtp
             :id
             class="w-full"
-            v-bind="selectProps"
+            v-bind="inputProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
         >
             <slot />
-        </SSelect>
+        </SInputOtp>
     </BlockWrapper>
 </template>

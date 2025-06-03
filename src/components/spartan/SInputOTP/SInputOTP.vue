@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
-import { inputOTPStyles } from './styles';
+import { inputOtpStyles } from './styles';
 import { createContext } from './api';
-import type { TInputOTPProps, TInputOTPEmits } from './types';
+import type { TInputOtpProps, TInputOtpEmits } from './types';
 
-const emit = defineEmits<TInputOTPEmits>();
-const props = defineProps<TInputOTPProps>();
+const emit = defineEmits<TInputOtpEmits>();
+const props = defineProps<TInputOtpProps>();
 defineOptions({ inheritAttrs: false });
 
 const context = createContext(props, emit);
@@ -35,7 +35,7 @@ const avoidMoveCaret = (e: Event) => {
 </script>
 
 <template>
-    <div :class="twMerge(inputOTPStyles({ disabled }), $props.class)">
+    <div :class="twMerge(inputOtpStyles({ disabled }), $props.class)">
         <input
             :value="context.value"
             type="text"

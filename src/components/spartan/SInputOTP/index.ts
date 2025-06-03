@@ -1,4 +1,4 @@
-export { default as SInputOTP } from './SInputOTP.vue';
-export { default as SInputOTPItem } from './SInputOTPItem.vue';
+export { default as SInputOtp } from './SInputOtp.vue';
+export { default as SInputOtpItem } from './SInputOtpItem.vue';
 
-export type { TInputOTPProps, TInputOTPEmits, TInputOTPItemProps } from './types';
+export type { TInputOtpProps, TInputOtpEmits, TInputOtpItemProps } from './types';

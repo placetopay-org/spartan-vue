@@ -1,21 +1,21 @@
 import { test, describe } from 'vitest';
-import { render, waitFor } from '@testing-library/vue';
+import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
-import SInputOTP from './SInputOTP.vue';
-import SInputOTPItem from './SInputOTPItem.vue';
+import SInputOtp from './SInputOtp.vue';
+import SInputOtpItem from './SInputOtpItem.vue';
 import userEvent from '@testing-library/user-event';
 import { h } from 'vue';
 
-describe('SInputOTP', () => {
+describe('SInputOtp', () => {
     test('Can be rendered', () => {
         // Arrange
-        const item1 = h(SInputOTPItem);
-        const item2 = h(SInputOTPItem);
-        const item3 = h(SInputOTPItem);
-        const item4 = h(SInputOTPItem);
+        const item1 = h(SInputOtpItem);
+        const item2 = h(SInputOtpItem);
+        const item3 = h(SInputOtpItem);
+        const item4 = h(SInputOtpItem);
 
         // Act
-        render(SInputOTP, { slots: { default: [item1, item2, item3, item4] } });
+        render(SInputOtp, { slots: { default: [item1, item2, item3, item4] } });
 
         const items = screen.getAllByText('-');
 
@@ -33,14 +33,14 @@ describe('SInputOTP', () => {
     test('Can be typed', async () => {
         // Arrange
         let modelValue = '';
-        const item1 = h(SInputOTPItem);
-        const item2 = h(SInputOTPItem);
-        const item3 = h(SInputOTPItem);
-        const item4 = h(SInputOTPItem);
+        const item1 = h(SInputOtpItem);
+        const item2 = h(SInputOtpItem);
+        const item3 = h(SInputOtpItem);
+        const item4 = h(SInputOtpItem);
         const user = userEvent.setup();
 
         // Act
-        const { rerender } = render(SInputOTP, {
+        const { rerender } = render(SInputOtp, {
             slots: { default: [item1, item2, item3, item4] },
             props: {
                 modelValue,
