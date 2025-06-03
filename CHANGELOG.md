@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhance `SDefinitionTerm` and `SStackedList` components with className support.
 - Added `icon` prop to `SStackedListItem` component to display an icon in a circular container.
 
-
 ## 2.1.0 - 2025-06-03
 ### Added
 - Created the `SInputOtpBlock` component, which uses `SInputOTP` and `BlockWrapper`, allowing the entry of OTP codes.
