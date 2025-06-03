@@ -7,17 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Removed
-- Unused wrapper prop from BlockWrapper and update related components
+## 2.1.0 - 2025-06-03
+### Added
+- Created the `SInputOtpBlock` component, which uses `SInputOTP` and `BlockWrapper`, allowing the entry of OTP codes.
+- Added tests and stories for `SInputOtpBlock`, ensuring its correct operation and presentation.
 
 ### Changed
 - Renamed `SInputOTP` to `SInputOtp`.
 - Renamed `SInputOTPItem` to `SInputOtpItem`.
 - Adjusted `TBlockWrapperProps` types to be optional.
 
-### Added
-- Created the `SInputOtpBlock` component, which uses `SInputOTP` and `BlockWrapper`, allowing the entry of OTP codes.
-- Added tests and stories for `SInputOtpBlock`, ensuring its correct operation and presentation.
+### Removed
+- Unused wrapper prop from BlockWrapper and update related components
 
 ## 2.0.0 - 2025-05-23
 
