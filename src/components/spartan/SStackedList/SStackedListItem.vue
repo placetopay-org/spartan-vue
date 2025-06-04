@@ -29,10 +29,7 @@ const [containerClass, containerProps] = extractor(pt.value.container);
 
             <slot name="dropdown" />
         </SDropdown>
-        <div :class="twMerge('flex gap-3 items-center', $props.class)" v-bind="$attrs">
-            <div v-if="icon" class="bg-gray-100 border border-gray-200 rounded-full h-11 w-11 flex items-center justify-center">
-                <component :is="icon" class="h-6 w-6 text-gray-600" />
-            </div>
+        <div :class="$props.class" v-bind="$attrs">
             <slot />
         </div>
     </li>

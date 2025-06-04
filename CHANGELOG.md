@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
 - Enhance `SDefinitionTerm` and `SStackedList` components with className support.
-- Added `icon` prop to `SStackedListItem` component to display an icon in a circular container.
 
 ## 2.1.0 - 2025-06-03
 ### Added
