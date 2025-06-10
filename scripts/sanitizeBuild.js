@@ -22,6 +22,8 @@ import fs from 'fs';
             );
     });
 
+    fs.renameSync('./dist/types/expose/i18n.d.ts', './dist/expose/i18n.d.ts');
+
     fs.renameSync('./dist/locales/index.ts', './dist/locales/index.js');
     fs.cpSync('./dist/locales/index.js', './dist/locales/index.d.ts');
 

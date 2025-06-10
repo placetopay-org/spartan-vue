@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "dist/types",
+        "target": "ESNext",
+        "module": "ESNext",
+        "resolveJsonModule": true,
+        "esModuleInterop": true
+    },
+    "include": ["src/expose/i18n.ts"]
+}

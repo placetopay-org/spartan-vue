@@ -1,8 +1,9 @@
 import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
+import esbuild from 'rollup-plugin-esbuild';
 
 export default [
     {
@@ -27,18 +28,15 @@ export default [
             file: 'dist/expose/i18n.js',
             format: 'es',
         },
-        external: ['@intlify/unplugin-vue-i18n/messages'],
         plugins: [
-            typescript({
-                compilerOptions: {
-                    declaration: true,
-                    declarationDir: './dist/expose',
-                    outDir: './dist/expose',
-                },
-                include: ['src/expose/i18n.ts'],
-            }),
-            nodeResolve(),
+            nodeResolve({ extensions: ['.js', '.ts', '.json'] }),
+            json(),
             commonjs(),
+            esbuild({
+                target: 'esnext',
+                sourceMap: false,
+                tsconfig: 'tsconfig.json',
+            }),
             terser(),
         ],
     },

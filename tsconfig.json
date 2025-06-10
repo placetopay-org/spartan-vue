@@ -3,7 +3,7 @@
     "compilerOptions": {
         "allowJs": true,
         "outDir": "dist",
-        "types": ["@intlify/unplugin-vue-i18n/messages", "vitest/globals"],
+        "types": ["vitest/globals"],
         "paths": {
             "@/*": ["./src/*"],
             "@spartan*": ["./src/components/spartan"],

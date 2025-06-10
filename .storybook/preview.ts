@@ -4,7 +4,7 @@ import DocumentationTemplate from './DocumentationTemplate.mdx';
 import { type Preview, setup } from '@storybook/vue3';
 import type { App } from 'vue';
 import { createI18n } from 'vue-i18n';
-import messages from '@intlify/unplugin-vue-i18n/messages';
+import * as messages from '../src/locales';
 
 const preview: Preview = {
     parameters: {
