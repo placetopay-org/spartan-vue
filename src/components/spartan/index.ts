@@ -26,6 +26,7 @@ export * from './SSteps';
 export * from './SBreadcrumbs';
 export * from './SModal';
 export * from './SModalCard';
+export * from './SModalConfirm';
 export * from './SModalLeft';
 export * from './SButtonGroup';
 export * from './SSectionTitle';

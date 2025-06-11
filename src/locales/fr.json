@@ -1,5 +1,10 @@
 {
     "$spartan": {
+        "modalConfirm": {
+            "title": "Êtes-vous sûr?",
+            "confirmText": "Confirmer",
+            "cancelText": "Annuler"
+        },
         "inputPasswordPanel": {
             "min": "Minimum de {value} caractères",
             "max": "Maximum de {value} caractères",

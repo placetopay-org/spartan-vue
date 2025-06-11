@@ -39,12 +39,12 @@ export const Default = createDefault({
 
         return { open };
     },
-    template: `<SModalCard :open="open" @close="() => open = false">
+    template: `<SModalCard v-model:open="open">
     {{ args.default }}
 </SModalCard>
     
     <SButton @click="() => open = true">Open Modal Card</SButton>`,
-    transform: () => `<SModal :open="open" @close="() => open = false">
+    transform: () => `<SModal v-model:open="open">
     <div class="yellow-element">
         Any Element!
 
@@ -76,8 +76,7 @@ export const ActionModal = createVariation({
         text: 'Go to billing',
     }]" 
     :icon="ChatBubbleBottomCenterTextIcon" 
-    :open="open1" 
-    @close="() => open1 = false"
+    v-model:open="open1" 
 >
     <h2 class="text-center text-lg font-semibold text-gray-900">Trial Plan</h2>
 
@@ -88,8 +87,7 @@ export const ActionModal = createVariation({
 <SModalCard
     class="w-96"
     :icon="ChatBubbleBottomCenterTextIcon" 
-    :open="open2" 
-    @close="() => open2 = false"
+    v-model:open="open2" 
 >
     <h2 class="text-center text-lg font-semibold text-gray-900">Trial Plan</h2>
 
@@ -139,8 +137,7 @@ export const ConfirmModal = createVariation({
     }]" 
     :icon="ExclamationCircleIcon" 
     iconVariant="danger"
-    :open="open1" 
-    @close="() => open1 = false"
+    v-model:open="open1" 
 >
     <h2 class="text-center text-lg font-semibold text-gray-900">Delete User</h2>
 
@@ -151,8 +148,7 @@ export const ConfirmModal = createVariation({
 <SModalCard
     class="w-96"
     :icon="PencilSquareIcon" 
-    :open="open2" 
-    @close="() => open2 = false"
+    v-model:open="open2" 
 >
     <h2 class="text-center text-lg font-semibold text-gray-900">Edit payment method</h2>
 
@@ -177,9 +173,8 @@ export const ConfirmModal = createVariation({
 <!-- Modal #3 -->
 <SModalCard
     icon="danger"
-    :open="open3" 
+    v-model:open="open3" 
     preventClose
-    @close="() => open3 = false"
 >
     <h2 class="text-center text-lg font-semibold text-gray-900">Delete means of payment</h2>
 
