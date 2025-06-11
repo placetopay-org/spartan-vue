@@ -5,7 +5,7 @@ export type TModalConfirmEmits = {
 };
 
 export type TModalConfirmProps = {
-    text: string;
+    description: string;
     confirmText?: string;
     cancelText?: string;
 };

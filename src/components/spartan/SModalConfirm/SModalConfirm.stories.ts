@@ -55,10 +55,10 @@ export const Default = createDefault({
 
         return { open };
     },
-    template: `<SModalConfirm v-bind="args" v-model:open="open" text="Are you sure you want to delete this item?" />
+    template: `<SModalConfirm v-bind="args" v-model:open="open" description="Are you sure you want to delete this item?" />
     
 <SButton @click="() => open = true">Open Modal</SButton>`,
-    transform: () => `<SModalConfirm v-model:open="open" text="Are you sure you want to delete this item?" />
+    transform: () => `<SModalConfirm v-model:open="open" description="Are you sure you want to delete this item?" />
     
 <SButton @click="() => open = true">Open Modal</SButton>`,
     args: {
@@ -75,6 +75,6 @@ export const ChangeIcon = createVariation({
 
         return { open };
     },
-    template: `<SModalConfirm v-model:open="open" text="Are you sure you want to delete this item?" icon="success" />
+    template: `<SModalConfirm v-model:open="open" description="Are you sure you want to delete this item?" icon="success" />
 <SButton @click="() => open = true">Open Modal</SButton>`,
 });
