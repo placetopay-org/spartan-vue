@@ -22,7 +22,9 @@ const ptIconContainer = extractor(pt.value.iconContainer);
     <article :class="twMerge(containerStyles({ size }), $props.class)">
         <header v-if="icon" :class="twMerge('mx-4 mb-8 mt-6 flex sm:mx-8 sm:mt-8', closable ? 'justify-between' : 'justify-center')">
             <VIcon v-bind="{ icon, iconColor, iconType, ptIcon, ptIconContainer }" />
-            <XMarkIcon v-if="closable" class="h-5 w-5 text-gray-400" @click="$emit('close')" />
+            <button class="h-fit cursor-pointer" v-if="closable" @click="$emit('close')">
+                <XMarkIcon class="h-5 w-5 text-gray-400" />
+            </button>
         </header>
 
         <main
