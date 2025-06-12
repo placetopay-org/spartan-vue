@@ -18,7 +18,7 @@ const slotLabels = computed(() => Object.keys(slots).filter((key) => key.match(/
 </script>
 
 <template>
-    <Wrapper :as="!oneline && 'div'" :class="['space-y-1', $props.class]">
+    <Wrapper :as="!oneline && 'div'" :class="twMerge('space-y-1', $props.class)">
         <dt v-if="hasSlotContent($slots.default)" data-s-dt v-bind="dtProps" :class="twMerge(dtClass, dtStyle)">
             <slot />
         </dt>
