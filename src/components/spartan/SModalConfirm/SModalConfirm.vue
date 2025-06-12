@@ -4,6 +4,7 @@ import type { TModalProps, TCardProps } from '@spartan';
 import { computed } from 'vue';
 import { translator } from '@/helpers';
 import type { TModalConfirmEmits, TModalConfirmProps } from './types';
+import { hasSlotContent } from '@/helpers';
 
 const emit = defineEmits<TModalConfirmEmits>();
 
@@ -33,9 +34,11 @@ const confirm = () => {
         :pt:description="closable ? 'text-left' : ''"
         :responsive
         :closable
+        :prevent-close
     >
         <template #description>
-            {{ description }}
+            <slot v-if="hasSlotContent($slots.default)" />
+            <template v-else>{{ description }}</template>
         </template>
 
         <template #actions>
