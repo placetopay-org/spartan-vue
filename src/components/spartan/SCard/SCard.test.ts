@@ -31,6 +31,6 @@ describe('SCard', () => {
         // Assert
         screen.getByText('test content');
         const card = screen.getByRole('article');
-        expect(card?.firstElementChild?.firstElementChild).toHaveClass('h-6 w-6 text-green-600');
+        expect(card?.firstElementChild?.firstElementChild?.firstElementChild).toHaveClass('h-6 w-6 text-green-600');
     });
 });
