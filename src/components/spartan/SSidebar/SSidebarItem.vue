@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, useSlots } from 'vue';
+import { ref, onMounted, useSlots, watch } from 'vue';
 import { twMerge } from 'tailwind-merge';
 import { useContext } from './api';
 import { sidebarItemStyles, sidebarItemIconStyles, sidebarItemContentStyles } from './styles';
@@ -23,6 +23,10 @@ const isActive = ref(props.active);
 const setActive = (value: boolean) => (isActive.value = value || props.active);
 
 const isChild = ref(false);
+
+watch(() => props.active, (value) => {
+    isActive.value = value;
+});
 
 onMounted(() => {
     const groupName = el.value?.parentElement?.parentElement?.dataset.groupName;
