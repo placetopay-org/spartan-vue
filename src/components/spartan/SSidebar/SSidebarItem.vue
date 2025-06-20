@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
     as: 'button',
     path: undefined,
     icon: undefined,
+    active: false,
 });
 
 const el = ref<HTMLElement | null>(null);
@@ -18,8 +19,8 @@ const updatedPath = ref(props.path);
 
 const store = useContext('SSidebarItem');
 
-const isActive = ref(false);
-const setActive = (value: boolean) => (isActive.value = value);
+const isActive = ref(props.active);
+const setActive = (value: boolean) => (isActive.value = value || props.active);
 
 const isChild = ref(false);
 
