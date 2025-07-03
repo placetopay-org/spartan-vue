@@ -171,3 +171,98 @@ export const PaginatorSize = createVariation({
 <SPaginator v-bind="state" paginatorSize="4" @change="newState => state = {...state, ...newState}"/>
 `,
 });
+
+export const LaravelApi = createVariation({
+    components: { SPaginator },
+    setup: () => {
+        const mockLaravelResponse = {
+            total: 50,
+            per_page: 15,
+            current_page: 1,
+            last_page: 4,
+            first_page_url: 'http://laravel.app?page=1',
+            last_page_url: 'http://laravel.app?page=4',
+            next_page_url: 'http://laravel.app?page=2',
+            prev_page_url: null,
+            path: 'http://laravel.app',
+            from: 1,
+            to: 15,
+            data: [
+                { id: 1, name: 'John Doe' },
+                { id: 2, name: 'Jane Doe' },
+                { id: 3, name: 'John Smith' },
+            ],
+        };
+        const state = ref({ laravel: mockLaravelResponse });
+
+        return { mockLaravelResponse };
+    },
+    template: `<SPaginator :laravel="mockLaravelResponse" :pageSizes="[10, 20, 30, 100]" />
+
+<!-- mockLaravelResponse: {
+    total: 50,
+    per_page: 15,
+    current_page: 1,
+    last_page: 4,
+    first_page_url: 'http://laravel.app?page=1',
+    last_page_url: 'http://laravel.app?page=4',
+    next_page_url: 'http://laravel.app?page=2',
+    prev_page_url: null,
+    path: 'http://laravel.app',
+    from: 1,
+    to: 15,
+    data: [
+        { id: 1, name: 'John Doe' },
+        { id: 2, name: 'Jane Doe' },
+        { id: 3, name: 'John Smith' },
+    ],
+} -->`,
+});
+
+export const LaravelAdnInertia = createVariation({
+    components: { SPaginator },
+    setup: () => {
+        const mockLaravelResponse = {
+            total: 50,
+            per_page: 15,
+            current_page: 1,
+            last_page: 4,
+            first_page_url: 'http://laravel.app?page=1',
+            last_page_url: 'http://laravel.app?page=4',
+            next_page_url: 'http://laravel.app?page=2',
+            prev_page_url: null,
+            path: 'http://laravel.app',
+            from: 1,
+            to: 15,
+            data: [
+                { id: 1, name: 'John Doe' },
+                { id: 2, name: 'Jane Doe' },
+                { id: 3, name: 'John Smith' },
+            ],
+        };
+        const state = ref({ laravel: mockLaravelResponse });
+
+        return { mockLaravelResponse };
+    },
+    template: `<!-- import { router } from '@inertiajs/vue3'; -->
+<SPaginator :laravel="mockLaravelResponse" :inertiaRouter="router" :pageSizes="[10, 20, 30, 100]" />
+
+<!-- mockLaravelResponse: {
+    total: 50,
+    per_page: 15,
+    current_page: 1,
+    last_page: 4,
+    first_page_url: 'http://laravel.app?page=1',
+    last_page_url: 'http://laravel.app?page=4',
+    next_page_url: 'http://laravel.app?page=2',
+    prev_page_url: null,
+    path: 'http://laravel.app',
+    from: 1,
+    to: 15,
+    data: [
+        { id: 1, name: 'John Doe' },
+        { id: 2, name: 'Jane Doe' },
+        { id: 3, name: 'John Smith' },
+    ],
+} -->`,
+});

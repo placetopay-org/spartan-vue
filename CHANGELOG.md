@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- `laravel` prop to `SPaginator` component for Laravel pagination support.
+- `inertiaRouter` prop to `SPaginator` component for Inertia router integration.
 
 ## 2.3.4 - 2025-06-20
 ### Fixed
