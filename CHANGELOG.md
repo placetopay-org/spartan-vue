@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- `SPaginator` component to update page size when using Laravel pagination.
+
 ## 2.4.0 - 2025-07-03
 ### Added
 - `laravel` prop to `SPaginator` component for Laravel pagination support.

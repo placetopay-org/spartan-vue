@@ -162,6 +162,28 @@ const selectPage = (pageItem: number) => {
     emit('change', { page: pageItem });
     emit('update:page', pageItem);
 };
+
+const updateSize = (value?: string | number) => {
+    if (!value) return;
+
+    if (laravel) {
+        const currentUrl = window.location.href;
+        const url = new URL(currentUrl);
+        url.searchParams.set('page', '1');
+        url.searchParams.set('per_page', value.toString());
+
+        if (inertiaRouter) {
+            inertiaRouter.visit(url.toString());
+        } else {
+            window.location.href = url.toString();
+        }
+        return;
+    }
+
+    emit('change', { size: Number(value), page: 1 });
+    emit('update:size', Number(value));
+    emit('update:page', 1);
+};
 </script>
 
 <template>
@@ -175,13 +197,7 @@ const selectPage = (pageItem: number) => {
             <SSelect
                 class="h-8 text-xs"
                 :model-value="vSize"
-                @update:model-value="
-                    (value) => {
-                        emit('change', { size: Number(value), page: 1 });
-                        emit('update:size', Number(value));
-                        emit('update:page', 1);
-                    }
-                "
+                @update:model-value="updateSize"
             >
                 <option v-for="pageSize in vPageSizes" :key="pageSize" :value="pageSize">
                     {{ pageSize }}
