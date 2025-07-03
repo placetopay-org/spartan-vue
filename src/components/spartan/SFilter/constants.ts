@@ -7,7 +7,7 @@ import type {
     TDateOperator,
     TRangeOperator,
 } from './types';
-import { IOneInput, ITwoInputs, IOptions, ISelection } from './interfaces';
+import { ISingle, IRange, IOptions, ISelection } from './interfaces';
 
 // Basic comparison operators
 export const comparisonOperators = [
@@ -77,8 +77,8 @@ export const operatorsByFieldType = {
 // Map of interface components
 export const interfaceComponents: Record<TInterfaceId, Component | null> = {
     none: null,
-    oneInput: IOneInput,
-    twoInputs: ITwoInputs,
+    single: ISingle,
+    range: IRange,
     options: IOptions,
     selection: ISelection,
 };

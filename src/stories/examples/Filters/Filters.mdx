@@ -1,0 +1,11 @@
+{/* Filters.mdx */}
+
+import { Canvas, Meta } from '@storybook/blocks';
+import * as FiltersStories from './Filters.stories.ts';
+
+<Meta of={FiltersStories} />
+
+<Canvas of={FiltersStories.SearchStory} withToolbar layout="centered" />
+<Canvas of={FiltersStories.FilterStory} withToolbar layout="centered" />
+<Canvas of={FiltersStories.AutoSearchStory} withToolbar layout="centered" />
+<Canvas of={FiltersStories.FilterAndSearchStory} withToolbar layout="centered" />

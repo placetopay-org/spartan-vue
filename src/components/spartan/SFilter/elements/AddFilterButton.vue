@@ -33,6 +33,10 @@ const selectField = (id: string) => {
     context.selectField(id);
     selectFieldStep.value = false;
 };
+
+defineExpose({
+    add: openPopover,
+});
 </script>
 
 <template>

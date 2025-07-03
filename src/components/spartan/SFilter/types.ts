@@ -17,7 +17,6 @@ export type TExistenceOperator = (typeof existenceOperators)[number];
 export type TOperatorId = (typeof predefinedOperators)[number];
 
 // Interface types
-export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options' | 'selection';
 export type TOptions = { id: string; label: string }[];
 
 // Custom operator type
@@ -54,28 +53,30 @@ export type TInterfaces = {
     selection?: TSelectionInterface;
 };
 
+export type TInterfaceId = keyof TInterfaces;
+
 // Specific interfaces
-type TNoneInterface = {
+export type TNoneInterface = {
     operators: (TExistenceOperator | TCustomOperator)[];
 };
 
-type TSingleInterface = {
-    inputType: TInputType;
+export type TSingleInterface = {
+    inputType?: TInputType;
     minorUnitMode?: boolean;
     currency?: keyof typeof Currencies;
     currencies?: (keyof typeof Currencies)[];
     operators: (TComparisonOperator | TTextOperator | TDateOperator | TExistenceOperator | TCustomOperator)[];
 };
 
-type TRangeInterface = {
-    inputType: Exclude<TInputType, 'text'>;
+export type TRangeInterface = {
+    inputType?: Exclude<TInputType, 'text'>;
     minorUnitMode?: boolean;
     currency?: keyof typeof Currencies;
     currencies?: (keyof typeof Currencies)[];
     operators: (TRangeOperator | TDateOperator | TExistenceOperator | TCustomOperator)[];
 };
 
-type TOptionsInterface = {
+export type TOptionsInterface = {
     options: TOptions;
     multiple?: boolean;
     operators: (
@@ -86,7 +87,7 @@ type TOptionsInterface = {
     )[];
 };
 
-type TSelectionInterface = {
+export type TSelectionInterface = {
     operators: (TComparisonOperator | TExistenceOperator | TCustomOperator)[];
 };
 

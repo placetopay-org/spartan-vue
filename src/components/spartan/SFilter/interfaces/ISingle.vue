@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SInput, SInputAmount } from '@spartan';
-import type { IInputConfig } from './types';
+import type { TSingleInterface } from '../types';
 import { translator } from '@/helpers';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<{
     modelValue?: string | number;
-    config: IInputConfig;
+    config: TSingleInterface;
 }>();
 
 const { t } = translator('filter');
@@ -33,10 +33,9 @@ const updateCurrency = (currency?: string) => {
         v-model="value as number"
         :currency="config.currency ?? config.currencies![0]"
         :currencies="config.currencies"
-        :type="config.inputType"
         :placeholder="t('inputSelectorPlaceholder')"
         :minor-unit-mode="config.minorUnitMode"
         @update:currency="updateCurrency"
     />
-    <SInput v-else v-model="value" :type="config.inputType" :placeholder="t('inputSelectorPlaceholder')" />
+    <SInput v-else v-model="value" :type="config.inputType || 'text'" :placeholder="t('inputSelectorPlaceholder')" />
 </template>

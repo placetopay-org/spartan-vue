@@ -13,7 +13,7 @@ export default {
 import FieldBadge from './elements/FieldBadge.vue';
 import SavedButton from './elements/SavedButton.vue';
 import AddFilterButton from './elements/AddFilterButton.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { SButton } from '../SButton';
 import { createContext } from './context';
 import { translator } from '@/helpers';
@@ -30,6 +30,8 @@ const props = withDefaults(defineProps<TFilterProps>(), {
 const { t } = translator('filter');
 
 const context = createContext(props, emit);
+
+const $addFilterButton = ref<InstanceType<typeof AddFilterButton>>();
 
 const apply = () => {
     const fields: TField[] = [];
@@ -49,6 +51,10 @@ const clear = () => {
     emit('clear', props.fields);
 };
 
+const add = () => {
+    $addFilterButton.value?.add?.();
+};
+
 onMounted(() => {
     if (props.immediateApply) apply();
 });
@@ -57,6 +63,7 @@ onMounted(() => {
 defineExpose({
     apply,
     clear,
+    add,
 });
 </script>
 
@@ -67,7 +74,7 @@ defineExpose({
         <div class="flex w-full flex-wrap gap-3">
             <FieldBadge v-for="field in context.activeFields" :key="field.id" :field="field" />
 
-            <AddFilterButton />
+            <AddFilterButton ref="$addFilterButton" />
         </div>
 
         <!-- action buttons -->
