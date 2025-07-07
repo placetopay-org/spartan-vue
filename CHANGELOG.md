@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- Improved support for Laravel pagination responses and resources in `SPaginator`.
+- Methods to detect whether a response is a Laravel resource in `SPaginator`.
+- Updated component properties and methods to enhance navigation and link handling in `SPaginator`.
+- Adjustments to stories to reflect the new behavior in `SPaginator`.
+- `SButtonGroupItem` component to support polymorphic template.
 
 ## 2.4.1 - 2025-07-03
 ### Fixed

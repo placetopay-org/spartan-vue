@@ -75,12 +75,61 @@ export const Default = createDefault({
 
 export const Base = createVariation({
     components: { SPaginator },
+    containerClass: 'flex flex-col gap-4',
     setup: () => {
-        const state = ref({ page: 3, size: 5, total: 125 });
+        const state1 = ref({ page: 3, count: 7 });
+        const state2 = ref({ page: 3, size: 5, total: 32 });
 
-        return { state };
+        return { state1, state2 };
     },
-    template: `<SPaginator v-bind="state" @change="newState => state = {...state, ...newState}" />`,
+    template: `<!-- state1: { page: 3, count: 7 } -->
+<SPaginator v-bind="state1" @change="newState => state1 = {...state1, ...newState}" />
+
+<!-- state2: { page: 3, size: 5, total: 125 } -->
+<SPaginator v-bind="state2" @change="newState => state2 = {...state2, ...newState}" />`,
+});
+
+export const PageSize = createVariation({
+    containerClass: 'flex flex-col gap-4',
+    components: { SPaginator },
+    setup: () => {
+        const state1 = ref({ page: 3, size: 20, total: 125 });
+        const state2 = ref({ page: 3, size: 33, count: 7 });
+
+        return { state1, state2 };
+    },
+    template: `<!-- state1: { page: 3, size: 20, total: 125 } -->
+<SPaginator v-bind="state1" :pageSizes="[10, 20, 30, 100]" @change="newState => state1 = {...state1, ...newState}"/>
+<SPaginator v-bind="state1" hideNumbers :pageSizes="[10, 20, 30, 100]" @change="newState => state1 = {...state1, ...newState}"/>
+
+<!-- state2: { page: 3, size: 33, count: 7 } -->
+<SPaginator v-bind="state2" :pageSizes="[10, 20, 30, 100]" @change="newState => state2 = {...state2, ...newState}"/>
+<SPaginator v-bind="state2" hideNumbers :pageSizes="[10, 20, 30, 100]" @change="newState => state2 = {...state2, ...newState}"/>
+`,
+});
+
+export const PageSizeRestrictions = createVariation({
+    containerClass: 'flex flex-col gap-4',
+    components: { SPaginator },
+    setup: () => {
+        const state1 = ref({ page: 3, size: 29, total: 125 });
+        const state2 = ref({ page: 3, size: 799, total: 125 });
+        const state3 = ref({ page: 3, size: 29 });
+        const state4 = ref({ page: 3, size: 799 });
+
+        return { state1, state2, state3, state4 };
+    },
+    template: `<!-- state1: { page: 3, size: 29, total: 125 } -->
+<SPaginator v-bind="state1" :pageSizes="[10, 20, 30, 100]" @change="newState => state1 = {...state1, ...newState}"/>
+
+<!-- state2: { page: 3, size: 799, total: 125 } -->
+<SPaginator v-bind="state2" :pageSizes="[10, 20, 30, 100]" @change="newState => state2 = {...state2, ...newState}"/>
+
+<!-- state3: { page: 3, size: 29 } -->
+<SPaginator v-bind="state3" :pageSizes="[10, 20, 30, 100]" @change="newState => state3 = {...state3, ...newState}"/>
+
+<!-- state4: { page: 3, size: 799 } -->
+<SPaginator v-bind="state4" :pageSizes="[10, 20, 30, 100]" @change="newState => state4 = {...state4, ...newState}"/>`,
 });
 
 export const HideNumbers = createVariation({
@@ -95,23 +144,6 @@ export const HideNumbers = createVariation({
 <SPaginator v-bind="state" @change="newState => state = {...state, ...newState}"/>
 
 <SPaginator v-bind="state" hideNumbers @change="newState => state = {...state, ...newState}"/>`,
-});
-
-export const PageSize = createVariation({
-    containerClass: 'flex flex-col gap-4',
-    components: { SPaginator },
-    setup: () => {
-        const state1 = ref({ page: 23, size: 20, total: 125 });
-        const state2 = ref({ page: 23, size: 20 });
-
-        return { state1, state2 };
-    },
-    template: `<!-- state1: { page: 23, size: 20, total: 125 } -->
-<SPaginator v-bind="state1" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
-<SPaginator v-bind="state1" hideNumbers :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
-
-<!-- state2: { page: 23, size: 20 } -->
-<SPaginator v-bind="state2" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>`,
 });
 
 export const CanGoPrevOrNext = createVariation({
@@ -131,30 +163,6 @@ export const CanGoPrevOrNext = createVariation({
 <SPaginator v-bind="state2" :canGoPrev="true" :canGoNext="true" @change="newState => state2 = {...state2, ...newState}"/>`,
 });
 
-export const PageSizeRestrictions = createVariation({
-    containerClass: 'flex flex-col gap-4',
-    components: { SPaginator },
-    setup: () => {
-        const state = ref({ page: 3, size: 29, total: 125 });
-        const state2 = ref({ page: 3, size: 799, total: 125 });
-        const state3 = ref({ page: 3, size: 29 });
-        const state4 = ref({ page: 3, size: 799 });
-
-        return { state, state2, state3, state4 };
-    },
-    template: `<!-- state: { page: 3, size: 29, total: 125 } -->
-<SPaginator v-bind="state" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
-
-<!-- state2: { page: 3, size: 799, total: 125 } -->
-<SPaginator v-bind="state2" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
-
-<!-- state3: { page: 3, size: 29 } -->
-<SPaginator v-bind="state3" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>
-
-<!-- state4: { page: 3, size: 799 } -->
-<SPaginator v-bind="state4" :pageSizes="[10, 20, 30, 100]" @change="newState => state = {...state, ...newState}"/>`,
-});
-
 export const PaginatorSize = createVariation({
     components: { SPaginator },
     containerClass: 'flex flex-col items-center gap-4',
@@ -172,9 +180,21 @@ export const PaginatorSize = createVariation({
 `,
 });
 
-export const LaravelApi = createVariation({
+export const LaravelApiWithoutLinks = createVariation({
     components: { SPaginator },
+    containerClass: 'flex flex-col gap-4',
     setup: () => {
+        const mockLaravelSimpleResponse = {
+            current_page: 1,
+            first_page_url: 'http://laravel.app?page=1',
+            from: 1,
+            next_page_url: 'http://laravel.app?page=2',
+            path: 'http://laravel.app',
+            per_page: 15,
+            prev_page_url: null,
+            to: 10,
+        };
+
         const mockLaravelResponse = {
             total: 50,
             per_page: 15,
@@ -187,17 +207,40 @@ export const LaravelApi = createVariation({
             path: 'http://laravel.app',
             from: 1,
             to: 15,
-            data: [
-                { id: 1, name: 'John Doe' },
-                { id: 2, name: 'Jane Doe' },
-                { id: 3, name: 'John Smith' },
-            ],
         };
-        const state = ref({ laravel: mockLaravelResponse });
 
-        return { mockLaravelResponse };
+        const mockLaravelResourceResponse = {
+            links: {
+                first: 'http://example.com/users?page=1',
+                last: 'http://example.com/users?page=1',
+                prev: null,
+                next: null,
+            },
+            meta: {
+                current_page: 1,
+                from: 1,
+                last_page: 1,
+                path: 'http://example.com/users',
+                per_page: 15,
+                to: 10,
+                total: 10,
+            },
+        };
+
+        return { mockLaravelSimpleResponse, mockLaravelResponse, mockLaravelResourceResponse };
     },
-    template: `<SPaginator :laravel="mockLaravelResponse" :pageSizes="[10, 20, 30, 100]" />
+    template: `<!-- mockLaravelSimpleResponse: {
+    current_page: 1,
+    first_page_url: 'http://laravel.app?page=1',
+    from: 1,
+    next_page_url: 'http://laravel.app?page=2',
+    path: 'http://laravel.app',
+    per_page: 15,
+    prev_page_url: null,
+    to: 10,
+    data: [],
+} -->
+<SPaginator :laravel="mockLaravelSimpleResponse" :pageSizes="[10, 20, 30, 100]" />
 
 <!-- mockLaravelResponse: {
     total: 50,
@@ -210,16 +253,32 @@ export const LaravelApi = createVariation({
     prev_page_url: null,
     path: 'http://laravel.app',
     from: 1,
-    to: 15,
-    data: [
-        { id: 1, name: 'John Doe' },
-        { id: 2, name: 'Jane Doe' },
-        { id: 3, name: 'John Smith' },
-    ],
-} -->`,
+    to: 15
+} -->
+<SPaginator :laravel="mockLaravelResponse" :pageSizes="[10, 20, 30, 100]" />
+
+<!-- mockLaravelResourceResponse: {
+    links: {
+        first: 'http://example.com/users?page=1',
+        last: 'http://example.com/users?page=1',
+        prev: null,
+        next: null,
+    },
+    meta: {
+        current_page: 1,
+        from: 1,
+        last_page: 1,
+        path: 'http://example.com/users',
+        per_page: 15,
+        to: 10,
+        total: 10,
+    },
+} -->
+<SPaginator :laravel="mockLaravelResourceResponse" :pageSizes="[10, 20, 30, 100]" />
+`,
 });
 
-export const LaravelAdnInertia = createVariation({
+export const LaravelAndInertia = createVariation({
     components: { SPaginator },
     setup: () => {
         const mockLaravelResponse = {
