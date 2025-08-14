@@ -231,24 +231,27 @@ const updateSize = (value?: string | number) => {
 };
 
 const getLaravelAsLinksProps = (pageItem?: string | number) => {
-    if (!laravel?.asLinks)
+    if (!laravel?.asLinks) {
         return {
             onClick: pageItem === 'prev' ? prev : pageItem === 'next' ? next : () => selectPage(Number(pageItem)),
         };
+    }
 
     const data: any = {};
 
     data.as = laravel.asLinks;
 
     if (pageItem === 'prev') {
-        const href = vLaravel.value?.prevPage;
-        if (href != null) data.href = href;
+        data.href = vLaravel.value?.prevPage;
     } else if (pageItem === 'next') {
-        const href = vLaravel.value?.nextPage;
-        if (href != null) data.href = href;
+        data.href = vLaravel.value?.nextPage;
     } else {
         const link = vLaravel.value?.links?.find((link: any) => link.label === String(pageItem));
-        if (link?.url != null) data.href = link.url;
+        data.href = link?.url;
+    }
+
+    if (data.href == null) {
+        data.as = 'button';
     }
 
     return data;
