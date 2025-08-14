@@ -307,43 +307,21 @@ export const LaravelAndInertia = createVariation({
 <SPaginator :laravel="mockLaravelResponse" :inertiaRouter="router" :pageSizes="[10, 20, 30, 100]" />
 
 <!-- mockLaravelResponse: {
-    "data": [
+    total: 50,
+    per_page: 15,
+    current_page: 1,
+    last_page: 4,
+    first_page_url: 'http://laravel.app?page=1',
+    last_page_url: 'http://laravel.app?page=4',
+    next_page_url: 'http://laravel.app?page=2',
+    prev_page_url: null,
+    path: 'http://laravel.app',
+    from: 1,
+    to: 15,
+    data: [
         { id: 1, name: 'John Doe' },
         { id: 2, name: 'Jane Doe' },
         { id: 3, name: 'John Smith' },
     ],
-    "total": 4,
-    "links": {
-        "first": "http://laravel.app?page=1",
-        "last": "http://laravel.app?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://laravel.app?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://laravel.app",
-        "per_page": 20,
-        "to": 4,
-        "total": 4
-    }
 } -->`,
 });
