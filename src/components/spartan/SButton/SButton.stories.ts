@@ -101,7 +101,11 @@ export const Default = createDefault({
             if (icon === 'PencilIcon') return PencilIcon;
         };
 
-        return { getIcon, PlusIcon, MagnifyingGlassIcon, PencilIcon };
+        const onClick = () => {
+            console.log('clicked');
+        };
+
+        return { getIcon, PlusIcon, MagnifyingGlassIcon, PencilIcon, onClick };
     },
     args: {
         default: 'Click me',
