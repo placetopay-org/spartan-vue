@@ -1,3 +1,4 @@
+export * from './SAlert';
 export * from './SAvatar';
 export * from './SAccordion';
 export * from './SBadge';
