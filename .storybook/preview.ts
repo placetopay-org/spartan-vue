@@ -21,6 +21,25 @@ const preview: Preview = {
                 date: /Date$/,
             },
         },
+        options: {
+            storySort: {
+                order: [
+                    'Introduction',
+                    'Docs',
+                    'typography',
+                    'buttons',
+                    'display',
+                    'tables',
+                    'modals',
+                    'navigation',
+                    'misc',
+                    'inputs',
+                    'inputBlocks',
+                    '*',
+                    'examples',
+                ],
+            },
+        },
     },
     tags: ['autodocs'],
 };
