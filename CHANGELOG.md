@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SAlert` component with support for multiple variants (solid, outline, soft, subtle), colors (neutral, primary, secondary, success, info, warning, error), icons, closeable functionality, and custom close icons.
 - Comprehensive test suite for `SAlert` component covering all props, events, and accessibility features.
 
-### Updated
+### Changed
 - Storybook upgraded to version 9.1.2 with improved documentation and development experience.
 
 ### Fixed
