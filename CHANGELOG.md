@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.2.2-beta.0 - 2025-08-20
+
 ## 1.2.1 - 2024-11-01
 ### Fixed
 - Dynamic color of the `Loader` in the `SDataTable` component.
