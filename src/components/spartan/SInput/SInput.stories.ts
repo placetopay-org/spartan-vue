@@ -1,7 +1,7 @@
 import SInput from './SInput.vue';
 import { ref } from 'vue';
 import { SButton } from '@spartan';
-import type { SourceProps } from '@storybook/blocks';
+import type { SourceProps } from '@storybook/addon-docs/blocks';
 import { buildDesign, buildSourceBinding, createVariation } from '@/helpers';
 import { InformationCircleIcon, CurrencyDollarIcon, MapPinIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { EnvelopeIcon, KeyIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';

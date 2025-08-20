@@ -1,7 +1,7 @@
 import '../src/styles/main.css';
 import './styles.css';
 import DocumentationTemplate from './DocumentationTemplate.mdx';
-import { type Preview, setup } from '@storybook/vue3';
+import { type Preview, setup } from '@storybook/vue3-vite';
 import type { App } from 'vue';
 import { createI18n } from 'vue-i18n';
 import * as messages from '../src/locales';
@@ -19,6 +19,25 @@ const preview: Preview = {
             matchers: {
                 color: /(background|color)$/i,
                 date: /Date$/,
+            },
+        },
+        options: {
+            storySort: {
+                order: [
+                    'Introduction',
+                    'Docs',
+                    'typography',
+                    'buttons',
+                    'display',
+                    'tables',
+                    'modals',
+                    'navigation',
+                    'misc',
+                    'inputs',
+                    'inputBlocks',
+                    '*',
+                    'examples',
+                ],
             },
         },
     },

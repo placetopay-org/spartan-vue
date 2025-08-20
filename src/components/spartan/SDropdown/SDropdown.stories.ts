@@ -1,8 +1,8 @@
 import SDropdown from './SDropdown.vue';
 import SDropdownItem from './SDropdownItem.vue';
 import { SAvatar, SButton } from '@spartan';
-import type { SourceProps } from '@storybook/blocks';
-import { action } from '@storybook/addon-actions';
+import type { SourceProps } from '@storybook/addon-docs/blocks';
+import { action } from 'storybook/actions';
 import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import {

@@ -1,4 +1,4 @@
-import type { SourceProps } from '@storybook/blocks';
+import type { SourceProps } from '@storybook/addon-docs/blocks';
 import { ref, computed } from 'vue';
 
 export const buildExampleLink = (example: string, name: string) =>
