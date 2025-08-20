@@ -3,7 +3,7 @@ import type { TPaginatorProps, TPaginatorEmits, TLaravelResource } from './types
 import { translator } from '@/helpers';
 import { SSelect } from '@spartan';
 import { SButtonGroup, SButtonGroupItem } from '../SButtonGroup';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TPaginatorEmits>();
@@ -231,10 +231,11 @@ const updateSize = (value?: string | number) => {
 };
 
 const getLaravelAsLinksProps = (pageItem?: string | number) => {
-    if (!laravel?.asLinks)
+    if (!laravel?.asLinks) {
         return {
             onClick: pageItem === 'prev' ? prev : pageItem === 'next' ? next : () => selectPage(Number(pageItem)),
         };
+    }
 
     const data: any = {};
 
@@ -247,6 +248,10 @@ const getLaravelAsLinksProps = (pageItem?: string | number) => {
     } else {
         const link = vLaravel.value?.links?.find((link: any) => link.label === String(pageItem));
         data.href = link?.url;
+    }
+
+    if (data.href == null) {
+        data.as = 'button';
     }
 
     return data;
