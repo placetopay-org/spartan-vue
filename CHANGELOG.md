@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ## 2.4.4 - 2025-08-21
+### Fixed
+- Updated style export path in package.json to spartan-vue.css.
+- Updated development dependencies.
+- Added @storybook/addon-docs.
+
+### Added
+- Added eslint-plugin-storybook.
+- Removed duplicate dependency entries.
+
+### Changed
+- Applied minor formatting improvements in the vite.config.js plugin array.
 
 ## 2.4.3 - 2025-08-20
 ### Added
