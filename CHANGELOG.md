@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.4.4 - 2025-08-21
+
 ## 2.4.3 - 2025-08-20
 ### Added
 - `SAlert` component with support for multiple variants (solid, outline, soft, subtle), colors (neutral, primary, secondary, success, info, warning, error), icons, closeable functionality, and custom close icons.
