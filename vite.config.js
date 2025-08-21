@@ -8,10 +8,7 @@ import { componentsEntryMap } from './scripts/components';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [
-        vue(),
-        svgLoader(),
-    ],
+    plugins: [vue(), svgLoader()],
     resolve: {
         alias: {
             '@': resolve(__dirname, './src'),
