@@ -6,21 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## 2.4.5 - 2025-08-27
 ### Added
 - `SBreadcrumbsItem` component now uses `as` prop to polymorphic template.
 
 ## 2.4.4 - 2025-08-21
-### Fixed
-- Updated style export path in package.json to spartan-vue.css.
-- Updated development dependencies.
-- Added @storybook/addon-docs.
-
 ### Added
 - Added eslint-plugin-storybook.
 - Removed duplicate dependency entries.
 
 ### Changed
 - Applied minor formatting improvements in the vite.config.js plugin array.
+
+### Fixed
+- Updated style export path in package.json to spartan-vue.css.
+- Updated development dependencies.
+- Added @storybook/addon-docs.
 
 ## 2.4.3 - 2025-08-20
 ### Added
