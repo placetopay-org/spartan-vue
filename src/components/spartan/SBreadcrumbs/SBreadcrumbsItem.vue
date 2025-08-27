@@ -3,9 +3,7 @@ import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import type { TBreadcrumbsItemProps } from './types';
 import { hasSlotContent } from '@/helpers';
 
-withDefaults(defineProps<TBreadcrumbsItemProps>(), {
-    as: 'a',
-});
+const { as = 'a' } = defineProps<TBreadcrumbsItemProps>();
 </script>
 
 <template>
