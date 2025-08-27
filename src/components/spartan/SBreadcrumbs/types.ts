@@ -1,3 +1,9 @@
-import { type FunctionalComponent } from 'vue';
+import type { Component, FunctionalComponent } from 'vue';
 
-export type TBreadcrumbsItemProps = { first: boolean; href: string; active: boolean; icon: FunctionalComponent };
+export type TBreadcrumbsItemProps = {
+    first: boolean;
+    href: string;
+    active: boolean;
+    icon: FunctionalComponent;
+    as?: string | Component;
+};
