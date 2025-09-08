@@ -38,6 +38,7 @@ export * from './SInputAmountBlock';
 export * from './SSidebar';
 export * from './STab';
 export * from './STable';
+export * from './STemplateHeaderTable';
 export * from './SInputIncrement';
 export * from './SInputIncrementBlock';
 export * from './SSkeleton';
