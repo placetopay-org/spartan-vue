@@ -1,5 +1,8 @@
 {
     "$spartan": {
+        "templateHeaderTable": {
+            "search": "Buscar"
+        },
         "modalConfirm": {
             "title": "¿Estás seguro?",
             "confirmText": "Confirmar",

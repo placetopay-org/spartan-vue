@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- `STemplateHeaderTable` component.
+
 ## 2.4.5 - 2025-08-27
 ### Added
 - `SBreadcrumbsItem` component now uses `as` prop to polymorphic template.

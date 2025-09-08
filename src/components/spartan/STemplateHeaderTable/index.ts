@@ -1,3 +1,3 @@
-export { default as SLink } from './SLink.vue';
+export { default as STemplateHeaderTable } from './STemplateHeaderTable.vue';
 
 export type { TTemplateHeaderTableProps } from './types';
