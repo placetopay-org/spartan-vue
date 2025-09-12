@@ -9,6 +9,7 @@ const emit = defineEmits(['update:modelValue']);
 const props = defineProps<{
     modelValue?: string | number;
     config: IInputConfig;
+    error?: boolean;
 }>();
 
 const { t } = translator('filter');
@@ -36,7 +37,14 @@ const updateCurrency = (currency?: string) => {
         :type="config.inputType"
         :placeholder="t('inputSelectorPlaceholder')"
         :minor-unit-mode="config.minorUnitMode"
+        :error="error === true"
         @update:currency="updateCurrency"
     />
-    <SInput v-else v-model="value" :type="config.inputType" :placeholder="t('inputSelectorPlaceholder')" />
+    <SInput
+        v-else
+        v-model="value"
+        :type="config.inputType"
+        :placeholder="t('inputSelectorPlaceholder')"
+        :error="error === true"
+    />
 </template>

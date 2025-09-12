@@ -2,7 +2,8 @@ import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
 import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
-import type { TField, TSaveData } from './types';
+import type { TField, TOperator, TSaveData } from './types';
+import type { Ref } from 'vue';
 
 export default {
     component: SFilter,
@@ -322,4 +323,96 @@ export const Saved = createVariation({
         return { fields, saved, save, load };
     },
     template: `<SFilter :fields="fields" :saved="saved" :responsive="false" @apply="console.log" @save="save" @load="load"/>`,
+});
+
+export const Validation = createVariation({
+    components: { SFilter },
+    containerClass: 'wfull h-[250px]',
+    setup: () => {
+        const fields = ref([
+            {
+                id: 'bin',
+                name: 'Card bin',
+                interfaces: {
+                    oneInput: {
+                        operators: ['equal'],
+                    },
+                },
+                validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
+                    const binRegex = /^(\d{6})/;
+                    if (!binRegex.test(value)) {
+                        error.value = 'Invalid bin';
+                        return false;
+                    }
+                    return true;
+                },
+            },
+            {
+                id: 'amount',
+                name: 'Amount',
+                interfaces: {
+                    oneInput: {
+                        inputType: 'amount',
+                        currency: 'EUR',
+                        currencies: ['USD', 'EUR', 'GBP'],
+                        operators: [
+                            'equal',
+                            'notEqual',
+                            'greaterThan',
+                            'lessThan',
+                            'greaterThanOrEqual',
+                            'lessThanOrEqual',
+                        ],
+                    },
+                    twoInputs: {
+                        inputType: 'amount',
+                        currency: 'USD',
+                        operators: ['between', 'notBetween'],
+                    },
+                },
+                validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
+                    let isValid = true;
+                    switch (operator) {
+                        case 'between':
+                        case 'notBetween':
+                            if (parseFloat(value[0]) > parseFloat(value[1])) {
+                                error.value = 'Invalid amount range';
+                                isValid = false;
+                            }
+                            break;
+                        default:
+                            if (parseFloat(value) <= 0) {
+                                error.value = 'Invalid amount';
+                                isValid = false;
+                            }
+                            break;
+                    }
+                    return isValid;
+                },
+            },
+            {
+                id: 'createdAt',
+                name: 'Created at',
+                interfaces: {
+                    twoInputs: {
+                        inputType: 'date',
+                        operators: ['between'],
+                    },
+                },
+                validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
+                    const from = new Date(value[0]);
+                    const to = new Date(value[1]);
+                    const diff = (to?.getTime() - from?.getTime()) / (1000 * 60 * 60 * 24);
+                    if (diff > 30) {
+                        error.value = 'The range must not greater 30 days';
+                        return false;
+                    }
+                    return true;
+                },
+            },
+        ]);
+
+        return { fields };
+    },
+    template: `<SFilter :fields="fields" @apply="console.log"/>`,
 });

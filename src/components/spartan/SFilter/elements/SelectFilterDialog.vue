@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { translator } from '@/helpers';
-import { SButton, SPopover } from '../..';
+import { SButton, SCaption, SPopover } from '../..';
 import { useContext } from '../context';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { computed, ref } from 'vue';
@@ -40,6 +40,8 @@ const selectOperator = (newOperator: TOperator, close: () => void) => {
 
 const value = ref(field.state?.value);
 
+const error = ref();
+
 const add = () => {
     if (!tempOperator.value) return;
     field.state = {
@@ -50,6 +52,14 @@ const add = () => {
 };
 
 const disabled = computed(() => (!value.value || value.value.length === 0) && tempInterface.value !== 'none');
+
+const isValid = computed(() => {
+    if (field.validate) {
+        const hasValue = Array.isArray(value) ? value.value.length > 0 : ![undefined, null, ''].includes(value.value);
+        return hasValue ? field.validate(value.value, tempOperator.value, error) : true;
+    }
+    return true;
+});
 </script>
 
 <template>
@@ -83,13 +93,19 @@ const disabled = computed(() => (!value.value || value.value.length === 0) && te
             </SPopover>
         </div>
 
-        <component :is="interfaceComponents[tempInterface]" v-model="value" :config="tempInterfaceConfig" />
+        <component
+            :is="interfaceComponents[tempInterface]"
+            v-model="value"
+            :config="tempInterfaceConfig"
+            :error="!isValid"
+        />
+        <SCaption v-if="!isValid" class="-mt-1" :text="error" />
 
         <div class="flex gap-3">
             <SButton class="w-full" variant="secondary" @click="$emit('close')">{{ t('cancelBtn') }}</SButton>
             <SButton
                 :class="['w-full', disabled && 'pointer-events-none opacity-50']"
-                :disabled="disabled"
+                :disabled="disabled || !isValid"
                 @click="add"
             >
                 {{ t('addBtn') }}
