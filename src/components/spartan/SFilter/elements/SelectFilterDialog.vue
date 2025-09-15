@@ -53,19 +53,13 @@ const add = () => {
 
 const disabled = computed(() => (!value.value || value.value.length === 0) && tempInterface.value !== 'none');
 
-const validate = (value: any) => {
+const validate = async (value: any) => {
     const empty = Array.isArray(value) ? value.length === 0 : [undefined, null, ''].includes(value);
     if (!field.validate || empty) {
         error.value = null;
         return;
     }
-    const result = field.validate(value, tempOperator.value);
-
-    if (result && typeof result === 'object' && typeof result.then === 'function') {
-        result.then((errMessage: string | null) => (error.value = errMessage));
-    } else {
-        error.value = result;
-    }
+    error.value = await field.validate(value, tempOperator.value);
 };
 
 watch(
