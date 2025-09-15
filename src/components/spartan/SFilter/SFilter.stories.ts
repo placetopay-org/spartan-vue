@@ -3,7 +3,6 @@ import { StoryPanel } from '@internal';
 import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
 import type { TField, TOperator, TSaveData } from './types';
-import type { Ref } from 'vue';
 
 export default {
     component: SFilter,
@@ -338,13 +337,15 @@ export const Validation = createVariation({
                         operators: ['equal'],
                     },
                 },
-                validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
-                    const binRegex = /^(\d{6})/;
-                    if (!binRegex.test(value)) {
-                        error.value = 'Invalid bin';
-                        return false;
-                    }
-                    return true;
+                validate: (value: any, operator: TOperator): Promise<string | null> => {
+                    return new Promise((resolve) => {
+                        const binRegex = /^\d{6}$/;
+                        if (!binRegex.test(value)) {
+                            resolve('Invalid bin');
+                        } else {
+                            resolve(null);
+                        }
+                    });
                 },
             },
             {
@@ -370,24 +371,22 @@ export const Validation = createVariation({
                         operators: ['between', 'notBetween'],
                     },
                 },
-                validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
-                    let isValid = true;
+                validate: (value: any, operator: TOperator): string | null => {
+                    let error = null;
                     switch (operator) {
                         case 'between':
                         case 'notBetween':
                             if (parseFloat(value[0]) > parseFloat(value[1])) {
-                                error.value = 'Invalid amount range';
-                                isValid = false;
+                                error = 'Invalid amount range';
                             }
                             break;
                         default:
                             if (parseFloat(value) <= 0) {
-                                error.value = 'Invalid amount';
-                                isValid = false;
+                                error = 'Invalid amount';
                             }
                             break;
                     }
-                    return isValid;
+                    return error;
                 },
             },
             {
@@ -399,15 +398,11 @@ export const Validation = createVariation({
                         operators: ['between'],
                     },
                 },
-                validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
+                validate: (value: any, operator: TOperator): string | null => {
                     const from = new Date(value[0]);
                     const to = new Date(value[1]);
                     const diff = (to?.getTime() - from?.getTime()) / (1000 * 60 * 60 * 24);
-                    if (diff > 30) {
-                        error.value = 'The range must not greater 30 days';
-                        return false;
-                    }
-                    return true;
+                    return diff > 30 ? 'The range must not greater 30 days' : null;
                 },
             },
         ]);

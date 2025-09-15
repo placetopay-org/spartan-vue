@@ -45,7 +45,7 @@ export type TField = {
         operator: TOperator;
         value: any;
     };
-    validate?: (value: any, operator: TOperator, error: Ref<string | null>) => boolean;
+    validate?: (value: any, operator: TOperator) => string | null | Promise<string | null>;
 };
 
 export type TInterfaces = {

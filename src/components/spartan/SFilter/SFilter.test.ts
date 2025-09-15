@@ -207,13 +207,15 @@ describe('SFilter', () => {
                                 operators: ['equal'],
                             },
                         },
-                        validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
-                            const binRegex = /^(\d{6})/;
-                            if (!binRegex.test(value)) {
-                                error.value = 'Invalid bin';
-                                return false;
-                            }
-                            return true;
+                        validate: (value: any, operator: TOperator): Promise<string | null> => {
+                            return new Promise((resolve) => {
+                                const binRegex = /^\d{6}$/;
+                                if (!binRegex.test(value)) {
+                                    resolve('Invalid bin');
+                                } else {
+                                    resolve(null);
+                                }
+                            });
                         },
                     },
                 ],
@@ -247,12 +249,10 @@ describe('SFilter', () => {
                                 operators: ['between', 'notBetween'],
                             },
                         },
-                        validate: (value: any, operator: TOperator, error: Ref<string | null>): true | false => {
-                            if (operator == 'between' && parseFloat(value[0]) > parseFloat(value[1])) {
-                                error.value = 'Invalid amount range';
-                                return false;
-                            }
-                            return true;
+                        validate: (value: any, operator: TOperator): string | null => {
+                            return operator == 'between' && parseFloat(value[0]) > parseFloat(value[1])
+                                ? 'Invalid amount range'
+                                : null;
                         },
                     },
                 ],

@@ -3,7 +3,7 @@ import { translator } from '@/helpers';
 import { SButton, SCaption, SPopover } from '../..';
 import { useContext } from '../context';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { interfaceComponents } from '../constants';
 import { getOperatorId, getOperatorLabel, getOperators } from '../helpers';
 import type { TField, TInterfaceId, TOperator } from '../types';
@@ -53,13 +53,28 @@ const add = () => {
 
 const disabled = computed(() => (!value.value || value.value.length === 0) && tempInterface.value !== 'none');
 
-const isValid = computed(() => {
-    if (field.validate) {
-        const hasValue = Array.isArray(value) ? value.value.length > 0 : ![undefined, null, ''].includes(value.value);
-        return hasValue ? field.validate(value.value, tempOperator.value, error) : true;
+const validate = (value: any) => {
+    const empty = Array.isArray(value) ? value.length === 0 : [undefined, null, ''].includes(value);
+    if (!field.validate || empty) {
+        error.value = null;
+        return;
     }
-    return true;
-});
+    const result = field.validate(value, tempOperator.value);
+
+    if (result && typeof result === 'object' && typeof result.then === 'function') {
+        result.then((errMessage: string | null) => (error.value = errMessage));
+    } else {
+        error.value = result;
+    }
+};
+
+watch(
+    () => value.value,
+    (newValue) => {
+        validate(newValue);
+    },
+);
+const isValid = computed(() => !error.value);
 </script>
 
 <template>
