@@ -7,6 +7,7 @@ import {
     existenceOperators,
 } from './constants';
 import { Currencies } from '@/constants';
+import type { Ref } from 'vue';
 
 // Operator types
 export type TComparisonOperator = (typeof comparisonOperators)[number];
@@ -44,6 +45,7 @@ export type TField = {
         operator: TOperator;
         value: any;
     };
+    validate?: (value: any, operator: TOperator) => string | null | Promise<string | null>;
 };
 
 export type TInterfaces = {

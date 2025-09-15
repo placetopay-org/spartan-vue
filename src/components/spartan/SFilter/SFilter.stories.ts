@@ -2,7 +2,7 @@ import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
 import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
-import type { TField, TSaveData } from './types';
+import type { TField, TOperator, TSaveData } from './types';
 
 export default {
     component: SFilter,
@@ -322,4 +322,86 @@ export const Saved = createVariation({
         return { fields, saved, save, load };
     },
     template: `<SFilter :fields="fields" :saved="saved" :responsive="false" @apply="console.log" @save="save" @load="load"/>`,
+});
+
+export const Validation = createVariation({
+    components: { SFilter },
+    containerClass: 'wfull h-[250px]',
+    setup: () => {
+        const fields = ref([
+            {
+                id: 'bin',
+                name: 'Card bin',
+                interfaces: {
+                    oneInput: {
+                        operators: ['equal'],
+                    },
+                },
+                validate: async (value: any, operator: TOperator): Promise<string | null> => {
+                    const binRegex = /^\d{6}$/;
+                    return !binRegex.test(value) ? 'Invalid bin' : null;
+                },
+            },
+            {
+                id: 'amount',
+                name: 'Amount',
+                interfaces: {
+                    oneInput: {
+                        inputType: 'amount',
+                        currency: 'EUR',
+                        currencies: ['USD', 'EUR', 'GBP'],
+                        operators: [
+                            'equal',
+                            'notEqual',
+                            'greaterThan',
+                            'lessThan',
+                            'greaterThanOrEqual',
+                            'lessThanOrEqual',
+                        ],
+                    },
+                    twoInputs: {
+                        inputType: 'amount',
+                        currency: 'USD',
+                        operators: ['between', 'notBetween'],
+                    },
+                },
+                validate: (value: any, operator: TOperator): string | null => {
+                    let error = null;
+                    switch (operator) {
+                        case 'between':
+                        case 'notBetween':
+                            if (parseFloat(value[0]) > parseFloat(value[1])) {
+                                error = 'Invalid amount range';
+                            }
+                            break;
+                        default:
+                            if (parseFloat(value) <= 0) {
+                                error = 'Invalid amount';
+                            }
+                            break;
+                    }
+                    return error;
+                },
+            },
+            {
+                id: 'createdAt',
+                name: 'Created at',
+                interfaces: {
+                    twoInputs: {
+                        inputType: 'date',
+                        operators: ['between'],
+                    },
+                },
+                validate: (value: any, operator: TOperator): string | null => {
+                    const from = new Date(value[0]);
+                    const to = new Date(value[1]);
+                    const diff = (to?.getTime() - from?.getTime()) / (1000 * 60 * 60 * 24);
+                    return diff > 30 ? 'The range must not greater 30 days' : null;
+                },
+            },
+        ]);
+
+        return { fields };
+    },
+    template: `<SFilter :fields="fields" @apply="console.log"/>`,
 });

@@ -3,7 +3,7 @@ import { translator } from '@/helpers';
 import { SButton, SPopover } from '../..';
 import { useContext } from '../context';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { interfaceComponents } from '../constants';
 import { getOperatorId, getOperatorLabel, getOperators } from '../helpers';
 import type { TField, TInterfaceId, TOperator } from '../types';
@@ -40,6 +40,8 @@ const selectOperator = (newOperator: TOperator, close: () => void) => {
 
 const value = ref(field.state?.value);
 
+const error = ref();
+
 const add = () => {
     if (!tempOperator.value) return;
     field.state = {
@@ -50,6 +52,23 @@ const add = () => {
 };
 
 const disabled = computed(() => (!value.value || value.value.length === 0) && tempInterface.value !== 'none');
+
+const validate = async (value: any) => {
+    const empty = Array.isArray(value) ? value.length === 0 : [undefined, null, ''].includes(value);
+    if (!field.validate || empty) {
+        error.value = null;
+        return;
+    }
+    error.value = await field.validate(value, tempOperator.value);
+};
+
+watch(
+    () => value.value,
+    (newValue) => {
+        validate(newValue);
+    },
+);
+const isValid = computed(() => !error.value);
 </script>
 
 <template>
@@ -83,13 +102,18 @@ const disabled = computed(() => (!value.value || value.value.length === 0) && te
             </SPopover>
         </div>
 
-        <component :is="interfaceComponents[tempInterface]" v-model="value" :config="tempInterfaceConfig" />
+        <component
+            :is="interfaceComponents[tempInterface]"
+            v-model="value"
+            :config="tempInterfaceConfig"
+            :error-text="error"
+        />
 
         <div class="flex gap-3">
             <SButton class="w-full" variant="secondary" @click="$emit('close')">{{ t('cancelBtn') }}</SButton>
             <SButton
                 :class="['w-full', disabled && 'pointer-events-none opacity-50']"
-                :disabled="disabled"
+                :disabled="disabled || !isValid"
                 @click="add"
             >
                 {{ t('addBtn') }}
