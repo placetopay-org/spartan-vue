@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { translator } from '@/helpers';
-import { SButton, SCaption, SPopover } from '../..';
+import { SButton, SPopover } from '../..';
 import { useContext } from '../context';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { computed, ref, watch } from 'vue';
@@ -112,9 +112,8 @@ const isValid = computed(() => !error.value);
             :is="interfaceComponents[tempInterface]"
             v-model="value"
             :config="tempInterfaceConfig"
-            :error="!isValid"
+            :error-text="error"
         />
-        <SCaption v-if="!isValid" class="-mt-1" :text="error" />
 
         <div class="flex gap-3">
             <SButton class="w-full" variant="secondary" @click="$emit('close')">{{ t('cancelBtn') }}</SButton>

@@ -207,15 +207,9 @@ describe('SFilter', () => {
                                 operators: ['equal'],
                             },
                         },
-                        validate: (value: any, operator: TOperator): Promise<string | null> => {
-                            return new Promise((resolve) => {
-                                const binRegex = /^\d{6}$/;
-                                if (!binRegex.test(value)) {
-                                    resolve('Invalid bin');
-                                } else {
-                                    resolve(null);
-                                }
-                            });
+                        validate: async (value: any, operator: TOperator): Promise<string | null> => {
+                            const binRegex = /^\d{6}$/;
+                            return !binRegex.test(value) ? 'Invalid bin' : null;
                         },
                     },
                 ],
