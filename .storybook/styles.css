@@ -24,3 +24,245 @@ body {
     margin: 0 !important;
     max-width: none !important;
 }
+
+/* ===== STORYBOOK DARK MODE ===== */
+
+html.dark {
+    color-scheme: dark;
+}
+
+/* Documentation page backgrounds */
+html.dark .sbdocs,
+html.dark .sbdocs-wrapper,
+html.dark .sbdocs-content,
+html.dark .sb-show-main {
+    background-color: #0f172a !important;
+}
+
+/* All text in docs */
+html.dark .sbdocs,
+html.dark .sbdocs * {
+    color: #e2e8f0;
+}
+
+/* Headings */
+html.dark .sbdocs h1,
+html.dark .sbdocs h2,
+html.dark .sbdocs h3,
+html.dark .sbdocs h4 {
+    color: #f1f5f9 !important;
+}
+
+/* Paragraphs and descriptions */
+html.dark .sbdocs p {
+    color: #cbd5e1 !important;
+}
+
+/* Links */
+html.dark .sbdocs a {
+    color: #60a5fa !important;
+}
+
+html.dark .sbdocs a:hover {
+    color: #93c5fd !important;
+}
+
+/* Code blocks */
+html.dark .sbdocs pre {
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+}
+
+html.dark .sbdocs code {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #334155 !important;
+}
+
+/* Props/Controls tables */
+html.dark .docblock-argstable {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+html.dark .docblock-argstable thead,
+html.dark .docblock-argstable-head {
+    background-color: #1e293b !important;
+}
+
+html.dark .docblock-argstable th {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+html.dark .docblock-argstable td {
+    background-color: #0f172a !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+html.dark .docblock-argstable tbody tr {
+    border-color: #334155 !important;
+}
+
+/* Canvas/Story preview area */
+html.dark .docs-story {
+    background-color: #0f172a !important;
+}
+
+/* Dividers */
+html.dark .sbdocs hr {
+    border-color: #334155 !important;
+}
+
+/* Description blocks */
+html.dark .sbdocs-subtitle,
+html.dark .sbdocs-description {
+    color: #cbd5e1 !important;
+}
+
+/* Source code toggle */
+html.dark .docblock-source {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* Lists */
+html.dark .sbdocs ul,
+html.dark .sbdocs ol {
+    color: #cbd5e1 !important;
+}
+
+html.dark .sbdocs li {
+    color: #cbd5e1 !important;
+}
+
+/* Storybook toolbar */
+html.dark .sb-bar {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* Code toggle button */
+html.dark .docblock-code-toggle {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+html.dark .docblock-code-toggle:hover {
+    background-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+/* Additional toolbar elements */
+html.dark .sb-bar button {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+}
+
+html.dark .sb-bar button:hover {
+    background-color: #334155 !important;
+}
+
+/* Dark mode form controls (docs/controls only) */
+html.dark .sbdocs input:not([type='checkbox']):not([type='radio']):not([type='range']),
+html.dark .sbdocs select,
+html.dark .sbdocs textarea {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #334155 !important;
+}
+
+/* Specific checkbox switch (disabled control) */
+html.dark .sbdocs input#control-disabled[type='checkbox'] {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  accent-color: #3b82f6; /* blue-600 */
+  width: 16px; height:16px; border-radius:4px;
+}
+
+/* Spans labeling the boolean states */
+html.dark .sbdocs label[for='control-disabled'] span[aria-hidden='true'] {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* Fix spans for boolean control outside docs scope */
+html.dark label[for='control-disabled'] span[aria-hidden='true'],
+html.dark label:has(> input#control-disabled) span[aria-hidden='true'] {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #cbd5e1 !important;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* Token/code pill spans with hashed emotion class anywhere */
+html.dark span.css-o1d7ko, html.dark .css-o1d7ko {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Hover/focus states */
+html.dark .sbdocs input:not([type='checkbox']):not([type='radio']):not([type='range']):focus,
+html.dark .sbdocs select:focus,
+html.dark .sbdocs textarea:focus,
+html.dark .sbdocs input#control-disabled[type='checkbox']:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+html.dark .sbdocs input:disabled,
+html.dark .sbdocs select:disabled,
+html.dark .sbdocs textarea:disabled {
+  background-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+/* Placeholder */
+html.dark .sbdocs ::placeholder { color: #94a3b8 !important; }
+
+/* Generic buttons in docs (dark mode) – include previously unstyled white buttons */
+html.dark .sbdocs button:not(.docblock-code-toggle):not(.sb-bar button):not(.s-button) {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #334155 !important;
+  border-radius: .375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+html.dark .sbdocs button:not(.docblock-code-toggle):not(.sb-bar button):not(.s-button):hover {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+}
+html.dark .sbdocs button:not(.docblock-code-toggle):not(.sb-bar button):not(.s-button):active {
+  background-color: #475569 !important;
+  border-color: #64748b !important;
+}
+html.dark .sbdocs button:not(.docblock-code-toggle):not(.sb-bar button):not(.s-button):focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+html.dark .sbdocs button:not(.docblock-code-toggle):not(.sb-bar button):not(.s-button):disabled {
+  background-color: #334155 !important;
+  color: #94a3b8 !important;
+  border-color: #334155 !important;
+  cursor: not-allowed;
+  opacity: .6;
+}
+/* Fallback for inline styled buttons still showing light background */
+html.dark .sbdocs button[style*='background'] { background-color: #1e293b !important; color: #e2e8f0 !important; }
