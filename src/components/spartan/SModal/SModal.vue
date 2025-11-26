@@ -52,7 +52,7 @@ const closeModal = () => {
                 <div
                     data-s-container
                     v-bind="containerProps"
-                    :class="twMerge('absolute flex justify-center z-40 w-full', containerStyles, containerClass)"
+                    :class="twMerge('absolute z-40 flex w-full justify-center', containerStyles, containerClass)"
                     @click.stop
                 >
                     <slot />

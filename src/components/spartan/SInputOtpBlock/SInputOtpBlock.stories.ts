@@ -7,7 +7,10 @@ export default {
     title: 'inputBlocks/InputOtpBlock',
     parameters: {
         docs: {
-            description: { component: 'The `SInputOtp` component is a container for `SInputOtpItem` components. It is used to input OTP codes.' },
+            description: {
+                component:
+                    'The `SInputOtp` component is a container for `SInputOtpItem` components. It is used to input OTP codes.',
+            },
         },
     },
     argTypes: {

@@ -15,32 +15,14 @@
         "parser": "@typescript-eslint/parser",
         "sourceType": "module"
     },
-    "ignorePatterns": [
-        "dist/**",
-        "src/components/deprecated/**"
-    ],
-    "plugins": [
-        "@typescript-eslint",
-        "vue"
-    ],
+    "ignorePatterns": ["dist/**", "src/components/deprecated/**"],
+    "plugins": ["@typescript-eslint", "vue"],
     "rules": {
-        "vue/html-indent": [
-            "off"
-        ],
-        "vue/singleline-html-element-content-newline": [
-            "off"
-        ],
-        "vue/max-attributes-per-line": [
-            "off"
-        ],
-        "vue/no-v-html": [
-            "off"
-        ],
-        "vue/html-self-closing": [
-            "off"
-        ],
-        "@typescript-eslint/no-explicit-any": [
-            "off"
-        ]
+        "vue/html-indent": ["off"],
+        "vue/singleline-html-element-content-newline": ["off"],
+        "vue/max-attributes-per-line": ["off"],
+        "vue/no-v-html": ["off"],
+        "vue/html-self-closing": ["off"],
+        "@typescript-eslint/no-explicit-any": ["off"]
     }
 }
