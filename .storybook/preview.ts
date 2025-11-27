@@ -7,12 +7,14 @@ import { createI18n } from 'vue-i18n';
 import * as messages from '../src/locales';
 
 const preview: Preview = {
+    initialGlobals: {
+        backgrounds: {
+            default: 'light',
+        },
+    },
     parameters: {
         docs: {
             page: DocumentationTemplate,
-        },
-        backgrounds: {
-            default: 'light',
         },
         actions: { argTypesRegex: '^on[A-Z].*' },
         controls: {
