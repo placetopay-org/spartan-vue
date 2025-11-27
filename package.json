@@ -3,7 +3,6 @@
   "version": "2.5.1",
   "type": "module",
   "description": "spartan vue lib",
-  "main": "./dist/spartan-vue.umd.cjs",
   "module": "./dist/spartan-vue.js",
   "types": "./dist/types/index.d.ts",
   "sideEffects": false,
@@ -23,7 +22,10 @@
       "import": "./dist/expose/i18n.js",
       "types": "./dist/expose/i18n.d.ts"
     },
-    "./plugin": "./dist/plugin.js",
+    "./plugin": {
+      "import": "./dist/plugin.js",
+      "types": "./dist/types/expose/plugin.d.ts"
+    },
     "./style.css": "./dist/spartan-vue.css"
   },
   "repository": {
@@ -134,5 +136,11 @@
     "url": "https://github.com/placetopay-org/spartan-vue/issues"
   },
   "readme": "ERROR: No README data found!",
-  "homepage": "https://github.com/placetopay-org/spartan-vue#readme"
+  "homepage": "https://github.com/placetopay-org/spartan-vue#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
