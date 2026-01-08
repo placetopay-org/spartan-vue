@@ -7,6 +7,9 @@ import { h } from 'vue';
 
 describe('SPopover', () => {
     test('Can be rendered', async () => {
+        // Arrange
+        const user = userEvent.setup();
+
         // Act
         render(SPopover, {
             slots: {

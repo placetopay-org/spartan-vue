@@ -7,7 +7,6 @@ import {
     existenceOperators,
 } from './constants';
 import { Currencies } from '@/constants';
-import type { Ref } from 'vue';
 
 // Operator types
 export type TComparisonOperator = (typeof comparisonOperators)[number];

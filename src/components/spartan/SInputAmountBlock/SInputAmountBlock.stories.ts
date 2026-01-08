@@ -1,6 +1,6 @@
 import SInputAmountBlock from './SInputAmountBlock.vue';
 import { ref } from 'vue';
-import { buildDesign, buildSourceBinding, createDefault } from '@/helpers';
+import { buildSourceBinding, createDefault } from '@/helpers';
 import { InformationCircleIcon, CurrencyDollarIcon, MapPinIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { EnvelopeIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/vue/24/solid';
 
@@ -148,8 +148,6 @@ export default {
         },
     },
 };
-
-const design = buildDesign('');
 
 const sourceBinding = buildSourceBinding({
     check: ['disabled', 'error'],

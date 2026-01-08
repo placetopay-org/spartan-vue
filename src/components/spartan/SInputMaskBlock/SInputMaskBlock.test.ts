@@ -1,8 +1,7 @@
 import { test, describe } from 'vitest';
-import { cleanup, render } from '@testing-library/vue';
+import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SInputMaskBlock from './SInputMaskBlock.vue';
-import userEvent from '@testing-library/user-event';
 
 // TODO: Add tests
 describe('SInputMaskBlock', () => {

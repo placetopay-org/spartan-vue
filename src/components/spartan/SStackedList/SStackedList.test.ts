@@ -3,7 +3,6 @@ import SStackedList from './SStackedList.vue';
 import SStackedListItem from './SStackedListItem.vue';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
-import userEvent from '@testing-library/user-event';
 import { h } from 'vue';
 
 describe('SStackedList', () => {

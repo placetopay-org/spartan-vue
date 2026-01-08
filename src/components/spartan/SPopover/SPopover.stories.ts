@@ -1,6 +1,6 @@
 import SPopover from './SPopover.vue';
 import { SButton, SCard } from '@spartan';
-import { buildDesign, buildSourceBinding, createHistory, createDefault, createVariation } from '@/helpers';
+import { buildSourceBinding, createHistory, createDefault, createVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 
 export default {

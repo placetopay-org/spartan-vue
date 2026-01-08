@@ -104,7 +104,7 @@ export const Base = createVariation({
 <SInputAmount v-model="value" v-model:currency="currency"/>`,
 });
 
-export const minorUnitMode = createVariation({
+export const MinorUnitMode = createVariation({
     components: { SInputAmount },
     containerClass: 'flex flex-col gap-2',
     setup: () => {

@@ -6,7 +6,7 @@ const { isValid } = defineProps<{ isValid?: boolean }>();
 const color = computed(() => {
     if (isValid) return 'bg-green-500';
     if (isValid === false) return 'bg-red-500';
-    return;
+    return undefined;
 });
 </script>
 

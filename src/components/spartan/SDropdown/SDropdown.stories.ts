@@ -1,7 +1,7 @@
 import SDropdown from './SDropdown.vue';
 import SDropdownItem from './SDropdownItem.vue';
 import { SAvatar, SButton } from '@spartan';
-import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
+import { buildDesign, createDefault, createVariation as buildVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import {
     Cog8ToothIcon,

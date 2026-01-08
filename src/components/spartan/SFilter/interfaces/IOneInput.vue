@@ -4,7 +4,7 @@ import { SInputAmountBlock, SInputBlock } from '@spartan';
 import type { IInputConfig } from './types';
 import { translator } from '@/helpers';
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'update:currency']);
 
 const props = defineProps<{
     modelValue?: string | number;
@@ -24,7 +24,7 @@ const value = computed({
 });
 
 const updateCurrency = (currency?: string) => {
-    props.config.currency = currency as any;
+    emit('update:currency', currency);
 };
 </script>
 

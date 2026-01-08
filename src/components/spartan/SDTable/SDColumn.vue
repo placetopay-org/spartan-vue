@@ -23,4 +23,6 @@ onUnmounted(() => {
 });
 </script>
 
-<template></template>
+<template>
+    <div style="display: none"></div>
+</template>

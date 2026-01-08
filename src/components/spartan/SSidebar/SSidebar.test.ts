@@ -4,7 +4,6 @@ import { screen } from '@testing-library/dom';
 import SSidebar from './SSidebar.vue';
 import SSidebarItem from './SSidebarItem.vue';
 import SSidebarItemGroup from './SSidebarItemGroup.vue';
-import userEvent from '@testing-library/user-event';
 import { h } from 'vue';
 
 describe('SSidebar', () => {

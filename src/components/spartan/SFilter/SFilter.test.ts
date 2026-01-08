@@ -4,7 +4,6 @@ import { screen } from '@testing-library/dom';
 import SFilter from './SFilter.vue';
 import userEvent from '@testing-library/user-event';
 import type { TOperator } from './types';
-import type { Ref } from 'vue';
 
 describe('SFilter', () => {
     test('Can be rendered', async () => {
@@ -54,7 +53,6 @@ describe('SFilter', () => {
 
     test('Can be update a field', async () => {
         // Arrange
-        const fields = [];
         const user = userEvent.setup();
 
         // Act
@@ -100,7 +98,6 @@ describe('SFilter', () => {
 
     test('Can be update a field with one input interfaces', async () => {
         // Arrange
-        const fields = [];
         const user = userEvent.setup();
 
         // Act
@@ -147,7 +144,6 @@ describe('SFilter', () => {
 
     test('Can be update a field with two input interfaces', async () => {
         // Arrange
-        const fields = [];
         const user = userEvent.setup();
 
         // Act
@@ -209,7 +205,7 @@ describe('SFilter', () => {
                                 operators: ['equal'],
                             },
                         },
-                        validate: async (value: any, operator: TOperator): Promise<string | null> => {
+                        validate: async (value: any): Promise<string | null> => {
                             const binRegex = /^\d{6}$/;
                             return !binRegex.test(value) ? 'Invalid bin' : null;
                         },

@@ -10,6 +10,7 @@ const emit = defineEmits<TInputPasswordEmits>();
 const props = defineProps<TInputPasswordProps & Partial<TInputProps>>();
 
 const inputProps = computed(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { modelValue, rules, ...rest } = props;
     return rest as Partial<TInputProps>;
 });

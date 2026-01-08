@@ -1,5 +1,5 @@
 import SMultiSelector from './SMultiSelector.vue';
-import { buildSourceBinding, createVariation } from '@/helpers';
+import { createVariation } from '@/helpers';
 import { ref, watch } from 'vue';
 import some from 'lodash.some';
 

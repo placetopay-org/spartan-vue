@@ -67,11 +67,13 @@ const vQuantity = computed(() => Number(paginatorSize) || 0);
 const vTotal = computed(() => {
     if (total) return total;
     if (vLaravel.value?.total) return vLaravel.value.total;
+    return undefined;
 });
 
 const vSize = computed(() => {
     if (size) return size;
     if (vLaravel.value?.perPage) return vLaravel.value.perPage;
+    return undefined;
 });
 
 const vCount = computed(() => {
@@ -79,6 +81,7 @@ const vCount = computed(() => {
     if (vLaravel.value?.lastPage) return vLaravel.value.lastPage;
 
     if (vTotal.value && vSize.value) return Math.ceil(vTotal.value / vSize.value);
+    return undefined;
 });
 
 const vPageSizes = computed(() => {
@@ -110,6 +113,7 @@ const vPage = computed(() => {
     if (page) return page;
 
     if (vLaravel.value?.currentPage) return vLaravel.value.currentPage;
+    return undefined;
 });
 
 const vPages = computed(() => {

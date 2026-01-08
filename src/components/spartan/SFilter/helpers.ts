@@ -27,7 +27,7 @@ export const getOptions = (options: TOptions) => {
 
 export const getOperators = (field: TField): TOperator[] => {
     return Object.keys(field.interfaces || {}).reduce((acc, key) => {
-        // @ts-ignore
+        // @ts-expect-error - accessing dynamic interface keys
         acc.push(...field.interfaces[key].operators);
         return acc;
     }, []);

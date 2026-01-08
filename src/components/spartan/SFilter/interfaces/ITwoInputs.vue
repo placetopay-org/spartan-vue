@@ -5,7 +5,7 @@ import { BlockWrapper } from '@internal';
 import type { IInputConfig } from './types';
 import { translator } from '@/helpers';
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'update:currency']);
 
 const props = defineProps<{
     modelValue?: string[] | number[];
@@ -23,7 +23,7 @@ watch([value1, value2], () => {
 });
 
 const updateCurrency = (currency?: string) => {
-    props.config.currency = currency as any;
+    emit('update:currency', currency);
 };
 </script>
 

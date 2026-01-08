@@ -1,8 +1,8 @@
 import SFilter from './SFilter.vue';
 import { StoryPanel } from '@internal';
-import { buildDesign, buildSourceBinding, createDefault, createVariation } from '@/helpers';
+import { createDefault, createVariation } from '@/helpers';
 import { ref } from 'vue';
-import type { TField, TOperator, TSaveData } from './types';
+import type { TOperator, TSaveData } from './types';
 
 export default {
     component: SFilter,
@@ -29,10 +29,6 @@ export default {
         },
     },
 };
-
-const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=5253%3A20873');
-
-const sourceBinding = buildSourceBinding({});
 
 export const Default = createDefault({
     containerClass: 'h-[500px]',
@@ -337,7 +333,7 @@ export const Validation = createVariation({
                         operators: ['equal'],
                     },
                 },
-                validate: async (value: any, operator: TOperator): Promise<string | null> => {
+                validate: async (value: any): Promise<string | null> => {
                     const binRegex = /^\d{6}$/;
                     return !binRegex.test(value) ? 'Invalid bin' : null;
                 },
@@ -367,7 +363,7 @@ export const Validation = createVariation({
                 },
                 validate: (value: any, operator: TOperator): string | null => {
                     let error = null;
-                    switch (operator) {
+                    switch (operator as string) {
                         case 'between':
                         case 'notBetween':
                             if (parseFloat(value[0]) > parseFloat(value[1])) {
@@ -392,7 +388,7 @@ export const Validation = createVariation({
                         operators: ['between'],
                     },
                 },
-                validate: (value: any, operator: TOperator): string | null => {
+                validate: (value: any): string | null => {
                     const from = new Date(value[0]);
                     const to = new Date(value[1]);
                     const diff = (to?.getTime() - from?.getTime()) / (1000 * 60 * 60 * 24);

@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import { ref, computed } from 'vue';
 import { focusFirstChild } from '@/helpers';
 
-const { offset = 2, placement = 'bottom-start', responsive = true, manual } = defineProps<TDropdownProps>();
+const { manual } = defineProps<TDropdownProps>();
 
 defineOptions({ inheritAttrs: false });
 
