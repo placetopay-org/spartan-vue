@@ -4,6 +4,8 @@
         "allowJs": true,
         "outDir": "dist",
         "types": ["vitest/globals"],
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "paths": {
             "@/*": ["./src/*"],
             "@spartan*": ["./src/components/spartan"],

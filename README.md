@@ -10,8 +10,8 @@ You can find the documentation and components of this design system by clicking 
 ## Installing
 1. Requirements
 
-   - [NodeJs](https://nodejs.org/es/) ^16 
-   - [NPM](https://www.npmjs.com/) ^7
+   - [NodeJs](https://nodejs.org/es/) 20.19 | ^22.12 
+   - [NPM](https://www.npmjs.com/) ^10
    - [TailwindCSS](https://tailwindcss.com/) ^3
 
 2. Install in the consumer project
