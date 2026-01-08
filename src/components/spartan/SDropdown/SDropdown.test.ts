@@ -4,7 +4,6 @@ import { screen } from '@testing-library/dom';
 import SDropdown from './SDropdown.vue';
 import SDropdownItem from './SDropdownItem.vue';
 import userEvent from '@testing-library/user-event';
-import { table } from '@/data';
 import { h } from 'vue';
 
 describe('SDropdown', () => {

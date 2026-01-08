@@ -1,8 +1,6 @@
 import SDropdown from './SDropdown.vue';
 import SDropdownItem from './SDropdownItem.vue';
 import { SAvatar, SButton } from '@spartan';
-import type { SourceProps } from '@storybook/addon-docs/blocks';
-import { action } from 'storybook/actions';
 import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import {
@@ -84,17 +82,17 @@ export default {
 
 const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4813%3A18985');
 
-const sourceBinding = buildSourceBinding({
-    check: ['leftToRight'],
-});
+// const sourceBinding = buildSourceBinding({
+//     check: ['leftToRight'],
+// });
 
-const itemsSourceBinding = buildSourceBinding(
-    {
-        check: ['disabled'],
-        custom: { icon: true },
-    },
-    'item',
-);
+// const itemsSourceBinding = buildSourceBinding(
+//     {
+//         check: ['disabled'],
+//         custom: { icon: true },
+//     },
+//     'item',
+// );
 
 export const Default = createDefault({
     components: {

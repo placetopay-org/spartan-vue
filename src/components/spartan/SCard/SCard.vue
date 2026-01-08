@@ -10,6 +10,10 @@ import VActions from './atoms/Actions.vue';
 const { size = 'md', iconType = 'solid' } = defineProps<TCardProps>();
 const { pt, extractor } = usePassthrough();
 
+defineEmits<{
+    close: [];
+}>();
+
 const [bodyClass, bodyProps] = extractor(pt.value.body);
 const [actionsClass, actionsProps] = extractor(pt.value.actions);
 const [titleClass, titleProps] = extractor(pt.value.title);

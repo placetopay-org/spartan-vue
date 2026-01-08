@@ -1,9 +1,8 @@
-import { test, describe, expect, vi } from 'vitest';
+import { test, describe, expect } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
-import { InfoCircleIcon, Warning2Icon, SearchNormal1Icon } from '@placetopay/iconsax-vue/outline';
-import { XMarkIcon } from '@heroicons/vue/20/solid';
+import { InfoCircleIcon } from '@placetopay/iconsax-vue/outline';
 import { NextIcon } from '@placetopay/iconsax-vue/outline';
 import SAlert from './SAlert.vue';
 

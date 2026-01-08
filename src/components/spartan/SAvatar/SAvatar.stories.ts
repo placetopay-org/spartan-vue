@@ -106,7 +106,7 @@ export const Size = createVariation(
 );
 
 export const Name = createVariation(`
-<!-- separators: ' ' - _ . , ; : | \ -->
+<!-- separators: ' ' - _ . , ; : | -->
 <SAvatar name="John Doe" size="2xl" />
 <SAvatar name="richard-poe" size="2xl" />
 <SAvatar name="Mark.moe" size="2xl" />

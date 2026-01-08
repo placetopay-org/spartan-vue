@@ -1,4 +1,4 @@
-import type { Component, FunctionalComponent, HTMLAttributes, VNodeProps } from 'vue';
+import type { Component, FunctionalComponent, HTMLAttributes } from 'vue';
 import type { TButtonStyles } from './styles';
 
 export type TButtonProps = {

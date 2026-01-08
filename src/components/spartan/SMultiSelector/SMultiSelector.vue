@@ -122,7 +122,8 @@ const refreshInput = () => {
                     <template v-else>
                         <div ref="$badgesContainer" class="flex gap-1 overflow-auto">
                             <SBadge
-                                v-for="option in modelValue.slice(0, count || modelValue.length)"
+                                v-for="(option, index) in modelValue.slice(0, count || modelValue.length)"
+                                :key="option[optionValue] || option.value || index"
                                 size="sm"
                                 class="self-center whitespace-nowrap"
                                 pill

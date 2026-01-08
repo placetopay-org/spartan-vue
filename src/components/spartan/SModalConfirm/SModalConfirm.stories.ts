@@ -1,5 +1,4 @@
 import SModalConfirm from './SModalConfirm.vue';
-import { SSelectorBlock } from '@spartan';
 import { ref } from 'vue';
 import { SButton } from '../SButton';
 import { createDefault, createVariation, createHistory } from '@/helpers';

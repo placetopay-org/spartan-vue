@@ -1,5 +1,5 @@
-import { expect, test, describe, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/vue';
+import { expect, test, describe } from 'vitest';
+import { render, screen } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
 import SCopy from './SCopy.vue';
 import { h } from 'vue';

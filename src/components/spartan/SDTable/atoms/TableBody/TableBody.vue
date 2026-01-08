@@ -19,10 +19,11 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
             <RowsSkeleton :cols="context.colsArray" :slim="context.config.slim" />
         </template>
         <template v-else>
-            <template v-for="row in context.rows">
+            <template v-for="(row, rowIndex) in context.rows" :key="rowIndex">
                 <tr :class="rowLink(row.data) && 'hover:bg-gray-100'">
                     <td
                         v-for="col in context.colsArray"
+                        :key="col.field"
                         :class="
                             twMerge(
                                 cellStyles({
@@ -65,7 +66,11 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
                             <template v-if="col.slots?.body">
                                 <component
                                     :is="slot"
-                                    v-for="slot in col.slots.body({ row: row.data, value: row.data[col.field] })"
+                                    v-for="(slot, slotIndex) in col.slots.body({
+                                        row: row.data,
+                                        value: row.data[col.field],
+                                    })"
+                                    :key="slotIndex"
                                 />
                             </template>
 
@@ -79,7 +84,11 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
                 <tr class="border-none">
                     <td :colspan="context.colsArray.length" class="bg-gray-50 p-0">
                         <SAccordion :open="row.isExpanded" vertical>
-                            <component :is="slot" v-for="slot in context.slots.expansion?.({ row: row.data })" />
+                            <component
+                                :is="slot"
+                                v-for="(slot, slotIndex) in context.slots.expansion?.({ row: row.data })"
+                                :key="slotIndex"
+                            />
                         </SAccordion>
                     </td>
                 </tr>

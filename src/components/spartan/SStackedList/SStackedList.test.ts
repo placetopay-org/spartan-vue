@@ -9,8 +9,6 @@ import { h } from 'vue';
 describe('SStackedList', () => {
     test('Can be rendered', async () => {
         // Arrange
-        const user = userEvent.setup();
-
         const Item1 = h(SStackedListItem, null, { default: () => 'Item 1' });
         const Item2 = h(SStackedListItem, null, { default: () => 'Item 2' });
         const Item3 = h(SStackedListItem, null, { default: () => 'Item 3' });

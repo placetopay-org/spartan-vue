@@ -299,7 +299,6 @@ export const LaravelAndInertia = createVariation({
                 { id: 3, name: 'John Smith' },
             ],
         };
-        const state = ref({ laravel: mockLaravelResponse });
 
         return { mockLaravelResponse };
     },

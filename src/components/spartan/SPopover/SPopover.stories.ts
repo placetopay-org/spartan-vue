@@ -1,10 +1,7 @@
 import SPopover from './SPopover.vue';
 import { SButton, SCard } from '@spartan';
-import type { SourceProps } from '@storybook/addon-docs/blocks';
-import { action } from 'storybook/actions';
 import { buildDesign, buildSourceBinding, createHistory, createDefault, createVariation } from '@/helpers';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
-import { watch, nextTick } from 'vue';
 
 export default {
     component: SPopover,
@@ -73,7 +70,7 @@ export default {
     }),
 };
 
-const design = buildDesign('');
+// const design = buildDesign('');
 
 const sourceBinding = buildSourceBinding({
     prop: { placement: 'bottom-start', offset: '0' },

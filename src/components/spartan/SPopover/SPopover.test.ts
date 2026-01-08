@@ -7,11 +7,8 @@ import { h } from 'vue';
 
 describe('SPopover', () => {
     test('Can be rendered', async () => {
-        // Arrange
-        const user = userEvent.setup();
-
         // Act
-        const {} = render(SPopover, {
+        render(SPopover, {
             slots: {
                 default: 'Hello World!',
                 reference: ({ open }) =>

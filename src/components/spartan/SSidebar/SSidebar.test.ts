@@ -21,9 +21,6 @@ describe('SSidebar', () => {
     });
 
     test('Can be rendered', async () => {
-        // Arrange
-        const user = userEvent.setup();
-
         // Act
         render(SSidebar);
 

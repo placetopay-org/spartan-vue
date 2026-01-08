@@ -1,10 +1,9 @@
-import { test, describe } from 'vitest';
+import { test, describe, vi } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import STab from './STab.vue';
 import STabItem from './STabItem.vue';
 import { h } from 'vue';
-import userEvent from '@testing-library/user-event';
 
 describe('STab', () => {
     test('Throw warning for required "model-value"', () => {

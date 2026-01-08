@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, nextTick, Teleport } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 import { useFloating, autoUpdate, flip, offset as setOffset, arrow as setArrow } from '@floating-ui/vue';
 import { useMediaQuery } from '@vueuse/core';
 import { arrowStyles, popoverContainerStyles, popoverFloatingStyles } from './styles';

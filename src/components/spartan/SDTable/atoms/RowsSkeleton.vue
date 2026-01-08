@@ -11,17 +11,17 @@ defineProps<{
 
 <template>
     <tr>
-        <td v-for="col in cols" :class="twMerge(cellStyles({ slim }))">
+        <td v-for="(col, index) in cols" :key="`row1-${index}`" :class="twMerge(cellStyles({ slim }))">
             <SSkeleton class="h-5 w-full" />
         </td>
     </tr>
     <tr>
-        <td v-for="col in cols" :class="twMerge(cellStyles({ slim }))">
+        <td v-for="(col, index) in cols" :key="`row2-${index}`" :class="twMerge(cellStyles({ slim }))">
             <SSkeleton class="h-5 w-1/2" />
         </td>
     </tr>
     <tr>
-        <td v-for="col in cols" :class="twMerge(cellStyles({ slim }))">
+        <td v-for="(col, index) in cols" :key="`row3-${index}`" :class="twMerge(cellStyles({ slim }))">
             <SSkeleton class="h-5 w-3/4" />
         </td>
     </tr>

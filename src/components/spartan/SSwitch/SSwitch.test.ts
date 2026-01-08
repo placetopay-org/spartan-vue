@@ -1,8 +1,7 @@
-import { test, describe } from 'vitest';
+import { test, describe, vi } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SSwitch from './SSwitch.vue';
-import { h } from 'vue';
 import userEvent from '@testing-library/user-event';
 
 describe('SSwitch', () => {

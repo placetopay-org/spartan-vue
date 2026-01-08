@@ -11,7 +11,7 @@ const slots = useSlots();
 const { value } = defineProps<TCopyProps>();
 const { t } = translator('copy');
 
-const copying = ref<NodeJS.Timeout>();
+const copying = ref<ReturnType<typeof setTimeout>>();
 
 const tooltip = ref<InstanceType<typeof STooltip>>();
 

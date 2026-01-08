@@ -1,6 +1,6 @@
 import SSelector from './SSelector.vue';
 import { SButton } from '@spartan';
-import { buildSourceBinding, createVariation } from '@/helpers';
+import { createVariation } from '@/helpers';
 import { ref, watch } from 'vue';
 import { FlagIcon } from '@placetopay/flagicons-vue';
 

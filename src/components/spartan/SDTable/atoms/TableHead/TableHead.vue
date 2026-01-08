@@ -2,7 +2,7 @@
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { Wrapper } from '@internal';
 import { useContext } from '../../api';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 import { cellStyles } from '../../styles';
 import ExpanderButton from '../ExpanderButton.vue';
@@ -43,7 +43,7 @@ const toggleAllExpanders = () => {
                 @click="col.sort && context.emit('sort', { field: col.field, sort: col.sort })"
             >
                 <template v-if="col.slots?.header">
-                    <component :is="slot" v-for="slot in col.slots.header()" />
+                    <component :is="slot" v-for="(slot, slotIndex) in col.slots.header()" :key="slotIndex" />
                 </template>
 
                 <template v-else>

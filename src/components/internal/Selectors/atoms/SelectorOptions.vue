@@ -49,7 +49,10 @@ const { t } = translator('selector');
             </span>
 
             <button
-                v-for="item in typeof option === 'object' && optionGroupItems ? option[optionGroupItems] : [option]"
+                v-for="(item, index) in typeof option === 'object' && optionGroupItems
+                    ? option[optionGroupItems]
+                    : [option]"
+                :key="getOptionValue(item) || index"
                 :disabled="item.disabled"
                 :class="twMerge(optionStyles({ selected: isSelected(item), disabled: item.disabled }))"
                 @click="$emit('select', getOptionValue(item))"

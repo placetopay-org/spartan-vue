@@ -1,8 +1,7 @@
 import { test, describe } from 'vitest';
-import { render, waitFor } from '@testing-library/vue';
+import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SDefinitionTerm from './SDefinitionTerm.vue';
-import userEvent from '@testing-library/user-event';
 
 describe('SDefinitionTerm', () => {
     test('Can be rendered', () => {
