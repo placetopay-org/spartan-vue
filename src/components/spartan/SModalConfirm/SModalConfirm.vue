@@ -27,7 +27,6 @@ const confirm = () => {
 <template>
     <SModalCard
         :open="open"
-        @update:open="$emit('update:open', $event)"
         :icon
         :title
         :pt:title="closable ? 'text-left' : ''"
@@ -35,6 +34,7 @@ const confirm = () => {
         :responsive
         :closable
         :prevent-close
+        @update:open="$emit('update:open', $event)"
     >
         <template #description>
             <slot v-if="hasSlotContent($slots.default)" />
@@ -43,7 +43,7 @@ const confirm = () => {
 
         <template #actions>
             <SButton class="w-full" @click="confirm">{{ confirmText }}</SButton>
-            <SButton class="w-full" @click="$emit('update:open', false)" variant="secondary">{{ cancelText }}</SButton>
+            <SButton class="w-full" variant="secondary" @click="$emit('update:open', false)">{{ cancelText }}</SButton>
         </template>
     </SModalCard>
 </template>

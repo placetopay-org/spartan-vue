@@ -22,12 +22,7 @@ describe('SInputOtpBlock', () => {
                 },
             },
             slots: {
-                default: [
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                ],
+                default: [h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem)],
             },
         });
 
@@ -41,15 +36,10 @@ describe('SInputOtpBlock', () => {
 
     test('Can be rendered with label', () => {
         // Act
-        render(SInputOtpBlock, { 
+        render(SInputOtpBlock, {
             props: { label: 'Código OTP' },
             slots: {
-                default: [
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                ],
+                default: [h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem)],
             },
         });
         const input = screen.getByRole('textbox', { name: 'Código OTP' });
@@ -60,15 +50,10 @@ describe('SInputOtpBlock', () => {
 
     test('Can be rendered with error text', () => {
         // Act
-        render(SInputOtpBlock, { 
+        render(SInputOtpBlock, {
             props: { errorText: 'Código OTP requerido' },
             slots: {
-                default: [
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                ],
+                default: [h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem)],
             },
         });
         const caption = screen.getByRole('caption');
@@ -80,15 +65,10 @@ describe('SInputOtpBlock', () => {
 
     test('Can be rendered with help text', () => {
         // Act
-        render(SInputOtpBlock, { 
+        render(SInputOtpBlock, {
             props: { helpText: 'Ingresa el código de 4 dígitos' },
             slots: {
-                default: [
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                ],
+                default: [h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem)],
             },
         });
         const caption = screen.getByRole('caption');
@@ -145,15 +125,10 @@ describe('SInputOtpBlock', () => {
 
     test('Can handle disabled state', () => {
         // Act
-        render(SInputOtpBlock, { 
+        render(SInputOtpBlock, {
             props: { disabled: true },
             slots: {
-                default: [
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                ],
+                default: [h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem)],
             },
         });
         const input = screen.getByRole('textbox');
@@ -164,18 +139,13 @@ describe('SInputOtpBlock', () => {
 
     test('Can handle error state', () => {
         // Act
-        render(SInputOtpBlock, { 
+        render(SInputOtpBlock, {
             props: { error: true },
             slots: {
-                default: [
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                ],
+                default: [h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem)],
             },
         });
-        
+
         // The OTP component should render without issues in error state
         const input = screen.getByRole('textbox');
         expect(input).toBeInTheDocument();
@@ -196,12 +166,7 @@ describe('SInputOtpBlock', () => {
                 },
             },
             slots: {
-                default: [
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                    h(SInputOtpItem),
-                ],
+                default: [h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem), h(SInputOtpItem)],
             },
         });
 

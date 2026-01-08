@@ -82,7 +82,9 @@ describe('SFilter', () => {
             },
         });
 
-        const filterBadge = screen.getByRole('button', { name: 'Brand | $spartan.filter.operator.equal Adidas Remove' });
+        const filterBadge = screen.getByRole('button', {
+            name: 'Brand | $spartan.filter.operator.equal Adidas Remove',
+        });
 
         await user.click(filterBadge);
 

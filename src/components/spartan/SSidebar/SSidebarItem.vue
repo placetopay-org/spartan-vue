@@ -24,9 +24,12 @@ const setActive = (value: boolean) => (isActive.value = value || props.active);
 
 const isChild = ref(false);
 
-watch(() => props.active, (value) => {
-    isActive.value = value;
-});
+watch(
+    () => props.active,
+    (value) => {
+        isActive.value = value;
+    },
+);
 
 onMounted(() => {
     const groupName = el.value?.parentElement?.parentElement?.dataset.groupName;
