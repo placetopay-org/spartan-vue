@@ -124,7 +124,7 @@ describe('SDTable', () => {
 
         // Assert
         await waitFor(() => {
-            const row = screen.getByRole('row', {
+            screen.getByRole('row', {
                 name: 'Lindsay Walton lindsay.walton@example.com Front-end Developer Member',
             });
             const cell1 = screen.getByRole('cell', { name: 'Lindsay Walton' });

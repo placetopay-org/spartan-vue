@@ -29,9 +29,9 @@ export default {
         // Props
         type: {
             control: 'select',
-            options: ['success', 'danger', 'warning'],
+            options: ['success', 'error', 'warning'],
             description: 'The type of the input element.',
-            table: { type: { summary: 'success | danger | warning' } },
+            table: { type: { summary: 'success | error | warning' } },
         },
         leftBorder: {
             control: 'boolean',

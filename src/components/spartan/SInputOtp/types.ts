@@ -1,10 +1,10 @@
 import type { HTMLAttributes } from 'vue';
 
-export type TInputOTPEmits = {
+export type TInputOtpEmits = {
     (event: 'update:modelValue', value: string): void;
 };
 
-export type TInputOTPProps = {
+export type TInputOtpProps = {
     modelValue?: string;
     class?: HTMLAttributes['class'];
     disabled?: boolean;
@@ -12,6 +12,6 @@ export type TInputOTPProps = {
     error?: boolean;
 };
 
-export type TInputOTPItemProps = {
+export type TInputOtpItemProps = {
     class?: HTMLAttributes['class'];
 };

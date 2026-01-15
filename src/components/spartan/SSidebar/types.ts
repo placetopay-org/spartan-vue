@@ -15,6 +15,7 @@ export type TSidebarItemProps = {
     as: string | Component;
     path: string;
     icon: FunctionalComponent;
+    active: boolean;
 };
 
 export type TSidebarItemGroupProps = TSidebarItemProps & {

@@ -6,9 +6,6 @@ import userEvent from '@testing-library/user-event';
 
 describe('SPaginator', () => {
     test('Can be rendered', async () => {
-        // Arrange
-        const user = userEvent.setup();
-
         // Act
         render(SPaginator, {
             props: { page: 3, size: 5, total: 125 },

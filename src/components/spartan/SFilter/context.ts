@@ -1,7 +1,7 @@
 import { reactive, computed } from 'vue';
 import { SPopover } from '..';
-import type { TFilterProps, TFilterEmits, TField, TOperator, TOperatorData, TSaveData } from './types';
-import { buildLabel, getOperatorId } from './helpers';
+import type { TFilterProps, TFilterEmits, TField, TSaveData } from './types';
+import { buildLabel } from './helpers';
 import { buildContext } from '@/helpers';
 
 type TState = {
@@ -21,12 +21,6 @@ const getFieldValue = (field: TField) => {
     if (!field.state) return undefined;
 
     return field.state?.value;
-};
-
-const getFieldOperators = (field: TField): TOperator[] => {
-    if (!field.interfaces) return [];
-
-    return field.interfaces.none?.operators || [];
 };
 
 export const { createContext, useContext } = buildContext<TState, TFilterProps, TFilterEmits>({

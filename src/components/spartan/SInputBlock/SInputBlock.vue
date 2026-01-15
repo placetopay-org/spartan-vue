@@ -9,7 +9,7 @@ const [blockWrapperProps, inputProps] = extractWrapperProps<Partial<TInputProps>
 </script>
 
 <template>
-    <BlockWrapper v-slot="{ id }" wrapper="SInputBlock" v-bind="blockWrapperProps">
+    <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps">
         <SInput
             :id
             class="w-full"

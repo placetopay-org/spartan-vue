@@ -23,9 +23,10 @@ const iconClass = computed(() => [
 </script>
 
 <template>
-    <button
-        :disabled="disabled"
-        type="button"
+    <component
+        :is="as || 'button'"
+        :disabled="as ? undefined : disabled"
+        :type="as ? undefined : 'button'"
         :class="
             twMerge([
                 SCN.focusRingPrimary,
@@ -57,5 +58,5 @@ const iconClass = computed(() => [
             />
             <slot />
         </template>
-    </button>
+    </component>
 </template>

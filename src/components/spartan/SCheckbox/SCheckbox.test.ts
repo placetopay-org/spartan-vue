@@ -32,7 +32,7 @@ describe('SCheckbox', () => {
         const user = userEvent.setup();
 
         // Act
-        const { emitted: firstCheckboxEmitted } = render(SCheckbox, {
+        render(SCheckbox, {
             slots: { default: 'first' },
             props: { value: 'first', modelValue: [] },
         });

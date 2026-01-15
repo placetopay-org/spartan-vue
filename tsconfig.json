@@ -3,7 +3,9 @@
     "compilerOptions": {
         "allowJs": true,
         "outDir": "dist",
-        "types": ["@intlify/unplugin-vue-i18n/messages", "vitest/globals"],
+        "types": ["vitest/globals"],
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "paths": {
             "@/*": ["./src/*"],
             "@spartan*": ["./src/components/spartan"],

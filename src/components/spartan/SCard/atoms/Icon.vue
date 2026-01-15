@@ -106,13 +106,13 @@ const computedIcon = computed(() => {
 
 <template>
     <template v-if="icon">
-        <section
+        <div
             v-if="iconType === 'solid'"
             data-s-iconContainer
             v-bind="iconContainerProps"
             :class="
                 twMerge(
-                    'mx-auto -mb-4 mt-[16px] flex justify-center rounded-full bg-gray-100 p-3',
+                    'flex justify-center rounded-full bg-gray-100 p-3',
                     computedIcon?.background,
                     iconContainerClass,
                 )
@@ -125,13 +125,13 @@ const computedIcon = computed(() => {
                 :class="twMerge('h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />
-        </section>
+        </div>
 
-        <section
+        <div
             v-if="iconType === 'ping'"
             data-s-iconContainer
             v-bind="iconContainerProps"
-            :class="twMerge('relative -mb-1 mt-[28px]', computedIcon?.radial, iconContainerClass)"
+            :class="twMerge('relative -mb-1', computedIcon?.radial, iconContainerClass)"
         >
             <div
                 class="absolute right-1/2 top-1/2 h-[156px] w-[156px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-20"
@@ -152,7 +152,7 @@ const computedIcon = computed(() => {
                 :class="twMerge('relative mx-auto h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />
-        </section>
+        </div>
     </template>
 </template>
 

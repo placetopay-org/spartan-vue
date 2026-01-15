@@ -11,7 +11,7 @@ describe('SPopover', () => {
         const user = userEvent.setup();
 
         // Act
-        const {} = render(SPopover, {
+        render(SPopover, {
             slots: {
                 default: 'Hello World!',
                 reference: ({ open }) =>

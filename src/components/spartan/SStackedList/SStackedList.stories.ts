@@ -67,12 +67,12 @@ export const Default = createDefault({
         </SDropdownItem>
     </template>
 
-    <SDefinitionTerm labels="Referencia:" description="Mercado" />
-    <SDefinitionTerm labels="Valor:">
+    <SDefinitionTerm class="w-full" labels="Referencia:" description="Mercado" />
+    <SDefinitionTerm class="w-full" labels="Valor:">
         <template #description>$100.000 <span class="text-gray-400">COP</span></template>
     </SDefinitionTerm>
-    <SDefinitionTerm labels="Fecha:" description="20 May 2022, 11:24 AM" />
-    <SDefinitionTerm labels="Estado:">
+    <SDefinitionTerm class="w-full" labels="Fecha:" description="20 May 2022, 11:24 AM" />
+    <SDefinitionTerm class="w-full" labels="Estado:">
         <template #description><SBadge pill size="sm" color="green">Aprobado</SBadge></template>
     </SDefinitionTerm>
 </SStackedListItem>
@@ -90,35 +90,40 @@ export const Base = createVariation({
 </SStackedList>`,
 });
 
-export const WithDropdownAll = createVariation({
-    components: { SStackedList, SStackedListItem, SDropdownItem },
-    containerClass: 'h-[300px]',
-    template: `<SStackedList class="w-52">
-    <template #dropdown>
-        <SDropdownItem :icon="MagicpenIcon">
-            Editar
-            <template #description>Solo el monto</template>
-        </SDropdownItem>
-        <SDropdownItem :icon="TrashIcon">
-            Elminiar
-            <template #description>No se puede deshacer</template>
-        </SDropdownItem>
-    </template>
-
-    <SStackedListItem>Any Item</SStackedListItem>
-    <SStackedListItem>Any Item</SStackedListItem>
-    <SStackedListItem>Any Item</SStackedListItem>
-    <SStackedListItem>Any Item</SStackedListItem>
-</SStackedList>`,
-});
-
-export const WithDropdownOnly = createVariation({
+export const WithItemDropdown = createVariation({
     components: { SStackedList, SStackedListItem, SDropdownItem },
     containerClass: 'h-[300px]',
     template: `<SStackedList class="w-52">
     <SStackedListItem>Any Item</SStackedListItem>
     <SStackedListItem>Any Item</SStackedListItem>
     <SStackedListItem>
+        <template #dropdown>
+            <SDropdownItem :icon="MagicpenIcon">
+                Editar
+                <template #description>Solo el monto</template>
+            </SDropdownItem>
+            <SDropdownItem :icon="TrashIcon">
+                Elminiar
+                <template #description>No se puede deshacer</template>
+            </SDropdownItem>
+        </template>
+        
+        Any Item
+    </SStackedListItem>
+    <SStackedListItem>Any Item</SStackedListItem>
+</SStackedList>`,
+});
+
+export const WithPagination = createVariation({
+    components: { SStackedList, SStackedListItem, SDropdownItem },
+    setup: () => {
+        return { MagicpenIcon, TrashIcon };
+    },
+    containerClass: 'h-[300px]',
+    template: `<SStackedList class="w-52">
+    <SStackedListItem>Any Item</SStackedListItem>
+    <SStackedListItem :icon="TrashIcon">Any Item</SStackedListItem>
+    <SStackedListItem :icon="MagicpenIcon">
         <template #dropdown>
             <SDropdownItem :icon="MagicpenIcon">
                 Editar

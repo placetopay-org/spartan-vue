@@ -1,5 +1,5 @@
 import SMultiSelector from './SMultiSelector.vue';
-import { buildSourceBinding, createVariation } from '@/helpers';
+import { createVariation } from '@/helpers';
 import { ref, watch } from 'vue';
 import some from 'lodash.some';
 
@@ -84,37 +84,37 @@ export default {
 
 // const design = buildDesign('https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842');
 
-const sourceBinding = buildSourceBinding({
-    prop: { rounded: 'both', errorText: undefined, helpText: undefined },
-    check: ['disabled', 'error'],
-});
+// const sourceBinding = buildSourceBinding({
+//     prop: { rounded: 'both', errorText: undefined, helpText: undefined },
+//     check: ['disabled', 'error'],
+// });
 
-const options = [
-    { name: '🪪 Cédula de ciudadanía', value: 'CC' },
-    { name: '🪪 Cédula de extranjería', value: 'CE' },
-    { name: '🪪 Tarjeta de identidad', value: 'TI' },
-    { name: '🪪 NIT', value: 'NIT' },
-    { name: '🪪 Social Security Number', value: 'SSN' },
-    { name: '🪪 Individual Taxpayer Identification Number', value: 'ITIN' },
-    { name: '🪪 Employer Identification Number', value: 'EIN' },
-    { name: '🪪 National Insurance Number', value: 'NINO' },
-    { name: '🪪 Unique Taxpayer Reference', value: 'UTR' },
-    { name: '🪪 Pasaporte', value: 'PA' },
-    { name: '🪪 Registro civil', value: 'RC' },
-];
+// const options = [
+//     { name: '🪪 Cédula de ciudadanía', value: 'CC' },
+//     { name: '🪪 Cédula de extranjería', value: 'CE' },
+//     { name: '🪪 Tarjeta de identidad', value: 'TI' },
+//     { name: '🪪 NIT', value: 'NIT' },
+//     { name: '🪪 Social Security Number', value: 'SSN' },
+//     { name: '🪪 Individual Taxpayer Identification Number', value: 'ITIN' },
+//     { name: '🪪 Employer Identification Number', value: 'EIN' },
+//     { name: '🪪 National Insurance Number', value: 'NINO' },
+//     { name: '🪪 Unique Taxpayer Reference', value: 'UTR' },
+//     { name: '🪪 Pasaporte', value: 'PA' },
+//     { name: '🪪 Registro civil', value: 'RC' },
+// ];
 
-const countries = ref([
-    { name: 'Australia', code: 'AU' },
-    { name: 'Brazil', code: 'BR' },
-    { name: 'China', code: 'CN' },
-    { name: 'Egypt', code: 'EG' },
-    { name: 'France', code: 'FR' },
-    { name: 'Germany', code: 'DE' },
-    { name: 'India', code: 'IN' },
-    { name: 'Japan', code: 'JP' },
-    { name: 'Spain', code: 'ES' },
-    { name: 'United States', code: 'US' },
-]);
+// const countries = ref([
+//     { name: 'Australia', code: 'AU' },
+//     { name: 'Brazil', code: 'BR' },
+//     { name: 'China', code: 'CN' },
+//     { name: 'Egypt', code: 'EG' },
+//     { name: 'France', code: 'FR' },
+//     { name: 'Germany', code: 'DE' },
+//     { name: 'India', code: 'IN' },
+//     { name: 'Japan', code: 'JP' },
+//     { name: 'Spain', code: 'ES' },
+//     { name: 'United States', code: 'US' },
+// ]);
 
 const manyCities = ref([
     { name: 'New York', code: 'NY' },
@@ -144,38 +144,38 @@ const cities = ref([
     { name: 'Paris', code: 'PRS' },
 ]);
 
-const groupedCities = ref([
-    {
-        label: 'Germany',
-        code: 'DE',
-        items: [
-            { name: 'Berlin', value: 'Berlin' },
-            { name: 'Frankfurt', value: 'Frankfurt' },
-            { name: 'Hamburg', value: 'Hamburg' },
-            { name: 'Munich', value: 'Munich' },
-        ],
-    },
-    {
-        label: 'USA',
-        code: 'US',
-        items: [
-            { name: 'Chicago', value: 'Chicago' },
-            { name: 'Los Angeles', value: 'Los Angeles' },
-            { name: 'New York', value: 'New York' },
-            { name: 'San Francisco', value: 'San Francisco' },
-        ],
-    },
-    {
-        label: 'Japan',
-        code: 'JP',
-        items: [
-            { name: 'Kyoto', value: 'Kyoto' },
-            { name: 'Osaka', value: 'Osaka' },
-            { name: 'Tokyo', value: 'Tokyo' },
-            { name: 'Yokohama', value: 'Yokohama' },
-        ],
-    },
-]);
+// const groupedCities = ref([
+//     {
+//         label: 'Germany',
+//         code: 'DE',
+//         items: [
+//             { name: 'Berlin', value: 'Berlin' },
+//             { name: 'Frankfurt', value: 'Frankfurt' },
+//             { name: 'Hamburg', value: 'Hamburg' },
+//             { name: 'Munich', value: 'Munich' },
+//         ],
+//     },
+//     {
+//         label: 'USA',
+//         code: 'US',
+//         items: [
+//             { name: 'Chicago', value: 'Chicago' },
+//             { name: 'Los Angeles', value: 'Los Angeles' },
+//             { name: 'New York', value: 'New York' },
+//             { name: 'San Francisco', value: 'San Francisco' },
+//         ],
+//     },
+//     {
+//         label: 'Japan',
+//         code: 'JP',
+//         items: [
+//             { name: 'Kyoto', value: 'Kyoto' },
+//             { name: 'Osaka', value: 'Osaka' },
+//             { name: 'Tokyo', value: 'Tokyo' },
+//             { name: 'Yokohama', value: 'Yokohama' },
+//         ],
+//     },
+// ]);
 
 export const Default = createVariation({
     components: { SMultiSelector },

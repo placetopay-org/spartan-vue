@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { type ShallowRef } from 'vue';
 import { SBadge } from '@spartan';
 import { translator } from '@/helpers';
 import { AddIcon } from '@placetopay/iconsax-vue/linear';

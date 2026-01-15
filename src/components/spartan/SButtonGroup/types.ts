@@ -10,4 +10,5 @@ export type TButtonGroupItemProps = {
     next: boolean;
     prev: boolean;
     class: string;
+    as?: any;
 };

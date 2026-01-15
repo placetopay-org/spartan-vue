@@ -1,9 +1,9 @@
-import type { HTMLAttributes } from 'vue';
+import type { ClassNameValue } from 'tailwind-merge';
 
 export type TStackedListProps = {
-    class?: HTMLAttributes['class'];
+    class?: ClassNameValue;
 };
 
 export type TStackedListItemProps = {
-    class?: HTMLAttributes['class'];
+    class?: ClassNameValue;
 };

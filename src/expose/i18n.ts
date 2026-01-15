@@ -1,21 +1,27 @@
-import spartanMessages from '@intlify/unplugin-vue-i18n/messages';
+import * as spartanMessages from '../locales';
 import { merge, clone } from 'lodash';
-export { spartanMessages };
 
-const addSpartanMessages = (locale: string, baseMessages: any) => {
-    return merge(clone(spartanMessages?.[locale]), clone(baseMessages));
+const addSpartanMessages = (locale: 'en' | 'es' | 'pt' | 'it', baseMessages: any, variantMessages?: any) => {
+    return merge(clone(spartanMessages?.[locale]), clone(baseMessages), clone(variantMessages));
 };
 
-export const addSpartanEnMessages = (baseMessages: any) => addSpartanMessages('en', baseMessages);
-export const addSpartanEsMessages = (baseMessages: any) => addSpartanMessages('es', baseMessages);
-export const addSpartanPtMessages = (baseMessages: any) => addSpartanMessages('pt', baseMessages);
-export const addSpartanItMessages = (baseMessages: any) => addSpartanMessages('it', baseMessages);
+export const addSpartanEnMessages = (baseMessages: any, variantMessages?: any) =>
+    addSpartanMessages('en', baseMessages, variantMessages);
+export const addSpartanEsMessages = (baseMessages: any, variantMessages?: any) =>
+    addSpartanMessages('es', baseMessages, variantMessages);
+export const addSpartanPtMessages = (baseMessages: any, variantMessages?: any) =>
+    addSpartanMessages('pt', baseMessages, variantMessages);
+export const addSpartanItMessages = (baseMessages: any, variantMessages?: any) =>
+    addSpartanMessages('it', baseMessages, variantMessages);
 
-export const addSpartanAllMessages = (baseMessages: any) => {
+export const addSpartanAllMessages = (
+    baseMessages: any,
+    config: { variants?: { en?: any; es?: any; pt?: any; it?: any } } = {},
+) => {
     return {
-        en: addSpartanEnMessages(baseMessages.en),
-        es: addSpartanEsMessages(baseMessages.es),
-        pt: addSpartanPtMessages(baseMessages.pt),
-        it: addSpartanItMessages(baseMessages.it),
+        en: addSpartanEnMessages(baseMessages.en, config.variants?.en),
+        es: addSpartanEsMessages(baseMessages.es, config.variants?.es),
+        pt: addSpartanPtMessages(baseMessages.pt, config.variants?.pt),
+        it: addSpartanItMessages(baseMessages.it, config.variants?.it),
     };
 };

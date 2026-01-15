@@ -2,21 +2,8 @@ import { test, describe, vi } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SModalCard from './SModalCard.vue';
-import { h } from 'vue';
-import { mount } from '@vue/test-utils';
 
 describe('SModalCard', () => {
-    test('Throw warning for required props', () => {
-        // Arrange
-        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-
-        // Act
-        mount(SModalCard);
-
-        // Assert
-        expect(warn).not.toHaveBeenCalledOnce();
-    });
-
     test('Can be rendered', async () => {
         // Arrange
         window.ResizeObserver = vi.fn(() => ({

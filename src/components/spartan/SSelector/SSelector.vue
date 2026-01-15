@@ -87,9 +87,7 @@ const updateQuery = (query: string) => {
             return option;
         };
 
-        computedOptions.value = [...options].filter((option) =>
-            getOptionLabel(option).toLowerCase().includes(query),
-        );
+        computedOptions.value = [...options].filter((option) => getOptionLabel(option).toLowerCase().includes(query));
     }
 };
 
@@ -102,7 +100,7 @@ watch(
 </script>
 
 <template>
-    <SelectorLayout ref="selectorLayout" :width="optionsWidth" :ptOptions @close="refreshInput">
+    <SelectorLayout ref="selectorLayout" :width="optionsWidth" :pt-options @close="refreshInput">
         <template #button>
             <SelectorButton
                 ref="selectorButton"

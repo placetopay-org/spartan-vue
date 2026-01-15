@@ -8,7 +8,7 @@ defineProps<TDropdownItemProps>();
 </script>
 
 <template>
-    <MenuItem v-slot="{ active }" :disabled="disabled" @click="">
+    <MenuItem v-slot="{ active }" :disabled="disabled">
         <component
             :is="link ? 'a' : 'button'"
             :type="link ? undefined : 'button'"

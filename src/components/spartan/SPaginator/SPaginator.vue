@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { TPaginatorProps, TPaginatorEmits } from './types';
+import type { TPaginatorProps, TPaginatorEmits, TLaravelResource } from './types';
 import { translator } from '@/helpers';
 import { SSelect } from '@spartan';
 import { SButtonGroup, SButtonGroupItem } from '../SButtonGroup';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TPaginatorEmits>();
@@ -17,13 +17,75 @@ const {
     total,
     canGoPrev = undefined,
     canGoNext = undefined,
+    laravel,
+    inertiaRouter,
 } = defineProps<TPaginatorProps>();
 
 const { t } = translator('dataTable');
 
-const vCount = computed(() => count || (total && size && Math.ceil(total / size)));
+function isLaravelResource(laravel: any): laravel is TLaravelResource {
+    return laravel && 'meta' in laravel && laravel.meta && 'links' in laravel && laravel.links;
+}
+
+const vLaravel = computed(() => {
+    if (!laravel) return;
+
+    // Total
+    const total = isLaravelResource(laravel) ? laravel.meta?.total : laravel.total;
+
+    // Per page
+    const perPage = isLaravelResource(laravel) ? laravel.meta?.per_page : laravel.per_page;
+
+    // Last page
+    const lastPage = isLaravelResource(laravel) ? laravel.meta?.last_page : laravel.last_page;
+
+    // Current page
+    const currentPage = isLaravelResource(laravel) ? laravel.meta?.current_page : laravel.current_page;
+
+    // Prev page
+    const prevPage = isLaravelResource(laravel) ? laravel.links?.prev : laravel.prev_page_url;
+
+    // Next page
+    const nextPage = isLaravelResource(laravel) ? laravel.links?.next : laravel.next_page_url;
+
+    // Links
+    const links = isLaravelResource(laravel) ? laravel.meta?.links : laravel.links;
+
+    return {
+        total,
+        perPage,
+        lastPage,
+        currentPage,
+        prevPage,
+        nextPage,
+        links,
+    };
+});
+
+const vQuantity = computed(() => Number(paginatorSize) || 0);
+
+const vTotal = computed(() => {
+    if (total) return total;
+    if (vLaravel.value?.total) return vLaravel.value.total;
+    return undefined;
+});
+
+const vSize = computed(() => {
+    if (size) return size;
+    if (vLaravel.value?.perPage) return vLaravel.value.perPage;
+    return undefined;
+});
+
+const vCount = computed(() => {
+    if (count) return count;
+    if (vLaravel.value?.lastPage) return vLaravel.value.lastPage;
+
+    if (vTotal.value && vSize.value) return Math.ceil(vTotal.value / vSize.value);
+    return undefined;
+});
+
 const vPageSizes = computed(() => {
-    if (!pageSizes || !size) return;
+    if (!pageSizes || !vSize.value) return;
 
     let data = [...pageSizes];
 
@@ -39,37 +101,46 @@ const vPageSizes = computed(() => {
         }
     }
 
-    if (!data.includes(size)) {
-        data.push(size);
+    if (!data.includes(vSize.value)) {
+        data.push(vSize.value);
         data.sort((a, b) => a - b);
     }
 
     return data;
 });
 
-const quantity = computed(() => Number(paginatorSize) || 0);
+const vPage = computed(() => {
+    if (page) return page;
+
+    if (vLaravel.value?.currentPage) return vLaravel.value.currentPage;
+    return undefined;
+});
 
 const vPages = computed(() => {
-    if (!vCount.value || !page) return [];
+    if (!vCount.value || !vPage.value) return [];
 
     let arr: (string | number)[] = [];
 
-    if (vCount.value <= quantity.value * 2 + 5) return vCount.value;
+    if (vCount.value <= vQuantity.value * 2 + 5) return vCount.value;
 
-    if (page - quantity.value < 4) {
-        arr = Array.apply(null, Array(quantity.value * 2 + 3)).map((_, i) => i + 1);
+    if (vPage.value - vQuantity.value < 4) {
+        arr = Array.apply(null, Array(vQuantity.value * 2 + 3)).map((_, i) => i + 1);
         arr.push('...');
         arr.push(vCount.value);
-    } else if (vCount.value - page - quantity.value < 3) {
+    } else if (vCount.value - vPage.value - vQuantity.value < 3) {
         arr.push(1);
         arr.push('...');
         arr = arr.concat(
-            Array.apply(null, Array(quantity.value * 2 + 3)).map((_, i) => vCount.value! - quantity.value * 2 - 2 + i),
+            Array.apply(null, Array(vQuantity.value * 2 + 3)).map(
+                (_, i) => vCount.value! - vQuantity.value * 2 - 2 + i,
+            ),
         );
     } else {
         arr.push(1);
         arr.push('...');
-        arr = arr.concat(Array.apply(null, Array(1 + quantity.value * 2)).map((_, i) => page - quantity.value + i));
+        arr = arr.concat(
+            Array.apply(null, Array(1 + vQuantity.value * 2)).map((_, i) => vPage.value! - vQuantity.value + i),
+        );
         arr.push('...');
         arr.push(vCount.value);
     }
@@ -79,36 +150,115 @@ const vPages = computed(() => {
 
 const vCanGoPrev = computed(() => {
     if (canGoPrev !== undefined) return canGoPrev;
-    return Boolean(page && page > 1);
+    if (vLaravel.value?.prevPage) return true;
+    return Boolean(vPage.value && vPage.value > 1);
 });
 
 const vCanGoNext = computed(() => {
     if (canGoNext !== undefined) return canGoNext;
-    return Boolean(page && vCount.value && page < vCount.value);
+    if (vLaravel.value?.nextPage) return true;
+    return Boolean(vPage.value && vCount.value && vPage.value < vCount.value);
 });
 
 const prev = () => {
-    if (!page || page === 1) {
+    if (vLaravel.value?.prevPage) {
+        if (inertiaRouter) {
+            inertiaRouter.visit(vLaravel.value.prevPage);
+        } else {
+            window.location.href = vLaravel.value.prevPage;
+        }
+        return;
+    }
+
+    if (!vPage.value || vPage.value === 1) {
         emit('change', { dir: 'prev' });
         return;
     }
-    emit('change', { page: page - 1, dir: 'prev' });
-    emit('update:page', page - 1);
+    emit('change', { page: vPage.value - 1, dir: 'prev' });
+    emit('update:page', vPage.value - 1);
 };
 
 const next = () => {
-    if (!page || page === vCount.value) {
+    if (vLaravel.value?.nextPage) {
+        if (inertiaRouter) {
+            inertiaRouter.visit(vLaravel.value.nextPage);
+        } else {
+            window.location.href = vLaravel.value.nextPage;
+        }
+        return;
+    }
+
+    if (!vPage.value || vPage.value === vCount.value) {
         emit('change', { dir: 'next' });
         return;
     }
-    emit('change', { page: page + 1, dir: 'next' });
-    emit('update:page', page + 1);
+    emit('change', { page: vPage.value + 1, dir: 'next' });
+    emit('update:page', vPage.value + 1);
 };
 
 const selectPage = (pageItem: number) => {
-    if (pageItem === page) return;
+    const link = vLaravel.value?.links?.find((link: any) => link.label === pageItem.toString());
+    if (link?.url) {
+        if (inertiaRouter) {
+            inertiaRouter.visit(link.url);
+        } else {
+            window.location.href = link.url;
+        }
+        return;
+    }
+
+    if (pageItem === vPage.value) return;
     emit('change', { page: pageItem });
     emit('update:page', pageItem);
+};
+
+const updateSize = (value?: string | number) => {
+    if (!value) return;
+
+    if (laravel) {
+        const currentUrl = window.location.href;
+        const url = new URL(currentUrl);
+        url.searchParams.set('page', '1');
+        url.searchParams.set('per_page', value.toString());
+
+        if (inertiaRouter) {
+            inertiaRouter.visit(url.toString());
+        } else {
+            window.location.href = url.toString();
+        }
+        return;
+    }
+
+    emit('change', { size: Number(value), page: 1 });
+    emit('update:size', Number(value));
+    emit('update:page', 1);
+};
+
+const getLaravelAsLinksProps = (pageItem?: string | number) => {
+    if (!laravel?.asLinks) {
+        return {
+            onClick: pageItem === 'prev' ? prev : pageItem === 'next' ? next : () => selectPage(Number(pageItem)),
+        };
+    }
+
+    const data: any = {};
+
+    data.as = laravel.asLinks;
+
+    if (pageItem === 'prev') {
+        data.href = vLaravel.value?.prevPage;
+    } else if (pageItem === 'next') {
+        data.href = vLaravel.value?.nextPage;
+    } else {
+        const link = vLaravel.value?.links?.find((link: any) => link.label === String(pageItem));
+        data.href = link?.url;
+    }
+
+    if (data.href == null) {
+        data.as = 'button';
+    }
+
+    return data;
 };
 </script>
 
@@ -120,17 +270,7 @@ const selectPage = (pageItem: number) => {
         <div v-if="vPageSizes" class="flex items-center gap-1 text-sm text-gray-700">
             <span>{{ t('showing') }}</span>
 
-            <SSelect
-                class="h-8 text-xs"
-                :model-value="size"
-                @update:model-value="
-                    (value) => {
-                        emit('change', { size: Number(value), page: 1 });
-                        emit('update:size', Number(value));
-                        emit('update:page', 1);
-                    }
-                "
-            >
+            <SSelect class="h-8 text-xs" :model-value="vSize" @update:model-value="updateSize">
                 <option v-for="pageSize in vPageSizes" :key="pageSize" :value="pageSize">
                     {{ pageSize }}
                 </option>
@@ -144,22 +284,34 @@ const selectPage = (pageItem: number) => {
         </div>
         <div>
             <SButtonGroup aria-label="pagination">
-                <SButtonGroupItem first prev class="px-2" :disabled="!vCanGoPrev" @click="prev" />
+                <SButtonGroupItem
+                    first
+                    prev
+                    v-bind="getLaravelAsLinksProps('prev')"
+                    class="px-2"
+                    :disabled="!vCanGoPrev"
+                />
 
                 <template v-if="!hideNumbers">
                     <SButtonGroupItem
                         v-for="pageItem in vPages"
                         :key="pageItem"
                         class="px-4"
-                        :active="Number(pageItem) === page"
+                        v-bind="getLaravelAsLinksProps(pageItem)"
+                        :active="Number(pageItem) === vPage"
                         :class="String(pageItem) === '...' ? 'pointer-events-none' : ''"
-                        @click="() => Number(pageItem) && selectPage(Number(pageItem))"
                     >
                         {{ pageItem }}
                     </SButtonGroupItem>
                 </template>
 
-                <SButtonGroupItem last next class="px-2" :disabled="!vCanGoNext" @click="next" />
+                <SButtonGroupItem
+                    last
+                    next
+                    v-bind="getLaravelAsLinksProps('next')"
+                    class="px-2"
+                    :disabled="!vCanGoNext"
+                />
             </SButtonGroup>
         </div>
     </div>

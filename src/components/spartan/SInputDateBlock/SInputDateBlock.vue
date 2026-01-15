@@ -10,7 +10,7 @@ const [blockWrapperProps, inputDateProps] = extractWrapperProps<TInputDateProps>
 </script>
 
 <template>
-    <BlockWrapper v-slot="{ id }" wrapper="SInputDateBlock" v-bind="blockWrapperProps" use-dp-uid>
+    <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps" use-dp-uid>
         <SInputDate
             :id
             class="w-full"

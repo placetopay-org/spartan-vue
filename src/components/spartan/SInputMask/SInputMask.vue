@@ -19,7 +19,7 @@ const $input = ref<typeof SInput>();
 const maskOptions = computed(() => ({ mask: props.mask }));
 
 onMounted(() => {
-    // @ts-ignore
+    // @ts-expect-error - inputElement property exists at runtime
     const mask = IMask($input.value.inputElement!, maskOptions.value);
     mask.on('accept', () => emit('update:modelValue', mask.value));
     mask.on('complete', () => emit('complete'));

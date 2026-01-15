@@ -21,7 +21,9 @@ const openFieldPopover = () => {
     }
 
     if (removing.value) {
-        delete props.field.state;
+        const updatedField = { ...props.field };
+        delete updatedField.state;
+        Object.assign(props.field, updatedField);
         removing.value = false;
     }
 };

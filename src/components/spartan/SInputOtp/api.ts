@@ -1,5 +1,5 @@
 import { reactive, inject, provide, watch, type InjectionKey, computed } from 'vue';
-import type { TInputOTPProps, TInputOTPEmits } from './types';
+import type { TInputOtpProps, TInputOtpEmits } from './types';
 
 type TItem = {
     setValue: (value: string) => void;
@@ -35,7 +35,7 @@ const deactivate = (state: TState) => {
     else state.items[state.value.length - 1]?.setActive(false);
 };
 
-export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
+export const createContext = (props: TInputOtpProps, emit: TInputOtpEmits) => {
     const state: TState = reactive({
         items: [],
         value: computed(() => props.modelValue || ''),
@@ -66,9 +66,10 @@ export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
             state.items.forEach(({ setActive }) => setActive(true));
         },
         // TODO: Implement arrow keys navigation
-        updateSelection: (start: number, end: number) => {
-            // console.log('updateSelection', start, end, state.items.slice(start, end).length);
-            // state.items.slice(start, end + 1).forEach(({ setActive }) => setActive(true));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        updateSelection: (_start: number, _end: number) => {
+            // console.log('updateSelection', _start, _end, state.items.slice(_start, _end).length);
+            // state.items.slice(_start, _end + 1).forEach(({ setActive }) => setActive(true));
         },
     });
 
@@ -84,7 +85,7 @@ export const createContext = (props: TInputOTPProps, emit: TInputOTPEmits) => {
 export const useContext = (component: string) => {
     const context = inject(contextKey, null);
     if (context === null) {
-        const err = new Error(`<${component} /> is missing parent <SInputOTP /> component`);
+        const err = new Error(`<${component} /> is missing parent <SInputOtp /> component`);
         throw err;
     }
     return context;

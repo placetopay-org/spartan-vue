@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { SInput, SInputAmount } from '@spartan';
+import { SInputAmountBlock, SInputBlock } from '@spartan';
 import type { IInputConfig } from './types';
 import { translator } from '@/helpers';
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'update:currency']);
 
 const props = defineProps<{
     modelValue?: string | number;
     config: IInputConfig;
+    errorText?: string;
 }>();
 
 const { t } = translator('filter');
@@ -23,12 +24,12 @@ const value = computed({
 });
 
 const updateCurrency = (currency?: string) => {
-    props.config.currency = currency as any;
+    emit('update:currency', currency);
 };
 </script>
 
 <template>
-    <SInputAmount
+    <SInputAmountBlock
         v-if="config.inputType === 'amount'"
         v-model="value as number"
         :currency="config.currency ?? config.currencies![0]"
@@ -36,7 +37,14 @@ const updateCurrency = (currency?: string) => {
         :type="config.inputType"
         :placeholder="t('inputSelectorPlaceholder')"
         :minor-unit-mode="config.minorUnitMode"
+        :error-text="errorText"
         @update:currency="updateCurrency"
     />
-    <SInput v-else v-model="value" :type="config.inputType" :placeholder="t('inputSelectorPlaceholder')" />
+    <SInputBlock
+        v-else
+        v-model="value"
+        :type="config.inputType"
+        :placeholder="t('inputSelectorPlaceholder')"
+        :error-text="errorText"
+    />
 </template>

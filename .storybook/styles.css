@@ -13,3 +13,14 @@ body {
     height: 100%;
     width: 100%;
 }
+
+/* Remove padding from Storybook docs containers only when there's an iframe */
+.sbdocs.sbdocs-wrapper:has(iframe) {
+    padding: 0 !important;
+}
+
+.sbdocs.sbdocs-content:has(iframe) {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+}

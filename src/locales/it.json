@@ -1,5 +1,13 @@
 {
     "$spartan": {
+        "templateHeaderTable": {
+            "search": "Cercare"
+        },
+        "modalConfirm": {
+            "title": "Sei sicuro?",
+            "confirmText": "Conferma",
+            "cancelText": "Annulla"
+        },
         "inputPasswordPanel": {
             "min": "Minimo di {value} caratteri",
             "max": "Massimo di {value} caratteri",

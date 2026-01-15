@@ -1,5 +1,5 @@
 import { test, describe } from 'vitest';
-import { cleanup, render } from '@testing-library/vue';
+import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SInputMask from './SInputMask.vue';
 import userEvent from '@testing-library/user-event';

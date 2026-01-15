@@ -3,6 +3,7 @@ import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SFilter from './SFilter.vue';
 import userEvent from '@testing-library/user-event';
+import type { TOperator } from './types';
 
 describe('SFilter', () => {
     test('Can be rendered', async () => {
@@ -52,7 +53,6 @@ describe('SFilter', () => {
 
     test('Can be update a field', async () => {
         // Arrange
-        const fields = [];
         const user = userEvent.setup();
 
         // Act
@@ -80,7 +80,9 @@ describe('SFilter', () => {
             },
         });
 
-        const filterBadge = screen.getByRole('button', { name: 'Brand | $spartan.filter.operator.equal Adidas Remove' });
+        const filterBadge = screen.getByRole('button', {
+            name: 'Brand | $spartan.filter.operator.equal Adidas Remove',
+        });
 
         await user.click(filterBadge);
 
@@ -96,7 +98,6 @@ describe('SFilter', () => {
 
     test('Can be update a field with one input interfaces', async () => {
         // Arrange
-        const fields = [];
         const user = userEvent.setup();
 
         // Act
@@ -143,7 +144,6 @@ describe('SFilter', () => {
 
     test('Can be update a field with two input interfaces', async () => {
         // Arrange
-        const fields = [];
         const user = userEvent.setup();
 
         // Act
@@ -190,5 +190,77 @@ describe('SFilter', () => {
 
         // Assert
         screen.getByRole('button', { name: 'Price | $spartan.filter.operator.between 300, 600 Remove' });
+    });
+
+    test('Cannot add field due to failed validation', async () => {
+        const user = userEvent.setup();
+        render(SFilter, {
+            props: {
+                fields: [
+                    {
+                        id: 'bin',
+                        name: 'Card bin',
+                        interfaces: {
+                            oneInput: {
+                                operators: ['equal'],
+                            },
+                        },
+                        validate: async (value: any): Promise<string | null> => {
+                            const binRegex = /^\d{6}$/;
+                            return !binRegex.test(value) ? 'Invalid bin' : null;
+                        },
+                    },
+                ],
+            },
+        });
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.addFilterBtn' }));
+
+        await user.click(screen.getByRole('button', { name: 'Card bin' }));
+
+        const input = screen.getByPlaceholderText('$spartan.filter.inputSelectorPlaceholder');
+        await user.type(input, 'abc');
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.addBtn' }));
+
+        screen.getByText('Invalid bin');
+    });
+
+    test('Cannot add field with two interfaces due to failed validation', async () => {
+        const user = userEvent.setup();
+        render(SFilter, {
+            props: {
+                fields: [
+                    {
+                        id: 'amount',
+                        name: 'Amount',
+                        interfaces: {
+                            twoInputs: {
+                                inputType: 'amount',
+                                currency: 'USD',
+                                operators: ['between', 'notBetween'],
+                            },
+                        },
+                        validate: (value: any, operator: TOperator): string | null => {
+                            return operator == 'between' && parseFloat(value[0]) > parseFloat(value[1])
+                                ? 'Invalid amount range'
+                                : null;
+                        },
+                    },
+                ],
+            },
+        });
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.addFilterBtn' }));
+
+        await user.click(screen.getByRole('button', { name: 'Amount' }));
+
+        const inputs = screen.getAllByPlaceholderText('$spartan.filter.inputSelectorPlaceholder');
+        await user.type(inputs[0], '50');
+        await user.type(inputs[1], '20');
+
+        await user.click(screen.getByRole('button', { name: '$spartan.filter.addBtn' }));
+
+        screen.getByText('Invalid amount range');
     });
 });

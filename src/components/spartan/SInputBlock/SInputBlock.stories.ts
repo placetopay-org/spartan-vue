@@ -1,7 +1,7 @@
 import SInputBlock from './SInputBlock.vue';
 import { ref } from 'vue';
 import { SButton, SDropdown, SDropdownItem } from '@spartan';
-import { buildDesign, buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
+import { buildSourceBinding, createDefault, createVariation as buildVariation } from '@/helpers';
 import {
     ArrowLeftOnRectangleIcon,
     InformationCircleIcon,
@@ -147,8 +147,6 @@ export default {
         },
     },
 };
-
-const design = buildDesign('');
 
 const sourceBinding = buildSourceBinding({
     check: ['disabled', 'error'],

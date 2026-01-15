@@ -7,7 +7,122 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 2.0.1 - 2025-06-12
+## 2.6.0 - 2025-12-08
+### Added
+- `SModalSide` component with support for `side` prop (`'left'` | `'right'`), allowing modals to slide in from either side of the screen.
+- `SModalSide` is a drop-in replacement for `SModalLeft` with additional side customization capability.
+- Comprehensive test suite and Storybook stories for `SModalSide` component.
+
+### Changed
+- Storybook upgraded to version 10.1.0 with updated packages.
+
+## 2.5.1 - 2025-09-15
+### Added
+- Add `validate` option to `SFilter` fields.
+
+## 2.5.0 - 2025-09-08
+### Added
+- `STemplateHeaderTable` component.
+
+## 2.4.5 - 2025-08-27
+### Added
+- `SBreadcrumbsItem` component now uses `as` prop to polymorphic template.
+
+## 2.4.4 - 2025-08-21
+### Added
+- Added eslint-plugin-storybook.
+- Removed duplicate dependency entries.
+
+### Changed
+- Applied minor formatting improvements in the vite.config.js plugin array.
+
+### Fixed
+- Updated style export path in package.json to spartan-vue.css.
+- Updated development dependencies.
+- Added @storybook/addon-docs.
+
+## 2.4.3 - 2025-08-20
+### Added
+- `SAlert` component with support for multiple variants (solid, outline, soft, subtle), colors (neutral, primary, secondary, success, info, warning, error), icons, closeable functionality, and custom close icons.
+- Comprehensive test suite for `SAlert` component covering all props, events, and accessibility features.
+
+### Changed
+- Storybook upgraded to version 9.1.2 with improved documentation and development experience.
+
+### Fixed
+- `SPaginator` component now forces button rendering when href value is null, preventing Inertia Link component from receiving null href prop.
+
+## 2.4.2 - 2025-07-07
+### Added
+- Improved support for Laravel pagination responses and resources in `SPaginator`.
+- Methods to detect whether a response is a Laravel resource in `SPaginator`.
+- Updated component properties and methods to enhance navigation and link handling in `SPaginator`.
+- Adjustments to stories to reflect the new behavior in `SPaginator`.
+- `SButtonGroupItem` component to support polymorphic template.
+
+## 2.4.1 - 2025-07-03
+### Fixed
+- `SPaginator` component to update page size when using Laravel pagination.
+
+## 2.4.0 - 2025-07-03
+### Added
+- `laravel` prop to `SPaginator` component for Laravel pagination support.
+- `inertiaRouter` prop to `SPaginator` component for Inertia router integration.
+
+## 2.3.4 - 2025-06-20
+### Fixed
+- `watch` to `active` prop in `SSidebarItem` component.
+
+## 2.3.3 - 2025-06-20
+### Added
+- `active` prop to `SSidebarItem` component.
+
+## 2.3.2 - 2025-06-12
+### Fixed
+- `SDefinitionTerm` component to use `twMerge` helper on `class` prop.
+
+## 2.3.1 - 2025-06-12
+### Added
+- Default slot linked to `description` prop in `SModalConfirm` component.
+
+### Fixed
+- `prevent-close` prop in `SModalConfirm` component.
+
+## 2.3.0 - 2025-06-12
+### Added
+- `SModalConfirm` component.
+- `closable` prop to `SCard` and `SModalCard` components.
+
+### Changed
+- `SModalCard` component to use `v-model` for `open` prop.
+- New styles for `SCard`, `SModalCard` and `SModal` components.
+
+### Fixed
+- `SModal` responsive positioning.
+
+## 2.2.1 - 2025-06-10
+### Added
+- New `addSpartanAllMessages` function to merge base messages with variant messages.
+
+### Fixed
+- `addSpartanAllMessages` function export, and js module map.
+
+## 2.2.0 - 2025-06-04
+### Added
+- Enhance `SDefinitionTerm` and `SStackedList` components with className support.
+
+## 2.1.0 - 2025-06-03
+### Added
+- Created the `SInputOtpBlock` component, which uses `SInputOTP` and `BlockWrapper`, allowing the entry of OTP codes.
+- Added tests and stories for `SInputOtpBlock`, ensuring its correct operation and presentation.
+
+### Changed
+- Renamed `SInputOTP` to `SInputOtp`.
+- Renamed `SInputOTPItem` to `SInputOtpItem`.
+- Adjusted `TBlockWrapperProps` types to be optional.
+
+### Removed
+- Unused wrapper prop from BlockWrapper and update related components
 
 ## 2.0.0 - 2025-05-23
 

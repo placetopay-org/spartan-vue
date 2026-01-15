@@ -6,16 +6,15 @@ import { TranStyle } from '@/constants';
 import { usePassthrough } from '@/helpers';
 
 defineOptions({ inheritAttrs: false });
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'update:open']);
 
 const { pt, extractor } = usePassthrough();
 
 const [containerClass, containerProps] = extractor(pt.value.container);
 
-const props = withDefaults(defineProps<TModalProps>(), {
-    open: false,
-    responsive: true,
-});
+const props = defineProps<TModalProps>();
+
+const responsive = computed(() => props.responsive !== false);
 
 watchEffect(() => {
     if (props.open) {
@@ -28,10 +27,16 @@ watchEffect(() => {
 });
 
 const containerStyles = computed(() =>
-    props.responsive
-        ? 'bottom-4 px-4 w-full sm:w-auto sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto'
+    responsive.value
+        ? 'bottom-4 px-4 w-full sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto'
         : 'top-1/2 -translate-y-1/2',
 );
+
+const closeModal = () => {
+    if (props.preventClose) return;
+    emit('close'); // TODO: remove this
+    emit('update:open', false);
+};
 </script>
 
 <template>
@@ -43,11 +48,11 @@ const containerStyles = computed(() =>
         </Transition>
 
         <Transition v-bind="TranStyle.vertical">
-            <div v-if="open" class="fixed inset-0 z-40" @click="!preventClose && $emit('close')">
+            <div v-if="open" class="fixed inset-0 z-40" @click="closeModal">
                 <div
                     data-s-container
                     v-bind="containerProps"
-                    :class="twMerge('absolute left-1/2 z-40 -translate-x-1/2', containerStyles, containerClass)"
+                    :class="twMerge('absolute z-40 flex w-full justify-center', containerStyles, containerClass)"
                     @click.stop
                 >
                     <slot />

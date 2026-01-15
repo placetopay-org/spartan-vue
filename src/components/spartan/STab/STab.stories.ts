@@ -70,12 +70,12 @@ export default {
     }),
 };
 
-const tabs = [
-    { name: 'My Account', href: '#', icon: UserIcon },
-    { name: 'Company', href: '#', icon: BuildingOfficeIcon },
-    { name: 'Team Members', href: '#', icon: UsersIcon },
-    { name: 'Billing', href: '#', icon: CreditCardIcon },
-];
+// const tabs = [
+//     { name: 'My Account', href: '#', icon: UserIcon },
+//     { name: 'Company', href: '#', icon: BuildingOfficeIcon },
+//     { name: 'Team Members', href: '#', icon: UsersIcon },
+//     { name: 'Billing', href: '#', icon: CreditCardIcon },
+// ];
 
 const sourceBinding = buildSourceBinding({
     prop: { variant: 'underline' },

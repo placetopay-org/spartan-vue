@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { SPlacetopayLogo, STab, STabItem, SInput, SInputBlock, SButton, SInputOTP, SInputOTPItem } from '@spartan';
+import { SPlacetopayLogo, STab, STabItem, SInput, SInputBlock, SButton, SInputOtp, SInputOtpItem } from '@spartan';
 import { computed } from 'vue';
 import { ArrowLeftIcon } from '@heroicons/vue/20/solid';
 import { LockClosedIcon, KeyIcon } from '@heroicons/vue/24/outline';
@@ -99,15 +99,15 @@ const recoveryCode = ref('');
                 código de autenticación.
             </p>
 
-            <SInputOTP v-model="otp" class="mb-6">
-                <SInputOTPItem />
-                <SInputOTPItem />
-                <SInputOTPItem class="mr-2.5" />
+            <SInputOtp v-model="otp" class="mb-6">
+                <SInputOtpItem />
+                <SInputOtpItem />
+                <SInputOtpItem class="mr-2.5" />
 
-                <SInputOTPItem />
-                <SInputOTPItem />
-                <SInputOTPItem />
-            </SInputOTP>
+                <SInputOtpItem />
+                <SInputOtpItem />
+                <SInputOtpItem />
+            </SInputOtp>
 
             <div class="flex w-full">
                 <SButton class="mr-4 w-fit" variant="secondary" :left-icon="ArrowLeftIcon" @click="push('login')">

@@ -2,7 +2,6 @@ import { test, describe, vi } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SModal from './SModal.vue';
-import { mount } from '@vue/test-utils';
 
 describe('SModal', () => {
     // test('Throw warning for required props', () => {

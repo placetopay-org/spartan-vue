@@ -22,7 +22,8 @@ defineProps<{
     >
         <div class="flex flex-wrap gap-2 pt-3">
             <SBadge
-                v-for="option in options"
+                v-for="(option, index) in options"
+                :key="option.value || option[optionLabel] || index"
                 size="sm"
                 class="self-center whitespace-nowrap"
                 pill
