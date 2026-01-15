@@ -123,7 +123,7 @@ const refreshInput = () => {
                         <div ref="$badgesContainer" class="flex gap-1 overflow-auto">
                             <SBadge
                                 v-for="(option, index) in modelValue.slice(0, count || modelValue.length)"
-                                :key="option[optionValue] || option.value || index"
+                                :key="option.value || index"
                                 size="sm"
                                 class="self-center whitespace-nowrap"
                                 pill
