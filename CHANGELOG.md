@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ## 2.6.0 - 2025-12-08
+### Added
+- `SModalSide` component with support for `side` prop (`'left'` | `'right'`), allowing modals to slide in from either side of the screen.
+- `SModalSide` is a drop-in replacement for `SModalLeft` with additional side customization capability.
+- Comprehensive test suite and Storybook stories for `SModalSide` component.
+
 ### Changed
 - Storybook upgraded to version 10.1.0 with updated packages.
 
