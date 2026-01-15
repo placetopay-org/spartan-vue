@@ -29,6 +29,7 @@ export * from './SModal';
 export * from './SModalCard';
 export * from './SModalConfirm';
 export * from './SModalLeft';
+export * from './SModalSide';
 export * from './SButtonGroup';
 export * from './SSectionTitle';
 export * from './SSectionDescription';
