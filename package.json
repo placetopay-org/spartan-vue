@@ -1,6 +1,6 @@
 {
   "name": "@placetopay/spartan-vue",
-  "version": "2.6.0",
+  "version": "2.5.1",
   "type": "module",
   "description": "spartan vue lib",
   "module": "./dist/spartan-vue.js",
