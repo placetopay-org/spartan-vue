@@ -4,7 +4,15 @@ import tailwindForms from '@tailwindcss/forms';
 export default plugin.withOptions(
     function (options = {}) {
         return function (config) {
-            tailwindForms().handler(config);
+            // In Tailwind v4, users should add @plugin "@tailwindcss/forms" directly in their CSS
+            // For v3 compatibility, we still include forms by default unless explicitly disabled
+            if (options.includeForms !== false) {
+                try {
+                    tailwindForms(options.formsOptions).handler(config);
+                } catch {
+                    // Tailwind v4 may handle forms differently, silently skip if it fails
+                }
+            }
 
             const colors = options.primary ?? {
                 50: '255 246 234',
