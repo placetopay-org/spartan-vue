@@ -1,66 +1,38 @@
-/**
- * Spartan Vue - Tailwind CSS v4 Plugin (CSS-first approach)
- *
- * Usage in your main CSS file:
- *   @import "tailwindcss";
- *   @import "@placetopay/spartan-vue/plugin.css";
- *   @plugin "@tailwindcss/forms";
- *
- * For custom primary colors, override the CSS variables:
- *   @theme {
- *     --color-spartan-primary-500: oklch(0.7 0.15 50);
- *   }
- */
-
-/* Theme: Define spartan-primary color palette using CSS variables */
+/* Color tokens */
 @theme {
-    --color-spartan-primary-50: oklch(0.98 0.02 70);
-    --color-spartan-primary-100: oklch(0.94 0.05 60);
-    --color-spartan-primary-200: oklch(0.88 0.09 55);
-    --color-spartan-primary-300: oklch(0.82 0.13 50);
-    --color-spartan-primary-400: oklch(0.74 0.17 45);
-    --color-spartan-primary-500: oklch(0.68 0.19 40);
-    --color-spartan-primary-600: oklch(0.62 0.20 38);
-    --color-spartan-primary-700: oklch(0.54 0.17 35);
-    --color-spartan-primary-800: oklch(0.48 0.14 32);
-    --color-spartan-primary-900: oklch(0.42 0.12 30);
+  --color-spartan-primary-50:  rgb(255 246 234);
+  --color-spartan-primary-100: rgb(255 227 188);
+  --color-spartan-primary-200: rgb(255 204 141);
+  --color-spartan-primary-300: rgb(255 179 98);
+  --color-spartan-primary-400: rgb(255 148 64);
+  --color-spartan-primary-500: rgb(255 126 41);
+  --color-spartan-primary-600: rgb(255 108 12);
+  --color-spartan-primary-700: rgb(218 90 13);
+  --color-spartan-primary-800: rgb(192 61 17);
+  --color-spartan-primary-900: rgb(161 56 21);
 }
 
-/* Base styles */
+/* Base */
 @layer base {
-    html {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+  html { @apply antialiased; }
 }
 
-/* Custom utilities for ring styles */
+/* Utilities */
 @utility s-ring {
-    transition-duration: 150ms;
-    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-    --tw-ring-color: var(--color-spartan-primary-100);
-    border-color: var(--color-spartan-primary-300);
-    z-index: 10;
+  @apply duration-150 ring ring-spartan-primary-100 border-spartan-primary-300 z-10;
 }
-
 @utility s-ring-secondary {
-    transition-duration: 150ms;
-    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-    --tw-ring-color: var(--color-gray-100);
-    border-color: var(--color-gray-300);
-    z-index: 10;
+  @apply duration-150 ring ring-gray-100 border-gray-300 z-10;
+}
+@utility s-ring-error {
+  @apply duration-150 ring ring-red-200 border-red-500 z-10;
 }
 
-@utility s-ring-error {
-    transition-duration: 150ms;
-    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-    --tw-ring-color: var(--color-red-200);
-    border-color: var(--color-red-500);
-    z-index: 10;
-}
+/* Safelist */
+@source inline("sm:items-start","sm:items-center","sm:items-end");
+
+/* Plugins */
+@plugin "@tailwindcss/forms";
+
+/* Content */
+@source '../node_modules/@placetopay/spartan-vue/dist/**/*.js';
