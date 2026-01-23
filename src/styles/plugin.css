@@ -12,20 +12,26 @@
   --color-spartan-primary-900: rgb(161 56 21);
 }
 
+/* Dark mode configuration */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Base */
 @layer base {
   html { @apply antialiased; }
+  :root {
+    --tw-ring-inset: ;
+  }
 }
 
 /* Utilities */
 @utility s-ring {
-  @apply duration-150 ring ring-spartan-primary-100 border-spartan-primary-300 z-10;
+  @apply duration-150 ring-3 ring-spartan-primary-100 border-spartan-primary-300 z-10;
 }
 @utility s-ring-secondary {
-  @apply duration-150 ring ring-gray-100 border-gray-300 z-10;
+  @apply duration-150 ring-3 ring-gray-100 border-gray-300 z-10;
 }
 @utility s-ring-error {
-  @apply duration-150 ring ring-red-200 border-red-500 z-10;
+  @apply duration-150 ring-3 ring-red-200 border-red-500 z-10;
 }
 
 /* Safelist */
