@@ -8,68 +8,126 @@ Spartan Vue is a vue component library that contains the components used in the 
 You can find the documentation and components of this design system by clicking [here.](https://develop--646e732a14dfaa707ad59b33.chromatic.com/)
 
 ## Installing
-1. Requirements
 
-   - [NodeJs](https://nodejs.org/es/) 20.19 | ^22.12 
-   - [NPM](https://www.npmjs.com/) ^10
-   - [TailwindCSS](https://tailwindcss.com/) ^3
+### Requirements
 
-2. Install in the consumer project
+- [NodeJs](https://nodejs.org/es/) 20.19 | ^22.12
+- [NPM](https://www.npmjs.com/) ^10
+- [TailwindCSS](https://tailwindcss.com/) ^4
 
-   ```shell
-   npm install -D @placetopay/spartan-vue
+### Installation
+
+```shell
+npm install -D @placetopay/spartan-vue
+```
+
+### Configuration for Tailwind CSS v4
+
+1. In your main CSS file (e.g., `styles.css`), add the following:
+
+   ```css
+   @import "@placetopay/spartan-vue/styles.css";
+
+   /* Add your content sources */
+   @source '../src/**/*.{vue,js,ts,jsx,tsx}';
    ```
 
-3. Configure your `tailwind.config.js` file adding the following lines:
+2. Import the CSS in your main entry file:
 
    ```javascript
-      content: [
-         //...
-         "node_modules/@placetopay/spartan-vue/dist/**/*.js",
-      ],
-      plugins: [
-         //...
-         require('@placetopay/spartan-vue/plugin'),
-      ],
+   import './styles.css';
    ```
 
-4. Import the styles in your main file (Before the `your styles` import):
+### Custom Primary Color (Tailwind v4)
+
+To customize the primary color, override the CSS variables in your stylesheet after the import:
+
+```css
+@import "@placetopay/spartan-vue/styles.css";
+
+@source '../src/**/*.{vue,js,ts,jsx,tsx}';
+
+@theme {
+  --color-spartan-primary-50:  rgb(228 242 253);
+  --color-spartan-primary-100: rgb(187 222 251);
+  --color-spartan-primary-200: rgb(144 202 249);
+  --color-spartan-primary-300: rgb(100 181 246);
+  --color-spartan-primary-400: rgb(66 165 245);
+  --color-spartan-primary-500: rgb(33 150 243);
+  --color-spartan-primary-600: rgb(30 132 229);
+  --color-spartan-primary-700: rgb(25 103 196);
+  --color-spartan-primary-800: rgb(21 78 148);
+  --color-spartan-primary-900: rgb(13 42 84);
+}
+```
+
+### Disable Inter Font
+
+To exclude the Inter font, import the plugin directly instead of the full styles:
+
+```css
+@import "tailwindcss";
+@import "@placetopay/spartan-vue/styles/plugin.css";
+@import "@placetopay/spartan-vue/styles/spartan-vue.css";
+
+@source '../src/**/*.{vue,js,ts,jsx,tsx}';
+```
+
+---
+
+<details>
+<summary><strong>Configuration for Tailwind CSS v3 (Legacy)</strong></summary>
+
+1. Configure your `tailwind.config.js` file:
 
    ```javascript
-      // add before your styles
-      import '@placetopay/spartan-vue/style.css';
-      
-      // your styles (with tailwindcss directives)
-      import './my-styles.css'
+   content: [
+      //...
+      "node_modules/@placetopay/spartan-vue/dist/**/*.js",
+   ],
+   plugins: [
+      //...
+      require('@placetopay/spartan-vue/plugin'),
+   ],
    ```
 
-## Plugin configuration
-If you desire to establish a custom primary color, you may incorporate the `primary` option within the spartan-vue plugin's configuration:
+2. Import the styles in your main file:
 
    ```javascript
-      require('@placetopay/spartan-vue/plugin')({
-         primary: {
-            50: '228 242 253',
-            100: '187 222 251',
-            200: '144 202 249',
-            300: '100 181 246',
-            400: '66 165 245',
-            500: '33 150 243',
-            600: '30 132 229',
-            700: '25 103 196',
-            800: '21 78 148',
-            900: '13 42 84',
-         }
-      }),
+   import '@placetopay/spartan-vue/styles/spartan-vue.css';
+   import './my-styles.css'; // your styles with tailwindcss directives
    ```
 
-If you want to avoid including the Inter font in your project, you can add the following parameter:
+#### Plugin configuration (v3)
+
+Custom primary color:
+
+```javascript
+require('@placetopay/spartan-vue/plugin')({
+   primary: {
+      50: '228 242 253',
+      100: '187 222 251',
+      200: '144 202 249',
+      300: '100 181 246',
+      400: '66 165 245',
+      500: '33 150 243',
+      600: '30 132 229',
+      700: '25 103 196',
+      800: '21 78 148',
+      900: '13 42 84',
+   }
+}),
+```
+
+Disable Inter font:
 
 ```javascript
 require('@placetopay/spartan-vue/plugin')({
    includeFont: false,
 }),
 ```
+
+</details>
 
 ## Usage
 ```html
@@ -105,7 +163,7 @@ Once the installation is successfully completed, proceed with the configuration 
 In your main file, import vue-i18n and the necessary locales provided by Spartan-vue:
 
 ```javascript
-import '@placetopay/spartan-vue/style.css';
+import './styles.css'; // Your CSS file with @import "@placetopay/spartan-vue/styles.css"
 import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n';
 import App from './App.vue';

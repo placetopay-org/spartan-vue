@@ -40,5 +40,5 @@
 /* Plugins */
 @plugin "@tailwindcss/forms";
 
-/* Content */
-@source '../node_modules/@placetopay/spartan-vue/dist/**/*.js';
+/* Content - scan spartan-vue component files */
+@source "../**/*.js";

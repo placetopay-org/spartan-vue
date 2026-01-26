@@ -29,8 +29,10 @@ import fs from 'fs';
         console.log('  ✓ moved spartan-vue.css to styles/');
     }
 
-    // Create dist/styles.css that imports main.css and spartan-vue.css
-    const stylesCssContent = `@import './styles/main.css';
+    // Create dist/styles.css - complete Tailwind 4 preset for consumers
+    // Consumers only need to import this file and add their own @source directives
+    const stylesCssContent = `@import "tailwindcss";
+@import './styles/main.css';
 @import './styles/spartan-vue.css';
 `;
 
