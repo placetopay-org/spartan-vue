@@ -4,408 +4,119 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <style>
   {`
-  .subheading {
-    --mediumdark: '#999999';
-    font-weight: 900;
-    font-size: 13px;
-    color: #999;
-    letter-spacing: 6px;
-    line-height: 24px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    margin-top: 40px;
-  }
-
   .alert {
     padding: 16px;
-    border-radius: 8px;
-    margin: 24px 0;
-    border-left: 4px solid;
+    border-radius: 4px;
+    margin: 20px 0;
+    border-left: 3px solid;
   }
 
   .alert-info {
-    background-color: #e3f2fd;
+    background-color: #f0f7ff;
     border-color: #2196f3;
     color: #0d47a1;
   }
 
   .alert-warning {
-    background-color: #fff3e0;
+    background-color: #fff8e1;
     border-color: #ff9800;
     color: #e65100;
   }
 
-  .alert-success {
-    background-color: #e8f5e9;
-    border-color: #4caf50;
-    color: #1b5e20;
-  }
-
-  .step {
-    background: #f5f5f5;
+  .quick-steps {
+    background: #f9f9f9;
     padding: 20px;
-    border-radius: 8px;
-    margin: 16px 0;
+    border-radius: 4px;
+    margin: 20px 0;
   }
 
-  .step h3 {
+  .quick-steps h3 {
     margin-top: 0;
-    color: #ff6c0c;
   }
 
-  code {
-    background: #2d2d2d;
-    color: #f8f8f2;
+  .quick-steps ol {
+    padding-left: 20px;
+  }
+
+  .quick-steps li {
+    margin: 8px 0;
+    line-height: 1.6;
+  }
+
+  .quick-steps code {
+    background: #f5f5f5;
+    color: #333;
     padding: 2px 6px;
     border-radius: 3px;
     font-size: 0.9em;
   }
 
-  pre {
-    background: #2d2d2d;
-    color: #f8f8f2;
-    padding: 16px;
-    border-radius: 8px;
-    overflow-x: auto;
-  }
-
-  pre code {
-    background: transparent;
-    padding: 0;
-  }
-
-  .comparison {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+  .links-section {
     margin: 24px 0;
   }
 
-  @media (max-width: 768px) {
-    .comparison {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .comparison-item {
-    padding: 16px;
-    border-radius: 8px;
-  }
-
-  .comparison-old {
-    background: #ffebee;
-    border: 2px solid #ef5350;
-  }
-
-  .comparison-new {
-    background: #e8f5e9;
-    border: 2px solid #66bb6a;
-  }
-
-  .comparison-item pre {
-    background: transparent !important;
-    margin: 12px 0 0 0;
-  }
-
-  .comparison-item pre code {
-    color: #1a1a1a !important;
-    background: transparent;
+  .links-section p {
+    margin: 12px 0;
   }
   `}
 </style>
 
+<div className="migration-container">
+
 # Migration Guide: Spartan Vue 2.x to 3.x
 
-This guide will help you migrate from Spartan Vue 2.x (Tailwind CSS 3) to Spartan Vue 3.x (Tailwind CSS 4).
+Migrating from Spartan Vue 2.x (Tailwind CSS 3) to Spartan Vue 3.x (Tailwind CSS 4).
 
 <div className="alert alert-info">
   <strong>📦 Version Information:</strong> This guide covers migration from Spartan Vue 2.x to 3.x, which includes upgrading from Tailwind CSS 3 to Tailwind CSS 4.
 </div>
 
-## Prerequisites
+## Quick Overview
 
-- Node.js 20.19 or higher
-- NPM 10 or higher
-- Existing project using Spartan Vue 2.x
+Spartan Vue 3.x introduces full support for Tailwind CSS 4 with a CSS-native configuration approach. The migration requires:
 
-## Overview
+<div className="quick-steps">
 
-Spartan Vue 3.x introduces full support for Tailwind CSS 4, which includes significant changes to configuration and styling. This migration involves:
+### Migration Steps Summary
 
-1. Removing the old Tailwind CSS 3 plugin system
-2. Upgrading to Tailwind CSS 4
-3. Updating Spartan Vue to version 3.x
-4. Adapting your configuration files
-
-<div className="subheading">MIGRATION STEPS</div>
-
-<div className="step">
-
-### Step 1: Remove Spartan Vue Plugin
-
-In your `tailwind.config.js`, remove the Spartan Vue plugin:
-
-```diff
-module.exports = {
-  content: [
-    './src/**/*.{vue,js,ts,jsx,tsx}',
--   'node_modules/@placetopay/spartan-vue/dist/**/*.js',
-  ],
-  plugins: [
--   require('@placetopay/spartan-vue/plugin'),
-  ],
-}
-```
+1. **Remove** Spartan Vue plugin from `tailwind.config.js`
+2. **Run** `npx @tailwindcss/upgrade` to migrate to Tailwind 4
+3. **Remove** PostCSS configuration (if applicable)
+4. **Install** `@tailwindcss/vite` plugin (if using Vite)
+5. **Update** to Spartan Vue 3.x: `npm install @placetopay/spartan-vue@latest`
+6. **Move** CSS imports from JavaScript to your main CSS file
+7. **Update** color imports API (if using Tailwind colors in JS)
+8. **Test** your application
 
 </div>
 
-<div className="step">
-
-### Step 2: Upgrade to Tailwind CSS 4
-
-Run the official Tailwind CSS upgrade tool:
-
-```bash
-npx @tailwindcss/upgrade
-```
-
-This tool will automatically:
-- Migrate your `tailwind.config.js` to CSS-based configuration
-- Update utility classes that have changed
-- Identify incompatibilities
+## Key Changes
 
 <div className="alert alert-warning">
-  <strong>⚠️ Important:</strong> Read the <a href="https://tailwindcss.com/docs/upgrade-guide" target="_blank">official Tailwind CSS v4 migration guide</a> for detailed information about breaking changes and new features.
-</div>
-
-</div>
-
-<div className="step">
-
-### Step 3: Remove PostCSS Configuration (if applicable)
-
-If you were using PostCSS with Tailwind CSS 3, remove the PostCSS configuration:
-
-```bash
-# Delete the file
-rm postcss.config.js
-```
-
-Remove PostCSS from your `package.json`:
-
-```diff
-{
-  "devDependencies": {
--   "@tailwindcss/postcss": "^4.1.18",
--   "postcss": "^8.4.33",
-  }
-}
-```
-
-</div>
-
-<div className="step">
-
-### Step 4: Install Tailwind CSS Vite Plugin (if using Vite)
-
-If your project uses Vite, install the Tailwind CSS Vite plugin:
-
-```bash
-npm install -D @tailwindcss/vite
-```
-
-Update your `vite.config.js`:
-
-```javascript
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import tailwindcss from '@tailwindcss/vite';
-
-export default defineConfig({
-  plugins: [
-    vue(),
-    tailwindcss(),
-  ],
-});
-```
-
-</div>
-
-<div className="step">
-
-### Step 5: Update Spartan Vue
-
-Install Spartan Vue 3.x:
-
-```bash
-npm install @placetopay/spartan-vue@latest
-```
-
-</div>
-
-<div className="step">
-
-### Step 6: Update CSS Imports
-
-#### Remove JavaScript imports
-
-In your main entry file (e.g., `main.js` or `main.ts`), **remove** the Spartan Vue CSS import:
-
-```diff
-- import '@placetopay/spartan-vue/style.css';
-import { createApp } from 'vue';
-import App from './App.vue';
-```
-
-#### Add CSS imports to your stylesheet
-
-In your main CSS file (e.g., `styles.css` or `main.css`), add the Spartan Vue import:
-
-```css
-@import "@placetopay/spartan-vue/styles.css";
-
-/* Add your content sources */
-@source '../src/**/*.{vue,js,ts,jsx,tsx}';
-```
-
-Then import this CSS file in your main entry file:
-
-```javascript
-import './styles.css';
-import { createApp } from 'vue';
-import App from './App.vue';
-
-createApp(App).mount('#app');
-```
-
-</div>
-
-<div className="step">
-
-### Step 7: Update Color Imports (if applicable)
-
-Tailwind CSS 4 changed the color export API. If you're importing Tailwind colors in your JavaScript/TypeScript files:
-
-<div className="comparison">
-  <div className="comparison-item comparison-old">
-    <strong>❌ Tailwind 3 (no longer works)</strong>
-    <pre><code>{`import { red, blue } from 'tailwindcss/colors';`}</code></pre>
-  </div>
-  <div className="comparison-item comparison-new">
-    <strong>✅ Tailwind 4 (correct way)</strong>
-    <pre><code>{`import colors from 'tailwindcss/colors';
-
-const redColor = colors.red;
-const blueColor = colors.blue;`}</code></pre>
-  </div>
-</div>
-
-</div>
-
-<div className="step">
-
-### Step 8: Verify and Test
-
-1. **Build your project:**
-   ```bash
-   npm run build
-   ```
-
-2. **Start your development server:**
-   ```bash
-   npm run dev
-   ```
-
-3. **Test your application** to ensure all styles are working correctly.
-
-</div>
-
-<div className="subheading">BREAKING CHANGES</div>
-
-### Tailwind CSS 4 Breaking Changes
-
-- **Configuration:** Now uses CSS-based configuration (`@theme`, `@plugin`, etc.) instead of JavaScript
-- **Dark mode:** Configured via `@custom-variant` in CSS
-- **Content sources:** Use `@source` directive in CSS instead of `content` array in config
-- **Ring utilities:** `ring-3` is no longer valid, use `ring` with custom width if needed
-
-### Spartan Vue 3.x Changes
-
-- **No more JavaScript plugin:** All configuration is now in CSS
-- **Simplified imports:** Single `styles.css` import includes everything
-- **Updated peer dependencies:** Requires Tailwind CSS 4.x
-
-<div className="subheading">CUSTOM PRIMARY COLOR</div>
-
-If you customized the primary color in Spartan Vue 2.x, you'll need to update your approach:
-
-<div className="comparison">
-  <div className="comparison-item comparison-old">
-    <strong>Tailwind 3 (Old Way)</strong>
-    <pre><code>{`// tailwind.config.js
-plugins: [
-  require('@placetopay/spartan-vue/plugin')({
-    primary: {
-      50: '228 242 253',
-      // ...
-    }
-  })
-]`}</code></pre>
-  </div>
-  <div className="comparison-item comparison-new">
-    <strong>Tailwind 4 (New Way)</strong>
-    <pre><code>{`/* styles.css */
-@import "@placetopay/spartan-vue/styles.css";
-
-@source '../src/**/*.{vue,js,ts,jsx,tsx}';
-
-@theme {
-  --color-spartan-primary-50:  rgb(228 242 253);
-  --color-spartan-primary-100: rgb(187 222 251);
-  /* ... */
-}`}</code></pre>
-  </div>
-</div>
-
-<div className="subheading">TROUBLESHOOTING</div>
-
-<div className="alert alert-warning">
-  <strong>Issue: Styles not loading</strong><br/>
-  <strong>Solution:</strong> Ensure you're importing the CSS file in your main entry file and that the path is correct.
-</div>
-
-<div className="alert alert-warning">
-  <strong>Issue: Custom utilities not working</strong><br/>
-  <strong>Solution:</strong> Verify that your <code>@source</code> directives include all relevant file paths.
-</div>
-
-<div className="alert alert-warning">
-  <strong>Issue: Build errors related to Tailwind</strong><br/>
-  <strong>Solution:</strong> Make sure you've removed all Tailwind CSS 3 dependencies and configurations.
-</div>
-
-<div className="alert alert-warning">
-  <strong>Issue: Dark mode not working</strong><br/>
-  <strong>Solution:</strong> Tailwind 4 uses <code>@custom-variant</code> for dark mode. Check that your HTML has the <code>dark</code> class applied when needed.
-</div>
-
-<div className="subheading">NEED HELP?</div>
-
-<div className="alert alert-success">
-  <ul style={{ margin: 0, paddingLeft: 20 }}>
-    <li><a href="https://develop--646e732a14dfaa707ad59b33.chromatic.com/" target="_blank">Spartan Vue Documentation</a></li>
-    <li><a href="https://tailwindcss.com/docs" target="_blank">Tailwind CSS v4 Documentation</a></li>
-    <li><a href="https://tailwindcss.com/docs/upgrade-guide" target="_blank">Tailwind CSS v4 Migration Guide</a></li>
-    <li><a href="https://github.com/placetopay-org/spartan-vue/issues" target="_blank">Report Issues</a></li>
+  <strong>⚠️ Breaking Changes:</strong>
+  <ul style={{ margin: '8px 0', paddingLeft: '20px' }}>
+    <li>No more JavaScript <code>tailwind.config.js</code> - now uses CSS-based configuration</li>
+    <li>CSS imports moved from JavaScript to CSS files using <code>@import</code></li>
+    <li>Tailwind color imports API changed from named exports to default export</li>
+    <li>Single <code>styles.css</code> import replaces multiple imports</li>
   </ul>
 </div>
 
-## Summary
+## Resources
 
-The migration to Spartan Vue 3.x with Tailwind CSS 4 brings a more modern, CSS-native configuration approach. While it requires some changes to your setup, the result is a simpler, more maintainable styling system.
+<div className="links-section">
 
-**Key benefits:**
-- ✅ No more JavaScript configuration files
-- ✅ Faster builds with native CSS processing
-- ✅ Better IDE support and autocomplete
-- ✅ Simplified imports and dependencies
+For complete step-by-step instructions, troubleshooting tips, and code examples:
+
+- **[View Full Migration Guide →](https://github.com/placetopay-org/spartan-vue/blob/main/MIGRATION.md)**
+- [Tailwind CSS v4 Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide)
+
+### Need Help?
+
+- [Spartan Vue Documentation](https://develop--646e732a14dfaa707ad59b33.chromatic.com/)
+- [Report Issues on GitHub](https://github.com/placetopay-org/spartan-vue/issues)
+- [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs)
+
+</div>
+
+</div>
