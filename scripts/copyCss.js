@@ -31,8 +31,7 @@ import fs from 'fs';
 
     // Create dist/styles.css - complete Tailwind 4 preset for consumers
     // Consumers only need to import this file and add their own @source directives
-    const stylesCssContent = `@import "tailwindcss";
-@import './styles/main.css';
+    const stylesCssContent = `@import './styles/main.css';
 @import './styles/spartan-vue.css';
 `;
 
