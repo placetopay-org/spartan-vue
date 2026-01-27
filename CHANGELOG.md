@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 4.0.0-beta.2 - 2026-01-27
-
 ## 3.0.0-beta.0 - 2026-01-26
 ### Added
 - Initial release of Spartan-vue 3.x compatible with Vue 3.x and Tailwind CSS 4.x.
