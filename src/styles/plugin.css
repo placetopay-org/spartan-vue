@@ -37,8 +37,5 @@
 /* Safelist */
 @source inline("sm:items-start","sm:items-center","sm:items-end");
 
-/* Plugins */
-@plugin "@tailwindcss/forms";
-
 /* Content - scan spartan-vue component files */
 @source "../**/*.js";
