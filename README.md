@@ -4,6 +4,8 @@
 # Spartan Vue
 Spartan Vue is a vue component library that contains the components used in the PlacetoPay web applications based in [TailwindCSS](https://tailwindcss.com/).
 
+> **Migrating from v2.x?** Check out the [Migration Guide](./MIGRATION.md) for step-by-step instructions.
+
 ## Desing system
 You can find the documentation and components of this design system by clicking [here.](https://develop--646e732a14dfaa707ad59b33.chromatic.com/)
 
