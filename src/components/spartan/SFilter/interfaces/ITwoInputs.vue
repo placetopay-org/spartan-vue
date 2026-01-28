@@ -31,11 +31,11 @@ const updateCurrency = (currency?: string) => {
     <BlockWrapper :error-text="errorText">
         <div class="flex gap-4">
             <SInputAmount
-                v-if="config.inputType === 'amount'"
+                v-if="config.type === 'amount'"
                 v-model="value1 as number"
                 :currency="config.currency ?? config.currencies![0]"
                 :currencies="config.currencies"
-                :type="config.inputType"
+                :type="config.type"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :minor-unit-mode="config.minorUnitMode"
                 :error="!!errorText"
@@ -45,16 +45,16 @@ const updateCurrency = (currency?: string) => {
                 v-else
                 v-model="value1"
                 class="w-48"
-                :type="config.inputType"
+                :type="config.type"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :error="!!errorText"
             />
             <SInputAmount
-                v-if="config.inputType === 'amount'"
+                v-if="config.type === 'amount'"
                 v-model="value2 as number"
                 :currency="config.currency ?? config.currencies![0]"
                 :currencies="config.currencies"
-                :type="config.inputType"
+                :type="config.type"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :minor-unit-mode="config.minorUnitMode"
                 :error="!!errorText"
@@ -64,7 +64,7 @@ const updateCurrency = (currency?: string) => {
                 v-else
                 v-model="value2"
                 class="w-48"
-                :type="config.inputType"
+                :type="config.type"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :error="!!errorText"
             />

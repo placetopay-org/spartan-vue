@@ -1,7 +1,7 @@
 import { reactive, computed } from 'vue';
 import { SPopover } from '..';
 import type { TFilterProps, TFilterEmits, TField, TSaveData } from './types';
-import { buildLabel } from './helpers';
+import { buildLabel, resolveOptionLabels } from './helpers';
 import { buildContext } from '@/helpers';
 
 type TState = {
@@ -65,7 +65,12 @@ export const { createContext, useContext } = buildContext<TState, TFilterProps, 
                 if (!fieldState) return;
 
                 const operator = fieldState.operator;
-                const value = getFieldValue(field);
+                let value = getFieldValue(field);
+
+                // Resolve option IDs to labels if field has options interface
+                if (field.interfaces?.options) {
+                    value = resolveOptionLabels(value, field.interfaces.options.options);
+                }
 
                 return buildLabel(operator, value);
             },

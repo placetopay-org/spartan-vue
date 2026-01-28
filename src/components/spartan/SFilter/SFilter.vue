@@ -1,6 +1,6 @@
 <script lang="ts">
 /**
- * A versatile button component with multiple styles and appearances.
+ * A versatile filter component for building dynamic filter interfaces.
  * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SFilter Github}.
  * @see {@link https://develop--646e732a14dfaa707ad59b33.chromatic.com/?path=/docs/misc-filter--docs Storybook}.
  */
@@ -47,6 +47,10 @@ const clear = () => {
         delete filter.state;
     });
     emit('clear', props.fields);
+
+    if (props.applyWhenClear) {
+        apply();
+    }
 };
 
 onMounted(() => {
@@ -71,7 +75,7 @@ defineExpose({
         </div>
 
         <!-- action buttons -->
-        <div v-if="!hideApplyButton && !hideClearButton" class="flex gap-3">
+        <div v-if="!hideApplyButton || !hideClearButton || saved" class="flex gap-3">
             <SavedButton v-if="saved" />
 
             <SButton v-if="!hideApplyButton" class="h-[26px] whitespace-nowrap" size="sm" rounded="full" @click="apply">
