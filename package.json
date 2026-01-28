@@ -1,6 +1,6 @@
 {
   "name": "@placetopay/spartan-vue",
-  "version": "2.5.1",
+  "version": "3.0.0-beta.1",
   "type": "module",
   "description": "spartan vue lib",
   "module": "./dist/spartan-vue.js",
@@ -23,17 +23,22 @@
       "types": "./dist/expose/i18n.d.ts"
     },
     "./plugin": {
-      "import": "./dist/plugin.js",
-      "types": "./dist/types/expose/plugin.d.ts"
+      "types": "./dist/types/expose/plugin.d.ts",
+      "import": "./dist/plugin.mjs",
+      "require": "./dist/plugin.cjs"
     },
-    "./style.css": "./dist/spartan-vue.css"
+    "./styles.css": "./dist/styles.css",
+    "./styles/spartan-vue.css": "./dist/styles/spartan-vue.css",
+    "./styles/main.css": "./dist/styles/main.css",
+    "./styles/fonts.css": "./dist/styles/fonts.css",
+    "./styles/plugin.css": "./dist/styles/plugin.css"
   },
   "repository": {
     "url": "git+https://github.com/placetopay-org/spartan-vue.git"
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "vite build && npm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/sanitizeBuild.js",
+    "build": "vite build && npm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/copyCss.js && node scripts/sanitizeBuild.js",
     "build:storybook": "storybook build",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
@@ -48,10 +53,12 @@
     "foli:check": "npm run format:check & npm run lint:check"
   },
   "dependencies": {
+    "@tailwindcss/forms": "0.5.7",
     "vue": "^3.5.12",
     "vue-i18n": "^9.14.1"
   },
   "peerDependencies": {
+    "@tailwindcss/forms": "0.5.7",
     "vue": "^3.5.12",
     "vue-i18n": "^9.14.1"
   },
@@ -71,8 +78,8 @@
     "@storybook/addon-docs": "^10.2.0",
     "@storybook/addon-links": "^10.2.0",
     "@storybook/vue3-vite": "^10.2.0",
-    "@tailwindcss/forms": "0.5.7",
     "@tailwindcss/typography": "0.5.10",
+    "@tailwindcss/vite": "^4.1.18",
     "@tanstack/vue-table": "^8.11.7",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/user-event": "^14.5.2",
@@ -110,7 +117,7 @@
     "lodash.some": "^4.6.0",
     "postcss": "8.4.33",
     "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "0.5.14",
+    "prettier-plugin-tailwindcss": "0.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "5.0.10",
@@ -121,7 +128,7 @@
     "storybook": "^10.2.0",
     "storybook-addon-pseudo-states": "^10.2.0",
     "tailwind-merge": "2.5.4",
-    "tailwindcss": "3.4.3",
+    "tailwindcss": "^4.1.18",
     "tslib": "2.8.0",
     "typescript": "5.3.3",
     "uuid": "^9.0.1",

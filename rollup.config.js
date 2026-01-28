@@ -8,10 +8,18 @@ import esbuild from 'rollup-plugin-esbuild';
 export default [
     {
         input: 'src/expose/plugin.js',
-        output: {
-            file: 'dist/plugin.js',
-            format: 'es',
-        },
+        output: [
+            {
+                file: 'dist/plugin.mjs',
+                format: 'es',
+                exports: 'default',
+            },
+            {
+                file: 'dist/plugin.cjs',
+                format: 'cjs',
+                exports: 'default',
+            },
+        ],
         plugins: [
             nodeResolve(),
             commonjs(),

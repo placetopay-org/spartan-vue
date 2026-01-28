@@ -1,6 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@import "../src/styles/main.css";
+
+@source '../index.html';
+@source '../src/**/*.{vue,js,ts,jsx,tsx}';
+@source '../docs/**/*.{vue,js,ts,jsx,tsx}';
 
 body {
     padding: 0 !important;

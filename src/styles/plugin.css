@@ -1,0 +1,44 @@
+/* Color tokens */
+@theme {
+  --color-spartan-primary-50:  rgb(255 246 234);
+  --color-spartan-primary-100: rgb(255 227 188);
+  --color-spartan-primary-200: rgb(255 204 141);
+  --color-spartan-primary-300: rgb(255 179 98);
+  --color-spartan-primary-400: rgb(255 148 64);
+  --color-spartan-primary-500: rgb(255 126 41);
+  --color-spartan-primary-600: rgb(255 108 12);
+  --color-spartan-primary-700: rgb(218 90 13);
+  --color-spartan-primary-800: rgb(192 61 17);
+  --color-spartan-primary-900: rgb(161 56 21);
+}
+
+/* Dark mode configuration */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Base */
+@layer base {
+  html { @apply antialiased; }
+  :root {
+    --tw-ring-inset: ;
+  }
+}
+
+/* Utilities */
+@utility s-ring {
+  @apply duration-150 ring-3 ring-spartan-primary-100 border-spartan-primary-300 z-10;
+}
+@utility s-ring-secondary {
+  @apply duration-150 ring-3 ring-gray-100 border-gray-300 z-10;
+}
+@utility s-ring-error {
+  @apply duration-150 ring-3 ring-red-200 border-red-500 z-10;
+}
+
+/* Safelist */
+@source inline("sm:items-start","sm:items-center","sm:items-end");
+
+/* Plugins */
+@plugin "@tailwindcss/forms";
+
+/* Content - scan spartan-vue component files */
+@source "../**/*.js";

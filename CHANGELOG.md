@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 3.0.0-beta.1 - 2026-01-27
+### Added
+- Migration guide (MIGRATION.md) for upgrading from v2.x to v3.x.
+- Simplified CSS import system - consumers now only need to import a single `styles.css` file.
+- Full CSS-native configuration using Tailwind CSS 4's `@theme`, `@utility`, and `@plugin` directives.
+
+### Changed
+- **BREAKING:** Removed `tailwind.config.js` - all configuration now uses CSS-based approach.
+- **BREAKING:** Spartan Vue plugin no longer exports JavaScript plugin for Tailwind config.
+- **BREAKING:** CSS imports should now be done in CSS files using `@import` instead of JavaScript imports.
+- Updated `@tailwindcss/forms` plugin configuration to use native `@plugin` directive.
+- Simplified build process for generating distribution styles.
+
+### Fixed
+- Tailwind forms configuration import path.
+- SCheckbox focus ring color and background color.
+- Dark mode configuration using `@custom-variant` for Tailwind CSS 4 compatibility.
+
+### Removed
+- `tailwind.config.js` file (no longer needed with Tailwind CSS 4).
+
+## 3.0.0-beta.0 - 2026-01-26
+### Added
+- Initial release of Spartan-vue 3.x compatible with Vue 3.x and Tailwind CSS 4.x.
+
 ## 2.6.0 - 2026-01-15
 ### Added
 - `SModalSide` component with support for `side` prop (`'left'` | `'right'`), allowing modals to slide in from either side of the screen.
