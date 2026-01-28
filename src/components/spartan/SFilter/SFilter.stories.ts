@@ -164,123 +164,6 @@ export const Default = createDefault({
                     },
                 },
             },
-            {
-                id: 'another',
-                name: 'Another',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another1',
-                name: 'Another 1',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another2',
-                name: 'Another 2',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another3',
-                name: 'Another 3',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another4',
-                name: 'Another 4',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another5',
-                name: 'Another 5',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another6',
-                name: 'Another 6',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another7',
-                name: 'Another 7',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another8',
-                name: 'Another 8',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another9',
-                name: 'Another 9',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another10',
-                name: 'Another 10',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another11',
-                name: 'Another 11',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
-            {
-                id: 'another12',
-                name: 'Another 12',
-                interfaces: {
-                    none: {
-                        operators: ['exist', 'notExist'],
-                    },
-                },
-            },
         ],
     },
 });
@@ -343,7 +226,7 @@ export const Validation = createVariation({
                 name: 'Amount',
                 interfaces: {
                     oneInput: {
-                        inputType: 'amount',
+                        type: 'amount',
                         currency: 'EUR',
                         currencies: ['USD', 'EUR', 'GBP'],
                         operators: [
@@ -356,7 +239,7 @@ export const Validation = createVariation({
                         ],
                     },
                     twoInputs: {
-                        inputType: 'amount',
+                        type: 'amount',
                         currency: 'USD',
                         operators: ['between', 'notBetween'],
                     },
@@ -384,7 +267,7 @@ export const Validation = createVariation({
                 name: 'Created at',
                 interfaces: {
                     twoInputs: {
-                        inputType: 'date',
+                        type: 'date',
                         operators: ['between'],
                     },
                 },
