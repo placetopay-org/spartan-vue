@@ -4,7 +4,6 @@ import type { TMultiSelectorProps, TMultiSelectorEmits, TOption } from './types'
 import { type TPopoverProps, SBadge } from '@spartan';
 import { computed, nextTick, useTemplateRef } from 'vue';
 import isEqual from 'lodash.isequal';
-import some from 'lodash.some';
 import {
     SelectorLayout,
     SelectorButton,
@@ -17,7 +16,8 @@ import {
 const emit = defineEmits<TMultiSelectorEmits>();
 const {
     modelValue,
-    optionLabel,
+    optionLabel = 'label',
+    optionValue,
     search,
     options,
     clearable,
@@ -50,7 +50,31 @@ const optionsWidth = computed(() => {
 const countNumber = computed(() => (count ? (modelValue || []).length - count : 0));
 const showClearButton = computed(() => Boolean(clearable && modelValue && modelValue.length));
 
-const isSelected = (option: any) => Boolean(modelValue && some(modelValue, option));
+const getOptionLabel = (option: TOption) => {
+    if (typeof option === 'object') return option[optionLabel];
+    return option;
+};
+
+const getOptionValue = (option: TOption) => {
+    return typeof option === 'object' && optionValue ? option[optionValue] : option;
+};
+
+const getOptionKey = (option: TOption, index: number) => {
+    if (typeof option === 'object') {
+        return optionValue ? option[optionValue] : option[optionLabel] ?? index;
+    }
+    return option;
+};
+
+const isSelected = (option: TOption) => {
+    if (!modelValue) return false;
+
+    return modelValue.some((selected) => {
+        const selectedValue = getOptionValue(selected);
+        const optionVal = getOptionValue(option);
+        return isEqual(selectedValue, optionVal);
+    });
+};
 
 const toggleOptions = () => {
     $popover.value?.toggle();
@@ -69,12 +93,21 @@ const selectOption = (option: TOption) => {
     else $options.value?.focus();
 
     const current = modelValue || [];
-    if (some(current, option)) {
+    const optionVal = getOptionValue(option);
+
+    const existingIndex = current.findIndex((item) => {
+        const itemVal = getOptionValue(item);
+        return isEqual(itemVal, optionVal);
+    });
+
+    if (existingIndex !== -1) {
         emit(
             'update:modelValue',
-            current.filter((item) => !isEqual(item, option)),
+            current.filter((_, index) => index !== existingIndex),
         );
-    } else emit('update:modelValue', [...current, option]);
+    } else {
+        emit('update:modelValue', [...current, option]);
+    }
 };
 
 const add = () => {
@@ -123,14 +156,14 @@ const refreshInput = () => {
                         <div ref="$badgesContainer" class="flex gap-1 overflow-auto">
                             <SBadge
                                 v-for="(option, index) in modelValue.slice(0, count || modelValue.length)"
-                                :key="option.value || index"
+                                :key="getOptionKey(option, index)"
                                 size="sm"
                                 class="self-center whitespace-nowrap"
                                 pill
                                 :removable="removable && 'stopPropagation'"
                                 @removed="selectOption(option)"
                             >
-                                {{ option?.[optionLabel] }}
+                                {{ getOptionLabel(option) }}
                             </SBadge>
                         </div>
                         <SBadge v-if="countNumber > 0" size="sm" class="self-center" pill> +{{ countNumber }} </SBadge>
@@ -146,6 +179,7 @@ const refreshInput = () => {
                 :width="optionsWidth"
                 :options="modelValue"
                 :option-label="optionLabel"
+                :option-value="optionValue"
                 @removed="(option) => selectOption(option)"
             />
 
@@ -161,6 +195,7 @@ const refreshInput = () => {
             <SelectorOptions
                 :options="options"
                 :option-label="optionLabel"
+                :option-value="optionValue"
                 :option-group-label="optionGroupLabel"
                 :option-group-items="optionGroupItems"
                 :is-selected="isSelected"
