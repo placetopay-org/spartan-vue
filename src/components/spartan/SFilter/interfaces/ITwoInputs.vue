@@ -17,11 +17,11 @@ const { t } = translator('filter');
 
 // For date range, use a single value that contains both dates
 const dateRangeValue = computed({
-    get: () => {
+    get: (): string[] | null => {
         if (props.config.type !== 'date' || !props.modelValue) return null;
-        return props.modelValue;
+        return props.modelValue as string[];
     },
-    set: (newValue) => {
+    set: (newValue: string | string[] | null) => {
         if (Array.isArray(newValue)) {
             emit('update:modelValue', newValue);
         }

@@ -16,7 +16,7 @@ const emit = defineEmits<TInputDateEmits>();
 
 const value = computed({
     get: () => props.modelValue ?? null,
-    set: (newValue) => emit('update:modelValue', newValue),
+    set: (newValue: string | string[] | null) => emit('update:modelValue', newValue),
 });
 </script>
 
