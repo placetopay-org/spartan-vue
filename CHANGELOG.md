@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 3.0.0-beta.2 - 2026-01-29
 ### Added
 - `SInputDate` component now supports date range selection with new `range` prop.
 - Added stories for `SInputDate` range mode (Range, RangeWithPresetValue, RangeWithTime, RangeWithError).
@@ -17,13 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated `SInputDate` documentation with new props (`range`, `enableTimePicker`, `modelType`).
 
+### Removed
+- Removed legacy `src/expose/plugin.js` file (no longer needed with Tailwind CSS 4 configuration).
+
 ### Fixed
 - `SCard` Icon component CSS updated to use `color-mix()` for Tailwind CSS 4 compatibility.
 - `SInputDate` theme variables updated to use CSS variables directly instead of `rgb()` wrapper.
 - `SInputDate` focus border color now persists on hover.
-
-### Removed
-- Removed legacy `src/expose/plugin.js` file (no longer needed with Tailwind CSS 4 configuration).
 
 ## 3.0.0-beta.1 - 2026-01-27
 ### Added
@@ -38,13 +39,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `@tailwindcss/forms` plugin configuration to use native `@plugin` directive.
 - Simplified build process for generating distribution styles.
 
+### Removed
+- `tailwind.config.js` file (no longer needed with Tailwind CSS 4).
+
 ### Fixed
 - Tailwind forms configuration import path.
 - SCheckbox focus ring color and background color.
 - Dark mode configuration using `@custom-variant` for Tailwind CSS 4 compatibility.
-
-### Removed
-- `tailwind.config.js` file (no longer needed with Tailwind CSS 4).
 
 ## 3.0.0-beta.0 - 2026-01-26
 ### Added
