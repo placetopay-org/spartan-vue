@@ -4,7 +4,9 @@ import { SDropdownItem } from '../SDropdown';
 import { useContext } from './api';
 import type { TDropdownContextKey, TTabDropdownItemProps } from './types';
 
-const { path, regex } = defineProps<TTabDropdownItemProps>();
+defineOptions({ inheritAttrs: false });
+
+const { path, regex, as } = defineProps<TTabDropdownItemProps>();
 const context = useContext('STabDropdownItem');
 
 const el = ref<HTMLElement>();
@@ -28,8 +30,22 @@ watch(
 
 <template>
     <div ref="el">
-        <SDropdownItem :data-item-path="vPath" @click="() => context.updateModelValue(vPath)">
+        <SDropdownItem
+            v-if="!as"
+            :data-item-path="vPath"
+            @click="() => context.updateModelValue(vPath)"
+        >
             <slot />
         </SDropdownItem>
+        <component
+            v-else
+            :is="as"
+            v-bind="$attrs"
+            :type="as === 'button' ? 'button' : undefined"
+            :data-item-path="vPath"
+            @click="() => context.updateModelValue(vPath)"
+        >
+            <slot />
+        </component>
     </div>
 </template>

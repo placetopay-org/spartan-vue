@@ -176,7 +176,7 @@ export const createDefault = ({
     components?: Record<string, any>;
     containerClass?: string;
     title?: string;
-}) => ({
+}): Record<string, unknown> => ({
     decorators: [() => ({ template: `<div ${containerClass ? `class="${containerClass}"` : ''}><story/></div>` })],
     render: (args: any) => ({
         components,

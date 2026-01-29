@@ -158,11 +158,11 @@ const computedIcon = computed(() => {
 
 <style>
 .radial-gradient-primary > div {
-    border-color: rgb(var(--color-spartan-primary-200) / var(--tw-border-opacity));
+    border-color: var(--color-spartan-primary-200);
 }
 .radial-gradient-primary > div:first-of-type {
     background: var(--color-spartan-primary-200);
-    background: radial-gradient(circle, rgb(var(--color-spartan-primary-200) / 0.2) 0%, rgba(0, 0, 0, 0) 50%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-spartan-primary-200) 20%, transparent) 0%, transparent 50%);
 }
 
 .radial-gradient-gray > div {

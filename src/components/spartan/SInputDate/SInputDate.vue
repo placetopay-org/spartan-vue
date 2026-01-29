@@ -16,7 +16,7 @@ const emit = defineEmits<TInputDateEmits>();
 
 const value = computed({
     get: () => props.modelValue ?? null,
-    set: (newValue) => emit('update:modelValue', newValue),
+    set: (newValue: string | string[] | null) => emit('update:modelValue', newValue),
 });
 </script>
 
@@ -54,10 +54,16 @@ input[aria-label='Datepicker input'] {
 }
 
 .dp__theme_light {
-    --dp-primary-color: rgb(var(--color-spartan-primary-500));
+    --dp-primary-color: var(--color-spartan-primary-500);
     --dp-border-color: #d1d5db;
     --dp-border-color-hover: #d1d5db;
+    --dp-border-color-focus: var(--color-spartan-primary-300);
     --dp-icon-color: #9ca3af;
     --dp-danger-color: transparent;
+}
+
+/* Keep focus border color even on hover */
+.dp__input_focus.dp__input_focus {
+    border-color: var(--dp-border-color-focus);
 }
 </style>

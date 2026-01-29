@@ -54,6 +54,7 @@
             "fieldSelectorNotResults": "Nessun campo trovato",
             "fieldSelectorPlaceholder": "Seleziona un campo",
             "inputSelectorPlaceholder": "Scrivere un valore",
+            "dateRangePlaceholder": "Seleziona intervallo di date",
             "notFoundFieldText": "Nessun filtro salvato trovato",
             "optionsSelectorPlaceholder": "Seleziona una o più opzioni",
             "saveBtn": "Salva",

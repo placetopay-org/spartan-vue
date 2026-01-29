@@ -1,8 +1,10 @@
 import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
 
+export type TDateValue = string | string[] | null;
+
 export type TInputDateProps = {
     id?: string;
-    modelValue: string | null;
+    modelValue: TDateValue;
     hideInputIcon?: boolean;
     error?: boolean;
     class?: string;
@@ -12,5 +14,5 @@ export type TInputDateProps = {
 export type TInputDatePropsFull = TInputDateProps & VueDatePickerProps;
 
 export type TInputDateEmits = {
-    (event: 'update:modelValue', value: string | null): void;
+    (event: 'update:modelValue', value: TDateValue): void;
 };

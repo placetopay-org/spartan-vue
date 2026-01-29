@@ -10,29 +10,40 @@ const props = defineProps<{
 }>();
 
 const context = useContext('FieldBadge');
-const removing = ref(false);
 const popover = ref<InstanceType<typeof SPopover>>();
+const pendingRemove = ref(false);
 
-const openFieldPopover = () => {
-    if (popover.value?.isOpen) popover.value?.close();
-    else {
+const togglePopover = () => {
+    // If a remove action is pending, handle it instead of toggling
+    if (pendingRemove.value) {
+        removeField();
+        return;
+    }
+
+    if (popover.value?.isOpen) {
+        popover.value.close();
+    } else {
         context.switchPopover(popover.value);
-        if (!removing.value) context.selectField(props.field.id);
+        context.selectField(props.field.id);
     }
+};
 
-    if (removing.value) {
-        const updatedField = { ...props.field };
-        delete updatedField.state;
-        Object.assign(props.field, updatedField);
-        removing.value = false;
-    }
+const handleRemoveClick = () => {
+    // Mark removal as pending - will be processed in togglePopover
+    // This is needed because the remove button is inside the main button
+    pendingRemove.value = true;
+};
+
+const removeField = () => {
+    delete props.field.state;
+    pendingRemove.value = false;
 };
 </script>
 
 <template>
     <SPopover ref="popover" :responsive="context.responsive" :offset="8" prevent-close>
         <template #reference>
-            <button @click="openFieldPopover">
+            <button @click="togglePopover">
                 <SBadge
                     color="white"
                     class="whitespace-nowrap"
@@ -40,7 +51,7 @@ const openFieldPopover = () => {
                     pill
                     outline
                     :removable="!field.permanent"
-                    @removed="removing = true"
+                    @removed="handleRemoveClick"
                 >
                     <div class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</div>
                     <div class="max-w-[220px] truncate">
