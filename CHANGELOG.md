@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- `SInputDate` component now supports date range selection with new `range` prop.
+- Added stories for `SInputDate` range mode (Range, RangeWithPresetValue, RangeWithTime, RangeWithError).
+- `STabDropdownItem` component now supports `as` prop for polymorphic rendering.
+- `SFilter` component now supports date range selection in `ITwoInputs` interface.
+- Added `dateRangePlaceholder` translations for all locales (en, es, fr, it, pt).
+
+### Changed
+- Updated `SInputDate` documentation with new props (`range`, `enableTimePicker`, `modelType`).
+
+### Fixed
+- `SCard` Icon component CSS updated to use `color-mix()` for Tailwind CSS 4 compatibility.
+- `SInputDate` theme variables updated to use CSS variables directly instead of `rgb()` wrapper.
+- `SInputDate` focus border color now persists on hover.
+
+### Removed
+- Removed legacy `src/expose/plugin.js` file (no longer needed with Tailwind CSS 4 configuration).
+
 ## 3.0.0-beta.1 - 2026-01-27
 ### Added
 - Migration guide (MIGRATION.md) for upgrading from v2.x to v3.x.

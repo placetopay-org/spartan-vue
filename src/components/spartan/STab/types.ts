@@ -33,6 +33,7 @@ export type TTabItemProps = {
 export type TTabDropdownItemProps = {
     path?: string;
     regex?: RegExp;
+    as?: string | Component;
 };
 
 export type TDropdownContextKey = Ref<string>;

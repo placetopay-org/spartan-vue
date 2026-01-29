@@ -52,6 +52,7 @@
             "fieldSelectorNotResults": "No fields found",
             "fieldSelectorPlaceholder": "Select a field",
             "inputSelectorPlaceholder": "Write a value",
+            "dateRangePlaceholder": "Select date range",
             "no": "No",
             "notFoundFieldText": "No saved filters found",
             "operator": {
