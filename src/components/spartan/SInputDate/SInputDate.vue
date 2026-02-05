@@ -42,7 +42,7 @@ const value = computed({
 </template>
 
 <style>
-@reference '../../../../.storybook/styles.css';
+@reference '../../../styles/main.css';
 
 :root {
     --dp-font-family: inherit;

@@ -1,0 +1,708 @@
+================================================================================
+STORYBOOK BACKUP - SPARTAN VUE
+================================================================================
+Fecha de backup: 2026-02-05
+Propósito: Respaldo de toda la información de Storybook antes de migrar a Nuxt
+================================================================================
+
+================================================================================
+SECCIÓN 1: CONFIGURACIÓN DE STORYBOOK
+================================================================================
+
+--------------------------------------------------------------------------------
+.storybook/main.ts
+--------------------------------------------------------------------------------
+import type { StorybookConfig } from '@storybook/vue3-vite';
+
+const config: StorybookConfig = {
+    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+    addons: ['@storybook/addon-a11y', '@storybook/addon-designs', '@storybook/addon-links', '@storybook/addon-docs'],
+    framework: {
+        name: '@storybook/vue3-vite',
+        options: {},
+    },
+    docs: {},
+};
+export default config;
+
+--------------------------------------------------------------------------------
+.storybook/preview.ts
+--------------------------------------------------------------------------------
+import './styles.css';
+import DocumentationTemplate from './DocumentationTemplate.mdx';
+import { type Preview, setup } from '@storybook/vue3-vite';
+import type { App } from 'vue';
+import { createI18n } from 'vue-i18n';
+import * as messages from '../src/locales';
+
+const preview: Preview = {
+    initialGlobals: {
+        backgrounds: {
+            default: 'light',
+        },
+    },
+    parameters: {
+        docs: {
+            page: DocumentationTemplate,
+        },
+        actions: { argTypesRegex: '^on[A-Z].*' },
+        controls: {
+            matchers: {
+                color: /(background|color)$/i,
+                date: /Date$/,
+            },
+        },
+        options: {
+            storySort: {
+                order: [
+                    'Introduction',
+                    'Docs',
+                    'typography',
+                    'buttons',
+                    'display',
+                    'tables',
+                    'modals',
+                    'navigation',
+                    'misc',
+                    'inputs',
+                    'inputBlocks',
+                    '*',
+                    'examples',
+                ],
+            },
+        },
+    },
+    tags: ['autodocs'],
+};
+
+const i18n = createI18n({
+    legacy: false,
+    locale: 'es',
+    messages,
+    fallbackLocale: 'en',
+});
+
+setup((app: App) => {
+    app.use(i18n);
+});
+
+export default preview;
+
+--------------------------------------------------------------------------------
+.storybook/styles.css
+--------------------------------------------------------------------------------
+@import "tailwindcss";
+@import "../src/styles/main.css";
+
+@source '../index.html';
+@source '../src/**/*.{vue,js,ts,jsx,tsx}';
+@source '../docs/**/*.{vue,js,ts,jsx,tsx}';
+
+body {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100vh;
+    width: 100vw;
+}
+
+#storybook-root {
+    height: 100%;
+    width: 100%;
+}
+
+/* Remove padding from Storybook docs containers only when there's an iframe */
+.sbdocs.sbdocs-wrapper:has(iframe) {
+    padding: 0 !important;
+}
+
+.sbdocs.sbdocs-content:has(iframe) {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+}
+
+--------------------------------------------------------------------------------
+.storybook/DocumentationTemplate.mdx
+--------------------------------------------------------------------------------
+import { Meta, Title, Description, Canvas, Controls, Stories } from '@storybook/addon-docs/blocks';
+
+<Meta isTemplate />
+
+<Title />
+
+<Description />
+
+<Canvas withToolbar />
+
+<Controls />
+
+<Stories includePrimary={false} />
+
+================================================================================
+SECCIÓN 2: DOCUMENTACIÓN MDX
+================================================================================
+
+--------------------------------------------------------------------------------
+src/stories/introduction.mdx
+--------------------------------------------------------------------------------
+# Introduction
+
+Welcome to Spartan Vue! This comprehensive guide will help you get started with our Vue.js component library and understand how to integrate it into your projects effectively.
+
+## What is Spartan Vue?
+
+Spartan Vue is a modern, production-ready component library built specifically for Vue.js applications. It provides developers with a comprehensive collection of reusable UI components that prioritize accessibility, performance, and developer experience.
+
+## Design Philosophy
+
+Spartan is designed to be the foundation for all PlacetoPay applications, built on four core principles:
+
+**PlacetoPay Design Consistency**: Maintains the visual identity and design standards of PlacetoPay while providing flexible variants that allow clients to customize and identify with their brand
+
+**Utility & Reusability First**: Provides ready-to-use components so developers can focus on business logic instead of UI implementation when building PlacetoPay applications
+
+**Scalable Architecture**: Built to grow with your project needs, from small integrations to large enterprise applications, without compromising performance or maintainability
+
+**Mobile-First Responsive**: Every component is designed with mobile devices as the primary consideration, ensuring optimal experience across all screen sizes and devices
+
+### KEY BENEFITS
+
+- 🚀 Rapid Development: Skip the tedious work of building common UI components from scratch. Our library provides battle-tested components that you can use immediately.
+- 🎨 Professional Design: Every component is carefully crafted with modern design principles.
+- ♿ Built-in Accessibility: All components include proper ARIA attributes, keyboard navigation, and screen reader support.
+- 🔧 TypeScript Ready: Full TypeScript support with comprehensive type definitions.
+- 📱 Mobile-First: Responsive design is built into every component.
+
+## Who Should Use Spartan Vue?
+
+- Frontend Developers building Vue.js applications
+- Design Teams looking for a consistent component system
+- Product Teams who need to rapidly prototype
+- Enterprise Projects requiring scalable, maintainable, and accessible component solutions
+
+## Design Files (Figma)
+
+- Spartan V2: https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2
+- Panel v2: https://www.figma.com/file/UIzkf2Ot20xpg7kJmPx65L/Panel-v2
+
+--------------------------------------------------------------------------------
+src/stories/migration.mdx
+--------------------------------------------------------------------------------
+# Migration Guide: Spartan Vue 2.x to 3.x
+
+Migrating from Spartan Vue 2.x (Tailwind CSS 3) to Spartan Vue 3.x (Tailwind CSS 4).
+
+## Quick Overview
+
+Spartan Vue 3.x introduces full support for Tailwind CSS 4 with a CSS-native configuration approach.
+
+### Migration Steps Summary
+
+1. **Remove** Spartan Vue plugin from `tailwind.config.js`
+2. **Run** `npx @tailwindcss/upgrade` to migrate to Tailwind 4
+3. **Remove** PostCSS configuration (if applicable)
+4. **Install** `@tailwindcss/vite` plugin (if using Vite)
+5. **Update** to Spartan Vue 3.x: `npm install @placetopay/spartan-vue@latest`
+6. **Move** CSS imports from JavaScript to your main CSS file
+7. **Update** color imports API (if using Tailwind colors in JS)
+8. **Test** your application
+
+## Key Changes (Breaking Changes)
+
+- No more JavaScript `tailwind.config.js` - now uses CSS-based configuration
+- CSS imports moved from JavaScript to CSS files using `@import`
+- Tailwind color imports API changed from named exports to default export
+- Single `styles.css` import replaces multiple imports
+
+## Resources
+
+- Full Migration Guide: https://github.com/placetopay-org/spartan-vue/blob/main/MIGRATION.md
+- Tailwind CSS v4 Upgrade Guide: https://tailwindcss.com/docs/upgrade-guide
+- Spartan Vue Documentation: https://develop--646e732a14dfaa707ad59b33.chromatic.com/
+- Report Issues: https://github.com/placetopay-org/spartan-vue/issues
+
+================================================================================
+SECCIÓN 3: HELPERS DE STORIES
+================================================================================
+
+--------------------------------------------------------------------------------
+src/helpers/stories.ts
+--------------------------------------------------------------------------------
+import type { SourceProps } from '@storybook/addon-docs/blocks';
+import { ref, computed } from 'vue';
+
+export const buildExampleLink = (example: string, name: string) =>
+    `/iframe.html?args=buttonPreviewMode:false&id=examples-${example}--${name}&viewMode=story`;
+
+export const buildDesign = (url: string) => ({
+    type: 'figma',
+    url,
+});
+
+type TBindings = {
+    check?: string[];
+    prop?: Record<string, string | boolean | undefined>;
+    emit?: string[];
+    custom?: Record<'icon', boolean>;
+};
+
+const getBinding = (binding: string, map?: string) =>
+    map ? `${map}Prop${binding.charAt(0).toUpperCase() + binding.slice(1)}` : binding;
+
+export const buildSourceBinding = (bindings: TBindings, map?: string) => (args: any) => {
+    let result = '';
+
+    if (bindings.prop) {
+        Object.keys(bindings.prop).forEach((prop) => {
+            if (args[prop] !== undefined && args[prop] !== '' && args[prop] !== bindings.prop![prop])
+                result += `${prop}="${args[prop]}" `;
+        });
+    }
+
+    if (bindings.custom?.icon) {
+        if (args[getBinding('icon', map)]) result += `:icon="${args[getBinding('icon', map)]}" `;
+    }
+
+    if (bindings.check) {
+        bindings.check.forEach((binding) => {
+            if (args[getBinding(binding, map)]) result += `${binding} `;
+        });
+    }
+
+    if (bindings.emit) {
+        bindings.emit.forEach((emit) => {
+            if (args[emit]) result += `@${emit}="${args[emit].replace(/ /g, '')}" `;
+        });
+    }
+
+    return result.trim();
+};
+
+export const createHistory = ({
+    description,
+    slots,
+    props,
+    events,
+}: {
+    description: string;
+    slots?: {
+        subcategory?: string;
+        name: string;
+        description: string;
+        control?: boolean;
+    }[];
+    props?: {
+        subcategory?: string;
+        name: string;
+        description: string;
+        type?: string;
+        default?: string;
+        control?: string | null;
+        options?: string[];
+    }[];
+    events?: {
+        name: string;
+        description: string;
+        type?: string;
+    }[];
+}) => {
+    // Creates argTypes for Storybook with categorized slots, props, and events
+    // Returns { parameters, argTypes }
+};
+
+export const createBlockWrapperHistory = (blockOf: string) =>
+    createHistory({
+        description: `A ${blockOf} wrapped in a form block with a label, help text and error text.`,
+        props: [
+            { name: 'errorText', description: 'The error message', type: 'string' },
+            { name: 'helpText', description: 'The help message', type: 'string' },
+            { name: 'label', description: 'The label of the block', type: 'string' },
+        ],
+    });
+
+export const createDefault = ({
+    components,
+    design,
+    setup,
+    args,
+    transform,
+    template,
+    containerClass,
+    title,
+}: {
+    template: string;
+    setup?: () => any;
+    design?: string;
+    args: Record<string, any>;
+    transform?: (args: any) => string;
+    components?: Record<string, any>;
+    containerClass?: string;
+    title?: string;
+}): Record<string, unknown> => ({
+    // Creates a default story with decorators, render function, and parameters
+});
+
+export const createVariation = ({
+    components,
+    setup,
+    template,
+    design,
+    focusVisible,
+    containerClass,
+}: {
+    template: string;
+    setup?: () => any;
+    components?: Record<string, any>;
+    design?: any;
+    focusVisible?: boolean;
+    containerClass?: string;
+}) => ({
+    // Creates variation stories with specific configurations
+});
+
+================================================================================
+SECCIÓN 4: STORIES DE COMPONENTES PRINCIPALES
+================================================================================
+
+--------------------------------------------------------------------------------
+SButton.stories.ts - buttons/Button
+--------------------------------------------------------------------------------
+Component: SButton
+Title: buttons/Button
+Description: A versatile button component with multiple styles and appearances.
+
+Props:
+- as: Defines the HTML element tag type (string)
+- disabled: If true, button is disabled (boolean)
+- leftIcon: Vue functional component for left icon
+- rightIcon: Vue functional component for right icon
+- loading: If true, shows loading spinner (boolean)
+- rounded: left | right | both | none | full
+- size: sm | md
+- type: button | submit
+- variant: primary | secondary | danger | outline | link
+
+Slots:
+- default: Button content
+
+Design: https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=146-240
+
+Variations:
+- Base
+- CustomColor (yellow, blue, green, pink examples)
+- Variant (primary, secondary, danger, outline, link)
+- Rounded (both, left, right, none, full)
+- Sizes (sm, md, lg)
+- Disabled
+- Loading
+- OnlyIcon
+- IconWithText
+
+--------------------------------------------------------------------------------
+SInput.stories.ts - inputs/Input
+--------------------------------------------------------------------------------
+Component: SInput
+Title: inputs/Input
+Description: Input component with slots for icons, prefix, suffix, and other content.
+
+Props:
+- disabled, error, borderless (boolean)
+- leftIcon, rightIcon (FunctionalComponent)
+- id, name, placeholder, prefix, suffix, type (string)
+- rounded: left | right | both | none
+- leftOptions, rightOptions (dropdown options)
+- leftOrderSlots, rightOrderSlots (slot ordering)
+
+Slots:
+- left: Content on left side
+- right: Content on right side
+
+Events:
+- update:modelValue
+
+Variations:
+- Base
+- Borderless
+- Disabled
+- Error
+- Rounded
+- WithLeftIcon
+- WithRightIcon
+- WithPrefix
+- WithSuffix
+- WithOptionsEmbedded
+- OrderPrecastSlots
+- PrecastAndCustomSlots
+
+--------------------------------------------------------------------------------
+STable.stories.ts - tables/Table
+--------------------------------------------------------------------------------
+Component: STable (+ STableHead, STableBody, STableHeadCell, STableRow, STableCell)
+Title: tables/Table
+Description: A table displays rows of data.
+
+Props:
+- borderless (boolean)
+
+Slots:
+- default: Table content
+
+Variations:
+- Default (full example with badges and action icons)
+- Base
+- InlineAutoGeneration (using :cols and :rows props)
+- Borderless
+- HighlightColumn
+- HighlightColumnForInlineAutoGenerationMode
+- Customize
+
+--------------------------------------------------------------------------------
+SModal.stories.ts - modals/Modal
+--------------------------------------------------------------------------------
+Component: SModal
+Title: modals/Modal
+Description: A modal is a dialog box/popup window displayed on top of the current page.
+
+Props:
+- open (boolean): Whether modal is open
+- responsive (boolean, default: true): Whether modal is responsive
+- position: top | nearTop | center | bottom
+
+Slots:
+- default: Modal content
+
+Events:
+- close: Emitted when modal is closed
+
+Variations:
+- Default
+- WithCloseTrigger
+- PreventClose
+- NoResponsive
+- Custom (with SSelectorBlock inside)
+
+--------------------------------------------------------------------------------
+SSelect.stories.ts - inputs/Select
+--------------------------------------------------------------------------------
+Component: SSelect
+Title: inputs/Select
+Description: The select component is used to create a dropdown list of options.
+
+Props:
+- disabled, error (boolean)
+- id, name, placeholder (string)
+- rounded: left | right | both | none
+
+Slots:
+- default: Options content
+
+Events:
+- update:modelValue
+
+Design: https://www.figma.com/file/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?type=design&node-id=184-3842
+
+Variations:
+- Default
+- Placeholder
+- Error
+- Disabled
+
+--------------------------------------------------------------------------------
+SCard.stories.ts - misc/Card
+--------------------------------------------------------------------------------
+Component: SCard
+Title: misc/Card
+Description: A flexible and extensible content container with headers, footers, and display options.
+
+Props:
+- size: sm | md
+- icon: FunctionalComponent | primary | success | danger | warning | info
+- iconColor: primary | success | danger | warning | info
+- actions: Array of { icon, onClick, text }
+- bodyAccent, headerAccent, footerAccent (boolean)
+- bodyClass, headerClass, footerClass (string)
+
+Slots:
+- default, header, footer, title, description
+
+Variations:
+- Default
+- ActionButtons
+- ActionsSlot
+- CustomIcon
+- Icon (primary, secondary, success, danger, warning, info)
+- PingIcon
+- CustomIconStyle
+- EmptyState
+- IconColorCombinations
+
+================================================================================
+SECCIÓN 5: EJEMPLOS DE STORIES
+================================================================================
+
+--------------------------------------------------------------------------------
+BasicForms.stories.ts - examples/BasicForms
+--------------------------------------------------------------------------------
+Stories:
+1. PersonalInformation - Formulario de información personal con:
+   - Campos: firstName, lastName, email, country, streetAddress, city, state, postalCode
+   - Componentes: SInputBlock, SSelectBlock, SButton
+
+2. Notifications - Formulario de notificaciones con:
+   - Checkboxes para: Comentarios, Candidatos, Ofertas
+   - Componentes: SCheckbox, SButton
+
+--------------------------------------------------------------------------------
+CheckoutDemo.stories.ts - examples/CheckoutDemo
+--------------------------------------------------------------------------------
+Design: https://www.figma.com/file/B6y8dDM2ZwDiJTiOE48sYk/WebCheckout-4?type=design&node-id=13448-36364
+
+Features:
+- Language selector (ES, EN, IT, PT)
+- Use cases radio group: Flujo de pagos, Suscripción
+- Switches:
+  - Permitir pagos parciales
+  - Iniciar un pago recurrente
+  - Permitir suscripción
+  - Dispersión
+- Buttons: Iniciar Checkout, Lightbox
+
+Components used: SSelect, SButton, SRadioGroup, SRadioGroupItem, SSwitch
+
+================================================================================
+SECCIÓN 6: LISTA COMPLETA DE ARCHIVOS STORIES
+================================================================================
+
+COMPONENTES SPARTAN (65 archivos):
+- SAccordion/SAccordion.stories.ts
+- SAlert/SAlert.stories.ts
+- SAvatar/SAvatar.stories.ts
+- SBadge/SBadge.stories.ts
+- SBreadcrumbs/SBreadcrumbs.stories.ts
+- SButton/SButton.stories.ts
+- SButtonGroup/SButtonGroup.stories.ts
+- SCaption/SCaption.stories.ts
+- SCard/SCard.stories.ts
+- SCardBrand/SCardBrand.stories.ts
+- SCheckbox/SCheckbox.stories.ts
+- SCombobox/SCombobox.stories.ts
+- SComboboxBlock/SComboboxBlock.stories.ts
+- SCopy/SCopy.stories.ts
+- SDefinitionTerm/SDefinitionTerm.stories.ts
+- SDropdown/SDropdown.stories.ts
+- SFilter/SFilter.stories.ts
+- SInput/SInput.stories.ts
+- SInputAmount/SInputAmount.stories.ts
+- SInputAmountBlock/SInputAmountBlock.stories.ts
+- SInputBlock/SInputBlock.stories.ts
+- SInputDate/SInputDate.stories.ts
+- SInputDateBlock/SInputDateBlock.stories.ts
+- SInputIncrement/SInputIncrement.stories.ts
+- SInputIncrementBlock/SInputIncrementBlock.stories.ts
+- SInputMask/SInputMask.stories.ts
+- SInputMaskBlock/SInputMaskBlock.stories.ts
+- SInputOtp/SInputOtp.stories.ts
+- SInputOtpBlock/SInputOtpBlock.stories.ts
+- SInputPassword/SInputPassword.stories.ts
+- SInputPasswordBlock/SInputPasswordBlock.stories.ts
+- SInputTag/SInputTag.stories.ts
+- SLabel/SLabel.stories.ts
+- SLink/SLink.stories.ts
+- SModal/SModal.stories.ts
+- SModalCard/SModalCard.stories.ts
+- SModalConfirm/SModalConfirm.stories.ts
+- SModalLeft/SModalLeft.stories.ts
+- SModalSide/SModalSide.stories.ts
+- SMultiSelector/SMultiSelector.stories.ts
+- SPageTitle/SPageTitle.stories.ts
+- SPaginator/SPaginator.stories.ts
+- SPlacetopayLogo/SPlacetopayLogo.stories.ts
+- SPopover/SPopover.stories.ts
+- SRadio/SRadio.stories.ts
+- SRadioGroup/SRadioGroup.stories.ts
+- SSelect/SSelect.stories.ts
+- SSelectBlock/SSelectBlock.stories.ts
+- SSelector/SSelector.stories.ts
+- SSelectorBlock/SSelectorBlock.stories.ts
+- SSectionDescription/SSectionDescription.stories.ts
+- SSectionTitle/SSectionTitle.stories.ts
+- SSidebar/SSidebar.stories.ts
+- SSkeleton/SSkeleton.stories.ts
+- SStackedList/SStackedList.stories.ts
+- SSteps/SSteps.stories.ts
+- SSwitch/SSwitch.stories.ts
+- STab/STab.stories.ts
+- STable/STable.stories.ts
+- STemplateHeaderTable/STemplateHeaderTable.stories.ts
+- STextArea/STextArea.stories.ts
+- STextAreaBlock/STextAreaBlock.stories.ts
+- SDTable/SDTable.stories.ts
+- SToast/SToast.stories.ts
+- STooltip/STooltip.stories.ts
+
+EJEMPLOS (8 archivos):
+- examples/BasicForm/BasicForms.stories.ts
+- examples/Cards/Cards.stories.ts
+- examples/CheckoutDemo/CheckoutDemo.stories.ts
+- examples/InputForms/InputForms.stories.ts
+- examples/AccountsDemo/components/stories.stories.ts
+- examples/AccountsDemo/pages/stories.stories.ts
+- examples/SidebarLayouts/components/stories.stories.ts
+- examples/SidebarLayouts/pages/stories.stories.ts
+
+================================================================================
+SECCIÓN 7: CATEGORÍAS DE COMPONENTES (STORY SORT ORDER)
+================================================================================
+
+1. Introduction
+2. Docs
+3. typography
+4. buttons
+5. display
+6. tables
+7. modals
+8. navigation
+9. misc
+10. inputs
+11. inputBlocks
+12. * (otros)
+13. examples
+
+================================================================================
+SECCIÓN 8: DEPENDENCIAS DE STORYBOOK (package.json)
+================================================================================
+
+devDependencies:
+- "@storybook/addon-a11y": "^10.2.0"
+- "@storybook/addon-designs": "^11.1.1"
+- "@storybook/addon-docs": "^10.2.0"
+- "@storybook/addon-links": "^10.2.0"
+- "@storybook/vue3-vite": "^10.2.0"
+- "eslint-plugin-storybook": "10.2.0"
+- "storybook": "^10.2.0"
+- "storybook-addon-pseudo-states": "^10.2.0"
+- "chromatic": "10.6.0"
+
+scripts:
+- "dev": "storybook dev -p 6006 --no-open"
+- "build:storybook": "storybook build"
+
+================================================================================
+SECCIÓN 9: ESLINT CONFIG PARA STORYBOOK
+================================================================================
+
+En .eslintrc.json:
+- extends: "plugin:storybook/recommended"
+- devDependencies: "eslint-plugin-storybook": "10.2.0"
+
+================================================================================
+SECCIÓN 10: ASSETS DE STORYBOOK
+================================================================================
+
+Ubicación: src/stories/assets/
+- cover.jpg (imagen de portada)
+- figma.png (icono de Figma)
+
+================================================================================
+FIN DEL BACKUP
+================================================================================

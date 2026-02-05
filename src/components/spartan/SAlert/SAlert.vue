@@ -2,7 +2,6 @@
 /**
  * A versatile alert component for displaying important messages with multiple styles and appearances.
  * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SAlert Github}.
- * @see {@link https://develop--646e732a14dfaa707ad59b33.chromatic.com/?path=/docs/display-alert--docs Storybook}.
  */
 export default {
     name: 'SAlert',

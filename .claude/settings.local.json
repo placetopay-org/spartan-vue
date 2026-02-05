@@ -1,12 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run lint)",
-      "Bash(npm run build:*)",
-      "Bash(npx vue-tsc:*)",
-      "Bash(pnpm build:*)",
-      "Bash(findstr:*)",
-      "Bash(pnpm build:types:*)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(find:*)"
     ]
   }
 }
