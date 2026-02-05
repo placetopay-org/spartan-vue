@@ -11,6 +11,12 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // Alias para importar componentes de Spartan
+  alias: {
+    '@spartan': '../src/components/spartan',
+    '@lib': '../src',
+  },
+
   app: {
     head: {
       title: 'Spartan Documentation',
