@@ -17,8 +17,7 @@
         "src/vitest-setup.ts",
         "src/**/*.vue",
         "src/**/*.js",
-        "src/**/*.ts",
-        "src/stories/examples/SidebarLayouts/components/stories.stories.ts"
+        "src/**/*.ts"
     ],
-    "exclude": ["node_modules", "src/stories/**/*", "**/*.test.ts", "**/*.stories.ts", "src/helpers/stories.ts"]
+    "exclude": ["node_modules", "**/*.test.ts"]
 }
