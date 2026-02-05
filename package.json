@@ -39,9 +39,12 @@
   "scripts": {
     "dev": "nuxt dev --cwd docs",
     "build": "vite build && npm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/copyCss.js && node scripts/sanitizeBuild.js",
+    "build:lib": "vite build && npm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/copyCss.js && node scripts/sanitizeBuild.js",
     "build:docs": "nuxt build --cwd docs",
     "build:rollup": "rollup -c",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "generate": "nuxt generate --cwd docs",
+    "deploy:docs": "cd docs && wrangler deploy",
     "typecheck": "vue-tsc --noEmit",
     "format:check": "prettier . --check",
     "format": "prettier . --write",
@@ -126,7 +129,24 @@
     "vitest": "^1.6",
     "vue-currency-input": "3.1.0",
     "vue-sonner": "^1.3.0",
-    "vue-tsc": "2.1.10"
+    "vue-tsc": "2.1.10",
+    "@nuxt/fonts": "0.13.0",
+    "better-sqlite3": "12.6.2",
+    "docus": "5.5.0",
+    "motion-v": "^1.10.2",
+    "nuxt": "4.3.0",
+    "wrangler": "4.62.0",
+    "zod": "4.3.6"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "sqlite3",
+      "@parcel/watcher",
+      "esbuild",
+      "sharp",
+      "vue-demi"
+    ]
   },
   "bugs": {
     "url": "https://github.com/placetopay-org/spartan-vue/issues"
