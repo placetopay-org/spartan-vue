@@ -5,6 +5,7 @@
 /* Escanear componentes de Spartan */
 @source "../../../../src/**/*.vue";
 @source "../../../../src/**/*.ts";
+@source "../../components/**/*.vue";
 
 @theme {
   --font-sans: 'Lato', 'sans-serif';
