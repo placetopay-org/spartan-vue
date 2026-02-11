@@ -5,61 +5,10 @@ import type { ChipProps } from '@nuxt/ui'
 import json5 from 'json5'
 import { upperFirst, camelCase, kebabCase } from 'scule'
 import { hash } from 'ohash'
-import { CalendarDate, Time } from '@internationalized/date'
-import * as theme from '#build/ui'
 import { get, set } from '#ui/utils'
 const parseMarkdown = useMarkdownParser()
 
-interface CastImport {
-  name: string
-  from: string
-}
-
-interface Cast {
-  get: (args: any) => any
-  template: (args: any) => string
-  imports: CastImport[]
-}
-
-type CastDateValue = [number, number, number]
-type CastTimeValue = [number, number, number]
-
-const castMap: Record<string, Cast> = {
-  'DateValue': {
-    get: (args: CastDateValue) => new CalendarDate(...args),
-    template: (value: CalendarDate) => {
-      return value ? `new CalendarDate(${value.year}, ${value.month}, ${value.day})` : 'null'
-    },
-    imports: [{ name: 'CalendarDate', from: '@internationalized/date' }]
-  },
-  'DateValue[]': {
-    get: (args: CastDateValue[]) => args.map(date => new CalendarDate(...date)),
-    template: (value: CalendarDate[]) => {
-      return value ? `[${value.map(date => `new CalendarDate(${date.year}, ${date.month}, ${date.day})`).join(', ')}]` : '[]'
-    },
-    imports: [{ name: 'CalendarDate', from: '@internationalized/date' }]
-  },
-  'DateRange': {
-    get: (args: { start: CastDateValue, end: CastDateValue }) => ({ start: new CalendarDate(...args.start), end: new CalendarDate(...args.end) }),
-    template: (value: { start: CalendarDate, end: CalendarDate }) => {
-      if (!value.start || !value.end) {
-        return `{ start: null, end: null }`
-      }
-
-      return `{ start: new CalendarDate(${value.start.year}, ${value.start.month}, ${value.start.day}), end: new CalendarDate(${value.end.year}, ${value.end.month}, ${value.end.day}) }`
-    },
-    imports: [{ name: 'CalendarDate', from: '@internationalized/date' }]
-  },
-  'TimeValue': {
-    get: (args: CastTimeValue) => new Time(...args),
-    template: (value: Time) => {
-      return value ? `new Time(${value.hour}, ${value.minute}, ${value.second})` : 'null'
-    },
-    imports: [{ name: 'Time', from: '@internationalized/date' }]
-  }
-}
-
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   prefix?: string
   /** Override the slug taken from the route */
   slug?: string
@@ -82,7 +31,7 @@ const props = defineProps<{
   slots?: { [key: string]: any }
   /**
    * Whether to format the code with Prettier
-   * @defaultValue false
+   * @defaultValue true
    */
   prettier?: boolean
   /**
@@ -102,30 +51,29 @@ const props = defineProps<{
    * Whether to add background-elevated to wrapper
    */
   elevated?: boolean
-}>()
+}>(), {
+  prettier: true
+})
 
 const route = useRoute()
 
 const camelName = camelCase(props.slug ?? route.path.split('/').pop() ?? '')
-const name = `U${upperFirst(camelName)}`
+const name = `S${upperFirst(camelName)}`
 const component = defineAsyncComponent(() => {
-  return import(`#ui/components/${upperFirst(camelName)}.vue`)
+  return import(`../../../../src/components/spartan/${name}/${name}.vue`)
 })
 
 const componentProps = reactive({
   ...Object.fromEntries(Object.entries(props.props || {}).map(([key, value]) => {
-    const cast = props.cast?.[key]
-
-    if (cast && !castMap[cast]) {
-      throw new Error(`Unknown cast: ${cast}`)
-    }
-
-    return [key, cast ? castMap[cast]!.get(value) : value]
+    return [key, value]
   }))
 })
 const componentEvents = reactive({
   ...Object.fromEntries((props.model || []).map(key => [`onUpdate:${key}`, (e: any) => setComponentProp(key, e)])),
   ...(componentProps.modelValue ? { [`onUpdate:modelValue`]: (e: any) => setComponentProp('modelValue', e) } : {})
+})
+const componentSlots = reactive({
+  ...Object.fromEntries(Object.entries(props.slots || {}).map(([key, value]) => [key, value]))
 })
 
 function getComponentProp(name: string) {
@@ -136,7 +84,13 @@ function setComponentProp(name: string, value: any) {
   set(componentProps, name, value)
 }
 
-const componentTheme = (theme as any)[camelName]
+function getComponentSlot(name: string) {
+  return get(componentSlots, name) ?? undefined
+}
+
+function setComponentSlot(name: string, value: any) {
+  set(componentSlots, name, value)
+}
 
 function mapKeys(obj: object, parentKey = ''): any {
   return Object.entries(obj || {}).flatMap(([key, value]: [string, any]) => {
@@ -153,29 +107,58 @@ function mapKeys(obj: object, parentKey = ''): any {
 const options = computed(() => {
   const keys = mapKeys(props.props || {})
 
-  return keys.map((key: string) => {
+  const propOptions = keys.map((key: string) => {
     const propItems = get(props.items, key, [])
-    const items = propItems.length
-      ? propItems.map((item: any) => ({
-          value: item,
-          label: String(item),
-          chip: key.toLowerCase().endsWith('color') ? { color: item } : undefined
-        }))
-      : Object.keys(componentTheme?.variants?.[key] || {}).filter((variant) => {
-            return variant !== 'true' && variant !== 'false'
-          }).map(variant => ({
-            value: variant,
-            label: variant,
-            chip: key.toLowerCase().endsWith('color') ? { color: variant } : undefined
-          }))
+    const currentValue = get(componentProps, key)
+
+    let items = []
+
+    // If items are explicitly provided, use them
+    if (propItems.length) {
+      items = propItems.map((item: any) => ({
+        value: item,
+        label: String(item),
+        chip: key.toLowerCase().endsWith('color') ? { color: item } : undefined
+      }))
+    }
+    // If the current value is boolean, provide true/false options
+    else if (typeof currentValue === 'boolean') {
+      items = [
+        { value: true, label: 'true' },
+        { value: false, label: 'false' }
+      ]
+    }
+    // Otherwise, check for theme variants
+    else {
+      items = Object.keys({}).filter((variant) => {
+        return variant !== 'true' && variant !== 'false'
+      }).map(variant => ({
+        value: variant,
+        label: variant,
+        chip: key.toLowerCase().endsWith('color') ? { color: variant } : undefined
+      }))
+    }
 
     return {
       name: key,
       label: key,
       type: props?.cast?.[key],
-      items
+      items,
+      isSlot: false
     }
   })
+
+  const slotOptions = Object.keys(props.slots || {})
+    .filter(key => !props.hide?.includes(key))
+    .map(key => ({
+      name: key,
+      label: `slot:${key}`,
+      type: 'string',
+      items: [],
+      isSlot: true
+    }))
+
+  return [...propOptions, ...slotOptions]
 })
 
 const code = computed(() => {
@@ -194,17 +177,6 @@ const code = computed(() => {
 `
     // Collect imports from cast types
     const importsBySource = new Map<string, Set<string>>()
-    for (const key of props.external) {
-      const cast = props.cast?.[key]
-      if (cast && castMap[cast]) {
-        for (const imp of castMap[cast].imports) {
-          if (!importsBySource.has(imp.from)) {
-            importsBySource.set(imp.from, new Set())
-          }
-          importsBySource.get(imp.from)!.add(imp.name)
-        }
-      }
-    }
 
     // Generate import statements
     for (const [source, names] of importsBySource) {
@@ -227,7 +199,7 @@ const code = computed(() => {
 
     for (const [i, key] of props.external.entries()) {
       const cast = props.cast?.[key]
-      const value = cast ? castMap[cast]!.template(componentProps[key]) : json5.stringify(componentProps[key], null, 2)?.replace(/,([ |\t\n]+[}|\]])/g, '$1')
+      const value = json5.stringify(componentProps[key], null, 2)?.replace(/,([ |\t\n]+[}|\]])/g, '$1')
       const type = props.externalTypes?.[i] ? `<${props.externalTypes[i]}>` : ''
       const refType = cast ? 'shallowRef' : 'ref'
 
@@ -256,36 +228,23 @@ const code = computed(() => {
       continue
     }
 
-    const propDefault = componentTheme?.defaultVariants?.[key]
-    const name = kebabCase(key)
+    const propName = kebabCase(key)
 
     if (typeof value === 'boolean') {
-      if (value && (propDefault === 'true' || propDefault === '`true`' || propDefault === true)) {
-        continue
-      }
-      if (!value && (!propDefault || propDefault === 'false' || propDefault === '`false`' || propDefault === false)) {
-        continue
-      }
-
-      code += value ? ` ${name}` : ` :${name}="false"`
+      code += value ? ` ${propName}` : ` :${propName}="false"`
     } else if (typeof value === 'object') {
-      const parsedValue = !props.external?.includes(key) ? json5.stringify(value, null, 2).replace(/,([ |\t\n]+[}|\])])/g, '$1') : key
-
-      code += ` :${name}="${parsedValue}"`
+      const parsedValue = !props.external?.includes(key) ? json5.stringify(value, null, 2).replace(/,([ |\t\n]+[}|\]])/g, '$1') : key
+      code += ` :${propName}="${parsedValue}"`
     } else {
-      if (propDefault === value) {
-        continue
-      }
-
-      code += ` ${typeof value === 'number' ? ':' : ''}${name}="${value}"`
+      code += ` ${typeof value === 'number' ? ':' : ''}${propName}="${value}"`
     }
   }
 
-  if (props.slots) {
+  if (componentSlots && Object.keys(componentSlots).length > 0) {
     code += `>`
-    for (const [key, value] of Object.entries(props.slots)) {
+    for (const [key, value] of Object.entries(componentSlots)) {
       if (key === 'default') {
-        code += props.slots.default
+        code += componentSlots.default
       } else {
         code += `
   <template #${key}>
@@ -293,7 +252,7 @@ const code = computed(() => {
   </template>\n`
       }
     }
-    code += (Object.keys(props.slots).length > 1 ? '\n' : '') + `</${name}>`
+    code += (Object.keys(componentSlots).length > 1 ? '\n' : '') + `</${name}>`
   } else {
     code += ' />'
   }
@@ -350,7 +309,7 @@ const { data: ast } = await useAsyncData(codeKey, async () => {
             }"
           >
             <USelect
-              v-if="option.items?.length"
+              v-if="option.items?.length && !option.isSlot"
               :model-value="getComponentProp(option.name)"
               :items="option.items"
               value-key="value"
@@ -374,12 +333,12 @@ const { data: ast } = await useAsyncData(codeKey, async () => {
             </USelect>
             <UInput
               v-else
-              :type="option.type?.includes('number') && typeof getComponentProp(option.name) === 'number' ? 'number' : 'text'"
-              :model-value="getComponentProp(option.name)"
+              :type="!option.isSlot && option.type?.includes('number') && typeof getComponentProp(option.name) === 'number' ? 'number' : 'text'"
+              :model-value="option.isSlot ? getComponentSlot(option.name) : getComponentProp(option.name)"
               color="neutral"
               variant="soft"
               :ui="{ base: 'rounded-sm rounded-l-none min-w-12' }"
-              @update:model-value="setComponentProp(option.name, $event)"
+              @update:model-value="option.isSlot ? setComponentSlot(option.name, $event) : setComponentProp(option.name, $event)"
             />
           </UFormField>
         </template>
@@ -387,9 +346,9 @@ const { data: ast } = await useAsyncData(codeKey, async () => {
 
       <div v-if="component" ref="componentContainer" class="flex justify-center border border-b-0 border-muted relative p-4 z-1" :class="[!options.length && 'rounded-t-md', props.class, { 'overflow-hidden': props.overflowHidden, 'dark:bg-neutral-950/50': props.elevated }]">
         <component :is="component" v-bind="{ ...componentProps, ...componentEvents }">
-          <template v-for="slot in Object.keys(slots || {})" :key="slot" #[slot]>
+          <template v-for="slot in Object.keys(componentSlots || {})" :key="slot" #[slot]>
             <slot :name="slot" mdc-unwrap="p">
-              {{ slots?.[slot] }}
+              {{ componentSlots?.[slot] }}
             </slot>
           </template>
         </component>

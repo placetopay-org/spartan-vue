@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 export default defineNuxtConfig({
   extends: ['docus'],
   modules: ['@nuxtjs/i18n', '@nuxt/fonts'],
@@ -15,6 +17,19 @@ export default defineNuxtConfig({
   alias: {
     '@spartan': '../src/components/spartan',
     '@lib': '../src',
+    '@': '../src',
+  },
+
+  // Auto-import de componentes Spartan
+  components: {
+    dirs: [
+      '~/components',
+      {
+        path: '../../src/components/spartan',
+        pattern: '*/S*.vue',
+        pathPrefix: false,
+      },
+    ],
   },
 
   app: {
@@ -48,5 +63,21 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { redirect: '/es' },
+  },
+
+  vite: {
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('../src', import.meta.url)),
+        '@internal': fileURLToPath(new URL('../src/components/internal', import.meta.url)),
+        '@spartan': fileURLToPath(new URL('../src/components/spartan', import.meta.url)),
+      },
+    },
+    vue: {
+      script: {
+        propsDestructure: true,
+        defineModel: true,
+      },
+    },
   },
 })
