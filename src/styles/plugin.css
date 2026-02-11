@@ -25,13 +25,22 @@
 
 /* Utilities */
 @utility s-ring {
-  @apply duration-150 ring-3 ring-spartan-primary-100 border-spartan-primary-300 z-10;
+  transition-duration: 150ms;
+  box-shadow: var(--tw-ring-inset, ) 0 0 0 3px var(--color-spartan-primary-100);
+  border-color: var(--color-spartan-primary-300);
+  z-index: 10;
 }
 @utility s-ring-secondary {
-  @apply duration-150 ring-3 ring-gray-100 border-gray-300 z-10;
+  transition-duration: 150ms;
+  box-shadow: var(--tw-ring-inset, ) 0 0 0 3px var(--color-gray-100);
+  border-color: var(--color-gray-300);
+  z-index: 10;
 }
 @utility s-ring-error {
-  @apply duration-150 ring-3 ring-red-200 border-red-500 z-10;
+  transition-duration: 150ms;
+  box-shadow: var(--tw-ring-inset, ) 0 0 0 3px var(--color-red-200);
+  border-color: var(--color-red-500);
+  z-index: 10;
 }
 
 /* Safelist */

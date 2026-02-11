@@ -1,4 +1,4 @@
-import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
+import type { RootProps } from '@vuepic/vue-datepicker';
 
 export type TDateValue = string | string[] | null;
 
@@ -11,7 +11,7 @@ export type TInputDateProps = {
     placeholder?: string;
 };
 
-export type TInputDatePropsFull = TInputDateProps & VueDatePickerProps;
+export type TInputDatePropsFull = TInputDateProps & RootProps;
 
 export type TInputDateEmits = {
     (event: 'update:modelValue', value: TDateValue): void;

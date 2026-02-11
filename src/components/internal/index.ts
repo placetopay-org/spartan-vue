@@ -4,7 +4,6 @@ export { BlockWrapper, type TBlockWrapperProps } from './BlockWrapper';
 export { ModalBackdropWrapper } from './ModalBackdropWrapper';
 export { InputContainer } from './InputContainer';
 export { default as Loader } from './Loader.vue';
-export { default as LinkButton } from './LinkButton.vue';
 export { default as Mesh } from './Mesh.vue';
 export { default as FadeTransition } from './Transitions/FadeTransition.vue';
 export { default as Wrapper } from './Wrapper.vue';

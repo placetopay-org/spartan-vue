@@ -2,10 +2,10 @@
 import { SInputDate, type TInputDateProps, type TInputDateEmits } from '../SInputDate';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 import { extractWrapperProps } from '@/helpers';
-import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
+import type { RootProps } from '@vuepic/vue-datepicker';
 
 defineEmits<TInputDateEmits>();
-const props = defineProps<Partial<TBlockWrapperProps> & TInputDateProps & VueDatePickerProps>();
+const props = defineProps<Partial<TBlockWrapperProps> & TInputDateProps & RootProps>();
 const [blockWrapperProps, inputDateProps] = extractWrapperProps<TInputDateProps>(props);
 </script>
 

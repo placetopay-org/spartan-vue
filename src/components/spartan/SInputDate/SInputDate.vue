@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import VueDatePicker from '@vuepic/vue-datepicker';
+import { VueDatePicker } from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import type { TInputDateProps, TInputDateEmits } from './types';
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
-import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
+import type { RootProps } from '@vuepic/vue-datepicker';
 import { useI18n } from 'vue-i18n';
 import { translator } from '@/helpers';
 
 const { locale } = useI18n();
 const { t } = translator('inputDate');
 
-const props = defineProps<TInputDateProps & VueDatePickerProps>();
+const props = defineProps<TInputDateProps & RootProps>();
 const emit = defineEmits<TInputDateEmits>();
 
 const value = computed({
@@ -42,15 +42,17 @@ const value = computed({
 </template>
 
 <style>
-@reference '../../../styles/main.css';
-
 :root {
     --dp-font-family: inherit;
     --dp-input-padding: 8px 12px;
 }
 
 input[aria-label='Datepicker input'] {
-    @apply rounded-lg placeholder:text-gray-400 placeholder:opacity-100;
+    border-radius: 0.5rem;
+}
+input[aria-label='Datepicker input']::placeholder {
+    color: rgb(156 163 175);
+    opacity: 1;
 }
 
 .dp__theme_light {
