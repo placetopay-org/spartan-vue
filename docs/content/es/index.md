@@ -216,7 +216,7 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
     ::::u-page-card
     ---
     spotlight: true
-    class: col-span-1
+    class: col-span-2 md:col-span-1
     target: _blank
     ---
     #title
@@ -229,7 +229,7 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
     ::::u-page-card
     ---
     spotlight: true
-    class: col-span-1
+    class: col-span-2 md:col-span-1
     target: _blank
     ---
     #title
@@ -242,7 +242,7 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
     ::::u-page-card
     ---
     spotlight: true
-    class: col-span-1
+    class: col-span-2 lg:col-span-1
     target: _blank
     ---
     #title
