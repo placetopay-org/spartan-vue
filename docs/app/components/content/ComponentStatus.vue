@@ -10,6 +10,7 @@ const typescript = computed(() => status.value?.typescript ?? false);
 const darkMode = computed(() => status.value?.darkMode ?? false);
 const responsive = computed(() => status.value?.responsive ?? false);
 const tests = computed(() => status.value?.tests ?? 0);
+const docs = computed(() => status.value?.docs ?? 'minimal');
 
 const t = computed(() =>
     isEs.value
@@ -21,6 +22,9 @@ const t = computed(() =>
               respYes: 'Diseño responsive incluido',
               respNo: 'No es responsive',
               tests: `Cobertura de tests: ${tests.value}%`,
+              docsComplete: 'Documentación completa',
+              docsPartial: 'Documentación parcial',
+              docsMinimal: 'Documentación mínima',
           }
         : {
               tsYes: 'Full TypeScript support',
@@ -30,6 +34,9 @@ const t = computed(() =>
               respYes: 'Responsive design included',
               respNo: 'Not responsive',
               tests: `Test coverage: ${tests.value}%`,
+              docsComplete: 'Documentation complete',
+              docsPartial: 'Documentation partial',
+              docsMinimal: 'Documentation minimal',
           },
 );
 
@@ -53,6 +60,24 @@ const testBg = computed(() => {
     if (tests.value >= 50) return 'bg-amber-500';
     return 'bg-red-500';
 });
+
+const docsTooltip = computed(() => {
+    if (docs.value === 'complete') return t.value.docsComplete;
+    if (docs.value === 'partial') return t.value.docsPartial;
+    return t.value.docsMinimal;
+});
+
+const docsBadge = computed(() => {
+    if (docs.value === 'complete') return 'border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300';
+    if (docs.value === 'partial') return 'border-amber-500/20 bg-amber-500/10 text-amber-700 dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-300';
+    return 'border-red-500/20 bg-red-500/10 text-red-700 dark:border-red-400/20 dark:bg-red-400/10 dark:text-red-300';
+});
+
+const docsLabel = computed(() => {
+    if (docs.value === 'complete') return isEs.value ? 'Completa' : 'Complete';
+    if (docs.value === 'partial') return isEs.value ? 'Parcial' : 'Partial';
+    return isEs.value ? 'Mínima' : 'Minimal';
+});
 </script>
 
 <template>
@@ -75,6 +100,18 @@ const testBg = computed(() => {
                         fill="#FFF"
                     />
                 </svg>
+            </div>
+        </UTooltip>
+
+        <!-- Docs -->
+        <UTooltip :text="docsTooltip">
+            <div
+                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
+                :class="docsBadge"
+            >
+                <UIcon class="size-4" name="i-lucide-book-open" />
+                <span>Docs</span>
+                <span class="text-[10px] font-semibold">{{ docsLabel }}</span>
             </div>
         </UTooltip>
 
