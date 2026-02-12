@@ -163,7 +163,7 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
       Un asistente impulsado por IA para ayudarte con la documentación de Spartan.
 
       #banner
-      Sin fondos
+      Próximamente
     :::::
 
     #title
