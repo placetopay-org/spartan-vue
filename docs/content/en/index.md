@@ -1,7 +1,7 @@
 ---
 seo:
-  title: Spartan
-  description: Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, with i18n support and 65 components.
+  title: Spartan - Vue 3 Component Library for PlaceToPay
+  description: Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, i18n support and 65 ready-to-use components.
 ---
 
 ::u-page-hero

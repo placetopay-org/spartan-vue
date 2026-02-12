@@ -35,7 +35,18 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/spartan-vue/',
     head: {
-      title: 'Spartan Documentation',
+      title: 'Spartan - Vue 3 Component Library for PlaceToPay',
+      meta: [
+        { name: 'keywords', content: 'spartan, vue 3, placetopay, juanzea, juan zea, component library, tailwindcss, ui components, design system, evertec' },
+        { name: 'author', content: 'JuanZea' },
+        { property: 'og:title', content: 'Spartan - Vue 3 Component Library for PlaceToPay' },
+        { property: 'og:description', content: 'Unified Vue 3 component library for PlaceToPay with 65 components, TailwindCSS and i18n support.' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Spartan' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Spartan - Vue 3 Component Library for PlaceToPay' },
+        { name: 'twitter:description', content: 'Unified Vue 3 component library for PlaceToPay with 65 components, TailwindCSS and i18n support.' },
+      ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/spartan-vue/landing/dark/spartan.svg' },
       ]
