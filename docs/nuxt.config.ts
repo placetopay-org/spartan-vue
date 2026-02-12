@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/i18n', '@nuxt/fonts'],
 
   llms: {
-    domain: 'http://localhost:3000',
+    domain: 'https://placetopay-org.github.io/spartan-vue',
   },
   mcp: {
     enabled: false,
@@ -33,10 +33,11 @@ export default defineNuxtConfig({
   },
 
   app: {
+    baseURL: '/spartan-vue/',
     head: {
       title: 'Spartan Documentation',
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/landing/dark/spartan.svg' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/spartan-vue/landing/dark/spartan.svg' },
       ]
     }
   },
