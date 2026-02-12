@@ -10,6 +10,9 @@ export default defineNuxtConfig({
   mcp: {
     enabled: false,
   },
+  ogImage: {
+    enabled: false,
+  },
 
   css: ['~/assets/css/main.css'],
 
