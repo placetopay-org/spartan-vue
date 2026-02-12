@@ -65,7 +65,7 @@ const testBg = computed(() => {
     <div class="mb-8 -mt-4 flex flex-wrap gap-2.5">
         <!-- TypeScript -->
         <UTooltip :text="typescript ? t.tsYes : t.tsNo">
-            <div class="inline-flex items-center rounded-full border border-transparent p-0.5">
+            <div class="inline-flex items-center rounded-lg border border-transparent p-0.5">
                 <svg
                     class="size-5"
                     :class="typescript ? '' : 'grayscale opacity-40'"
@@ -87,7 +87,7 @@ const testBg = computed(() => {
         <!-- Dark Mode -->
         <UTooltip :text="darkMode ? t.darkYes : t.darkNo">
             <div
-                class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium"
+                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
                 :class="darkMode ? badgeActive : badgeInactive"
             >
                 <UIcon class="size-4" name="i-lucide-moon" />
@@ -108,7 +108,7 @@ const testBg = computed(() => {
         <!-- Responsive -->
         <UTooltip :text="responsive ? t.respYes : t.respNo">
             <div
-                class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium"
+                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
                 :class="responsive ? badgeActive : badgeInactive"
             >
                 <UIcon class="size-4" name="i-lucide-monitor-smartphone" />
@@ -129,13 +129,13 @@ const testBg = computed(() => {
         <!-- Tests -->
         <UTooltip :text="t.tests">
             <div
-                class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium"
+                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
                 :class="[testBorder, testColor]"
             >
                 <UIcon class="size-4" name="i-lucide-flask-conical" />
                 <span>Tests</span>
                 <div class="flex items-center gap-1.5">
-                    <div class="h-1.5 w-12 overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
+                    <div class="h-1.5 w-12 overflow-hidden rounded-lg bg-black/10 dark:bg-white/10">
                         <div
                             class="h-full rounded-full transition-all duration-500"
                             :class="testBg"
