@@ -89,7 +89,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SButtonGroup' },
     ],
     utilities: [
-        { name: 'SButton', typescript: true, responsive: true, tests: 85, docs: 'complete' },
+        { name: 'SButton', typescript: true, docs: 'complete' },
         { name: 'SLabel', typescript: true, docs: 'complete' },
         { name: 'SFilter' },
         { name: 'SSectionTitle', typescript: true, docs: 'complete' },
