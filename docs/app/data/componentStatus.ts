@@ -53,7 +53,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SMultiSelector' },
     ],
     display: [
-        { name: 'SAlert' },
+        { name: 'SAlert', typescript: true, docs: 'complete' },
         { name: 'SAvatar' },
         { name: 'SBadge' },
         { name: 'SCard' },
@@ -62,7 +62,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SLink' },
         { name: 'SToast' },
         { name: 'SBreadcrumbs' },
-        { name: 'SSkeleton' },
+        { name: 'SSkeleton', typescript: true, docs: 'complete' },
         { name: 'SPageTitle' },
         { name: 'SPlacetopayLogo' },
     ],
@@ -91,7 +91,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     utilities: [
         { name: 'SButton', typescript: true, docs: 'complete' },
         { name: 'SLabel', typescript: true, docs: 'complete' },
-        { name: 'SFilter' },
+        { name: 'SFilter', typescript: true, docs: 'complete' },
         { name: 'SSectionTitle', typescript: true, docs: 'complete' },
         { name: 'SSectionDescription', typescript: true, docs: 'complete' },
         { name: 'SCopy', typescript: true, docs: 'complete' },
