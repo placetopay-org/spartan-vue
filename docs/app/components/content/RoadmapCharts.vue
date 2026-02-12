@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VChart from 'vue-echarts';
 import { ref, computed, onMounted, nextTick } from 'vue';
+import { components } from '~/data/componentStatus';
 
 const ready = ref(false);
 onMounted(() => {
@@ -42,83 +43,6 @@ const categories = computed(() =>
               utilities: 'Utilities',
           },
 );
-
-interface ComponentData {
-    name: string;
-    category: string;
-    typescript: boolean;
-    darkMode: boolean;
-    responsive: boolean;
-    tests: number;
-    docs: 'complete' | 'partial' | 'minimal';
-}
-
-const components: ComponentData[] = [
-    // Data Input
-    { name: 'SInput', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SInputAmount', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SInputDate', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SInputIncrement', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SInputMask', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SInputOtp', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SInputPassword', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SInputTag', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'STextarea', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SCombobox', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SSelect', category: 'dataInput', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-
-    // Selectors
-    { name: 'SCheckbox', category: 'selectors', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SRadio', category: 'selectors', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SRadioGroup', category: 'selectors', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SSwitch', category: 'selectors', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SSelector', category: 'selectors', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SMultiSelector', category: 'selectors', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-
-    // Display
-    { name: 'SAlert', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SAvatar', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SBadge', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SCard', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SCardBrand', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SCaption', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SLink', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SToast', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SBreadcrumbs', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SSkeleton', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SPageTitle', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SPlacetopayLogo', category: 'display', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-
-    // Modals
-    { name: 'SModal', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SModalCard', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SModalConfirm', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SModalLeft', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SModalSide', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SPopover', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'STooltip', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SDropdown', category: 'modals', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-
-    // Structure
-    { name: 'SAccordion', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SSidebar', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'STab', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'STable', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SDTable', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'STemplateHeaderTable', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SSteps', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SPaginator', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SStackedList', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SButtonGroup', category: 'structure', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-
-    // Utilities (documented components keep their stats)
-    { name: 'SButton', category: 'utilities', typescript: true, darkMode: false, responsive: true, tests: 85, docs: 'complete' },
-    { name: 'SLabel', category: 'utilities', typescript: true, darkMode: false, responsive: false, tests: 0, docs: 'complete' },
-    { name: 'SFilter', category: 'utilities', typescript: false, darkMode: false, responsive: false, tests: 0, docs: 'minimal' },
-    { name: 'SSectionTitle', category: 'utilities', typescript: true, darkMode: false, responsive: false, tests: 0, docs: 'complete' },
-    { name: 'SSectionDescription', category: 'utilities', typescript: true, darkMode: false, responsive: false, tests: 0, docs: 'complete' },
-    { name: 'SCopy', category: 'utilities', typescript: true, darkMode: false, responsive: false, tests: 0, docs: 'complete' },
-];
 
 // Summary calculations
 const totalComponents = components.length;

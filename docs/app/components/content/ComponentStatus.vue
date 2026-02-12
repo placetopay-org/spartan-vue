@@ -1,21 +1,15 @@
 <script setup lang="ts">
-const props = withDefaults(
-    defineProps<{
-        darkMode?: boolean;
-        tests?: number;
-        typescript?: boolean;
-        responsive?: boolean;
-    }>(),
-    {
-        darkMode: false,
-        tests: 0,
-        typescript: true,
-        responsive: false,
-    },
-);
+import { getStatusBySlug } from '~/data/componentStatus';
 
 const route = useRoute();
 const isEs = computed(() => route.path.startsWith('/es'));
+const slug = computed(() => route.path.split('/').pop() || '');
+const status = computed(() => getStatusBySlug(slug.value));
+
+const typescript = computed(() => status.value?.typescript ?? false);
+const darkMode = computed(() => status.value?.darkMode ?? false);
+const responsive = computed(() => status.value?.responsive ?? false);
+const tests = computed(() => status.value?.tests ?? 0);
 
 const t = computed(() =>
     isEs.value
@@ -26,7 +20,7 @@ const t = computed(() =>
               darkNo: 'Sin soporte de modo oscuro',
               respYes: 'Diseño responsive incluido',
               respNo: 'No es responsive',
-              tests: `Cobertura de tests: ${props.tests}%`,
+              tests: `Cobertura de tests: ${tests.value}%`,
           }
         : {
               tsYes: 'Full TypeScript support',
@@ -35,7 +29,7 @@ const t = computed(() =>
               darkNo: 'No dark mode support',
               respYes: 'Responsive design included',
               respNo: 'Not responsive',
-              tests: `Test coverage: ${props.tests}%`,
+              tests: `Test coverage: ${tests.value}%`,
           },
 );
 
@@ -43,20 +37,20 @@ const badgeActive = 'border-emerald-500/20 bg-emerald-500/10 text-emerald-700 da
 const badgeInactive = 'border-red-500/20 bg-red-500/10 text-red-700 dark:border-red-400/20 dark:bg-red-400/10 dark:text-red-300';
 
 const testColor = computed(() => {
-    if (props.tests >= 80) return 'text-emerald-700 dark:text-emerald-300';
-    if (props.tests >= 50) return 'text-amber-700 dark:text-amber-300';
+    if (tests.value >= 80) return 'text-emerald-700 dark:text-emerald-300';
+    if (tests.value >= 50) return 'text-amber-700 dark:text-amber-300';
     return 'text-red-700 dark:text-red-300';
 });
 
 const testBorder = computed(() => {
-    if (props.tests >= 80) return 'border-emerald-500/20 bg-emerald-500/10 dark:border-emerald-400/20 dark:bg-emerald-400/10';
-    if (props.tests >= 50) return 'border-amber-500/20 bg-amber-500/10 dark:border-amber-400/20 dark:bg-amber-400/10';
+    if (tests.value >= 80) return 'border-emerald-500/20 bg-emerald-500/10 dark:border-emerald-400/20 dark:bg-emerald-400/10';
+    if (tests.value >= 50) return 'border-amber-500/20 bg-amber-500/10 dark:border-amber-400/20 dark:bg-amber-400/10';
     return 'border-red-500/20 bg-red-500/10 dark:border-red-400/20 dark:bg-red-400/10';
 });
 
 const testBg = computed(() => {
-    if (props.tests >= 80) return 'bg-emerald-500';
-    if (props.tests >= 50) return 'bg-amber-500';
+    if (tests.value >= 80) return 'bg-emerald-500';
+    if (tests.value >= 50) return 'bg-amber-500';
     return 'bg-red-500';
 });
 </script>
