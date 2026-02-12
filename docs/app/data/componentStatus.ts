@@ -56,7 +56,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SAlert', typescript: true, docs: 'complete' },
         { name: 'SAvatar', typescript: true, docs: 'complete' },
         { name: 'SBadge', typescript: true, docs: 'complete' },
-        { name: 'SCard' },
+        { name: 'SCard', typescript: true, docs: 'complete' },
         { name: 'SCardBrand' },
         { name: 'SCaption' },
         { name: 'SLink' },
