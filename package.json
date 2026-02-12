@@ -46,6 +46,7 @@
     "docs:dev": "nuxt dev --cwd docs",
     "docs:build": "nuxt build --cwd docs",
     "docs:generate": "nuxt generate --cwd docs",
+    "docs:preview": "nuxt preview --cwd docs",
     "docs:deploy": "cd docs && wrangler deploy",
 
     "test": "vitest watch --ui --coverage",
