@@ -18,6 +18,7 @@ function getComponentSummary(comp: ComponentStatusData): string {
         `${check(comp.tests >= 80)} Coverage >= 80%`,
         `${check(comp.docs === 'complete')} Documentación`,
         `${check(!!comp.figmaLink)} Figma Link`,
+        `${check(!comp.improvements.en)} Actualizado (sin mejoras pendientes)`,
     ].join('\n');
 }
 
@@ -100,6 +101,15 @@ function categoryStats(catKey: string) {
 }
 
 const catKeys = ['dataInput', 'selectors', 'display', 'modals', 'structure', 'utilities'];
+
+const categorySlugMap: Record<string, string> = {
+    dataInput: 'data-input',
+    selectors: 'selectors',
+    display: 'display',
+    modals: 'modals',
+    structure: 'structure',
+    utilities: 'utilities',
+};
 
 // ---- Chart Options ----
 
@@ -424,6 +434,7 @@ const summaryStats = computed(() => [
                         <th class="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
                             {{ isEs ? 'Componente' : 'Component' }}
                         </th>
+                        <th class="w-8 px-1 py-3"></th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
                             <TypescriptIcon class="mx-auto size-5" />
                         </th>
@@ -447,7 +458,7 @@ const summaryStats = computed(() => [
                     <template v-for="catKey in catKeys" :key="catKey">
                         <tr class="bg-gray-50 dark:bg-gray-800/80">
                             <td
-                                colspan="8"
+                                colspan="9"
                                 class="px-4 py-2 text-xs font-bold tracking-wide text-gray-500 uppercase dark:text-gray-400"
                             >
                                 {{ categories[catKey as keyof typeof categories] }}
@@ -458,8 +469,26 @@ const summaryStats = computed(() => [
                             :key="comp.name"
                             class="border-b border-gray-100 transition-colors hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50"
                         >
-                            <td class="px-4 py-2.5 font-mono text-xs font-medium text-gray-700 dark:text-gray-300">
-                                {{ comp.name }}
+                            <td class="px-4 py-2.5 font-mono text-xs font-medium">
+                                <NuxtLink
+                                    :to="`${isEs ? '/es' : '/en'}/components/${categorySlugMap[comp.category]}/${comp.slug}`"
+                                    class="text-gray-700 transition-colors hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400"
+                                >
+                                    {{ comp.name }}
+                                </NuxtLink>
+                            </td>
+                            <td class="w-8 px-1 py-2.5 text-center">
+                                <UPopover v-if="comp.improvements.en" mode="hover">
+                                    <UIcon name="i-lucide-triangle-alert" class="size-4 text-amber-500 cursor-help" />
+                                    <template #content>
+                                        <div class="p-3 max-w-xs">
+                                            <p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1.5">
+                                                {{ isEs ? 'Mejoras pendientes' : 'Pending improvements' }}
+                                            </p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400 whitespace-pre-line">{{ isEs ? comp.improvements.es : comp.improvements.en }}</p>
+                                        </div>
+                                    </template>
+                                </UPopover>
                             </td>
                             <td class="px-3 py-2.5 text-center">
                                 <span

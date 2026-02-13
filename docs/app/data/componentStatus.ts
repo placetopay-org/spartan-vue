@@ -1,5 +1,10 @@
 export type ComponentCategory = 'dataInput' | 'selectors' | 'display' | 'modals' | 'structure' | 'utilities';
 
+export interface ComponentImprovements {
+    en: string;
+    es: string;
+}
+
 export interface ComponentStatusEntry {
     name: string;
     typescript?: boolean;
@@ -8,6 +13,7 @@ export interface ComponentStatusEntry {
     tests?: number;
     docs?: 'complete' | 'partial' | 'minimal';
     figmaLink?: string;
+    improvements?: ComponentImprovements;
 }
 
 export interface ComponentStatusData extends Required<ComponentStatusEntry> {
@@ -30,6 +36,7 @@ const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
     tests: 0,
     docs: 'minimal',
     figmaLink: '',
+    improvements: { en: '', es: '' },
 };
 
 const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = {
@@ -91,7 +98,16 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SButtonGroup' },
     ],
     utilities: [
-        { name: 'SButton', typescript: true, figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240', docs: 'complete' },
+        {
+            name: 'SButton',
+            typescript: true,
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240',
+            docs: 'complete',
+            improvements: {
+                en: '- Improve loading mode icon\n- Add new Figma variants\n- Unify dimensions and spacing',
+                es: '- Mejorar el icono del modo loading\n- Agregar variantes nuevas de figma\n- Unificar las dimensiones y espaciados',
+            },
+        },
         { name: 'SLabel', typescript: true, docs: 'complete' },
         { name: 'SFilter', typescript: true, docs: 'complete' },
         { name: 'SSectionTitle', typescript: true, docs: 'complete' },
@@ -100,14 +116,13 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     ],
 };
 
-export const components: ComponentStatusData[] = Object.entries(componentsByCategory).flatMap(
-    ([category, entries]) =>
-        entries.map((entry) => ({
-            ...defaults,
-            ...entry,
-            slug: nameToSlug(entry.name),
-            category: category as ComponentCategory,
-        })),
+export const components: ComponentStatusData[] = Object.entries(componentsByCategory).flatMap(([category, entries]) =>
+    entries.map((entry) => ({
+        ...defaults,
+        ...entry,
+        slug: nameToSlug(entry.name),
+        category: category as ComponentCategory,
+    })),
 );
 
 const statusMap = new Map(components.map((c) => [c.slug, c]));

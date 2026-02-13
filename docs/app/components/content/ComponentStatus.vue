@@ -14,6 +14,12 @@ const responsive = computed(() => status.value?.responsive ?? false);
 const tests = computed(() => status.value?.tests ?? 0);
 const docs = computed(() => status.value?.docs ?? 'minimal');
 const figmaLink = computed(() => status.value?.figmaLink ?? '');
+const improvements = computed(() => status.value?.improvements ?? { en: '', es: '' });
+const hasImprovements = computed(() => {
+    const notes = isEs.value ? improvements.value.es : improvements.value.en;
+    return !!notes;
+});
+const improvementNotes = computed(() => isEs.value ? improvements.value.es : improvements.value.en);
 
 const t = computed(() =>
     isEs.value
@@ -84,7 +90,22 @@ const docsLabel = computed(() => {
 </script>
 
 <template>
-    <div class="mb-8 -mt-4 flex flex-wrap gap-2.5">
+    <div class="mb-8 -mt-4 flex flex-wrap items-center gap-2.5">
+        <!-- Improvements -->
+        <UPopover v-if="hasImprovements" mode="hover">
+            <div class="inline-flex items-center rounded-lg border border-transparent p-0.5 cursor-help">
+                <UIcon name="i-lucide-triangle-alert" class="size-5 text-amber-500" />
+            </div>
+            <template #content>
+                <div class="p-3 max-w-xs">
+                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1.5">
+                        {{ isEs ? 'Mejoras pendientes' : 'Pending improvements' }}
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 whitespace-pre-line">{{ improvementNotes }}</p>
+                </div>
+            </template>
+        </UPopover>
+
         <!-- TypeScript -->
         <UTooltip :text="typescript ? t.tsYes : t.tsNo">
             <div class="inline-flex items-center rounded-lg border border-transparent p-0.5">
