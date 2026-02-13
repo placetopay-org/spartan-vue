@@ -2,6 +2,33 @@
 import VChart from 'vue-echarts';
 import { ref, computed, onMounted, nextTick } from 'vue';
 import { components } from '~/data/componentStatus';
+import type { ComponentStatusData } from '~/data/componentStatus';
+import TypescriptIcon from '~/assets/svg/typescript.svg';
+import FigmaIcon from '~/assets/svg/figma.svg';
+
+const copiedName = ref<string | null>(null);
+
+function getComponentSummary(comp: ComponentStatusData): string {
+    const check = (v: boolean) => (v ? '✔️' : '❌');
+    return [
+        `${check(comp.typescript)} Compatible con typescript`,
+        `${check(comp.darkMode)} Compatible con dark mode`,
+        `${check(comp.responsive)} Diseño responsive`,
+        `${check(comp.tests > 0)} Tests`,
+        `${check(comp.tests >= 80)} Coverage >= 80%`,
+        `${check(comp.docs === 'complete')} Documentación`,
+        `${check(!!comp.figmaLink)} Figma Link`,
+    ].join('\n');
+}
+
+async function copySummary(comp: ComponentStatusData) {
+    const text = getComponentSummary(comp);
+    await navigator.clipboard.writeText(text);
+    copiedName.value = comp.name;
+    setTimeout(() => {
+        if (copiedName.value === comp.name) copiedName.value = null;
+    }, 2000);
+}
 
 const ready = ref(false);
 onMounted(() => {
@@ -397,7 +424,9 @@ const summaryStats = computed(() => [
                         <th class="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
                             {{ isEs ? 'Componente' : 'Component' }}
                         </th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">TS</th>
+                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
+                            <TypescriptIcon class="mx-auto size-5" />
+                        </th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
                             <span class="hidden sm:inline">Dark Mode</span>
                             <span class="sm:hidden">DM</span>
@@ -408,13 +437,17 @@ const summaryStats = computed(() => [
                         </th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Tests</th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Docs</th>
+                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
+                            <FigmaIcon class="mx-auto h-5 w-auto" />
+                        </th>
+                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <template v-for="catKey in catKeys" :key="catKey">
                         <tr class="bg-gray-50 dark:bg-gray-800/80">
                             <td
-                                colspan="6"
+                                colspan="8"
                                 class="px-4 py-2 text-xs font-bold tracking-wide text-gray-500 uppercase dark:text-gray-400"
                             >
                                 {{ categories[catKey as keyof typeof categories] }}
@@ -479,6 +512,39 @@ const summaryStats = computed(() => [
                                 >
                                     {{ comp.docs === 'complete' ? (isEs ? 'Completa' : 'Complete') : comp.docs === 'partial' ? (isEs ? 'Parcial' : 'Partial') : (isEs ? 'Mínima' : 'Minimal') }}
                                 </span>
+                            </td>
+                            <td class="px-3 py-2.5 text-center">
+                                <a
+                                    v-if="comp.figmaLink"
+                                    :href="comp.figmaLink"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="inline-flex size-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 transition-colors hover:bg-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-400 dark:hover:bg-emerald-900/60"
+                                    :title="isEs ? 'Abrir en Figma' : 'Open in Figma'"
+                                >
+                                    <FigmaIcon class="size-3" />
+                                </a>
+                                <span
+                                    v-else
+                                    class="inline-flex size-5 items-center justify-center rounded-full text-xs bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400"
+                                >
+                                    ✗
+                                </span>
+                            </td>
+                            <td class="px-3 py-2.5 text-center">
+                                <button
+                                    :title="isEs ? 'Copiar resumen' : 'Copy summary'"
+                                    class="inline-flex size-7 items-center justify-center rounded-md text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                    @click="copySummary(comp)"
+                                >
+                                    <svg v-if="copiedName !== comp.name" xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </button>
                             </td>
                         </tr>
                     </template>

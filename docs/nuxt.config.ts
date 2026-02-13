@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url'
+import svgLoader from 'vite-svg-loader';
 
 export default defineNuxtConfig({
   extends: ['docus'],
@@ -86,6 +87,7 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    plugins: [svgLoader()],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('../src', import.meta.url)),

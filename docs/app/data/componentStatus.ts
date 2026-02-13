@@ -7,6 +7,7 @@ export interface ComponentStatusEntry {
     responsive?: boolean;
     tests?: number;
     docs?: 'complete' | 'partial' | 'minimal';
+    figmaLink?: string;
 }
 
 export interface ComponentStatusData extends Required<ComponentStatusEntry> {
@@ -28,6 +29,7 @@ const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
     responsive: false,
     tests: 0,
     docs: 'minimal',
+    figmaLink: '',
 };
 
 const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = {
@@ -89,7 +91,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SButtonGroup' },
     ],
     utilities: [
-        { name: 'SButton', typescript: true, docs: 'complete' },
+        { name: 'SButton', typescript: true, figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240', docs: 'complete' },
         { name: 'SLabel', typescript: true, docs: 'complete' },
         { name: 'SFilter', typescript: true, docs: 'complete' },
         { name: 'SSectionTitle', typescript: true, docs: 'complete' },
