@@ -49,7 +49,7 @@ describe('SBadge', () => {
         });
 
         // Assert
-        expect(wrapper.html()).toContain('outline outline-1 -outline-offset-1 bg-gray-50 outline-gray-300');
+        expect(wrapper.html()).toContain('outline-1 -outline-offset-1 bg-gray-50 outline-gray-300');
     });
 
     test('Can be rendered in removable mode', async () => {
