@@ -63,11 +63,46 @@ const component = defineAsyncComponent(() => {
   return import(`../../../../src/components/spartan/${name}/${name}.vue`)
 })
 
+const iconModules = import.meta.glob('../../../../node_modules/@placetopay/iconsax-vue/dist/Base/bold/*.js')
+
+function isIconProp(key: string, value: any): boolean {
+  return typeof value === 'string' && value.endsWith('Icon')
+}
+
+function resolveIconPath(iconName: string): string {
+  return `../../../../node_modules/@placetopay/iconsax-vue/dist/Base/bold/${iconName}.js`
+}
+
+const resolvedIcons = reactive<Record<string, any>>({})
+
+const iconProps = Object.entries(props.props || {}).filter(([key, value]) => isIconProp(key, value))
+
+for (const [key, value] of iconProps) {
+  const path = resolveIconPath(value as string)
+  const loader = iconModules[path]
+  if (loader) {
+    loader().then((mod: any) => {
+      resolvedIcons[key] = markRaw(mod[value as string] || mod.default)
+    })
+  }
+}
+
 const componentProps = reactive({
   ...Object.fromEntries(Object.entries(props.props || {}).map(([key, value]) => {
+    if (isIconProp(key, value)) {
+      return [key, undefined]
+    }
     return [key, value]
   }))
 })
+
+watch(resolvedIcons, (icons) => {
+  for (const [key, component] of Object.entries(icons)) {
+    if (component) {
+      componentProps[key] = component
+    }
+  }
+}, { immediate: true, deep: true })
 const componentEvents = reactive({
   ...Object.fromEntries((props.model || []).map(key => [`onUpdate:${key}`, (e: any) => setComponentProp(key, e)])),
   ...(componentProps.modelValue ? { [`onUpdate:modelValue`]: (e: any) => setComponentProp('modelValue', e) } : {})
@@ -171,10 +206,21 @@ const code = computed(() => {
 
   code += `\`\`\`vue${props.highlights?.length ? ` {${props.highlights.join('-')}}` : ''}`
 
-  if (props.external?.length) {
+  // Collect icon props from original prop values (strings ending in 'Icon')
+  const iconEntries = Object.entries(props.props || {}).filter(([_, value]) => isIconProp(_, value))
+  const hasIcons = iconEntries.length > 0
+
+  if (hasIcons || props.external?.length) {
     code += `
 <script setup lang="ts">
 `
+    // Generate icon imports
+    if (hasIcons) {
+      const iconNames = iconEntries.map(([_, value]) => value as string)
+      code += `import { ${iconNames.join(', ')} } from '@placetopay/iconsax-vue/bold'
+`
+    }
+
     // Collect imports from cast types
     const importsBySource = new Map<string, Set<string>>()
 
@@ -197,7 +243,7 @@ const code = computed(() => {
 `
     }
 
-    for (const [i, key] of props.external.entries()) {
+    for (const [i, key] of (props.external || []).entries()) {
       const cast = props.cast?.[key]
       const value = json5.stringify(componentProps[key], null, 2)?.replace(/,([ |\t\n]+[}|\]])/g, '$1')
       const type = props.externalTypes?.[i] ? `<${props.externalTypes[i]}>` : ''
@@ -225,6 +271,14 @@ const code = computed(() => {
     }
 
     if (value === undefined || value === null || value === '' || props.hide?.includes(key)) {
+      continue
+    }
+
+    // Icon props: use bind syntax with the original icon name
+    const originalValue = props.props?.[key]
+    if (isIconProp(key, originalValue)) {
+      const propName = kebabCase(key)
+      code += ` :${propName}="${originalValue}"`
       continue
     }
 

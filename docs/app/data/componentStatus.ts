@@ -62,7 +62,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SMultiSelector' },
     ],
     display: [
-        { name: 'SAlert', typescript: true, docs: 'complete' },
+        { name: 'SAlert', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SAvatar', typescript: true, docs: 'complete' },
         { name: 'SBadge', typescript: true, docs: 'complete' },
         { name: 'SCard', typescript: true, docs: 'complete' },
@@ -71,7 +71,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SLink' },
         { name: 'SToast' },
         { name: 'SBreadcrumbs' },
-        { name: 'SSkeleton', typescript: true, docs: 'complete' },
+        { name: 'SSkeleton', typescript: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
         { name: 'SPageTitle' },
         { name: 'SPlacetopayLogo' },
     ],
