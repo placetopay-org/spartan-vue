@@ -428,6 +428,9 @@ const summaryStats = computed(() => [
                             <TypescriptIcon class="mx-auto size-5" />
                         </th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
+                            <FigmaIcon class="mx-auto h-5 w-auto" />
+                        </th>
+                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
                             <span class="hidden sm:inline">Dark Mode</span>
                             <span class="sm:hidden">DM</span>
                         </th>
@@ -437,9 +440,6 @@ const summaryStats = computed(() => [
                         </th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Tests</th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Docs</th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
-                            <FigmaIcon class="mx-auto h-5 w-auto" />
-                        </th>
                         <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300"></th>
                     </tr>
                 </thead>
@@ -467,6 +467,24 @@ const summaryStats = computed(() => [
                                     :class="comp.typescript ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400'"
                                 >
                                     {{ comp.typescript ? '✓' : '✗' }}
+                                </span>
+                            </td>
+                            <td class="px-3 py-2.5 text-center">
+                                <a
+                                    v-if="comp.figmaLink"
+                                    :href="comp.figmaLink"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="inline-flex size-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 transition-colors hover:bg-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-400 dark:hover:bg-emerald-900/60"
+                                    :title="isEs ? 'Abrir en Figma' : 'Open in Figma'"
+                                >
+                                    <FigmaIcon class="size-3" />
+                                </a>
+                                <span
+                                    v-else
+                                    class="inline-flex size-5 items-center justify-center rounded-full text-xs bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400"
+                                >
+                                    ✗
                                 </span>
                             </td>
                             <td class="px-3 py-2.5 text-center">
@@ -511,24 +529,6 @@ const summaryStats = computed(() => [
                                     "
                                 >
                                     {{ comp.docs === 'complete' ? (isEs ? 'Completa' : 'Complete') : comp.docs === 'partial' ? (isEs ? 'Parcial' : 'Partial') : (isEs ? 'Mínima' : 'Minimal') }}
-                                </span>
-                            </td>
-                            <td class="px-3 py-2.5 text-center">
-                                <a
-                                    v-if="comp.figmaLink"
-                                    :href="comp.figmaLink"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="inline-flex size-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 transition-colors hover:bg-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-400 dark:hover:bg-emerald-900/60"
-                                    :title="isEs ? 'Abrir en Figma' : 'Open in Figma'"
-                                >
-                                    <FigmaIcon class="size-3" />
-                                </a>
-                                <span
-                                    v-else
-                                    class="inline-flex size-5 items-center justify-center rounded-full text-xs bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400"
-                                >
-                                    ✗
                                 </span>
                             </td>
                             <td class="px-3 py-2.5 text-center">
