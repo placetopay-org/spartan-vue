@@ -77,14 +77,25 @@ const totalComponents = components.length;
 const tsCount = components.filter((c) => c.typescript).length;
 const darkModeCount = components.filter((c) => c.darkMode).length;
 const responsiveCount = components.filter((c) => c.responsive).length;
-const testedCount = components.filter((c) => c.tests > 0).length;
+const testsHighCount = components.filter((c) => c.tests >= 80).length;
+const testsMidCount = components.filter((c) => c.tests > 0 && c.tests < 80).length;
+const testsNoneCount = components.filter((c) => c.tests === 0).length;
+const figmaCount = components.filter((c) => !!c.figmaLink).length;
 const docsCompleteCount = components.filter((c) => c.docs === 'complete').length;
+const docsPartialCount = components.filter((c) => c.docs === 'partial').length;
+const docsMinimalCount = components.filter((c) => c.docs === 'minimal').length;
 
 const tsPercent = Math.round((tsCount / totalComponents) * 100);
 const darkModePercent = Math.round((darkModeCount / totalComponents) * 100);
 const responsivePercent = Math.round((responsiveCount / totalComponents) * 100);
 const avgTests = Math.round(components.reduce((sum, c) => sum + c.tests, 0) / totalComponents);
-const docsPercent = Math.round((docsCompleteCount / totalComponents) * 100);
+const figmaPercent = Math.round((figmaCount / totalComponents) * 100);
+
+// Weighted docs: complete=100%, partial=50%, minimal=0%
+function docsWeight(doc: string) {
+    return doc === 'complete' ? 100 : doc === 'partial' ? 50 : 0;
+}
+const docsPercent = Math.round(components.reduce((sum, c) => sum + docsWeight(c.docs), 0) / totalComponents);
 
 // Per-category stats
 function categoryStats(catKey: string) {
@@ -96,7 +107,8 @@ function categoryStats(catKey: string) {
         dark: Math.round((catComponents.filter((c) => c.darkMode).length / total) * 100),
         responsive: Math.round((catComponents.filter((c) => c.responsive).length / total) * 100),
         tests: Math.round(catComponents.reduce((s, c) => s + c.tests, 0) / total),
-        docs: Math.round((catComponents.filter((c) => c.docs === 'complete').length / total) * 100),
+        figma: Math.round((catComponents.filter((c) => !!c.figmaLink).length / total) * 100),
+        docs: Math.round(catComponents.reduce((s, c) => s + docsWeight(c.docs), 0) / total),
     };
 }
 
@@ -134,6 +146,7 @@ const radarOption = computed(() => ({
             { name: 'Dark Mode', max: 100 },
             { name: 'Responsive', max: 100 },
             { name: 'Tests', max: 100 },
+            { name: 'Figma', max: 100 },
             { name: isEs.value ? 'Documentación' : 'Documentation', max: 100 },
         ],
         shape: 'polygon',
@@ -158,7 +171,7 @@ const radarOption = computed(() => ({
             type: 'radar',
             data: [
                 {
-                    value: [tsPercent, darkModePercent, responsivePercent, avgTests, docsPercent],
+                    value: [tsPercent, darkModePercent, responsivePercent, avgTests, figmaPercent, docsPercent],
                     name: isEs.value ? 'Estado Actual' : 'Current Status',
                     areaStyle: {
                         color: isDark.value ? 'rgba(99,102,241,0.25)' : 'rgba(99,102,241,0.15)',
@@ -167,7 +180,7 @@ const radarOption = computed(() => ({
                     itemStyle: { color: '#6366f1' },
                 },
                 {
-                    value: [100, 100, 100, 100, 100],
+                    value: [100, 100, 100, 100, 100, 100],
                     name: isEs.value ? 'Objetivo' : 'Target',
                     areaStyle: {
                         color: isDark.value ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.05)',
@@ -253,6 +266,12 @@ const barOption = computed(() => {
                 itemStyle: { color: '#f59e0b', borderRadius: [3, 3, 0, 0] },
             },
             {
+                name: 'Figma',
+                type: 'bar',
+                data: stats.map((s) => s.figma),
+                itemStyle: { color: '#a259ff', borderRadius: [3, 3, 0, 0] },
+            },
+            {
                 name: isEs.value ? 'Docs' : 'Docs',
                 type: 'bar',
                 data: stats.map((s) => s.docs),
@@ -313,6 +332,7 @@ const gaugeTs = makeGauge('TypeScript', tsPercent, '#3178c6');
 const gaugeDark = makeGauge('Dark Mode', darkModePercent, '#8b5cf6');
 const gaugeResponsive = makeGauge('Responsive', responsivePercent, '#06b6d4');
 const gaugeTests = makeGauge('Tests', avgTests, '#f59e0b');
+const gaugeFigma = makeGauge('Figma', figmaPercent, '#a259ff');
 const gaugeDocs = makeGauge(isEs.value ? 'Docs' : 'Docs', docsPercent, '#10b981');
 
 // Summary stats for the cards
@@ -344,15 +364,23 @@ const summaryStats = computed(() => [
     {
         label: 'Tests',
         value: avgTests,
-        count: `${testedCount}/${totalComponents}`,
+        count: `${testsHighCount}✓ ${testsMidCount}~ ${testsNoneCount}✗`,
         color: 'text-amber-500',
         bg: 'bg-amber-500/10',
         border: 'border-amber-500/20',
     },
     {
-        label: isEs.value ? 'Docs Completa' : 'Docs Complete',
+        label: 'Figma',
+        value: figmaPercent,
+        count: `${figmaCount}/${totalComponents}`,
+        color: 'text-[#a259ff]',
+        bg: 'bg-[#a259ff]/10',
+        border: 'border-[#a259ff]/20',
+    },
+    {
+        label: isEs.value ? 'Documentación' : 'Documentation',
         value: docsPercent,
-        count: `${docsCompleteCount}/${totalComponents}`,
+        count: `${docsCompleteCount}✓ ${docsPartialCount}~ ${docsMinimalCount}✗`,
         color: 'text-emerald-500',
         bg: 'bg-emerald-500/10',
         border: 'border-emerald-500/20',
@@ -363,7 +391,7 @@ const summaryStats = computed(() => [
 <template>
     <div class="space-y-10">
         <!-- Summary Cards -->
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <div
                 v-for="stat in summaryStats"
                 :key="stat.label"
@@ -410,9 +438,10 @@ const summaryStats = computed(() => [
                         <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeResponsive" autoresize />
                     </ClientOnly>
                 </div>
-                <div class="mt-2 grid grid-cols-2 gap-2">
+                <div class="mt-2 grid grid-cols-3 gap-2">
                     <ClientOnly>
                         <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeTests" autoresize />
+                        <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeFigma" autoresize />
                         <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeDocs" autoresize />
                     </ClientOnly>
                 </div>
