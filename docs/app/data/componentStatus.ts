@@ -100,6 +100,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     utilities: [
         {
             name: 'SButton',
+            tests: 100,
             typescript: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240',
             docs: 'complete',

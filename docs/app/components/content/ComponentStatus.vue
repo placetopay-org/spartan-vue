@@ -132,56 +132,40 @@ const docsLabel = computed(() => {
             </div>
         </UTooltip>
 
-        <!-- Docs -->
-        <UTooltip :text="docsTooltip">
-            <div
-                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
-                :class="docsBadge"
-            >
-                <UIcon class="size-4" name="i-lucide-book-open" />
-                <span>Docs</span>
-                <span class="text-[10px] font-semibold">{{ docsLabel }}</span>
-            </div>
-        </UTooltip>
-
         <!-- Dark Mode -->
         <UTooltip :text="darkMode ? t.darkYes : t.darkNo">
-            <div
-                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
-                :class="darkMode ? badgeActive : badgeInactive"
-            >
-                <UIcon class="size-4" name="i-lucide-moon" />
-                <span>Dark Mode</span>
+            <div class="inline-flex items-center rounded-lg border border-transparent p-0.5">
                 <UIcon
-                    v-if="darkMode"
-                    class="size-4"
-                    name="i-lucide-circle-check"
-                />
-                <UIcon
-                    v-else
-                    class="size-4"
-                    name="i-lucide-circle-x"
+                    name="i-mdi-theme-light-dark"
+                    class="size-5"
+                    :class="darkMode ? 'text-yellow-400' : 'text-gray-400 opacity-80'"
                 />
             </div>
         </UTooltip>
 
         <!-- Responsive -->
         <UTooltip :text="responsive ? t.respYes : t.respNo">
-            <div
-                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
-                :class="responsive ? badgeActive : badgeInactive"
-            >
-                <UIcon class="size-4" name="i-lucide-monitor-smartphone" />
-                <span>Responsive</span>
+            <div class="inline-flex items-center rounded-lg border border-transparent p-0.5">
                 <UIcon
-                    v-if="responsive"
-                    class="size-4"
-                    name="i-lucide-circle-check"
+                    name="i-lucide-monitor-smartphone"
+                    class="size-5"
+                    :class="responsive ? 'text-cyan-500' : 'text-gray-400 opacity-80'"
+                />
+            </div>
+        </UTooltip>
+
+        <!-- Docs -->
+        <UTooltip :text="docsTooltip">
+            <div class="inline-flex items-center gap-0.5 rounded-lg border border-transparent p-0.5">
+                <UIcon
+                    name="i-lucide-book-open-text"
+                    class="size-5"
+                    :class="docs === 'complete' ? 'text-emerald-500' : docs === 'partial' ? 'text-amber-500' : 'text-red-500'"
                 />
                 <UIcon
-                    v-else
-                    class="size-4"
-                    name="i-lucide-circle-x"
+                    :name="docs === 'complete' ? 'i-fa6-regular-face-smile' : docs === 'partial' ? 'i-fa6-regular-face-meh' : 'i-fa6-regular-face-frown'"
+                    class="size-3.5"
+                    :class="docs === 'complete' ? 'text-emerald-500' : docs === 'partial' ? 'text-amber-500' : 'text-red-500'"
                 />
             </div>
         </UTooltip>

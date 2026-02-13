@@ -435,23 +435,37 @@ const summaryStats = computed(() => [
                             {{ isEs ? 'Componente' : 'Component' }}
                         </th>
                         <th class="w-8 px-1 py-3"></th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
-                            <TypescriptIcon class="mx-auto size-5" />
+                        <th class="px-3 py-3">
+                            <UTooltip text="TypeScript">
+                                <div class="flex justify-center"><TypescriptIcon class="size-4" /></div>
+                            </UTooltip>
                         </th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
-                            <FigmaIcon class="mx-auto h-5 w-auto" />
+                        <th class="px-3 py-3">
+                            <UTooltip text="Figma">
+                                <div class="flex justify-center"><FigmaIcon class="h-4 w-auto" /></div>
+                            </UTooltip>
                         </th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
-                            <span class="hidden sm:inline">Dark Mode</span>
-                            <span class="sm:hidden">DM</span>
+                        <th class="px-3 py-3">
+                            <UTooltip text="Dark Mode">
+                                <div class="flex justify-center"><UIcon name="i-mdi-theme-light-dark" class="size-4 text-yellow-400" /></div>
+                            </UTooltip>
                         </th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">
-                            <span class="hidden sm:inline">Responsive</span>
-                            <span class="sm:hidden">Resp</span>
+                        <th class="px-3 py-3">
+                            <UTooltip text="Responsive">
+                                <div class="flex justify-center"><UIcon name="i-lucide-monitor-smartphone" class="size-4 text-cyan-500" /></div>
+                            </UTooltip>
                         </th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Tests</th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Docs</th>
-                        <th class="px-3 py-3 text-center font-semibold text-gray-700 dark:text-gray-300"></th>
+                        <th class="px-3 py-3">
+                            <UTooltip text="Tests">
+                                <div class="flex justify-center"><UIcon name="i-lucide-flask-conical" class="size-4 text-amber-500" /></div>
+                            </UTooltip>
+                        </th>
+                        <th class="px-3 py-3">
+                            <UTooltip :text="isEs ? 'Documentación' : 'Documentation'">
+                                <div class="flex justify-center"><UIcon name="i-lucide-book-open-text" class="size-4 text-emerald-500" /></div>
+                            </UTooltip>
+                        </th>
+                        <th class="px-3 py-3"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -499,21 +513,11 @@ const summaryStats = computed(() => [
                                 </span>
                             </td>
                             <td class="px-3 py-2.5 text-center">
-                                <a
-                                    v-if="comp.figmaLink"
-                                    :href="comp.figmaLink"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="inline-flex size-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 transition-colors hover:bg-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-400 dark:hover:bg-emerald-900/60"
-                                    :title="isEs ? 'Abrir en Figma' : 'Open in Figma'"
-                                >
-                                    <FigmaIcon class="size-3" />
-                                </a>
                                 <span
-                                    v-else
-                                    class="inline-flex size-5 items-center justify-center rounded-full text-xs bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400"
+                                    class="inline-flex size-5 items-center justify-center rounded-full text-xs"
+                                    :class="comp.figmaLink ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400'"
                                 >
-                                    ✗
+                                    {{ comp.figmaLink ? '✓' : '✗' }}
                                 </span>
                             </td>
                             <td class="px-3 py-2.5 text-center">
@@ -547,18 +551,11 @@ const summaryStats = computed(() => [
                                 </div>
                             </td>
                             <td class="px-3 py-2.5 text-center">
-                                <span
-                                    class="inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium"
-                                    :class="
-                                        comp.docs === 'complete'
-                                            ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400'
-                                            : comp.docs === 'partial'
-                                              ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400'
-                                              : 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400'
-                                    "
-                                >
-                                    {{ comp.docs === 'complete' ? (isEs ? 'Completa' : 'Complete') : comp.docs === 'partial' ? (isEs ? 'Parcial' : 'Partial') : (isEs ? 'Mínima' : 'Minimal') }}
-                                </span>
+                                <UIcon
+                                    :name="comp.docs === 'complete' ? 'i-fa6-regular-face-smile' : comp.docs === 'partial' ? 'i-fa6-regular-face-meh' : 'i-fa6-regular-face-frown'"
+                                    class="size-5"
+                                    :class="comp.docs === 'complete' ? 'text-emerald-500' : comp.docs === 'partial' ? 'text-amber-500' : 'text-red-500'"
+                                />
                             </td>
                             <td class="px-3 py-2.5 text-center">
                                 <button
