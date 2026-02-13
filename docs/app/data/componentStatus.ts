@@ -64,8 +64,18 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     display: [
         { name: 'SAlert', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SAvatar', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=200-1795&p=f', tests: 100 },
-        { name: 'SBadge', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=220-2083&p=f', tests: 100 },
-        { name: 'SCard', typescript: true, docs: 'complete' },
+        {
+            name: 'SBadge',
+            typescript: true,
+            docs: 'complete',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=220-2083&p=f',
+            tests: 100,
+            improvements: {
+                en: '- Outline mode should be transparent\n- Cursor pointer for the remove button',
+                es: '- El modo outline debe ser transparente\n- Cursor pointer para el botón remover',
+            },
+        },
+        { name: 'SCard', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=272-4850&p=f', tests: 90 },
         { name: 'SCardBrand' },
         { name: 'SCaption' },
         { name: 'SLink' },
@@ -110,7 +120,16 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             },
         },
         { name: 'SLabel', tests: 100, typescript: true, docs: 'complete' },
-        { name: 'SFilter', typescript: true, tests: 67, docs: 'partial' },
+        {
+            name: 'SFilter',
+            typescript: true,
+            tests: 67,
+            docs: 'partial',
+            improvements: {
+                en: '- Optimize source code\n- Decouple reserved operators from custom ones\n- Improve multiple popovers handling',
+                es: '- Optimizar el código fuente\n- Desacomplar los operadores reservados de los personalizados\n- Mejorar el manejo de múltiples popovers',
+            },
+        },
         { name: 'SSectionTitle', tests: 100, typescript: true, docs: 'complete' },
         { name: 'SSectionDescription', tests: 100, typescript: true, docs: 'complete' },
         { name: 'SCopy', tests: 62, typescript: true, docs: 'complete' },

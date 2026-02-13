@@ -323,22 +323,21 @@ ignore:
 ::
 ```
 
-### Medium (some props need to be hidden)
+### Medium (focused feature section)
 
 ```markdown
 ::spartan-component
 ---
-items: { color: ['gray', 'primary', 'red', 'blue', 'green'] }
 props:
-  color: primary
   outline: true
+  color: primary
 slots:
   default: Badge
-hide:
-  - outline
 ignore:
-  - class
+  - color
+  - size
   - removable
+  - class
 ---
 ::
 ```
@@ -369,17 +368,126 @@ ignore:
 
 ---
 
+## Quality Rules for ::spartan-component Examples
+
+These rules MUST be followed when creating or reviewing documentation. They ensure every interactive example is focused, consistent, and uses the correct UI controls.
+
+### Rule 1: Enum props MUST use `items` (selector), NEVER plain inputs
+
+Any prop with a finite set of values (string unions, enums) must be rendered as a dropdown selector via `items`, not as a free-text input.
+
+- `size: 'sm' | 'md' | 'lg'` → `items: { size: ['sm', 'md', 'lg'] }`
+- `color: 'primary' | 'red' | 'blue'` → `items: { color: ['primary', 'red', 'blue'] }`
+- `variant: 'solid' | 'outline'` → `items: { variant: ['solid', 'outline'] }`
+
+**Exception:** If the enum prop is NOT the focus of the section, put it in `ignore` instead.
+
+### Rule 2: Each section must only expose controls relevant to its focus
+
+Every `::spartan-component` section demonstrates ONE feature. All props NOT related to that feature must be in `ignore`.
+
+**Decision flow for each prop in a section:**
+
+1. Is this prop the **focus** of the section? → Show it (as `items` if enum, as toggle if boolean, as input if string)
+2. Is this prop an **enum NOT in focus**? → Put in `ignore`
+3. Is this prop a **boolean NOT in focus**? → Put in `ignore`
+4. Is this prop a **string that provides content** (like `title`, `name`)? → Keep as input ONLY in the **Usage** section. In feature sections:
+   - If removing it would break the visual example (e.g., a card without title looks incomplete) → put in `hide` (appears in code/render but not interactive)
+   - If removing it has no visual impact → put in `ignore`
+5. Is this prop complex (components, callbacks, arrays)? → Put in `ignore`
+
+**Example - Closable section:** Only `closable` should be interactive. Props like `icon`, `title`, `size`, `iconColor` etc. are just supporting values and go in `ignore` or `hide` (if needed for rendering).
+
+### Rule 3: The featured prop MUST NEVER be in `hide`
+
+The prop that a section is demonstrating must be visible and interactive, never hidden.
+
+- **WRONG:** Outline section with `hide: - outline` (user can't toggle the feature!)
+- **CORRECT:** Outline section with `outline: true` visible as a toggle
+
+### Rule 4: Correct use of `hide` vs `ignore`
+
+- **`ignore`**: Prop is completely removed from UI AND generated code. Use for props irrelevant to the example.
+- **`hide`**: Prop is removed from UI controls but KEPT in generated code. Use sparingly for supporting props that need to appear in code output but shouldn't be interactive.
+
+**When to use `hide`:** Almost never in feature sections. The typical case is a prop that must be in the code for context but isn't the focus (e.g., showing `variant="solid"` in generated code for a color example where variant is fixed).
+
+### Rule 5: Usage section is the general overview
+
+The **Usage** section should expose all key interactive props:
+- All enum props as selectors (`items`)
+- Boolean props as toggles
+- String content props (title, name, label) as inputs
+- Only `class` and complex/non-representable props in `ignore`
+
+### Rule 6: Props, Events, and Slots tables ALWAYS at the end
+
+The document must end with reference tables in this order:
+1. `## Props` - ALL props documented
+2. `## Events` - Only if the component has emits
+3. `## Slots` - Only if the component has named slots
+
+Never place feature sections after these reference tables.
+
+### Rule 7: Always prefer ::spartan-component over static code
+
+Use `::spartan-component` for every example possible. Only fall back to `` ```vue `` blocks when the feature REQUIRES:
+- Vue components as prop values (FunctionalComponent)
+- Callback functions
+- Named slots with **HTML or component content** (not plain text)
+- Multi-component compositions
+
+**Named slots with plain text CAN use ::spartan-component.** The `slots` option supports any named slot as a string. Only use static code when the slot content contains HTML tags or Vue components.
+
+- **WRONG (static block for plain-text slot):**
+  ````
+  ```vue
+  <SBadge color="blue">
+    <template #tag>New</template>
+    Feature released
+  </SBadge>
+  ```
+  ````
+- **CORRECT (interactive with slots):**
+  ```
+  ::spartan-component
+  ---
+  props:
+    color: blue
+  slots:
+    tag: New
+    default: Feature released
+  ---
+  ::
+  ```
+
+### Rule 8: Never include empty or unnecessary slots
+
+Do NOT set a slot to an empty string (`default: ''`) just to declare it. If a slot has no content in an example, simply omit it.
+
+- **WRONG:** `slots: { description: 'Some text', default: '' }` → renders an empty default slot
+- **CORRECT:** `slots: { description: 'Some text' }` → only renders the description slot
+
+Only include slots that have meaningful content for the example. An empty slot adds visual noise and generates misleading code.
+
+---
+
 ## Checklist Before Finishing
 
 - [ ] Read all source files (vue, types, styles, tests, index)
 - [ ] English markdown created with ::spartan-component examples
 - [ ] Spanish markdown created with same structure, translated
-- [ ] All enum props have items dropdowns in at least one example
+- [ ] **Every enum prop uses `items` selector (never a plain text input)**
+- [ ] **Every section only shows controls for its focused feature**
+- [ ] **No featured prop is in `hide` — featured props are always visible**
+- [ ] **Enum/boolean props not in focus are in `ignore`, not shown as inputs**
 - [ ] All boolean features have dedicated sections
+- [ ] **Static ```vue blocks ONLY when slot/prop truly needs HTML/components — plain-text named slots use ::spartan-component**
 - [ ] Props that can't be in YAML (components, callbacks) use static ```vue blocks
 - [ ] Complex props use `external: ['propName']`
 - [ ] Props table at the end with all props documented
 - [ ] Events table included (if component has emits)
 - [ ] Slots table included (if component has named slots)
+- [ ] **Props → Events → Slots tables are the LAST sections in the document**
+- [ ] **No empty slots (`default: ''`) — omit slots without meaningful content**
 - [ ] componentStatus.ts updated with `typescript: true` and `docs: 'complete'`
-- [ ] No unnecessary props shown (use ignore/hide appropriately)
