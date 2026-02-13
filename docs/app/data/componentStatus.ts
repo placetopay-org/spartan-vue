@@ -113,7 +113,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SFilter', typescript: true, docs: 'complete' },
         { name: 'SSectionTitle', typescript: true, docs: 'complete' },
         { name: 'SSectionDescription', typescript: true, docs: 'complete' },
-        { name: 'SCopy', typescript: true, docs: 'complete' },
+        { name: 'SCopy', tests: 62, typescript: true, docs: 'complete' },
     ],
 };
 
