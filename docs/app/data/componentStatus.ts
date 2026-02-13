@@ -63,7 +63,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     ],
     display: [
         { name: 'SAlert', typescript: true, tests: 100, docs: 'complete' },
-        { name: 'SAvatar', typescript: true, docs: 'complete' },
+        { name: 'SAvatar', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=200-1795&p=f', tests: 100 },
         { name: 'SBadge', typescript: true, docs: 'complete' },
         { name: 'SCard', typescript: true, docs: 'complete' },
         { name: 'SCardBrand' },
