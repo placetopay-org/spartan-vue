@@ -42,7 +42,7 @@ const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
 const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = {
     dataInput: [
         { name: 'SInput', typescript: true, tests: 85, docs: 'partial' },
-        { name: 'SInputAmount' },
+        { name: 'SInputAmount', typescript: true, tests: 65, docs: 'partial' },
         { name: 'SInputDate' },
         { name: 'SInputIncrement' },
         { name: 'SInputMask' },

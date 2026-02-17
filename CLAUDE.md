@@ -78,6 +78,21 @@ Categories: `1.data-input`, `2.selectors`, `3.display`, `4.modals`, `5.structure
 
 Documentation uses the `::spartan-component` directive for interactive examples. See `docs/DOCUMENTATION_GUIDE.txt` for the full specification including `props`, `slots`, `items`, `ignore`, `hide`, `external`, and `model` options.
 
+**IMPORTANT:** For all component documentation tasks, use the `document-component` skill (`/document-component SComponentName`). This skill contains the complete workflow, quality rules, and bilingual templates needed to generate correct documentation.
+
+#### Static code blocks do NOT render in docs
+
+The docs site **only renders components via the `::spartan-component` directive**. Static `` ```vue `` code blocks are displayed as plain code snippets — they do NOT render a live component. Always prefer `::spartan-component` for interactive examples. Only use static code blocks when the feature absolutely requires Vue components as props (FunctionalComponent), callback functions, or named slots with HTML/component content.
+
+#### Icons in `::spartan-component`
+
+The docs renderer (`docs/app/components/content/SpartanComponent.vue`) has an automatic icon resolution system. It detects any prop value that is a **string ending in `Icon`** and resolves it to a real Vue component at runtime.
+
+- **Only `@placetopay/iconsax-vue` bold icons are supported** — the resolver uses `import.meta.glob` pointing exclusively to `node_modules/@placetopay/iconsax-vue/dist/Base/bold/*.js`.
+- To use an icon in a `::spartan-component` example, pass the icon name as a plain YAML string: `leftIcon: SearchNormalIcon`, `icon: InfoCircleIcon`.
+- Icons from `@heroicons/vue` or iconsax `outline`/`linear` variants **cannot** be rendered in `::spartan-component` — they will silently fail. Use only iconsax bold icon names.
+- The generated code block will automatically show the correct import from `@placetopay/iconsax-vue/bold`.
+
 ### Build Pipeline
 
 The `npm run build` command runs a multi-step pipeline:
