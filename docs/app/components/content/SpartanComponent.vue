@@ -63,46 +63,74 @@ const component = defineAsyncComponent(() => {
   return import(`../../../../src/components/spartan/${name}/${name}.vue`)
 })
 
+type ChildDefinition = {
+  component: string
+  props?: { [key: string]: any }
+  slots?: { [key: string]: string }
+}
+
+function isSlotWithChildren(slotValue: any): slotValue is { children: ChildDefinition[] } {
+  return typeof slotValue === 'object' && slotValue !== null && Array.isArray(slotValue.children)
+}
+
+let childModules: Record<string, any> = {}
+
+const hasChildren = Object.values(props.slots || {}).some(isSlotWithChildren)
+if (hasChildren) {
+  childModules = await import(`../../../../src/components/spartan/${name}/index.ts`)
+}
+
+function resolveChildComponent(childName: string) {
+  return childModules[childName]
+}
+
 const iconModules = import.meta.glob('../../../../node_modules/@placetopay/iconsax-vue/dist/Base/bold/*.js')
 
 function isIconProp(key: string, value: any): boolean {
   return typeof value === 'string' && value.endsWith('Icon')
 }
 
-function resolveIconPath(iconName: string): string {
-  return `../../../../node_modules/@placetopay/iconsax-vue/dist/Base/bold/${iconName}.js`
+// Collect all icon names from parent props AND children props
+const allIconNames = new Set<string>()
+
+for (const [_, value] of Object.entries(props.props || {})) {
+  if (isIconProp(_, value)) allIconNames.add(value as string)
 }
 
-const resolvedIcons = reactive<Record<string, any>>({})
+for (const slotValue of Object.values(props.slots || {})) {
+  if (isSlotWithChildren(slotValue)) {
+    for (const child of slotValue.children) {
+      for (const [_, value] of Object.entries(child.props || {})) {
+        if (isIconProp(_, value)) allIconNames.add(value as string)
+      }
+    }
+  }
+}
 
-const iconProps = Object.entries(props.props || {}).filter(([key, value]) => isIconProp(key, value))
-
-for (const [key, value] of iconProps) {
-  const path = resolveIconPath(value as string)
+// Resolve all icons with await (SSR-compatible)
+const resolvedIcons: Record<string, any> = {}
+for (const iconName of allIconNames) {
+  const path = `../../../../node_modules/@placetopay/iconsax-vue/dist/Base/bold/${iconName}.js`
   const loader = iconModules[path]
   if (loader) {
-    loader().then((mod: any) => {
-      resolvedIcons[key] = markRaw(mod[value as string] || mod.default)
-    })
+    const mod = await loader() as any
+    resolvedIcons[iconName] = markRaw(mod[iconName] || mod.default)
   }
 }
 
-const componentProps = reactive({
-  ...Object.fromEntries(Object.entries(props.props || {}).map(([key, value]) => {
-    if (isIconProp(key, value)) {
-      return [key, undefined]
-    }
-    return [key, value]
-  }))
-})
+// Replace icon string values with resolved components in any props object
+function resolveIconsInProps(propsObj: Record<string, any>): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(propsObj).map(([key, value]) => {
+      if (isIconProp(key, value) && resolvedIcons[value]) {
+        return [key, resolvedIcons[value]]
+      }
+      return [key, value]
+    })
+  )
+}
 
-watch(resolvedIcons, (icons) => {
-  for (const [key, component] of Object.entries(icons)) {
-    if (component) {
-      componentProps[key] = component
-    }
-  }
-}, { immediate: true, deep: true })
+const componentProps = reactive(resolveIconsInProps(props.props || {}))
 const componentEvents = reactive({
   ...Object.fromEntries((props.model || []).map(key => [`onUpdate:${key}`, (e: any) => setComponentProp(key, e)])),
   ...(componentProps.modelValue ? { [`onUpdate:modelValue`]: (e: any) => setComponentProp('modelValue', e) } : {})
@@ -184,7 +212,7 @@ const options = computed(() => {
   })
 
   const slotOptions = Object.keys(props.slots || {})
-    .filter(key => !props.hide?.includes(key))
+    .filter(key => !props.hide?.includes(key) && !isSlotWithChildren(props.slots?.[key]))
     .map(key => ({
       name: key,
       label: `slot:${key}`,
@@ -206,9 +234,8 @@ const code = computed(() => {
 
   code += `\`\`\`vue${props.highlights?.length ? ` {${props.highlights.join('-')}}` : ''}`
 
-  // Collect icon props from original prop values (strings ending in 'Icon')
-  const iconEntries = Object.entries(props.props || {}).filter(([_, value]) => isIconProp(_, value))
-  const hasIcons = iconEntries.length > 0
+  // Collect all icon names from parent props and children props for code generation
+  const hasIcons = allIconNames.size > 0
 
   if (hasIcons || props.external?.length) {
     code += `
@@ -216,8 +243,7 @@ const code = computed(() => {
 `
     // Generate icon imports
     if (hasIcons) {
-      const iconNames = iconEntries.map(([_, value]) => value as string)
-      code += `import { ${iconNames.join(', ')} } from '@placetopay/iconsax-vue/bold'
+      code += `import { ${Array.from(allIconNames).join(', ')} } from '@placetopay/iconsax-vue/bold'
 `
     }
 
@@ -297,8 +323,47 @@ const code = computed(() => {
   if (componentSlots && Object.keys(componentSlots).length > 0) {
     code += `>`
     for (const [key, value] of Object.entries(componentSlots)) {
-      if (key === 'default') {
-        code += componentSlots.default
+      if (isSlotWithChildren(value)) {
+        // Slot con children: generar tags de componentes hijos
+        const isDefault = key === 'default'
+        if (!isDefault) {
+          code += `\n    <template #${key}>`
+        }
+        for (const child of value.children) {
+          code += `\n    <${child.component}`
+          for (const [propKey, propVal] of Object.entries(child.props || {})) {
+            const childPropName = kebabCase(propKey)
+            if (isIconProp(propKey, propVal)) {
+              code += ` :${childPropName}="${propVal}"`
+            } else if (typeof propVal === 'boolean') {
+              code += propVal ? ` ${childPropName}` : ` :${childPropName}="false"`
+            } else if (typeof propVal === 'number') {
+              code += ` :${childPropName}="${propVal}"`
+            } else {
+              code += ` ${childPropName}="${propVal}"`
+            }
+          }
+          const childSlots = child.slots || {}
+          if (Object.keys(childSlots).length > 0) {
+            code += `>`
+            if (childSlots.default) {
+              code += `\n      ${childSlots.default}`
+            }
+            for (const [slotName, slotValue] of Object.entries(childSlots)) {
+              if (slotName !== 'default') {
+                code += `\n      <template #${slotName}>\n        ${slotValue}\n      </template>`
+              }
+            }
+            code += `\n    </${child.component}>`
+          } else {
+            code += ` />`
+          }
+        }
+        if (!isDefault) {
+          code += `\n    </template>`
+        }
+      } else if (key === 'default') {
+        code += value
       } else {
         code += `
   <template #${key}>
@@ -306,7 +371,7 @@ const code = computed(() => {
   </template>\n`
       }
     }
-    code += (Object.keys(componentSlots).length > 1 ? '\n' : '') + `</${name}>`
+    code += (Object.keys(componentSlots).length > 1 ? '\n' : '') + `\n  </${name}>`
   } else {
     code += ' />'
   }
@@ -401,7 +466,24 @@ const { data: ast } = await useAsyncData(codeKey, async () => {
       <div v-if="component" ref="componentContainer" class="flex justify-center border border-b-0 border-muted relative p-4 z-1" :class="[!options.length && 'rounded-t-md', props.class, { 'overflow-hidden': props.overflowHidden, 'dark:bg-neutral-950/50': props.elevated }]">
         <component :is="component" v-bind="{ ...componentProps, ...componentEvents }">
           <template v-for="slot in Object.keys(componentSlots || {})" :key="slot" #[slot]>
-            <slot :name="slot" mdc-unwrap="p">
+            <!-- Slot con children: renderizar componentes hijos -->
+            <template v-if="isSlotWithChildren(componentSlots[slot])">
+              <template v-for="(child, index) in componentSlots[slot].children" :key="index">
+                <component
+                  v-if="resolveChildComponent(child.component)"
+                  :is="resolveChildComponent(child.component)"
+                  v-bind="resolveIconsInProps(child.props || {})"
+                >
+                  <template v-for="childSlot in Object.keys(child.slots || {})" :key="childSlot" #[childSlot]>
+                    <span v-if="child.slots?.[childSlot]?.includes('<')" v-html="child.slots[childSlot]" />
+                    <template v-else>{{ child.slots?.[childSlot] }}</template>
+                  </template>
+                </component>
+              </template>
+            </template>
+
+            <!-- Slot con texto plano (comportamiento original) -->
+            <slot v-else :name="slot" mdc-unwrap="p">
               {{ componentSlots?.[slot] }}
             </slot>
           </template>

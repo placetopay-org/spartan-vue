@@ -83,7 +83,8 @@ slots:
 --------------------------------------------------------------------------------
 
 props:        Object with component props and their values (YAML format)
-slots:        Object with slot names and their string content
+slots:        Object with slot names. Value can be a string (text content) or
+              an object { children: [...] } for compound components (see 4.5)
 items:        Object mapping prop names to arrays of selectable values (dropdowns)
 ignore:       Array of prop names to completely hide from UI and code
 hide:         Array of prop names to hide from UI controls but keep in generated code
@@ -188,6 +189,58 @@ ignore:
   - saved
 ---
 ::
+
+--------------------------------------------------------------------------------
+4.5 COMPOUND COMPONENTS (CHILDREN IN SLOTS)
+--------------------------------------------------------------------------------
+
+For parent-child components (e.g., SBreadcrumbs + SBreadcrumbsItem), use the
+`children` key inside a slot to render child components instead of text.
+
+A slot value can be:
+  - A string: plain text content (default behavior)
+  - An object with `children`: array of child component definitions
+
+Each child definition has:
+  component:  Name of the child component (must be exported from the parent's
+              index.ts, e.g., SBreadcrumbsItem from SBreadcrumbs/index.ts)
+  props:      Object with the child's props (optional)
+  slots:      Object with the child's slot content as strings (optional)
+
+EXAMPLE (SBreadcrumbs with SBreadcrumbsItem children):
+
+::spartan-component
+---
+slots:
+  default:
+    children:
+      - component: SBreadcrumbsItem
+        props:
+          first: true
+          href: /
+        slots:
+          default: Home
+      - component: SBreadcrumbsItem
+        props:
+          href: /products
+        slots:
+          default: Products
+      - component: SBreadcrumbsItem
+        props:
+          href: /products/laptops
+          active: true
+        slots:
+          default: Laptops
+---
+::
+
+NOTES:
+  → Children are rendered inside the specified slot of the parent component
+  → Children can be placed in any slot, not just the default slot
+  → Slots with children do NOT appear as interactive text inputs in the UI
+  → The generated code shows the full nested component structure
+  → The parent and child components are imported from the same folder
+    (e.g., import from src/components/spartan/SBreadcrumbs/)
 
 ================================================================================
 5. DOCUMENT STRUCTURE PATTERN
