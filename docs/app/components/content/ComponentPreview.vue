@@ -546,7 +546,9 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
                     </div>
 
                     <div class="flex w-full items-center justify-center p-8" :style="{ zoom: String(displayZoom) }">
-                        <component :is="exampleComponent" v-if="exampleComponent" />
+                        <ClientOnly>
+                            <component :is="exampleComponent" v-if="exampleComponent" />
+                        </ClientOnly>
                     </div>
                 </div>
 

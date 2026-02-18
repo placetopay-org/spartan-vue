@@ -4,7 +4,7 @@ description: |
   Create complete bilingual documentation for Spartan Vue components. Use when asked to:
   "document component", "create docs for S*", "update component documentation",
   "add docs for component", "document S*". Generates interactive documentation
-  with ::spartan-component examples in English and Spanish, following the
+  with ::component-preview examples in English and Spanish, following the
   established pattern with props tables, events, slots, and componentStatus updates.
 ---
 
@@ -15,9 +15,10 @@ Generate complete, bilingual (EN/ES) interactive documentation for a Spartan Vue
 ## Workflow
 
 1. **Read source files** - Understand the component fully
-2. **Write English docs** - Create markdown with ::spartan-component examples
-3. **Write Spanish docs** - Mirror structure with translations
-4. **Update componentStatus.ts** - Mark typescript and docs status
+2. **Create example `.vue` files** - Interactive previews in `docs/examples/SName/`
+3. **Write English docs** - Markdown referencing the example files
+4. **Write Spanish docs** - Mirror structure with translations
+5. **Update componentStatus.ts** - Mark typescript and docs status
 
 ---
 
@@ -41,6 +42,7 @@ Before writing docs, read ALL of these files for the target component:
 |------|------|
 | English doc | `docs/content/en/2.components/{category}/{n}.{slug}.md` |
 | Spanish doc | `docs/content/es/2.components/{category}/{n}.{slug}.md` |
+| Example files | `docs/examples/SName/{example-name}.vue` |
 | Status entry | `docs/app/data/componentStatus.ts` |
 
 Categories:
@@ -89,72 +91,126 @@ navigation:
 
 ---
 
-## Step 4: The ::spartan-component Directive
+## Step 4: The ::component-preview Directive
 
-This is the core of the interactive documentation. It renders the actual component live with interactive controls and auto-generated code.
-
-### Basic Syntax
+Interactive examples use `.vue` files in `docs/examples/SName/` rendered via:
 
 ```markdown
-::spartan-component
----
-props:
-  propName: value
-slots:
-  default: Slot content
----
+::component-preview{file="SName/example-name"}
 ::
 ```
 
-### Directive Options
+### Example File Patterns
 
-| Option | Purpose |
-|--------|---------|
-| `props` | Object with component props and their values (YAML format) |
-| `slots` | Object with slot names and their string content |
-| `items` | Object mapping prop names to arrays of selectable values (dropdowns) |
-| `ignore` | Array of prop names to completely hide from UI and code |
-| `hide` | Array of prop names to hide from UI controls but keep in generated code |
-| `external` | Array of prop names to move to `<script setup>` section |
-| `model` | Array of prop names that use v-model binding |
-| `class` | CSS classes for the component container |
-| `collapse` | Wrap generated code in a collapsible block |
-| `elevated` | Add dark background to preview area |
-| `overflowHidden` | Add overflow-hidden to preview area |
+**First/Usage example (`basic.vue`) — Full playground:**
 
-### When to Use Each Option
+```vue
+<script setup lang="ts">
+import { usePreview } from '~/composables/usePreview'
 
-**items:** `{ propName: ['opt1', 'opt2', 'opt3'] }`
-- Creates a DROPDOWN selector for that prop
-- Use for enum/string-union props (color, variant, size, etc.)
-- Only accepts `string[]` arrays
-- Multiple items can be combined: `items: { color: [...], size: [...] }`
+const { controls, slots } = usePreview({
+    mode: 'playground',
+    component: 'SButton',
+    props: {
+        variant: { type: 'select', options: ['primary', 'secondary', 'danger'], default: 'primary', label: 'variant' },
+        size: { type: 'select', options: ['sm', 'md', 'lg'], default: 'md', label: 'size' },
+        disabled: { type: 'boolean', default: false, label: 'disabled' },
+    },
+    slots: {
+        default: { default: 'Click me', label: 'Label' },
+    },
+})
+</script>
 
-**ignore:** `['propName']`
-- Completely removes the prop from UI controls AND generated code
-- Use for props not relevant to the current example
-- Use for props that can't be represented in YAML (FunctionalComponent, callbacks)
+<template>
+    <SButton :variant="controls.variant" :size="controls.size" :disabled="controls.disabled">
+        {{ slots.default }}
+    </SButton>
+</template>
+```
 
-**hide:** `['propName']`
-- Removes from UI controls but KEEPS in generated code
-- Use when you want the prop fixed in the example but visible in code
-- Example: hide variant in a "Solid variant" example so user sees `variant="solid"` in code
+**Feature example — Single protagonist prop (select):**
 
-**external:** `['propName']`
-- Moves the prop to a `<script setup>` section: `const propName = ref([...])`
-- In template generates `:prop-name="propName"` (variable reference)
-- Use for complex array/object props (fields, columns, data, etc.)
-- DO NOT use `externalTypes` (it hardcodes import from `'@nuxt/ui'`)
+```vue
+<script setup lang="ts">
+import { usePreview } from '~/composables/usePreview'
 
-### Prop Types and How They Render
+const { controls } = usePreview({
+    props: {
+        size: { type: 'select', options: ['sm', 'md', 'lg'], default: 'md', label: 'size' },
+    },
+})
+</script>
 
-| Type | UI Control | Code Output |
-|------|-----------|-------------|
-| String | Text input | `prop="value"` |
-| Boolean | true/false dropdown | bare `prop` or `:prop="false"` |
-| Number | Number input | `:prop="42"` |
-| Object/Array | No control | json5 inline or via external |
-| Slots | Text input | Content between component tags |
+<template>
+    <SButton :size="controls.size">Button</SButton>
+</template>
+```
+
+**Feature example — Single boolean prop:**
+
+```vue
+<script setup lang="ts">
+import { usePreview } from '~/composables/usePreview'
+
+const { controls } = usePreview({
+    props: {
+        disabled: { type: 'boolean', default: true, label: 'disabled' },
+    },
+})
+</script>
+
+<template>
+    <SButton :disabled="controls.disabled">Button</SButton>
+</template>
+```
+
+**Static example (compound components, complex props, or v-model):**
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { usePreview } from '~/composables/usePreview'
+
+const selected = ref('startup')
+usePreview({ component: 'SRadioGroup' })
+</script>
+
+<template>
+    <SRadioGroup v-model="selected">
+        <SRadioGroupItem value="startup">
+            <template #title>Startup</template>
+            <template #description>12GB / 6 CPUs</template>
+        </SRadioGroupItem>
+        <SRadioGroupItem value="pro">
+            <template #title>Pro</template>
+            <template #description>32GB / 12 CPUs</template>
+        </SRadioGroupItem>
+    </SRadioGroup>
+</template>
+```
+
+### Control Types
+
+| Type | UI Control | Usage |
+|------|-----------|-------|
+| `select` | Pill toggle group | Enum props with finite options |
+| `boolean` | Toggle switch | Boolean props |
+| `text` | Text input | String props (playground mode only) |
+| `number` | Number input | Numeric props (playground mode only) |
+
+### When to Use Static vs Interactive Examples
+
+**Use `usePreview` controls when:**
+- Prop has a finite set of values (use `type: 'select'`)
+- Prop is boolean (use `type: 'boolean'`)
+- Text/number values in playground mode (`type: 'text'` / `type: 'number'`)
+
+**Use static `.vue` file (no controls) when:**
+- Compound components (SBreadcrumbs, SRadioGroup) — children define the structure
+- Complex array/object props (fields, columns, actions)
+- Props that are Vue components (FunctionalComponent: icons)
+- v-model state that must persist between interactions
 
 ---
 
@@ -163,8 +219,8 @@ slots:
 Follow this order for every component:
 
 ```
-# Usage                    -> Brief description + main ::spartan-component example
-## {Feature sections}      -> One section per notable feature, each with ::spartan-component
+# Usage                    -> Brief description + main playground example
+## {Feature sections}      -> One section per notable feature
 ## Props                   -> Table of all props
 ## Events                  -> Table of all events (only if component has emits)
 ## Slots                   -> Table of all slots (only if component has named slots)
@@ -173,16 +229,12 @@ Follow this order for every component:
 ### Feature Sections Guidelines
 
 - Create one section per visual/functional variant the component supports
-- Each section should have a `::spartan-component` or `` ```vue `` code block
-- **Prefer** `::spartan-component` (interactive) over static code blocks
-- Use static `` ```vue `` blocks ONLY when the feature requires:
-  - Vue components as props (FunctionalComponent: icons, custom components)
-  - Callback functions (onClick, validate, etc.)
-  - Named slots with HTML content (`<template #slotName>`)
-  - Complex compositions with multiple components
-- For enum props (color, variant, size), show a dropdown with ALL possible values
-- For boolean props, show the feature ON by default with a brief description
-- For combined features, show meaningful real-world combinations
+- Each feature section uses `::component-preview` pointing to a focused example file
+- Feature examples register ONLY the protagonist prop(s) via `usePreview`
+- Use static `` ```vue `` blocks ONLY when `::component-preview` is impossible
+  (e.g., FunctionalComponent props, HTML in named slots, multi-component compositions)
+- For enum props (color, variant, size), use `type: 'select'` with ALL possible values
+- For boolean props, default to `true` in feature examples to show the feature ON
 
 ### Props Table Format
 
@@ -199,7 +251,7 @@ Follow this order for every component:
 **Spanish:**
 
 ```markdown
-| Prop | Tipo | Default | Descripcion |
+| Prop | Tipo | Default | Descripción |
 |------|------|---------|-------------|
 | `propName` | `'opt1' \| 'opt2'` | `'opt1'` | Lo que hace esta prop |
 ```
@@ -218,7 +270,7 @@ Follow this order for every component:
 **Spanish:**
 
 ```markdown
-| Evento | Payload | Descripcion |
+| Evento | Payload | Descripción |
 |--------|---------|-------------|
 | `eventName` | `PayloadType` | Cuando se emite |
 ```
@@ -237,10 +289,10 @@ Follow this order for every component:
 **Spanish:**
 
 ```markdown
-| Nombre | Descripcion |
+| Nombre | Descripción |
 |--------|-------------|
 | `default` | Contenido principal |
-| `slotName` | Que va aqui |
+| `slotName` | Qué va aquí |
 ```
 
 ---
@@ -266,6 +318,8 @@ Add these flags:
 
 Both English and Spanish files must have the **same structure and examples**.
 
+The `::component-preview` directives are identical in both languages — they reference the same `.vue` files (no separate EN/ES example files).
+
 ### What Changes Between Languages
 
 | Element | English | Spanish |
@@ -274,17 +328,16 @@ Both English and Spanish files must have the **same structure and examples**.
 | `# Usage` | `# Usage` | `# Uso` |
 | Section headings | English | Spanish |
 | Prose descriptions | English | Spanish |
-| Props table header | `Type \| Default \| Description` | `Tipo \| Default \| Descripcion` |
-| Events table header | `Event \| Payload \| Description` | `Evento \| Payload \| Descripcion` |
-| Slots table header | `Name \| Description` | `Nombre \| Descripcion` |
+| Props table header | `Type \| Default \| Description` | `Tipo \| Default \| Descripción` |
+| Events table header | `Event \| Payload \| Description` | `Evento \| Payload \| Descripción` |
+| Slots table header | `Name \| Description` | `Nombre \| Descripción` |
 | Table descriptions | English | Spanish |
 
 ### What Stays the Same
 
-- Code examples (don't translate variable names or prop values)
-- `::spartan-component` directive content (same YAML)
+- `::component-preview{file="..."}` directives (same file references)
 - Prop names, event names, slot names
-- Slot content in examples (optional to translate, keep English for code clarity)
+- Code in static `` ```vue `` blocks
 
 ### Common Heading Translations
 
@@ -293,134 +346,36 @@ Both English and Spanish files must have the **same structure and examples**.
 | Usage | Uso |
 | Colors | Colores |
 | Variants | Variantes |
-| Sizes | Tamanos |
+| Sizes | Tamaños |
 | States | Estados |
 | Props | Props |
 | Events | Eventos |
 | Slots | Slots |
 | With Icon | Con Icono |
 | Closeable | Cerrable |
-| Description | Descripcion |
+| Description | Descripción |
 
 ---
 
-## Examples by Complexity
+## Quality Rules
 
-### Simple (all string/boolean/number props)
+### Rule 1: First example is always the Usage playground
 
-```markdown
-::spartan-component
----
-items: { variant: ['primary', 'secondary', 'danger'] }
-props:
-  variant: primary
-  disabled: false
-slots:
-  default: Click me
-ignore:
-  - class
----
-::
-```
+`basic.vue` uses `mode: 'playground'` and `component: 'SName'` with ALL relevant props and the default slot registered. This gives readers a full sandbox.
 
-### Medium (focused feature section)
+### Rule 2: Feature examples register only the protagonist prop(s)
 
-```markdown
-::spartan-component
----
-props:
-  outline: true
-  color: primary
-slots:
-  default: Badge
-ignore:
-  - color
-  - size
-  - removable
-  - class
----
-::
-```
+Every feature `.vue` file calls `usePreview()` WITHOUT `mode` (defaults to `'feature'`) and only registers the prop(s) being demonstrated. The template hardcodes supporting values directly.
 
-### Complex (array/object props)
+### Rule 3: Select props use `type: 'select'` with all valid options
 
-```markdown
-::spartan-component
----
-external: ['fields']
-props:
-  fields:
-    - id: name
-      name: Name
-      interfaces:
-        oneInput:
-          operators:
-            - equal
-            - contains
-  hideApplyButton: false
-  hideClearButton: false
-ignore:
-  - responsive
-  - saved
----
-::
-```
+Any prop with a finite set of values must register as `type: 'select'` with the complete `options` array. Never use `type: 'text'` for enum props in feature examples.
 
----
+### Rule 4: Boolean props default to `true` in feature examples
 
-## Quality Rules for ::spartan-component Examples
+Feature examples showing a boolean prop should default it to `true` so the feature is visible immediately.
 
-These rules MUST be followed when creating or reviewing documentation. They ensure every interactive example is focused, consistent, and uses the correct UI controls.
-
-### Rule 1: Enum props MUST use `items` (selector), NEVER plain inputs
-
-Any prop with a finite set of values (string unions, enums) must be rendered as a dropdown selector via `items`, not as a free-text input.
-
-- `size: 'sm' | 'md' | 'lg'` → `items: { size: ['sm', 'md', 'lg'] }`
-- `color: 'primary' | 'red' | 'blue'` → `items: { color: ['primary', 'red', 'blue'] }`
-- `variant: 'solid' | 'outline'` → `items: { variant: ['solid', 'outline'] }`
-
-**Exception:** If the enum prop is NOT the focus of the section, put it in `ignore` instead.
-
-### Rule 2: Each section must only expose controls relevant to its focus
-
-Every `::spartan-component` section demonstrates ONE feature. All props NOT related to that feature must be in `ignore`.
-
-**Decision flow for each prop in a section:**
-
-1. Is this prop the **focus** of the section? → Show it (as `items` if enum, as toggle if boolean, as input if string)
-2. Is this prop an **enum NOT in focus**? → Put in `ignore`
-3. Is this prop a **boolean NOT in focus**? → Put in `ignore`
-4. Is this prop a **string that provides content** (like `title`, `name`)? → Keep as input ONLY in the **Usage** section. In feature sections:
-   - If removing it would break the visual example (e.g., a card without title looks incomplete) → put in `hide` (appears in code/render but not interactive)
-   - If removing it has no visual impact → put in `ignore`
-5. Is this prop complex (components, callbacks, arrays)? → Put in `ignore`
-
-**Example - Closable section:** Only `closable` should be interactive. Props like `icon`, `title`, `size`, `iconColor` etc. are just supporting values and go in `ignore` or `hide` (if needed for rendering).
-
-### Rule 3: The featured prop MUST NEVER be in `hide`
-
-The prop that a section is demonstrating must be visible and interactive, never hidden.
-
-- **WRONG:** Outline section with `hide: - outline` (user can't toggle the feature!)
-- **CORRECT:** Outline section with `outline: true` visible as a toggle
-
-### Rule 4: Correct use of `hide` vs `ignore`
-
-- **`ignore`**: Prop is completely removed from UI AND generated code. Use for props irrelevant to the example.
-- **`hide`**: Prop is removed from UI controls but KEPT in generated code. Use sparingly for supporting props that need to appear in code output but shouldn't be interactive.
-
-**When to use `hide`:** Almost never in feature sections. The typical case is a prop that must be in the code for context but isn't the focus (e.g., showing `variant="solid"` in generated code for a color example where variant is fixed).
-
-### Rule 5: Usage section is the general overview
-
-The **Usage** section should expose all key interactive props:
-- All enum props as selectors (`items`)
-- Boolean props as toggles
-- String content props (title, name, label) as inputs
-- Only `class` and complex/non-representable props in `ignore`
-
-### Rule 6: Props, Events, and Slots tables ALWAYS at the end
+### Rule 5: Props, Events, and Slots tables ALWAYS at the end
 
 The document must end with reference tables in this order:
 1. `## Props` - ALL props documented
@@ -429,65 +384,25 @@ The document must end with reference tables in this order:
 
 Never place feature sections after these reference tables.
 
-### Rule 7: Always prefer ::spartan-component over static code
+### Rule 6: Use `usePreview({ component: 'SName' })` in static examples
 
-Use `::spartan-component` for every example possible. Only fall back to `` ```vue `` blocks when the feature REQUIRES:
-- Vue components as prop values (FunctionalComponent)
-- Callback functions
-- Named slots with **HTML or component content** (not plain text)
-- Multi-component compositions
-
-**Named slots with plain text CAN use ::spartan-component.** The `slots` option supports any named slot as a string. Only use static code when the slot content contains HTML tags or Vue components.
-
-- **WRONG (static block for plain-text slot):**
-  ````
-  ```vue
-  <SBadge color="blue">
-    <template #tag>New</template>
-    Feature released
-  </SBadge>
-  ```
-  ````
-- **CORRECT (interactive with slots):**
-  ```
-  ::spartan-component
-  ---
-  props:
-    color: blue
-  slots:
-    tag: New
-    default: Feature released
-  ---
-  ::
-  ```
-
-### Rule 8: Never include empty or unnecessary slots
-
-Do NOT set a slot to an empty string (`default: ''`) just to declare it. If a slot has no content in an example, simply omit it.
-
-- **WRONG:** `slots: { description: 'Some text', default: '' }` → renders an empty default slot
-- **CORRECT:** `slots: { description: 'Some text' }` → only renders the description slot
-
-Only include slots that have meaningful content for the example. An empty slot adds visual noise and generates misleading code.
+Even static `.vue` files (no controls) must call `usePreview({ component: 'SName' })` so the live code panel shows the component's code correctly.
 
 ---
 
 ## Checklist Before Finishing
 
 - [ ] Read all source files (vue, types, styles, tests, index)
-- [ ] English markdown created with ::spartan-component examples
+- [ ] `basic.vue` created with `mode: 'playground'` and all relevant props/slots
+- [ ] Feature `.vue` files created for each section (one protagonist prop each)
+- [ ] Static `.vue` files for compound/complex cases (with `usePreview({ component: 'SName' })`)
+- [ ] English markdown created with `::component-preview` directives
 - [ ] Spanish markdown created with same structure, translated
-- [ ] **Every enum prop uses `items` selector (never a plain text input)**
-- [ ] **Every section only shows controls for its focused feature**
-- [ ] **No featured prop is in `hide` — featured props are always visible**
-- [ ] **Enum/boolean props not in focus are in `ignore`, not shown as inputs**
-- [ ] All boolean features have dedicated sections
-- [ ] **Static ```vue blocks ONLY when slot/prop truly needs HTML/components — plain-text named slots use ::spartan-component**
-- [ ] Props that can't be in YAML (components, callbacks) use static ```vue blocks
-- [ ] Complex props use `external: ['propName']`
+- [ ] **Every enum prop uses `type: 'select'` with all valid options**
+- [ ] **Every feature example only registers its protagonist prop**
+- [ ] **Boolean feature examples default to `true`**
 - [ ] Props table at the end with all props documented
 - [ ] Events table included (if component has emits)
 - [ ] Slots table included (if component has named slots)
 - [ ] **Props → Events → Slots tables are the LAST sections in the document**
-- [ ] **No empty slots (`default: ''`) — omit slots without meaningful content**
 - [ ] componentStatus.ts updated with `typescript: true` and `docs: 'complete'`
