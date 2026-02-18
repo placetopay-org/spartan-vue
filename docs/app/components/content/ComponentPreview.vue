@@ -71,10 +71,12 @@ const liveCode = computed(() => {
     for (const [key, ctrl] of Object.entries(store.definition)) {
         const val = store.values[key]
         const def = (ctrl as ControlDefinition).default ?? null
-        if (val === def || val === null || val === undefined) continue
         if ((ctrl as ControlDefinition).type === 'boolean') {
             if (val === true) attrParts.push(key)
-        } else if ((ctrl as ControlDefinition).type === 'number') {
+            continue
+        }
+        if (val === def || val === null || val === undefined) continue
+        if ((ctrl as ControlDefinition).type === 'number') {
             attrParts.push(`:${key}="${val}"`)
         } else {
             attrParts.push(`${key}="${val}"`)
