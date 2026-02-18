@@ -94,15 +94,29 @@ const liveCode = computed(() => {
 
     const attrsStr = attrParts.length ? ' ' + attrParts.join(' ') : ''
 
-    // Build slot content — Prettier will handle indentation
-    const defaultSlotContent = store.slotValues.default
-        ?? (Object.keys(store.slotDefinition).length > 0 ? Object.values(store.slotValues)[0] : undefined)
+    // Build slot content
+    const slotKeys = Object.keys(store.slotDefinition)
+    const filledSlots = slotKeys.filter(k => store.slotValues[k])
 
     let templateCode: string
-    if (defaultSlotContent !== undefined) {
-        templateCode = !defaultSlotContent
-            ? `<${name}${attrsStr} />`
-            : `<${name}${attrsStr}>${defaultSlotContent}</${name}>`
+    if (filledSlots.length > 1) {
+        // Multiple slots with content: generate <template #name> tags
+        const templateParts = filledSlots.map(k => {
+            return k === 'default'
+                ? `    <template #default>${store.slotValues[k]}</template>`
+                : `    <template #${k}>${store.slotValues[k]}</template>`
+        })
+        templateCode = `<${name}${attrsStr}>\n${templateParts.join('\n')}\n</${name}>`
+    } else if (filledSlots.length === 1) {
+        const content = store.slotValues[filledSlots[0]]
+        if (filledSlots[0] === 'default') {
+            templateCode = `<${name}${attrsStr}>${content}</${name}>`
+        } else {
+            templateCode = `<${name}${attrsStr}>\n    <template #${filledSlots[0]}>${content}</template>\n</${name}>`
+        }
+    } else if (slotKeys.length > 0) {
+        // Slots defined but all empty
+        templateCode = `<${name}${attrsStr} />`
     } else {
         // No slot definition — check raw source for text content between tags
         const rawContent = rawSource.value.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`))?.[1]?.trim()

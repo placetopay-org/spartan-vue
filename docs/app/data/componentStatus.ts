@@ -54,8 +54,26 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SSelect' },
     ],
     selectors: [
-        { name: 'SCheckbox', typescript: true, tests: 94, docs: 'partial' },
-        { name: 'SRadio', typescript: true, tests: 100, docs: 'partial' },
+        {
+            name: 'SCheckbox',
+            typescript: true,
+            tests: 94,
+            docs: 'complete',
+            improvements: {
+                en: 'Review the inline mode that leaves no space between the label and the description',
+                es: 'Revisar el modo inline que no deja espacio entre el label y la descripción',
+            },
+        },
+        {
+            name: 'SRadio',
+            typescript: true,
+            tests: 100,
+            docs: 'complete',
+            improvements: {
+                en: 'Review the inline mode that leaves no space between the label and the description',
+                es: 'Revisar el modo inline que no deja espacio entre el label y la descripción',
+            },
+        },
         { name: 'SRadioGroup', typescript: true, tests: 100, docs: 'partial' },
         { name: 'SSwitch', typescript: true, tests: 100, docs: 'partial' },
         { name: 'SSelector' },
