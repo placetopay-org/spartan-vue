@@ -14,7 +14,14 @@ const props = withDefaults(defineProps<{
 
 // ─── 1. PreviewStore — provided to the child example component ────────────────
 
-const store = reactive<PreviewStore>({ definition: {}, values: {} })
+const store = reactive<PreviewStore>({
+    definition: {},
+    slotDefinition: {},
+    values: {},
+    slotValues: {},
+    mode: 'feature',
+    component: '',
+})
 provide('spartan-preview', store)
 
 // ─── 2. Load example component + raw source ───────────────────────────────────
@@ -38,30 +45,102 @@ async function loadExample(file: string) {
     }
     loadError.value = false
     store.definition = {}
+    store.slotDefinition = {}
+    store.mode = 'feature'
+    store.component = ''
     Object.keys(store.values).forEach(k => delete store.values[k])
+    Object.keys(store.slotValues).forEach(k => delete store.slotValues[k])
     const [mod, raw] = await Promise.all([
         loader() as Promise<{ default: any }>,
         rawLoader ? (rawLoader() as Promise<string>) : Promise.resolve(''),
     ])
     exampleComponent.value = markRaw(mod.default)
     rawSource.value = typeof raw === 'string' ? raw : ''
-    codeHtml.value = await highlight(rawSource.value)
 }
 
 await loadExample(props.file)
 watch(() => props.file, loadExample)
 
-// ─── 3. Code display ─────────────────────────────────────────────────────────
+// ─── 3. Live code generation ──────────────────────────────────────────────────
+
+const liveCode = computed(() => {
+    // Extract component name from store or from raw source
+    const name = store.component || rawSource.value.match(/<([A-Z]\w+)/)?.[1] || 'Component'
+    const attrParts: string[] = []
+
+    for (const [key, ctrl] of Object.entries(store.definition)) {
+        const val = store.values[key]
+        const def = (ctrl as ControlDefinition).default ?? null
+        if (val === def || val === null || val === undefined) continue
+        if ((ctrl as ControlDefinition).type === 'boolean') {
+            if (val === true) attrParts.push(key)
+        } else if ((ctrl as ControlDefinition).type === 'number') {
+            attrParts.push(`:${key}="${val}"`)
+        } else {
+            attrParts.push(`${key}="${val}"`)
+        }
+    }
+
+    const propsStr = attrParts.length ? '\n    ' + attrParts.join('\n    ') + '\n' : ''
+
+    // Build slot content
+    const defaultSlotContent = store.slotValues.default
+        ?? (Object.keys(store.slotDefinition).length > 0 ? Object.values(store.slotValues)[0] : undefined)
+
+    if (defaultSlotContent !== undefined) {
+        const content = defaultSlotContent ? `\n    ${defaultSlotContent}\n` : ''
+        return `<${name}${propsStr}>${content}</${name}>`
+    }
+    // No slot definition — check raw source for text content between tags
+    const rawContent = rawSource.value.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`))?.[1]?.trim()
+    const content = rawContent ? `\n    ${rawContent}\n` : ''
+    return `<${name}${propsStr}>${content}</${name}>`
+})
+
+let _codeHighlightTimer: ReturnType<typeof setTimeout> | null = null
+
+function scheduleHighlight(code: string) {
+    if (_codeHighlightTimer !== null) clearTimeout(_codeHighlightTimer)
+    _codeHighlightTimer = setTimeout(async () => {
+        codeHtml.value = await highlight(code)
+        _codeHighlightTimer = null
+    }, 150)
+}
+
+watch(liveCode, scheduleHighlight, { flush: 'post' })
+
+// Initial highlight once the store is populated (after child mounts)
+// We use a nextTick-style watch that fires once
+const _stopInitWatch = watch(
+    () => [store.component, Object.keys(store.definition).length],
+    async () => {
+        codeHtml.value = await highlight(liveCode.value)
+        _stopInitWatch()
+    },
+    { immediate: false }
+)
+
+// Fallback: highlight raw source when no store definition (no usePreview call)
+watch(rawSource, async (src) => {
+    if (Object.keys(store.definition).length === 0 && Object.keys(store.slotDefinition).length === 0) {
+        codeHtml.value = await highlight(src)
+    }
+}, { immediate: true })
 
 // ─── 4. UI state ─────────────────────────────────────────────────────────────
 
 const showCode = ref(false)
 const copied = ref(false)
-const hasControls = computed(() => Object.keys(store.definition).length > 0)
+const hasControls = computed(() =>
+    Object.keys(store.definition).length > 0 ||
+    Object.keys(store.slotDefinition).length > 0
+)
+const hasSlots = computed(() => Object.keys(store.slotDefinition).length > 0)
+const isPlayground = computed(() => store.mode === 'playground')
 
 async function copyCode() {
     try {
-        await navigator.clipboard.writeText(rawSource.value)
+        await navigator.clipboard.writeText(liveCode.value)
         copied.value = true
         setTimeout(() => { copied.value = false }, 2000)
     } catch {}
@@ -124,7 +203,7 @@ onUnmounted(() => {
     window.removeEventListener('mouseup', onDragEnd)
 })
 
-// ─── 7b. Code panel transition (JS hooks for smooth height animation) ────────
+// ─── 7. Code panel transition (JS hooks for smooth height animation) ──────────
 
 function onCodeEnter(el: Element) {
     const e = el as HTMLElement
@@ -216,57 +295,165 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
         </div>
 
         <template v-else>
-            <!-- ── Controls panel (prop dropdowns) ─────────────────────────── -->
+            <!-- ══ PLAYGROUND MODE controls (full panel) ════════════════════ -->
             <div
-                v-if="hasControls"
-                class="relative flex flex-wrap items-center gap-2.5 overflow-x-auto rounded-t-md border border-b-0 border-muted px-4 py-2.5"
+                v-if="hasControls && isPlayground"
+                class="rounded-t-md border border-b-0 border-muted overflow-hidden"
+            >
+                <!-- Props row -->
+                <div v-if="Object.keys(store.definition).length > 0" class="px-4 py-3 flex flex-wrap gap-x-5 gap-y-3 items-end border-b border-muted/60">
+                    <div class="text-[10px] font-semibold uppercase tracking-widest text-muted self-center shrink-0 w-8">
+                        Props
+                    </div>
+                    <template v-for="(ctrl, key) in store.definition" :key="key">
+                        <!-- Select control -->
+                        <div v-if="(ctrl as ControlDefinition).type === 'select'" class="flex flex-col gap-1">
+                            <label class="text-[10px] font-medium text-muted uppercase tracking-wide">
+                                {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                            </label>
+                            <USelect
+                                :model-value="store.values[key]"
+                                :items="((ctrl as ControlDefinition).options ?? []).map((o: any) => ({ value: o, label: String(o) }))"
+                                value-key="value"
+                                color="neutral"
+                                variant="soft"
+                                size="sm"
+                                class="min-w-20"
+                                :class="[String(key).toLowerCase().endsWith('color') && 'pl-6']"
+                                :ui="{ itemLeadingChip: 'w-2' }"
+                                @update:model-value="store.values[key] = $event"
+                            >
+                                <template v-if="String(key).toLowerCase().endsWith('color')" #leading="{ modelValue, ui }">
+                                    <UChip
+                                        v-if="modelValue"
+                                        inset
+                                        standalone
+                                        :color="(modelValue as any)"
+                                        :size="(ui.itemLeadingChipSize() as ChipProps['size'])"
+                                        class="size-2"
+                                    />
+                                </template>
+                            </USelect>
+                        </div>
+
+                        <!-- Boolean control: toggle switch -->
+                        <div v-else-if="(ctrl as ControlDefinition).type === 'boolean'" class="flex flex-col gap-1.5">
+                            <label class="text-[10px] font-medium text-muted uppercase tracking-wide">
+                                {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                            </label>
+                            <div class="flex items-center h-[30px]">
+                                <USwitch
+                                    :model-value="store.values[key]"
+                                    color="primary"
+                                    size="sm"
+                                    @update:model-value="store.values[key] = $event"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Number control -->
+                        <div v-else-if="(ctrl as ControlDefinition).type === 'number'" class="flex flex-col gap-1">
+                            <label class="text-[10px] font-medium text-muted uppercase tracking-wide">
+                                {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                            </label>
+                            <UInput
+                                :model-value="store.values[key]"
+                                type="number"
+                                :min="(ctrl as ControlDefinition).min"
+                                :max="(ctrl as ControlDefinition).max"
+                                :step="(ctrl as ControlDefinition).step"
+                                color="neutral"
+                                variant="soft"
+                                size="sm"
+                                class="w-20"
+                                @update:model-value="store.values[key] = Number($event)"
+                            />
+                        </div>
+
+                        <!-- Text control -->
+                        <div v-else class="flex flex-col gap-1">
+                            <label class="text-[10px] font-medium text-muted uppercase tracking-wide">
+                                {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                            </label>
+                            <UInput
+                                :model-value="store.values[key]"
+                                type="text"
+                                color="neutral"
+                                variant="soft"
+                                size="sm"
+                                class="min-w-24"
+                                @update:model-value="store.values[key] = $event"
+                            />
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Slots row -->
+                <div v-if="hasSlots" class="px-4 py-3 flex flex-wrap gap-x-5 gap-y-3 items-end bg-elevated/30">
+                    <div class="text-[10px] font-semibold uppercase tracking-widest text-muted self-center shrink-0 w-8">
+                        Slots
+                    </div>
+                    <template v-for="(slotDef, key) in store.slotDefinition" :key="key">
+                        <div class="flex flex-col gap-1 flex-1 min-w-32">
+                            <label class="text-[10px] font-medium text-muted uppercase tracking-wide">
+                                {{ slotDef.label ?? String(key) }}
+                            </label>
+                            <UInput
+                                :model-value="store.slotValues[key]"
+                                type="text"
+                                color="neutral"
+                                variant="soft"
+                                size="sm"
+                                @update:model-value="store.slotValues[key] = $event"
+                            />
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- ══ FEATURE MODE controls (minimal pill bar) ═════════════════ -->
+            <div
+                v-else-if="hasControls && !isPlayground"
+                class="rounded-t-md border border-b-0 border-muted px-4 py-2.5 flex flex-wrap items-center gap-4"
             >
                 <template v-for="(ctrl, key) in store.definition" :key="key">
-                    <UFormField
-                        :label="(ctrl as ControlDefinition).label ?? String(key)"
-                        size="sm"
-                        class="inline-flex rounded-sm ring ring-accented"
-                        :ui="{
-                            wrapper: 'bg-elevated/50 rounded-l-sm flex border-r border-accented',
-                            label: 'text-muted px-2 py-2',
-                            container: 'mt-0'
-                        }"
-                    >
-                        <USelect
-                            v-if="(ctrl as ControlDefinition).type === 'select'"
+                    <!-- Select → pill toggle group -->
+                    <div v-if="(ctrl as ControlDefinition).type === 'select'" class="flex items-center gap-2">
+                        <span class="text-[10px] font-semibold uppercase tracking-widest text-muted shrink-0">
+                            {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                        </span>
+                        <div class="flex items-center gap-1">
+                            <button
+                                v-for="opt in (ctrl as ControlDefinition).options"
+                                :key="String(opt)"
+                                class="pill-btn"
+                                :class="store.values[key] === opt ? 'pill-btn--active' : 'pill-btn--idle'"
+                                @click="store.values[key] = opt"
+                            >
+                                {{ String(opt) }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Boolean → toggle switch -->
+                    <div v-else-if="(ctrl as ControlDefinition).type === 'boolean'" class="flex items-center gap-2">
+                        <span class="text-[10px] font-semibold uppercase tracking-widest text-muted shrink-0">
+                            {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                        </span>
+                        <USwitch
                             :model-value="store.values[key]"
-                            :items="((ctrl as ControlDefinition).options ?? []).map((o: any) => ({ value: o, label: String(o) }))"
-                            value-key="value"
-                            color="neutral"
-                            variant="soft"
-                            class="min-w-12 rounded-sm rounded-l-none"
-                            :class="[String(key).toLowerCase().endsWith('color') && 'pl-6']"
-                            :ui="{ itemLeadingChip: 'w-2' }"
-                            @update:model-value="store.values[key] = $event"
-                        >
-                            <template v-if="String(key).toLowerCase().endsWith('color')" #leading="{ modelValue, ui }">
-                                <UChip
-                                    v-if="modelValue"
-                                    inset
-                                    standalone
-                                    :color="(modelValue as any)"
-                                    :size="(ui.itemLeadingChipSize() as ChipProps['size'])"
-                                    class="size-2"
-                                />
-                            </template>
-                        </USelect>
-                        <USelect
-                            v-else-if="(ctrl as ControlDefinition).type === 'boolean'"
-                            :model-value="store.values[key]"
-                            :items="[{ value: true, label: 'true' }, { value: false, label: 'false' }]"
-                            value-key="value"
-                            color="neutral"
-                            variant="soft"
-                            class="min-w-12 rounded-sm rounded-l-none"
+                            color="primary"
+                            size="sm"
                             @update:model-value="store.values[key] = $event"
                         />
+                    </div>
+
+                    <!-- Number → compact input -->
+                    <div v-else-if="(ctrl as ControlDefinition).type === 'number'" class="flex items-center gap-2">
+                        <span class="text-[10px] font-semibold uppercase tracking-widest text-muted shrink-0">
+                            {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                        </span>
                         <UInput
-                            v-else-if="(ctrl as ControlDefinition).type === 'number'"
                             :model-value="store.values[key]"
                             type="number"
                             :min="(ctrl as ControlDefinition).min"
@@ -274,19 +461,27 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
                             :step="(ctrl as ControlDefinition).step"
                             color="neutral"
                             variant="soft"
-                            :ui="{ base: 'rounded-sm rounded-l-none min-w-12' }"
+                            size="xs"
+                            class="w-20"
                             @update:model-value="store.values[key] = Number($event)"
                         />
+                    </div>
+
+                    <!-- Text → compact input -->
+                    <div v-else class="flex items-center gap-2">
+                        <span class="text-[10px] font-semibold uppercase tracking-widest text-muted shrink-0">
+                            {{ (ctrl as ControlDefinition).label ?? String(key) }}
+                        </span>
                         <UInput
-                            v-else
                             :model-value="store.values[key]"
                             type="text"
                             color="neutral"
                             variant="soft"
-                            :ui="{ base: 'rounded-sm rounded-l-none min-w-12' }"
+                            size="xs"
+                            class="min-w-24"
                             @update:model-value="store.values[key] = $event"
                         />
-                    </UFormField>
+                    </div>
                 </template>
             </div>
 
@@ -506,5 +701,41 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
     border-radius: 9999px;
     border: 1px solid color-mix(in oklch, var(--ui-text-muted) 25%, transparent);
     backdrop-filter: blur(4px);
+}
+
+/* ── Feature mode: pill toggle buttons ───────────────────────────────────── */
+.pill-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    border: 1px solid;
+    cursor: pointer;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+}
+
+.pill-btn--idle {
+    color: var(--ui-text-muted);
+    border-color: color-mix(in oklch, var(--ui-text-muted) 40%, transparent);
+    background: transparent;
+}
+
+.pill-btn--idle:hover {
+    border-color: color-mix(in oklch, var(--ui-color-primary-500) 40%, transparent);
+    color: var(--ui-text-highlighted);
+}
+
+.pill-btn--active {
+    color: var(--ui-color-primary-600);
+    border-color: color-mix(in oklch, var(--ui-color-primary-500) 50%, transparent);
+    background-color: color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
+    font-weight: 500;
+}
+
+:global(.dark) .pill-btn--active {
+    color: var(--ui-color-primary-400);
 }
 </style>

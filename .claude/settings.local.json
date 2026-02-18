@@ -4,7 +4,9 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(find:*)",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "mcp__nuxt-ui-remote__search-components-by-category",
+      "mcp__nuxt-ui-remote__list-components"
     ]
   }
 }

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { usePreview } from '~/composables/usePreview'
 
-const { controls } = usePreview({
+const { controls, slots } = usePreview({
+    mode: 'playground',
+    component: 'SButton',
     props: {
         variant: {
             type: 'select',
@@ -18,6 +20,9 @@ const { controls } = usePreview({
         disabled: { type: 'boolean', default: false, label: 'disabled' },
         loading: { type: 'boolean', default: false, label: 'loading' },
     },
+    slots: {
+        default: { default: 'Click me', label: 'Label' },
+    },
 })
 </script>
 
@@ -28,6 +33,6 @@ const { controls } = usePreview({
         :disabled="controls.disabled"
         :loading="controls.loading"
     >
-        Click me
+        {{ slots.default }}
     </SButton>
 </template>

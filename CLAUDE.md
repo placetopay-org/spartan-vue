@@ -78,6 +78,37 @@ Categories: `1.data-input`, `2.selectors`, `3.display`, `4.modals`, `5.structure
 
 Documentation uses the `::spartan-component` directive for interactive examples. See `docs/DOCUMENTATION_GUIDE.txt` for the full specification including `props`, `slots`, `items`, `ignore`, `hide`, `external`, and `model` options.
 
+#### First example convention: Usage playground
+
+The **first `::component-preview`** in every component doc page is always the **"Usage"** (Uso) example and must function as a full playground. Its corresponding example file in `docs/examples/` must call `usePreview()` with `mode: 'playground'` and `component: 'SComponentName'`. This registers all relevant props and slots as interactive controls, giving readers a full-featured sandbox.
+
+All subsequent examples focus on a single feature and use **feature-mode controls** (pill toggle group for `select` props, toggle switch for `boolean` props). Feature examples call `usePreview()` without `mode` (defaults to `'feature'`) and only define the protagonist prop(s).
+
+```typescript
+// Usage example (basic.vue) — full playground
+usePreview({
+    mode: 'playground',
+    component: 'SButton',
+    props: {
+        variant: { type: 'select', options: ['primary', 'secondary', ...], default: 'primary' },
+        size:    { type: 'select', options: ['sm', 'md', 'lg'], default: 'md' },
+        disabled: { type: 'boolean', default: false },
+    },
+    slots: {
+        default: { default: 'Click me', label: 'Label' },
+    },
+})
+
+// Feature example (sizes.vue) — minimal pill bar, only the protagonist prop
+usePreview({
+    props: {
+        size: { type: 'select', options: ['sm', 'md', 'lg'], default: 'md', label: 'size' },
+    },
+})
+```
+
+The `ComponentPreview.vue` component automatically generates **live code** from the current control values (showing clean, copyable code without `controls.` references). The code panel always reflects the current state of the controls.
+
 **IMPORTANT:** For all component documentation tasks, use the `document-component` skill (`/document-component SComponentName`). This skill contains the complete workflow, quality rules, and bilingual templates needed to generate correct documentation.
 
 #### Static code blocks do NOT render in docs

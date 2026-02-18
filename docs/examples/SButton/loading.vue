@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { usePreview } from '~/composables/usePreview'
 
-usePreview({ props: {} })
+const { controls } = usePreview({
+    props: {
+        loading: { type: 'boolean', default: true, label: 'loading' },
+    },
+})
 </script>
 
 <template>
-    <SButton loading variant="primary">
+    <SButton :loading="controls.loading" variant="primary">
         Loading...
     </SButton>
 </template>
