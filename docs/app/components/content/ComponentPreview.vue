@@ -3,7 +3,7 @@ import { ref, reactive, computed, shallowRef, provide, markRaw, watch, onMounted
 import type { ChipProps } from '@nuxt/ui'
 import type { PreviewStore, ControlDefinition } from '~/composables/usePreview'
 
-const parseMarkdown = useMarkdownParser()
+const { highlight } = useShikiHighlighter()
 
 const props = withDefaults(defineProps<{
     /** Path relative to docs/examples/, without extension. e.g. "SButton/basic" */
@@ -24,6 +24,7 @@ const rawModules = import.meta.glob('../../../examples/**/*.vue', { query: '?raw
 
 const exampleComponent = shallowRef<any>(null)
 const rawSource = ref('')
+const codeHtml = ref('')
 const loadError = ref(false)
 
 async function loadExample(file: string) {
@@ -44,6 +45,7 @@ async function loadExample(file: string) {
     ])
     exampleComponent.value = markRaw(mod.default)
     rawSource.value = typeof raw === 'string' ? raw : ''
+    codeHtml.value = await highlight(rawSource.value)
 }
 
 await loadExample(props.file)
@@ -51,37 +53,31 @@ watch(() => props.file, loadExample)
 
 // ─── 3. Code display ─────────────────────────────────────────────────────────
 
-const codeMarkdown = computed(() =>
-    rawSource.value ? `\`\`\`vue\n${rawSource.value}\n\`\`\`` : ''
-)
-const { data: codeAst } = await useAsyncData(
-    `preview-code-${props.file.replace(/\//g, '-')}`,
-    () => parseMarkdown(codeMarkdown.value),
-    { watch: [codeMarkdown] }
-)
-
 // ─── 4. UI state ─────────────────────────────────────────────────────────────
 
-const activeTab = ref<'preview' | 'code'>('preview')
+const showCode = ref(false)
+const copied = ref(false)
 const hasControls = computed(() => Object.keys(store.definition).length > 0)
 
-// ─── 5. Responsive breakpoints ────────────────────────────────────────────────
+async function copyCode() {
+    try {
+        await navigator.clipboard.writeText(rawSource.value)
+        copied.value = true
+        setTimeout(() => { copied.value = false }, 2000)
+    } catch {}
+}
 
-const breakpoints = [
-    { label: 'mobile', icon: 'i-lucide-smartphone', width: 375 },
-    { label: 'tablet', icon: 'i-lucide-tablet', width: 768 },
-    { label: 'desktop', icon: 'i-lucide-monitor', width: null },
-] as const
-
-const activeBreakpoint = ref<'mobile' | 'tablet' | 'desktop'>('desktop')
-const activeBreakpointDef = computed(() => breakpoints.find(b => b.label === activeBreakpoint.value))
-const isBreakpointActive = computed(() => activeBreakpoint.value !== 'desktop')
-
-// ─── 6. Zoom ─────────────────────────────────────────────────────────────────
+// ─── 5. Preview resize ───────────────────────────────────────────────────────
 
 const previewAreaRef = ref<HTMLElement | null>(null)
 const previewAreaWidth = ref(0)
-const manualZoom = ref<number | null>(null)
+// null = full width (desktop); number = pixel width of the content zone
+const previewWidth = ref<number | null>(null)
+const isDragging = ref(false)
+
+const MIN_PREVIEW_WIDTH = 200
+// Must match the `w-4` (16px) Tailwind class on the drag handle element
+const HANDLE_WIDTH = 16
 
 onMounted(() => {
     const el = previewAreaRef.value
@@ -93,21 +89,82 @@ onMounted(() => {
     onUnmounted(() => ro.disconnect())
 })
 
-// Auto-zoom: scale the frame down to fit inside the preview area.
-// Capped at 0.85 so breakpoint mode always shows a visible zoom reduction
-// even when the frame would otherwise almost fit at full size.
-const autoZoom = computed(() => {
-    const bp = activeBreakpointDef.value
-    if (!bp?.width || previewAreaWidth.value === 0) return 1
-    const fitted = (previewAreaWidth.value - 32) / bp.width
-    return parseFloat(Math.min(0.85, fitted).toFixed(2))
+const isNarrowed = computed(() => previewWidth.value !== null)
+
+// ─── 6. Drag handle ──────────────────────────────────────────────────────────
+
+function onHandleMousedown(e: MouseEvent) {
+    e.preventDefault()
+    isDragging.value = true
+    window.addEventListener('mousemove', onDragMove)
+    window.addEventListener('mouseup', onDragEnd)
+}
+
+function onDragMove(e: MouseEvent) {
+    const el = previewAreaRef.value
+    if (!el) return
+    const containerLeft = el.getBoundingClientRect().left
+    const newWidth = Math.round(e.clientX - containerLeft)
+    const maxWidth = previewAreaWidth.value - HANDLE_WIDTH
+    if (newWidth >= maxWidth - 10) {
+        previewWidth.value = null
+    } else {
+        previewWidth.value = Math.max(MIN_PREVIEW_WIDTH, newWidth)
+    }
+}
+
+function onDragEnd() {
+    isDragging.value = false
+    window.removeEventListener('mousemove', onDragMove)
+    window.removeEventListener('mouseup', onDragEnd)
+}
+
+onUnmounted(() => {
+    window.removeEventListener('mousemove', onDragMove)
+    window.removeEventListener('mouseup', onDragEnd)
 })
 
-const zoom = computed(() => manualZoom.value ?? autoZoom.value)
+// ─── 7b. Code panel transition (JS hooks for smooth height animation) ────────
+
+function onCodeEnter(el: Element) {
+    const e = el as HTMLElement
+    e.style.height = '0'
+    e.style.overflow = 'hidden'
+    e.style.opacity = '0'
+    requestAnimationFrame(() => {
+        e.style.transition = 'height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s cubic-bezier(0.4,0,0.2,1)'
+        e.style.height = e.scrollHeight + 'px'
+        e.style.opacity = '1'
+    })
+}
+function onCodeAfterEnter(el: Element) {
+    const e = el as HTMLElement
+    e.style.cssText = ''
+}
+function onCodeLeave(el: Element) {
+    const e = el as HTMLElement
+    e.style.height = e.scrollHeight + 'px'
+    e.style.overflow = 'hidden'
+    e.style.opacity = '1'
+    requestAnimationFrame(() => {
+        e.style.transition = 'height 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.2s cubic-bezier(0.4,0,0.2,1)'
+        e.style.height = '0'
+        e.style.opacity = '0'
+    })
+}
+function onCodeAfterLeave(el: Element) {
+    const e = el as HTMLElement
+    e.style.cssText = ''
+}
+
+// ─── 8. Zoom ─────────────────────────────────────────────────────────────────
+
+const manualZoom = ref<number | null>(null)
+const zoom = computed(() => manualZoom.value ?? 1)
 const zoomPercent = computed(() => Math.round(zoom.value * 100))
 
 function adjustZoom(delta: number) {
-    const next = parseFloat(Math.max(0.2, Math.min(1.5, zoom.value + delta)).toFixed(2))
+    const next = parseFloat(Math.max(0.2, Math.min(2, zoom.value + delta)).toFixed(2))
     manualZoom.value = next
 }
 
@@ -115,18 +172,7 @@ function resetZoom() {
     manualZoom.value = null
 }
 
-// On breakpoint change: preserve manual zoom unless it's at 100%, in which case
-// let the new breakpoint's auto-zoom apply (e.g. tablet may need to zoom to 80%).
-watch(activeBreakpoint, () => {
-    if (manualZoom.value !== null && manualZoom.value < 0.995) return
-    manualZoom.value = null
-})
-
-// ─── 7. Animated zoom ────────────────────────────────────────────────────────
-// CSS `zoom` transitions are inconsistently supported across browsers.
-// We drive the animation manually via requestAnimationFrame so zoom is always
-// smooth: each frame we lerp displayZoom toward the target and update scrollLeft
-// in the same tick, keeping scroll and zoom perfectly in sync.
+// ─── 9. Animated zoom ────────────────────────────────────────────────────────
 
 const displayZoom = ref(zoom.value)
 
@@ -140,9 +186,7 @@ function _ease(t: number) { return t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 /
 
 function _animFrame(now: number) {
     const t = Math.min((now - _animStart) / ANIM_DURATION, 1)
-    const cur = _animFrom + (_animTarget - _animFrom) * _ease(t)
-    displayZoom.value = cur
-    _syncScroll(cur)
+    displayZoom.value = _animFrom + (_animTarget - _animFrom) * _ease(t)
     if (t < 1) {
         _rafId = requestAnimationFrame(_animFrame)
     } else {
@@ -162,32 +206,6 @@ function _startAnim(target: number) {
 
 watch(zoom, _startAnim)
 onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
-
-// ─── 8. Scroll-based centering ────────────────────────────────────────────────
-// _syncScroll is called inside the animation loop each frame so scroll and zoom
-// stay perfectly in sync without needing smooth scroll behavior.
-
-const scrollLayerRef = ref<HTMLElement | null>(null)
-
-function _syncScroll(z: number) {
-    const el = scrollLayerRef.value
-    if (!el) return
-    const bp = activeBreakpointDef.value
-    if (!bp?.width) { el.scrollLeft = 0; return }
-    const excess = Math.max(0, bp.width * z - el.clientWidth)
-    el.scrollLeft = excess / 2
-}
-
-onMounted(() => _syncScroll(zoom.value))
-
-// CSS zoom is always on the same frame element.
-// displayZoom (not zoom) drives the rendered value so it follows the animation.
-const frameStyle = computed(() => {
-    const bp = activeBreakpointDef.value
-    const z = String(displayZoom.value)
-    if (!bp?.width) return { zoom: z }
-    return { width: `${bp.width}px`, zoom: z }
-})
 </script>
 
 <template>
@@ -210,7 +228,7 @@ const frameStyle = computed(() => {
                         class="inline-flex rounded-sm ring ring-accented"
                         :ui="{
                             wrapper: 'bg-elevated/50 rounded-l-sm flex border-r border-accented',
-                            label: 'text-muted px-2 py-1.5',
+                            label: 'text-muted px-2 py-2',
                             container: 'mt-0'
                         }"
                     >
@@ -272,44 +290,11 @@ const frameStyle = computed(() => {
                 </template>
             </div>
 
-            <!-- ── Tab row: Preview | Code · breakpoints · zoom ────────────── -->
+            <!-- ── Toolbar: zoom ──────────────────────────────────────────── -->
             <div
                 class="relative flex items-center border border-b-0 border-muted"
                 :class="[!hasControls ? 'rounded-t-md' : '']"
             >
-                <button
-                    class="border-b-2 px-4 py-2 text-sm transition-colors"
-                    :class="activeTab === 'preview'
-                        ? 'border-primary-500 text-primary-600 dark:border-primary-400 dark:text-primary-400'
-                        : 'border-transparent text-muted hover:text-highlighted'"
-                    @click="activeTab = 'preview'"
-                >
-                    Preview
-                </button>
-                <button
-                    class="border-b-2 px-4 py-2 text-sm transition-colors"
-                    :class="activeTab === 'code'
-                        ? 'border-primary-500 text-primary-600 dark:border-primary-400 dark:text-primary-400'
-                        : 'border-transparent text-muted hover:text-highlighted'"
-                    @click="activeTab = 'code'"
-                >
-                    Code
-                </button>
-
-                <!-- Breakpoint buttons — centered -->
-                <div class="absolute left-1/2 flex -translate-x-1/2 items-center gap-0.5">
-                    <UButton
-                        v-for="bp in breakpoints"
-                        :key="bp.label"
-                        :icon="bp.icon"
-                        size="xs"
-                        :color="activeBreakpoint === bp.label ? 'primary' : 'neutral'"
-                        :variant="activeBreakpoint === bp.label ? 'soft' : 'ghost'"
-                        :aria-label="bp.label"
-                        @click="activeBreakpoint = bp.label as any"
-                    />
-                </div>
-
                 <!-- Zoom controls — right side -->
                 <div class="ml-auto flex items-center gap-0.5 pr-2">
                     <UButton
@@ -323,7 +308,7 @@ const frameStyle = computed(() => {
                     />
                     <button
                         class="w-11 rounded px-1 py-0.5 text-center font-mono text-xs text-muted transition-colors hover:bg-elevated hover:text-highlighted"
-                        :title="manualZoom !== null ? `Auto: ${Math.round(autoZoom * 100)}%` : 'Auto zoom'"
+                        title="Reset zoom"
                         @click="resetZoom"
                     >
                         {{ zoomPercent }}%
@@ -333,7 +318,7 @@ const frameStyle = computed(() => {
                         size="xs"
                         variant="ghost"
                         color="neutral"
-                        :disabled="zoom >= 1.5"
+                        :disabled="zoom >= 2"
                         aria-label="Zoom in"
                         @click="adjustZoom(0.1)"
                     />
@@ -343,52 +328,96 @@ const frameStyle = computed(() => {
             <!-- ── Preview area ────────────────────────────────────────────── -->
             <div
                 ref="previewAreaRef"
-                v-show="activeTab === 'preview'"
                 class="preview-grid relative flex min-h-48 overflow-hidden border border-b-0 border-muted"
-                :class="[{ 'overflow-hidden': overflowHidden }]"
+                :class="{ 'select-none cursor-ew-resize': isDragging }"
             >
-                <!-- Dot grid background -->
+                <!-- Dot grid background (covers full area including dead space) -->
                 <div class="preview-grid__dots pointer-events-none absolute inset-0" />
                 <!-- Vignette fade -->
                 <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,var(--ui-bg)_100%)]" />
 
-                <!-- Scroll layer: overflow-x allows the zoomed frame to grow beyond the container.
-                     scrollLeft is adjusted by JS to keep the frame visually centered. -->
+                <!-- Content zone: occupies the "active viewport" width -->
                 <div
-                    ref="scrollLayerRef"
-                    class="relative z-10 flex flex-1 overflow-x-auto"
-                    style="overflow-y: hidden;"
+                    class="relative z-10 flex flex-shrink-0 items-center justify-center overflow-hidden self-stretch"
+                    :class="!isNarrowed ? 'flex-1' : ''"
+                    :style="isNarrowed ? { width: `${previewWidth}px` } : {}"
                 >
-                    <!-- Centering box: min-width 100% ensures CSS centering works when content fits;
-                         flex-shrink: 0 lets it expand beyond 100% when the frame overflows. -->
-                    <div class="flex min-w-full flex-shrink-0 items-center justify-center self-stretch">
-                        <!-- Breakpoint width label (outside the zoomed frame so it doesn't scale) -->
-                        <div v-if="isBreakpointActive" class="pointer-events-none absolute top-2 z-20 left-1/2 -translate-x-1/2">
-                            <span class="preview-frame__label">{{ activeBreakpointDef?.width }}px</span>
-                        </div>
+                    <!-- Width badge: shown inside the content zone when narrowed -->
+                    <div
+                        v-if="isNarrowed"
+                        class="pointer-events-none absolute left-1/2 top-2 z-20 -translate-x-1/2"
+                    >
+                        <span class="preview-frame__label">{{ previewWidth }}px</span>
+                    </div>
 
-                        <!-- Frame: zoom is always on this element so CSS can transition smoothly.
-                             In desktop mode: w-full + zoom on content. In breakpoints: fixed width + zoom on frame. -->
-                        <div
-                            class="preview-frame-base flex items-center justify-center"
-                            :class="isBreakpointActive ? 'preview-frame' : 'w-full p-8'"
-                            :style="frameStyle"
-                        >
-                            <component :is="exampleComponent" v-if="exampleComponent" />
+                    <div class="flex w-full items-center justify-center p-8" :style="{ zoom: String(displayZoom) }">
+                        <component :is="exampleComponent" v-if="exampleComponent" />
+                    </div>
+                </div>
+
+                <!-- Drag handle: vertical bar at the right edge of the content zone -->
+                <div
+                    class="relative z-20 flex w-4 flex-shrink-0 cursor-ew-resize items-center justify-center self-stretch border-l transition-colors"
+                    :class="isDragging
+                        ? 'border-primary/50 bg-primary/5'
+                        : 'border-muted hover:border-primary/30 hover:bg-muted/20'"
+                    @mousedown="onHandleMousedown"
+                >
+                    <!-- 2 × 3 grip dots -->
+                    <div class="flex gap-[2px]">
+                        <div v-for="col in 2" :key="col" class="flex flex-col gap-[3px]">
+                            <span
+                                v-for="row in 3"
+                                :key="row"
+                                class="block h-[3px] w-[3px] rounded-full transition-colors"
+                                :class="isDragging ? 'bg-primary/70' : 'bg-muted'"
+                            />
                         </div>
                     </div>
                 </div>
+
+                <!-- Dead space: fills remaining width when preview is narrowed -->
+                <div v-if="isNarrowed" class="preview-dead-space flex-1 self-stretch" />
             </div>
 
-            <!-- ── Code area ───────────────────────────────────────────────── -->
-            <div v-show="activeTab === 'code'">
-                <MDCRenderer
-                    v-if="codeAst"
-                    :body="codeAst.body"
-                    :data="codeAst.data"
-                    class="[&_pre]:rounded-t-none! [&_.my-5]:mt-0!"
+            <!-- ── Code toggle footer ─────────────────────────────────────── -->
+            <button
+                class="code-toggle-footer group flex w-full items-center justify-between border border-muted px-4 py-2.5 transition-colors"
+                :class="showCode ? 'border-b-0 rounded-b-none' : 'rounded-b-md'"
+                @click="showCode = !showCode"
+            >
+                <div class="flex items-center gap-2">
+                    <UIcon name="i-lucide-code-2" class="size-3.5 text-muted transition-colors group-hover:text-highlighted" />
+                    <span class="text-xs font-medium text-muted transition-colors group-hover:text-highlighted">Code</span>
+                </div>
+                <UIcon
+                    name="i-lucide-chevron-down"
+                    class="size-3.5 text-muted transition-all duration-300 group-hover:text-highlighted"
+                    :class="showCode ? '-rotate-180' : ''"
                 />
-            </div>
+            </button>
+
+            <!-- ── Code area ───────────────────────────────────────────────── -->
+            <Transition
+                @enter="onCodeEnter"
+                @after-enter="onCodeAfterEnter"
+                @leave="onCodeLeave"
+                @after-leave="onCodeAfterLeave"
+            >
+                <div v-if="showCode" class="group relative">
+                    <div v-html="codeHtml" class="shiki-block" />
+                    <UButton
+                        :icon="copied ? 'i-lucide-check' : 'i-lucide-copy'"
+                        size="xs"
+                        color="neutral"
+                        variant="subtle"
+                        :aria-label="copied ? 'Copied' : 'Copy code'"
+                        class="absolute right-2 top-2"
+                        :class="copied ? 'text-green-500!' : ''"
+                        @click="copyCode"
+                    />
+                </div>
+            </Transition>
         </template>
     </div>
 </template>
@@ -409,16 +438,62 @@ const frameStyle = computed(() => {
     --preview-dot: color-mix(in oklch, var(--ui-text-muted) 18%, transparent);
 }
 
-/* Breakpoint frame: dashed side borders. CSS zoom scales the whole box (layout + visual). */
-.preview-frame {
-    position: relative;
-    padding: 2rem 1.5rem;
-    min-height: 10rem;
-    border-left: 1px dashed color-mix(in oklch, var(--ui-text-muted) 50%, transparent);
-    border-right: 1px dashed color-mix(in oklch, var(--ui-text-muted) 50%, transparent);
+/* Code toggle footer */
+.code-toggle-footer {
+    background-color: var(--ui-bg);
+}
+.code-toggle-footer:hover {
+    background-color: color-mix(in oklch, var(--ui-text-muted) 5%, var(--ui-bg));
 }
 
-/* Width label — rendered outside the frame so it is NOT affected by CSS zoom */
+/* Dead space: subtle overlay to indicate it's outside the active viewport */
+.preview-dead-space {
+    background-color: color-mix(in oklch, var(--ui-text-muted) 6%, transparent);
+}
+
+:global(.dark) .preview-dead-space {
+    background-color: color-mix(in oklch, var(--ui-bg) 60%, transparent);
+}
+
+/* ── Shiki code block ────────────────────────────────────────────────────── */
+:global(.shiki-block pre) {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    border-radius: 0 0 0.375rem 0.375rem;
+    border: 1px solid var(--ui-border-muted);
+    border-top: none;
+    background-color: var(--ui-bg-muted) !important;
+}
+
+/* Collapse the \n text-nodes that Shiki places between .line spans.
+   Those nodes live directly in <code> and inherit its line-height, so the
+   only reliable way to neutralise them is to zero-out the font-size here
+   and restore it on each .line span. */
+:global(.shiki-block code) {
+    font-size: 0;
+}
+
+/* Each line is a block; font-size and line-height are set here, not on <pre>. */
+:global(.shiki-block .line) {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Blank lines: empty spans take minimal height instead of a full line. */
+:global(.shiki-block .line:empty) {
+    height: 0.5rem;
+}
+
+/* Dark mode: switch syntax colors to --shiki-dark variables. */
+:global(.dark .shiki-block .shiki span) {
+    color: var(--shiki-dark) !important;
+    font-style: var(--shiki-dark-font-style, inherit) !important;
+    font-weight: var(--shiki-dark-font-weight, inherit) !important;
+}
+
+/* Width badge shown inside the content zone */
 .preview-frame__label {
     display: inline-block;
     font-family: ui-monospace, monospace;
