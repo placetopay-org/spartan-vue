@@ -8,7 +8,7 @@ const { controls } = usePreview({
     mode: 'playground',
     component: 'SInput',
     props: {
-        placeholder: { type: 'text', default: 'Enter text...', label: 'placeholder' },
+        placeholder: { type: 'text', default: 'Enter text...', label: 'placeholder', required: true },
         type: { type: 'select', options: ['text', 'email', 'number', 'password', 'search', 'tel', 'url'], default: 'text', label: 'type' },
         rounded: { type: 'select', options: ['both', 'left', 'right', 'none', 'full'], default: 'both', label: 'rounded' },
         disabled: { type: 'boolean', default: false, label: 'disabled' },

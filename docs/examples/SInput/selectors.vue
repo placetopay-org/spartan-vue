@@ -9,7 +9,13 @@ const leftOptions = [
     { label: '+57', value: '+57' },
     { label: '+44', value: '+44' },
 ]
-usePreview({ component: 'SInput' })
+usePreview({
+    component: 'SInput',
+    staticAttrs: {
+        ':left-options': 'leftOptions',
+        'placeholder': 'Phone number',
+    },
+})
 </script>
 
 <template>

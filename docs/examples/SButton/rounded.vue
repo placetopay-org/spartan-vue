@@ -5,7 +5,7 @@ const { controls } = usePreview({
     props: {
         rounded: {
             type: 'select',
-            options: ['none', 'left', 'right', 'both', 'full'],
+            options: ['both', 'left', 'right', 'full', 'none'],
             default: 'both',
             label: 'rounded',
         },

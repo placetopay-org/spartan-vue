@@ -30,6 +30,17 @@ export interface PreviewDefinition {
     props?: Record<string, ControlDefinition>
     /** Slot content controls: text inputs */
     slots?: Record<string, SlotDefinition>
+    /** Fixed attributes always included in generated code (for icons, arrays, etc.)
+     *  Keys starting with ':' are rendered as bind attributes.
+     *  e.g. { ':left-icon': 'SearchNormalIcon', placeholder: 'Search...' }
+     */
+    staticAttrs?: Record<string, string>
+    /** Import statements to include in generated code.
+     *  Keys = named exports, values = package paths.
+     *  e.g. { 'SearchNormalIcon': '@placetopay/iconsax-vue/bold' }
+     *  Imports from the same package are grouped into a single import line.
+     */
+    imports?: Record<string, string>
 }
 
 export interface PreviewStore {
@@ -45,6 +56,10 @@ export interface PreviewStore {
     mode: 'playground' | 'feature'
     /** Component name used for live code generation */
     component: string
+    /** Fixed attributes always included in generated code */
+    staticAttrs: Record<string, string>
+    /** Import statements grouped by package for code generation */
+    imports: Record<string, string>
 }
 
 export interface UsePreviewReturn {
@@ -60,9 +75,11 @@ export function usePreview(definition: PreviewDefinition): UsePreviewReturn {
         store.definition = definition.props ?? {}
         // Register slots definition
         store.slotDefinition = definition.slots ?? {}
-        // Register mode and component name
+        // Register mode, component name and static attrs
         store.mode = definition.mode ?? 'feature'
         store.component = definition.component ?? ''
+        store.staticAttrs = definition.staticAttrs ?? {}
+        store.imports = definition.imports ?? {}
 
         // Initialise prop values with defaults
         for (const [key, ctrl] of Object.entries(definition.props ?? {})) {

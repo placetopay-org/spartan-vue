@@ -21,6 +21,8 @@ const store = reactive<PreviewStore>({
     slotValues: {},
     mode: 'feature',
     component: '',
+    staticAttrs: {},
+    imports: {},
 })
 provide('spartan-preview', store)
 
@@ -48,6 +50,8 @@ async function loadExample(file: string) {
     store.slotDefinition = {}
     store.mode = 'feature'
     store.component = ''
+    store.staticAttrs = {}
+    store.imports = {}
     Object.keys(store.values).forEach(k => delete store.values[k])
     Object.keys(store.slotValues).forEach(k => delete store.slotValues[k])
     const [mod, raw] = await Promise.all([
@@ -83,20 +87,44 @@ const liveCode = computed(() => {
         }
     }
 
+    // Append static attributes (e.g. icons, complex props)
+    for (const [attr, val] of Object.entries(store.staticAttrs)) {
+        attrParts.push(attr.startsWith(':') ? `${attr}="${val}"` : `${attr}="${val}"`)
+    }
+
     const attrsStr = attrParts.length ? ' ' + attrParts.join(' ') : ''
 
     // Build slot content — Prettier will handle indentation
     const defaultSlotContent = store.slotValues.default
         ?? (Object.keys(store.slotDefinition).length > 0 ? Object.values(store.slotValues)[0] : undefined)
 
+    let templateCode: string
     if (defaultSlotContent !== undefined) {
-        if (!defaultSlotContent) return `<${name}${attrsStr} />`
-        return `<${name}${attrsStr}>${defaultSlotContent}</${name}>`
+        templateCode = !defaultSlotContent
+            ? `<${name}${attrsStr} />`
+            : `<${name}${attrsStr}>${defaultSlotContent}</${name}>`
+    } else {
+        // No slot definition — check raw source for text content between tags
+        const rawContent = rawSource.value.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`))?.[1]?.trim()
+        templateCode = !rawContent
+            ? `<${name}${attrsStr} />`
+            : `<${name}${attrsStr}>${rawContent}</${name}>`
     }
-    // No slot definition — check raw source for text content between tags
-    const rawContent = rawSource.value.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`))?.[1]?.trim()
-    if (!rawContent) return `<${name}${attrsStr} />`
-    return `<${name}${attrsStr}>${rawContent}</${name}>`
+
+    // Build import lines grouped by package
+    const importEntries = Object.entries(store.imports)
+    if (importEntries.length === 0) return templateCode
+
+    const grouped: Record<string, string[]> = {}
+    for (const [name, pkg] of importEntries) {
+        ;(grouped[pkg] ??= []).push(name)
+    }
+    const importLines = Object.entries(grouped)
+        .map(([pkg, names]) => `import { ${names.join(', ')} } from '${pkg}'`)
+        .join('\n')
+
+    // Use \x3C escape for '<' so the Vue SFC parser doesn't detect these as real tags
+    return `\x3Cscript setup>\n${importLines}\n\x3C/script>\n\n\x3Ctemplate>\n  ${templateCode}\n\x3C/template>`
 })
 
 let _codeHighlightTimer: ReturnType<typeof setTimeout> | null = null

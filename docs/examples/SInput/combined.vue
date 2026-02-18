@@ -4,7 +4,17 @@ import { ref } from 'vue'
 import { usePreview } from '~/composables/usePreview'
 
 const value = ref('')
-usePreview({ component: 'SInput' })
+usePreview({
+    component: 'SInput',
+    imports: {
+        'LockIcon': '@placetopay/iconsax-vue/bold',
+    },
+    staticAttrs: {
+        ':left-icon': 'LockIcon',
+        'prefix': '$',
+        'placeholder': 'Enter amount',
+    },
+})
 </script>
 
 <template>

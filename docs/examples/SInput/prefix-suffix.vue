@@ -6,8 +6,8 @@ const value = ref('')
 
 const { controls } = usePreview({
     props: {
-        prefix: { type: 'text', default: 'https://', label: 'prefix' },
-        suffix: { type: 'text', default: '.com', label: 'suffix' },
+        prefix: { type: 'text', default: 'https://', label: 'prefix', required: true },
+        suffix: { type: 'text', default: '.com', label: 'suffix', required: true },
     },
 })
 </script>

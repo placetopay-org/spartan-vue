@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { SearchNormalIcon } from '@placetopay/iconsax-vue/bold'
+import { FilterSearchIcon } from '@placetopay/iconsax-vue/linear';
 import { ref } from 'vue'
 import { usePreview } from '~/composables/usePreview'
 
 const value = ref('')
-usePreview({ component: 'SInput' })
+usePreview({
+    component: 'SInput',
+    imports: {
+        'FilterSearchIcon': '@placetopay/iconsax-vue/linear',
+    },
+    staticAttrs: {
+        ':left-icon': 'FilterSearchIcon',
+        'placeholder': 'Search...',
+    },
+})
 </script>
 
 <template>
-    <SInput v-model="value" :left-icon="SearchNormalIcon" placeholder="Search..." />
+    <SInput v-model="value" :left-icon="FilterSearchIcon" placeholder="Search..." />
 </template>
