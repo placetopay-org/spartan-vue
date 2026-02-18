@@ -83,20 +83,20 @@ const liveCode = computed(() => {
         }
     }
 
-    const propsStr = attrParts.length ? '\n    ' + attrParts.join('\n    ') + '\n' : ''
+    const attrsStr = attrParts.length ? ' ' + attrParts.join(' ') : ''
 
-    // Build slot content
+    // Build slot content — Prettier will handle indentation
     const defaultSlotContent = store.slotValues.default
         ?? (Object.keys(store.slotDefinition).length > 0 ? Object.values(store.slotValues)[0] : undefined)
 
     if (defaultSlotContent !== undefined) {
-        const content = defaultSlotContent ? `\n    ${defaultSlotContent}\n` : ''
-        return `<${name}${propsStr}>${content}</${name}>`
+        if (!defaultSlotContent) return `<${name}${attrsStr} />`
+        return `<${name}${attrsStr}>${defaultSlotContent}</${name}>`
     }
     // No slot definition — check raw source for text content between tags
     const rawContent = rawSource.value.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`))?.[1]?.trim()
-    const content = rawContent ? `\n    ${rawContent}\n` : ''
-    return `<${name}${propsStr}>${content}</${name}>`
+    if (!rawContent) return `<${name}${attrsStr} />`
+    return `<${name}${attrsStr}>${rawContent}</${name}>`
 })
 
 let _codeHighlightTimer: ReturnType<typeof setTimeout> | null = null
@@ -733,5 +733,11 @@ html.dark .shiki,
 html.dark .shiki span {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
+}
+
+/* Each Shiki line span must be a block so lines stack vertically */
+.shiki code .line {
+    display: block;
+    min-height: 1lh;
 }
 </style>

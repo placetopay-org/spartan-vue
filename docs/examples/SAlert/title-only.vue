@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { usePreview } from '~/composables/usePreview'
-usePreview({ component: 'SAlert' })
+
+const { controls } = usePreview({
+    props: {
+        title: { type: 'text', default: 'Warning! Please check your input.', label: 'title', required: true },
+    },
+})
 </script>
 
 <template>
-    <SAlert title="Warning! Please check your input." />
+    <SAlert :title="controls.title" />
 </template>
