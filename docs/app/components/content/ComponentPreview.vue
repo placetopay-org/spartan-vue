@@ -681,8 +681,8 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
                         color="neutral"
                         variant="subtle"
                         :aria-label="copied ? 'Copied' : 'Copy code'"
-                        class="absolute right-2 top-2"
-                        :class="copied ? 'text-green-500!' : ''"
+                        class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        :class="copied ? 'text-green-500! opacity-100!' : ''"
                         @click="copyCode"
                     />
                 </div>
