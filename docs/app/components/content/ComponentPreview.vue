@@ -174,18 +174,11 @@ const isNarrowed = computed(() => previewWidth.value !== null)
 
 // ─── 6. Drag handle ──────────────────────────────────────────────────────────
 
-function onHandleMousedown(e: MouseEvent) {
-    e.preventDefault()
-    isDragging.value = true
-    window.addEventListener('mousemove', onDragMove)
-    window.addEventListener('mouseup', onDragEnd)
-}
-
-function onDragMove(e: MouseEvent) {
+function updatePreviewWidth(clientX: number) {
     const el = previewAreaRef.value
     if (!el) return
     const containerLeft = el.getBoundingClientRect().left
-    const newWidth = Math.round(e.clientX - containerLeft)
+    const newWidth = Math.round(clientX - containerLeft)
     const maxWidth = previewAreaWidth.value - HANDLE_WIDTH
     if (newWidth >= maxWidth - 10) {
         previewWidth.value = null
@@ -194,15 +187,45 @@ function onDragMove(e: MouseEvent) {
     }
 }
 
-function onDragEnd() {
+function onHandleMousedown(e: MouseEvent) {
+    e.preventDefault()
+    isDragging.value = true
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onPointerEnd)
+}
+
+function onHandleTouchstart(e: TouchEvent) {
+    e.preventDefault()
+    isDragging.value = true
+    window.addEventListener('touchmove', onTouchMove, { passive: false })
+    window.addEventListener('touchend', onPointerEnd)
+    window.addEventListener('touchcancel', onPointerEnd)
+}
+
+function onMouseMove(e: MouseEvent) {
+    updatePreviewWidth(e.clientX)
+}
+
+function onTouchMove(e: TouchEvent) {
+    e.preventDefault()
+    updatePreviewWidth(e.touches[0].clientX)
+}
+
+function onPointerEnd() {
     isDragging.value = false
-    window.removeEventListener('mousemove', onDragMove)
-    window.removeEventListener('mouseup', onDragEnd)
+    window.removeEventListener('mousemove', onMouseMove)
+    window.removeEventListener('mouseup', onPointerEnd)
+    window.removeEventListener('touchmove', onTouchMove)
+    window.removeEventListener('touchend', onPointerEnd)
+    window.removeEventListener('touchcancel', onPointerEnd)
 }
 
 onUnmounted(() => {
-    window.removeEventListener('mousemove', onDragMove)
-    window.removeEventListener('mouseup', onDragEnd)
+    window.removeEventListener('mousemove', onMouseMove)
+    window.removeEventListener('mouseup', onPointerEnd)
+    window.removeEventListener('touchmove', onTouchMove)
+    window.removeEventListener('touchend', onPointerEnd)
+    window.removeEventListener('touchcancel', onPointerEnd)
 })
 
 // ─── 7. Code panel transition (JS hooks for smooth height animation) ──────────
@@ -544,7 +567,7 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
             <div
                 ref="previewAreaRef"
                 class="preview-grid relative flex min-h-48 overflow-hidden border border-b-0 border-muted"
-                :class="{ 'select-none cursor-ew-resize': isDragging }"
+                :class="{ 'select-none cursor-ew-resize touch-none': isDragging }"
             >
                 <!-- Dot grid background (covers full area including dead space) -->
                 <div class="preview-grid__dots pointer-events-none absolute inset-0" />
@@ -579,6 +602,7 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
                         ? 'border-primary/50 bg-primary/5'
                         : 'border-muted hover:border-primary/30 hover:bg-muted/20'"
                     @mousedown="onHandleMousedown"
+                    @touchstart="onHandleTouchstart"
                 >
                     <!-- 2 × 3 grip dots -->
                     <div class="flex gap-[2px]">

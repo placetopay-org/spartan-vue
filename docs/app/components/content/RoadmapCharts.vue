@@ -61,6 +61,7 @@ const categories = computed(() =>
               modals: 'Modales',
               structure: 'Estructura',
               utilities: 'Utilidades',
+              typography: 'Tipografía',
           }
         : {
               dataInput: 'Data Input',
@@ -69,6 +70,7 @@ const categories = computed(() =>
               modals: 'Modals',
               structure: 'Structure',
               utilities: 'Utilities',
+              typography: 'Typography',
           },
 );
 
@@ -112,7 +114,7 @@ function categoryStats(catKey: string) {
     };
 }
 
-const catKeys = ['dataInput', 'selectors', 'display', 'modals', 'structure', 'utilities'];
+const catKeys = ['dataInput', 'selectors', 'display', 'modals', 'structure', 'utilities', 'typography'];
 
 const categorySlugMap: Record<string, string> = {
     dataInput: 'data-input',
@@ -121,6 +123,7 @@ const categorySlugMap: Record<string, string> = {
     modals: 'modals',
     structure: 'structure',
     utilities: 'utilities',
+    typography: 'typography',
 };
 
 // ---- Chart Options ----

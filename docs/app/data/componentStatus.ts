@@ -1,4 +1,4 @@
-export type ComponentCategory = 'dataInput' | 'selectors' | 'display' | 'modals' | 'structure' | 'utilities';
+export type ComponentCategory = 'dataInput' | 'selectors' | 'display' | 'modals' | 'structure' | 'utilities' | 'typography';
 
 export interface ComponentImprovements {
     en: string;
@@ -82,7 +82,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SToast', typescript: true, tests: 66, docs: 'complete' },
         { name: 'SBreadcrumbs', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SSkeleton', typescript: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
-        { name: 'SPageTitle', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SPlacetopayLogo', typescript: true, tests: 100, docs: 'complete' },
     ],
     modals: [
@@ -130,9 +129,12 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
                 es: '- Optimizar el código fuente\n- Desacomplar los operadores reservados de los personalizados\n- Mejorar el manejo de múltiples popovers',
             },
         },
+        { name: 'SCopy', tests: 62, typescript: true, docs: 'complete' },
+    ],
+    typography: [
+        { name: 'SPageTitle', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SSectionTitle', tests: 100, typescript: true, docs: 'complete' },
         { name: 'SSectionDescription', tests: 100, typescript: true, docs: 'complete' },
-        { name: 'SCopy', tests: 62, typescript: true, docs: 'complete' },
     ],
 };
 
