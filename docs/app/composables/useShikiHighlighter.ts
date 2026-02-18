@@ -1,17 +1,19 @@
-import { createHighlighter } from 'shiki'
-import MaterialThemePalenight from '@shikijs/themes/material-theme-palenight'
-import MaterialThemeLighter from '@shikijs/themes/material-theme-lighter'
-import VueLang from '@shikijs/langs/vue'
+import { createHighlighterCore } from 'shiki/core'
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
+import type { HighlighterCore } from 'shiki/core'
 
-type Highlighter = Awaited<ReturnType<typeof createHighlighter>>
+let _promise: Promise<HighlighterCore> | null = null
 
-// Module-level singleton: created once and reused across all component instances
-let _promise: Promise<Highlighter> | null = null
-
-function getHighlighter(): Promise<Highlighter> {
-    return (_promise ??= createHighlighter({
-        themes: [MaterialThemePalenight, MaterialThemeLighter],
-        langs: [VueLang],
+function getHighlighter(): Promise<HighlighterCore> {
+    return (_promise ??= createHighlighterCore({
+        engine: createJavaScriptRegexEngine(),
+        themes: [
+            import('@shikijs/themes/material-theme-darker'),
+            import('@shikijs/themes/material-theme-lighter'),
+        ],
+        langs: [
+            import('@shikijs/langs/vue'),
+        ],
     }))
 }
 
@@ -23,13 +25,14 @@ export default function useShikiHighlighter() {
             lang: 'vue',
             themes: {
                 light: 'material-theme-lighter',
-                dark: 'material-theme-palenight',
+                dark: 'material-theme-darker',
             },
             transformers: [
                 {
+                    pre(node) {
+                        node.properties.style = `${node.properties.style ?? ''};margin:0;padding:1rem 1.25rem;overflow-x:auto`
+                    },
                     code(node) {
-                        // Remove \n text nodes between .line spans — inside <pre white-space:pre>
-                        // those newlines render as visible blank lines even with font-size:0.
                         node.children = node.children.filter(
                             (child) => !(child.type === 'text' && child.value === '\n'),
                         )

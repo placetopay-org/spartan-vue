@@ -5,6 +5,8 @@ export default defineNuxtConfig({
   extends: ['docus'],
   modules: ['@nuxtjs/i18n', '@nuxt/fonts'],
 
+  robots: { robotsTxt: false },
+
   llms: {
     domain: 'https://placetopay-org.github.io/spartan-vue',
   },

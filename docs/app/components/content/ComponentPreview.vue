@@ -672,43 +672,7 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
     background-color: color-mix(in oklch, var(--ui-bg) 60%, transparent);
 }
 
-/* ── Shiki code block ────────────────────────────────────────────────────── */
-:global(.shiki-block pre) {
-    margin: 0;
-    padding: 0.75rem 1rem;
-    overflow-x: auto;
-    border-radius: 0 0 0.375rem 0.375rem;
-    border: 1px solid var(--ui-border-muted);
-    border-top: none;
-    background-color: var(--ui-bg-muted) !important;
-}
 
-/* Collapse the \n text-nodes that Shiki places between .line spans.
-   Those nodes live directly in <code> and inherit its line-height, so the
-   only reliable way to neutralise them is to zero-out the font-size here
-   and restore it on each .line span. */
-:global(.shiki-block code) {
-    font-size: 0;
-}
-
-/* Each line is a block; font-size and line-height are set here, not on <pre>. */
-:global(.shiki-block .line) {
-    display: block;
-    font-size: 0.875rem;
-    line-height: 1.5;
-}
-
-/* Blank lines: empty spans take minimal height instead of a full line. */
-:global(.shiki-block .line:empty) {
-    height: 0.5rem;
-}
-
-/* Dark mode: switch syntax colors to --shiki-dark variables. */
-:global(.dark .shiki-block .shiki span) {
-    color: var(--shiki-dark) !important;
-    font-style: var(--shiki-dark-font-style, inherit) !important;
-    font-weight: var(--shiki-dark-font-weight, inherit) !important;
-}
 
 /* Width badge shown inside the content zone */
 .preview-frame__label {
@@ -759,5 +723,15 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
 
 :global(.dark) .pill-btn--active {
     color: var(--ui-color-primary-400);
+}
+
+</style>
+
+<style>
+/* Shiki dual-theme: class-based dark mode swap (must be global, unscoped) */
+html.dark .shiki,
+html.dark .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
 }
 </style>

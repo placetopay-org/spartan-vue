@@ -7,8 +7,8 @@ const { controls } = usePreview({
     props: {
         color: { type: 'select', options: ['neutral', 'primary', 'secondary', 'success', 'info', 'warning', 'error'], default: 'info', label: 'color' },
         variant: { type: 'select', options: ['solid', 'outline', 'soft', 'subtle'], default: 'soft', label: 'variant' },
-        title: { type: 'text', default: 'Heads up!', label: 'title' },
-        description: { type: 'text', default: 'This is an informational alert message.', label: 'description' },
+        title: { type: 'text', default: 'Heads up!', label: 'title', required: true },
+        description: { type: 'text', default: 'This is an informational alert message.', label: 'description', required: true },
         closeable: { type: 'boolean', default: false, label: 'closeable' },
     },
 })
