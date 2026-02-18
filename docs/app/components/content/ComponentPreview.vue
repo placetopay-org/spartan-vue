@@ -106,9 +106,15 @@ const liveCode = computed(() => {
     } else {
         // No slot definition — check raw source for text content between tags
         const rawContent = rawSource.value.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)<\\/${name}>`))?.[1]?.trim()
-        templateCode = !rawContent
-            ? `<${name}${attrsStr} />`
-            : `<${name}${attrsStr}>${rawContent}</${name}>`
+        if (!rawContent) {
+            templateCode = `<${name}${attrsStr} />`
+        } else if (rawContent.includes('<template')) {
+            // Multi-slot content: format with proper indentation
+            const lines = rawContent.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => `    ${l}`).join('\n')
+            templateCode = `<${name}${attrsStr}>\n${lines}\n</${name}>`
+        } else {
+            templateCode = `<${name}${attrsStr}>${rawContent}</${name}>`
+        }
     }
 
     // Build import lines grouped by package
