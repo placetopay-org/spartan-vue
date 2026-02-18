@@ -75,7 +75,7 @@ const liveCode = computed(() => {
             if (val === true) attrParts.push(key)
             continue
         }
-        if (val === def || val === null || val === undefined) continue
+        if (!((ctrl as ControlDefinition).required) && (val === def || val === null || val === undefined)) continue
         if ((ctrl as ControlDefinition).type === 'number') {
             attrParts.push(`:${key}="${val}"`)
         } else {
@@ -482,6 +482,24 @@ onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
                             size="xs"
                             class="min-w-24"
                             @update:model-value="store.values[key] = $event"
+                        />
+                    </div>
+                </template>
+
+                <!-- Slot text inputs (inline, same style as prop controls) -->
+                <template v-for="(slotDef, key) in store.slotDefinition" :key="`slot-${String(key)}`">
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-semibold uppercase tracking-widest text-muted shrink-0">
+                            {{ slotDef.label ?? String(key) }}
+                        </span>
+                        <UInput
+                            :model-value="store.slotValues[key]"
+                            type="text"
+                            color="neutral"
+                            variant="soft"
+                            size="xs"
+                            class="min-w-24"
+                            @update:model-value="store.slotValues[key] = $event"
                         />
                     </div>
                 </template>

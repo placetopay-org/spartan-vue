@@ -5,7 +5,7 @@ const { controls, slots } = usePreview({
     mode: 'playground',
     component: 'SCopy',
     props: {
-        value: { type: 'text', default: 'Hello World', label: 'value' },
+        value: { type: 'text', default: 'Hello World', label: 'value', required: true },
     },
     slots: {
         default: { default: 'Hello World', label: 'Content' },

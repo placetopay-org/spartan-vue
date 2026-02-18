@@ -12,6 +12,8 @@ export interface ControlDefinition {
     min?: number
     max?: number
     step?: number
+    /** Always include this prop in the generated code, even when the value matches the default */
+    required?: boolean
 }
 
 export interface SlotDefinition {
