@@ -93,6 +93,7 @@ export default defineNuxtConfig({
         '@': fileURLToPath(new URL('../src', import.meta.url)),
         '@internal': fileURLToPath(new URL('../src/components/internal', import.meta.url)),
         '@spartan': fileURLToPath(new URL('../src/components/spartan', import.meta.url)),
+        '~': fileURLToPath(new URL('./app', import.meta.url)),
       },
     },
     vue: {
