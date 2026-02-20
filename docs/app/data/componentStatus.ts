@@ -76,8 +76,8 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         { name: 'SRadioGroup', typescript: true, tests: 100, docs: 'partial' },
         { name: 'SSwitch', typescript: true, tests: 100, docs: 'partial' },
-        { name: 'SSelector' },
-        { name: 'SMultiSelector' },
+        { name: 'SSelector', typescript: true, docs: 'partial' },
+        { name: 'SMultiSelector', typescript: true, docs: 'partial' },
     ],
     display: [
         { name: 'SAlert', typescript: true, tests: 100, docs: 'complete' },
@@ -103,7 +103,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SPlacetopayLogo', typescript: true, tests: 100, docs: 'complete' },
     ],
     modals: [
-        { name: 'SModal' },
+        { name: 'SModal', typescript: true, tests: 76, docs: 'partial' },
         { name: 'SModalCard' },
         { name: 'SModalConfirm' },
         { name: 'SModalLeft' },
