@@ -104,8 +104,8 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     ],
     modals: [
         { name: 'SModal', typescript: true, tests: 76, docs: 'partial' },
-        { name: 'SModalCard' },
-        { name: 'SModalConfirm' },
+        { name: 'SModalCard', typescript: true, tests: 84, docs: 'partial' },
+        { name: 'SModalConfirm', typescript: true, docs: 'partial' },
         { name: 'SModalLeft' },
         { name: 'SModalSide' },
         { name: 'SPopover' },
