@@ -1,11 +1,21 @@
-import { test, describe, vi } from 'vitest';
+import { test, describe, vi, beforeEach } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SModalLeft from './SModalLeft.vue';
 import { mount } from '@vue/test-utils';
 import userEvent from '@testing-library/user-event';
 
+class ResizeObserverMock {
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+}
+
 describe('SModalLeft', () => {
+    beforeEach(() => {
+        window.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
+    });
+
     test('Throw warning for required props', () => {
         // Arrange
         const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
@@ -18,13 +28,6 @@ describe('SModalLeft', () => {
     });
 
     test('Can be rendered', async () => {
-        // Arrange
-        window.ResizeObserver = vi.fn(() => ({
-            observe: vi.fn(),
-            unobserve: vi.fn(),
-            disconnect: vi.fn(),
-        }));
-
         // Act
         const { rerender } = render(SModalLeft, {
             props: { open: false },
@@ -42,11 +45,6 @@ describe('SModalLeft', () => {
 
     test('Can be closed with button', async () => {
         // Arrange
-        window.ResizeObserver = vi.fn(() => ({
-            observe: vi.fn(),
-            unobserve: vi.fn(),
-            disconnect: vi.fn(),
-        }));
         const user = userEvent.setup();
 
         // Act
