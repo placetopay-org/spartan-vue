@@ -46,7 +46,7 @@ export default defineNuxtConfig({
         { name: 'keywords', content: 'spartan, vue 3, placetopay, juanzea, juan zea, component library, tailwindcss, ui components, design system, evertec' },
         { name: 'author', content: 'JuanZea' },
         { property: 'og:title', content: 'Spartan - Vue 3 Component Library for PlaceToPay' },
-        { property: 'og:description', content: 'Unified Vue 3 component library for PlaceToPay with 65 components, TailwindCSS and i18n support.' },
+        { property: 'og:description', content: 'Unified Vue 3 component library for PlaceToPay with 68 components, TailwindCSS and i18n support.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Spartan' },
         { property: 'og:image', content: 'https://placetopay-org.github.io/spartan-vue/og-image.png' },
@@ -55,7 +55,7 @@ export default defineNuxtConfig({
         { property: 'og:image:type', content: 'image/png' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Spartan - Vue 3 Component Library for PlaceToPay' },
-        { name: 'twitter:description', content: 'Unified Vue 3 component library for PlaceToPay with 65 components, TailwindCSS and i18n support.' },
+        { name: 'twitter:description', content: 'Unified Vue 3 component library for PlaceToPay with 68 components, TailwindCSS and i18n support.' },
         { name: 'twitter:image', content: 'https://placetopay-org.github.io/spartan-vue/og-image.png' },
       ],
       link: [

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const colorMode = useColorMode()
 
 const isLight = computed({
@@ -26,7 +26,6 @@ const isLight = computed({
           thumb: 'data-[state=checked]:translate-x-35 data-[state=checked]:rtl:-translate-x-35 rounded-lg size-34',
           icon: 'rotate-270 size-8',
         }"
-        @click="isDark = !isDark"
       />
     </div>
   </ClientOnly>

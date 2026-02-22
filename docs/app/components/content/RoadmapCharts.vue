@@ -48,7 +48,7 @@ const isDark = computed(() => colorMode.value === 'dark');
 
 const textColor = computed(() => (isDark.value ? '#e5e7eb' : '#374151'));
 const subtextColor = computed(() => (isDark.value ? '#9ca3af' : '#6b7280'));
-const bgColor = computed(() => 'transparent');
+const BG_COLOR = 'transparent';
 const splitLineColor = computed(() => (isDark.value ? '#374151' : '#e5e7eb'));
 
 // Component data organized by category
@@ -74,24 +74,31 @@ const categories = computed(() =>
           },
 );
 
-// Summary calculations
+// Summary calculations — single pass over components array
 const totalComponents = components.length;
-const tsCount = components.filter((c) => c.typescript).length;
-const darkModeCount = components.filter((c) => c.darkMode).length;
-const responsiveCount = components.filter((c) => c.responsive).length;
-const testsHighCount = components.filter((c) => c.tests >= 80).length;
-const testsMidCount = components.filter((c) => c.tests > 0 && c.tests < 80).length;
-const testsNoneCount = components.filter((c) => c.tests === 0).length;
-const figmaCount = components.filter((c) => !!c.figmaLink).length;
-const docsCompleteCount = components.filter((c) => c.docs === 'complete').length;
-const docsPartialCount = components.filter((c) => c.docs === 'partial').length;
-const docsMinimalCount = components.filter((c) => c.docs === 'minimal').length;
+const summary = components.reduce(
+    (acc, c) => {
+        if (c.typescript) acc.ts++;
+        if (c.darkMode) acc.darkMode++;
+        if (c.responsive) acc.responsive++;
+        if (c.tests >= 80) acc.testsHigh++;
+        else if (c.tests > 0) acc.testsMid++;
+        else acc.testsNone++;
+        if (c.figmaLink) acc.figma++;
+        if (c.docs === 'complete') acc.docsComplete++;
+        else if (c.docs === 'partial') acc.docsPartial++;
+        else acc.docsMinimal++;
+        acc.testsSum += c.tests;
+        return acc;
+    },
+    { ts: 0, darkMode: 0, responsive: 0, testsHigh: 0, testsMid: 0, testsNone: 0, figma: 0, docsComplete: 0, docsPartial: 0, docsMinimal: 0, testsSum: 0 },
+);
 
-const tsPercent = Math.round((tsCount / totalComponents) * 100);
-const darkModePercent = Math.round((darkModeCount / totalComponents) * 100);
-const responsivePercent = Math.round((responsiveCount / totalComponents) * 100);
-const avgTests = Math.round(components.reduce((sum, c) => sum + c.tests, 0) / totalComponents);
-const figmaPercent = Math.round((figmaCount / totalComponents) * 100);
+const tsPercent = Math.round((summary.ts / totalComponents) * 100);
+const darkModePercent = Math.round((summary.darkMode / totalComponents) * 100);
+const responsivePercent = Math.round((summary.responsive / totalComponents) * 100);
+const avgTests = Math.round(summary.testsSum / totalComponents);
+const figmaPercent = Math.round((summary.figma / totalComponents) * 100);
 
 // Weighted docs: complete=100%, partial=50%, minimal=0%
 function docsWeight(doc: string) {
@@ -99,22 +106,24 @@ function docsWeight(doc: string) {
 }
 const docsPercent = Math.round(components.reduce((sum, c) => sum + docsWeight(c.docs), 0) / totalComponents);
 
-// Per-category stats
-function categoryStats(catKey: string) {
-    const catComponents = components.filter((c) => c.category === catKey);
-    const total = catComponents.length;
-    return {
-        total,
-        ts: Math.round((catComponents.filter((c) => c.typescript).length / total) * 100),
-        dark: Math.round((catComponents.filter((c) => c.darkMode).length / total) * 100),
-        responsive: Math.round((catComponents.filter((c) => c.responsive).length / total) * 100),
-        tests: Math.round(catComponents.reduce((s, c) => s + c.tests, 0) / total),
-        figma: Math.round((catComponents.filter((c) => !!c.figmaLink).length / total) * 100),
-        docs: Math.round(catComponents.reduce((s, c) => s + docsWeight(c.docs), 0) / total),
-    };
-}
+// Per-category stats — precomputed once
+const catKeys = ['dataInput', 'selectors', 'display', 'modals', 'structure', 'utilities', 'typography'] as const;
 
-const catKeys = ['dataInput', 'selectors', 'display', 'modals', 'structure', 'utilities', 'typography'];
+const categoryStatsMap = Object.fromEntries(
+    catKeys.map((catKey) => {
+        const catComponents = components.filter((c) => c.category === catKey);
+        const total = catComponents.length;
+        return [catKey, {
+            total,
+            ts: Math.round((catComponents.filter((c) => c.typescript).length / total) * 100),
+            dark: Math.round((catComponents.filter((c) => c.darkMode).length / total) * 100),
+            responsive: Math.round((catComponents.filter((c) => c.responsive).length / total) * 100),
+            tests: Math.round(catComponents.reduce((s, c) => s + c.tests, 0) / total),
+            figma: Math.round((catComponents.filter((c) => !!c.figmaLink).length / total) * 100),
+            docs: Math.round(catComponents.reduce((s, c) => s + docsWeight(c.docs), 0) / total),
+        }];
+    }),
+);
 
 const categorySlugMap: Record<string, string> = {
     dataInput: 'data-input',
@@ -130,7 +139,7 @@ const categorySlugMap: Record<string, string> = {
 
 // 1. Radar chart: overall feature coverage
 const radarOption = computed(() => ({
-    backgroundColor: bgColor.value,
+    backgroundColor: BG_COLOR,
     title: {
         text: isEs.value ? 'Cobertura General' : 'Overall Coverage',
         left: 'center',
@@ -199,10 +208,10 @@ const radarOption = computed(() => ({
 // 2. Bar chart: per-category breakdown
 const barOption = computed(() => {
     const catLabels = catKeys.map((k) => categories.value[k as keyof typeof categories.value]);
-    const stats = catKeys.map((k) => categoryStats(k));
+    const stats = catKeys.map((k) => categoryStatsMap[k]);
 
     return {
-        backgroundColor: bgColor.value,
+        backgroundColor: BG_COLOR,
         title: {
             text: isEs.value ? 'Progreso por Categoría' : 'Progress by Category',
             left: 'center',
@@ -275,7 +284,7 @@ const barOption = computed(() => {
                 itemStyle: { color: '#a259ff', borderRadius: [3, 3, 0, 0] },
             },
             {
-                name: isEs.value ? 'Docs' : 'Docs',
+                name: 'Docs',
                 type: 'bar',
                 data: stats.map((s) => s.docs),
                 itemStyle: { color: '#10b981', borderRadius: [3, 3, 0, 0] },
@@ -287,7 +296,7 @@ const barOption = computed(() => {
 // 3. Gauge charts: overall progress for each dimension
 function makeGauge(title: string, value: number, color: string) {
     return computed(() => ({
-        backgroundColor: bgColor.value,
+        backgroundColor: BG_COLOR,
         series: [
             {
                 type: 'gauge',
@@ -336,14 +345,14 @@ const gaugeDark = makeGauge('Dark Mode', darkModePercent, '#8b5cf6');
 const gaugeResponsive = makeGauge('Responsive', responsivePercent, '#06b6d4');
 const gaugeTests = makeGauge('Tests', avgTests, '#f59e0b');
 const gaugeFigma = makeGauge('Figma', figmaPercent, '#a259ff');
-const gaugeDocs = makeGauge(isEs.value ? 'Docs' : 'Docs', docsPercent, '#10b981');
+const gaugeDocs = makeGauge('Docs', docsPercent, '#10b981');
 
 // Summary stats for the cards
 const summaryStats = computed(() => [
     {
         label: 'TypeScript',
         value: tsPercent,
-        count: `${tsCount}/${totalComponents}`,
+        count: `${summary.ts}/${totalComponents}`,
         color: 'text-[#3178c6]',
         bg: 'bg-[#3178c6]/10',
         border: 'border-[#3178c6]/20',
@@ -351,7 +360,7 @@ const summaryStats = computed(() => [
     {
         label: 'Dark Mode',
         value: darkModePercent,
-        count: `${darkModeCount}/${totalComponents}`,
+        count: `${summary.darkMode}/${totalComponents}`,
         color: 'text-violet-500',
         bg: 'bg-violet-500/10',
         border: 'border-violet-500/20',
@@ -359,7 +368,7 @@ const summaryStats = computed(() => [
     {
         label: 'Responsive',
         value: responsivePercent,
-        count: `${responsiveCount}/${totalComponents}`,
+        count: `${summary.responsive}/${totalComponents}`,
         color: 'text-cyan-500',
         bg: 'bg-cyan-500/10',
         border: 'border-cyan-500/20',
@@ -367,7 +376,7 @@ const summaryStats = computed(() => [
     {
         label: 'Tests',
         value: avgTests,
-        count: `${testsHighCount}✓ ${testsMidCount}~ ${testsNoneCount}✗`,
+        count: `${summary.testsHigh}✓ ${summary.testsMid}~ ${summary.testsNone}✗`,
         color: 'text-amber-500',
         bg: 'bg-amber-500/10',
         border: 'border-amber-500/20',
@@ -375,7 +384,7 @@ const summaryStats = computed(() => [
     {
         label: 'Figma',
         value: figmaPercent,
-        count: `${figmaCount}/${totalComponents}`,
+        count: `${summary.figma}/${totalComponents}`,
         color: 'text-[#a259ff]',
         bg: 'bg-[#a259ff]/10',
         border: 'border-[#a259ff]/20',
@@ -383,7 +392,7 @@ const summaryStats = computed(() => [
     {
         label: isEs.value ? 'Documentación' : 'Documentation',
         value: docsPercent,
-        count: `${docsCompleteCount}✓ ${docsPartialCount}~ ${docsMinimalCount}✗`,
+        count: `${summary.docsComplete}✓ ${summary.docsPartial}~ ${summary.docsMinimal}✗`,
         color: 'text-emerald-500',
         bg: 'bg-emerald-500/10',
         border: 'border-emerald-500/20',

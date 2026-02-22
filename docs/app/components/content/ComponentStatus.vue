@@ -15,11 +15,8 @@ const tests = computed(() => status.value?.tests ?? 0);
 const docs = computed(() => status.value?.docs ?? 'minimal');
 const figmaLink = computed(() => status.value?.figmaLink ?? '');
 const improvements = computed(() => status.value?.improvements ?? { en: '', es: '' });
-const hasImprovements = computed(() => {
-    const notes = isEs.value ? improvements.value.es : improvements.value.en;
-    return !!notes;
-});
 const improvementNotes = computed(() => isEs.value ? improvements.value.es : improvements.value.en);
+const hasImprovements = computed(() => !!improvementNotes.value);
 
 const t = computed(() =>
     isEs.value
@@ -48,9 +45,6 @@ const t = computed(() =>
               docsMinimal: 'Documentation minimal',
           },
 );
-
-const badgeActive = 'border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300';
-const badgeInactive = 'border-red-500/20 bg-red-500/10 text-red-700 dark:border-red-400/20 dark:bg-red-400/10 dark:text-red-300';
 
 const testColor = computed(() => {
     if (tests.value >= 80) return 'text-emerald-700 dark:text-emerald-300';

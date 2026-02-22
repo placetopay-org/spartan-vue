@@ -357,7 +357,10 @@ function _startAnim(target: number) {
 }
 
 watch(zoom, _startAnim)
-onUnmounted(() => { if (_rafId !== null) cancelAnimationFrame(_rafId) })
+onUnmounted(() => {
+    if (_rafId !== null) cancelAnimationFrame(_rafId)
+    if (_codeHighlightTimer !== null) clearTimeout(_codeHighlightTimer)
+})
 </script>
 
 <template>

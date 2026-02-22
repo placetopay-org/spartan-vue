@@ -1,49 +1,49 @@
 {
   "common": {
-    "or": "or",
+    "or": "o",
     "error": {
-      "title": "Page not found",
-      "description": "We are sorry but this page could not be found."
+      "title": "Página no encontrada",
+      "description": "Lo sentimos, pero esta página no se pudo encontrar."
     }
   },
   "docs": {
     "copy": {
-      "page": "Copy page",
-      "link": "Copy Markdown page",
-      "view": "View as Markdown",
-      "gpt": "Open in ChatGPT",
-      "claude": "Open in Claude"
+      "page": "Copiar página",
+      "link": "Copiar página en Markdown",
+      "view": "Ver como Markdown",
+      "gpt": "Abrir en ChatGPT",
+      "claude": "Abrir en Claude"
     },
-    "links": "Community",
-    "toc": "On this page",
-    "report": "Report an issue",
-    "edit": "Edit this page"
+    "links": "Comunidad",
+    "toc": "En esta página",
+    "report": "Reportar un problema",
+    "edit": "Editar esta página"
   },
   "assistant": {
-    "title": "Ask AI",
-    "placeholder": "Ask a question...",
-    "tooltip": "Ask AI a question",
-    "tryAsking": "Try asking a question",
-    "askAnything": "Ask anything...",
-    "clearChat": "Clear chat",
-    "close": "Close",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "thinking": "Thinking...",
-    "askMeAnything": "Ask anything",
-    "askMeAnythingDescription": "Get help navigating the documentation, understanding concepts, and finding answers.",
-    "faq": "FAQ",
-    "chatCleared": "Chat is cleared on refresh",
-    "lineBreak": "Line break",
-    "explainWithAi": "Explain with AI",
-    "toolListPages": "Listed documentation pages",
-    "toolReadPage": "Read",
+    "title": "Preguntar a la IA",
+    "placeholder": "Haz una pregunta...",
+    "tooltip": "Hazle una pregunta a la IA",
+    "tryAsking": "Intenta hacer una pregunta",
+    "askAnything": "Pregunta lo que quieras...",
+    "clearChat": "Limpiar chat",
+    "close": "Cerrar",
+    "expand": "Expandir",
+    "collapse": "Contraer",
+    "thinking": "Pensando...",
+    "askMeAnything": "Pregunta lo que quieras",
+    "askMeAnythingDescription": "Obtén ayuda navegando la documentación, entendiendo conceptos y encontrando respuestas.",
+    "faq": "Preguntas frecuentes",
+    "chatCleared": "El chat se limpia al recargar",
+    "lineBreak": "Salto de línea",
+    "explainWithAi": "Explicar con IA",
+    "toolListPages": "Páginas de documentación listadas",
+    "toolReadPage": "Leer",
     "loading": {
-      "searching": "Searching the documentation",
-      "reading": "Reading through the docs",
-      "analyzing": "Analyzing the content",
-      "finding": "Finding the best answer",
-      "finished": "Sources used"
+      "searching": "Buscando en la documentación",
+      "reading": "Leyendo la documentación",
+      "analyzing": "Analizando el contenido",
+      "finding": "Encontrando la mejor respuesta",
+      "finished": "Fuentes utilizadas"
     }
   }
 }
