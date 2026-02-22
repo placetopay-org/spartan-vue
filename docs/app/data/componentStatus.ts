@@ -14,6 +14,7 @@ export interface ComponentStatusEntry {
     docs?: 'complete' | 'partial' | 'minimal';
     figmaLink?: string;
     improvements?: ComponentImprovements;
+    hasBlock?: boolean;
 }
 
 export interface ComponentStatusData extends Required<ComponentStatusEntry> {
@@ -37,21 +38,22 @@ const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
     docs: 'minimal',
     figmaLink: '',
     improvements: { en: '', es: '' },
+    hasBlock: false,
 };
 
 const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = {
     dataInput: [
-        { name: 'SInput', typescript: true, tests: 85, docs: 'complete' },
-        { name: 'SInputAmount', typescript: true, tests: 65, docs: 'partial' },
-        { name: 'SInputDate', typescript: true, docs: 'complete' },
-        { name: 'SInputIncrement', typescript: true, docs: 'complete' },
-        { name: 'SInputMask', typescript: true, docs: 'complete' },
-        { name: 'SInputOtp', typescript: true, docs: 'complete' },
-        { name: 'SInputPassword', typescript: true, docs: 'complete' },
+        { name: 'SInput', typescript: true, tests: 85, docs: 'complete', hasBlock: true },
+        { name: 'SInputAmount', typescript: true, tests: 65, docs: 'partial', hasBlock: true },
+        { name: 'SInputDate', typescript: true, docs: 'complete', hasBlock: true },
+        { name: 'SInputIncrement', typescript: true, docs: 'complete', hasBlock: true },
+        { name: 'SInputMask', typescript: true, docs: 'complete', hasBlock: true },
+        { name: 'SInputOtp', typescript: true, docs: 'complete', hasBlock: true },
+        { name: 'SInputPassword', typescript: true, docs: 'complete', hasBlock: true },
         { name: 'SInputTag', typescript: true, docs: 'complete' },
-        { name: 'STextarea', typescript: true, docs: 'complete' },
-        { name: 'SCombobox', typescript: true, docs: 'complete' },
-        { name: 'SSelect', typescript: true, docs: 'complete' },
+        { name: 'STextarea', typescript: true, docs: 'complete', hasBlock: true },
+        { name: 'SCombobox', typescript: true, docs: 'complete', hasBlock: true },
+        { name: 'SSelect', typescript: true, docs: 'complete', hasBlock: true },
     ],
     selectors: [
         {
@@ -76,7 +78,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         { name: 'SRadioGroup', typescript: true, tests: 100, docs: 'partial' },
         { name: 'SSwitch', typescript: true, tests: 100, docs: 'partial' },
-        { name: 'SSelector', typescript: true, docs: 'partial' },
+        { name: 'SSelector', typescript: true, docs: 'partial', hasBlock: true },
         { name: 'SMultiSelector', typescript: true, docs: 'partial' },
     ],
     display: [

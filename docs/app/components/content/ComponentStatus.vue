@@ -15,6 +15,7 @@ const tests = computed(() => status.value?.tests ?? 0);
 const docs = computed(() => status.value?.docs ?? 'minimal');
 const figmaLink = computed(() => status.value?.figmaLink ?? '');
 const improvements = computed(() => status.value?.improvements ?? { en: '', es: '' });
+const hasBlock = computed(() => status.value?.hasBlock ?? false);
 const improvementNotes = computed(() => isEs.value ? improvements.value.es : improvements.value.en);
 const hasImprovements = computed(() => !!improvementNotes.value);
 
@@ -31,6 +32,7 @@ const t = computed(() =>
               docsComplete: 'Documentación completa',
               docsPartial: 'Documentación parcial',
               docsMinimal: 'Documentación mínima',
+              block: 'Variante Block disponible',
           }
         : {
               tsYes: 'Full TypeScript support',
@@ -43,6 +45,7 @@ const t = computed(() =>
               docsComplete: 'Documentation complete',
               docsPartial: 'Documentation partial',
               docsMinimal: 'Documentation minimal',
+              block: 'Block variant available',
           },
 );
 
@@ -182,6 +185,16 @@ const docsLabel = computed(() => {
                     </div>
                     <span class="text-[10px] font-semibold tabular-nums">{{ tests }}%</span>
                 </div>
+            </div>
+        </UTooltip>
+
+        <!-- Block -->
+        <UTooltip v-if="hasBlock" :text="t.block">
+            <div
+                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium border-violet-500/20 bg-violet-500/10 text-violet-700 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-300"
+            >
+                <UIcon class="size-4" name="i-lucide-box" />
+                <span>Block</span>
             </div>
         </UTooltip>
     </div>
