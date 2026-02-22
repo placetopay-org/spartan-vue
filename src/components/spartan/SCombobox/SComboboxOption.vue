@@ -12,7 +12,7 @@ const store = useContext('SComboboxOption');
 const option = store.value.registerOption(props);
 
 onMounted(() => {
-    store.value.options[option.id].content = el.value?.innerText || '';
+    store.value.options[option.id]!.content = el.value?.innerText || '';
 });
 </script>
 

@@ -54,7 +54,7 @@ const iconClass = computed(() => [
             <component
                 :is="icon"
                 v-if="icon"
-                :class="[iconClass, $slots.default?.()[0].children ? (endIcon ? '-mr-0.5' : '-ml-0.5') : '']"
+                :class="[iconClass, $slots.default?.()?.[0]?.children ? (endIcon ? '-mr-0.5' : '-ml-0.5') : '']"
             />
             <slot />
         </template>

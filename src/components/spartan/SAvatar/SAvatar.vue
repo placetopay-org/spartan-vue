@@ -52,7 +52,7 @@ const initials = computed(() => {
 
     const [first, last] = props.name.split(/ |-|_|\.|,|;|:|\||\\/g);
 
-    return `${first[0]}${last ? last[0] : ''}`.toUpperCase();
+    return `${first?.[0] ?? ''}${last ? last[0] : ''}`.toUpperCase();
 });
 
 const classes = computed(() =>

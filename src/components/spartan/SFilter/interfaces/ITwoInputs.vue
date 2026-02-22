@@ -41,6 +41,8 @@ watch([value1, value2], () => {
 const updateCurrency = (currency?: string) => {
     emit('update:currency', currency);
 };
+
+const amountCurrency = computed(() => props.config.currency ?? props.config.currencies?.[0]);
 </script>
 
 <template>
@@ -61,7 +63,7 @@ const updateCurrency = (currency?: string) => {
         <div v-else-if="config.type === 'amount'" class="flex gap-4">
             <SInputAmount
                 v-model="value1 as number"
-                :currency="config.currency ?? config.currencies![0]"
+                :currency="amountCurrency!"
                 :currencies="config.currencies"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :minor-unit-mode="config.minorUnitMode"
@@ -70,7 +72,7 @@ const updateCurrency = (currency?: string) => {
             />
             <SInputAmount
                 v-model="value2 as number"
-                :currency="config.currency ?? config.currencies![0]"
+                :currency="amountCurrency!"
                 :currencies="config.currencies"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :minor-unit-mode="config.minorUnitMode"

@@ -64,7 +64,7 @@ const validate = async (value: any) => {
         error.value = null;
         return;
     }
-    error.value = await field.validate(value, tempOperator.value);
+    error.value = await field.validate(value, tempOperator.value!);
 };
 
 watch(

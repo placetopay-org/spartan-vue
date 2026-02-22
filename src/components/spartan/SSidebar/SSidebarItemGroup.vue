@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Partial<TSidebarItemGroupProps>>(), {
 const slots = useSlots();
 const store = useContext('SSidebarItemGroup');
 
-const innerText = slots.title?.()[0].children;
+const innerText = slots.title?.()?.[0]?.children;
 const updatedPath = ref(props.path || String(innerText));
 
 const open = ref(false);

@@ -13,7 +13,7 @@ export const createContext = ({ props, emit }: { props: Partial<TComboboxProps>;
         autoSearch: computed(() => props.search === 'auto'),
         getSelection: () =>
             state.value.selectionId || state.value.selectionId === 0
-                ? state.value.options[state.value.selectionId]
+                ? state.value.options[state.value.selectionId] ?? null
                 : null,
         isSelected: (optionId: TOption['id']) => state.value.selectionId === optionId,
         isFiltered: (optionContent: TOption['content']) => {
@@ -29,7 +29,7 @@ export const createContext = ({ props, emit }: { props: Partial<TComboboxProps>;
                 disabled: Boolean(props.disabled),
             });
 
-            return state.value.options[optionId];
+            return state.value.options[optionId]!;
         },
         emptyResults: () => {
             if (state.value.query !== '' && state.value.autoSearch) {

@@ -34,7 +34,7 @@ const updateQuery = useDebounceFn((query) => {
             as="div"
             :model-value="store.querySelectionId(modelValue)"
             :class="twMerge(comboboxStyles({ disabled, rounded, error }), props.class)"
-            @update:model-value="$emit('update:modelValue', store.options[$event].value)"
+            @update:model-value="$emit('update:modelValue', store.options[$event]?.value)"
         >
             <ComboboxInput
                 v-if="search"

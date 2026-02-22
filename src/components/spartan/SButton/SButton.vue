@@ -30,7 +30,7 @@ const refButton = useTemplateRef<HTMLButtonElement>('ref_button');
 // Computed properties
 const buttonType = computed(() => (props.as !== 'button' || props.type ? props.type : 'button'));
 const rootClass = computed(() => {
-    const hasText = slots.default?.()[0].children;
+    const hasText = slots.default?.()?.[0]?.children;
     return twMerge(
         buttonStyles({
             variant: props.variant,
@@ -60,7 +60,7 @@ defineExpose({ refButton });
             v-bind="leftIconProps"
             :is="leftIcon || icon"
             data-s-icon
-            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-ml-0.5', leftIconClass)"
+            :class="twMerge('h-5 w-5', $slots.default?.()?.[0]?.children && '-ml-0.5', leftIconClass)"
         />
 
         <!-- slot -->
@@ -71,7 +71,7 @@ defineExpose({ refButton });
             v-bind="rightIconProps"
             :is="rightIcon"
             data-s-icon
-            :class="twMerge('h-5 w-5', $slots.default?.()[0].children && '-mr-0.5', rightIconClass)"
+            :class="twMerge('h-5 w-5', $slots.default?.()?.[0]?.children && '-mr-0.5', rightIconClass)"
         />
     </component>
 </template>

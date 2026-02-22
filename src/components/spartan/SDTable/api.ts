@@ -43,7 +43,7 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
         rows: [],
         config: { slim: !!props.slim, expander: false, totalCols },
         cols: {},
-        colsArray: computed(() => Reflect.ownKeys(state.cols).map((field) => ({ ...state.cols[field], field }))),
+        colsArray: computed(() => Reflect.ownKeys(state.cols).map((field) => ({ ...state.cols[field]!, field }))),
         updateCol: ({ field, expander, ...rest }: TUpdateColData) => {
             if (!field) return;
 

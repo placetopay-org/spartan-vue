@@ -35,7 +35,7 @@ onMounted(() => {
     const groupName = el.value?.parentElement?.parentElement?.dataset.groupName;
     if (groupName) isChild.value = true;
     // TODO: ModalLeft compatible? -> const elInnerText = el.value?.innerText;
-    const elInnerText = useSlots().default?.()[0].children as string;
+    const elInnerText = useSlots().default?.()?.[0]?.children as string;
     if (!updatedPath.value) {
         if (elInnerText) updatedPath.value = elInnerText;
         if (groupName) updatedPath.value = `${groupName}/${elInnerText}`;

@@ -18,7 +18,7 @@ const vActive = computed(() => {
     if (active || vRegex.value.test(context.modelValue)) return true;
 
     if (dropdown && Object.keys(context.dropdowns).length) {
-        for (const reg of context.dropdowns[vPath.value]) {
+        for (const reg of context.dropdowns[vPath.value] ?? []) {
             if (reg.test(context.modelValue)) {
                 return true;
             }

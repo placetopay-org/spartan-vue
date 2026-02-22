@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { usePreview } from '~/composables/usePreview'
-import { Home2 as HomeIcon, Calendar as CalendarIcon, Setting2 as SettingIcon } from '@placetopay/iconsax-vue/bold'
+import { Home2Icon as HomeIcon, CalendarIcon as CalendarIcon, Setting2Icon as SettingIcon } from '@placetopay/iconsax-vue/bold'
 
 usePreview({ component: 'SButtonGroup' })
 </script>

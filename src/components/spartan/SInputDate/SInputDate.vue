@@ -24,7 +24,7 @@ const value = computed({
     <VueDatePicker
         v-bind="{ ...$props, modelValue: undefined }"
         v-model="value"
-        :locale="locale"
+        :locale="locale as any"
         :select-text="t('select')"
         :cancel-text="t('cancel')"
         :now-button-label="t('now')"

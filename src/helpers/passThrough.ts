@@ -26,13 +26,13 @@ export function usePassthrough() {
             if (baseRegex.test(key)) {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const [_, name] = key.match(baseRegex)!;
-                add(ptData, name, { class: value });
+                add(ptData, name!, { class: value });
             }
 
             if (detailedRegex.test(key)) {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const [_, name, content] = key.match(detailedRegex)!;
-                add(ptData, name, { [content]: value });
+                add(ptData, name!, { [content!]: value });
             }
 
             if (key === 'pt') {
