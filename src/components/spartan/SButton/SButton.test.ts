@@ -224,7 +224,7 @@ describe('SButton', () => {
             expect(button.firstElementChild).toHaveClass('h-5 w-5 -ml-0.5');
         });
 
-        test('Renders icon prop as leftIcon (deprecated)', () => {
+        test('Renders icon prop as leftIcon shortcut', () => {
             render(SButton, { props: { icon: HomeIcon }, slots: { default: 'With icon' } });
             const button = screen.getByRole('button', { name: 'With icon' });
 

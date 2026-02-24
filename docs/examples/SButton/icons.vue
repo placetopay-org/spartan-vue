@@ -4,7 +4,7 @@ import { CommandSquareIcon as Icon } from '@placetopay/iconsax-vue/outline'
 
 <template>
     <div class="flex items-center gap-4">
-        <SButton :left-icon="Icon">Left icon</SButton>
+        <SButton :icon="Icon">Left icon</SButton>
         <SButton :right-icon="Icon">Right icon</SButton>
         <SButton :left-icon="Icon" :right-icon="Icon">Both icons</SButton>
     </div>

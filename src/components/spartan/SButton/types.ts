@@ -16,8 +16,8 @@ export type TButtonProps = {
     disabled?: boolean;
 
     /**
-     * @en Icon component to be displayed in the button.
-     * @es Componente de icono que se mostrará en el botón.
+     * @en Shortcut for `leftIcon`. Icon component displayed on the left side of the text.
+     * @es Atajo de `leftIcon`. Componente de icono que se mostrará a la izquierda del texto.
      */
     icon?: FunctionalComponent;
 
