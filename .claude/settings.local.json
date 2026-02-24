@@ -6,7 +6,10 @@
       "Bash(find:*)",
       "mcp__context7__query-docs",
       "mcp__nuxt-ui-remote__search-components-by-category",
-      "mcp__nuxt-ui-remote__list-components"
+      "mcp__nuxt-ui-remote__list-components",
+      "mcp__figma-desktop__get_design_context",
+      "mcp__figma-desktop__get_screenshot",
+      "mcp__figma-desktop__get_metadata"
     ]
   }
 }
