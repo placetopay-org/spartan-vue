@@ -61,7 +61,7 @@ export type TButtonProps = {
      * @en Defines the visual variant of the button.
      * @es Define la variante visual del botón.
      */
-    variant?: TButtonStyles['variant'];
+    variant?: NonNullable<TButtonStyles['variant']>;
 
     /**
      * @en Additional CSS classes for the button.

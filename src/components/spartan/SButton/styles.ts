@@ -48,7 +48,7 @@ export const buttonStyles = cva(
                 ],
             },
             rounded: roundedClass,
-            loading: cbv('loading'),
+            loading: cbv('text-transparent select-none pointer-events-none'),
             disabled: cbv('opacity-50 pointer-events-none'),
             'size:text': size.text,
             'size:noText': size.noText,

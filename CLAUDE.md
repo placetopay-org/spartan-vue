@@ -39,6 +39,7 @@ Internal shared components live in `src/components/internal/` (InputContainer, T
 
 ### Key Patterns
 
+- **Vue 3.5+ syntax**: Use reactive destructuring with defaults for `defineProps` (no `withDefaults`). Use same-name shorthand for bindings: `:variant` instead of `:variant="variant"`.
 - **Styling**: All variant styling uses CVA (`class-variance-authority`) with `tailwind-merge` for class composition. Never use inline conditional classes — define variants in `styles.ts`.
 - **Pass-through props**: Components use `usePassthrough()` from `@/helpers` to allow deep customization of internal elements.
 - **Polymorphic rendering**: Many components accept an `as` prop to render as different HTML elements or Vue components.
@@ -72,7 +73,7 @@ The docs site is a Nuxt 4 app in `docs/`. Each component needs bilingual docs:
 
 - English: `docs/content/en/2.components/{category}/{n}.{slug}.md`
 - Spanish: `docs/content/es/2.components/{category}/{n}.{slug}.md`
-- Status tracking: `docs/app/data/componentStatus.ts`
+- Status tracking: `docs/app/data/componentStatus.ts` — the `tests` field represents **coverage percentage** (e.g., `100` means 100% coverage), not the number of test cases
 
 Categories: `1.data-input`, `2.selectors`, `3.display`, `4.modals`, `5.structure`, `6.utilities`
 
