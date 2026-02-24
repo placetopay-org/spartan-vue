@@ -67,6 +67,52 @@ const testBg = computed(() => {
     return 'bg-red-500';
 });
 
+const testIcon = computed(() => {
+    if (tests.value === 0) return 'i-lucide-circle-x';
+    if (tests.value >= 80) return 'i-lucide-circle-check';
+    if (tests.value >= 50) return 'i-lucide-circle-minus';
+    return 'i-lucide-circle-alert';
+});
+
+const testLabel = computed(() => {
+    if (tests.value === 0) return isEs.value ? 'Sin tests' : 'No tests';
+    if (tests.value >= 80) return isEs.value ? 'Cobertura alta' : 'High coverage';
+    if (tests.value >= 50) return isEs.value ? 'Cobertura moderada' : 'Moderate coverage';
+    return isEs.value ? 'Cobertura baja' : 'Low coverage';
+});
+
+const testDescription = computed(() => {
+    if (tests.value === 0)
+        return isEs.value
+            ? 'Este componente aún no tiene tests unitarios.'
+            : 'This component has no unit tests yet.';
+    if (tests.value >= 80)
+        return isEs.value
+            ? 'Las funcionalidades principales están bien probadas.'
+            : 'Core features are well tested.';
+    if (tests.value >= 50)
+        return isEs.value
+            ? 'Algunas funcionalidades necesitan más pruebas.'
+            : 'Some features need more testing.';
+    return isEs.value
+        ? 'Se necesitan más tests para garantizar estabilidad.'
+        : 'More tests are needed to ensure stability.';
+});
+
+const testTiers = computed(() =>
+    isEs.value
+        ? [
+              { label: 'Alta', range: '≥ 80%', color: 'bg-emerald-500' },
+              { label: 'Moderada', range: '50–79%', color: 'bg-amber-500' },
+              { label: 'Baja', range: '< 50%', color: 'bg-red-500' },
+          ]
+        : [
+              { label: 'High', range: '≥ 80%', color: 'bg-emerald-500' },
+              { label: 'Moderate', range: '50–79%', color: 'bg-amber-500' },
+              { label: 'Low', range: '< 50%', color: 'bg-red-500' },
+          ],
+);
+
 const docsTooltip = computed(() => {
     if (docs.value === 'complete') return t.value.docsComplete;
     if (docs.value === 'partial') return t.value.docsPartial;
@@ -168,9 +214,9 @@ const docsLabel = computed(() => {
         </UTooltip>
 
         <!-- Tests -->
-        <UTooltip :text="t.tests">
+        <UPopover mode="hover">
             <div
-                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
+                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium cursor-help"
                 :class="[testBorder, testColor]"
             >
                 <UIcon class="size-4" name="i-lucide-flask-conical" />
@@ -186,7 +232,42 @@ const docsLabel = computed(() => {
                     <span class="text-[10px] font-semibold tabular-nums">{{ tests }}%</span>
                 </div>
             </div>
-        </UTooltip>
+            <template #content>
+                <div class="p-3 w-56">
+                    <!-- Header: icon + label + percentage -->
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-1.5">
+                            <UIcon :name="testIcon" class="size-4" :class="testColor" />
+                            <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">{{ testLabel }}</span>
+                        </div>
+                        <span class="text-sm font-bold tabular-nums" :class="testColor">{{ tests }}%</span>
+                    </div>
+
+                    <!-- Progress bar -->
+                    <div class="h-2 w-full overflow-hidden rounded-full bg-black/10 dark:bg-white/10 mb-2">
+                        <div
+                            class="h-full rounded-full transition-all duration-500"
+                            :class="testBg"
+                            :style="{ width: `${tests}%` }"
+                        />
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mb-3">{{ testDescription }}</p>
+
+                    <!-- Tier legend -->
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-2 flex flex-col gap-1">
+                        <div v-for="tier in testTiers" :key="tier.label" class="flex items-center gap-1.5">
+                            <div class="size-2 rounded-full" :class="tier.color" />
+                            <span class="text-[10px] text-gray-500 dark:text-gray-400">
+                                {{ tier.label }}
+                                <span class="text-gray-400 dark:text-gray-500">{{ tier.range }}</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </UPopover>
 
         <!-- Block -->
         <UTooltip v-if="hasBlock" :text="t.block">
