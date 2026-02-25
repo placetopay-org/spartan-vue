@@ -130,10 +130,43 @@ const docsLabel = computed(() => {
     if (docs.value === 'partial') return isEs.value ? 'Parcial' : 'Partial';
     return isEs.value ? 'Mínima' : 'Minimal';
 });
+
+const isFullQuality = computed(
+    () =>
+        typescript.value &&
+        !!figmaLink.value &&
+        darkMode.value &&
+        responsive.value &&
+        docs.value === 'complete' &&
+        tests.value >= 100,
+);
+
+const particles = Array.from({ length: 8 }, (_, i) => ({
+    id: i,
+    size: [3, 4, 3, 5, 3, 4, 3, 4][i],
+    left: [8, 22, 38, 55, 68, 82, 92, 48][i],
+    delay: [0, 0.8, 1.6, 0.4, 2.0, 1.2, 2.4, 0.6][i],
+    duration: [2.8, 3.2, 2.6, 3.0, 2.9, 3.4, 2.7, 3.1][i],
+}));
 </script>
 
 <template>
-    <div class="mb-8 -mt-4 flex flex-wrap items-center gap-2.5">
+    <div class="relative mb-8 -mt-4 flex flex-wrap items-center gap-2.5">
+        <!-- Quality sparkles -->
+        <template v-if="isFullQuality">
+            <div
+                v-for="p in particles"
+                :key="p.id"
+                class="sparkle-particle"
+                :style="{
+                    width: `${p.size}px`,
+                    height: `${p.size}px`,
+                    left: `${p.left}%`,
+                    animationDelay: `${p.delay}s`,
+                    animationDuration: `${p.duration}s`,
+                }"
+            />
+        </template>
         <!-- Improvements -->
         <UPopover v-if="hasImprovements" mode="hover">
             <div class="inline-flex items-center rounded-lg border border-transparent p-0.5 cursor-help">
@@ -280,3 +313,39 @@ const docsLabel = computed(() => {
         </UTooltip>
     </div>
 </template>
+
+<style scoped>
+.sparkle-particle {
+    position: absolute;
+    bottom: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, #fbbf24 0%, #f59e0b 40%, transparent 70%);
+    box-shadow: 0 0 4px 1px rgba(251, 191, 36, 0.5);
+    animation: sparkle-float linear infinite;
+    opacity: 0;
+}
+
+@keyframes sparkle-float {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.4);
+    }
+    15% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(-18px) scale(0.8);
+    }
+    85% {
+        opacity: 0.3;
+        transform: translateY(-30px) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-38px) scale(0.2);
+    }
+}
+</style>
