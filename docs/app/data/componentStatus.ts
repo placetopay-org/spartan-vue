@@ -132,6 +132,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             tests: 100,
             typescript: true,
             darkMode: true,
+            responsive: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240',
             docs: 'complete',
         },

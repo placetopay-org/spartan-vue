@@ -1,5 +1,8 @@
 import { fileURLToPath } from 'node:url'
+import { readFileSync } from 'node:fs'
 import svgLoader from 'vite-svg-loader';
+
+const { version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf-8'))
 
 export default defineNuxtConfig({
   extends: ['docus'],
@@ -82,6 +85,12 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: 'static',
+  },
+
+  runtimeConfig: {
+    public: {
+      version,
+    },
   },
 
   routeRules: {

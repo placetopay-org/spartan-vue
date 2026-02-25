@@ -25,6 +25,9 @@ export default defineAppConfig({
       light: '/landing/light/spartan.svg',
     }
   },
+  github: {
+    url: 'https://github.com/placetopay-org/spartan-vue',
+  },
   assistant: {
     floatingInput: true,
     explainWithAi: true,
