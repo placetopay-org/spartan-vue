@@ -28,7 +28,7 @@ export const buttonStyles = cva(
                 ],
                 secondary: [
                     'text-gray-900 dark:text-gray-50 focus-within:s-ring-secondary',
-                    'bg-white dark:bg-white/5 hover:bg-gray-50',
+                    'bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10',
                     'border-gray-300 dark:border-white/10 focus:ring-gray-300 shadow-sm',
                 ],
                 danger: [
@@ -51,34 +51,34 @@ export const buttonStyles = cva(
             {
                 variant: 'primary',
                 outline: true,
-                class: 'text-spartan-primary-600 bg-transparent hover:bg-spartan-primary-50 border-spartan-primary-600',
+                class: 'text-spartan-primary-600 bg-transparent hover:bg-spartan-primary-50 dark:hover:bg-spartan-primary-600/10 border-spartan-primary-600',
             },
             {
                 variant: 'secondary',
                 outline: true,
-                class: 'text-gray-900 dark:text-gray-50 bg-transparent dark:bg-transparent hover:bg-gray-50 border-gray-300 dark:border-white/10',
+                class: 'text-gray-900 dark:text-gray-50 bg-transparent dark:bg-transparent hover:bg-gray-50 dark:hover:bg-white/10 border-gray-300 dark:border-white/10',
             },
             {
                 variant: 'danger',
                 outline: true,
-                class: 'text-red-500 bg-transparent hover:bg-red-50 border-red-500',
+                class: 'text-red-500 bg-transparent hover:bg-red-50 dark:hover:bg-red-600/10 border-red-500',
             },
 
             // link=true overrides per variant
             {
                 variant: 'primary',
                 link: true,
-                class: 'text-spartan-primary-600 hover:text-spartan-primary-700 bg-transparent border-transparent shadow-none',
+                class: 'text-spartan-primary-600 hover:text-spartan-primary-700 hover:bg-spartan-primary-50 dark:hover:text-spartan-primary-400 dark:hover:bg-spartan-primary-600/10 bg-transparent border-transparent shadow-none',
             },
             {
                 variant: 'secondary',
                 link: true,
-                class: 'text-gray-900 dark:text-gray-50 hover:text-gray-700 bg-transparent dark:bg-transparent border-transparent dark:border-transparent shadow-none',
+                class: 'text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 bg-transparent dark:bg-transparent border-transparent dark:border-transparent shadow-none',
             },
             {
                 variant: 'danger',
                 link: true,
-                class: 'text-red-500 hover:text-red-700 bg-transparent border-transparent shadow-none',
+                class: 'text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:text-red-400 dark:hover:bg-red-600/10 bg-transparent border-transparent shadow-none',
             },
 
             // circular=true forces round shape per size
