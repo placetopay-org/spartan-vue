@@ -64,6 +64,24 @@ export type TButtonProps = {
     variant?: NonNullable<TButtonStyles['variant']>;
 
     /**
+     * @en Renders the button with a transparent background, keeping the border and text in the variant color.
+     * @es Renderiza el botón con fondo transparente, manteniendo el borde y texto del color de la variante.
+     */
+    outline?: boolean;
+
+    /**
+     * @en Renders the button without background or border, keeping the text in the variant color with hover effect.
+     * @es Renderiza el botón sin fondo ni borde, manteniendo el texto del color de la variante con efecto hover.
+     */
+    link?: boolean;
+
+    /**
+     * @en Renders the button as a circle. Only allows an icon, no text content.
+     * @es Renderiza el botón como un círculo. Solo permite un icono, sin contenido de texto.
+     */
+    circular?: boolean;
+
+    /**
      * @en Additional CSS classes for the button.
      * @es Clases CSS adicionales para el botón.
      */

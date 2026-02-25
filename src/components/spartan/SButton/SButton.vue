@@ -26,6 +26,9 @@ const {
     size = 'md',
     disabled,
     loading,
+    outline,
+    link,
+    circular,
     type,
     icon,
     leftIcon,
@@ -40,13 +43,16 @@ const refButton = useTemplateRef<HTMLButtonElement>('ref_button');
 // Computed properties
 const buttonType = computed(() => (as !== 'button' || type ? type : 'button'));
 const rootClass = computed(() => {
-    const hasText = slots.default?.()?.[0]?.children;
+    const hasText = !circular && slots.default?.()?.[0]?.children;
     return twMerge(
         buttonStyles({
             variant,
-            rounded,
+            rounded: circular ? 'full' : rounded,
             loading,
             disabled,
+            outline: !link && outline,
+            link,
+            circular,
             [hasText ? 'size:text' : 'size:noText']: size,
         }),
         propClass,
@@ -78,14 +84,15 @@ defineExpose({ refButton });
                 v-bind="leftIconProps"
                 :is="leftIcon || icon"
                 data-s-left-icon
-                :class="twMerge('h-5 w-5', $slots.default?.()?.[0]?.children && '-ml-0.5', leftIconClass)"
+                :class="twMerge('h-5 w-5', !circular && $slots.default?.()?.[0]?.children && '-ml-0.5', leftIconClass)"
             />
 
-            <!-- slot -->
-            <slot />
+            <!-- slot (suppressed in circular mode) -->
+            <slot v-if="!circular" />
 
             <!-- rightIcon -->
             <component
+                v-if="!circular"
                 v-bind="rightIconProps"
                 :is="rightIcon"
                 data-s-right-icon
@@ -94,6 +101,6 @@ defineExpose({ refButton });
         </component>
 
         <!-- loading overlay + spinner -->
-        <Spinner v-if="loading" :variant />
+        <Spinner v-if="loading" :variant :outline :link />
     </div>
 </template>

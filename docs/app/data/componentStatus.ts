@@ -131,12 +131,9 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             name: 'SButton',
             tests: 100,
             typescript: true,
+            darkMode: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240',
             docs: 'complete',
-            improvements: {
-                en: '- Improve loading mode icon\n- Add new Figma variants\n- Unify dimensions and spacing',
-                es: '- Mejorar el icono del modo loading\n- Agregar variantes nuevas de figma\n- Unificar las dimensiones y espaciados',
-            },
         },
         { name: 'SLabel', tests: 100, typescript: true, docs: 'complete' },
         {

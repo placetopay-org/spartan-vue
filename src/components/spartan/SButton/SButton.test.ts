@@ -39,7 +39,7 @@ describe('SButton', () => {
             render(SButton, { props: { variant: 'secondary' }, slots: { default: 'Secondary' } });
             const button = screen.getByRole('button', { name: 'Secondary' });
 
-            expect(button.className).toContain('bg-white');
+            expect(button.className).toContain('bg-white/5');
             expect(button.className).toContain('text-gray-900');
         });
 
@@ -50,22 +50,90 @@ describe('SButton', () => {
             expect(button.className).toContain('bg-red-500');
             expect(button.className).toContain('text-white');
         });
+    });
 
-        test('Applies outline variant classes', () => {
-            render(SButton, { props: { variant: 'outline' }, slots: { default: 'Outline' } });
+    describe('Outline', () => {
+        test('Applies outline classes with primary variant', () => {
+            render(SButton, { props: { outline: true }, slots: { default: 'Outline' } });
             const button = screen.getByRole('button', { name: 'Outline' });
 
+            expect(button.className).toContain('bg-transparent');
             expect(button.className).toContain('text-spartan-primary-600');
             expect(button.className).toContain('border-spartan-primary-600');
         });
 
-        test('Applies link variant classes', () => {
-            render(SButton, { props: { variant: 'link' }, slots: { default: 'Link' } });
+        test('Applies outline classes with danger variant', () => {
+            render(SButton, { props: { variant: 'danger', outline: true }, slots: { default: 'Danger Outline' } });
+            const button = screen.getByRole('button', { name: 'Danger Outline' });
+
+            expect(button.className).toContain('bg-transparent');
+            expect(button.className).toContain('text-red-500');
+            expect(button.className).toContain('border-red-500');
+        });
+
+        test('Applies outline classes with secondary variant', () => {
+            render(SButton, {
+                props: { variant: 'secondary', outline: true },
+                slots: { default: 'Secondary Outline' },
+            });
+            const button = screen.getByRole('button', { name: 'Secondary Outline' });
+
+            expect(button.className).toContain('bg-transparent');
+            expect(button.className).toContain('text-gray-900');
+            expect(button.className).toContain('border-gray-300');
+        });
+    });
+
+    describe('Link', () => {
+        test('Applies link classes with primary variant', () => {
+            render(SButton, { props: { link: true }, slots: { default: 'Link' } });
             const button = screen.getByRole('button', { name: 'Link' });
 
             expect(button.className).toContain('text-spartan-primary-600');
             expect(button.className).toContain('bg-transparent');
             expect(button.className).toContain('border-transparent');
+        });
+
+        test('Applies link classes with secondary variant', () => {
+            render(SButton, { props: { variant: 'secondary', link: true }, slots: { default: 'Secondary Link' } });
+            const button = screen.getByRole('button', { name: 'Secondary Link' });
+
+            expect(button.className).toContain('text-gray-900');
+            expect(button.className).toContain('bg-transparent');
+            expect(button.className).toContain('border-transparent');
+        });
+
+        test('Applies link classes with danger variant', () => {
+            render(SButton, { props: { variant: 'danger', link: true }, slots: { default: 'Danger Link' } });
+            const button = screen.getByRole('button', { name: 'Danger Link' });
+
+            expect(button.className).toContain('text-red-500');
+            expect(button.className).toContain('bg-transparent');
+            expect(button.className).toContain('border-transparent');
+        });
+    });
+
+    describe('Circular', () => {
+        test('Applies rounded-full when circular', () => {
+            render(SButton, { props: { circular: true, leftIcon: HomeIcon } });
+            const button = screen.getByRole('button');
+
+            expect(button.className).toContain('rounded-full');
+        });
+
+        test('Uses noText sizing when circular even with slot content', () => {
+            render(SButton, { props: { circular: true, size: 'md' }, slots: { default: 'Text' } });
+            const button = screen.getByRole('button');
+
+            expect(button.className).toContain('p-2');
+            expect(button.className).not.toContain('text-sm');
+        });
+
+        test('Does not render slot text when circular', () => {
+            render(SButton, { props: { circular: true, leftIcon: HomeIcon }, slots: { default: 'Hidden text' } });
+            const button = screen.getByRole('button');
+
+            expect(button.textContent).not.toContain('Hidden text');
         });
     });
 

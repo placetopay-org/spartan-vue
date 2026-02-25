@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import type { TButtonProps } from './types';
 
-const colors: Record<NonNullable<TButtonProps['variant']>, { track: string; indicator: string }> = {
+type TVariant = NonNullable<TButtonProps['variant']>;
+
+const solidColors: Record<TVariant, { track: string; indicator: string }> = {
     primary: { track: 'rgba(255, 255, 255, 0.3)', indicator: '#ffffff' },
     secondary: { track: 'var(--color-gray-300)', indicator: 'var(--color-gray-700)' },
     danger: { track: 'var(--color-red-300)', indicator: '#ffffff' },
-    outline: { track: 'var(--color-spartan-primary-200)', indicator: 'var(--color-spartan-primary-600)' },
-    link: { track: 'var(--color-spartan-primary-200)', indicator: 'var(--color-spartan-primary-600)' },
 };
 
-const { variant } = defineProps<{
-    variant: NonNullable<TButtonProps['variant']>;
+const altColors: Record<TVariant, { track: string; indicator: string }> = {
+    primary: { track: 'var(--color-spartan-primary-200)', indicator: 'var(--color-spartan-primary-600)' },
+    secondary: { track: 'var(--color-gray-300)', indicator: 'var(--color-gray-700)' },
+    danger: { track: 'var(--color-red-300)', indicator: 'var(--color-red-500)' },
+};
+
+const { variant, outline, link } = defineProps<{
+    variant: TVariant;
+    outline?: boolean;
+    link?: boolean;
 }>();
 
-const { track, indicator } = colors[variant];
+const { track, indicator } = (outline || link) ? altColors[variant] : solidColors[variant];
 </script>
 
 <template>

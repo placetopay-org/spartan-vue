@@ -5,7 +5,7 @@ const { controls } = usePreview({
     props: {
         variant: {
             type: 'select',
-            options: ['primary', 'secondary', 'danger', 'outline', 'link'],
+            options: ['primary', 'secondary', 'danger'],
             default: 'primary',
             label: 'variant',
         },

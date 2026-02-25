@@ -60,7 +60,7 @@ const selectFilter = (filter: TSaveData) => {
                 class="h-[26px] whitespace-nowrap"
                 size="sm"
                 rounded="full"
-                variant="outline"
+                outline
                 @click="openSaveModal"
             >
                 <FilterIcon class="h-5 w-5" />
