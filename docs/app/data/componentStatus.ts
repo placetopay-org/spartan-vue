@@ -90,10 +90,8 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=220-2083&p=f',
             tests: 100,
-            improvements: {
-                en: '- Outline mode should be transparent\n- Cursor pointer for the remove button',
-                es: '- El modo outline debe ser transparente\n- Cursor pointer para el botón remover',
-            },
+            darkMode: true,
+            responsive: true,
         },
         { name: 'SCard', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=272-4850&p=f', tests: 90 },
         { name: 'SCardBrand', typescript: true, tests: 50, docs: 'complete' },
