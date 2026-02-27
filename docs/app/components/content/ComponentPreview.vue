@@ -1,7 +1,19 @@
 <script setup lang="ts">
 import { ref, reactive, computed, shallowRef, provide, markRaw, watch, onMounted, onUnmounted } from 'vue'
-import type { ChipProps } from '@nuxt/ui'
 import type { PreviewStore, ControlDefinition } from '~/composables/usePreview'
+
+const colorDotMap: Record<string, string> = {
+    primary: 'var(--ui-color-primary-500)',
+    gray: '#9ca3af',
+    white: '#e5e7eb',
+    red: '#f87171',
+    blue: '#60a5fa',
+    green: '#4ade80',
+    yellow: '#facc15',
+    indigo: '#818cf8',
+    purple: '#a78bfa',
+    neutral: '#737373',
+}
 
 const { highlight } = useShikiHighlighter()
 
@@ -396,17 +408,21 @@ onUnmounted(() => {
                                 size="sm"
                                 class="min-w-20"
                                 :class="[String(key).toLowerCase().endsWith('color') && 'pl-6']"
-                                :ui="{ itemLeadingChip: 'w-2' }"
+                                :content="{ position: 'popper', sideOffset: 4 }"
+                                :ui="{ content: 'w-max min-w-[var(--reka-select-trigger-width)]' }"
                                 @update:model-value="store.values[key] = $event"
                             >
-                                <template v-if="String(key).toLowerCase().endsWith('color')" #leading="{ modelValue, ui }">
-                                    <UChip
+                                <template v-if="String(key).toLowerCase().endsWith('color')" #leading="{ modelValue }">
+                                    <span
                                         v-if="modelValue"
-                                        inset
-                                        standalone
-                                        :color="(modelValue as any)"
-                                        :size="(ui.itemLeadingChipSize() as ChipProps['size'])"
-                                        class="size-2"
+                                        class="size-2 rounded-full shrink-0"
+                                        :style="{ backgroundColor: colorDotMap[String(modelValue)] ?? '#9ca3af' }"
+                                    />
+                                </template>
+                                <template v-if="String(key).toLowerCase().endsWith('color')" #item-leading="{ item }">
+                                    <span
+                                        class="size-2 rounded-full shrink-0"
+                                        :style="{ backgroundColor: colorDotMap[String(item.value)] ?? '#9ca3af' }"
                                     />
                                 </template>
                             </USelect>
