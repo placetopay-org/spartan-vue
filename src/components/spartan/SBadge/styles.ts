@@ -55,17 +55,44 @@ export const badgeStyles = cva('inline-flex items-center font-medium h-fit w-fit
     compoundVariants: [
         compoundColor(
             'primary',
-            'bg-transparent dark:bg-transparent outline-spartan-primary-300 text-spartan-primary-700 dark:outline-spartan-primary-400/20',
+            'bg-transparent dark:bg-transparent outline-spartan-primary-300 text-spartan-primary-700 dark:outline-spartan-primary-400/20 dark:text-spartan-primary-400',
         ),
-        compoundColor('gray', 'bg-transparent dark:bg-transparent outline-gray-300 text-gray-700 dark:outline-gray-400/20'),
-        compoundColor('red', 'bg-transparent dark:bg-transparent outline-red-300 text-red-700 dark:outline-red-400/20'),
-        compoundColor('blue', 'bg-transparent dark:bg-transparent outline-blue-300 text-blue-700 dark:outline-blue-400/20'),
-        compoundColor('green', 'bg-transparent dark:bg-transparent outline-green-300 text-green-700 dark:outline-green-400/20'),
-        compoundColor('yellow', 'bg-transparent dark:bg-transparent outline-yellow-300 text-yellow-700 dark:outline-yellow-400/20'),
-        compoundColor('indigo', 'bg-transparent dark:bg-transparent outline-indigo-300 text-indigo-700 dark:outline-indigo-400/20'),
-        compoundColor('white', 'bg-transparent dark:bg-transparent outline-gray-300 text-gray-700 dark:outline-white/20'),
-        compoundColor('purple', 'bg-transparent dark:bg-transparent outline-purple-300 text-purple-700 dark:outline-purple-400/20'),
-        compoundColor('neutral', 'bg-transparent dark:bg-transparent outline-neutral-400 text-neutral-900 dark:outline-white/20'),
+        compoundColor(
+            'gray',
+            'bg-transparent dark:bg-transparent outline-gray-300 text-gray-700 dark:outline-gray-400/20 dark:text-gray-400',
+        ),
+        compoundColor(
+            'red',
+            'bg-transparent dark:bg-transparent outline-red-300 text-red-700 dark:outline-red-400/20 dark:text-red-400',
+        ),
+        compoundColor(
+            'blue',
+            'bg-transparent dark:bg-transparent outline-blue-300 text-blue-700 dark:outline-blue-400/20 dark:text-blue-400',
+        ),
+        compoundColor(
+            'green',
+            'bg-transparent dark:bg-transparent outline-green-300 text-green-700 dark:outline-green-400/20 dark:text-green-400',
+        ),
+        compoundColor(
+            'yellow',
+            'bg-transparent dark:bg-transparent outline-yellow-300 text-yellow-700 dark:outline-yellow-400/20 dark:text-yellow-400',
+        ),
+        compoundColor(
+            'indigo',
+            'bg-transparent dark:bg-transparent outline-indigo-300 text-indigo-700 dark:outline-indigo-400/20 dark:text-indigo-400',
+        ),
+        compoundColor(
+            'white',
+            'bg-transparent dark:bg-transparent outline-gray-300 text-gray-700 dark:outline-white/20 dark:text-white',
+        ),
+        compoundColor(
+            'purple',
+            'bg-transparent dark:bg-transparent outline-purple-300 text-purple-700 dark:outline-purple-400/20 dark:text-purple-400',
+        ),
+        compoundColor(
+            'neutral',
+            'bg-transparent dark:bg-transparent outline-neutral-400 text-neutral-900 dark:outline-white/20 dark:text-white',
+        ),
         compoundPaddingDot('sm', 'pl-0.5 pr-2.5'),
         compoundPaddingDot('md', 'pl-0.5 pr-3'),
         compoundPaddingDot('lg', 'pl-1.5 pr-3'),
