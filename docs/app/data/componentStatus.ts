@@ -8,6 +8,7 @@ export interface ComponentImprovements {
 export interface ComponentStatusEntry {
     name: string;
     typescript?: boolean;
+    jsdoc?: boolean;
     darkMode?: boolean;
     responsive?: boolean;
     tests?: number;
@@ -32,6 +33,7 @@ function nameToSlug(name: string): string {
 
 const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
     typescript: false,
+    jsdoc: false,
     darkMode: false,
     responsive: false,
     tests: 0,
@@ -43,7 +45,7 @@ const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
 
 const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = {
     dataInput: [
-        { name: 'SInput', typescript: true, tests: 85, docs: 'complete', hasBlock: true },
+        { name: 'SInput', typescript: true, jsdoc: true, tests: 100, docs: 'complete', darkMode: true, responsive: true, hasBlock: true, figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13016-16548&t=SeafmOCyazOmoll4-4' },
         { name: 'SInputAmount', typescript: true, tests: 65, docs: 'partial', hasBlock: true },
         { name: 'SInputDate', typescript: true, docs: 'complete', hasBlock: true },
         { name: 'SInputIncrement', typescript: true, docs: 'complete', hasBlock: true },
@@ -82,11 +84,12 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SMultiSelector', typescript: true, docs: 'partial' },
     ],
     display: [
-        { name: 'SAlert', typescript: true, tests: 100, docs: 'complete' },
+        { name: 'SAlert', typescript: true, jsdoc: true, tests: 100, docs: 'complete' },
         { name: 'SAvatar', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=200-1795&p=f', tests: 100 },
         {
             name: 'SBadge',
             typescript: true,
+            jsdoc: true,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=220-2083&p=f',
             tests: 100,
@@ -129,6 +132,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             name: 'SButton',
             tests: 100,
             typescript: true,
+            jsdoc: true,
             darkMode: true,
             responsive: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240',

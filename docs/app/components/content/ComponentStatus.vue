@@ -9,6 +9,7 @@ const slug = computed(() => route.path.split('/').pop() || '');
 const status = computed(() => getStatusBySlug(slug.value));
 
 const typescript = computed(() => status.value?.typescript ?? false);
+const jsdoc = computed(() => status.value?.jsdoc ?? false);
 const darkMode = computed(() => status.value?.darkMode ?? false);
 const responsive = computed(() => status.value?.responsive ?? false);
 const tests = computed(() => status.value?.tests ?? 0);
@@ -24,6 +25,8 @@ const t = computed(() =>
         ? {
               tsYes: 'Soporte completo de TypeScript',
               tsNo: 'Sin soporte de TypeScript',
+              jsdocYes: 'JSDoc bilingüe incluido',
+              jsdocNo: 'Sin JSDoc bilingüe',
               darkYes: 'Soporta modo oscuro',
               darkNo: 'Sin soporte de modo oscuro',
               respYes: 'Diseño responsive incluido',
@@ -37,6 +40,8 @@ const t = computed(() =>
         : {
               tsYes: 'Full TypeScript support',
               tsNo: 'No TypeScript support',
+              jsdocYes: 'Bilingual JSDoc included',
+              jsdocNo: 'No bilingual JSDoc',
               darkYes: 'Supports dark mode',
               darkNo: 'No dark mode support',
               respYes: 'Responsive design included',
@@ -134,6 +139,7 @@ const docsLabel = computed(() => {
 const isFullQuality = computed(
     () =>
         typescript.value &&
+        jsdoc.value &&
         !!figmaLink.value &&
         darkMode.value &&
         responsive.value &&
@@ -188,6 +194,17 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
                 <TypescriptIcon
                     class="size-5"
                     :class="typescript ? '' : 'grayscale opacity-80'"
+                />
+            </div>
+        </UTooltip>
+
+        <!-- JSDoc -->
+        <UTooltip :text="jsdoc ? t.jsdocYes : t.jsdocNo">
+            <div class="inline-flex items-center rounded-lg border border-transparent p-0.5">
+                <UIcon
+                    name="i-lucide-file-text"
+                    class="size-5"
+                    :class="jsdoc ? 'text-orange-500' : 'text-gray-400 opacity-80'"
                 />
             </div>
         </UTooltip>

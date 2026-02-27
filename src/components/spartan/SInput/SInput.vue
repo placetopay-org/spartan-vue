@@ -109,4 +109,20 @@ input:-webkit-autofill:focus {
     -webkit-text-fill-color: #111827;
     -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
 }
+
+@media (prefers-color-scheme: dark) {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        -webkit-text-fill-color: #f3f4f6;
+        -webkit-box-shadow: 0 0 0px 40rem #111827 inset;
+    }
+}
+
+:is(.dark) input:-webkit-autofill,
+:is(.dark) input:-webkit-autofill:hover,
+:is(.dark) input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f3f4f6;
+    -webkit-box-shadow: 0 0 0px 40rem #111827 inset;
+}
 </style>

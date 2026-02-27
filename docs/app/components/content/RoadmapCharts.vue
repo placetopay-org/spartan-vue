@@ -12,6 +12,7 @@ function getComponentSummary(comp: ComponentStatusData): string {
     const check = (v: boolean) => (v ? '✔️' : '❌');
     return [
         `${check(comp.typescript)} Compatible con typescript`,
+        `${check(comp.jsdoc)} JSDoc bilingüe`,
         `${check(comp.darkMode)} Compatible con dark mode`,
         `${check(comp.responsive)} Diseño responsive`,
         `${check(comp.tests > 0)} Tests`,
@@ -79,6 +80,7 @@ const totalComponents = components.length;
 const summary = components.reduce(
     (acc, c) => {
         if (c.typescript) acc.ts++;
+        if (c.jsdoc) acc.jsdoc++;
         if (c.darkMode) acc.darkMode++;
         if (c.responsive) acc.responsive++;
         if (c.tests >= 80) acc.testsHigh++;
@@ -91,10 +93,11 @@ const summary = components.reduce(
         acc.testsSum += c.tests;
         return acc;
     },
-    { ts: 0, darkMode: 0, responsive: 0, testsHigh: 0, testsMid: 0, testsNone: 0, figma: 0, docsComplete: 0, docsPartial: 0, docsMinimal: 0, testsSum: 0 },
+    { ts: 0, jsdoc: 0, darkMode: 0, responsive: 0, testsHigh: 0, testsMid: 0, testsNone: 0, figma: 0, docsComplete: 0, docsPartial: 0, docsMinimal: 0, testsSum: 0 },
 );
 
 const tsPercent = Math.round((summary.ts / totalComponents) * 100);
+const jsdocPercent = Math.round((summary.jsdoc / totalComponents) * 100);
 const darkModePercent = Math.round((summary.darkMode / totalComponents) * 100);
 const responsivePercent = Math.round((summary.responsive / totalComponents) * 100);
 const avgTests = Math.round(summary.testsSum / totalComponents);
@@ -116,6 +119,7 @@ const categoryStatsMap = Object.fromEntries(
         return [catKey, {
             total,
             ts: Math.round((catComponents.filter((c) => c.typescript).length / total) * 100),
+            jsdoc: Math.round((catComponents.filter((c) => c.jsdoc).length / total) * 100),
             dark: Math.round((catComponents.filter((c) => c.darkMode).length / total) * 100),
             responsive: Math.round((catComponents.filter((c) => c.responsive).length / total) * 100),
             tests: Math.round(catComponents.reduce((s, c) => s + c.tests, 0) / total),
@@ -155,6 +159,7 @@ const radarOption = computed(() => ({
     radar: {
         indicator: [
             { name: 'TypeScript', max: 100 },
+            { name: 'JSDoc', max: 100 },
             { name: 'Dark Mode', max: 100 },
             { name: 'Responsive', max: 100 },
             { name: 'Tests', max: 100 },
@@ -183,7 +188,7 @@ const radarOption = computed(() => ({
             type: 'radar',
             data: [
                 {
-                    value: [tsPercent, darkModePercent, responsivePercent, avgTests, figmaPercent, docsPercent],
+                    value: [tsPercent, jsdocPercent, darkModePercent, responsivePercent, avgTests, figmaPercent, docsPercent],
                     name: isEs.value ? 'Estado Actual' : 'Current Status',
                     areaStyle: {
                         color: isDark.value ? 'rgba(99,102,241,0.25)' : 'rgba(99,102,241,0.15)',
@@ -192,7 +197,7 @@ const radarOption = computed(() => ({
                     itemStyle: { color: '#6366f1' },
                 },
                 {
-                    value: [100, 100, 100, 100, 100, 100],
+                    value: [100, 100, 100, 100, 100, 100, 100],
                     name: isEs.value ? 'Objetivo' : 'Target',
                     areaStyle: {
                         color: isDark.value ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.05)',
@@ -258,6 +263,12 @@ const barOption = computed(() => {
                 data: stats.map((s) => s.ts),
                 itemStyle: { color: '#3178c6', borderRadius: [3, 3, 0, 0] },
                 barGap: '10%',
+            },
+            {
+                name: 'JSDoc',
+                type: 'bar',
+                data: stats.map((s) => s.jsdoc),
+                itemStyle: { color: '#f97316', borderRadius: [3, 3, 0, 0] },
             },
             {
                 name: 'Dark Mode',
@@ -341,6 +352,7 @@ function makeGauge(title: string, value: number, color: string) {
 }
 
 const gaugeTs = makeGauge('TypeScript', tsPercent, '#3178c6');
+const gaugeJsdoc = makeGauge('JSDoc', jsdocPercent, '#f97316');
 const gaugeDark = makeGauge('Dark Mode', darkModePercent, '#8b5cf6');
 const gaugeResponsive = makeGauge('Responsive', responsivePercent, '#06b6d4');
 const gaugeTests = makeGauge('Tests', avgTests, '#f59e0b');
@@ -356,6 +368,14 @@ const summaryStats = computed(() => [
         color: 'text-[#3178c6]',
         bg: 'bg-[#3178c6]/10',
         border: 'border-[#3178c6]/20',
+    },
+    {
+        label: 'JSDoc',
+        value: jsdocPercent,
+        count: `${summary.jsdoc}/${totalComponents}`,
+        color: 'text-orange-500',
+        bg: 'bg-orange-500/10',
+        border: 'border-orange-500/20',
     },
     {
         label: 'Dark Mode',
@@ -403,7 +423,7 @@ const summaryStats = computed(() => [
 <template>
     <div class="space-y-10">
         <!-- Summary Cards -->
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
             <div
                 v-for="stat in summaryStats"
                 :key="stat.label"
@@ -446,15 +466,20 @@ const summaryStats = computed(() => [
                 <div class="grid grid-cols-3 gap-2">
                     <ClientOnly>
                         <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeTs" autoresize />
+                        <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeJsdoc" autoresize />
                         <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeDark" autoresize />
-                        <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeResponsive" autoresize />
                     </ClientOnly>
                 </div>
                 <div class="mt-2 grid grid-cols-3 gap-2">
                     <ClientOnly>
+                        <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeResponsive" autoresize />
                         <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeTests" autoresize />
                         <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeFigma" autoresize />
-                        <VChart v-if="ready" style="width: 100%; height: 144px" :option="gaugeDocs" autoresize />
+                    </ClientOnly>
+                </div>
+                <div class="mt-2 flex justify-center">
+                    <ClientOnly>
+                        <VChart v-if="ready" style="width: 33.33%; height: 144px" :option="gaugeDocs" autoresize />
                     </ClientOnly>
                 </div>
             </div>
@@ -479,6 +504,11 @@ const summaryStats = computed(() => [
                         <th class="px-3 py-3">
                             <UTooltip text="TypeScript">
                                 <div class="flex justify-center"><TypescriptIcon class="size-4" /></div>
+                            </UTooltip>
+                        </th>
+                        <th class="px-3 py-3">
+                            <UTooltip text="JSDoc">
+                                <div class="flex justify-center"><UIcon name="i-lucide-file-text" class="size-4 text-orange-500" /></div>
                             </UTooltip>
                         </th>
                         <th class="px-3 py-3">
@@ -513,7 +543,7 @@ const summaryStats = computed(() => [
                     <template v-for="catKey in catKeys" :key="catKey">
                         <tr class="bg-gray-50 dark:bg-gray-800/80">
                             <td
-                                colspan="9"
+                                colspan="10"
                                 class="px-4 py-2 text-xs font-bold tracking-wide text-gray-500 uppercase dark:text-gray-400"
                             >
                                 {{ categories[catKey as keyof typeof categories] }}
@@ -551,6 +581,14 @@ const summaryStats = computed(() => [
                                     :class="comp.typescript ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400'"
                                 >
                                     {{ comp.typescript ? '✓' : '✗' }}
+                                </span>
+                            </td>
+                            <td class="px-3 py-2.5 text-center">
+                                <span
+                                    class="inline-flex size-5 items-center justify-center rounded-full text-xs"
+                                    :class="comp.jsdoc ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'bg-red-100 text-red-500 dark:bg-red-900/40 dark:text-red-400'"
+                                >
+                                    {{ comp.jsdoc ? '✓' : '✗' }}
                                 </span>
                             </td>
                             <td class="px-3 py-2.5 text-center">
