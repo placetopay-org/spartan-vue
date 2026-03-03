@@ -55,7 +55,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SInputTag', typescript: true, docs: 'complete' },
         { name: 'STextarea', typescript: true, docs: 'complete', hasBlock: true },
         { name: 'SCombobox', typescript: true, docs: 'complete', hasBlock: true },
-        { name: 'SSelect', typescript: true, docs: 'complete', hasBlock: true },
+        { name: 'SSelect', typescript: true, tests: 100, docs: 'complete', darkMode: true, responsive: true, hasBlock: true },
     ],
     selectors: [
         {

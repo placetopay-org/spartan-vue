@@ -16,7 +16,7 @@ const select = ref<HTMLSelectElement | null>(null);
 const placeholderClass = ref(phClass);
 
 watchEffect(() => {
-    placeholderClass.value = modelValue ? '' : phClass || 'text-gray-400';
+    placeholderClass.value = modelValue ? '' : phClass || 'text-gray-400 dark:text-gray-500';
 });
 </script>
 
@@ -26,6 +26,7 @@ watchEffect(() => {
         :value="modelValue"
         :disabled="disabled"
         :class="twMerge(selectStyles({ rounded, error, disabled }), $props.class, placeholderClass)"
+        style="background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em;"
         @change="$emit('update:modelValue', ($event.target as any).value)"
     >
         <option v-if="placeholder" disabled value selected>
@@ -36,7 +37,8 @@ watchEffect(() => {
 </template>
 
 <style>
-select {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+.dark select option {
+    background-color: #111827;
+    color: #f9fafb;
 }
 </style>
