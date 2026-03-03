@@ -23,10 +23,22 @@ export type TSelectProps = {
     error?: boolean;
 
     /**
+     * @en The HTML `id` attribute for the select element.
+     * @es El atributo HTML `id` para el elemento select.
+     */
+    id?: string;
+
+    /**
      * @en The current selected value of the select (v-model binding).
      * @es El valor seleccionado actual del select (enlace v-model).
      */
     modelValue?: string | number;
+
+    /**
+     * @en The HTML `name` attribute for the select element, used in form submissions.
+     * @es El atributo HTML `name` para el elemento select, usado en envíos de formulario.
+     */
+    name?: string;
 
     /**
      * @en Placeholder text displayed as a disabled option when no value is selected.

@@ -308,6 +308,36 @@ describe('SSelect', () => {
         });
     });
 
+    describe('Form attributes', () => {
+        test('Applies id attribute', () => {
+            render(SSelect, { props: { id: 'my-select' } });
+            const select = screen.getByRole('combobox');
+
+            expect(select).toHaveAttribute('id', 'my-select');
+        });
+
+        test('Does not have id attribute by default', () => {
+            render(SSelect);
+            const select = screen.getByRole('combobox');
+
+            expect(select.id).toBe('');
+        });
+
+        test('Applies name attribute', () => {
+            render(SSelect, { props: { name: 'country' } });
+            const select = screen.getByRole('combobox');
+
+            expect(select).toHaveAttribute('name', 'country');
+        });
+
+        test('Does not have name attribute by default', () => {
+            render(SSelect);
+            const select = screen.getByRole('combobox');
+
+            expect(select).not.toHaveAttribute('name');
+        });
+    });
+
     describe('Custom class', () => {
         test('Merges custom classes', () => {
             render(SSelect, { props: { class: 'w-64' } });
@@ -334,6 +364,19 @@ describe('SSelect', () => {
             expect(screen.getByRole('option', { name: 'Option 1' })).toBeInTheDocument();
             expect(screen.getByRole('option', { name: 'Option 2' })).toBeInTheDocument();
             expect(screen.getByRole('option', { name: 'Option 3' })).toBeInTheDocument();
+        });
+    });
+
+    describe('Expose', () => {
+        test('Exposes select element ref', () => {
+            const parent = {
+                components: { SSelect },
+                template: '<SSelect ref="selectRef" />',
+            };
+            const { container } = render(parent);
+            const select = container.querySelector('select');
+
+            expect(select).toBeInstanceOf(HTMLSelectElement);
         });
     });
 });
