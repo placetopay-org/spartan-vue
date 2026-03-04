@@ -80,7 +80,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         { name: 'SRadioGroup', typescript: true, tests: 100, docs: 'partial' },
         { name: 'SSwitch', typescript: true, tests: 100, docs: 'partial' },
-        { name: 'SSelector', typescript: true, docs: 'partial', hasBlock: true },
+        { name: 'SSelector', typescript: true, jsdoc: true, darkMode: true, docs: 'partial', hasBlock: true, figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13097-22397' },
         { name: 'SMultiSelector', typescript: true, docs: 'partial' },
     ],
     display: [

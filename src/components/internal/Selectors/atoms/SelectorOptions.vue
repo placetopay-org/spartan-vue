@@ -37,7 +37,7 @@ const { t } = translator('selector');
 
 <template>
     <template v-if="!options.length">
-        <span class="relative flex px-3 py-2 text-xs font-medium text-gray-400">{{ t('noResults') }}</span>
+        <span class="relative flex px-3 pb-6 pt-2 text-sm text-gray-400 dark:text-gray-500">{{ t('noResults') }}</span>
     </template>
     <template v-else>
         <template v-for="(option, index) in options" :key="index">
@@ -62,7 +62,7 @@ const { t } = translator('selector');
 
                 <CheckIcon
                     v-if="isSelected(item)"
-                    class="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-spartan-primary-500"
+                    class="ml-auto h-5 w-5 shrink-0 text-spartan-primary-500"
                 />
             </button>
         </template>

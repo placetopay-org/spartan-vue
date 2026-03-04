@@ -30,7 +30,7 @@ const getOptionKey = (option: TOption, index: number) => {
 <template>
     <div
         v-if="options && options.length"
-        class="overflow-auto border-b border-gray-950/5 p-3 pt-0"
+        class="overflow-auto border-b border-gray-300 p-3 pt-0 dark:border-white/10"
         :style="{ maxWidth: `${String(width)}px`, maxHeight: '74px' }"
     >
         <div class="flex flex-wrap gap-2 pt-3">

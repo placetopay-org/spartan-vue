@@ -23,12 +23,12 @@ defineExpose({
 </script>
 
 <template>
-    <SPopover ref="popover" :offset="2" :static="static" :responsive="responsive" @close="$emit('close')">
+    <SPopover ref="popover" :offset="8" :static="static" :responsive="responsive" @close="$emit('close')">
         <template #reference>
             <slot name="button" />
         </template>
 
-        <div class="overflow-hidden rounded-md border border-gray-950/5 bg-white shadow-lg">
+        <div class="overflow-hidden rounded-lg border border-gray-300 bg-white shadow-2xl dark:border-white/10 dark:bg-gray-900">
             <div
                 ref="options"
                 tabindex="-1"
@@ -37,11 +37,11 @@ defineExpose({
                 :class="twMerge('relative max-h-80 overflow-auto', optionsClass)"
                 :style="{ minWidth: `${String(width)}px` }"
             >
-                <div class="sticky top-0 z-10 bg-white">
+                <div class="sticky top-0 z-10 bg-white dark:bg-gray-900">
                     <slot name="dropdownHeader" />
                 </div>
                 <slot name="dropdown" />
-                <div class="sticky bottom-0 z-10 bg-white">
+                <div class="sticky bottom-0 z-10 bg-white dark:bg-gray-900">
                     <slot name="dropdownFooter" />
                 </div>
             </div>

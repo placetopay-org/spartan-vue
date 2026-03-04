@@ -11,7 +11,7 @@ const { t } = translator('selector');
 </script>
 
 <template>
-    <div class="overflow-auto border-t border-gray-950/5 p-2.5">
+    <div class="overflow-auto border-t border-gray-300 p-2.5 dark:border-white/10">
         <button @click="$emit('add')">
             <SBadge as="button" pt:content="flex gap-1 items-center" pill>
                 <AddIcon class="h-4 w-4 text-gray-400" />
