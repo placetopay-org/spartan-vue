@@ -61,12 +61,12 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         {
             name: 'SCheckbox',
             typescript: true,
-            tests: 94,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
             docs: 'complete',
-            improvements: {
-                en: 'Review the inline mode that leaves no space between the label and the description',
-                es: 'Revisar el modo inline que no deja espacio entre el label y la descripción',
-            },
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12935-3756&t=SeafmOCyazOmoll4-4',
         },
         {
             name: 'SRadio',
