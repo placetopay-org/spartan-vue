@@ -2,17 +2,21 @@
 import { computed, ref } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import { hasSlotContent } from '@/helpers';
-import type { TRadioEmits, TRadioProps } from './types';
+import { radioContainerStyles, radioInputStyles, radioLabelStyles, radioDescriptionStyles } from './styles';
+import type { TRadioProps } from './types';
 
 defineOptions({ inheritAttrs: false });
 
-const emit = defineEmits<TRadioEmits>();
-const props = defineProps<TRadioProps>();
+const emit = defineEmits<{
+    (event: 'update:modelValue', value: boolean | string): void;
+}>();
 
-const internalValue = ref(props.modelValue);
+const { disabled, id, inline, name, reverse, value } = defineProps<TRadioProps>();
+
+const internalValue = ref<boolean | string>('');
 const model = computed({
     get() {
-        return props.modelValue ?? internalValue.value;
+        return internalValue.value;
     },
     set(newValue) {
         internalValue.value = newValue;
@@ -20,26 +24,20 @@ const model = computed({
     },
 });
 
-const computedId = computed(() => props.id ?? uuidv4());
+const computedId = computed(() => id ?? uuidv4());
 </script>
 
 <template>
-    <div
-        :class="[
-            'flex w-full gap-3',
-            reverse && 'flex-row-reverse justify-between',
-            disabled && 'pointer-events-none opacity-50',
-        ]"
-    >
+    <div :class="radioContainerStyles({ reverse, disabled })">
         <input
             :id="computedId"
             v-bind="$attrs"
             v-model="model"
-            class="cursor-pointer rounded-full border border-gray-300 text-spartan-primary-600 accent-spartan-primary-600 focus:ring-offset-0 focus:s-ring"
+            :class="radioInputStyles()"
             type="radio"
-            :disabled="disabled"
-            :name="name"
-            :value="value"
+            :disabled
+            :name
+            :value
         />
         <div
             v-if="hasSlotContent($slots.default) || hasSlotContent($slots.description)"
@@ -49,18 +47,14 @@ const computedId = computed(() => props.id ?? uuidv4());
                 hasSlotContent($slots.description) ? '-mt-1' : '-mt-0.5',
             ]"
         >
-            <label
-                v-if="hasSlotContent($slots.default) && !inline"
-                :for="computedId"
-                class="text-sm font-semibold text-gray-900"
-            >
+            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" :class="radioLabelStyles()">
                 <slot />
             </label>
-            <p v-if="hasSlotContent($slots.description)" :class="['text-sm font-normal text-gray-500', inline && '']">
+            <p v-if="hasSlotContent($slots.description)" :class="radioDescriptionStyles()">
                 <label
                     v-if="hasSlotContent($slots.default) && inline"
                     :for="computedId"
-                    class="text-sm font-semibold text-gray-900"
+                    :class="[radioLabelStyles(), 'mr-1']"
                 >
                     <slot />
                 </label>
