@@ -5,6 +5,7 @@ const { controls, slots } = usePreview({
     mode: 'playground',
     component: 'SLabel',
     props: {
+        for: { type: 'input', default: '', label: 'for' },
         srOnly: { type: 'boolean', default: false, label: 'srOnly' },
     },
     slots: {
@@ -14,5 +15,5 @@ const { controls, slots } = usePreview({
 </script>
 
 <template>
-    <SLabel :sr-only="controls.srOnly">{{ slots.default }}</SLabel>
+    <SLabel :for="controls.for || undefined" :sr-only="controls.srOnly">{{ slots.default }}</SLabel>
 </template>

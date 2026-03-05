@@ -158,7 +158,16 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=146-240',
             docs: 'complete',
         },
-        { name: 'SLabel', tests: 100, typescript: true, docs: 'complete' },
+        {
+            name: 'SLabel',
+            tests: 100,
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            docs: 'complete',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12877-21698&t=YejrDL8k9HOQiEjj-4',
+        },
         {
             name: 'SFilter',
             typescript: true,
