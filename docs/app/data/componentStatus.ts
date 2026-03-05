@@ -100,7 +100,17 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SCardBrand', typescript: true, tests: 50, docs: 'complete' },
         { name: 'SCaption', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SLink', typescript: true, tests: 100, docs: 'complete' },
-        { name: 'SToast', typescript: true, tests: 66, docs: 'complete' },
+        {
+            name: 'SToast',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15399-15680&t=YejrDL8k9HOQiEjj-4',
+        },
         { name: 'SBreadcrumbs', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SSkeleton', typescript: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
         { name: 'SPlacetopayLogo', typescript: true, tests: 100, docs: 'complete' },
