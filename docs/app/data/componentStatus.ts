@@ -172,7 +172,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SCopy', tests: 62, typescript: true, docs: 'complete' },
     ],
     typography: [
-        { name: 'SPageTitle', typescript: true, tests: 100, docs: 'complete' },
+        { name: 'SPageTitle', responsive: true, typescript: true, jsdoc: true, tests: 100, docs: 'complete', darkMode: true, figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12877-21698&t=nQ0CaPW3JnnNONVn-4' },
         { name: 'SSectionTitle', tests: 100, typescript: true, docs: 'complete' },
         { name: 'SSectionDescription', tests: 100, typescript: true, docs: 'complete' },
     ],
