@@ -85,7 +85,16 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     ],
     display: [
         { name: 'SAlert', typescript: true, jsdoc: true, tests: 100, docs: 'complete' },
-        { name: 'SAvatar', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=200-1795&p=f', tests: 100 },
+        {
+            name: 'SAvatar',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=200-1795&p=f',
+        },
         {
             name: 'SBadge',
             typescript: true,
@@ -98,7 +107,15 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         { name: 'SCard', typescript: true, docs: 'complete', figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=272-4850&p=f', tests: 90 },
         { name: 'SCardBrand', typescript: true, tests: 50, docs: 'complete' },
-        { name: 'SCaption', typescript: true, tests: 100, docs: 'complete' },
+        {
+            name: 'SCaption',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+        },
         { name: 'SLink', typescript: true, tests: 100, docs: 'complete' },
         {
             name: 'SToast',
@@ -190,7 +207,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             darkMode: true,
             responsive: true,
             docs: 'complete',
-            hasBlock: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12877-21698&t=YejrDL8k9HOQiEjj-4',
         },
         {
@@ -201,7 +217,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             darkMode: true,
             responsive: true,
             docs: 'complete',
-            hasBlock: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12877-21698&t=YejrDL8k9HOQiEjj-4',
         },
     ],
