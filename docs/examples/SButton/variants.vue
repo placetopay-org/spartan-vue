@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
@@ -10,11 +10,9 @@ const { controls } = usePreview({
             label: 'variant',
         },
     },
-})
+});
 </script>
 
 <template>
-    <SButton :variant="controls.variant">
-        Variants
-    </SButton>
+    <SButton :variant="controls.variant"> Variants </SButton>
 </template>

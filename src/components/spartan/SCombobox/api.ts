@@ -13,7 +13,7 @@ export const createContext = ({ props, emit }: { props: Partial<TComboboxProps>;
         autoSearch: computed(() => props.search === 'auto'),
         getSelection: () =>
             state.value.selectionId || state.value.selectionId === 0
-                ? state.value.options[state.value.selectionId] ?? null
+                ? (state.value.options[state.value.selectionId] ?? null)
                 : null,
         isSelected: (optionId: TOption['id']) => state.value.selectionId === optionId,
         isFiltered: (optionContent: TOption['content']) => {

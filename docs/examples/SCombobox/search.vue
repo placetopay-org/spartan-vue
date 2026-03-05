@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref('Vue')
+const selected = ref('Vue');
 
-usePreview({ component: 'SCombobox' })
+usePreview({ component: 'SCombobox' });
 </script>
 
 <template>
-    <SCombobox
-        v-model="selected"
-        search="auto"
-        :display-button-text="(v) => String(v)"
-    >
+    <SCombobox v-model="selected" search="auto" :display-button-text="(v) => String(v)">
         <SComboboxOption value="Vue">Vue</SComboboxOption>
         <SComboboxOption value="React">React</SComboboxOption>
         <SComboboxOption value="Angular">Angular</SComboboxOption>

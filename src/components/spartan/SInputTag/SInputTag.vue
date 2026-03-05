@@ -60,7 +60,7 @@ const focusInput = () => inputElement.value?.focus();
         <div
             v-for="(tag, index) in tags"
             :key="index"
-            class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pl-2 pr-1.5 text-sm text-gray-900"
+            class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pr-1.5 pl-2 text-sm text-gray-900"
         >
             {{ tag }}
             <button

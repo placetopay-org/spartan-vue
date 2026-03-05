@@ -26,7 +26,7 @@ onMounted(() => {
     >
         <li
             :class="[
-                'relative cursor-default select-none px-4 py-2',
+                'relative cursor-default px-4 py-2 select-none',
                 active ? 'bg-spartan-primary-100 text-spartan-primary-900' : 'text-gray-900',
                 disabled ? 'opacity-50' : '',
             ]"

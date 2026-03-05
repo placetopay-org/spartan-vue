@@ -65,7 +65,7 @@ const remove = (e: Event) => {
             v-bind="crossProps"
             data-s-cross
             type="button"
-            :class="twMerge('-mx-1 rounded-sm cursor-pointer active:scale-90', crossClass)"
+            :class="twMerge('-mx-1 cursor-pointer rounded-sm active:scale-90', crossClass)"
             @click="remove"
         >
             <span class="sr-only">Remove</span>

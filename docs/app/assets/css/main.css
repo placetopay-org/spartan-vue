@@ -1,13 +1,13 @@
 @import 'tailwindcss';
-@import "@nuxt/ui";
-@import "../../../../src/styles/main.css";
+@import '@nuxt/ui';
+@import '../../../../src/styles/main.css';
 
 /* Escanear componentes de Spartan */
-@source "../../../../src/**/*.vue";
-@source "../../../../src/**/*.ts";
-@source "../../components/**/*.vue";
+@source '../../../../src/**/*.vue';
+@source '../../../../src/**/*.ts';
+@source '../../components/**/*.vue';
 
 @theme {
-  --font-sans: 'Lato', 'sans-serif';
-  --font-display: 'Cinzel Decorative', 'sans-serif';
+    --font-sans: 'Lato', 'sans-serif';
+    --font-display: 'Cinzel Decorative', 'sans-serif';
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CommandSquareIcon as Icon } from '@placetopay/iconsax-vue/outline'
+import { CommandSquareIcon as Icon } from '@placetopay/iconsax-vue/outline';
 </script>
 
 <template>

@@ -1,13 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref('startup')
-usePreview({ component: 'SRadioGroup' })
+const selected = ref('startup');
+
+const { controls } = usePreview({
+    mode: 'playground',
+    component: 'SRadioGroup',
+    props: {
+        disabled: { type: 'boolean', default: false, label: 'disabled' },
+    },
+});
 </script>
 
 <template>
-    <SRadioGroup v-model="selected">
+    <SRadioGroup v-model="selected" :disabled="controls.disabled">
         <SRadioGroupItem value="startup">
             <template #title>Startup</template>
             <template #description>12GB / 6 CPUs</template>

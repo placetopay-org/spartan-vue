@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
         variant: { type: 'select', options: ['underline', 'pills', 'vetches'], default: 'underline', label: 'variant' },
     },
-})
+});
 
-const activeTab = ref('account')
+const activeTab = ref('account');
 </script>
 
 <template>

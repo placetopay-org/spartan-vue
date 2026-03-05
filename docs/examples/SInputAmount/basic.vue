@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref(null)
+const value = ref(null);
 
 const { controls } = usePreview({
     mode: 'playground',
@@ -15,7 +15,7 @@ const { controls } = usePreview({
         error: { type: 'boolean', default: false, label: 'error' },
         placeholder: { type: 'text', default: 'Enter amount', label: 'placeholder' },
     },
-})
+});
 </script>
 
 <template>

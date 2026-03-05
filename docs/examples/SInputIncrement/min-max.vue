@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref(1)
+const value = ref(1);
 
-usePreview({ component: 'SInputIncrement' })
+usePreview({ component: 'SInputIncrement' });
 </script>
 
 <template>

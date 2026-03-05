@@ -33,8 +33,8 @@ const value = computed({
         :class="
             twMerge(
                 error
-                    ? '[&>div>div>input]:border-red-500 hover:[&>div>div>input]:border-red-500 focus:[&>div>div>input]:s-ring-error'
-                    : '[&>div>div>input]:border-gray-300 hover:[&>div>div>input]:border-gray-300 focus:[&>div>div>input]:s-ring',
+                    ? 'focus:[&>div>div>input]:s-ring-error [&>div>div>input]:border-red-500 hover:[&>div>div>input]:border-red-500'
+                    : 'focus:[&>div>div>input]:s-ring [&>div>div>input]:border-gray-300 hover:[&>div>div>input]:border-gray-300',
                 $props.class,
             )
         "

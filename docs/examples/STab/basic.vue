@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'STab' })
+usePreview({ component: 'STab' });
 
-const activeTab = ref('account')
+const activeTab = ref('account');
 </script>
 
 <template>

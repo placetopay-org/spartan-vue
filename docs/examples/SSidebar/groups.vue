@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ProfileCircleIcon, Setting2Icon } from '@placetopay/iconsax-vue/bold'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { ProfileCircleIcon, Setting2Icon } from '@placetopay/iconsax-vue/bold';
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SSidebar' })
+usePreview({ component: 'SSidebar' });
 
-const active = ref('')
+const active = ref('');
 </script>
 
 <template>

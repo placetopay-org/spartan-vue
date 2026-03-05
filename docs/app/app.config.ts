@@ -1,54 +1,54 @@
 export default defineAppConfig({
-  seo: {
-    title: 'Spartan Documentation',
-    description:
-      'Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, with i18n support and 68 components.',
-  },
-  ui: {
-    pageHero: {
-      slots: {
-        title: 'font-semibold sm:text-6xl',
-        container: '!pb-0',
-      },
+    seo: {
+        title: 'Spartan Documentation',
+        description:
+            'Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, with i18n support and 68 components.',
     },
-    pageCard: {
-      slots: {
-        container: 'lg:flex min-w-0',
-        wrapper: 'flex-none',
-      },
-    },
-  },
-  header: {
-    logo: {
-      alt: 'Spartan Logo',
-      dark: '/landing/dark/spartan.svg',
-      light: '/landing/light/spartan.svg',
-    }
-  },
-  github: {
-    url: 'https://github.com/placetopay-org/spartan-vue',
-  },
-  assistant: {
-    floatingInput: true,
-    explainWithAi: true,
-    shortcuts: {
-      focusInput: 'meta_i',
-    },
-    faqQuestions: {
-      es: [
-        { category: 'Primeros Pasos', items: ['¿Cómo instalo Spartan?', '¿Cómo uso un componente?'] },
-        {
-          category: 'Personalización',
-          items: ['¿Cómo personalizo el tema?', '¿Cómo configuro la internacionalización?'],
+    ui: {
+        pageHero: {
+            slots: {
+                title: 'font-semibold sm:text-6xl',
+                container: '!pb-0',
+            },
         },
-      ],
-      en: [
-        { category: 'Getting Started', items: ['How do I install Spartan?', 'How do I use a component?'] },
-        {
-          category: 'Customization',
-          items: ['How do I customize the theme?', 'How do I set up internationalization?'],
+        pageCard: {
+            slots: {
+                container: 'lg:flex min-w-0',
+                wrapper: 'flex-none',
+            },
         },
-      ],
     },
-  },
+    header: {
+        logo: {
+            alt: 'Spartan Logo',
+            dark: '/landing/dark/spartan.svg',
+            light: '/landing/light/spartan.svg',
+        },
+    },
+    github: {
+        url: 'https://github.com/placetopay-org/spartan-vue',
+    },
+    assistant: {
+        floatingInput: true,
+        explainWithAi: true,
+        shortcuts: {
+            focusInput: 'meta_i',
+        },
+        faqQuestions: {
+            es: [
+                { category: 'Primeros Pasos', items: ['¿Cómo instalo Spartan?', '¿Cómo uso un componente?'] },
+                {
+                    category: 'Personalización',
+                    items: ['¿Cómo personalizo el tema?', '¿Cómo configuro la internacionalización?'],
+                },
+            ],
+            en: [
+                { category: 'Getting Started', items: ['How do I install Spartan?', 'How do I use a component?'] },
+                {
+                    category: 'Customization',
+                    items: ['How do I customize the theme?', 'How do I set up internationalization?'],
+                },
+            ],
+        },
+    },
 });

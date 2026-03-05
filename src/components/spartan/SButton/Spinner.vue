@@ -21,12 +21,12 @@ const { variant, outline, link } = defineProps<{
     link?: boolean;
 }>();
 
-const { track, indicator } = (outline || link) ? altColors[variant] : solidColors[variant];
+const { track, indicator } = outline || link ? altColors[variant] : solidColors[variant];
 </script>
 
 <template>
-    <div class="absolute inset-0 z-10 flex items-center justify-center cursor-wait">
-        <svg class="animate-spin h-[1em] w-[1em]" viewBox="0 0 24 24" fill="none">
+    <div class="absolute inset-0 z-10 flex cursor-wait items-center justify-center">
+        <svg class="h-[1em] w-[1em] animate-spin" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" :stroke="track" stroke-width="3" />
             <path d="M22 12a10 10 0 0 0-10-10" :stroke="indicator" stroke-width="3" stroke-linecap="round" />
         </svg>

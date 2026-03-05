@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref(null)
+const value = ref(null);
 
 const { controls } = usePreview({
     component: 'SInputAmountBlock',
@@ -11,7 +11,7 @@ const { controls } = usePreview({
         helpText: { type: 'text', default: 'Enter the transaction amount.', label: 'helpText' },
         errorText: { type: 'text', default: '', label: 'errorText' },
     },
-})
+});
 </script>
 
 <template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref('option1')
+const selected = ref('option1');
 
 const { controls, slots } = usePreview({
     mode: 'playground',
@@ -16,7 +16,7 @@ const { controls, slots } = usePreview({
         default: { default: 'Option 1', label: 'Label' },
         description: { default: 'Select this option to continue.', label: 'Description' },
     },
-})
+});
 </script>
 
 <template>

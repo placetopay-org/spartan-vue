@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SDropdown' })
+usePreview({ component: 'SDropdown' });
 </script>
 
 <template>

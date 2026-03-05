@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
@@ -10,7 +10,7 @@ const { controls } = usePreview({
             label: 'class',
         },
     },
-})
+});
 </script>
 
 <template>

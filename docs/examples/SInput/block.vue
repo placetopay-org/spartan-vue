@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref('')
+const value = ref('');
 
 const { controls } = usePreview({
     component: 'SInputBlock',
@@ -11,7 +11,7 @@ const { controls } = usePreview({
         helpText: { type: 'text', default: 'We will never share your email.', label: 'helpText' },
         errorText: { type: 'text', default: '', label: 'errorText' },
     },
-})
+});
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SButtonGroup' })
+usePreview({ component: 'SButtonGroup' });
 </script>
 
 <template>

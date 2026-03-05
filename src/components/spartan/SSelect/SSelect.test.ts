@@ -121,10 +121,7 @@ describe('SSelect', () => {
         test('Handles string values', async () => {
             let modelValue = 'vue';
             const user = userEvent.setup();
-            const stringOptions = [
-                h('option', { value: 'vue' }, 'Vue'),
-                h('option', { value: 'react' }, 'React'),
-            ];
+            const stringOptions = [h('option', { value: 'vue' }, 'Vue'), h('option', { value: 'react' }, 'React')];
 
             const { rerender } = render(SSelect, {
                 slots: { default: stringOptions },

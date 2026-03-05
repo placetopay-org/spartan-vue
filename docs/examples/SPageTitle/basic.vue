@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { slots } = usePreview({
     mode: 'playground',
@@ -7,7 +7,7 @@ const { slots } = usePreview({
     slots: {
         default: { default: 'Dashboard Overview', label: 'Content' },
     },
-})
+});
 </script>
 
 <template>

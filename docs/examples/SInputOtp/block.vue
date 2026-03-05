@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref('')
+const value = ref('');
 
 const { controls } = usePreview({
     component: 'SInputOtpBlock',
@@ -11,7 +11,7 @@ const { controls } = usePreview({
         helpText: { type: 'text', default: 'Enter the 4-digit code sent to your phone.', label: 'helpText' },
         errorText: { type: 'text', default: '', label: 'errorText' },
     },
-})
+});
 </script>
 
 <template>

@@ -1,25 +1,24 @@
 <script setup lang="ts">
-const appConfig = useAppConfig()
-const site = useSiteConfig()
-const { public: { version } } = useRuntimeConfig()
+const appConfig = useAppConfig();
+const site = useSiteConfig();
+const {
+    public: { version },
+} = useRuntimeConfig();
 
-const { isEnabled: isAssistantEnabled } = useAssistant()
-const { localePath, isEnabled, locales } = useDocusI18n()
+const { isEnabled: isAssistantEnabled } = useAssistant();
+const { localePath, isEnabled, locales } = useDocusI18n();
 
-const links = computed(() => appConfig.github?.url
-    ? [{ 'icon': 'i-simple-icons-github', 'to': appConfig.github.url, 'target': '_blank', 'aria-label': 'GitHub' }]
-    : [],
-)
+const links = computed(() =>
+    appConfig.github?.url
+        ? [{ icon: 'i-simple-icons-github', to: appConfig.github.url, target: '_blank', 'aria-label': 'GitHub' }]
+        : [],
+);
 
-const npmUrl = computed(() => `https://www.npmjs.com/package/@placetopay/spartan-vue/v/${version}`)
+const npmUrl = computed(() => `https://www.npmjs.com/package/@placetopay/spartan-vue/v/${version}`);
 </script>
 
 <template>
-    <UHeader
-        :ui="{ center: 'flex-1' }"
-        :to="localePath('/')"
-        :title="appConfig.header?.title || site.name"
-    >
+    <UHeader :ui="{ center: 'flex-1' }" :to="localePath('/')" :title="appConfig.header?.title || site.name">
         <AppHeaderCenter />
 
         <template #title>
@@ -38,16 +37,11 @@ const npmUrl = computed(() => `https://www.npmjs.com/package/@placetopay/spartan
                     <LanguageSelect />
 
                     <template #fallback>
-                        <div
-                            class="h-8 w-8 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800"
-                        />
+                        <div class="h-8 w-8 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800" />
                     </template>
                 </ClientOnly>
 
-                <USeparator
-                    orientation="vertical"
-                    class="h-8"
-                />
+                <USeparator orientation="vertical" class="h-8" />
             </template>
 
             <UContentSearchButton class="lg:hidden" />
@@ -56,9 +50,7 @@ const npmUrl = computed(() => `https://www.npmjs.com/package/@placetopay/spartan
                 <UColorModeButton />
 
                 <template #fallback>
-                    <div
-                        class="h-8 w-8 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800"
-                    />
+                    <div class="h-8 w-8 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800" />
                 </template>
             </ClientOnly>
 
@@ -82,11 +74,7 @@ const npmUrl = computed(() => `https://www.npmjs.com/package/@placetopay/spartan
         </template>
 
         <template #toggle="{ open, toggle }">
-            <IconMenuToggle
-                :open="open"
-                class="lg:hidden"
-                @click="toggle"
-            />
+            <IconMenuToggle :open="open" class="lg:hidden" @click="toggle" />
         </template>
 
         <template #body>

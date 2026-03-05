@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const enabled = ref(false)
+const enabled = ref(false);
 
 const { controls, slots } = usePreview({
     mode: 'playground',
@@ -16,16 +16,11 @@ const { controls, slots } = usePreview({
         default: { default: 'Enable notifications', label: 'Label' },
         description: { default: 'Receive alerts when something happens.', label: 'Description' },
     },
-})
+});
 </script>
 
 <template>
-    <SSwitch
-        v-model="enabled"
-        :reverse="controls.reverse"
-        :passive="controls.passive"
-        :icon="controls.icon"
-    >
+    <SSwitch v-model="enabled" :reverse="controls.reverse" :passive="controls.passive" :icon="controls.icon">
         <template #default>{{ slots.default }}</template>
         <template #description>{{ slots.description }}</template>
     </SSwitch>

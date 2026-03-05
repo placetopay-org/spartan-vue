@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
-        placement: { type: 'select', options: ['bottom-start', 'bottom', 'bottom-end', 'top-start', 'top', 'top-end', 'left', 'right'], default: 'bottom-start', label: 'placement' },
+        placement: {
+            type: 'select',
+            options: ['bottom-start', 'bottom', 'bottom-end', 'top-start', 'top', 'top-end', 'left', 'right'],
+            default: 'bottom-start',
+            label: 'placement',
+        },
     },
-})
+});
 </script>
 
 <template>

@@ -37,13 +37,13 @@ const { t } = translator('selector');
 
 <template>
     <template v-if="!options.length">
-        <span class="relative flex px-3 pb-6 pt-2 text-sm text-gray-400 dark:text-gray-500">{{ t('noResults') }}</span>
+        <span class="relative flex px-3 pt-2 pb-6 text-sm text-gray-400 dark:text-gray-500">{{ t('noResults') }}</span>
     </template>
     <template v-else>
         <template v-for="(option, index) in options" :key="index">
             <span
                 v-if="typeof option === 'object' && optionGroupLabel && option[optionGroupLabel]"
-                class="py-2 pl-3 text-xs font-medium uppercase text-gray-400"
+                class="py-2 pl-3 text-xs font-medium text-gray-400 uppercase"
             >
                 {{ option[optionGroupLabel] }}
             </span>
@@ -60,10 +60,7 @@ const { t } = translator('selector');
                 <slot v-if="hasSlotContent($slots.option)" name="option" :option="item" />
                 <span v-else>{{ getOptionLabel(item) }}</span>
 
-                <CheckIcon
-                    v-if="isSelected(item)"
-                    class="ml-auto h-5 w-5 shrink-0 text-spartan-primary-500"
-                />
+                <CheckIcon v-if="isSelected(item)" class="text-spartan-primary-500 ml-auto h-5 w-5 shrink-0" />
             </button>
         </template>
     </template>

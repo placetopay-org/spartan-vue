@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const open = ref(false)
+const open = ref(false);
 
 const { controls, slots } = usePreview({
     mode: 'playground',
     component: 'SModalCard',
     props: {
         size: { type: 'select', options: ['sm', 'md'], default: 'md', label: 'size' },
-        icon: { type: 'select', options: ['none', 'primary', 'success', 'danger', 'warning', 'info'], default: 'none', label: 'icon' },
+        icon: {
+            type: 'select',
+            options: ['none', 'primary', 'success', 'danger', 'warning', 'info'],
+            default: 'none',
+            label: 'icon',
+        },
         closable: { type: 'boolean', default: false, label: 'closable' },
         preventClose: { type: 'boolean', default: false, label: 'preventClose' },
         responsive: { type: 'boolean', default: true, label: 'responsive' },
@@ -20,7 +25,7 @@ const { controls, slots } = usePreview({
     staticAttrs: {
         title: 'Modal Card Title',
     },
-})
+});
 </script>
 
 <template>

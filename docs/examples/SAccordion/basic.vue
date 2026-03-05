@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls, slots } = usePreview({
     mode: 'playground',
@@ -9,9 +9,12 @@ const { controls, slots } = usePreview({
         vertical: { type: 'boolean', default: true, label: 'vertical' },
     },
     slots: {
-        default: { default: 'Accordion content goes here. This section can be expanded or collapsed with a smooth animation.', label: 'Content' },
+        default: {
+            default: 'Accordion content goes here. This section can be expanded or collapsed with a smooth animation.',
+            label: 'Content',
+        },
     },
-})
+});
 </script>
 
 <template>

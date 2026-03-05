@@ -54,11 +54,7 @@ const updateModelValue = (event: Event) => {
                 hasSlotContent($slots.description) ? '-mt-1' : '-mt-0.5',
             ]"
         >
-            <label
-                v-if="hasSlotContent($slots.default) && !inline"
-                :for="computedId"
-                :class="checkboxLabelStyles()"
-            >
+            <label v-if="hasSlotContent($slots.default) && !inline" :for="computedId" :class="checkboxLabelStyles()">
                 <slot />
             </label>
             <p v-if="hasSlotContent($slots.description)" :class="checkboxDescriptionStyles()">

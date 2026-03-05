@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SPaginator' })
+usePreview({ component: 'SPaginator' });
 
-const page = ref(1)
-const size = ref(10)
+const page = ref(1);
+const size = ref(10);
 </script>
 
 <template>

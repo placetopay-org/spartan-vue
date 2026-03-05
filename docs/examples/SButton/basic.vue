@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { AddIcon } from '@placetopay/iconsax-vue/bold'
-import { usePreview } from '~/composables/usePreview'
+import { AddIcon } from '@placetopay/iconsax-vue/bold';
+import { usePreview } from '~/composables/usePreview';
 
 const { controls, slots } = usePreview({
     mode: 'playground',
@@ -27,7 +27,7 @@ const { controls, slots } = usePreview({
     slots: {
         default: { default: 'Click me', label: 'Label' },
     },
-})
+});
 </script>
 
 <template>

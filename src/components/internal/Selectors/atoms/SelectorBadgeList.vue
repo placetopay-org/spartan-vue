@@ -21,7 +21,7 @@ const getOptionLabel = (option: TOption) => {
 
 const getOptionKey = (option: TOption, index: number) => {
     if (typeof option === 'object') {
-        return optionValue ? option[optionValue] : option[optionLabel] ?? index;
+        return optionValue ? option[optionValue] : (option[optionLabel] ?? index);
     }
     return option;
 };

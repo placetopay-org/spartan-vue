@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     mode: 'playground',
@@ -11,7 +11,7 @@ const { controls } = usePreview({
         closeable: { type: 'boolean', default: false, label: 'closeable' },
         leftBorder: { type: 'boolean', default: false, label: 'leftBorder' },
     },
-})
+});
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { InfoCircleIcon } from '@placetopay/iconsax-vue/bold'
+import { InfoCircleIcon } from '@placetopay/iconsax-vue/bold';
 </script>
 
 <template>

@@ -77,14 +77,14 @@ const updateQuery = useDebounceFn((query) => {
                     static
                     :class="
                         twMerge(
-                            'absolute z-10 mt-2 max-h-60 min-w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+                            'ring-opacity-5 absolute z-10 mt-2 max-h-60 min-w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black focus:outline-none sm:text-sm',
                             $props.flipOptions && 'right-0',
                         )
                     "
                 >
                     <div
                         v-if="store.emptyResults() && store.query !== ''"
-                        class="relative cursor-default select-none truncate px-4 py-2 text-gray-700"
+                        class="relative cursor-default truncate px-4 py-2 text-gray-700 select-none"
                     >
                         Nothing found.
                     </div>

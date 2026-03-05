@@ -1,15 +1,15 @@
 /* Color tokens */
 @theme {
-  --color-spartan-primary-50:  rgb(255 246 234);
-  --color-spartan-primary-100: rgb(255 227 188);
-  --color-spartan-primary-200: rgb(255 204 141);
-  --color-spartan-primary-300: rgb(255 179 98);
-  --color-spartan-primary-400: rgb(255 148 64);
-  --color-spartan-primary-500: rgb(255 126 41);
-  --color-spartan-primary-600: rgb(255 108 12);
-  --color-spartan-primary-700: rgb(218 90 13);
-  --color-spartan-primary-800: rgb(192 61 17);
-  --color-spartan-primary-900: rgb(161 56 21);
+    --color-spartan-primary-50: rgb(255 246 234);
+    --color-spartan-primary-100: rgb(255 227 188);
+    --color-spartan-primary-200: rgb(255 204 141);
+    --color-spartan-primary-300: rgb(255 179 98);
+    --color-spartan-primary-400: rgb(255 148 64);
+    --color-spartan-primary-500: rgb(255 126 41);
+    --color-spartan-primary-600: rgb(255 108 12);
+    --color-spartan-primary-700: rgb(218 90 13);
+    --color-spartan-primary-800: rgb(192 61 17);
+    --color-spartan-primary-900: rgb(161 56 21);
 }
 
 /* Dark mode configuration */
@@ -17,37 +17,39 @@
 
 /* Base */
 @layer base {
-  html { @apply antialiased; }
-  :root {
-    --tw-ring-inset: ;
-  }
+    html {
+        @apply antialiased;
+    }
+    :root {
+        --tw-ring-inset: ;
+    }
 }
 
 /* Utilities */
 @utility s-ring {
-  transition-duration: 150ms;
-  box-shadow: var(--tw-ring-inset, ) 0 0 0 3px var(--color-spartan-primary-100);
-  border-color: var(--color-spartan-primary-300);
-  z-index: 10;
+    transition-duration: 150ms;
+    box-shadow: var(--tw-ring-inset,) 0 0 0 3px var(--color-spartan-primary-100);
+    border-color: var(--color-spartan-primary-300);
+    z-index: 10;
 }
 @utility s-ring-secondary {
-  transition-duration: 150ms;
-  box-shadow: var(--tw-ring-inset, ) 0 0 0 3px var(--color-gray-100);
-  border-color: var(--color-gray-300);
-  z-index: 10;
+    transition-duration: 150ms;
+    box-shadow: var(--tw-ring-inset,) 0 0 0 3px var(--color-gray-100);
+    border-color: var(--color-gray-300);
+    z-index: 10;
 }
 @utility s-ring-error {
-  transition-duration: 150ms;
-  box-shadow: var(--tw-ring-inset, ) 0 0 0 3px var(--color-red-200);
-  border-color: var(--color-red-500);
-  z-index: 10;
+    transition-duration: 150ms;
+    box-shadow: var(--tw-ring-inset,) 0 0 0 3px var(--color-red-200);
+    border-color: var(--color-red-500);
+    z-index: 10;
 }
 
 /* Safelist */
-@source inline("sm:items-start","sm:items-center","sm:items-end");
+@source inline('sm:items-start', 'sm:items-center', 'sm:items-end');
 
 /* Plugins */
-@plugin "@tailwindcss/forms";
+@plugin '@tailwindcss/forms';
 
 /* Content - scan spartan-vue component files */
-@source "../**/*.js";
+@source '../**/*.js';

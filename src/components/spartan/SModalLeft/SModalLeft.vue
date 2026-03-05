@@ -24,7 +24,7 @@ withDefaults(defineProps<Partial<TModalLeftProps>>(), {
         @close="$emit('backdropClick')"
     >
         <div class="fixed inset-0 w-screen overflow-y-auto">
-            <button class="absolute right-4 top-4" @click="$emit('close')">
+            <button class="absolute top-4 right-4" @click="$emit('close')">
                 <XMarkIcon class="h-7 w-7 text-white" />
             </button>
             <div class="flex h-full">

@@ -67,15 +67,19 @@ const baseClasses = computed(() =>
 <template>
     <div data-s-avatar class="group relative focus-visible:outline-none">
         <img v-if="src" :class="twMerge(baseClasses, $props.class)" :src :alt="initials" class="object-cover" />
-        <div v-else :class="twMerge(baseClasses, $props.class)" class="relative bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            <span class="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2" :class="fontClass[size]">
+        <div
+            v-else
+            :class="twMerge(baseClasses, $props.class)"
+            class="relative bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+        >
+            <span class="absolute right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2" :class="fontClass[size]">
                 {{ initials }}
             </span>
         </div>
         <span
             v-if="indicator"
             :class="[indicatorClass[size], indicatorPositionClass[indicatorPosition]]"
-            class="absolute block rounded-full bg-spartan-primary-500 ring-2 ring-white dark:ring-gray-800"
+            class="bg-spartan-primary-500 absolute block rounded-full ring-2 ring-white dark:ring-gray-800"
         />
     </div>
 </template>

@@ -17,7 +17,7 @@ const docs = computed(() => status.value?.docs ?? 'minimal');
 const figmaLink = computed(() => status.value?.figmaLink ?? '');
 const improvements = computed(() => status.value?.improvements ?? { en: '', es: '' });
 const hasBlock = computed(() => status.value?.hasBlock ?? false);
-const improvementNotes = computed(() => isEs.value ? improvements.value.es : improvements.value.en);
+const improvementNotes = computed(() => (isEs.value ? improvements.value.es : improvements.value.en));
 const hasImprovements = computed(() => !!improvementNotes.value);
 
 const t = computed(() =>
@@ -61,7 +61,8 @@ const testColor = computed(() => {
 });
 
 const testBorder = computed(() => {
-    if (tests.value >= 80) return 'border-emerald-500/20 bg-emerald-500/10 dark:border-emerald-400/20 dark:bg-emerald-400/10';
+    if (tests.value >= 80)
+        return 'border-emerald-500/20 bg-emerald-500/10 dark:border-emerald-400/20 dark:bg-emerald-400/10';
     if (tests.value >= 50) return 'border-amber-500/20 bg-amber-500/10 dark:border-amber-400/20 dark:bg-amber-400/10';
     return 'border-red-500/20 bg-red-500/10 dark:border-red-400/20 dark:bg-red-400/10';
 });
@@ -88,17 +89,11 @@ const testLabel = computed(() => {
 
 const testDescription = computed(() => {
     if (tests.value === 0)
-        return isEs.value
-            ? 'Este componente aún no tiene tests unitarios.'
-            : 'This component has no unit tests yet.';
+        return isEs.value ? 'Este componente aún no tiene tests unitarios.' : 'This component has no unit tests yet.';
     if (tests.value >= 80)
-        return isEs.value
-            ? 'Las funcionalidades principales están bien probadas.'
-            : 'Core features are well tested.';
+        return isEs.value ? 'Las funcionalidades principales están bien probadas.' : 'Core features are well tested.';
     if (tests.value >= 50)
-        return isEs.value
-            ? 'Algunas funcionalidades necesitan más pruebas.'
-            : 'Some features need more testing.';
+        return isEs.value ? 'Algunas funcionalidades necesitan más pruebas.' : 'Some features need more testing.';
     return isEs.value
         ? 'Se necesitan más tests para garantizar estabilidad.'
         : 'More tests are needed to ensure stability.';
@@ -125,8 +120,10 @@ const docsTooltip = computed(() => {
 });
 
 const docsBadge = computed(() => {
-    if (docs.value === 'complete') return 'border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300';
-    if (docs.value === 'partial') return 'border-amber-500/20 bg-amber-500/10 text-amber-700 dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-300';
+    if (docs.value === 'complete')
+        return 'border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300';
+    if (docs.value === 'partial')
+        return 'border-amber-500/20 bg-amber-500/10 text-amber-700 dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-300';
     return 'border-red-500/20 bg-red-500/10 text-red-700 dark:border-red-400/20 dark:bg-red-400/10 dark:text-red-300';
 });
 
@@ -157,7 +154,7 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
 </script>
 
 <template>
-    <div class="relative mb-8 -mt-4 flex flex-wrap items-center gap-2.5">
+    <div class="relative -mt-4 mb-8 flex flex-wrap items-center gap-2.5">
         <!-- Quality sparkles -->
         <template v-if="isFullQuality">
             <div
@@ -175,15 +172,15 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
         </template>
         <!-- Improvements -->
         <UPopover v-if="hasImprovements" mode="hover">
-            <div class="inline-flex items-center rounded-lg border border-transparent p-0.5 cursor-help">
+            <div class="inline-flex cursor-help items-center rounded-lg border border-transparent p-0.5">
                 <UIcon name="i-lucide-triangle-alert" class="size-5 text-amber-500" />
             </div>
             <template #content>
-                <div class="p-3 max-w-xs">
-                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1.5">
+                <div class="max-w-xs p-3">
+                    <p class="mb-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200">
                         {{ isEs ? 'Mejoras pendientes' : 'Pending improvements' }}
                     </p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 whitespace-pre-line">{{ improvementNotes }}</p>
+                    <p class="text-xs whitespace-pre-line text-gray-600 dark:text-gray-400">{{ improvementNotes }}</p>
                 </div>
             </template>
         </UPopover>
@@ -191,10 +188,7 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
         <!-- TypeScript -->
         <UTooltip :text="typescript ? t.tsYes : t.tsNo">
             <div class="inline-flex items-center rounded-lg border border-transparent p-0.5">
-                <TypescriptIcon
-                    class="size-5"
-                    :class="typescript ? '' : 'grayscale opacity-80'"
-                />
+                <TypescriptIcon class="size-5" :class="typescript ? '' : 'opacity-80 grayscale'" />
             </div>
         </UTooltip>
 
@@ -210,7 +204,11 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
         </UTooltip>
 
         <!-- Figma -->
-        <UTooltip :text="figmaLink ? (isEs ? 'Abrir en Figma' : 'Open in Figma') : (isEs ? 'Sin enlace de Figma' : 'No Figma link')">
+        <UTooltip
+            :text="
+                figmaLink ? (isEs ? 'Abrir en Figma' : 'Open in Figma') : isEs ? 'Sin enlace de Figma' : 'No Figma link'
+            "
+        >
             <a
                 v-if="figmaLink"
                 :href="figmaLink"
@@ -221,7 +219,7 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
                 <FigmaIcon class="size-5" />
             </a>
             <div v-else class="inline-flex items-center">
-                <FigmaIcon class="size-5 grayscale opacity-80" />
+                <FigmaIcon class="size-5 opacity-80 grayscale" />
             </div>
         </UTooltip>
 
@@ -253,12 +251,30 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
                 <UIcon
                     name="i-lucide-book-open-text"
                     class="size-5"
-                    :class="docs === 'complete' ? 'text-emerald-500' : docs === 'partial' ? 'text-amber-500' : 'text-red-500'"
+                    :class="
+                        docs === 'complete'
+                            ? 'text-emerald-500'
+                            : docs === 'partial'
+                              ? 'text-amber-500'
+                              : 'text-red-500'
+                    "
                 />
                 <UIcon
-                    :name="docs === 'complete' ? 'i-fa6-regular-face-smile' : docs === 'partial' ? 'i-fa6-regular-face-meh' : 'i-fa6-regular-face-frown'"
+                    :name="
+                        docs === 'complete'
+                            ? 'i-fa6-regular-face-smile'
+                            : docs === 'partial'
+                              ? 'i-fa6-regular-face-meh'
+                              : 'i-fa6-regular-face-frown'
+                    "
                     class="size-3.5"
-                    :class="docs === 'complete' ? 'text-emerald-500' : docs === 'partial' ? 'text-amber-500' : 'text-red-500'"
+                    :class="
+                        docs === 'complete'
+                            ? 'text-emerald-500'
+                            : docs === 'partial'
+                              ? 'text-amber-500'
+                              : 'text-red-500'
+                    "
                 />
             </div>
         </UTooltip>
@@ -266,7 +282,7 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
         <!-- Tests -->
         <UPopover mode="hover">
             <div
-                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium cursor-help"
+                class="inline-flex cursor-help items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium"
                 :class="[testBorder, testColor]"
             >
                 <UIcon class="size-4" name="i-lucide-flask-conical" />
@@ -283,9 +299,9 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
                 </div>
             </div>
             <template #content>
-                <div class="p-3 w-56">
+                <div class="w-56 p-3">
                     <!-- Header: icon + label + percentage -->
-                    <div class="flex items-center justify-between mb-2">
+                    <div class="mb-2 flex items-center justify-between">
                         <div class="flex items-center gap-1.5">
                             <UIcon :name="testIcon" class="size-4" :class="testColor" />
                             <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">{{ testLabel }}</span>
@@ -294,7 +310,7 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
                     </div>
 
                     <!-- Progress bar -->
-                    <div class="h-2 w-full overflow-hidden rounded-full bg-black/10 dark:bg-white/10 mb-2">
+                    <div class="mb-2 h-2 w-full overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
                         <div
                             class="h-full rounded-full transition-all duration-500"
                             :class="testBg"
@@ -303,10 +319,10 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
                     </div>
 
                     <!-- Description -->
-                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mb-3">{{ testDescription }}</p>
+                    <p class="mb-3 text-[11px] text-gray-500 dark:text-gray-400">{{ testDescription }}</p>
 
                     <!-- Tier legend -->
-                    <div class="border-t border-gray-200 dark:border-gray-700 pt-2 flex flex-col gap-1">
+                    <div class="flex flex-col gap-1 border-t border-gray-200 pt-2 dark:border-gray-700">
                         <div v-for="tier in testTiers" :key="tier.label" class="flex items-center gap-1.5">
                             <div class="size-2 rounded-full" :class="tier.color" />
                             <span class="text-[10px] text-gray-500 dark:text-gray-400">
@@ -322,7 +338,7 @@ const particles = Array.from({ length: 8 }, (_, i) => ({
         <!-- Block -->
         <UTooltip v-if="hasBlock" :text="t.block">
             <div
-                class="inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium border-violet-500/20 bg-violet-500/10 text-violet-700 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-300"
+                class="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/20 bg-violet-500/10 px-2.5 py-1 text-xs font-medium text-violet-700 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-300"
             >
                 <UIcon class="size-4" name="i-lucide-box" />
                 <span>Block</span>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Edit2Icon, CopyIcon, TrashIcon } from '@placetopay/iconsax-vue/bold'
-import { usePreview } from '~/composables/usePreview'
+import { Edit2Icon, CopyIcon, TrashIcon } from '@placetopay/iconsax-vue/bold';
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SDropdown' })
+usePreview({ component: 'SDropdown' });
 </script>
 
 <template>

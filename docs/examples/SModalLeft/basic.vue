@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const open = ref(false)
+const open = ref(false);
 
 usePreview({
     mode: 'playground',
@@ -13,7 +13,7 @@ usePreview({
         '@close': 'open = false',
         '@backdrop-click': 'open = false',
     },
-})
+});
 </script>
 
 <template>

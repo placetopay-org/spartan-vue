@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
-usePreview({ component: 'SAvatar' })
+import { usePreview } from '~/composables/usePreview';
+usePreview({ component: 'SAvatar' });
 </script>
 
 <template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const date = ref('')
-const phone = ref('')
-const creditCard = ref('')
+const date = ref('');
+const phone = ref('');
+const creditCard = ref('');
 
-usePreview({ component: 'SInputMask' })
+usePreview({ component: 'SInputMask' });
 </script>
 
 <template>

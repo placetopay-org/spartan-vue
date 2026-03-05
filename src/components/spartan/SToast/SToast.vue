@@ -21,17 +21,10 @@ const icon = computed(() => typeIcons[type]);
 </script>
 
 <template>
-    <div
-        aria-live="assertive"
-        :class="twMerge(toastStyles({ type, leftBorder: leftBorder ?? false }), className)"
-    >
+    <div aria-live="assertive" :class="twMerge(toastStyles({ type, leftBorder: leftBorder ?? false }), className)">
         <div class="flex flex-col justify-center">
             <div class="flex items-center gap-1.5">
-                <component
-                    :is="icon"
-                    :class="toastIconStyles({ type })"
-                    aria-hidden="true"
-                />
+                <component :is="icon" :class="toastIconStyles({ type })" aria-hidden="true" />
                 <span class="text-sm font-medium text-gray-900 dark:text-gray-50">
                     <slot v-if="hasSlotContent($slots.default)" />
                     <span v-else v-html="title" />
@@ -48,7 +41,7 @@ const icon = computed(() => typeIcons[type]);
 
         <div v-if="closeable" class="flex shrink-0 items-start">
             <button
-                class="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-0 dark:text-gray-500 dark:hover:text-gray-300"
+                class="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:ring-0 focus:outline-none dark:text-gray-500 dark:hover:text-gray-300"
                 @click="$emit('closeToast')"
             >
                 <span class="sr-only">Close</span>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const tags = ref(['Vue', 'React'])
+const tags = ref(['Vue', 'React']);
 
 const { controls } = usePreview({
     props: {
         disabled: { type: 'boolean', default: true, label: 'disabled' },
     },
-})
+});
 </script>
 
 <template>

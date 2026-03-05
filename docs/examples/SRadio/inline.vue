@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref('')
+const selected = ref('');
 
 const { controls } = usePreview({
     props: {
         inline: { type: 'boolean', default: true, label: 'inline' },
     },
-})
+});
 </script>
 
 <template>

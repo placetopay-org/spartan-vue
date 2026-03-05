@@ -1,12 +1,22 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
-        icon: { type: 'select', options: ['primary', 'success', 'danger', 'warning', 'info'], default: 'primary', label: 'icon' },
-        iconColor: { type: 'select', options: ['primary', 'success', 'danger', 'warning', 'info'], default: 'danger', label: 'iconColor' },
+        icon: {
+            type: 'select',
+            options: ['primary', 'success', 'danger', 'warning', 'info'],
+            default: 'primary',
+            label: 'icon',
+        },
+        iconColor: {
+            type: 'select',
+            options: ['primary', 'success', 'danger', 'warning', 'info'],
+            default: 'danger',
+            label: 'iconColor',
+        },
     },
-})
+});
 </script>
 
 <template>

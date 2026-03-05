@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { AddIcon } from '@placetopay/iconsax-vue/bold'
-import { usePreview } from '~/composables/usePreview'
+import { AddIcon } from '@placetopay/iconsax-vue/bold';
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     component: 'SButton',
     imports: {
-        'AddIcon': '@placetopay/iconsax-vue/bold',
+        AddIcon: '@placetopay/iconsax-vue/bold',
     },
     staticAttrs: {
         ':icon': 'AddIcon',
@@ -13,7 +13,7 @@ const { controls } = usePreview({
     props: {
         circular: { type: 'boolean', default: true, label: 'circular' },
     },
-})
+});
 </script>
 
 <template>

@@ -134,16 +134,16 @@ const computedIcon = computed(() => {
             :class="twMerge('relative -mb-1', computedIcon?.radial, iconContainerClass)"
         >
             <div
-                class="absolute right-1/2 top-1/2 h-[156px] w-[156px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-20"
+                class="border-opacity-20 absolute top-1/2 right-1/2 h-[156px] w-[156px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <div
-                class="absolute right-1/2 top-1/2 h-[120px] w-[120px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-40"
+                class="border-opacity-40 absolute top-1/2 right-1/2 h-[120px] w-[120px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <div
-                class="absolute right-1/2 top-1/2 h-[84px] w-[84px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-60"
+                class="border-opacity-60 absolute top-1/2 right-1/2 h-[84px] w-[84px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <div
-                class="absolute right-1/2 top-1/2 h-[48px] w-[48px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-100"
+                class="border-opacity-100 absolute top-1/2 right-1/2 h-[48px] w-[48px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <component
                 v-bind="iconProps"
@@ -162,7 +162,11 @@ const computedIcon = computed(() => {
 }
 .radial-gradient-primary > div:first-of-type {
     background: var(--color-spartan-primary-200);
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-spartan-primary-200) 20%, transparent) 0%, transparent 50%);
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--color-spartan-primary-200) 20%, transparent) 0%,
+        transparent 50%
+    );
 }
 
 .radial-gradient-gray > div {

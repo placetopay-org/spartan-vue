@@ -58,7 +58,7 @@ const clear = () => {
         <div
             v-if="config.multiple"
             :tabindex="-1"
-            class="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:border-spartan-primary-300 focus-within:ring focus-within:ring-spartan-primary-100"
+            class="focus-within:border-spartan-primary-300 focus-within:ring-spartan-primary-100 flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:ring"
             @focus="
                 (event: FocusEvent) =>
                     ((event.target as HTMLDivElement).querySelector('input') as HTMLInputElement).focus()
@@ -82,7 +82,7 @@ const clear = () => {
                     v-model="search"
                     type="text"
                     :placeholder="(checked as string[]).length ? '' : t('optionsSelectorPlaceholder')"
-                    class="w-full border-0 p-0 text-sm placeholder:text-gray-400 focus:outline-0 focus:ring-0"
+                    class="w-full border-0 p-0 text-sm placeholder:text-gray-400 focus:ring-0 focus:outline-0"
                 />
             </div>
             <div class="flex items-center">

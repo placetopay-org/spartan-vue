@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls, slots } = usePreview({
     mode: 'playground',
@@ -8,9 +8,12 @@ const { controls, slots } = usePreview({
         as: { type: 'select', options: ['p', 'span', 'div'], default: 'p', label: 'as' },
     },
     slots: {
-        default: { default: 'This is a section description that provides additional context about the content.', label: 'Content' },
+        default: {
+            default: 'This is a section description that provides additional context about the content.',
+            label: 'Content',
+        },
     },
-})
+});
 </script>
 
 <template>

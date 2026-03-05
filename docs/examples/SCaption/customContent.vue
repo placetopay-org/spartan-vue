@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { slots } = usePreview({
     component: 'SCaption',
     slots: {
         default: { default: 'Additional information can be provided here', label: 'default' },
     },
-})
+});
 </script>
 
 <template>

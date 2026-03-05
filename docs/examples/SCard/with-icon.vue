@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
-        icon: { type: 'select', options: ['primary', 'success', 'danger', 'warning', 'info'], default: 'success', label: 'icon' },
+        icon: {
+            type: 'select',
+            options: ['primary', 'success', 'danger', 'warning', 'info'],
+            default: 'success',
+            label: 'icon',
+        },
     },
-})
+});
 </script>
 
 <template>

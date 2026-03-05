@@ -37,9 +37,12 @@ export const buttonStyles = cva([inputStyle.root, inputStyle.padding, 'gap-1 inl
 });
 
 export type TSelectOptionStyles = VariantProps<typeof optionStyles>;
-export const optionStyles = cva('relative text-sm flex items-center w-full py-2 px-3 text-gray-900 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-white/10', {
-    variants: {
-        selected: cbv('font-semibold'),
-        disabled: cbv('opacity-50 cursor-not-allowed'),
+export const optionStyles = cva(
+    'relative text-sm flex items-center w-full py-2 px-3 text-gray-900 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-white/10',
+    {
+        variants: {
+            selected: cbv('font-semibold'),
+            disabled: cbv('opacity-50 cursor-not-allowed'),
+        },
     },
-});
+);

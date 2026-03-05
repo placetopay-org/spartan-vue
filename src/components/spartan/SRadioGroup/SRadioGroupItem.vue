@@ -1,29 +1,33 @@
 <script setup lang="ts">
+import { computed, inject, type Ref } from 'vue';
 import { hasSlotContent } from '@/helpers';
 import { RadioGroupOption, RadioGroupLabel, RadioGroupDescription } from '@headlessui/vue';
 import { CheckCircleIcon } from '@heroicons/vue/20/solid';
+import {
+    radioGroupItemStyles,
+    radioGroupItemTitleStyles,
+    radioGroupItemDescriptionStyles,
+    radioGroupItemFooterStyles,
+    radioGroupItemIconStyles,
+} from './styles';
 import type { TRadioGroupItemProps } from './types';
 
-defineProps<TRadioGroupItemProps>();
+const { disabled, value } = defineProps<TRadioGroupItemProps>();
+
+const groupDisabled = inject<Ref<boolean | undefined>>('SRadioGroupDisabled');
+const isDisabled = computed(() => disabled || groupDisabled?.value);
 </script>
 
 <template>
-    <RadioGroupOption v-slot="{ checked }" as="template" :value="value">
-        <div
-            :class="[
-                checked
-                    ? 'border-spartan-primary-600 outline outline-1 -outline-offset-2 outline-spartan-primary-600'
-                    : 'border-gray-300',
-                'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:border-spartan-primary-300 focus:s-ring',
-            ]"
-        >
+    <RadioGroupOption v-slot="{ checked }" as="template" :value :disabled="isDisabled">
+        <div :class="radioGroupItemStyles({ checked, disabled: isDisabled })">
             <span class="flex flex-1">
                 <span class="flex flex-col justify-between">
                     <div>
                         <RadioGroupLabel
                             v-if="hasSlotContent($slots.title)"
                             as="span"
-                            class="block text-sm font-medium text-gray-900"
+                            :class="radioGroupItemTitleStyles()"
                         >
                             <slot name="title" />
                         </RadioGroupLabel>
@@ -31,7 +35,7 @@ defineProps<TRadioGroupItemProps>();
                         <RadioGroupDescription
                             v-if="hasSlotContent($slots.description)"
                             as="span"
-                            class="mt-1 flex items-center text-sm text-gray-500"
+                            :class="radioGroupItemDescriptionStyles()"
                         >
                             <slot name="description" />
                         </RadioGroupDescription>
@@ -40,16 +44,13 @@ defineProps<TRadioGroupItemProps>();
                     <RadioGroupDescription
                         v-if="hasSlotContent($slots.footer)"
                         as="span"
-                        class="mt-6 text-sm font-medium text-gray-900"
+                        :class="radioGroupItemFooterStyles()"
                     >
                         <slot name="footer" />
                     </RadioGroupDescription>
                 </span>
             </span>
-            <CheckCircleIcon
-                :class="['h-5 w-5 text-spartan-primary-600', !checked && 'opacity-0']"
-                :aria-hidden="!checked"
-            />
+            <CheckCircleIcon :class="[radioGroupItemIconStyles(), !checked && 'opacity-0']" :aria-hidden="!checked" />
         </div>
     </RadioGroupOption>
 </template>

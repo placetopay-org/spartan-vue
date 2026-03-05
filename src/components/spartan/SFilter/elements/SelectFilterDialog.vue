@@ -84,7 +84,7 @@ const isValid = computed(() => !error.value);
             <SPopover :offset="8" :responsive="context.responsive">
                 <template #reference="{ toggle }">
                     <button
-                        class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pl-3 pr-2 text-gray-800"
+                        class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pr-2 pl-3 text-gray-800"
                         @click="toggle"
                     >
                         <span>{{ getOperatorLabel(tempOperator) }}</span>
@@ -96,7 +96,7 @@ const isValid = computed(() => !error.value);
                     <ul class="divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white shadow-2xl">
                         <li v-for="operator in operators" :key="getOperatorId(operator)">
                             <button
-                                class="w-full whitespace-nowrap p-3 text-left text-sm font-medium text-gray-800 hover:bg-gray-50"
+                                class="w-full p-3 text-left text-sm font-medium whitespace-nowrap text-gray-800 hover:bg-gray-50"
                                 @click="selectOperator(operator, close)"
                             >
                                 {{ getOperatorLabel(operator) }}

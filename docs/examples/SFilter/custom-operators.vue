@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SFilter' })
+usePreview({ component: 'SFilter' });
 
 const fields = [
     {
@@ -9,10 +9,7 @@ const fields = [
         name: 'Reference',
         interfaces: {
             oneInput: {
-                operators: [
-                    'equal',
-                    { id: 'customSearch', label: 'Search by ref', tag: 'Ref: ' },
-                ],
+                operators: ['equal', { id: 'customSearch', label: 'Search by ref', tag: 'Ref: ' }],
             },
         },
         state: {
@@ -20,7 +17,7 @@ const fields = [
             value: 'ABC-123',
         },
     },
-]
+];
 </script>
 
 <template>

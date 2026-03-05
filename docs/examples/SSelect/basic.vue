@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref('')
+const value = ref('');
 
 const { controls } = usePreview({
     mode: 'playground',
     component: 'SSelect',
     props: {
         placeholder: { type: 'text', default: 'Select an option', label: 'placeholder' },
-        rounded: { type: 'select', options: ['both', 'left', 'right', 'none', 'full'], default: 'both', label: 'rounded' },
+        rounded: {
+            type: 'select',
+            options: ['both', 'left', 'right', 'none', 'full'],
+            default: 'both',
+            label: 'rounded',
+        },
         disabled: { type: 'boolean', default: false, label: 'disabled' },
         error: { type: 'boolean', default: false, label: 'error' },
     },
-})
+});
 </script>
 
 <template>

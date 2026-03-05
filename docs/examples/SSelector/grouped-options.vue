@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref<string>()
+const selected = ref<string>();
 const options = [
     {
         group: 'Fruits',
@@ -12,9 +12,9 @@ const options = [
         group: 'Vegetables',
         items: ['Carrot', 'Lettuce', 'Tomato'],
     },
-]
+];
 
-usePreview({ component: 'SSelector' })
+usePreview({ component: 'SSelector' });
 </script>
 
 <template>

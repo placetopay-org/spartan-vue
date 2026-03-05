@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref(null)
+const value = ref(null);
 
 const { controls } = usePreview({
     props: {
         hideInputIcon: { type: 'boolean', default: true, label: 'hideInputIcon' },
     },
-})
+});
 </script>
 
 <template>

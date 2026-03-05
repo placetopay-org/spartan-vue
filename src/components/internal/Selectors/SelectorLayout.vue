@@ -28,7 +28,9 @@ defineExpose({
             <slot name="button" />
         </template>
 
-        <div class="overflow-hidden rounded-lg border border-gray-300 bg-white shadow-2xl dark:border-white/10 dark:bg-gray-900">
+        <div
+            class="overflow-hidden rounded-lg border border-gray-300 bg-white shadow-2xl dark:border-white/10 dark:bg-gray-900"
+        >
             <div
                 ref="options"
                 tabindex="-1"

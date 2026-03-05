@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const open = ref(false)
+const open = ref(false);
 
 const { controls } = usePreview({
     props: {
         side: { type: 'select', options: ['left', 'right'], default: 'left', label: 'side' },
     },
-})
+});
 </script>
 
 <template>

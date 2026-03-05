@@ -40,7 +40,7 @@ const copy = () => {
 
 <template>
     <div
-        :class="twMerge('group inline-flex cursor-pointer select-none items-center gap-2', $props.class)"
+        :class="twMerge('group inline-flex cursor-pointer items-center gap-2 select-none', $props.class)"
         @click="copy"
     >
         <slot />

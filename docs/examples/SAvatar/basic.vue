@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     mode: 'playground',
@@ -9,9 +9,14 @@ const { controls } = usePreview({
         size: { type: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'], default: 'md', label: 'size' },
         borderless: { type: 'boolean', default: false, label: 'borderless' },
         indicator: { type: 'boolean', default: false, label: 'indicator' },
-        indicatorPosition: { type: 'select', options: ['right-top', 'right-bottom', 'left-top', 'left-bottom'], default: 'right-top', label: 'indicatorPosition' },
+        indicatorPosition: {
+            type: 'select',
+            options: ['right-top', 'right-bottom', 'left-top', 'left-bottom'],
+            default: 'right-top',
+            label: 'indicatorPosition',
+        },
     },
-})
+});
 </script>
 
 <template>

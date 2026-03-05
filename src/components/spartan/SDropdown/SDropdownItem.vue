@@ -18,7 +18,7 @@ defineProps<TDropdownItemProps>();
                 twMerge(
                     active && 'bg-gray-50',
                     disabled && 'pointer-events-none cursor-default select-text',
-                    'group flex w-full items-center gap-3 text-nowrap px-3 py-3 text-sm text-gray-700',
+                    'group flex w-full items-center gap-3 px-3 py-3 text-sm text-nowrap text-gray-700',
                     $props.class,
                 )
             "

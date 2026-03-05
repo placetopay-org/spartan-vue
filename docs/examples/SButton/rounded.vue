@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
@@ -10,11 +10,9 @@ const { controls } = usePreview({
             label: 'rounded',
         },
     },
-})
+});
 </script>
 
 <template>
-    <SButton :rounded="controls.rounded">
-        Rounded
-    </SButton>
+    <SButton :rounded="controls.rounded"> Rounded </SButton>
 </template>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
         value: { type: 'text', default: 'Custom text to copy', label: 'value', required: true },
     },
-})
+});
 </script>
 
 <template>

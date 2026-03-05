@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     mode: 'playground',
     component: 'SPopover',
     props: {
-        placement: { type: 'select', options: ['bottom-start', 'bottom', 'bottom-end', 'top-start', 'top', 'top-end', 'left', 'right'], default: 'bottom-start', label: 'placement' },
+        placement: {
+            type: 'select',
+            options: ['bottom-start', 'bottom', 'bottom-end', 'top-start', 'top', 'top-end', 'left', 'right'],
+            default: 'bottom-start',
+            label: 'placement',
+        },
         arrow: { type: 'select', options: ['none', 'auto', 'light', 'dark'], default: 'none', label: 'arrow' },
         responsive: { type: 'boolean', default: true, label: 'responsive' },
         preventClose: { type: 'boolean', default: false, label: 'preventClose' },
     },
-})
+});
 </script>
 
 <template>

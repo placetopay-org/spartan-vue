@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls, slots } = usePreview({
     mode: 'playground',
@@ -10,7 +10,7 @@ const { controls, slots } = usePreview({
     slots: {
         default: { default: 'Hello World', label: 'Content' },
     },
-})
+});
 </script>
 
 <template>

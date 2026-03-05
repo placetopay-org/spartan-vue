@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref('1234')
+const value = ref('1234');
 
 const { controls } = usePreview({
     props: {
         success: { type: 'boolean', default: true, label: 'success' },
     },
-})
+});
 </script>
 
 <template>

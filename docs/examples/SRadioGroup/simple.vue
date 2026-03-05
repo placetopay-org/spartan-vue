@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref('free')
-usePreview({ component: 'SRadioGroup' })
+const selected = ref('free');
+usePreview({});
 </script>
 
 <template>

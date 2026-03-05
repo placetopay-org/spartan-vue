@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref('Vue')
+const selected = ref('Vue');
 
 const { controls } = usePreview({
     mode: 'playground',
     component: 'SCombobox',
     props: {
-        rounded: { type: 'select', options: ['both', 'left', 'right', 'none', 'full'], default: 'both', label: 'rounded' },
+        rounded: {
+            type: 'select',
+            options: ['both', 'left', 'right', 'none', 'full'],
+            default: 'both',
+            label: 'rounded',
+        },
         disabled: { type: 'boolean', default: false, label: 'disabled' },
         error: { type: 'boolean', default: false, label: 'error' },
     },
-})
+});
 </script>
 
 <template>

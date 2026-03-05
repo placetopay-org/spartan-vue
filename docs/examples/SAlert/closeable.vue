@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
         closeable: { type: 'boolean', default: true, label: 'closeable' },
     },
-})
+});
 </script>
 
 <template>

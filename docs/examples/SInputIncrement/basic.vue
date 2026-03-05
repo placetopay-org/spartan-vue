@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const value = ref(5)
+const value = ref(5);
 
 const { controls } = usePreview({
     mode: 'playground',
@@ -13,7 +13,7 @@ const { controls } = usePreview({
         disabled: { type: 'boolean', default: false, label: 'disabled' },
         error: { type: 'boolean', default: false, label: 'error' },
     },
-})
+});
 </script>
 
 <template>

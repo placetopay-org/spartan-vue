@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SPaginator' })
+usePreview({ component: 'SPaginator' });
 
-const page = ref(1)
+const page = ref(1);
 </script>
 
 <template>
-    <SPaginator
-        v-model:page="page"
-        :size="10"
-        :total="100"
-        @change="(e) => console.log('Change:', e)"
-    />
+    <SPaginator v-model:page="page" :size="10" :total="100" @change="(e) => console.log('Change:', e)" />
 </template>

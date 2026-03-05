@@ -31,7 +31,7 @@ const indicatorStyle = {
                 <span
                     v-else
                     :class="[
-                        'h-2.5 w-2.5 rounded-full bg-spartan-primary-500',
+                        'bg-spartan-primary-500 h-2.5 w-2.5 rounded-full',
                         isCurrent ? 'bg-spartan-primary-500' : 'bg-transparent group-hover:bg-gray-300',
                     ]"
                 />

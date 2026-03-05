@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SFilter' })
+usePreview({ component: 'SFilter' });
 
 const fields = [
     {
@@ -35,7 +35,7 @@ const fields = [
             },
         },
     },
-]
+];
 </script>
 
 <template>

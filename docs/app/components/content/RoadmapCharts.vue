@@ -110,7 +110,20 @@ const summary = components.reduce(
         acc.testsSum += c.tests;
         return acc;
     },
-    { ts: 0, jsdoc: 0, darkMode: 0, responsive: 0, testsHigh: 0, testsMid: 0, testsNone: 0, figma: 0, docsComplete: 0, docsPartial: 0, docsMinimal: 0, testsSum: 0 },
+    {
+        ts: 0,
+        jsdoc: 0,
+        darkMode: 0,
+        responsive: 0,
+        testsHigh: 0,
+        testsMid: 0,
+        testsNone: 0,
+        figma: 0,
+        docsComplete: 0,
+        docsPartial: 0,
+        docsMinimal: 0,
+        testsSum: 0,
+    },
 );
 
 const tsPercent = Math.round((summary.ts / totalComponents) * 100);
@@ -131,7 +144,15 @@ const overallPercent = Math.round(
 
 const animatedOverall = useCountUp(overallPercent, 1500, 400);
 
-const dimensionValues = [tsPercent, jsdocPercent, darkModePercent, responsivePercent, avgTests, figmaPercent, docsPercent];
+const dimensionValues = [
+    tsPercent,
+    jsdocPercent,
+    darkModePercent,
+    responsivePercent,
+    avgTests,
+    figmaPercent,
+    docsPercent,
+];
 const animatedDimensions = dimensionValues.map((val, i) => useCountUp(val, 1200, 500 + i * 100));
 
 const catKeys = ['dataInput', 'selectors', 'display', 'modals', 'structure', 'utilities', 'typography'] as const;
@@ -140,21 +161,32 @@ const categoryStatsMap = Object.fromEntries(
     catKeys.map((catKey) => {
         const catComponents = components.filter((c) => c.category === catKey);
         const total = catComponents.length;
-        return [catKey, {
-            total,
-            ts: Math.round((catComponents.filter((c) => c.typescript).length / total) * 100),
-            jsdoc: Math.round((catComponents.filter((c) => c.jsdoc).length / total) * 100),
-            dark: Math.round((catComponents.filter((c) => c.darkMode).length / total) * 100),
-            responsive: Math.round((catComponents.filter((c) => c.responsive).length / total) * 100),
-            tests: Math.round(catComponents.reduce((s, c) => s + c.tests, 0) / total),
-            figma: Math.round((catComponents.filter((c) => !!c.figmaLink).length / total) * 100),
-            docs: Math.round(catComponents.reduce((s, c) => s + docsWeight(c.docs), 0) / total),
-        }];
+        return [
+            catKey,
+            {
+                total,
+                ts: Math.round((catComponents.filter((c) => c.typescript).length / total) * 100),
+                jsdoc: Math.round((catComponents.filter((c) => c.jsdoc).length / total) * 100),
+                dark: Math.round((catComponents.filter((c) => c.darkMode).length / total) * 100),
+                responsive: Math.round((catComponents.filter((c) => c.responsive).length / total) * 100),
+                tests: Math.round(catComponents.reduce((s, c) => s + c.tests, 0) / total),
+                figma: Math.round((catComponents.filter((c) => !!c.figmaLink).length / total) * 100),
+                docs: Math.round(catComponents.reduce((s, c) => s + docsWeight(c.docs), 0) / total),
+            },
+        ];
     }),
 );
 
 function isComponentComplete(comp: ComponentStatusData): boolean {
-    return comp.typescript && comp.jsdoc && !!comp.figmaLink && comp.darkMode && comp.responsive && comp.tests >= 80 && comp.docs === 'complete';
+    return (
+        comp.typescript &&
+        comp.jsdoc &&
+        !!comp.figmaLink &&
+        comp.darkMode &&
+        comp.responsive &&
+        comp.tests >= 80 &&
+        comp.docs === 'complete'
+    );
 }
 
 const categorySlugMap: Record<string, string> = {
@@ -203,8 +235,18 @@ const radarOption = computed(() => ({
         splitArea: {
             areaStyle: {
                 color: isDark.value
-                    ? ['rgba(99,102,241,0.04)', 'rgba(99,102,241,0.08)', 'rgba(99,102,241,0.04)', 'rgba(99,102,241,0.08)']
-                    : ['rgba(99,102,241,0.02)', 'rgba(99,102,241,0.05)', 'rgba(99,102,241,0.02)', 'rgba(99,102,241,0.05)'],
+                    ? [
+                          'rgba(99,102,241,0.04)',
+                          'rgba(99,102,241,0.08)',
+                          'rgba(99,102,241,0.04)',
+                          'rgba(99,102,241,0.08)',
+                      ]
+                    : [
+                          'rgba(99,102,241,0.02)',
+                          'rgba(99,102,241,0.05)',
+                          'rgba(99,102,241,0.02)',
+                          'rgba(99,102,241,0.05)',
+                      ],
             },
         },
         splitLine: { lineStyle: { color: splitLineColor.value } },
@@ -216,7 +258,15 @@ const radarOption = computed(() => ({
             animationDuration: 1200,
             data: [
                 {
-                    value: [tsPercent, jsdocPercent, darkModePercent, responsivePercent, avgTests, figmaPercent, docsPercent],
+                    value: [
+                        tsPercent,
+                        jsdocPercent,
+                        darkModePercent,
+                        responsivePercent,
+                        avgTests,
+                        figmaPercent,
+                        docsPercent,
+                    ],
                     name: isEs.value ? 'Estado Actual' : 'Current Status',
                     areaStyle: { color: isDark.value ? 'rgba(99,102,241,0.25)' : 'rgba(99,102,241,0.15)' },
                     lineStyle: { color: '#6366f1', width: 2 },
@@ -275,13 +325,49 @@ const barOption = computed(() => {
             splitLine: { lineStyle: { color: splitLineColor.value, type: 'dashed' } },
         },
         series: [
-            { name: 'TypeScript', type: 'bar', data: stats.map((s) => s.ts), itemStyle: { color: '#3178c6', borderRadius: [3, 3, 0, 0] }, barGap: '10%' },
-            { name: 'JSDoc', type: 'bar', data: stats.map((s) => s.jsdoc), itemStyle: { color: '#f97316', borderRadius: [3, 3, 0, 0] } },
-            { name: 'Dark Mode', type: 'bar', data: stats.map((s) => s.dark), itemStyle: { color: '#8b5cf6', borderRadius: [3, 3, 0, 0] } },
-            { name: 'Responsive', type: 'bar', data: stats.map((s) => s.responsive), itemStyle: { color: '#06b6d4', borderRadius: [3, 3, 0, 0] } },
-            { name: 'Tests', type: 'bar', data: stats.map((s) => s.tests), itemStyle: { color: '#f59e0b', borderRadius: [3, 3, 0, 0] } },
-            { name: 'Figma', type: 'bar', data: stats.map((s) => s.figma), itemStyle: { color: '#a259ff', borderRadius: [3, 3, 0, 0] } },
-            { name: 'Docs', type: 'bar', data: stats.map((s) => s.docs), itemStyle: { color: '#10b981', borderRadius: [3, 3, 0, 0] } },
+            {
+                name: 'TypeScript',
+                type: 'bar',
+                data: stats.map((s) => s.ts),
+                itemStyle: { color: '#3178c6', borderRadius: [3, 3, 0, 0] },
+                barGap: '10%',
+            },
+            {
+                name: 'JSDoc',
+                type: 'bar',
+                data: stats.map((s) => s.jsdoc),
+                itemStyle: { color: '#f97316', borderRadius: [3, 3, 0, 0] },
+            },
+            {
+                name: 'Dark Mode',
+                type: 'bar',
+                data: stats.map((s) => s.dark),
+                itemStyle: { color: '#8b5cf6', borderRadius: [3, 3, 0, 0] },
+            },
+            {
+                name: 'Responsive',
+                type: 'bar',
+                data: stats.map((s) => s.responsive),
+                itemStyle: { color: '#06b6d4', borderRadius: [3, 3, 0, 0] },
+            },
+            {
+                name: 'Tests',
+                type: 'bar',
+                data: stats.map((s) => s.tests),
+                itemStyle: { color: '#f59e0b', borderRadius: [3, 3, 0, 0] },
+            },
+            {
+                name: 'Figma',
+                type: 'bar',
+                data: stats.map((s) => s.figma),
+                itemStyle: { color: '#a259ff', borderRadius: [3, 3, 0, 0] },
+            },
+            {
+                name: 'Docs',
+                type: 'bar',
+                data: stats.map((s) => s.docs),
+                itemStyle: { color: '#10b981', borderRadius: [3, 3, 0, 0] },
+            },
         ],
     };
 });
@@ -350,7 +436,12 @@ const summaryStats = computed<DimensionStat[]>(() => [
     {
         label: isEs.value ? 'Docs' : 'Docs',
         value: docsPercent,
-        count: { type: 'breakdown', good: summary.docsComplete, partial: summary.docsPartial, none: summary.docsMinimal },
+        count: {
+            type: 'breakdown',
+            good: summary.docsComplete,
+            partial: summary.docsPartial,
+            none: summary.docsMinimal,
+        },
         color: 'text-emerald-500',
         border: 'border-emerald-500/20',
         rawColor: '#10b981',
@@ -363,8 +454,12 @@ const summaryStats = computed<DimensionStat[]>(() => [
         <!-- Hero + Radar -->
         <div class="grid items-stretch gap-6 lg:grid-cols-2">
             <!-- Overall Progress -->
-            <div class="relative overflow-hidden rounded-2xl border border-gray-200/80 px-6 py-10 dark:border-gray-700/40 dark:bg-gray-800/30">
-                <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(99,102,241,0.08),transparent_70%)]" />
+            <div
+                class="relative overflow-hidden rounded-2xl border border-gray-200/80 px-6 py-10 dark:border-gray-700/40 dark:bg-gray-800/30"
+            >
+                <div
+                    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(99,102,241,0.08),transparent_70%)]"
+                />
                 <div class="relative flex h-full flex-col items-center justify-center">
                     <div class="relative">
                         <svg class="hero-svg size-36" viewBox="0 0 36 36">
@@ -376,12 +471,18 @@ const summaryStats = computed<DimensionStat[]>(() => [
                             </defs>
                             <circle
                                 class="text-gray-100 dark:text-gray-800"
-                                cx="18" cy="18" r="15.9155"
-                                fill="none" stroke="currentColor" stroke-width="2"
+                                cx="18"
+                                cy="18"
+                                r="15.9155"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
                             />
                             <circle
                                 class="hero-ring"
-                                cx="18" cy="18" r="15.9155"
+                                cx="18"
+                                cy="18"
+                                r="15.9155"
                                 fill="none"
                                 stroke="url(#heroRingGrad)"
                                 stroke-width="3"
@@ -390,7 +491,9 @@ const summaryStats = computed<DimensionStat[]>(() => [
                             />
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span class="text-4xl font-extrabold tabular-nums tracking-tight text-gray-900 dark:text-white">
+                            <span
+                                class="text-4xl font-extrabold tracking-tight text-gray-900 tabular-nums dark:text-white"
+                            >
                                 {{ animatedOverall }}%
                             </span>
                             <span class="text-[11px] font-medium text-gray-400 dark:text-gray-500">
@@ -402,7 +505,8 @@ const summaryStats = computed<DimensionStat[]>(() => [
                         {{ isEs ? 'Madurez General de Componentes' : 'Overall Component Maturity' }}
                     </h3>
                     <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
-                        {{ totalComponents }} {{ isEs ? 'componentes' : 'components' }} · 7 {{ isEs ? 'dimensiones' : 'dimensions' }}
+                        {{ totalComponents }} {{ isEs ? 'componentes' : 'components' }} · 7
+                        {{ isEs ? 'dimensiones' : 'dimensions' }}
                     </p>
                 </div>
             </div>
@@ -426,12 +530,18 @@ const summaryStats = computed<DimensionStat[]>(() => [
                 <svg class="dim-svg size-12" viewBox="0 0 36 36">
                     <circle
                         class="text-gray-100 dark:text-gray-800"
-                        cx="18" cy="18" r="15.9155"
-                        fill="none" stroke="currentColor" stroke-width="2.5"
+                        cx="18"
+                        cy="18"
+                        r="15.9155"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
                     />
                     <circle
                         class="dimension-ring"
-                        cx="18" cy="18" r="15.9155"
+                        cx="18"
+                        cy="18"
+                        r="15.9155"
                         fill="none"
                         :stroke="stat.rawColor"
                         stroke-width="3"
@@ -440,21 +550,32 @@ const summaryStats = computed<DimensionStat[]>(() => [
                         :style="{ transitionDelay: `${index * 100 + 500}ms` }"
                     />
                 </svg>
-                <span class="mt-2 text-lg font-bold tabular-nums" :class="stat.color">{{ animatedDimensions[index].value }}%</span>
+                <span class="mt-2 text-lg font-bold tabular-nums" :class="stat.color"
+                    >{{ animatedDimensions[index].value }}%</span
+                >
                 <span class="mt-0.5 text-[11px] font-medium text-gray-500 dark:text-gray-400">{{ stat.label }}</span>
                 <!-- Ratio indicator -->
                 <div v-if="stat.count.type === 'ratio'" class="mt-1.5 flex items-center gap-1">
-                    <span class="text-[10px] font-semibold tabular-nums text-gray-600 dark:text-gray-300">{{ stat.count.done }}</span>
+                    <span class="text-[10px] font-semibold text-gray-600 tabular-nums dark:text-gray-300">{{
+                        stat.count.done
+                    }}</span>
                     <span class="text-[9px] text-gray-300 dark:text-gray-600">/</span>
-                    <span class="text-[10px] tabular-nums text-gray-400 dark:text-gray-500">{{ stat.count.total }}</span>
+                    <span class="text-[10px] text-gray-400 tabular-nums dark:text-gray-500">{{
+                        stat.count.total
+                    }}</span>
                 </div>
                 <!-- Breakdown indicator (Tests, Docs) -->
                 <div v-else class="mt-1.5 flex items-center gap-1">
-                    <span class="inline-flex items-center gap-0.5 rounded-full bg-emerald-100 px-1.5 py-px text-[9px] font-semibold tabular-nums text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+                    <span
+                        class="inline-flex items-center gap-0.5 rounded-full bg-emerald-100 px-1.5 py-px text-[9px] font-semibold text-emerald-700 tabular-nums dark:bg-emerald-900/40 dark:text-emerald-400"
+                    >
                         {{ stat.count.good }}
                         <span class="text-[8px]">✓</span>
                     </span>
-                    <span v-if="stat.count.partial > 0" class="inline-flex items-center gap-0.5 rounded-full bg-amber-100 px-1.5 py-px text-[9px] font-semibold tabular-nums text-amber-700 dark:bg-amber-900/40 dark:text-amber-400">
+                    <span
+                        v-if="stat.count.partial > 0"
+                        class="inline-flex items-center gap-0.5 rounded-full bg-amber-100 px-1.5 py-px text-[9px] font-semibold text-amber-700 tabular-nums dark:bg-amber-900/40 dark:text-amber-400"
+                    >
                         {{ stat.count.partial }}
                         <span class="text-[8px]">~</span>
                     </span>
@@ -474,7 +595,9 @@ const summaryStats = computed<DimensionStat[]>(() => [
             <table class="w-full text-left text-sm">
                 <thead>
                     <tr class="border-b border-gray-200 bg-gray-50/80 dark:border-gray-700 dark:bg-gray-800/60">
-                        <th class="px-4 py-3 text-[11px] font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                        <th
+                            class="px-4 py-3 text-[11px] font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
+                        >
                             {{ isEs ? 'Componente' : 'Component' }}
                         </th>
                         <th class="w-8 px-1 py-3"></th>
@@ -485,7 +608,9 @@ const summaryStats = computed<DimensionStat[]>(() => [
                         </th>
                         <th class="px-3 py-3">
                             <UTooltip text="JSDoc">
-                                <div class="flex justify-center"><UIcon name="i-lucide-file-text" class="size-4 text-orange-500" /></div>
+                                <div class="flex justify-center">
+                                    <UIcon name="i-lucide-file-text" class="size-4 text-orange-500" />
+                                </div>
                             </UTooltip>
                         </th>
                         <th class="px-3 py-3">
@@ -495,22 +620,30 @@ const summaryStats = computed<DimensionStat[]>(() => [
                         </th>
                         <th class="px-3 py-3">
                             <UTooltip text="Dark Mode">
-                                <div class="flex justify-center"><UIcon name="i-mdi-theme-light-dark" class="size-4 text-yellow-400" /></div>
+                                <div class="flex justify-center">
+                                    <UIcon name="i-mdi-theme-light-dark" class="size-4 text-yellow-400" />
+                                </div>
                             </UTooltip>
                         </th>
                         <th class="px-3 py-3">
                             <UTooltip text="Responsive">
-                                <div class="flex justify-center"><UIcon name="i-lucide-monitor-smartphone" class="size-4 text-cyan-500" /></div>
+                                <div class="flex justify-center">
+                                    <UIcon name="i-lucide-monitor-smartphone" class="size-4 text-cyan-500" />
+                                </div>
                             </UTooltip>
                         </th>
                         <th class="px-3 py-3">
                             <UTooltip text="Tests">
-                                <div class="flex justify-center"><UIcon name="i-lucide-flask-conical" class="size-4 text-amber-500" /></div>
+                                <div class="flex justify-center">
+                                    <UIcon name="i-lucide-flask-conical" class="size-4 text-amber-500" />
+                                </div>
                             </UTooltip>
                         </th>
                         <th class="px-3 py-3">
                             <UTooltip :text="isEs ? 'Documentación' : 'Documentation'">
-                                <div class="flex justify-center"><UIcon name="i-lucide-book-open-text" class="size-4 text-emerald-500" /></div>
+                                <div class="flex justify-center">
+                                    <UIcon name="i-lucide-book-open-text" class="size-4 text-emerald-500" />
+                                </div>
                             </UTooltip>
                         </th>
                         <th class="px-3 py-3"></th>
@@ -522,10 +655,14 @@ const summaryStats = computed<DimensionStat[]>(() => [
                         <tr>
                             <td colspan="10" class="border-b border-gray-100 px-4 py-2.5 dark:border-gray-800">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-[11px] font-bold tracking-wider text-gray-400 uppercase dark:text-gray-500">
+                                    <span
+                                        class="text-[11px] font-bold tracking-wider text-gray-400 uppercase dark:text-gray-500"
+                                    >
                                         {{ categories[catKey as keyof typeof categories] }}
                                     </span>
-                                    <span class="rounded-full bg-gray-100 px-1.5 py-0.5 text-[9px] font-semibold tabular-nums text-gray-400 dark:bg-gray-700/60 dark:text-gray-500">
+                                    <span
+                                        class="rounded-full bg-gray-100 px-1.5 py-0.5 text-[9px] font-semibold text-gray-400 tabular-nums dark:bg-gray-700/60 dark:text-gray-500"
+                                    >
                                         {{ categoryStatsMap[catKey].total }}
                                     </span>
                                 </div>
@@ -536,20 +673,24 @@ const summaryStats = computed<DimensionStat[]>(() => [
                             v-for="comp in componentsByCategory[catKey]"
                             :key="comp.name"
                             class="group border-b border-l-2 transition-colors"
-                            :class="isComponentComplete(comp)
-                                ? 'border-l-emerald-500 border-b-emerald-200/60 bg-emerald-50/60 hover:bg-emerald-50 dark:border-b-emerald-900/40 dark:bg-emerald-950/30 dark:hover:bg-emerald-950/50'
-                                : 'border-l-transparent border-b-gray-50 hover:bg-gray-50/80 dark:border-b-gray-800/50 dark:hover:bg-gray-800/40'"
+                            :class="
+                                isComponentComplete(comp)
+                                    ? 'border-b-emerald-200/60 border-l-emerald-500 bg-emerald-50/60 hover:bg-emerald-50 dark:border-b-emerald-900/40 dark:bg-emerald-950/30 dark:hover:bg-emerald-950/50'
+                                    : 'border-b-gray-50 border-l-transparent hover:bg-gray-50/80 dark:border-b-gray-800/50 dark:hover:bg-gray-800/40'
+                            "
                         >
                             <td class="px-4 py-2.5 font-mono text-xs font-medium">
                                 <div class="flex items-center gap-2">
                                     <NuxtLink
                                         :to="`${isEs ? '/es' : '/en'}/components/${categorySlugMap[comp.category]}/${comp.slug}`"
                                         class="transition-colors"
-                                        :class="isComponentComplete(comp)
-                                            ? 'font-semibold text-emerald-700 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-300'
-                                            : 'text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400'"
+                                        :class="
+                                            isComponentComplete(comp)
+                                                ? 'font-semibold text-emerald-700 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-300'
+                                                : 'text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400'
+                                        "
                                     >
-                                    {{ comp.name }}
+                                        {{ comp.name }}
                                     </NuxtLink>
                                 </div>
                             </td>
@@ -561,7 +702,7 @@ const summaryStats = computed<DimensionStat[]>(() => [
                                             <p class="mb-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200">
                                                 {{ isEs ? 'Mejoras pendientes' : 'Pending improvements' }}
                                             </p>
-                                            <p class="whitespace-pre-line text-xs text-gray-600 dark:text-gray-400">
+                                            <p class="text-xs whitespace-pre-line text-gray-600 dark:text-gray-400">
                                                 {{ isEs ? comp.improvements.es : comp.improvements.en }}
                                             </p>
                                         </div>
@@ -573,9 +714,11 @@ const summaryStats = computed<DimensionStat[]>(() => [
                                 <div class="flex justify-center">
                                     <span
                                         class="inline-block size-2.5 rounded-full transition-shadow"
-                                        :class="comp.typescript
-                                            ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
-                                            : 'bg-gray-200 dark:bg-gray-700'"
+                                        :class="
+                                            comp.typescript
+                                                ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
+                                                : 'bg-gray-200 dark:bg-gray-700'
+                                        "
                                     />
                                 </div>
                             </td>
@@ -584,9 +727,11 @@ const summaryStats = computed<DimensionStat[]>(() => [
                                 <div class="flex justify-center">
                                     <span
                                         class="inline-block size-2.5 rounded-full transition-shadow"
-                                        :class="comp.jsdoc
-                                            ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
-                                            : 'bg-gray-200 dark:bg-gray-700'"
+                                        :class="
+                                            comp.jsdoc
+                                                ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
+                                                : 'bg-gray-200 dark:bg-gray-700'
+                                        "
                                     />
                                 </div>
                             </td>
@@ -595,9 +740,11 @@ const summaryStats = computed<DimensionStat[]>(() => [
                                 <div class="flex justify-center">
                                     <span
                                         class="inline-block size-2.5 rounded-full transition-shadow"
-                                        :class="comp.figmaLink
-                                            ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
-                                            : 'bg-gray-200 dark:bg-gray-700'"
+                                        :class="
+                                            comp.figmaLink
+                                                ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
+                                                : 'bg-gray-200 dark:bg-gray-700'
+                                        "
                                     />
                                 </div>
                             </td>
@@ -606,9 +753,11 @@ const summaryStats = computed<DimensionStat[]>(() => [
                                 <div class="flex justify-center">
                                     <span
                                         class="inline-block size-2.5 rounded-full transition-shadow"
-                                        :class="comp.darkMode
-                                            ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
-                                            : 'bg-gray-200 dark:bg-gray-700'"
+                                        :class="
+                                            comp.darkMode
+                                                ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
+                                                : 'bg-gray-200 dark:bg-gray-700'
+                                        "
                                     />
                                 </div>
                             </td>
@@ -617,23 +766,37 @@ const summaryStats = computed<DimensionStat[]>(() => [
                                 <div class="flex justify-center">
                                     <span
                                         class="inline-block size-2.5 rounded-full transition-shadow"
-                                        :class="comp.responsive
-                                            ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
-                                            : 'bg-gray-200 dark:bg-gray-700'"
+                                        :class="
+                                            comp.responsive
+                                                ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.4)]'
+                                                : 'bg-gray-200 dark:bg-gray-700'
+                                        "
                                     />
                                 </div>
                             </td>
                             <!-- Tests -->
                             <td class="px-3 py-2.5">
                                 <div class="flex items-center justify-center gap-2">
-                                    <div class="h-1.5 w-14 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700/80">
+                                    <div
+                                        class="h-1.5 w-14 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700/80"
+                                    >
                                         <div
                                             class="h-full rounded-full transition-all duration-500"
-                                            :class="comp.tests >= 70 ? 'bg-emerald-500' : comp.tests >= 40 ? 'bg-amber-500' : comp.tests > 0 ? 'bg-red-400' : ''"
+                                            :class="
+                                                comp.tests >= 70
+                                                    ? 'bg-emerald-500'
+                                                    : comp.tests >= 40
+                                                      ? 'bg-amber-500'
+                                                      : comp.tests > 0
+                                                        ? 'bg-red-400'
+                                                        : ''
+                                            "
                                             :style="{ width: `${comp.tests}%` }"
                                         />
                                     </div>
-                                    <span class="w-8 text-right text-[10px] font-semibold tabular-nums text-gray-500 dark:text-gray-400">
+                                    <span
+                                        class="w-8 text-right text-[10px] font-semibold text-gray-500 tabular-nums dark:text-gray-400"
+                                    >
                                         {{ comp.tests }}%
                                     </span>
                                 </div>
@@ -641,9 +804,21 @@ const summaryStats = computed<DimensionStat[]>(() => [
                             <!-- Docs -->
                             <td class="px-3 py-2.5 text-center">
                                 <UIcon
-                                    :name="comp.docs === 'complete' ? 'i-fa6-regular-face-smile' : comp.docs === 'partial' ? 'i-fa6-regular-face-meh' : 'i-fa6-regular-face-frown'"
+                                    :name="
+                                        comp.docs === 'complete'
+                                            ? 'i-fa6-regular-face-smile'
+                                            : comp.docs === 'partial'
+                                              ? 'i-fa6-regular-face-meh'
+                                              : 'i-fa6-regular-face-frown'
+                                    "
                                     class="size-5"
-                                    :class="comp.docs === 'complete' ? 'text-emerald-500' : comp.docs === 'partial' ? 'text-amber-500' : 'text-red-500'"
+                                    :class="
+                                        comp.docs === 'complete'
+                                            ? 'text-emerald-500'
+                                            : comp.docs === 'partial'
+                                              ? 'text-amber-500'
+                                              : 'text-red-500'
+                                    "
                                 />
                             </td>
                             <!-- Copy -->
@@ -653,11 +828,31 @@ const summaryStats = computed<DimensionStat[]>(() => [
                                     class="inline-flex size-7 items-center justify-center rounded-md text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300"
                                     @click="copySummary(comp)"
                                 >
-                                    <svg v-if="copiedName !== comp.name" xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg
+                                        v-if="copiedName !== comp.name"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="size-3.5"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
                                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                     </svg>
-                                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="size-3.5 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg
+                                        v-else
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="size-3.5 text-emerald-500"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </button>

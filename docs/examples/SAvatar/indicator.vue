@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
-        indicatorPosition: { type: 'select', options: ['right-top', 'right-bottom', 'left-top', 'left-bottom'], default: 'right-top', label: 'indicatorPosition' },
+        indicatorPosition: {
+            type: 'select',
+            options: ['right-top', 'right-bottom', 'left-top', 'left-bottom'],
+            default: 'right-top',
+            label: 'indicatorPosition',
+        },
     },
-})
+});
 </script>
 
 <template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePreview } from '~/composables/usePreview'
+import { ref } from 'vue';
+import { usePreview } from '~/composables/usePreview';
 
-const selected = ref([])
+const selected = ref([]);
 const options = [
     { id: 1, name: 'Wade Cooper', email: 'wade@example.com' },
     { id: 2, name: 'Arlene Mccoy', email: 'arlene@example.com' },
     { id: 3, name: 'Devon Webb', email: 'devon@example.com' },
-]
+];
 
-usePreview({ component: 'SMultiSelector' })
+usePreview({ component: 'SMultiSelector' });
 </script>
 
 <template>

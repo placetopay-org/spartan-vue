@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePreview } from '~/composables/usePreview'
+import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'STemplateHeaderTable' })
+usePreview({ component: 'STemplateHeaderTable' });
 </script>
 
 <template>
