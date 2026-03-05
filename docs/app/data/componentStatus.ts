@@ -218,7 +218,15 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     structure: [
         { name: 'SAccordion', typescript: true, tests: 100, docs: 'complete' },
         { name: 'SSidebar', typescript: true, tests: 65, docs: 'partial' },
-        { name: 'STab', typescript: true, tests: 43, docs: 'partial' },
+        {
+            name: 'STab',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            tests: 43,
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15389-2514',
+            docs: 'complete',
+        },
         { name: 'STable', typescript: true, tests: 73, docs: 'partial' },
         { name: 'SDTable', typescript: true, tests: 86, docs: 'partial' },
         { name: 'STemplateHeaderTable', typescript: true, docs: 'complete' },
