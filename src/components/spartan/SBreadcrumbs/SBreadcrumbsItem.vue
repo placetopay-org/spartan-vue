@@ -11,16 +11,20 @@ const { as = 'a' } = defineProps<TBreadcrumbsItemProps>();
         <div class="flex items-center space-x-3">
             <template v-if="!first">
                 <slot v-if="hasSlotContent($slots.separator)" name="separator" />
-                <ChevronRightIcon v-else class="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
+                <ChevronRightIcon
+                    v-else
+                    class="h-5 w-5 flex-shrink-0 text-gray-400 dark:text-gray-400"
+                    aria-hidden="true"
+                />
             </template>
             <component
                 :is="as"
                 :href="href"
-                class="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-800"
-                :class="[active ? 'text-gray-800' : undefined]"
+                class="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-800 dark:text-gray-50 dark:hover:text-white"
+                :class="[active ? 'text-gray-800 dark:text-gray-50' : undefined]"
                 :aria-current="active ? 'page' : undefined"
             >
-                <component :is="icon" v-if="icon" class="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                <component :is="icon" v-if="icon" class="h-5 w-5 flex-shrink-0 dark:text-gray-400" aria-hidden="true" />
                 <slot />
             </component>
         </div>
