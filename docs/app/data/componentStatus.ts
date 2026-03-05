@@ -182,8 +182,28 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     ],
     typography: [
         { name: 'SPageTitle', responsive: true, typescript: true, jsdoc: true, tests: 100, docs: 'complete', darkMode: true, figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12877-21698&t=nQ0CaPW3JnnNONVn-4' },
-        { name: 'SSectionTitle', tests: 100, typescript: true, docs: 'complete' },
-        { name: 'SSectionDescription', tests: 100, typescript: true, docs: 'complete' },
+        {
+            name: 'SSectionTitle',
+            tests: 100,
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            docs: 'complete',
+            hasBlock: true,
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12877-21698&t=YejrDL8k9HOQiEjj-4',
+        },
+        {
+            name: 'SSectionDescription',
+            tests: 100,
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            docs: 'complete',
+            hasBlock: true,
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12877-21698&t=YejrDL8k9HOQiEjj-4',
+        },
     ],
 };
 
