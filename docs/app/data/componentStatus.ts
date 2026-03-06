@@ -267,7 +267,16 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
                 es: '- Optimizar el código fuente\n- Desacomplar los operadores reservados de los personalizados\n- Mejorar el manejo de múltiples popovers',
             },
         },
-        { name: 'SCopy', tests: 62, typescript: true, docs: 'complete' },
+        {
+            name: 'SCopy',
+            tests: 62,
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15446-11314',
+        },
     ],
     typography: [
         {
