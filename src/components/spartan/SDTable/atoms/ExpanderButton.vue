@@ -15,7 +15,7 @@ defineProps<{
         <ChevronDoubleDownIcon
             :class="[
                 isAllExpanded && 'rotate-180',
-                'h-5 w-5 transform text-gray-400 duration-75 group-hover:scale-110 group-hover:text-gray-600',
+                'h-5 w-5 transform text-gray-400 duration-75 group-hover:scale-110 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300',
             ]"
         />
     </button>
