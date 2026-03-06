@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export type TContainerStyles = VariantProps<typeof containerStyles>;
-export const containerStyles = cva('flex flex-col bg-white shadow overflow-hidden h-fit dark:bg-gray-800/50', {
+export const containerStyles = cva('flex flex-col bg-white shadow overflow-hidden h-fit dark:bg-gray-800', {
     variants: {
         size: {
             sm: 'rounded-md',
