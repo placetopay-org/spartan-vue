@@ -216,7 +216,17 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17317&t=nQ0CaPW3JnnNONVn-4',
         },
         { name: 'SSkeleton', typescript: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
-        { name: 'SPlacetopayLogo', typescript: true, tests: 100, docs: 'complete' },
+        {
+            name: 'SPlacetopayLogo',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-16000',
+        },
     ],
     modals: [
         { name: 'SModal', typescript: true, tests: 76, docs: 'partial' },

@@ -1,3 +1,14 @@
+<script lang="ts">
+/**
+ * Renders the Placetopay/Evertec logo in different color modes (base, dark, black & white).
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SPlacetopayLogo Github}.
+ * @see {@link https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-16000 Figma}.
+ */
+export default {
+    name: 'SPlacetopayLogo',
+};
+</script>
+
 <script setup lang="ts">
 import { computed } from 'vue';
 import { twMerge } from 'tailwind-merge';
