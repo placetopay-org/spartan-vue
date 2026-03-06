@@ -1,3 +1,14 @@
+<script lang="ts">
+/**
+ * A flexible card component for grouping related content with optional icon, title, description, and action slots.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SCard Github}.
+ * @see {@link https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15418-12723 Figma}.
+ */
+export default {
+    name: 'SCard',
+};
+</script>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { hasSlotContent, usePassthrough } from '@/helpers';
@@ -30,7 +41,7 @@ const ptIconContainer = extractor(pt.value.iconContainer);
         >
             <VIcon v-bind="{ icon, iconColor, iconType, ptIcon, ptIconContainer }" />
             <button v-if="closable" class="h-fit cursor-pointer" @click="$emit('close')">
-                <XMarkIcon class="h-5 w-5 text-gray-400" />
+                <XMarkIcon class="h-5 w-5 text-gray-400 dark:text-gray-500" />
             </button>
         </header>
 
@@ -43,7 +54,7 @@ const ptIconContainer = extractor(pt.value.iconContainer);
                 v-if="hasSlotContent($slots.title) || title"
                 data-s-title
                 v-bind="titleProps"
-                :class="twMerge('text-center text-base font-semibold text-gray-900', titleClass)"
+                :class="twMerge('text-center text-base font-semibold text-gray-900 dark:text-white', titleClass)"
             >
                 <slot v-if="hasSlotContent($slots.title)" name="title" />
                 <template v-else>{{ title }}</template>
@@ -53,7 +64,7 @@ const ptIconContainer = extractor(pt.value.iconContainer);
                 v-if="hasSlotContent($slots.description)"
                 data-s-description
                 v-bind="descriptionProps"
-                :class="twMerge('mt-2 text-center text-sm font-normal text-gray-500', descriptionClass)"
+                :class="twMerge('mt-2 text-center text-sm font-normal text-gray-500 dark:text-gray-400', descriptionClass)"
             >
                 <slot name="description" />
             </p>

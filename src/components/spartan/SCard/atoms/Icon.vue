@@ -112,7 +112,7 @@ const computedIcon = computed(() => {
             v-bind="iconContainerProps"
             :class="
                 twMerge(
-                    'flex justify-center rounded-full bg-gray-100 p-3',
+                    'flex justify-center rounded-full bg-gray-100 p-3 dark:bg-white/10',
                     computedIcon?.background,
                     iconContainerClass,
                 )
@@ -122,7 +122,7 @@ const computedIcon = computed(() => {
                 v-bind="iconProps"
                 :is="computedIcon ? computedIcon?.icon.normal : icon"
                 data-s-icon
-                :class="twMerge('h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
+                :class="twMerge('h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />
         </div>
@@ -149,7 +149,7 @@ const computedIcon = computed(() => {
                 v-bind="iconProps"
                 :is="computedIcon ? computedIcon?.icon.ping : icon"
                 data-s-icon
-                :class="twMerge('relative mx-auto h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
+                :class="twMerge('relative mx-auto h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />
         </div>

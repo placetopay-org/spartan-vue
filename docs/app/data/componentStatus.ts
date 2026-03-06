@@ -165,8 +165,12 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         {
             name: 'SCard',
             typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
             docs: 'complete',
-            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=272-4850&p=f',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15418-12723',
             tests: 90,
         },
         { name: 'SCardBrand', typescript: true, tests: 50, docs: 'complete' },
