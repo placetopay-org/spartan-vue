@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A tag input that allows adding and removing text tags with keyboard support.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SInputTag Github}.
+ */
+export default {
+    name: 'SInputTag',
+};
+</script>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { containerStyles, inputStyles } from './styles';
@@ -60,11 +70,11 @@ const focusInput = () => inputElement.value?.focus();
         <div
             v-for="(tag, index) in tags"
             :key="index"
-            class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 pr-1.5 pl-2 text-sm text-gray-900"
+            class="flex h-fit gap-1 self-center rounded-lg bg-gray-200 dark:bg-white/10 pr-1.5 pl-2 text-sm text-gray-900 dark:text-gray-50"
         >
             {{ tag }}
             <button
-                class="relative flex h-3 w-3 items-center justify-center self-center rounded-full bg-gray-400"
+                class="relative flex h-3 w-3 items-center justify-center self-center rounded-full bg-gray-400 dark:bg-white/30"
                 @click="removeTag(tag)"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="h-3 w-3">
