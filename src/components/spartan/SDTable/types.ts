@@ -108,4 +108,5 @@ export type TDTableEmits = {
      * @es Se emite cuando cambia el estado del paginador (número de página, tamaño o dirección).
      */
     (event: 'paginatorChange', value: { page?: number; size?: number; dir?: 'prev' | 'next' }): void;
+    (event: 'toggleExpanders', value: Record<string | symbol, any>): void;
 };
