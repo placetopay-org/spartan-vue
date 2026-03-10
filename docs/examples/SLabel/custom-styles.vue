@@ -5,8 +5,8 @@ const { controls } = usePreview({
     props: {
         class: {
             type: 'select',
-            options: ['', 'text-lg font-bold', 'text-xs text-red-500', 'text-base text-blue-600'],
-            default: '',
+            options: ['none', 'text-lg font-bold', 'text-xs text-red-500', 'text-base text-blue-600'],
+            default: 'none',
             label: 'class',
         },
     },
@@ -14,5 +14,5 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SLabel :class="controls.class">Custom styled label</SLabel>
+    <SLabel :class="controls.class === 'none' ? undefined : controls.class">Custom styled label</SLabel>
 </template>

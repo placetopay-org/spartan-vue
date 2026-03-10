@@ -11,8 +11,8 @@ const { controls } = usePreview({
         placeholder: { type: 'text', default: 'Select a date', label: 'placeholder' },
         modelType: {
             type: 'select',
-            options: ['', 'dd-MM-yyyy', 'yyyy-MM-dd', 'MM/dd/yyyy'],
-            default: '',
+            options: ['none', 'dd-MM-yyyy', 'yyyy-MM-dd', 'MM/dd/yyyy'],
+            default: 'none',
             label: 'modelType',
         },
         hideInputIcon: { type: 'boolean', default: false, label: 'hideInputIcon' },
@@ -25,7 +25,7 @@ const { controls } = usePreview({
     <SInputDate
         v-model="value"
         :placeholder="controls.placeholder"
-        :model-type="controls.modelType || undefined"
+        :model-type="controls.modelType === 'none' ? undefined : controls.modelType"
         :hide-input-icon="controls.hideInputIcon"
         :error="controls.error"
     />

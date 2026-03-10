@@ -17,9 +17,15 @@ import { twMerge } from 'tailwind-merge';
 import type { RootProps } from '@vuepic/vue-datepicker';
 import { useI18n } from 'vue-i18n';
 import { translator } from '@/helpers';
+import { enUS, es, fr, it, pt } from 'date-fns/locale';
+import type { Locale } from 'date-fns';
+
+const localeMap: Record<string, Locale> = { en: enUS, es, fr, it, pt };
 
 const { locale } = useI18n();
 const { t } = translator('inputDate');
+
+const dateFnsLocale = computed(() => localeMap[locale.value] ?? enUS);
 
 const props = defineProps<TInputDateProps & RootProps>();
 const emit = defineEmits<TInputDateEmits>();
@@ -32,9 +38,10 @@ const value = computed({
 
 <template>
     <VueDatePicker
-        v-bind="{ ...$props, modelValue: undefined }"
+        v-bind="{ ...$props, modelValue: undefined, teleport: undefined }"
         v-model="value"
-        :locale="locale as any"
+        teleport="body"
+        :locale="dateFnsLocale"
         :select-text="t('select')"
         :cancel-text="t('cancel')"
         :now-button-label="t('now')"

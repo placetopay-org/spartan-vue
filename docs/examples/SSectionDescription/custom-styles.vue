@@ -5,8 +5,8 @@ const { controls } = usePreview({
     props: {
         class: {
             type: 'select',
-            options: ['', 'text-base font-medium', 'text-xs text-red-500', 'text-sm text-blue-600'],
-            default: '',
+            options: ['none', 'text-base font-medium', 'text-xs text-red-500', 'text-sm text-blue-600'],
+            default: 'none',
             label: 'class',
         },
     },
@@ -14,5 +14,5 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SSectionDescription :class="controls.class">Custom styled description text.</SSectionDescription>
+    <SSectionDescription :class="controls.class === 'none' ? undefined : controls.class">Custom styled description text.</SSectionDescription>
 </template>

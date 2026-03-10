@@ -103,6 +103,7 @@
     "big.js": "7.0.1",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
+    "date-fns": "^4.1.0",
     "dayjs": "1.11.19",
     "docus": "5.5.1",
     "echarts": "6.0.0",
