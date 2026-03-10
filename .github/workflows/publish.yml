@@ -6,6 +6,11 @@ on:
                 description: 'PRE Release type (one of): patch, minor, major, prepatch, preminor, premajor, prerelease'
                 required: true
                 default: 'prerelease'
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
     release:
         name: build and publish
