@@ -68,6 +68,19 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
         { immediate: true },
     );
 
+    watch(
+        () => state.rows.map((row) => row.isExpanded),
+        (newExpandedState, previousExpandedState = []) => {
+            newExpandedState.forEach((isExpanded, index) => {
+                const expandedRow = state.rows[index];
+
+                if (isExpanded && !previousExpandedState[index] && expandedRow) {
+                    state.emit('toggleExpanders', expandedRow.data);
+                }
+            });
+        },
+    );
+
     provide(contextKey, state);
     return state;
 };
