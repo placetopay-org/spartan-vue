@@ -52,6 +52,7 @@
             "fieldSelectorNotResults": "No se encontraron resultados",
             "fieldSelectorPlaceholder": "Selecciona un campo",
             "inputSelectorPlaceholder": "Escribe un valor",
+            "dateRangePlaceholder": "Selecciona un rango de fechas",
             "no": "No",
             "notFoundFieldText": "No se encontraron filtros gruadados",
             "operator": {

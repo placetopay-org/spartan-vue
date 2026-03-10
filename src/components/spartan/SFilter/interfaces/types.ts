@@ -8,7 +8,7 @@ export interface IBaseConfig {
 
 // Input interface configuration
 export interface IInputConfig extends IBaseConfig {
-    inputType: TInputType;
+    type?: TInputType;
     minorUnitMode?: boolean;
     currency?: keyof typeof Currencies;
     currencies?: (keyof typeof Currencies)[];

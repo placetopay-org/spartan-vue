@@ -15,7 +15,12 @@ const emit = defineEmits<{
 const { t } = translator('filter');
 
 const context = useContext('SelectFilterDialog');
-const field = context.activeField!;
+
+if (!context.activeField) {
+    throw new Error('SelectFilterDialog requires an active field in context');
+}
+
+const field = context.activeField;
 const operators = getOperators(field);
 
 const tempOperator = ref(field.state?.operator || operators[0]);
@@ -26,7 +31,7 @@ const tempInterface = computed<TInterfaceId>(() => {
         interfaceData.operators.some((o) => o === tempOperator.value),
     );
 
-    return entry![0] as TInterfaceId;
+    return (entry?.[0] as TInterfaceId) || 'none';
 });
 const tempInterfaceConfig = computed(() => {
     if (!field.interfaces || !tempInterface.value) return {};

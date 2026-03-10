@@ -5,6 +5,7 @@ import { SInput } from '../../SInput';
 import { SCard } from '../../SCard';
 import { translator } from '@/helpers';
 import { useContext } from '../context';
+import { cleanFieldForSave } from '../helpers';
 import { FilterIcon, InfoCircleIcon } from '@placetopay/iconsax-vue/outline';
 import { InboxArrowDownIcon } from '@heroicons/vue/20/solid';
 import { computed, ref } from 'vue';
@@ -24,98 +25,31 @@ const openSaveModal = () => {
     popover.value?.toggle();
 };
 
-const closeSaveModal = () => {
+const resetAndClose = () => {
     activeSaving.value = false;
+    savedFilterName.value = '';
     popover.value?.close();
 };
 
 const saveNewFilter = () => {
-    if (!savedFilterName.value.trim()) return;
+    const trimmedName = savedFilterName.value.trim();
+    if (!trimmedName) return;
 
     const fields: TField[] = [];
     context.fields?.forEach((field) => {
-        if (field.state) {
-            let cleanField: TField;
-
-            if (field.interfaces?.none) {
-                cleanField = {
-                    id: field.id,
-                    name: field.name,
-                    interfaces: {
-                        none: {
-                            operators: field.interfaces.none.operators,
-                        },
-                    },
-                    state: field.state,
-                };
-            } else if (field.interfaces?.single) {
-                cleanField = {
-                    id: field.id,
-                    name: field.name,
-                    interfaces: {
-                        single: {
-                            inputType: field.interfaces.single.inputType,
-                            minorUnitMode: field.interfaces.single.minorUnitMode,
-                            currency: field.interfaces.single.currency,
-                            currencies: field.interfaces.single.currencies,
-                            operators: field.interfaces.single.operators,
-                        },
-                    },
-                    state: field.state,
-                };
-            } else if (field.interfaces?.range) {
-                cleanField = {
-                    id: field.id,
-                    name: field.name,
-                    interfaces: {
-                        range: {
-                            inputType: field.interfaces.range.inputType,
-                            minorUnitMode: field.interfaces.range.minorUnitMode,
-                            currency: field.interfaces.range.currency,
-                            currencies: field.interfaces.range.currencies,
-                            operators: field.interfaces.range.operators,
-                        },
-                    },
-                    state: field.state,
-                };
-            } else if (field.interfaces?.options) {
-                cleanField = {
-                    id: field.id,
-                    name: field.name,
-                    interfaces: {
-                        options: {
-                            options: field.interfaces.options.options,
-                            multiple: field.interfaces.options.multiple,
-                            operators: field.interfaces.options.operators,
-                        },
-                    },
-                    state: field.state,
-                };
-            } else if (field.interfaces?.selection) {
-                cleanField = {
-                    id: field.id,
-                    name: field.name,
-                    interfaces: {
-                        selection: {
-                            operators: field.interfaces.selection.operators,
-                        },
-                    },
-                    state: field.state,
-                };
-            } else {
-                return;
-            }
-
+        const cleanField = cleanFieldForSave(field);
+        if (cleanField) {
             fields.push(cleanField);
         }
     });
 
-    context.saveFilter(savedFilterName.value.trim(), fields);
-    closeSaveModal();
+    context.saveFilter(trimmedName, fields);
+    resetAndClose();
 };
 
 const selectFilter = (filter: TSaveData) => {
     context.loadFilter(filter.filters);
+    popover.value?.close();
 };
 </script>
 
@@ -177,7 +111,7 @@ const selectFilter = (filter: TSaveData) => {
             <div v-else class="w-80 overflow-hidden rounded-lg border border-gray-100 bg-white p-4 shadow-2xl">
                 <SInput id="filterName" v-model="savedFilterName" label="Nombre del filtro" />
                 <div class="mt-4 flex gap-3">
-                    <SButton class="w-full" variant="secondary" @click="closeSaveModal">
+                    <SButton class="w-full" variant="secondary" @click="resetAndClose">
                         {{ t('cancelBtn') }}
                     </SButton>
                     <SButton

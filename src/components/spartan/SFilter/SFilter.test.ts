@@ -31,9 +31,8 @@ describe('SFilter', () => {
                         interfaces: {
                             options: {
                                 multiple: true,
-                                operators: ['equal', 'notEqual', 'contains'],
+                                operators: ['equal', 'notEqual', 'contains', { id: 'custom', label: 'customOper' }],
                                 options: [{ id: '1', label: 'Nike' }, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                                customOperators: [{ id: 'custom', label: 'customOper' }],
                             },
                         },
                         state: {
@@ -66,9 +65,8 @@ describe('SFilter', () => {
                         interfaces: {
                             options: {
                                 multiple: true,
-                                operators: ['equal', 'notEqual', 'contains'],
+                                operators: ['equal', 'notEqual', 'contains', { id: 'custom', label: 'customOper' }],
                                 options: [{ id: '1', label: 'Nike' }, 'Adidas', 'Puma', 'Reebok', 'Under Armour'],
-                                customOperators: [{ id: 'custom', label: 'customOper' }],
                             },
                         },
                         state: {
@@ -236,7 +234,7 @@ describe('SFilter', () => {
                         name: 'Amount',
                         interfaces: {
                             twoInputs: {
-                                inputType: 'amount',
+                                type: 'amount',
                                 currency: 'USD',
                                 operators: ['between', 'notBetween'],
                             },

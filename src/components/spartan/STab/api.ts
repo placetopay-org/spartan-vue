@@ -1,4 +1,4 @@
-import { reactive, computed, type Component } from 'vue';
+import { reactive, computed, type Component, type Reactive } from 'vue';
 import { UnderlineTab, PillTab, VetchTab, UnderlineTabItem, PillTabItem, VetchTabItem } from './variants';
 import type { TTabProps, TTabEmits, TTab } from './types';
 import { buildContext } from '@/helpers';
@@ -12,7 +12,7 @@ type TState = {
     addDropdown: (id: string, regex: RegExp) => void;
 };
 
-export const { createContext, useContext } = buildContext<TState, TTabProps, TTabEmits>({
+const context = buildContext<TState, TTabProps, TTabEmits>({
     name: 'STab',
     state: (props, emit) => {
         const state: TState = reactive({
@@ -48,3 +48,6 @@ export const { createContext, useContext } = buildContext<TState, TTabProps, TTa
         return state;
     },
 });
+
+export const createContext: (props: TTabProps, emit: TTabEmits) => Reactive<TState> = context.createContext;
+export const useContext: (child: string) => Reactive<TState> = context.useContext;

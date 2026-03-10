@@ -20,5 +20,5 @@
         "src/**/*.ts",
         "src/stories/examples/SidebarLayouts/components/stories.stories.ts"
     ],
-    "exclude": ["node_modules", "src/stories/**/*", "**/*.test.ts"]
+    "exclude": ["node_modules", "src/stories/**/*", "**/*.test.ts", "**/*.stories.ts", "src/helpers/stories.ts"]
 }
