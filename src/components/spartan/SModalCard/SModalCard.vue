@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A modal dialog that wraps SCard inside SModal for a pre-styled modal with title, icon, and actions.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SModalCard Github}.
+ */
+export default {
+    name: 'SModalCard',
+};
+</script>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { computed, useAttrs } from 'vue';

@@ -58,7 +58,7 @@ const clear = () => {
         <div
             v-if="config.multiple"
             :tabindex="-1"
-            class="focus-within:border-spartan-primary-300 focus-within:ring-spartan-primary-100 flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:ring"
+            class="focus-within:border-spartan-primary-300 focus-within:ring-spartan-primary-100 flex items-center gap-3 rounded-lg border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 transition focus-within:ring"
             @focus="
                 (event: FocusEvent) =>
                     ((event.target as HTMLDivElement).querySelector('input') as HTMLInputElement).focus()
@@ -82,12 +82,12 @@ const clear = () => {
                     v-model="search"
                     type="text"
                     :placeholder="(checked as string[]).length ? '' : t('optionsSelectorPlaceholder')"
-                    class="w-full border-0 p-0 text-sm placeholder:text-gray-400 focus:ring-0 focus:outline-0"
+                    class="w-full border-0 bg-transparent p-0 text-sm placeholder:text-gray-400 focus:ring-0 focus:outline-0"
                 />
             </div>
             <div class="flex items-center">
                 <button @click="clear">
-                    <XMarkIcon class="h-5 w-5 text-gray-500 duration-75 hover:scale-105 hover:text-gray-700" />
+                    <XMarkIcon class="h-5 w-5 text-gray-500 dark:text-gray-400 duration-75 hover:scale-105 hover:text-gray-700 dark:hover:text-gray-200" />
                 </button>
             </div>
         </div>

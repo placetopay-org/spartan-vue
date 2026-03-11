@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A dropdown menu triggered by a button, with floating panel and keyboard navigation.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SDropdown Github}.
+ */
+export default {
+    name: 'SDropdown',
+};
+</script>
+
 <script setup lang="ts">
 import { SPopover } from '../SPopover';
 import { Menu, MenuItems } from '@headlessui/vue';
@@ -51,7 +61,7 @@ const closeCallback = () => {
                     static
                     :class="
                         twMerge(
-                            'divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-gray-100 focus:outline-none',
+                            'divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-2xl ring-1 ring-gray-100 dark:ring-white/10 focus:outline-none',
                             floatingClass,
                         )
                     "

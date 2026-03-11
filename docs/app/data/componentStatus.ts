@@ -138,7 +138,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             hasBlock: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13097-22397',
         },
-        { name: 'SMultiSelector', typescript: true, docs: 'partial' },
+        { name: 'SMultiSelector', typescript: true, jsdoc: true, darkMode: true, docs: 'partial' },
     ],
     display: [
         { name: 'SAlert', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
@@ -192,7 +192,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             tests: 100,
             docs: 'complete',
         },
-        { name: 'SLink', typescript: true, tests: 100, docs: 'complete' },
+        { name: 'SLink', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
         {
             name: 'SToast',
             typescript: true,
@@ -229,8 +229,8 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
     ],
     modals: [
-        { name: 'SModal', typescript: true, tests: 76, docs: 'partial' },
-        { name: 'SModalCard', typescript: true, tests: 84, docs: 'partial' },
+        { name: 'SModal', typescript: true, jsdoc: true, darkMode: true, tests: 76, docs: 'partial' },
+        { name: 'SModalCard', typescript: true, jsdoc: true, darkMode: true, tests: 84, docs: 'partial' },
         {
             name: 'SModalConfirm',
             typescript: true,
@@ -241,15 +241,15 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12770-18720',
         },
-        { name: 'SModalLeft', typescript: true, tests: 100, docs: 'complete' },
-        { name: 'SModalSide', typescript: true, tests: 100, docs: 'complete' },
-        { name: 'SPopover', typescript: true, tests: 61, docs: 'complete' },
-        { name: 'STooltip', typescript: true, tests: 70, docs: 'partial' },
-        { name: 'SDropdown', typescript: true, tests: 73, docs: 'complete' },
+        { name: 'SModalLeft', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
+        { name: 'SModalSide', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
+        { name: 'SPopover', typescript: true, jsdoc: true, darkMode: true, tests: 61, docs: 'complete' },
+        { name: 'STooltip', typescript: true, jsdoc: true, darkMode: true, tests: 70, docs: 'partial' },
+        { name: 'SDropdown', typescript: true, jsdoc: true, darkMode: true, tests: 73, docs: 'complete' },
     ],
     structure: [
-        { name: 'SAccordion', typescript: true, tests: 100, docs: 'complete' },
-        { name: 'SSidebar', typescript: true, tests: 65, docs: 'partial' },
+        { name: 'SAccordion', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
+        { name: 'SSidebar', typescript: true, jsdoc: true, darkMode: true, tests: 65, docs: 'partial' },
         {
             name: 'STab',
             typescript: true,
@@ -291,10 +291,10 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
-        { name: 'SSteps', typescript: true, docs: 'complete' },
-        { name: 'SPaginator', typescript: true, docs: 'complete' },
-        { name: 'SStackedList', typescript: true, docs: 'complete' },
-        { name: 'SButtonGroup', typescript: true, docs: 'complete' },
+        { name: 'SSteps', typescript: true, jsdoc: true, darkMode: true, docs: 'complete' },
+        { name: 'SPaginator', typescript: true, jsdoc: true, darkMode: true, docs: 'complete' },
+        { name: 'SStackedList', typescript: true, jsdoc: true, darkMode: true, docs: 'complete' },
+        { name: 'SButtonGroup', typescript: true, jsdoc: true, darkMode: true, docs: 'complete' },
     ],
     utilities: [
         {
@@ -321,6 +321,8 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         {
             name: 'SFilter',
             typescript: true,
+            jsdoc: true,
+            darkMode: true,
             tests: 67,
             docs: 'partial',
             improvements: {

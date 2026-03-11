@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A vertical navigation sidebar with support for nested items, groups, and a PlacetoPay logo header.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SSidebar Github}.
+ */
+export default {
+    name: 'SSidebar',
+};
+</script>
+
 <script setup lang="ts">
 import { hasSlotContent } from '@/helpers';
 import { SPlacetopayLogo } from '../SPlacetopayLogo';
@@ -17,7 +27,7 @@ const headerCallback = typeof props.placetopayHeader === 'function' && props.pla
 </script>
 
 <template>
-    <aside :class="twMerge('flex h-full w-72 flex-col gap-y-6 overflow-y-auto bg-white p-4', props.class)">
+    <aside :class="twMerge('flex h-full w-72 flex-col gap-y-6 overflow-y-auto bg-white dark:bg-gray-900 p-4', props.class)">
         <component
             :is="headerCallback ? 'button' : 'header'"
             v-if="placetopayHeader || hasSlotContent($slots.header)"

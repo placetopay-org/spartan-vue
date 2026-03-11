@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A pagination control with page numbers, size selector, and prev/next navigation.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SPaginator Github}.
+ */
+export default {
+    name: 'SPaginator',
+};
+</script>
+
 <script setup lang="ts">
 import type { TPaginatorProps, TPaginatorEmits, TLaravelResource } from './types';
 import { translator } from '@/helpers';
@@ -267,7 +277,7 @@ const getLaravelAsLinksProps = (pageItem?: string | number) => {
         v-if="!hideWhenSinglePage || (vCount && vCount > 1)"
         :class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)"
     >
-        <div v-if="vPageSizes" class="flex items-center gap-1 text-sm text-gray-700">
+        <div v-if="vPageSizes" class="flex items-center gap-1 text-sm text-gray-700 dark:text-gray-300">
             <span>{{ t('showing') }}</span>
 
             <SSelect class="h-8 text-xs" :model-value="vSize" @update:model-value="updateSize">
