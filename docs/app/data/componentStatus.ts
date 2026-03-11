@@ -65,7 +65,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13016-16548&t=SeafmOCyazOmoll4-4',
         },
         { name: 'SInputAmount', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 65, docs: 'partial', hasBlock: true },
-        { name: 'SInputDate', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
+        { name: 'SInputDate', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 75, docs: 'complete', hasBlock: true },
         { name: 'SInputIncrement', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
         { name: 'SInputMask', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
         { name: 'SInputOtp', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
