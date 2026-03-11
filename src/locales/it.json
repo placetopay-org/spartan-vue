@@ -36,12 +36,6 @@
             "results": "risultati",
             "searchPlaceholder": "Cerca in tutte le colonne"
         },
-        "inputDate": {
-            "select": "Seleziona",
-            "cancel": "Annulla",
-            "now": "Ora",
-            "week": "W"
-        },
         "filter": {
             "yes": "Si",
             "no": "No",

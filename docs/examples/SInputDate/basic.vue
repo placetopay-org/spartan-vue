@@ -9,13 +9,22 @@ const { controls } = usePreview({
     component: 'SInputDate',
     props: {
         placeholder: { type: 'text', default: 'Select a date', label: 'placeholder' },
-        modelType: {
+        dateFormat: {
             type: 'select',
-            options: ['none', 'dd-MM-yyyy', 'yyyy-MM-dd', 'MM/dd/yyyy'],
-            default: 'none',
-            label: 'modelType',
+            options: ['mm/dd/yy', 'dd/mm/yy', 'yy-mm-dd'],
+            default: 'mm/dd/yy',
+            label: 'dateFormat',
         },
-        hideInputIcon: { type: 'boolean', default: false, label: 'hideInputIcon' },
+        selectionMode: {
+            type: 'select',
+            options: ['single', 'multiple', 'range'],
+            default: 'single',
+            label: 'selectionMode',
+        },
+        showIcon: { type: 'boolean', default: true, label: 'showIcon' },
+        showButtonBar: { type: 'boolean', default: false, label: 'showButtonBar' },
+        showTime: { type: 'boolean', default: false, label: 'showTime' },
+        disabled: { type: 'boolean', default: false, label: 'disabled' },
         error: { type: 'boolean', default: false, label: 'error' },
     },
 });
@@ -25,8 +34,12 @@ const { controls } = usePreview({
     <SInputDate
         v-model="value"
         :placeholder="controls.placeholder"
-        :model-type="controls.modelType === 'none' ? undefined : controls.modelType"
-        :hide-input-icon="controls.hideInputIcon"
+        :date-format="controls.dateFormat"
+        :selection-mode="controls.selectionMode"
+        :show-icon="controls.showIcon"
+        :show-button-bar="controls.showButtonBar"
+        :show-time="controls.showTime"
+        :disabled="controls.disabled"
         :error="controls.error"
     />
 </template>

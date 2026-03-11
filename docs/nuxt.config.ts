@@ -109,6 +109,9 @@ export default defineNuxtConfig({
 
     vite: {
         plugins: [svgLoader()],
+        ssr: {
+            external: ['primevue', '@primevue/icons', '@primevue/core', '@primeuix'],
+        },
         resolve: {
             alias: {
                 '@': fileURLToPath(new URL('../src', import.meta.url)),

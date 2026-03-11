@@ -36,12 +36,6 @@
             "results": "résultats",
             "searchPlaceholder": "Rechercher dans toutes les colonnes"
         },
-        "inputDate": {
-            "select": "Sélectionner",
-            "cancel": "Annuler",
-            "now": "Maintenant",
-            "week": "W"
-        },
         "filter": {
             "addBtn": "Ajouter",
             "addFilterBtn": "Ajouter un filtre",

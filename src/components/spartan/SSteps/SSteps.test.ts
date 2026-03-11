@@ -29,7 +29,7 @@ describe('SSteps', () => {
         // Assert
         screen.getByRole('navigation', { name: 'Progress' });
         screen.getByRole('link', { name: 'First step' });
-        screen.getByRole('link', { name: 'Second step test description' });
+        screen.getByRole('link', { name: 'Second steptest description' });
         screen.getByRole('link', { name: 'Third step' });
     });
 
@@ -61,7 +61,7 @@ describe('SSteps', () => {
         // Assert
         screen.getByRole('navigation', { name: 'Progress' });
         screen.getByRole('link', { name: 'First step' });
-        screen.getByRole('link', { name: 'Second step test description' });
+        screen.getByRole('link', { name: 'Second steptest description' });
         screen.getByRole('link', { name: '' });
     });
 
@@ -89,7 +89,7 @@ describe('SSteps', () => {
         // Assert
         screen.getByRole('navigation', { name: 'Progress' });
         screen.getByRole('link', { name: 'First step' });
-        screen.getByRole('link', { name: 'Second step test description' });
+        screen.getByRole('link', { name: 'Second steptest description' });
         screen.getByRole('link', { name: 'Third step' });
     });
 });

@@ -6,16 +6,16 @@ const value = ref(null);
 
 const { controls } = usePreview({
     props: {
-        modelType: {
+        dateFormat: {
             type: 'select',
-            options: ['dd-MM-yyyy', 'yyyy-MM-dd', 'MM/dd/yyyy'],
-            default: 'dd-MM-yyyy',
-            label: 'modelType',
+            options: ['dd/mm/yy', 'mm/dd/yy', 'yy-mm-dd'],
+            default: 'dd/mm/yy',
+            label: 'dateFormat',
         },
     },
 });
 </script>
 
 <template>
-    <SInputDate v-model="value" :model-type="controls.modelType" placeholder="Select a date" />
+    <SInputDate v-model="value" :date-format="controls.dateFormat" placeholder="Select a date" />
 </template>

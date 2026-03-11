@@ -17,13 +17,16 @@ const { t } = translator('filter');
 
 // For date range, use a single value that contains both dates
 const dateRangeValue = computed({
-    get: (): string[] | null => {
+    get: (): Date[] | null => {
         if (props.config.type !== 'date' || !props.modelValue) return null;
-        return props.modelValue as string[];
+        return (props.modelValue as (string | Date)[]).map((v) => (v instanceof Date ? v : new Date(v as string)));
     },
-    set: (newValue: string | string[] | null) => {
+    set: (newValue: Date | Date[] | null) => {
         if (Array.isArray(newValue)) {
-            emit('update:modelValue', newValue);
+            emit(
+                'update:modelValue',
+                newValue.map((d) => d.toISOString().split('T')[0]),
+            );
         }
     },
 });
@@ -51,9 +54,7 @@ const amountCurrency = computed(() => props.config.currency ?? props.config.curr
         <SInputDate
             v-if="config.type === 'date'"
             v-model="dateRangeValue"
-            range
-            model-type="yyyy-MM-dd"
-            :enable-time-picker="false"
+            selection-mode="range"
             :placeholder="t('dateRangePlaceholder')"
             :error="!!errorText"
             class="w-full"

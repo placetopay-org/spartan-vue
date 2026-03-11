@@ -29,7 +29,6 @@ export default defineConfig({
                 // '@headlessui/vue',
                 // '@heroicons/vue',
                 // '@tanstack/vue-table',
-                //'@vuepic/vue-datepicker',  TODO: Review this package
                 // 'lodash',  TODO: Review this package and use tree-shaking
                 // 'vue-currency-input',
                 // 'vue-imask',
@@ -42,7 +41,6 @@ export default defineConfig({
                     // '@headlessui/vue': 'HeadlessUI',
                     // '@heroicons/vue': 'Heroicons',
                     // '@tanstack/vue-table': 'VueTable',
-                    // '@vuepic/vue-datepicker': 'VueDatepickerTW3',
                     // 'vue-currency-input': 'VueCurrencyInput',
                     // 'vue-imask': 'VueIMask',
                 },

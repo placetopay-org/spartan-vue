@@ -1,36 +1,60 @@
-import { test, describe } from 'vitest';
+import { test, describe, expect } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SInputDate from './SInputDate.vue';
+import PrimeVue from 'primevue/config';
 import userEvent from '@testing-library/user-event';
 
+const globalConfig = {
+    plugins: [[PrimeVue, { unstyled: true }]],
+};
+
 describe('SInputDate', () => {
-    test('Can be rendered', async () => {
-        // Arrange
-        let modelValue = '29-01-2000';
+    test('Can be rendered with a date value', () => {
+        const modelValue = new Date(2000, 0, 29);
+
+        render(SInputDate, {
+            props: { modelValue },
+            global: globalConfig,
+        });
+
+        const input = screen.getByRole('combobox');
+        expect(input).toBeInTheDocument();
+        expect(input).toHaveAttribute('value', '01/29/2000');
+    });
+
+    test('Does not render icon by default', () => {
+        render(SInputDate, {
+            props: { modelValue: null },
+            global: globalConfig,
+        });
+
+        const button = screen.queryByRole('button', { name: 'Choose Date' });
+        expect(button).not.toBeInTheDocument();
+    });
+
+    test('Opens calendar on button click when showIcon is true', async () => {
         const user = userEvent.setup();
 
-        // Act
-        const { rerender } = render(SInputDate, {
-            props: {
-                modelValue,
-                modelType: 'dd-MM-yyyy',
-                'onUpdate:modelValue': (e: string) => {
-                    modelValue = e;
-                    rerender({ modelValue });
-                },
-            },
+        render(SInputDate, {
+            props: { modelValue: null, showIcon: true },
+            global: globalConfig,
         });
-        const datePicker = screen.getByRole('textbox', { name: 'Datepicker input' });
 
-        await user.click(datePicker);
+        const button = screen.getByRole('button', { name: 'Choose Date' });
+        await user.click(button);
 
-        await user.click(screen.getByText('8'));
+        const dialog = screen.getByRole('dialog');
+        expect(dialog).toBeInTheDocument();
+    });
 
-        await user.click(screen.getByText('$spartan.inputDate.select'));
+    test('Applies error styling when error prop is true', () => {
+        const { container } = render(SInputDate, {
+            props: { modelValue: null, error: true },
+            global: globalConfig,
+        });
 
-        // Assert
-        expect(datePicker).toBeInTheDocument();
-        expect(modelValue).toBe('08-01-2000');
+        const wrapper = container.firstElementChild;
+        expect(wrapper?.className).toContain('border-red-500');
     });
 });
