@@ -141,7 +141,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         { name: 'SMultiSelector', typescript: true, docs: 'partial' },
     ],
     display: [
-        { name: 'SAlert', typescript: true, jsdoc: true, tests: 100, docs: 'complete' },
+        { name: 'SAlert', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
         {
             name: 'SAvatar',
             typescript: true,
