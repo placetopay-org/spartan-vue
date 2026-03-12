@@ -20,7 +20,7 @@
         }
     },
     "hooks": {
-        "before:init": ["npm run test:ci"],
-        "after:bump": ["npm run build"]
+        "before:init": ["pnpm run test:ci"],
+        "after:bump": ["pnpm run build"]
     }
 }

@@ -39,7 +39,7 @@
   },
   "scripts": {
     "dev": "nuxt dev --cwd docs",
-    "build": "vite build && npm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/copyCss.js && node scripts/sanitizeBuild.js",
+    "build": "vite build && pnpm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/copyCss.js && node scripts/sanitizeBuild.js",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:rollup": "rollup -c",
     "docs:dev": "nuxt dev --cwd docs",
@@ -54,8 +54,8 @@
     "format:check": "prettier . --check",
     "lint": "npx eslint --ext .ts,.vue --fix ./",
     "lint:check": "npx eslint --ext .ts,.vue .",
-    "foli": "npm run format && npm run lint",
-    "foli:check": "npm run format:check && npm run lint:check",
+    "foli": "pnpm run format && pnpm run lint",
+    "foli:check": "pnpm run format:check && pnpm run lint:check",
     "release": "release-it"
   },
   "dependencies": {
