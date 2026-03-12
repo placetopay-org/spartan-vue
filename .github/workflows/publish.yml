@@ -17,8 +17,9 @@ on:
                     - prepatch
 
 permissions:
-  id-token: write  # Required for OIDC
+  id-token: write
   contents: write
+  pages: write
 
 jobs:
     release:
@@ -62,4 +63,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN_PLACETOPAY_DEV }}
 
-
+    deploy-docs:
+        name: Deploy documentation
+        needs: release
+        uses: ./.github/workflows/deploy-docs.yml
