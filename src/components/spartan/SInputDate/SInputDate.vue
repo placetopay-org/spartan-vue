@@ -42,6 +42,8 @@ const value = computed({
 </template>
 
 <style>
+@reference '../../../../.storybook/styles.css';
+
 :root {
     --dp-font-family: inherit;
     --dp-input-padding: 8px 12px;
