@@ -17,13 +17,16 @@ const { t } = translator('filter');
 
 // For date range, use a single value that contains both dates
 const dateRangeValue = computed({
-    get: (): string[] | null => {
+    get: (): Date[] | null => {
         if (props.config.type !== 'date' || !props.modelValue) return null;
-        return props.modelValue as string[];
+        return (props.modelValue as (string | Date)[]).map((v) => (v instanceof Date ? v : new Date(v as string)));
     },
-    set: (newValue: string | string[] | null) => {
+    set: (newValue: Date | Date[] | null) => {
         if (Array.isArray(newValue)) {
-            emit('update:modelValue', newValue);
+            emit(
+                'update:modelValue',
+                newValue.map((d) => d.toISOString().split('T')[0]),
+            );
         }
     },
 });
@@ -41,6 +44,8 @@ watch([value1, value2], () => {
 const updateCurrency = (currency?: string) => {
     emit('update:currency', currency);
 };
+
+const amountCurrency = computed(() => props.config.currency ?? props.config.currencies?.[0]);
 </script>
 
 <template>
@@ -49,9 +54,7 @@ const updateCurrency = (currency?: string) => {
         <SInputDate
             v-if="config.type === 'date'"
             v-model="dateRangeValue"
-            range
-            model-type="yyyy-MM-dd"
-            :enable-time-picker="false"
+            selection-mode="range"
             :placeholder="t('dateRangePlaceholder')"
             :error="!!errorText"
             class="w-full"
@@ -61,7 +64,7 @@ const updateCurrency = (currency?: string) => {
         <div v-else-if="config.type === 'amount'" class="flex gap-4">
             <SInputAmount
                 v-model="value1 as number"
-                :currency="config.currency ?? config.currencies![0]"
+                :currency="amountCurrency!"
                 :currencies="config.currencies"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :minor-unit-mode="config.minorUnitMode"
@@ -70,7 +73,7 @@ const updateCurrency = (currency?: string) => {
             />
             <SInputAmount
                 v-model="value2 as number"
-                :currency="config.currency ?? config.currencies![0]"
+                :currency="amountCurrency!"
                 :currencies="config.currencies"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :minor-unit-mode="config.minorUnitMode"

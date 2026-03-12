@@ -1,0 +1,49 @@
+{
+    "common": {
+        "or": "o",
+        "error": {
+            "title": "Página no encontrada",
+            "description": "Lo sentimos, pero esta página no se pudo encontrar."
+        }
+    },
+    "docs": {
+        "copy": {
+            "page": "Copiar página",
+            "link": "Copiar página en Markdown",
+            "view": "Ver como Markdown",
+            "gpt": "Abrir en ChatGPT",
+            "claude": "Abrir en Claude"
+        },
+        "links": "Comunidad",
+        "toc": "En esta página",
+        "report": "Reportar un problema",
+        "edit": "Editar esta página"
+    },
+    "assistant": {
+        "title": "Preguntar a la IA",
+        "placeholder": "Haz una pregunta...",
+        "tooltip": "Hazle una pregunta a la IA",
+        "tryAsking": "Intenta hacer una pregunta",
+        "askAnything": "Pregunta lo que quieras...",
+        "clearChat": "Limpiar chat",
+        "close": "Cerrar",
+        "expand": "Expandir",
+        "collapse": "Contraer",
+        "thinking": "Pensando...",
+        "askMeAnything": "Pregunta lo que quieras",
+        "askMeAnythingDescription": "Obtén ayuda navegando la documentación, entendiendo conceptos y encontrando respuestas.",
+        "faq": "Preguntas frecuentes",
+        "chatCleared": "El chat se limpia al recargar",
+        "lineBreak": "Salto de línea",
+        "explainWithAi": "Explicar con IA",
+        "toolListPages": "Páginas de documentación listadas",
+        "toolReadPage": "Leer",
+        "loading": {
+            "searching": "Buscando en la documentación",
+            "reading": "Leyendo la documentación",
+            "analyzing": "Analizando el contenido",
+            "finding": "Encontrando la mejor respuesta",
+            "finished": "Fuentes utilizadas"
+        }
+    }
+}

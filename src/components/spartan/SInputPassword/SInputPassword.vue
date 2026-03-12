@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A password input with show/hide toggle, optional strength meter, and validation rules.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SInputPassword Github}.
+ */
+export default {
+    name: 'SInputPassword',
+};
+</script>
+
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
 import { SInput, type TInputProps } from '@spartan';
@@ -54,7 +64,7 @@ watchEffect(() => {
     >
         <template #right>
             <button tabindex="-1" type="button" @click.prevent="showPassword = !showPassword">
-                <component :is="showPassword ? EyeIcon : EyeSlashIcon" class="h-6 w-6 text-gray-500" />
+                <component :is="showPassword ? EyeIcon : EyeSlashIcon" class="h-6 w-6 text-gray-500 dark:text-gray-400" />
             </button>
 
             <StatusBar v-if="meter" :is-valid="isValid" />

@@ -1,13 +1,18 @@
-import { cva } from 'class-variance-authority';
-import { createBooleanVariation as cbv, roundedClass } from '@/helpers';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { createBooleanVariation as cbv } from '@/helpers';
+import { inputStyle, roundedStyle } from '@/constants';
 
+export type TSelectStyles = VariantProps<typeof selectStyles>;
 export const selectStyles = cva(
-    'h-9 bg-white text-base font-normal py-[5px] pl-3 pr-8 text-gray-900 border border-gray-300',
+    `h-9 appearance-none ${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} ${inputStyle.padding} pr-8`,
     {
         variants: {
-            disabled: cbv('text-gray-400 bg-gray-50 pointer-events-none'),
-            error: cbv('border-red-600 focus:s-ring-error', 'border-gray-300 focus:s-ring'),
-            rounded: roundedClass,
+            disabled: cbv(inputStyle.disabled),
+            error: cbv(
+                `${inputStyle.border.error} ${inputStyle.ring.error}`,
+                `${inputStyle.border.base} ${inputStyle.ring.base}`,
+            ),
+            rounded: roundedStyle,
         },
     },
 );

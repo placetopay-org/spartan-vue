@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A one-time password input that renders individual digit cells with validation states.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SInputOtp Github}.
+ */
+export default {
+    name: 'SInputOtp',
+};
+</script>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { inputOtpStyles } from './styles';

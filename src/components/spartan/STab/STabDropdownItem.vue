@@ -30,11 +30,7 @@ watch(
 
 <template>
     <div ref="el">
-        <SDropdownItem
-            v-if="!as"
-            :data-item-path="vPath"
-            @click="() => context.updateModelValue(vPath)"
-        >
+        <SDropdownItem v-if="!as" :data-item-path="vPath" @click="() => context.updateModelValue(vPath)">
             <slot />
         </SDropdownItem>
         <component

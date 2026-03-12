@@ -22,7 +22,7 @@ describe('SLInk', () => {
 
         // Assert
         expect(wrapper.html()).toContain('href="https://www.test-url.com"');
-        expect(wrapper.html()).toContain('class="cursor-pointer font-medium hover:text-gray-700 hover:underline"');
+        expect(wrapper.html()).toContain('class="cursor-pointer font-medium hover:text-gray-700 hover:underline dark:hover:text-gray-300"');
     });
 
     test('Renders optional properties', () => {

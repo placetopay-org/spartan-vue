@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A multi-select dropdown that allows selecting multiple options with badges, search, and badge list display.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SMultiSelector Github}.
+ */
+export default {
+    name: 'SMultiSelector',
+};
+</script>
+
 <script setup lang="ts">
 import { translator, usePassthrough } from '@/helpers';
 import type { TMultiSelectorProps, TMultiSelectorEmits, TOption } from './types';
@@ -61,7 +71,7 @@ const getOptionValue = (option: TOption) => {
 
 const getOptionKey = (option: TOption, index: number) => {
     if (typeof option === 'object') {
-        return optionValue ? option[optionValue] : option[optionLabel] ?? index;
+        return optionValue ? option[optionValue] : (option[optionLabel] ?? index);
     }
     return option;
 };

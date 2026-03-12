@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A base modal overlay that renders content centered on screen with backdrop and close-on-click behavior.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SModal Github}.
+ */
+export default {
+    name: 'SModal',
+};
+</script>
+
 <script setup lang="ts">
 import type { TModalProps } from './types';
 import { twMerge } from 'tailwind-merge';

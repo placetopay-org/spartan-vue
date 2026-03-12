@@ -18,13 +18,13 @@ const { as = 'a' } = defineProps<
 const indicatorStyle = {
     complete: 'group border-spartan-primary-600 hover:border-spartan-primary-800',
     current: 'border-spartan-primary-600',
-    upcoming: 'group border-gray-200 hover:border-gray-300',
+    upcoming: 'group border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500',
 };
 
 const nameStyle = {
     complete: 'text-spartan-primary-600 group-hover:text-spartan-primary-800',
     current: 'text-spartan-primary-600',
-    upcoming: 'text-gray-500 group-hover:text-gray-700',
+    upcoming: 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300',
 };
 </script>
 
@@ -33,7 +33,7 @@ const nameStyle = {
         :is="as"
         :href="href"
         :class="[
-            'flex flex-col border-l-4 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4',
+            'flex flex-col border-l-4 py-2 pl-4 md:border-t-4 md:border-l-0 md:pt-4 md:pb-0 md:pl-0',
             indicatorStyle[status],
         ]"
         v-bind="ariaCurrent"

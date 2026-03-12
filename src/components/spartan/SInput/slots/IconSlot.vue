@@ -6,6 +6,6 @@ defineProps<{ icon: FunctionalComponent }>();
 
 <template>
     <div class="flex items-center">
-        <component :is="icon" v-if="icon" class="h-6 w-6 text-gray-500" />
+        <component :is="icon" v-if="icon" class="h-6 w-6 text-gray-500 dark:text-gray-400" />
     </div>
 </template>

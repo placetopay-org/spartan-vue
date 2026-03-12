@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A masked text input built on IMask that enforces a specific input pattern.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SInputMask Github}.
+ */
+export default {
+    name: 'SInputMask',
+};
+</script>
+
 <script setup lang="ts">
 import { onMounted, ref, computed, watch } from 'vue';
 import { SInput, type TInputProps } from '../SInput';

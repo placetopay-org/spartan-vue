@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A multi-step progress indicator with support for simple and circle-with-text variants.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SSteps Github}.
+ */
+export default {
+    name: 'SSteps',
+};
+</script>
+
 <script setup lang="ts">
 import SStepsItem from './SStepsItem.vue';
 import type { TStepsProps } from './types';

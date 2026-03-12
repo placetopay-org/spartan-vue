@@ -13,10 +13,10 @@ defineProps<{
 </script>
 
 <template>
-    <div class="flex items-center rounded-lg border border-transparent focus-within:s-ring">
+    <div class="focus-within:s-ring flex items-center rounded-lg border border-transparent">
         <select
             :value="modelValue"
-            class="rounded-lg border-none py-1.5 pr-8 text-sm text-gray-500 focus:ring-0"
+            class="rounded-lg border-none bg-transparent py-1.5 pr-8 text-sm text-gray-500 focus:ring-0 dark:text-gray-400"
             @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
         >
             <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>

@@ -1,3 +1,14 @@
+<script lang="ts">
+/**
+ * A pre-configured confirmation modal with confirm/cancel actions, built on top of SModalCard.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SModalConfirm Github}.
+ * @see {@link https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12770-18720 Figma}.
+ */
+export default {
+    name: 'SModalConfirm',
+};
+</script>
+
 <script setup lang="ts">
 import { SButton, SModalCard } from '@spartan';
 import type { TModalProps, TCardProps } from '@spartan';

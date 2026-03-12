@@ -2,15 +2,14 @@
 import { SInputDate, type TInputDateProps, type TInputDateEmits } from '../SInputDate';
 import { BlockWrapper, type TBlockWrapperProps } from '@internal';
 import { extractWrapperProps } from '@/helpers';
-import type { VueDatePickerProps } from '@vuepic/vue-datepicker';
 
 defineEmits<TInputDateEmits>();
-const props = defineProps<Partial<TBlockWrapperProps> & TInputDateProps & VueDatePickerProps>();
+const props = defineProps<Partial<TBlockWrapperProps> & TInputDateProps>();
 const [blockWrapperProps, inputDateProps] = extractWrapperProps<TInputDateProps>(props);
 </script>
 
 <template>
-    <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps" use-dp-uid>
+    <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps">
         <SInputDate
             :id
             class="w-full"

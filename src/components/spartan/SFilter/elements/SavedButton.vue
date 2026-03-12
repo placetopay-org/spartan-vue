@@ -56,13 +56,7 @@ const selectFilter = (filter: TSaveData) => {
 <template>
     <SPopover ref="popover" :responsive="context.responsive" :prevent-close="activeSaving" :offset="8">
         <template #reference>
-            <SButton
-                class="h-[26px] whitespace-nowrap"
-                size="sm"
-                rounded="full"
-                variant="outline"
-                @click="openSaveModal"
-            >
+            <SButton class="h-[26px] whitespace-nowrap" size="sm" rounded="full" outline @click="openSaveModal">
                 <FilterIcon class="h-5 w-5" />
             </SButton>
         </template>
@@ -71,16 +65,16 @@ const selectFilter = (filter: TSaveData) => {
             <SCard
                 v-if="!activeSaving"
                 pt:body="sm:p-0"
-                class="min-w-[220px] overflow-hidden rounded-lg border border-none border-gray-100 bg-white shadow-2xl"
+                class="min-w-[220px] overflow-hidden rounded-lg border border-none border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-2xl"
             >
                 <ul class="w-full">
-                    <li class="whitespace-nowrap bg-gray-50 px-4 py-3 text-sm font-semibold text-gray-900">
+                    <li class="bg-gray-50 dark:bg-gray-700 px-4 py-3 text-sm font-semibold whitespace-nowrap text-gray-900 dark:text-gray-100">
                         {{ t('savedFiltersText') }}
                     </li>
                     <li
                         v-for="item in context.saved"
                         :key="item.name"
-                        class="rounded-lg hover:bg-gray-50 hover:text-spartan-primary-600"
+                        class="hover:text-spartan-primary-600 rounded-lg hover:bg-gray-50 dark:hover:bg-white/10"
                     >
                         <button class="w-full px-4 py-2 text-left" @click="selectFilter(item)">
                             {{ item.name }}
@@ -98,7 +92,7 @@ const selectFilter = (filter: TSaveData) => {
                             :disabled="!enableSaving"
                             :class="[
                                 !enableSaving && 'pointer-events-none opacity-50',
-                                'flex w-full gap-3 whitespace-nowrap bg-spartan-primary-600 px-4 py-3 text-sm font-semibold text-gray-50 hover:bg-spartan-primary-700',
+                                'bg-spartan-primary-600 hover:bg-spartan-primary-700 flex w-full gap-3 px-4 py-3 text-sm font-semibold whitespace-nowrap text-gray-50',
                             ]"
                             @click="activeSaving = true"
                         >
@@ -108,7 +102,7 @@ const selectFilter = (filter: TSaveData) => {
                     </li>
                 </ul>
             </SCard>
-            <div v-else class="w-80 overflow-hidden rounded-lg border border-gray-100 bg-white p-4 shadow-2xl">
+            <div v-else class="w-80 overflow-hidden rounded-lg border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-2xl">
                 <SInput id="filterName" v-model="savedFilterName" label="Nombre del filtro" />
                 <div class="mt-4 flex gap-3">
                     <SButton class="w-full" variant="secondary" @click="resetAndClose">

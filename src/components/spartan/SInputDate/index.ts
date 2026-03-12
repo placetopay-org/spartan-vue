@@ -1,3 +1,3 @@
 export { default as SInputDate } from './SInputDate.vue';
 
-export type { TInputDatePropsFull as TInputDateProps, TInputDateEmits } from './types';
+export type { TInputDateProps, TInputDateEmits, TDateValue } from './types';

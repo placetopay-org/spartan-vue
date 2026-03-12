@@ -2,7 +2,6 @@
 /**
  * A versatile filter component for building dynamic filter interfaces.
  * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SFilter Github}.
- * @see {@link https://develop--646e732a14dfaa707ad59b33.chromatic.com/?path=/docs/misc-filter--docs Storybook}.
  */
 export default {
     name: 'SFilter',

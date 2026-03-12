@@ -3,14 +3,14 @@ import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 import type { TAvatarProps } from './types';
 
-const props = withDefaults(defineProps<Partial<TAvatarProps>>(), {
-    borderless: false,
-    indicator: false,
-    indicatorPosition: 'right-top',
-    name: '?',
-    size: 'md',
-    src: '',
-});
+const {
+    borderless = false,
+    indicator = false,
+    indicatorPosition = 'right-top',
+    name = '?',
+    size = 'md',
+    src = '',
+} = defineProps<TAvatarProps>();
 
 const sizeClass = {
     xs: 'h-6 w-6',
@@ -47,36 +47,39 @@ const indicatorPositionClass = {
 };
 
 const initials = computed(() => {
-    if (!props.name) return '?';
-    if (props.name.length < 3) return props.name.toUpperCase().trim();
+    if (!name) return '?';
+    if (name.length < 3) return name.toUpperCase().trim();
 
-    const [first, last] = props.name.split(/ |-|_|\.|,|;|:|\||\\/g);
+    const [first, last] = name.split(/ |-|_|\.|,|;|:|\||\\/g);
 
-    return `${first[0]}${last ? last[0] : ''}`.toUpperCase();
+    return `${first?.[0] ?? ''}${last ? last[0] : ''}`.toUpperCase();
 });
 
-const classes = computed(() =>
+const baseClasses = computed(() =>
     twMerge([
         'rounded-full',
-        sizeClass[props.size],
-        !props.borderless && 'outline outline-1 outline-gray-800/20 -outline-offset-1',
-        props.class,
+        sizeClass[size],
+        !borderless && 'outline outline-1 outline-gray-800/20 dark:outline-white/20 -outline-offset-1',
     ]),
 );
 </script>
 
 <template>
-    <div class="group relative focus-visible:outline-none">
-        <img v-if="src" :class="classes" :src="src" :alt="initials" class="object-cover" />
-        <div v-else :class="classes" class="relative bg-gray-100 text-gray-600">
-            <span class="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2" :class="fontClass[size]">
+    <div data-s-avatar class="group relative focus-visible:outline-none">
+        <img v-if="src" :class="twMerge(baseClasses, $props.class)" :src :alt="initials" class="object-cover" />
+        <div
+            v-else
+            :class="twMerge(baseClasses, $props.class)"
+            class="relative bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+        >
+            <span class="absolute right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2" :class="fontClass[size]">
                 {{ initials }}
             </span>
         </div>
         <span
             v-if="indicator"
             :class="[indicatorClass[size], indicatorPositionClass[indicatorPosition]]"
-            class="absolute block rounded-full bg-spartan-primary-500 ring-2 ring-white"
+            class="bg-spartan-primary-500 absolute block rounded-full ring-2 ring-white dark:ring-gray-800"
         />
     </div>
 </template>

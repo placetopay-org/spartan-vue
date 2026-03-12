@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A searchable combobox/autocomplete selector built on HeadlessUI with option groups and custom display.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SCombobox Github}.
+ */
+export default {
+    name: 'SCombobox',
+};
+</script>
+
 <script setup lang="ts">
 import { createContext } from './api';
 import { hasSlotContent } from '@/helpers';
@@ -34,7 +44,7 @@ const updateQuery = useDebounceFn((query) => {
             as="div"
             :model-value="store.querySelectionId(modelValue)"
             :class="twMerge(comboboxStyles({ disabled, rounded, error }), props.class)"
-            @update:model-value="$emit('update:modelValue', store.options[$event].value)"
+            @update:model-value="$emit('update:modelValue', store.options[$event]?.value)"
         >
             <ComboboxInput
                 v-if="search"
@@ -54,7 +64,7 @@ const updateQuery = useDebounceFn((query) => {
                 :class="twMerge(comboboxButtonStyles({ rounded, search: Boolean(search) }))"
             >
                 <template v-if="!search">
-                    <span v-if="hasSlotContent($slots.button)" class="block truncate text-gray-900">
+                    <span v-if="hasSlotContent($slots.button)" class="block truncate text-gray-900 dark:text-gray-50">
                         <slot name="button" />
                     </span>
                     <span v-else>
@@ -62,7 +72,7 @@ const updateQuery = useDebounceFn((query) => {
                     </span>
                 </template>
                 <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                    <ChevronDownIcon class="h-5 w-5 text-gray-400 dark:text-gray-500" aria-hidden="true" />
                 </span>
             </ComboboxButton>
 
@@ -77,14 +87,14 @@ const updateQuery = useDebounceFn((query) => {
                     static
                     :class="
                         twMerge(
-                            'absolute z-10 mt-2 max-h-60 min-w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+                            'ring-opacity-5 absolute z-10 mt-2 max-h-60 min-w-full overflow-auto rounded-md bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black dark:ring-white/10 focus:outline-none sm:text-sm',
                             $props.flipOptions && 'right-0',
                         )
                     "
                 >
                     <div
                         v-if="store.emptyResults() && store.query !== ''"
-                        class="relative cursor-default select-none truncate px-4 py-2 text-gray-700"
+                        class="relative cursor-default truncate px-4 py-2 text-gray-700 dark:text-gray-300 select-none"
                     >
                         Nothing found.
                     </div>

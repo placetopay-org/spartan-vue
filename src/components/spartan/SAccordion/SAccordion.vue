@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A collapsible panel that toggles content visibility with smooth CSS grid transitions.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SAccordion Github}.
+ */
+export default {
+    name: 'SAccordion',
+};
+</script>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import type { TAccordionProps } from './types';
