@@ -1,0 +1,26 @@
+{
+    "git": {
+        "commitMessage": "chore(release): v${version}",
+        "tagName": "${version}",
+        "push": true,
+        "requireBranch": "2.x"
+    },
+    "npm": {
+        "publish": true,
+        "skipChecks": true
+    },
+    "github": {
+        "release": true,
+        "releaseName": "v${version}"
+    },
+    "plugins": {
+        "@release-it/keep-a-changelog": {
+            "filename": "CHANGELOG.md",
+            "addUnreleased": true
+        }
+    },
+    "hooks": {
+        "before:init": ["npm run test:pipe"],
+        "after:bump": ["npm run build"]
+    }
+}
