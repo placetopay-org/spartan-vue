@@ -40,7 +40,7 @@
   "scripts": {
     "dev": "nuxt dev --cwd docs",
     "build": "vite build && pnpm run build:types && rollup -c && cp -r src/locales dist/locales && node scripts/copyCss.js && node scripts/sanitizeBuild.js",
-    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --noEmit false --outDir dist/types",
     "build:rollup": "rollup -c",
     "docs:dev": "nuxt dev --cwd docs",
     "docs:build": "nuxt build --cwd docs",
