@@ -10,6 +10,13 @@ const globalConfig = {
 };
 
 describe('SInputDate', () => {
+    test('Renders without explicit PrimeVue plugin setup', () => {
+        render(SInputDate, {
+            props: { modelValue: new Date(2000, 0, 29) },
+        });
+        expect(screen.getByRole('combobox')).toBeInTheDocument();
+    });
+
     test('Can be rendered with a date value', () => {
         const modelValue = new Date(2000, 0, 29);
 
