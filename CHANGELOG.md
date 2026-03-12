@@ -6,8 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-### Added
-- `SDTable` now emits `toggleExpanders` when a row is expanded, sending the expanded row data as payload.
 
 ## 3.0.0-beta.2 - 2026-01-29
 ### Added
@@ -52,6 +50,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 3.0.0-beta.0 - 2026-01-26
 ### Added
 - Initial release of Spartan-vue 3.x compatible with Vue 3.x and Tailwind CSS 4.x.
+
+## 2.6.1 - 2026-01-11
+### Added
+- `SDTable` now emits `toggleExpanders` when a row is expanded, sending the expanded row data as payload.
 
 ## 2.6.0 - 2026-01-15
 ### Added
