@@ -3,7 +3,7 @@
         "commitMessage": "chore(release): v${version}",
         "tagName": "${version}",
         "push": true,
-        "requireBranch": "main"
+        "requireBranch": ["main", "2.x"]
     },
     "npm": {
         "publish": true,
