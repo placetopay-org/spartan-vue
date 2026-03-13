@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `SInputDate` now automatically syncs its calendar locale (day/month names, first day of week) with the app's `vue-i18n` locale. Translations added to `src/locales/*.json` under `$spartan.inputDate`.
 
 ## [3.0.0-beta.4] - 2026-03-12
 ### Fixed
