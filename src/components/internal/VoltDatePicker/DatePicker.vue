@@ -117,7 +117,8 @@ import ChevronRightIcon from '@primevue/icons/chevronright';
 import ChevronUpIcon from '@primevue/icons/chevronup';
 import DatePicker from 'primevue/datepicker';
 import PrimeVueConfig from 'primevue/config';
-import { getCurrentInstance, ref } from 'vue';
+import { getCurrentInstance, ref, watchEffect } from 'vue';
+import { translator } from '@/helpers/i18n';
 import SecondaryButton from './SecondaryButton.vue';
 import { ptViewMerge } from './utils';
 
@@ -125,6 +126,34 @@ const instance = getCurrentInstance();
 const app = instance?.appContext.app;
 if (app && !app.config.globalProperties.$primevue) {
     app.use(PrimeVueConfig, { unstyled: true });
+}
+
+try {
+    const { t } = translator('inputDate');
+
+    watchEffect(() => {
+        const dayNames = t('dayNames');
+        if (!dayNames.includes(',')) return;
+
+        const primeVueLocale = app?.config.globalProperties.$primevue?.config?.locale;
+        if (primeVueLocale) {
+            Object.assign(primeVueLocale, {
+                dayNames: dayNames.split(','),
+                dayNamesShort: t('dayNamesShort').split(','),
+                dayNamesMin: t('dayNamesMin').split(','),
+                monthNames: t('monthNames').split(','),
+                monthNamesShort: t('monthNamesShort').split(','),
+                today: t('today'),
+                clear: t('clear'),
+                chooseYear: t('chooseYear'),
+                chooseMonth: t('chooseMonth'),
+                chooseDate: t('chooseDate'),
+                firstDayOfWeek: Number(t('firstDayOfWeek')),
+            });
+        }
+    });
+} catch {
+    // vue-i18n not available, keep PrimeVue defaults
 }
 
 const theme = ref({
