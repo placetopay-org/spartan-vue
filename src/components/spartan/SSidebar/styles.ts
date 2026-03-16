@@ -24,25 +24,25 @@ export const sidebarItemStyles = cva(
 
 export const sidebarItemIconStyles = cva(['h-6 w-6 text-gray-400 dark:text-gray-500'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
 export const sidebarItemContentStyles = cva(['text-sm font-medium text-gray-700 dark:text-gray-300'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
 export const sidebarItemGroupIconStyles = cva(['h-6 w-6 text-gray-400 dark:text-gray-500'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
 export const sidebarItemGroupContentStyles = cva(['text-sm font-medium text-gray-700 dark:text-gray-300'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
