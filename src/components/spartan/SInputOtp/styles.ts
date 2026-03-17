@@ -11,7 +11,7 @@ export const inputOtpItemStyles = cva(
     'flex h-12 w-[46px] shrink-0 items-center justify-center rounded-xl border bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10',
     {
         variants: {
-            active: cbv('border-gray-900 dark:border-white ring-1 ring-gray-800 dark:ring-white/20'),
+            active: cbv('s-outline'),
             success: cbv('border-green-500'),
             error: cbv('border-rose-500'),
         },
@@ -19,12 +19,12 @@ export const inputOtpItemStyles = cva(
             {
                 active: true,
                 success: true,
-                class: 'ring-green-400',
+                class: 'outline-green-400',
             },
             {
                 active: true,
                 error: true,
-                class: 'ring-rose-400',
+                class: 'outline-rose-400',
             },
         ],
     },

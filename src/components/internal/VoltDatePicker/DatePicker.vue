@@ -159,32 +159,27 @@ try {
 const theme = ref({
     root: `inline-flex max-w-full relative data-[p-fluid=true]:flex`,
     pcInputText: {
-        root: `flex-auto w-[1%] appearance-none rounded-md outline-hidden
+        root: `flex-auto w-[1%] appearance-none rounded-lg
         data-[p-has-dropdown=true]:rounded-e-none data-[p-has-e-icon=true]:pe-10
-        bg-white dark:bg-gray-950
-        data-[p-filled=true]:bg-gray-50 dark:data-[p-filled=true]:bg-gray-800
-        text-gray-700 dark:text-white
-        placeholder:text-gray-500 dark:placeholder:text-gray-400
-        border border-gray-300 dark:border-gray-700
-        enabled:hover:border-gray-400 dark:enabled:hover:border-gray-600
-        enabled:focus:border-spartan-primary-500
-        disabled:bg-gray-200 disabled:text-gray-500
-        dark:disabled:bg-gray-700 dark:disabled:text-gray-400
-        data-[p-invalid=true]:border-red-400 dark:data-[p-invalid=true]:border-red-300
-        data-[p-invalid=true]:placeholder:text-red-600 dark:data-[p-invalid=true]:placeholder:text-red-400
-        px-3 py-2 data-[p-fluid=true]:w-full
-        data-[p-small=true]:text-sm data-[p-small=true]:px-[0.625rem] data-[p-small=true]:py-[0.375rem]
-        data-[p-large=true]:text-lg data-[p-large=true]:px-[0.875rem] data-[p-large=true]:py-[0.625rem]
-        transition-colors duration-200 shadow-[0_1px_2px_0_rgba(18,18,23,0.05)]`,
+        bg-white dark:bg-white/5
+        text-gray-900 dark:text-gray-50 font-normal
+        placeholder:text-gray-400
+        border border-gray-300 dark:border-white/10
+        disabled:opacity-50 disabled:cursor-not-allowed
+        data-[p-invalid=true]:border-red-500
+        px-3 py-1.5 data-[p-fluid=true]:w-full
+        outline-2 outline-offset-0 outline-transparent
+        transition-[outline-offset,outline-color] duration-150
+        focus:ring-0`,
     },
-    dropdown: `cursor-pointer inline-flex items-center justify-center select-none overflow-hidden relative w-10 shrink-0 rounded-e-md
-        border border-s-0 border-gray-300 dark:border-gray-700
-        bg-gray-100 enabled:hover:bg-gray-200 enabled:active:bg-gray-300
-        text-gray-600 enabled:hover:text-gray-700 enabled:hover:active:text-gray-800
-        dark:bg-gray-800 dark:enabled:hover:bg-gray-700 dark:enabled:active:bg-gray-600
-        dark:text-gray-300 dark:enabled:hover:text-gray-200 dark:enabled:active:text-gray-100
-        focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-spartan-primary-500
-        transition-colors duration-200`,
+    dropdown: `cursor-pointer inline-flex items-center justify-center select-none overflow-hidden relative w-10 shrink-0 rounded-e-lg
+        border border-s-0 border-gray-300 dark:border-white/10
+        bg-gray-50 dark:bg-white/10
+        text-gray-400 dark:text-gray-500
+        hover:text-spartan-primary-600 dark:hover:text-spartan-primary-400
+        disabled:opacity-50
+        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spartan-primary-600
+        transition-colors duration-150`,
     inputIconContainer: `cursor-pointer absolute top-1/2 end-3 -mt-2 text-gray-400 leading-none data-[p-small=true]:*:size-[0.875rem] data-[p-large=true]:*:size-[1.125rem]`,
     panel: `data-[p-portal-self=true]:min-w-full w-auto p-3 rounded-md
         data-[p-inline=true]:inline-block data-[p-inline=true]:overflow-x-auto data-[p-inline=true]:shadow-none

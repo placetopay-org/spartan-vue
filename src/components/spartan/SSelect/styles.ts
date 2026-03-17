@@ -4,7 +4,7 @@ import { inputStyle, roundedStyle } from '@/constants';
 
 export type TSelectStyles = VariantProps<typeof selectStyles>;
 export const selectStyles = cva(
-    `h-9 appearance-none ${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} ${inputStyle.padding} pr-8`,
+    `h-9 appearance-none ${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} ${inputStyle.padding} pr-8 focus:ring-0`,
     {
         variants: {
             disabled: cbv(inputStyle.disabled),
