@@ -78,7 +78,7 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
             :max
             :disabled
             :value
-            class="border-none text-center focus:ring-0"
+            class="border-none bg-transparent text-center focus:ring-0"
             @input="updateValue"
         />
         <button

@@ -20,28 +20,22 @@
     html {
         @apply antialiased;
     }
-    :root {
-        --tw-ring-inset: ;
-    }
 }
 
 /* Utilities */
-@utility s-ring {
-    transition-duration: 150ms;
-    box-shadow: var(--tw-ring-inset,) 0 0 0 3px var(--color-spartan-primary-100);
-    border-color: var(--color-spartan-primary-300);
+@utility s-outline {
+    outline: 2px solid var(--color-spartan-primary-600);
+    outline-offset: 2px;
     z-index: 10;
 }
-@utility s-ring-secondary {
-    transition-duration: 150ms;
-    box-shadow: var(--tw-ring-inset,) 0 0 0 3px var(--color-gray-100);
-    border-color: var(--color-gray-300);
+@utility s-outline-secondary {
+    outline: 2px solid var(--color-gray-500);
+    outline-offset: 2px;
     z-index: 10;
 }
-@utility s-ring-error {
-    transition-duration: 150ms;
-    box-shadow: var(--tw-ring-inset,) 0 0 0 3px var(--color-red-200);
-    border-color: var(--color-red-500);
+@utility s-outline-error {
+    outline: 2px solid var(--color-red-500);
+    outline-offset: 2px;
     z-index: 10;
 }
 

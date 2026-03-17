@@ -4,7 +4,7 @@ import { SCN } from '@/constants';
 
 export type TComboboxStyles = VariantProps<typeof comboboxStyles>;
 export const comboboxStyles = cva(
-    ['relative bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 focus-visible:outline-none', SCN.focusWithinRingPrimary],
+    ['relative bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150', SCN.focusWithinRingPrimary],
     {
         variants: {
             rounded: roundedClass,

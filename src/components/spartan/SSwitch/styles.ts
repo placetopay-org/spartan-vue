@@ -8,7 +8,7 @@ export const switchContainerStyles = cva('flex items-center gap-3', {
 });
 
 export const switchTrackStyles = cva(
-    'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-spartan-primary-600 dark:ring-offset-gray-900',
+    'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-[color,background-color,border-color,outline-offset,outline-color] duration-200 ease-in-out outline-2 outline-offset-0 outline-transparent focus:s-outline',
     {
         variants: {
             active: cbv(

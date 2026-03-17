@@ -199,7 +199,7 @@ describe('SInput', () => {
             const { container } = render(SInput, { props: { error: true } });
             const wrapper = container.firstElementChild!;
 
-            expect(wrapper.className).toContain('s-ring-error');
+            expect(wrapper.className).toContain('s-outline-error');
         });
 
         test('Applies base border when error is false', () => {
@@ -513,14 +513,14 @@ describe('SInput', () => {
             const { container } = render(SInput);
             const wrapper = container.firstElementChild!;
 
-            expect(wrapper.className).toContain('s-ring');
+            expect(wrapper.className).toContain('s-outline');
         });
 
         test('Applies error focus ring when error', () => {
             const { container } = render(SInput, { props: { error: true } });
             const wrapper = container.firstElementChild!;
 
-            expect(wrapper.className).toContain('s-ring-error');
+            expect(wrapper.className).toContain('s-outline-error');
         });
 
         test('Borderless removes border but ring comes from error variant', () => {
@@ -529,7 +529,7 @@ describe('SInput', () => {
 
             expect(wrapper.className).toContain('border-0');
             // The focus ring is part of the error:false variant, so it's always present
-            expect(wrapper.className).toContain('s-ring');
+            expect(wrapper.className).toContain('s-outline');
         });
     });
 });

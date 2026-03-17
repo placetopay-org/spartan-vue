@@ -18,7 +18,7 @@ export const containerStyles = cva(`h-9 relative flex gap-2 ${inputStyle.root}`,
         {
             error: false,
             borderless: false,
-            class: inputStyle.ring,
+            class: inputStyle.ring.base,
         },
     ],
 });

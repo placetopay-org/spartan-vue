@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Home2Icon, Setting2Icon, ProfileCircleIcon, MessageQuestionIcon } from '@placetopay/iconsax-vue/bold';
+import { HomeIcon } from '@placetopay/iconsax-vue/outline';
+import { Setting2Icon, ProfileCircleIcon, MessageQuestionIcon } from '@placetopay/iconsax-vue/bold';
 import { usePreview } from '~/composables/usePreview';
 
 usePreview({ component: 'SSidebar' });
@@ -10,7 +11,7 @@ const active = ref('Dashboard');
 
 <template>
     <SSidebar v-model="active" :placetopay-header="true">
-        <SSidebarItem :icon="Home2Icon">Dashboard</SSidebarItem>
+        <SSidebarItem :icon="HomeIcon">Dashboard</SSidebarItem>
 
         <SSidebarItemGroup :icon="ProfileCircleIcon">
             <template #title>Users</template>
