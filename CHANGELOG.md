@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - `SSidebar` dark mode: separator lines now use `border-white/10` instead of the default white border for reduced contrast.
 - `SSidebar` dark mode: active item/group text and icons now use `dark:text-spartan-primary-400` for proper primary color visibility.
+- `SSelect` focus outline now correctly shows the orange `s-outline` instead of the browser's blue ring (caused by `@tailwindcss/forms` plugin). Added `focus:ring-0` to suppress it.
+- `STextarea` focus outline now correctly shows the orange `s-outline` instead of the browser's blue ring. Added `focus:ring-0` to suppress it.
+- `SInputOtp` active cell now uses `s-outline` (primary orange) instead of a gray/black ring. Compound variants for success/error states updated from `ring-*` to `outline-*` classes.
+- `SInputIncrement` dark mode: inner `<input>` background is now `bg-transparent` so it no longer renders a white box inside the dark container (caused by `@tailwindcss/forms` plugin forcing `background-color: white`).
+- `SInputDate` redesigned to be visually consistent with other Spartan inputs: `rounded-lg`, `bg-white dark:bg-white/5`, `text-gray-900 dark:text-gray-50`, `border-gray-300 dark:border-white/10`, `py-1.5` height, no shadow, no hover-border effect. Focus outline now uses `s-outline`. Dropdown trigger button styling updated to match library design language.
 
 ## [3.0.0-beta.5] - 2026-03-13
 ### Added
