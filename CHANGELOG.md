@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.0.0-beta.6] - 2026-03-17
 ### Fixed
 - `SSidebar` dark mode: separator lines now use `border-white/10` instead of the default white border for reduced contrast.
 - `SSidebar` dark mode: active item/group text and icons now use `dark:text-spartan-primary-400` for proper primary color visibility.
