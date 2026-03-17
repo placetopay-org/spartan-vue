@@ -4,7 +4,7 @@ import { createBooleanVariation as cbv } from '@/helpers';
 export const radioGroupStyles = cva('flex flex-col gap-3');
 
 export const radioGroupItemStyles = cva(
-    'relative flex cursor-pointer rounded-lg border bg-white dark:bg-white/5 p-4 shadow-sm focus:s-ring',
+    'relative flex cursor-pointer rounded-lg border bg-white dark:bg-white/5 p-4 shadow-sm outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150 focus:s-outline',
     {
         variants: {
             checked: {

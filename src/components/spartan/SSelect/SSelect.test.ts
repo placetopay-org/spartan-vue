@@ -241,7 +241,7 @@ describe('SSelect', () => {
             render(SSelect, { props: { error: true } });
             const select = screen.getByRole('combobox');
 
-            expect(select.className).toContain('focus-within:s-ring-error');
+            expect(select.className).toContain('focus-within:s-outline-error');
         });
 
         test('Does not apply error classes by default', () => {
@@ -249,7 +249,7 @@ describe('SSelect', () => {
             const select = screen.getByRole('combobox');
 
             expect(select.className).not.toContain('border-red-500');
-            expect(select.className).not.toContain('focus-within:s-ring-error');
+            expect(select.className).not.toContain('focus-within:s-outline-error');
         });
 
         test('Applies normal border when not in error state', () => {
@@ -263,7 +263,7 @@ describe('SSelect', () => {
             render(SSelect);
             const select = screen.getByRole('combobox');
 
-            expect(select.className).toContain('focus-within:s-ring');
+            expect(select.className).toContain('focus-within:s-outline');
         });
     });
 

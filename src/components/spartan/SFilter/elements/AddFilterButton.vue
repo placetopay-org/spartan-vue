@@ -46,7 +46,7 @@ const selectField = (id: string) => {
         <template #reference>
             <button
                 :disabled="!options?.length"
-                class="group focus:s-ring flex items-center gap-2 rounded-full border border-dashed border-gray-400 dark:border-gray-500 px-3 py-0.5 text-sm whitespace-nowrap text-gray-400 dark:text-gray-500 hover:border-gray-500 hover:text-gray-600 dark:hover:border-gray-400 dark:hover:text-gray-300 disabled:pointer-events-none disabled:opacity-50"
+                class="group outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150 focus:s-outline flex items-center gap-2 rounded-full border border-dashed border-gray-400 dark:border-gray-500 px-3 py-0.5 text-sm whitespace-nowrap text-gray-400 dark:text-gray-500 hover:border-gray-500 hover:text-gray-600 dark:hover:border-gray-400 dark:hover:text-gray-300 disabled:pointer-events-none disabled:opacity-50"
                 @click="openPopover"
             >
                 <AddIcon class="h-5 w-5" />

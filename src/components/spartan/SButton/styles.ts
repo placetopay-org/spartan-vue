@@ -17,24 +17,24 @@ const size: Record<'text' | 'noText', Record<TSizeVariant, string>> = {
 
 export type TButtonStyles = VariantProps<typeof buttonStyles> & { size: TSizeVariant };
 export const buttonStyles = cva(
-    'inline-flex items-center justify-center h-fit w-fit border font-medium transition focus:outline-none gap-2 box-border',
+    'inline-flex items-center justify-center h-fit w-fit border font-medium transition-[color,background-color,border-color,opacity,outline-offset,outline-color] duration-150 outline-2 outline-offset-0 outline-transparent gap-2 box-border',
     {
         variants: {
             variant: {
                 primary: [
-                    'text-white focus-within:s-ring',
+                    'text-white focus-within:s-outline',
                     'bg-spartan-primary-600 hover:bg-spartan-primary-700',
                     'border-spartan-primary-600 shadow-sm',
                 ],
                 secondary: [
-                    'text-gray-900 dark:text-gray-50 focus-within:s-ring-secondary',
+                    'text-gray-900 dark:text-gray-50 focus-within:s-outline-secondary',
                     'bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10',
-                    'border-gray-300 dark:border-white/10 focus:ring-gray-300 shadow-sm',
+                    'border-gray-300 dark:border-white/10 shadow-sm',
                 ],
                 danger: [
-                    'text-white focus-within:s-ring-error',
+                    'text-white focus-within:s-outline-error',
                     'bg-red-500 hover:bg-red-600',
-                    'border-red-500 focus:ring-red-300 shadow-sm',
+                    'border-red-500 shadow-sm',
                 ],
             },
             outline: cbv(),
