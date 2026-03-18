@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import { MenuItem } from '@headlessui/vue';
 import { twMerge } from 'tailwind-merge';
 import type { TDropdownItemProps } from './types';
+import { dropdownVariantKey } from './types';
+import { dropdownItemStyles } from './styles';
 import { hasSlotContent } from '@/helpers';
 
 defineProps<TDropdownItemProps>();
+
+const variant = inject(dropdownVariantKey, 'default');
 </script>
 
 <template>
@@ -18,7 +23,7 @@ defineProps<TDropdownItemProps>();
                 twMerge(
                     active && 'bg-gray-50 dark:bg-white/10',
                     disabled && 'pointer-events-none cursor-default select-text',
-                    'group flex w-full items-center gap-3 px-3 py-3 text-sm text-nowrap text-gray-700 dark:text-gray-300',
+                    dropdownItemStyles({ variant }),
                     $props.class,
                 )
             "
