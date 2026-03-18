@@ -340,6 +340,15 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15446-11314',
         },
+        {
+            name: 'SColorSwitch',
+            tests: 100,
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            docs: 'complete',
+        },
     ],
     typography: [
         {
