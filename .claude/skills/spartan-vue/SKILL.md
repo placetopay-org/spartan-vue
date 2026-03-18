@@ -17,17 +17,199 @@ Spartan Vue is a **Vue 3 component library** (68 components) by PlaceToPay. Pack
 
 **Stack**: Vue 3.5+, TailwindCSS v4, TypeScript, class-variance-authority (CVA), tailwind-merge.
 
-## Quick Reference
+---
 
-| Command | Purpose |
-|---------|---------|
-| `npm run dev` | Docs dev server |
-| `npm run build` | Full library build |
-| `npm run test` | Vitest watch mode |
-| `npx vitest run src/components/spartan/SName/SName.test.ts` | Single test |
-| `npm run foli` | Format + Lint |
+## Quick Start
 
-## Component Structure
+```bash
+npm install -D @placetopay/spartan-vue
+```
+
+```css
+/* styles.css */
+@import "@placetopay/spartan-vue/styles.css";
+@source '../src/**/*.{vue,js,ts}';
+```
+
+```ts
+// main.ts
+import './styles.css'
+import { createApp } from 'vue'
+import App from './App.vue'
+createApp(App).mount('#app')
+```
+
+```vue
+<script setup>
+import { SButton } from '@placetopay/spartan-vue'
+</script>
+
+<template>
+  <SButton variant="primary">Click me</SButton>
+</template>
+```
+
+For full installation details, read `references/consumer/installation-guide.md`.
+
+## Import Paths
+
+| Path | What it provides |
+|------|-----------------|
+| `@placetopay/spartan-vue` | All components + i18n helpers |
+| `@placetopay/spartan-vue/styles.css` | Complete styles (includes Inter font) |
+| `@placetopay/spartan-vue/styles/plugin.css` | Styles without Inter font |
+| `@placetopay/spartan-vue/styles/spartan-vue.css` | Component-only styles |
+| `@placetopay/spartan-vue/locales` | Translation files (es, en, pt, it, fr) |
+
+## Component Categories
+
+| Category | Components | Description |
+|----------|-----------|-------------|
+| **Data Input** | SInput, SSelect, SInputDate, SCombobox, STextarea, SInputAmount, SInputMask, SInputPassword, SInputIncrement, SInputOtp, SInputTag | Form fields for capturing user data |
+| **Selectors** | SCheckbox, SRadio, SRadioGroup, SSwitch, SSelector, SMultiSelector | Toggle and selection controls |
+| **Display** | SAlert, SBadge, SCard, SToast, SLink, SAvatar, SBreadcrumbs, SCaption, SSkeleton | Visual feedback and content display |
+| **Modals & Overlays** | SModal, SModalCard, SModalConfirm, SModalLeft, SModalSide, SPopover, STooltip, SDropdown | Overlays, dialogs, and floating UI |
+| **Structure & Layout** | SDTable, STable, SAccordion, STab, SPaginator, SSidebar, SSteps, SStackedList, SButtonGroup, STemplateHeaderTable | Page structure and data layout |
+| **Utilities** | SButton, SLabel, SFilter, SCopy, SColorSwitch | Actions, labels, and utility controls |
+| **Typography** | SPageTitle, SSectionTitle, SSectionDescription | Text heading components |
+
+**Block Variants**: Input components have `*Block` wrappers (SInputBlock, SSelectBlock, SComboboxBlock, etc.) that add label, help text, and error UI via BlockWrapper.
+
+For the complete API of every component (props, emits, slots), read `references/consumer/components-api.md`.
+
+---
+
+## Customization
+
+### Theme Colors
+
+Override the primary palette using CSS variables in `@theme`, placed **after** the Spartan `@import`:
+
+```css
+@import "@placetopay/spartan-vue/styles.css";
+@source '../src/**/*.{vue,js,ts}';
+
+@theme {
+  --color-spartan-primary-50:  rgb(228 242 253);
+  --color-spartan-primary-100: rgb(187 222 251);
+  /* ... 50 through 900 */
+  --color-spartan-primary-900: rgb(13 42 84);
+}
+```
+
+For the default palette values and all CSS utilities, read `references/consumer/theme-customization.md`.
+
+### Passthrough (pt) — Style Internal Elements
+
+Customize internal parts of a component using `pt:` attributes:
+
+```vue
+<!-- Class shorthand -->
+<SBadge pt:body="text-red-500 font-bold" />
+
+<!-- Attribute syntax -->
+<SCard pt:title:class="text-2xl" pt:title:data-testid="card-title" />
+
+<!-- Object prop -->
+<SDTable :pt="{ thead: { class: 'bg-gray-50 dark:bg-gray-800' } }" />
+```
+
+16 components support passthrough. For the complete key reference by component, read `references/consumer/passthrough-reference.md`.
+
+### Internationalization (i18n)
+
+Components with internal text (SDTable, SFilter, SModalConfirm, etc.) use `vue-i18n`:
+
+```ts
+import { createI18n } from 'vue-i18n'
+import { es, en } from '@placetopay/spartan-vue/locales'
+
+const i18n = createI18n({
+  legacy: false,  // Required for Composition API
+  locale: 'en',
+  messages: { es, en },
+})
+
+app.use(i18n)
+```
+
+5 languages supported: es, en, pt, it, fr. For helpers and component-to-key mapping, read `references/consumer/i18n-guide.md`.
+
+---
+
+## Key Patterns
+
+### v-model Binding
+
+Form components use `modelValue` + `update:modelValue`:
+
+```vue
+<SInput v-model="name" placeholder="Enter name" />
+<SCheckbox v-model="agreed">I agree</SCheckbox>
+<SSelect v-model="country">
+  <option value="CO">Colombia</option>
+</SSelect>
+```
+
+### Polymorphic `as` Prop
+
+Components can render as different HTML elements or Vue components:
+
+```vue
+<SButton>Click me</SButton>                    <!-- renders <button> -->
+<SButton as="a" href="/next">Link</SButton>     <!-- renders <a> -->
+<SButton :as="RouterLink" to="/dashboard">Nav</SButton>
+```
+
+### Form States
+
+All form components accept `disabled` and `error` props:
+
+```vue
+<SInput v-model="email" :error="!isValid" disabled />
+```
+
+`error` shows a red border and red focus ring. `disabled` applies reduced opacity.
+
+### Block Variants
+
+Block variants add label, help text, and error message UI around a form component:
+
+```vue
+<SInputBlock
+  v-model="email"
+  label="Email"
+  help="We'll never share your email"
+  error="Invalid email format"
+/>
+```
+
+Available blocks: SInputBlock, SSelectBlock, SComboboxBlock, SInputDateBlock, STextAreaBlock, SInputAmountBlock, SInputMaskBlock, SInputPasswordBlock, SInputIncrementBlock, SInputOtpBlock, SSelectorBlock, SCustomBlock.
+
+### Dark Mode
+
+All components support dark mode automatically. Spartan defines `@custom-variant dark (&:where(.dark, .dark *))`. Just add `class="dark"` to your root `<html>` element.
+
+### Icons
+
+Components accepting icons use `FunctionalComponent` type props:
+
+```vue
+<script setup>
+import { AddIcon } from '@placetopay/iconsax-vue/bold'
+</script>
+
+<SButton :icon="AddIcon">Add item</SButton>
+<SAlert :icon="AddIcon" title="Success" color="success" />
+```
+
+---
+
+## For Contributors
+
+This section covers patterns for developing inside the Spartan Vue repository.
+
+### Repository Structure
 
 Every component lives in `src/components/spartan/S{Name}/`:
 
@@ -40,237 +222,31 @@ SButton/
 └── index.ts           # Re-exports
 ```
 
-## Core Patterns
+### Commands
 
-### 1. Vue 3.5+ Reactive Destructuring (NO withDefaults)
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Docs dev server |
+| `npm run build` | Full library build |
+| `npm run test` | Vitest watch mode |
+| `npx vitest run src/components/spartan/SName/SName.test.ts` | Single test |
+| `npm run foli` | Format + Lint |
+| `npm run typecheck` | TypeScript type checking |
 
-```typescript
-// CORRECT — reactive destructuring with inline defaults
-const {
-    as = 'button',
-    variant = 'primary',
-    size = 'md',
-    disabled,
-    loading,
-    class: propClass,
-} = defineProps<TButtonProps>();
-```
+### Code Patterns
 
-Never use `withDefaults()` — destructure props directly with `= default` syntax.
+- **Vue 3.5+**: Reactive destructuring with defaults for `defineProps` (no `withDefaults`)
+- **Same-name shorthand**: `:id` instead of `:id="id"` in templates
+- **CVA styling**: All variants in `styles.ts` using `class-variance-authority` + `createBooleanVariation`
+- **Bilingual JSDoc**: `@en` and `@es` tags on all prop types
 
-### 2. Same-Name Shorthand for v-bind
+For detailed contributor guides:
+- **Styling & CVA**: `references/contributor/styling-guide.md`
+- **Testing**: `references/contributor/testing-guide.md`
+- **Documentation site**: `references/contributor/docs-guide.md`
+- **Component catalog (internals)**: `references/contributor/components-catalog.md`
 
-```vue
-<!-- CORRECT -->
-<ComboboxInput :id :disabled :class="twMerge(styles)" />
-
-<!-- AVOID — redundant -->
-<ComboboxInput :id="id" :disabled="disabled" />
-```
-
-### 3. CVA Styling (class-variance-authority)
-
-All variants live in `styles.ts`. Never use inline conditional classes.
-
-```typescript
-import { cva, type VariantProps } from 'class-variance-authority';
-import { createBooleanVariation as cbv } from '@/helpers';
-
-export const buttonStyles = cva(
-    'inline-flex items-center justify-center font-medium transition',
-    {
-        variants: {
-            variant: {
-                primary: 'bg-spartan-primary-600 text-white hover:bg-spartan-primary-700',
-                secondary: 'bg-white dark:bg-white/5 text-gray-900 dark:text-gray-50',
-                danger: 'bg-red-600 text-white hover:bg-red-700',
-            },
-            disabled: cbv('opacity-50 pointer-events-none'),
-            outline: cbv(),
-        },
-        compoundVariants: [
-            { variant: 'primary', outline: true, class: 'bg-transparent text-spartan-primary-600 border-spartan-primary-600' },
-        ],
-    },
-);
-
-export type TButtonStyles = VariantProps<typeof buttonStyles>;
-```
-
-Usage in component:
-```typescript
-const rootClass = computed(() => twMerge(buttonStyles({ variant, disabled }), propClass));
-```
-
-The `cbv()` helper (`createBooleanVariation`) creates `{ true: classes, false: '' }` variants.
-
-### 4. usePassthrough() — Deep Customization
-
-Allows parent components to style internal elements via `pt:*` attributes:
-
-```typescript
-// In component
-const { pt, extractor } = usePassthrough();
-const [bodyClass, bodyProps] = extractor(pt.value.body);
-```
-
-```vue
-<!-- Consumer usage -->
-<SBadge pt:body="text-red-500" />
-<SBadge pt:body:class="text-red-500" pt:body:data-custom="value" />
-<SBadge :pt="{ body: { class: 'text-red-500' } }" />
-```
-
-### 5. Polymorphic `as` Prop
-
-Components can render as different HTML elements or Vue components:
-
-```vue
-<SButton>Click me</SButton>               <!-- renders <button> -->
-<SButton as="a" href="/next">Link</SButton> <!-- renders <a> -->
-<SButton :as="RouterLink" to="/next">Nav</SButton> <!-- renders <RouterLink> -->
-```
-
-### 6. Types with Bilingual JSDoc
-
-```typescript
-export type TButtonProps = {
-    /**
-     * @en The visual variant of the button.
-     * @es La variante visual del botón.
-     */
-    variant?: NonNullable<TButtonStyles['variant']>;
-};
-```
-
-### 7. Dark Mode
-
-All components support dark mode via Tailwind's `dark:` prefix in CVA definitions:
-```typescript
-'bg-white dark:bg-white/5 text-gray-900 dark:text-gray-50 border-gray-300 dark:border-white/10'
-```
-
-### 8. i18n
-
-Components with internal text use `vue-i18n` under the `$spartan` namespace. Translations in `src/locales/{en,es,fr,it,pt}.json`. In tests, i18n is globally mocked — `useI18n().t(key)` returns the key string.
-
-## Component Categories & Key Components
-
-| Category | Key Components |
-|----------|---------------|
-| **Data Input** | SInput, SSelect, SInputDate, SCombobox, STextarea, SInputAmount, SInputMask, SInputPassword |
-| **Selectors** | SCheckbox, SRadio, SSwitch, SRadioGroup, SSelector, SMultiSelector |
-| **Display** | SAlert, SBadge, SCard, SToast, SAvatar, SBreadcrumbs, SLink |
-| **Modals** | SModal, SPopover, STooltip, SDropdown, SModalCard, SModalConfirm |
-| **Structure** | SDTable, STable, SAccordion, STab, SPaginator, SSidebar, SSteps |
-| **Utilities** | SButton, SLabel, SFilter, SCopy |
-| **Typography** | SPageTitle, SSectionTitle, SSectionDescription |
-
-**Block Variants**: Input components have `*Block` wrappers (SInputBlock, SSelectBlock, etc.) that add label/help/error UI via `BlockWrapper`.
-
-For detailed props, variants, and slots of each component, read `references/components-catalog.md`.
-
-## Testing Patterns
-
-Framework: **Vitest** with `jsdom`, `@testing-library/vue`, globals enabled.
-
-```typescript
-import { render } from '@testing-library/vue';
-import { screen } from '@testing-library/dom';
-import userEvent from '@testing-library/user-event';
-import SButton from './SButton.vue';
-
-describe('SButton', () => {
-    test('renders with primary variant by default', () => {
-        render(SButton, { slots: { default: 'Click me' } });
-        const button = screen.getByRole('button', { name: 'Click me' });
-        expect(button.className).toContain('bg-spartan-primary-600');
-    });
-
-    test('emits click and handles disabled', async () => {
-        const user = userEvent.setup();
-        render(SButton, { props: { disabled: true }, slots: { default: 'Disabled' } });
-        const button = screen.getByRole('button');
-        expect(button).toBeDisabled();
-    });
-
-    test('supports dark mode classes', () => {
-        render(SButton, { props: { variant: 'secondary' }, slots: { default: 'Dark' } });
-        const button = screen.getByRole('button');
-        expect(button.className).toContain('dark:bg-white/5');
-    });
-});
-```
-
-Key patterns:
-- `render(Component, { props, slots, attrs })` — render with options
-- `screen.getByRole()`, `screen.getByText()` — DOM queries
-- `userEvent.setup()` then `user.type()`, `user.click()` — interactions
-- `emitted()['update:modelValue']` — capture emitted events
-- `rerender({ newProp })` — update props
-- `container.firstElementChild` — access wrapper for class assertions
-- Test both light AND dark mode classes from CVA
-
-For comprehensive testing reference, read `references/testing-guide.md`.
-
-## Documentation Site (Nuxt 4)
-
-Docs live in `docs/`. Each component needs bilingual markdown + Vue example files.
-
-### File Structure
-- Content: `docs/content/{en,es}/2.components/{category}/{n}.{slug}.md`
-- Examples: `docs/examples/SName/{example}.vue`
-- Status: `docs/app/data/componentStatus.ts` (tests = coverage %, not count)
-
-### usePreview Composable
-
-Example files call `usePreview()` to create interactive controls:
-
-**Playground mode** (first/Usage example — full sandbox):
-```typescript
-const { controls, slots } = usePreview({
-    mode: 'playground',
-    component: 'SButton',
-    props: {
-        variant: { type: 'select', options: ['primary', 'secondary', 'danger'], default: 'primary' },
-        disabled: { type: 'boolean', default: false },
-    },
-    slots: {
-        default: { default: 'Click me', label: 'Label' },
-    },
-});
-```
-
-**Feature mode** (subsequent examples — minimal pill bar):
-```typescript
-const { controls } = usePreview({
-    props: {
-        size: { type: 'select', options: ['sm', 'md', 'lg'], default: 'md', label: 'size' },
-    },
-});
-```
-
-### Markdown with ::component-preview
-
-```markdown
-# Usage
-
-::component-preview{file="SButton/basic"}
-::
-
-## Variants
-
-::component-preview{file="SButton/variants"}
-::
-```
-
-Static `` ```vue `` blocks do NOT render live components — always use `::component-preview`.
-
-For icons in examples, import from `@placetopay/iconsax-vue/bold` (only bold reliably available).
-
-For full documentation reference, read `references/docs-guide.md`.
-
-## Path Aliases
+### Path Aliases
 
 | Alias | Path |
 |-------|------|
@@ -278,40 +254,6 @@ For full documentation reference, read `references/docs-guide.md`.
 | `@spartan*` | `./src/components/spartan` |
 | `@internal*` | `./src/components/internal` |
 
-## Key Dependencies
-
-| Library | Purpose | Used By |
-|---------|---------|---------|
-| `@headlessui/vue` | Accessible primitives | SCheckbox, SRadio, SSwitch, SDropdown, modals |
-| `@floating-ui/vue` | Positioning | SPopover, STooltip, SDropdown |
-| `@tanstack/vue-table` | Data table engine | SDTable |
-| `@vuepic/vue-datepicker` | Date picker | SInputDate |
-| `class-variance-authority` | Type-safe variants | All styled components |
-| `tailwind-merge` | Smart class merging | All styled components |
-| `zod` | Schema validation | Optional |
-| `imask` | Input masking | SInputMask |
-
-## Internal Components
-
-Shared components in `src/components/internal/`:
-- **BlockWrapper** — Label + help + error UI for form blocks
-- **InputContainer** — Shared form input styling
-- **Transitions** — FadeTransition, SlideTransition
-- **Loader** — Loading spinner
-- **Wrapper** — Polymorphic container (`as` prop)
-
-## Code Style
-
-- **Prettier**: Single quotes, 4-space indent, 120 chars, Tailwind class sorting
-- **ESLint**: `vue/vue3-recommended` + `@typescript-eslint/recommended`
-- `@typescript-eslint/no-explicit-any` is OFF
-
-## Build Pipeline
+### Build Pipeline
 
 `npm run build` = Vite (per-component) → vue-tsc (types) → Rollup (plugin) → copy locales → copy CSS → sanitize.
-
-Each component gets its own entry point for tree-shaking:
-```typescript
-import { SButton } from '@placetopay/spartan-vue';
-import '@placetopay/spartan-vue/styles.css';
-```

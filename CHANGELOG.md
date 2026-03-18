@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- New component `SColorSwitch` for toggling between light and dark themes.
 - `SDropdown` now supports `variant` prop with `'default'` and `'compact'` options for tighter spacing without dividers between items.
 - `SDropdown` styles extracted to `styles.ts` using Class Variance Authority for better maintainability.
 
