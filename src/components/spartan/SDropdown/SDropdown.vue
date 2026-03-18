@@ -12,11 +12,15 @@ export default {
 import { SPopover } from '../SPopover';
 import { Menu, MenuItems } from '@headlessui/vue';
 import type { TDropdownProps } from './types';
+import { dropdownVariantKey } from './types';
+import { dropdownStyles } from './styles';
 import { twMerge } from 'tailwind-merge';
-import { ref, computed } from 'vue';
+import { ref, computed, provide } from 'vue';
 import { focusFirstChild } from '@/helpers';
 
-const { manual } = defineProps<TDropdownProps>();
+const { manual, variant = 'default' } = defineProps<TDropdownProps>();
+
+provide(dropdownVariantKey, variant);
 
 defineOptions({ inheritAttrs: false });
 
@@ -59,12 +63,7 @@ const closeCallback = () => {
             <Menu>
                 <MenuItems
                     static
-                    :class="
-                        twMerge(
-                            'divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-2xl ring-1 ring-gray-100 dark:ring-white/10 focus:outline-none',
-                            floatingClass,
-                        )
-                    "
+                    :class="twMerge(dropdownStyles({ variant }), floatingClass)"
                     @click="closeCallback"
                 >
                     <slot />

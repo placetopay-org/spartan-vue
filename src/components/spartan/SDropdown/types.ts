@@ -1,5 +1,8 @@
-import type { FunctionalComponent } from 'vue';
+import type { FunctionalComponent, InjectionKey } from 'vue';
 import type { TPopoverProps } from '../SPopover';
+import type { TDropdownStyles } from './styles';
+
+export const dropdownVariantKey: InjectionKey<NonNullable<TDropdownStyles['variant']>> = Symbol('dropdown-variant');
 
 export type TDropdownProps = {
     /**
@@ -19,6 +22,12 @@ export type TDropdownProps = {
      * @es Deshabilita el comportamiento automático de abrir/cerrar. Use los métodos expuestos para controlar programáticamente.
      */
     manual?: boolean;
+
+    /**
+     * @en Visual variant. Use `compact` for tighter spacing without dividers.
+     * @es Variante visual. Usa `compact` para un espaciado más compacto sin divisores.
+     */
+    variant?: NonNullable<TDropdownStyles['variant']>;
 } & TPopoverProps;
 
 export type TDropdownItemProps = {
