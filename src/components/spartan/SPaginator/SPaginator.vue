@@ -265,9 +265,12 @@ const getLaravelAsLinksProps = (pageItem?: string | number) => {
 <template>
     <div
         v-if="!hideWhenSinglePage || (vCount && vCount > 1)"
-        :class="twMerge('flex flex-1 items-center justify-between gap-8', $props.class)"
+        :class="twMerge('flex flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8', $props.class)"
     >
-        <div v-if="vPageSizes" class="flex items-center gap-1 text-sm text-gray-700">
+        <div
+            v-if="vPageSizes"
+            class="flex w-full flex-wrap items-center justify-center gap-1 text-center text-sm text-gray-700 sm:w-auto sm:justify-start sm:text-left"
+        >
             <span>{{ t('showing') }}</span>
 
             <SSelect class="h-8 text-xs" :model-value="vSize" @update:model-value="updateSize">
@@ -282,8 +285,8 @@ const getLaravelAsLinksProps = (pageItem?: string | number) => {
             </template>
             <span>{{ t('results') }}</span>
         </div>
-        <div>
-            <SButtonGroup aria-label="pagination">
+        <div class="w-full sm:w-auto">
+            <SButtonGroup class="w-full flex-wrap justify-center sm:w-auto sm:flex-nowrap sm:justify-end" aria-label="pagination">
                 <SButtonGroupItem
                     first
                     prev
@@ -296,10 +299,9 @@ const getLaravelAsLinksProps = (pageItem?: string | number) => {
                     <SButtonGroupItem
                         v-for="pageItem in vPages"
                         :key="pageItem"
-                        class="px-4"
+                        :class="['px-4', String(pageItem) === '...' ? 'pointer-events-none' : '']"
                         v-bind="getLaravelAsLinksProps(pageItem)"
                         :active="Number(pageItem) === vPage"
-                        :class="String(pageItem) === '...' ? 'pointer-events-none' : ''"
                     >
                         {{ pageItem }}
                     </SButtonGroupItem>
