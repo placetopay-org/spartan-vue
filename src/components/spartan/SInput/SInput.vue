@@ -35,6 +35,9 @@ const props = withDefaults(defineProps<Partial<TInputProps>>(), {
 const leftContent = computed(() => buildSideContent('left', props.leftOrderSlots, props, emit));
 const rightContent = computed(() => buildSideContent('right', props.rightOrderSlots, props, emit));
 
+const hasLeftAddon = computed(() => !!(props.leftIcon || props.prefix || props.leftOptions));
+const hasRightAddon = computed(() => !!(props.rightIcon || props.suffix || props.rightOptions));
+
 const message = (component: string, type: string) => {
     return `The <${component} /> component should be used instead of the <SInput type="${type}"/>`;
 };
@@ -58,8 +61,8 @@ defineExpose({ inputElement });
                     error,
                     disabled,
                     rounded,
-                    leftOptions: !!leftOptions,
-                    rightOptions: !!rightOptions,
+                    hasLeftAddon: hasLeftAddon,
+                    hasRightAddon: hasRightAddon,
                     borderless,
                 }),
                 type === 'hidden' && 'hidden',
@@ -81,7 +84,7 @@ defineExpose({ inputElement });
             :id
             ref="inputElement"
             :value="modelValue"
-            :class="twMerge(inputStyles({ rounded }), $props.inputClass)"
+            :class="twMerge(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"
