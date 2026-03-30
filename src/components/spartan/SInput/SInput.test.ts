@@ -381,22 +381,22 @@ describe('SInput', () => {
             expect(emitted()['update:leftOption'][0]).toEqual(['2']);
         });
 
-        test('Removes left padding when leftOptions is set', () => {
+        test('Applies left padding on container when leftOptions is set', () => {
             const { container } = render(SInput, {
                 props: { leftOptions: options, leftOption: '1' },
             });
             const wrapper = container.firstElementChild!;
 
-            expect(wrapper.className).toContain('pl-0');
+            expect(wrapper.className).toContain('pl-3');
         });
 
-        test('Removes right padding when rightOptions is set', () => {
+        test('Applies right padding on container when rightOptions is set', () => {
             const { container } = render(SInput, {
                 props: { rightOptions: options, rightOption: '1' },
             });
             const wrapper = container.firstElementChild!;
 
-            expect(wrapper.className).toContain('pr-0');
+            expect(wrapper.className).toContain('pr-3');
         });
 
         test('Selector has dark mode styling', () => {
