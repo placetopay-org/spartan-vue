@@ -1,3 +1,14 @@
+<script lang="ts">
+/**
+ * A custom dropdown selector with search, clear, and grouped options support.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SSelector Github}.
+ * @see {@link https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13097-22397 Figma}.
+ */
+export default {
+    name: 'SSelector',
+};
+</script>
+
 <script setup lang="ts">
 import { usePassthrough } from '@/helpers';
 import type { TSelectorProps, TSelectorEmits, TOption } from './types';

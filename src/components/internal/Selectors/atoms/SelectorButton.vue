@@ -35,11 +35,11 @@ defineExpose<{
     >
         <slot />
 
-        <div class="-mr-1 ml-auto flex gap-1 text-gray-400">
+        <div class="ml-auto flex gap-1 text-gray-400">
             <button v-if="showClearButton" class="group" @click.stop="$emit('clear')">
-                <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600" />
+                <XMarkIcon class="h-5 w-5 shrink-0 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
             </button>
-            <Loader v-if="loading" variant="simple" class="h-5 w-5 shrink-0" />
+            <Loader v-if="loading" variant="simple" class="size-[22px] shrink-0" />
             <ChevronDownIcon v-else class="h-5 w-5 shrink-0" />
         </div>
     </button>

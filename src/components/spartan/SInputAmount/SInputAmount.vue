@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A currency-aware numeric input with formatting, locale support, and currency selector.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SInputAmount Github}.
+ */
+export default {
+    name: 'SInputAmount',
+};
+</script>
+
 <script setup lang="ts">
 import { SInput, type TInputProps } from '../SInput';
 import { computed, ref, watch } from 'vue';

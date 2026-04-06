@@ -2,13 +2,15 @@
 import { twMerge } from 'tailwind-merge';
 import type { TSectionTitleProps } from './types';
 
-withDefaults(defineProps<TSectionTitleProps>(), {
-    as: 'h3',
-});
+const { as = 'h3' } = defineProps<TSectionTitleProps>();
 </script>
 
 <template>
-    <component :is="as" :class="twMerge('text-base font-semibold text-gray-900', $props.class)">
+    <component
+        :is="as"
+        data-s-section-title
+        :class="twMerge('text-base font-semibold text-gray-900 dark:text-white', $props.class)"
+    >
         <slot />
     </component>
 </template>

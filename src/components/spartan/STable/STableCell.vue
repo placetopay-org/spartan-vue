@@ -12,8 +12,8 @@ defineProps<{
     <td
         :class="
             twMerge(
-                'p-3.5 text-sm text-gray-500 first:pl-5 last:pr-5',
-                highlight && 'font-medium text-gray-900',
+                'p-3.5 text-sm text-gray-500 first:pl-5 last:pr-5 dark:text-gray-400',
+                highlight && 'font-medium text-gray-900 dark:text-white',
                 $props.class,
             )
         "

@@ -18,7 +18,7 @@ const vActive = computed(() => {
     if (active || vRegex.value.test(context.modelValue)) return true;
 
     if (dropdown && Object.keys(context.dropdowns).length) {
-        for (const reg of context.dropdowns[vPath.value]) {
+        for (const reg of context.dropdowns[vPath.value] ?? []) {
             if (reg.test(context.modelValue)) {
                 return true;
             }
@@ -49,8 +49,8 @@ onMounted(() => {
                 :type="as === 'button' ? 'button' : undefined"
                 :class="[
                     vActive
-                        ? 'border-spartan-primary-500 text-gray-900'
-                        : 'border-transparent text-gray-400 hover:text-gray-800',
+                        ? 'border-spartan-primary-500 text-gray-900 dark:text-white'
+                        : 'border-transparent text-gray-400 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200',
                     'group inline-flex items-center gap-1 border-b-2 px-4 py-2 text-sm font-medium',
                     $props.class,
                 ]"
@@ -60,15 +60,20 @@ onMounted(() => {
                     :is="icon"
                     v-if="icon"
                     :class="[
-                        vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
-                        '-ml-0.5 mr-2 h-5 w-5',
+                        vActive
+                            ? 'text-spartan-primary-500'
+                            : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300',
+                        'mr-2 -ml-0.5 h-5 w-5',
                     ]"
                     aria-hidden="true"
                 />
                 <slot />
                 <ChevronDownIcon
                     v-if="dropdown"
-                    :class="['h-5 w-5 text-gray-400', vActive ? 'text-gray-900' : 'group-hover:text-gray-500']"
+                    :class="[
+                        'h-5 w-5 text-gray-400',
+                        vActive ? 'text-gray-900 dark:text-white' : 'group-hover:text-gray-500',
+                    ]"
                 />
             </component>
         </template>
@@ -86,8 +91,8 @@ onMounted(() => {
         :type="as === 'button' ? 'button' : undefined"
         :class="[
             vActive
-                ? 'border-spartan-primary-500 text-gray-900'
-                : 'border-transparent text-gray-400 hover:text-gray-800',
+                ? 'border-spartan-primary-500 text-gray-900 dark:text-white'
+                : 'border-transparent text-gray-400 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200',
             'group inline-flex items-center gap-1 border-b-2 px-4 py-2 text-sm font-medium',
             $props.class,
         ]"
@@ -99,8 +104,10 @@ onMounted(() => {
             :is="icon"
             v-if="icon"
             :class="[
-                vActive ? 'text-spartan-primary-500' : 'text-gray-400 group-hover:text-gray-500',
-                '-ml-0.5 mr-2 h-5 w-5',
+                vActive
+                    ? 'text-spartan-primary-500'
+                    : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300',
+                'mr-2 -ml-0.5 h-5 w-5',
             ]"
             aria-hidden="true"
         />

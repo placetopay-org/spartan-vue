@@ -4,7 +4,7 @@ import { SCN } from '@/constants';
 
 export type TComboboxStyles = VariantProps<typeof comboboxStyles>;
 export const comboboxStyles = cva(
-    ['relative bg-white border border-gray-300 focus-visible:outline-none', SCN.focusWithinRingPrimary],
+    ['relative bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150', SCN.focusWithinRingPrimary],
     {
         variants: {
             rounded: roundedClass,
@@ -15,7 +15,7 @@ export const comboboxStyles = cva(
 );
 
 export const comboboxInputStyles = cva(
-    'w-full border-none py-2 pl-3 pr-8 text-sm text-gray-900 focus:ring-0 disabled:pointer-events-none',
+    'w-full border-none py-2 pl-3 pr-8 text-sm text-gray-900 dark:text-gray-50 focus:ring-0 disabled:pointer-events-none',
     {
         variants: { rounded: roundedClass },
     },

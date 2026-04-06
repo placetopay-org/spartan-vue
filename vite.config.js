@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
 import { componentsEntryMap } from './scripts/components';
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,7 +29,6 @@ export default defineConfig({
                 // '@headlessui/vue',
                 // '@heroicons/vue',
                 // '@tanstack/vue-table',
-                //'@vuepic/vue-datepicker',  TODO: Review this package
                 // 'lodash',  TODO: Review this package and use tree-shaking
                 // 'vue-currency-input',
                 // 'vue-imask',
@@ -42,7 +41,6 @@ export default defineConfig({
                     // '@headlessui/vue': 'HeadlessUI',
                     // '@heroicons/vue': 'Heroicons',
                     // '@tanstack/vue-table': 'VueTable',
-                    // '@vuepic/vue-datepicker': 'VueDatepickerTW3',
                     // 'vue-currency-input': 'VueCurrencyInput',
                     // 'vue-imask': 'VueIMask',
                 },

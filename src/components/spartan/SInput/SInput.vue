@@ -35,6 +35,9 @@ const props = withDefaults(defineProps<Partial<TInputProps>>(), {
 const leftContent = computed(() => buildSideContent('left', props.leftOrderSlots, props, emit));
 const rightContent = computed(() => buildSideContent('right', props.rightOrderSlots, props, emit));
 
+const hasLeftAddon = computed(() => !!(props.leftIcon || props.prefix || props.leftOptions));
+const hasRightAddon = computed(() => !!(props.rightIcon || props.suffix || props.rightOptions));
+
 const message = (component: string, type: string) => {
     return `The <${component} /> component should be used instead of the <SInput type="${type}"/>`;
 };
@@ -58,8 +61,8 @@ defineExpose({ inputElement });
                     error,
                     disabled,
                     rounded,
-                    leftOptions: !!leftOptions,
-                    rightOptions: !!rightOptions,
+                    hasLeftAddon: hasLeftAddon,
+                    hasRightAddon: hasRightAddon,
                     borderless,
                 }),
                 type === 'hidden' && 'hidden',
@@ -81,7 +84,7 @@ defineExpose({ inputElement });
             :id
             ref="inputElement"
             :value="modelValue"
-            :class="twMerge(inputStyles({ rounded }), $props.inputClass)"
+            :class="twMerge(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"
@@ -108,5 +111,21 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
     -webkit-text-fill-color: #111827;
     -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
+}
+
+@media (prefers-color-scheme: dark) {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        -webkit-text-fill-color: #f3f4f6;
+        -webkit-box-shadow: 0 0 0px 40rem #111827 inset;
+    }
+}
+
+:is(.dark) input:-webkit-autofill,
+:is(.dark) input:-webkit-autofill:hover,
+:is(.dark) input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f3f4f6;
+    -webkit-box-shadow: 0 0 0px 40rem #111827 inset;
 }
 </style>

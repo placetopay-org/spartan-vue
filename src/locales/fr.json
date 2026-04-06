@@ -37,10 +37,17 @@
             "searchPlaceholder": "Rechercher dans toutes les colonnes"
         },
         "inputDate": {
-            "select": "Sélectionner",
-            "cancel": "Annuler",
-            "now": "Maintenant",
-            "week": "W"
+            "dayNames": "Dimanche,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi",
+            "dayNamesShort": "Dim,Lun,Mar,Mer,Jeu,Ven,Sam",
+            "dayNamesMin": "Di,Lu,Ma,Me,Je,Ve,Sa",
+            "monthNames": "Janvier,Février,Mars,Avril,Mai,Juin,Juillet,Août,Septembre,Octobre,Novembre,Décembre",
+            "monthNamesShort": "Jan,Fév,Mar,Avr,Mai,Jun,Jul,Aoû,Sep,Oct,Nov,Déc",
+            "today": "Aujourd'hui",
+            "clear": "Effacer",
+            "chooseYear": "Choisir année",
+            "chooseMonth": "Choisir mois",
+            "chooseDate": "Choisir date",
+            "firstDayOfWeek": "1"
         },
         "filter": {
             "addBtn": "Ajouter",
@@ -52,6 +59,7 @@
             "fieldSelectorNotResults": "Aucun résultat trouvé",
             "fieldSelectorPlaceholder": "Sélectionnez un champ",
             "inputSelectorPlaceholder": "Écrivez une valeur",
+            "dateRangePlaceholder": "Sélectionnez une plage de dates",
             "no": "Non",
             "notFoundFieldText": "Aucun filtre enregistré trouvé",
             "operator": {

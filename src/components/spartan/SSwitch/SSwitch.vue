@@ -2,6 +2,15 @@
 import { computed } from 'vue';
 import { Switch, SwitchGroup, SwitchLabel, SwitchDescription } from '@headlessui/vue';
 import { hasSlotContent } from '@/helpers';
+import {
+    switchContainerStyles,
+    switchTrackStyles,
+    switchKnobStyles,
+    switchIconOffStyles,
+    switchIconOnStyles,
+    switchLabelStyles,
+    switchDescriptionStyles,
+} from './styles';
 import type { TSwitchEmits, TSwitchProps } from './types';
 
 const emit = defineEmits<TSwitchEmits>();
@@ -24,29 +33,11 @@ const toggle = () => {
 </script>
 
 <template>
-    <SwitchGroup as="div" :class="['flex items-center gap-3', reverse ? 'flex-row-reverse justify-between' : '']">
-        <Switch
-            v-model="model"
-            :class="[
-                model ? 'bg-spartan-primary-600' : 'bg-gray-200',
-                'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-spartan-primary-600 focus:ring-offset-2',
-            ]"
-        >
-            <span
-                aria-hidden="true"
-                :class="[
-                    model ? 'translate-x-5' : 'translate-x-0',
-                    'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
-                ]"
-            >
+    <SwitchGroup as="div" :class="switchContainerStyles({ reverse })">
+        <Switch v-model="model" :class="switchTrackStyles({ active: model })">
+            <span aria-hidden="true" :class="switchKnobStyles({ active: model })">
                 <template v-if="icon || iconOff || iconOn">
-                    <span
-                        :class="[
-                            model ? 'opacity-0 duration-100 ease-out' : 'opacity-100 duration-200 ease-in',
-                            'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
-                        ]"
-                        aria-hidden="true"
-                    >
+                    <span :class="switchIconOffStyles({ active: model })" aria-hidden="true">
                         <component :is="iconOff" v-if="iconOff" class="h-3 w-3 text-gray-400" />
                         <template v-if="icon">
                             <svg
@@ -66,18 +57,12 @@ const toggle = () => {
                             <component :is="icon" v-else class="h-3 w-3 text-gray-400" />
                         </template>
                     </span>
-                    <span
-                        :class="[
-                            model ? 'opacity-100 duration-200 ease-in' : 'opacity-0 duration-100 ease-out',
-                            'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
-                        ]"
-                        aria-hidden="true"
-                    >
-                        <component :is="iconOn" v-if="iconOff" class="h-3 w-3 text-spartan-primary-600" />
+                    <span :class="switchIconOnStyles({ active: model })" aria-hidden="true">
+                        <component :is="iconOn" v-if="iconOff" class="h-3 w-3 text-spartan-primary-600 dark:text-gray-400" />
                         <template v-if="icon">
                             <svg
                                 v-if="typeof icon === 'boolean'"
-                                class="h-3 w-3 text-spartan-primary-600"
+                                class="h-3 w-3 text-spartan-primary-600 dark:text-gray-400"
                                 fill="currentColor"
                                 viewBox="0 0 12 12"
                             >
@@ -85,7 +70,7 @@ const toggle = () => {
                                     d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"
                                 />
                             </svg>
-                            <component :is="icon" v-else class="h-3 w-3 text-spartan-primary-600" />
+                            <component :is="icon" v-else class="h-3 w-3 text-spartan-primary-600 dark:text-gray-400" />
                         </template>
                     </span>
                 </template>
@@ -95,15 +80,15 @@ const toggle = () => {
             <SwitchLabel
                 v-if="hasSlotContent($slots.default)"
                 as="span"
-                class="flex flex-col text-sm font-medium text-gray-700"
-                :passive="passive"
+                :class="switchLabelStyles()"
+                :passive
             >
                 <slot />
             </SwitchLabel>
             <SwitchDescription
                 v-if="hasSlotContent($slots.description)"
                 as="span"
-                class="text-sm text-gray-500"
+                :class="switchDescriptionStyles()"
                 @click="toggle"
             >
                 <slot name="description" />

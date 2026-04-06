@@ -26,15 +26,17 @@ const value = computed({
 const updateCurrency = (currency?: string) => {
     emit('update:currency', currency);
 };
+
+const amountCurrency = computed(() => props.config.currency ?? props.config.currencies?.[0]);
 </script>
 
 <template>
     <SInputAmountBlock
-        v-if="config.inputType === 'amount'"
+        v-if="config.type === 'amount'"
         v-model="value as number"
-        :currency="config.currency ?? config.currencies![0]"
+        :currency="amountCurrency!"
         :currencies="config.currencies"
-        :type="config.inputType"
+        :type="config.type"
         :placeholder="t('inputSelectorPlaceholder')"
         :minor-unit-mode="config.minorUnitMode"
         :error-text="errorText"
@@ -43,7 +45,7 @@ const updateCurrency = (currency?: string) => {
     <SInputBlock
         v-else
         v-model="value"
-        :type="config.inputType"
+        :type="config.type"
         :placeholder="t('inputSelectorPlaceholder')"
         :error-text="errorText"
     />

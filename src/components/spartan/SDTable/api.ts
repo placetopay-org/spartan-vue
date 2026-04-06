@@ -43,7 +43,7 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
         rows: [],
         config: { slim: !!props.slim, expander: false, totalCols },
         cols: {},
-        colsArray: computed(() => Reflect.ownKeys(state.cols).map((field) => ({ ...state.cols[field], field }))),
+        colsArray: computed(() => Reflect.ownKeys(state.cols).map((field) => ({ ...state.cols[field]!, field }))),
         updateCol: ({ field, expander, ...rest }: TUpdateColData) => {
             if (!field) return;
 
@@ -66,6 +66,19 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
         () => props.data,
         (newData) => (state.rows = newData.map((row) => ({ data: row, isExpanded: false }))),
         { immediate: true },
+    );
+
+    watch(
+        () => state.rows.map((row) => row.isExpanded),
+        (newExpandedState, previousExpandedState = []) => {
+            newExpandedState.forEach((isExpanded, index) => {
+                const expandedRow = state.rows[index];
+
+                if (isExpanded && !previousExpandedState[index] && expandedRow) {
+                    state.emit('toggleExpanders', expandedRow.data);
+                }
+            });
+        },
     );
 
     provide(contextKey, state);

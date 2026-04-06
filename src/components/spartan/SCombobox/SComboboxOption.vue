@@ -12,7 +12,7 @@ const store = useContext('SComboboxOption');
 const option = store.value.registerOption(props);
 
 onMounted(() => {
-    store.value.options[option.id].content = el.value?.innerText || '';
+    store.value.options[option.id]!.content = el.value?.innerText || '';
 });
 </script>
 
@@ -26,8 +26,8 @@ onMounted(() => {
     >
         <li
             :class="[
-                'relative cursor-default select-none px-4 py-2',
-                active ? 'bg-spartan-primary-100 text-spartan-primary-900' : 'text-gray-900',
+                'relative cursor-default px-4 py-2 select-none',
+                active ? 'bg-spartan-primary-100 text-spartan-primary-900 dark:bg-spartan-primary-900/30 dark:text-spartan-primary-100' : 'text-gray-900 dark:text-gray-50',
                 disabled ? 'opacity-50' : '',
             ]"
         >

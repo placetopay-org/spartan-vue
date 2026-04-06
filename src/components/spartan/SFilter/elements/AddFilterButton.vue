@@ -46,7 +46,7 @@ const selectField = (id: string) => {
         <template #reference>
             <button
                 :disabled="!options?.length"
-                class="group flex items-center gap-2 whitespace-nowrap rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-600 focus:s-ring disabled:pointer-events-none disabled:opacity-50"
+                class="group outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150 focus:s-outline flex items-center gap-2 rounded-full border border-dashed border-gray-400 dark:border-gray-500 px-3 py-0.5 text-sm whitespace-nowrap text-gray-400 dark:text-gray-500 hover:border-gray-500 hover:text-gray-600 dark:hover:border-gray-400 dark:hover:text-gray-300 disabled:pointer-events-none disabled:opacity-50"
                 @click="openPopover"
             >
                 <AddIcon class="h-5 w-5" />
@@ -57,9 +57,9 @@ const selectField = (id: string) => {
         <FadeTransition>
             <div
                 v-if="selectFieldStep"
-                class="flex max-h-96 min-w-[255px] flex-col overflow-y-auto rounded-lg bg-white shadow-2xl"
+                class="flex max-h-96 min-w-[255px] flex-col overflow-y-auto rounded-lg bg-white dark:bg-gray-800 shadow-2xl"
             >
-                <div class="px-4 pb-3 pt-4">
+                <div class="px-4 pt-4 pb-3">
                     <SInput v-model="query" :placeholder="t('fieldSelectorPlaceholder')" />
                 </div>
                 <ul class="w-full">
@@ -70,7 +70,7 @@ const selectField = (id: string) => {
                         v-for="item in options"
                         v-else
                         :key="item.id"
-                        class="rounded-lg hover:bg-gray-50 hover:text-spartan-primary-600"
+                        class="hover:text-spartan-primary-600 rounded-lg hover:bg-gray-50 dark:hover:bg-white/10"
                     >
                         <button class="w-full px-4 py-2 text-left" @click="selectField(item.id)">
                             {{ item.name }}

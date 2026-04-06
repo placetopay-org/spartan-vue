@@ -1,3 +1,14 @@
+<script lang="ts">
+/**
+ * A template header for tables that includes a title and a search input with button.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/STemplateHeaderTable Github}.
+ * @see {@link https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871 Figma}.
+ */
+export default {
+    name: 'STemplateHeaderTable',
+};
+</script>
+
 <script setup lang="ts">
 import type { TTemplateHeaderTableProps, TTemplateHeaderTableEmits } from './types';
 import { translator } from '@/helpers';
@@ -21,7 +32,7 @@ const search = () => {
 <template>
     <div class="flex flex-col gap-4">
         <div class="flex items-center justify-between gap-4">
-            <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ title }}</h1>
 
             <div class="flex -space-x-px">
                 <SInput

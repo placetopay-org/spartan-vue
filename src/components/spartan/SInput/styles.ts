@@ -11,23 +11,25 @@ export const containerStyles = cva(`h-9 relative flex gap-2 ${inputStyle.root}`,
         ),
         rounded: roundedStyle,
         borderless: cbv('border-0'),
-        rightOptions: cbv('pr-0', 'pr-3'),
-        leftOptions: cbv('pl-0', 'pl-3'),
+        hasRightAddon: cbv('pr-3', 'pr-0'),
+        hasLeftAddon: cbv('pl-3', 'pl-0'),
     },
     compoundVariants: [
         {
             error: false,
             borderless: false,
-            class: inputStyle.ring,
+            class: inputStyle.ring.base,
         },
     ],
 });
 
 export const inputStyles = cva(
-    `${inputStyle.text} ${inputStyle.placeholder} ${inputStyle.padding} px-0 w-full border-none outline-none focus:ring-0`,
+    `${inputStyle.text} ${inputStyle.placeholder} py-1.5 w-full border-none bg-transparent outline-none focus:ring-0`,
     {
         variants: {
             rounded: roundedStyle,
+            hasLeftAddon: cbv('pl-1', 'pl-3'),
+            hasRightAddon: cbv('pr-1', 'pr-3'),
         },
     },
 );

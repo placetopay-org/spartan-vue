@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A slide-in modal panel that enters from the left side of the screen.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SModalLeft Github}.
+ */
+export default {
+    name: 'SModalLeft',
+};
+</script>
+
 <script setup lang="ts">
 import { TransitionChild, DialogPanel } from '@headlessui/vue';
 import { ModalBackdropWrapper } from '@internal';
@@ -24,7 +34,7 @@ withDefaults(defineProps<Partial<TModalLeftProps>>(), {
         @close="$emit('backdropClick')"
     >
         <div class="fixed inset-0 w-screen overflow-y-auto">
-            <button class="absolute right-4 top-4" @click="$emit('close')">
+            <button class="absolute top-4 right-4" @click="$emit('close')">
                 <XMarkIcon class="h-7 w-7 text-white" />
             </button>
             <div class="flex h-full">

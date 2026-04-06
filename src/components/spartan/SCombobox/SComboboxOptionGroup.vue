@@ -10,8 +10,8 @@ const group = ref<HTMLElement | null>(null);
 
 <template>
     <li v-show="group && group.children.length - 1" ref="group">
-        <div class="bg-gray-100 pl-3">
-            <span class="font-semibold text-gray-700">
+        <div class="bg-gray-100 dark:bg-white/5 pl-3">
+            <span class="font-semibold text-gray-700 dark:text-gray-300">
                 {{ label }}
             </span>
         </div>

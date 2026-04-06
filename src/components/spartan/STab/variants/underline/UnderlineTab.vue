@@ -13,7 +13,7 @@ const [tabClass, tabProps] = extractor(pt.value.tab);
     <nav
         data-s-tabContainer
         v-bind="tabContainerProps"
-        :class="twMerge('border-b border-gray-200', tabContainerClass, $props.class)"
+        :class="twMerge('border-b border-gray-200 dark:border-gray-700', tabContainerClass, $props.class)"
         aria-label="Tabs"
     >
         <ul data-s-tab v-bind="tabProps" :class="twMerge('-mb-px flex', tabClass)">

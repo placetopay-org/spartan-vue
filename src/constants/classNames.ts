@@ -1,31 +1,27 @@
 import { twMerge } from 'tailwind-merge';
 
-const ringPrimary = 'duration-150 ring ring-spartan-primary-100 border-spartan-primary-300 z-10';
-const ringSecondary = twMerge(ringPrimary, 'ring-gray-100 border-gray-300');
-const ringDanger = twMerge(ringPrimary, 'ring-red-100 border-red-300');
+const outlinePrimary = 'outline-2 outline-offset-2 outline-spartan-primary-600 z-10';
+const outlineSecondary = twMerge(outlinePrimary, 'outline-gray-500');
+const outlineDanger = twMerge(outlinePrimary, 'outline-red-500');
 
-const focusRingPrimary =
-    'focus:duration-150 focus:ring focus:ring-spartan-primary-100 focus:border-spartan-primary-300 focus:z-10';
-const focusRingSecondary = twMerge(focusRingPrimary, 'focus:ring-gray-100 focus:border-gray-300');
-const focusRingDanger = twMerge(focusRingPrimary, 'focus:ring-red-100 focus:border-red-300');
+const focusOutlinePrimary = 'focus:outline-2 focus:outline-offset-2 focus:outline-spartan-primary-600 focus:z-10';
+const focusOutlineSecondary = twMerge(focusOutlinePrimary, 'focus:outline-gray-500');
+const focusOutlineDanger = twMerge(focusOutlinePrimary, 'focus:outline-red-500');
 
-const focusWithinRingPrimary =
-    'focus-within:duration-150 focus-within:ring focus-within:ring-spartan-primary-100 focus-within:border-spartan-primary-300 focus-within:z-10';
+const focusWithinOutlinePrimary =
+    'focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-spartan-primary-600 focus-within:z-10';
 
-const focusWithinRingSecondary = twMerge(
-    focusWithinRingPrimary,
-    'focus-within:ring-gray-100 focus-within:border-gray-300',
-);
-const focusWithinRingDanger = twMerge(focusWithinRingPrimary, 'focus-within:ring-red-100 focus-within:border-red-300');
+const focusWithinOutlineSecondary = twMerge(focusWithinOutlinePrimary, 'focus-within:outline-gray-500');
+const focusWithinOutlineDanger = twMerge(focusWithinOutlinePrimary, 'focus-within:outline-red-500');
 
 export const SCN = {
-    ringPrimary,
-    ringSecondary,
-    ringDanger,
-    focusRingPrimary,
-    focusRingSecondary,
-    focusRingDanger,
-    focusWithinRingPrimary,
-    focusWithinRingSecondary,
-    focusWithinRingDanger,
+    ringPrimary: outlinePrimary,
+    ringSecondary: outlineSecondary,
+    ringDanger: outlineDanger,
+    focusRingPrimary: focusOutlinePrimary,
+    focusRingSecondary: focusOutlineSecondary,
+    focusRingDanger: focusOutlineDanger,
+    focusWithinRingPrimary: focusWithinOutlinePrimary,
+    focusWithinRingSecondary: focusWithinOutlineSecondary,
+    focusWithinRingDanger: focusWithinOutlineDanger,
 };

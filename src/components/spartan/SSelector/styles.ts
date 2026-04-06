@@ -17,7 +17,7 @@ export const inputContainerStyles = cva(`h-9 relative flex gap-2 ${inputStyle.ro
 export type TSelectButtonStyles = VariantProps<typeof buttonStyles>;
 export const buttonStyles = cva([inputStyle.root, inputStyle.padding, 'gap-3 inline-flex items-center'], {
     variants: {
-        disabled: cbv('bg-gray-50 pointer-events-none'),
+        disabled: cbv('bg-gray-50 dark:bg-white/5 pointer-events-none'),
         error: cbv(
             `${inputStyle.border.error} ${inputStyle.ring.error}`,
             `${inputStyle.border.base} ${inputStyle.ring.base}`,
@@ -27,9 +27,12 @@ export const buttonStyles = cva([inputStyle.root, inputStyle.padding, 'gap-3 inl
 });
 
 export type TSelectOptionStyles = VariantProps<typeof optionStyles>;
-export const optionStyles = cva('relative text-sm flex w-full py-2 pl-3 pr-[52px] hover:bg-gray-50', {
-    variants: {
-        selected: cbv('font-medium'),
-        disabled: cbv('opacity-50 cursor-not-allowed'),
+export const optionStyles = cva(
+    'relative text-sm flex items-center w-full py-2 px-3 text-gray-900 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-white/10',
+    {
+        variants: {
+            selected: cbv('font-semibold'),
+            disabled: cbv('opacity-50 cursor-not-allowed'),
+        },
     },
-});
+);

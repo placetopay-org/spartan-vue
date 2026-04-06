@@ -9,18 +9,18 @@ export const roundedStyle = {
 };
 
 export const inputStyle = {
-    root: 'w-full outline-none focus:outline-none bg-white',
+    root: 'w-full outline-2 outline-offset-0 outline-transparent bg-white dark:bg-white/5 transition-[outline-offset,outline-color] duration-150',
     disabled: 'opacity-50 cursor-not-allowed',
     padding: 'px-3 py-1.5',
-    text: 'text-gray-900 font-normal',
+    text: 'text-gray-900 dark:text-gray-50 font-normal',
     placeholder: 'placeholder:text-gray-400',
     rounded: 'rounded-lg',
     border: {
-        base: 'border border-gray-300',
+        base: 'border border-gray-300 dark:border-white/10',
         error: 'border border-red-500',
     },
     ring: {
-        base: 'focus-within:s-ring',
-        error: 'focus-within:s-ring-error',
+        base: 'focus-within:s-outline',
+        error: 'focus-within:s-outline-error',
     },
 };

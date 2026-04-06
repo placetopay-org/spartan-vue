@@ -112,7 +112,7 @@ const computedIcon = computed(() => {
             v-bind="iconContainerProps"
             :class="
                 twMerge(
-                    'flex justify-center rounded-full bg-gray-100 p-3',
+                    'flex justify-center rounded-full bg-gray-100 p-3 dark:bg-white/10',
                     computedIcon?.background,
                     iconContainerClass,
                 )
@@ -122,7 +122,7 @@ const computedIcon = computed(() => {
                 v-bind="iconProps"
                 :is="computedIcon ? computedIcon?.icon.normal : icon"
                 data-s-icon
-                :class="twMerge('h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
+                :class="twMerge('h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />
         </div>
@@ -134,22 +134,22 @@ const computedIcon = computed(() => {
             :class="twMerge('relative -mb-1', computedIcon?.radial, iconContainerClass)"
         >
             <div
-                class="absolute right-1/2 top-1/2 h-[156px] w-[156px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-20"
+                class="border-opacity-20 absolute top-1/2 right-1/2 h-[156px] w-[156px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <div
-                class="absolute right-1/2 top-1/2 h-[120px] w-[120px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-40"
+                class="border-opacity-40 absolute top-1/2 right-1/2 h-[120px] w-[120px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <div
-                class="absolute right-1/2 top-1/2 h-[84px] w-[84px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-60"
+                class="border-opacity-60 absolute top-1/2 right-1/2 h-[84px] w-[84px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <div
-                class="absolute right-1/2 top-1/2 h-[48px] w-[48px] -translate-y-1/2 translate-x-1/2 rounded-full border border-opacity-100"
+                class="border-opacity-100 absolute top-1/2 right-1/2 h-[48px] w-[48px] translate-x-1/2 -translate-y-1/2 rounded-full border"
             />
             <component
                 v-bind="iconProps"
                 :is="computedIcon ? computedIcon?.icon.ping : icon"
                 data-s-icon
-                :class="twMerge('relative mx-auto h-6 w-6 text-gray-600', computedIcon?.color, iconClass)"
+                :class="twMerge('relative mx-auto h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon?.color, iconClass)"
                 aria-hidden="true"
             />
         </div>
@@ -158,11 +158,15 @@ const computedIcon = computed(() => {
 
 <style>
 .radial-gradient-primary > div {
-    border-color: rgb(var(--color-spartan-primary-200) / var(--tw-border-opacity));
+    border-color: var(--color-spartan-primary-200);
 }
 .radial-gradient-primary > div:first-of-type {
     background: var(--color-spartan-primary-200);
-    background: radial-gradient(circle, rgb(var(--color-spartan-primary-200) / 0.2) 0%, rgba(0, 0, 0, 0) 50%);
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--color-spartan-primary-200) 20%, transparent) 0%,
+        transparent 50%
+    );
 }
 
 .radial-gradient-gray > div {

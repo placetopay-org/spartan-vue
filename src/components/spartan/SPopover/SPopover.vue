@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A floating panel anchored to a trigger element, with arrow support and responsive behavior.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SPopover Github}.
+ */
+export default {
+    name: 'SPopover',
+};
+</script>
+
 <script setup lang="ts">
 import { ref, computed, nextTick } from 'vue';
 import { useFloating, autoUpdate, flip, offset as setOffset, arrow as setArrow } from '@floating-ui/vue';

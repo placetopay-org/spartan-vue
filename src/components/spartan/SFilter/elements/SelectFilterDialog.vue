@@ -15,7 +15,12 @@ const emit = defineEmits<{
 const { t } = translator('filter');
 
 const context = useContext('SelectFilterDialog');
-const field = context.activeField!;
+
+if (!context.activeField) {
+    throw new Error('SelectFilterDialog requires an active field in context');
+}
+
+const field = context.activeField;
 const operators = getOperators(field);
 
 const tempOperator = ref(field.state?.operator || operators[0]);
@@ -26,7 +31,7 @@ const tempInterface = computed<TInterfaceId>(() => {
         interfaceData.operators.some((o) => o === tempOperator.value),
     );
 
-    return entry![0] as TInterfaceId;
+    return (entry?.[0] as TInterfaceId) || 'none';
 });
 const tempInterfaceConfig = computed(() => {
     if (!field.interfaces || !tempInterface.value) return {};
@@ -59,7 +64,7 @@ const validate = async (value: any) => {
         error.value = null;
         return;
     }
-    error.value = await field.validate(value, tempOperator.value);
+    error.value = await field.validate(value, tempOperator.value!);
 };
 
 watch(
@@ -72,26 +77,26 @@ const isValid = computed(() => !error.value);
 </script>
 
 <template>
-    <div class="flex max-h-96 w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl">
+    <div class="flex max-h-96 w-[370px] flex-col gap-4 rounded-lg bg-white dark:bg-gray-800 p-4 shadow-2xl">
         <div class="flex items-center gap-3">
             <span>{{ field.name }}</span>
 
             <SPopover :offset="8" :responsive="context.responsive">
                 <template #reference="{ toggle }">
                     <button
-                        class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pl-3 pr-2 text-gray-800"
+                        class="flex items-center gap-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 py-1 pr-2 pl-3 text-gray-800 dark:text-gray-200"
                         @click="toggle"
                     >
                         <span>{{ getOperatorLabel(tempOperator) }}</span>
-                        <ChevronDownIcon class="h-5 w-5 text-gray-600" />
+                        <ChevronDownIcon class="h-5 w-5 text-gray-600 dark:text-gray-400" />
                     </button>
                 </template>
 
                 <template #default="{ close }">
-                    <ul class="divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white shadow-2xl">
+                    <ul class="divide-y divide-gray-100 dark:divide-gray-700 rounded-lg border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-2xl">
                         <li v-for="operator in operators" :key="getOperatorId(operator)">
                             <button
-                                class="w-full whitespace-nowrap p-3 text-left text-sm font-medium text-gray-800 hover:bg-gray-50"
+                                class="w-full p-3 text-left text-sm font-medium whitespace-nowrap text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/10"
                                 @click="selectOperator(operator, close)"
                             >
                                 {{ getOperatorLabel(operator) }}

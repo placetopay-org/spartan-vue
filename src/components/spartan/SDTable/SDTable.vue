@@ -1,3 +1,14 @@
+<script lang="ts">
+/**
+ * A data-driven table component with sorting, pagination, row linking, expandable rows, and loading states.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SDTable Github}.
+ * @see {@link https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871 Figma}.
+ */
+export default {
+    name: 'SDTable',
+};
+</script>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
 import { createContext } from './api';

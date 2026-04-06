@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { SInputAmount, SInput } from '@spartan';
+import { ref, watch, computed } from 'vue';
+import { SInputAmount, SInput, SInputDate } from '@spartan';
 import { BlockWrapper } from '@internal';
 import type { IInputConfig } from './types';
 import { translator } from '@/helpers';
@@ -15,56 +15,86 @@ const props = defineProps<{
 
 const { t } = translator('filter');
 
+// For date range, use a single value that contains both dates
+const dateRangeValue = computed({
+    get: (): Date[] | null => {
+        if (props.config.type !== 'date' || !props.modelValue) return null;
+        return (props.modelValue as (string | Date)[]).map((v) => (v instanceof Date ? v : new Date(v as string)));
+    },
+    set: (newValue: Date | Date[] | null) => {
+        if (Array.isArray(newValue)) {
+            emit(
+                'update:modelValue',
+                newValue.map((d) => d.toISOString().split('T')[0]),
+            );
+        }
+    },
+});
+
+// For non-date types, use separate values
 const value1 = ref(props.modelValue?.[0]);
 const value2 = ref(props.modelValue?.[1]);
 
 watch([value1, value2], () => {
-    emit('update:modelValue', [value1.value, value2.value]);
+    if (props.config.type !== 'date') {
+        emit('update:modelValue', [value1.value, value2.value]);
+    }
 });
 
 const updateCurrency = (currency?: string) => {
     emit('update:currency', currency);
 };
+
+const amountCurrency = computed(() => props.config.currency ?? props.config.currencies?.[0]);
 </script>
 
 <template>
     <BlockWrapper :error-text="errorText">
-        <div class="flex gap-4">
+        <!-- Date range picker -->
+        <SInputDate
+            v-if="config.type === 'date'"
+            v-model="dateRangeValue"
+            selection-mode="range"
+            :placeholder="t('dateRangePlaceholder')"
+            :error="!!errorText"
+            class="w-full"
+        />
+
+        <!-- Amount inputs -->
+        <div v-else-if="config.type === 'amount'" class="flex gap-4">
             <SInputAmount
-                v-if="config.inputType === 'amount'"
                 v-model="value1 as number"
-                :currency="config.currency ?? config.currencies![0]"
+                :currency="amountCurrency!"
                 :currencies="config.currencies"
-                :type="config.inputType"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :minor-unit-mode="config.minorUnitMode"
                 :error="!!errorText"
                 @update:currency="updateCurrency"
             />
+            <SInputAmount
+                v-model="value2 as number"
+                :currency="amountCurrency!"
+                :currencies="config.currencies"
+                :placeholder="t('inputSelectorPlaceholder')"
+                :minor-unit-mode="config.minorUnitMode"
+                :error="!!errorText"
+                @update:currency="updateCurrency"
+            />
+        </div>
+
+        <!-- Generic number inputs -->
+        <div v-else class="flex gap-4">
             <SInput
-                v-else
                 v-model="value1"
                 class="w-48"
-                :type="config.inputType"
+                :type="config.type"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :error="!!errorText"
-            />
-            <SInputAmount
-                v-if="config.inputType === 'amount'"
-                v-model="value2 as number"
-                :currency="config.currency ?? config.currencies![0]"
-                :currencies="config.currencies"
-                :type="config.inputType"
-                :placeholder="t('inputSelectorPlaceholder')"
-                :minor-unit-mode="config.minorUnitMode"
-                :error="!!errorText"
-                @update:currency="updateCurrency"
             />
             <SInput
-                v-else
                 v-model="value2"
                 class="w-48"
-                :type="config.inputType"
+                :type="config.type"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :error="!!errorText"
             />

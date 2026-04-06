@@ -5,7 +5,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [Unreleased]
+### Changed
+- `SInput` horizontal padding moved from container to the `<input>` element so browser autofill backgrounds cover the full input area without visible gaps. Addon spacing preserved via conditional padding.
+
+## [3.0.0-beta.7] - 2026-03-18
+### Added
+- New component `SColorSwitch` for toggling between light and dark themes.
+- `SDropdown` now supports `variant` prop with `'default'` and `'compact'` options for tighter spacing without dividers between items.
+- `SDropdown` styles extracted to `styles.ts` using Class Variance Authority for better maintainability.
+
+## [3.0.0-beta.6] - 2026-03-17
+### Fixed
+- `SSidebar` dark mode: separator lines now use `border-white/10` instead of the default white border for reduced contrast.
+- `SSidebar` dark mode: active item/group text and icons now use `dark:text-spartan-primary-400` for proper primary color visibility.
+- `SSelect` focus outline now correctly shows the orange `s-outline` instead of the browser's blue ring (caused by `@tailwindcss/forms` plugin). Added `focus:ring-0` to suppress it.
+- `STextarea` focus outline now correctly shows the orange `s-outline` instead of the browser's blue ring. Added `focus:ring-0` to suppress it.
+- `SInputOtp` active cell now uses `s-outline` (primary orange) instead of a gray/black ring. Compound variants for success/error states updated from `ring-*` to `outline-*` classes.
+- `SInputIncrement` dark mode: inner `<input>` background is now `bg-transparent` so it no longer renders a white box inside the dark container (caused by `@tailwindcss/forms` plugin forcing `background-color: white`).
+- `SInputDate` redesigned to be visually consistent with other Spartan inputs: `rounded-lg`, `bg-white dark:bg-white/5`, `text-gray-900 dark:text-gray-50`, `border-gray-300 dark:border-white/10`, `py-1.5` height, no shadow, no hover-border effect. Focus outline now uses `s-outline`. Dropdown trigger button styling updated to match library design language.
+
+## [3.0.0-beta.5] - 2026-03-13
+### Added
+- `SInputDate` now automatically syncs its calendar locale (day/month names, first day of week) with the app's `vue-i18n` locale. Translations added to `src/locales/*.json` under `$spartan.inputDate`.
+
+## [3.0.0-beta.4] - 2026-03-12
+### Fixed
+- `SInputDate` no longer crashes when the consuming app has not explicitly installed the PrimeVue plugin (`app.use(PrimeVue)`). The internal `VoltDatePicker` now auto-registers PrimeVue config if missing.
+
+## [3.0.0-beta.3] - 2026-03-12
+### Added
+- release-it and keep-a-changelog dependencies for automated changelog generation and release management.
+- GitHub Actions workflow for automated releases on push to main branch.
+
+## 3.0.0-beta.2 - 2026-01-29
+### Added
+- `SInputDate` component now supports date range selection with new `range` prop.
+- Added stories for `SInputDate` range mode (Range, RangeWithPresetValue, RangeWithTime, RangeWithError).
+- `STabDropdownItem` component now supports `as` prop for polymorphic rendering.
+- `SFilter` component now supports date range selection in `ITwoInputs` interface.
+- Added `dateRangePlaceholder` translations for all locales (en, es, fr, it, pt).
+
+### Changed
+- Updated `SInputDate` documentation with new props (`range`, `enableTimePicker`, `modelType`).
+
+### Removed
+- Removed legacy `src/expose/plugin.js` file (no longer needed with Tailwind CSS 4 configuration).
+
+### Fixed
+- `SCard` Icon component CSS updated to use `color-mix()` for Tailwind CSS 4 compatibility.
+- `SInputDate` theme variables updated to use CSS variables directly instead of `rgb()` wrapper.
+- `SInputDate` focus border color now persists on hover.
 
 ## 3.0.0-beta.1 - 2026-01-27
 ### Added
@@ -20,17 +70,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `@tailwindcss/forms` plugin configuration to use native `@plugin` directive.
 - Simplified build process for generating distribution styles.
 
+### Removed
+- `tailwind.config.js` file (no longer needed with Tailwind CSS 4).
+
 ### Fixed
 - Tailwind forms configuration import path.
 - SCheckbox focus ring color and background color.
 - Dark mode configuration using `@custom-variant` for Tailwind CSS 4 compatibility.
 
-### Removed
-- `tailwind.config.js` file (no longer needed with Tailwind CSS 4).
-
 ## 3.0.0-beta.0 - 2026-01-26
 ### Added
 - Initial release of Spartan-vue 3.x compatible with Vue 3.x and Tailwind CSS 4.x.
+
+## 2.6.1 - 2026-01-11
+### Added
+- `SDTable` now emits `toggleExpanders` when a row is expanded, sending the expanded row data as payload.
 
 ## 2.6.0 - 2026-01-15
 ### Added

@@ -15,7 +15,7 @@ export const createContext = (props: TSidebarProps, emit: TSidebarEmits) => {
         },
         registerPath: (path: string, setActive: (value: boolean) => void, group?: string) => {
             const handler = (active: boolean) => {
-                if (group) state.groups[group][active ? 'activate' : 'deactivate']();
+                if (group) state.groups[group]?.[active ? 'activate' : 'deactivate']();
                 setActive(active);
             };
 

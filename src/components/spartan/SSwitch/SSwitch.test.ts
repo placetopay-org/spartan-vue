@@ -3,6 +3,13 @@ import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SSwitch from './SSwitch.vue';
 import userEvent from '@testing-library/user-event';
+import {
+    switchContainerStyles,
+    switchTrackStyles,
+    switchKnobStyles,
+    switchLabelStyles,
+    switchDescriptionStyles,
+} from './styles';
 
 describe('SSwitch', () => {
     test('Throw warning for required "model-value"', () => {
@@ -32,7 +39,7 @@ describe('SSwitch', () => {
 
         // Assert
         expect(label).toHaveAttribute('id');
-        expect(label).toHaveClass('flex flex-col text-sm font-medium text-gray-700');
+        expect(label).toHaveClass(switchLabelStyles());
     });
 
     test('Can be rendered with description', () => {
@@ -41,7 +48,7 @@ describe('SSwitch', () => {
         const description = screen.getByText('Test description');
 
         // Assert
-        expect(description).toHaveClass('text-sm text-gray-500');
+        expect(description).toHaveClass(switchDescriptionStyles());
     });
 
     test('Can be rendered with label and description', () => {
@@ -52,8 +59,8 @@ describe('SSwitch', () => {
 
         // Assert
         expect(label).toHaveAttribute('id');
-        expect(label).toHaveClass('flex flex-col text-sm font-medium text-gray-700');
-        expect(description).toHaveClass('text-sm text-gray-500');
+        expect(label).toHaveClass(switchLabelStyles());
+        expect(description).toHaveClass(switchDescriptionStyles());
     });
 
     test('Can be change clicking in label or description', async () => {
@@ -125,7 +132,7 @@ describe('SSwitch', () => {
         });
 
         // Assert
-        expect(container.firstElementChild).toHaveClass('flex-row-reverse');
+        expect(container.firstElementChild).toHaveClass(switchContainerStyles({ reverse: true }));
     });
 
     test('Can be rendered with default icon', async () => {
@@ -136,5 +143,66 @@ describe('SSwitch', () => {
 
         // Assert
         expect(button.firstElementChild?.firstElementChild?.firstElementChild).toHaveClass('h-3 w-3 text-gray-400');
+    });
+
+    test('Has dark mode classes on track', () => {
+        // Act
+        render(SSwitch);
+        const button = screen.getByRole('switch');
+
+        // Assert
+        const trackClasses = switchTrackStyles({ active: false });
+        expect(trackClasses).toContain('dark:bg-gray-900');
+        expect(button).toHaveClass(trackClasses);
+    });
+
+    test('Has dark mode classes on label and description', () => {
+        // Act
+        render(SSwitch, { slots: { default: 'Label', description: 'Description' } });
+        const label = screen.getByText('Label');
+        const description = screen.getByText('Description');
+
+        // Assert
+        expect(label.className).toContain('dark:text-gray-50');
+        expect(description.className).toContain('dark:text-gray-400');
+    });
+
+    test('Track styles change when active', () => {
+        // Act
+        let modelValue = true;
+        render(SSwitch, {
+            props: { modelValue },
+            slots: { default: 'Label' },
+        });
+
+        const button = screen.getByRole('switch');
+
+        // Assert
+        expect(button).toHaveClass(switchTrackStyles({ active: true }));
+    });
+
+    test('Knob translates when active', () => {
+        // Assert
+        const activeKnob = switchKnobStyles({ active: true });
+        const inactiveKnob = switchKnobStyles({ active: false });
+
+        expect(activeKnob).toContain('translate-x-5');
+        expect(inactiveKnob).toContain('translate-x-0');
+    });
+
+    test('Can be rendered with custom iconOn and iconOff components', async () => {
+        // Arrange
+        const IconOff = { template: '<svg data-testid="icon-off"></svg>' };
+        const IconOn = { template: '<svg data-testid="icon-on"></svg>' };
+
+        // Act
+        render(SSwitch, {
+            props: { iconOff: IconOff, iconOn: IconOn },
+            slots: { default: 'Label' },
+        });
+
+        // Assert
+        screen.getByTestId('icon-off');
+        screen.getByTestId('icon-on');
     });
 });

@@ -3,15 +3,18 @@ import { createBooleanVariation as cbv } from '@/helpers';
 import { SCN } from '@/constants';
 
 export type TSidebarStyles = VariantProps<typeof sidebarStyles>;
-export const sidebarStyles = cva(['relative bg-white border border-gray-300 focus-visible:outline-none'], {
-    variants: {
-        disabled: cbv('cursor-not-allowed opacity-50'),
-        error: cbv([SCN.focusWithinRingDanger, 'border-red-300']),
+export const sidebarStyles = cva(
+    ['relative bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150'],
+    {
+        variants: {
+            disabled: cbv('cursor-not-allowed opacity-50'),
+            error: cbv([SCN.focusWithinRingDanger, 'border-red-300']),
+        },
     },
-});
+);
 
 export const sidebarItemStyles = cva(
-    'group transition duration-100 relative flex w-full items-center gap-x-2 rounded-md bg-white p-2 hover:bg-gray-50 focus:s-ring focus:outline-none',
+    'group transition-[background-color,outline-color] duration-100 relative flex w-full items-center gap-x-2 rounded-md bg-white dark:bg-gray-900 p-2 hover:bg-gray-50 dark:hover:bg-white/10 outline-2 outline-offset-2 outline-transparent focus:s-outline',
     {
         variants: {
             isChild: cbv('pl-8'),
@@ -19,33 +22,36 @@ export const sidebarItemStyles = cva(
     },
 );
 
-export const sidebarItemIconStyles = cva(['h-6 w-6 text-gray-400'], {
+export const sidebarItemIconStyles = cva(['h-6 w-6 text-gray-400 dark:text-gray-500'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
-export const sidebarItemContentStyles = cva(['text-sm font-medium text-gray-700'], {
+export const sidebarItemContentStyles = cva(['text-sm font-medium text-gray-700 dark:text-gray-300'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
-export const sidebarItemGroupIconStyles = cva(['h-6 w-6 text-gray-400'], {
+export const sidebarItemGroupIconStyles = cva(['h-6 w-6 text-gray-400 dark:text-gray-500'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
-export const sidebarItemGroupContentStyles = cva(['text-sm font-medium text-gray-700'], {
+export const sidebarItemGroupContentStyles = cva(['text-sm font-medium text-gray-700 dark:text-gray-300'], {
     variants: {
-        active: cbv('text-spartan-primary-600'),
+        active: cbv('text-spartan-primary-600 dark:text-spartan-primary-400'),
     },
 });
 
-export const sidebarItemGroupChevronStyles = cva(['h-5 w-5 transition text-gray-400 duration-200 ml-auto'], {
-    variants: {
-        open: cbv('rotate-180'),
-        active: cbv('text-spartan-primary-400'),
+export const sidebarItemGroupChevronStyles = cva(
+    ['h-5 w-5 transition text-gray-400 dark:text-gray-500 duration-200 ml-auto'],
+    {
+        variants: {
+            open: cbv('rotate-180'),
+            active: cbv('text-spartan-primary-400'),
+        },
     },
-});
+);

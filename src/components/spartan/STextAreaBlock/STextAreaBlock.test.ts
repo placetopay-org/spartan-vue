@@ -75,7 +75,7 @@ describe('STextAreaBlock', () => {
         const textArea = screen.getByRole('textbox');
 
         // Assert
-        expect(textArea).toHaveClass('border-red-500 focus-within:s-ring-error');
+        expect(textArea).toHaveClass('border-red-500 focus-within:s-outline-error');
     });
 
     test('Can be render with disabled style', async () => {

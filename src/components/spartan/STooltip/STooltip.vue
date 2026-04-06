@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A tooltip that displays a brief text label on hover, anchored to a trigger element.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/STooltip Github}.
+ */
+export default {
+    name: 'STooltip',
+};
+</script>
+
 <script setup lang="ts">
 import type { TTooltipProps } from './types';
 import { SPopover } from '../SPopover';

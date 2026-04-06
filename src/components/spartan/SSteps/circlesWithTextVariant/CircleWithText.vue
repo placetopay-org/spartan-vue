@@ -16,8 +16,8 @@ defineProps<
 
 const indicatorStyle = {
     complete: 'bg-spartan-primary-500 group-hover:bg-spartan-primary-700',
-    current: 'border-2 border-spartan-primary-500 bg-white',
-    upcoming: 'border-2 border-gray-300 bg-white group-hover:border-gray-400',
+    current: 'border-2 border-spartan-primary-500 bg-white dark:bg-gray-900',
+    upcoming: 'border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 group-hover:border-gray-400 dark:group-hover:border-gray-500',
 };
 </script>
 
@@ -31,8 +31,8 @@ const indicatorStyle = {
                 <span
                     v-else
                     :class="[
-                        'h-2.5 w-2.5 rounded-full bg-spartan-primary-500',
-                        isCurrent ? 'bg-spartan-primary-500' : 'bg-transparent group-hover:bg-gray-300',
+                        'bg-spartan-primary-500 h-2.5 w-2.5 rounded-full',
+                        isCurrent ? 'bg-spartan-primary-500' : 'bg-transparent group-hover:bg-gray-300 dark:group-hover:bg-gray-600',
                     ]"
                 />
             </span>
@@ -42,7 +42,7 @@ const indicatorStyle = {
                 v-if="hasName"
                 :class="[
                     'text-xs font-semibold',
-                    { 'text-gray-600': isComplete, 'text-gray-500': isCurrent, 'text-gray-400': isUpcoming },
+                    { 'text-gray-600 dark:text-gray-400': isComplete, 'text-gray-500 dark:text-gray-400': isCurrent, 'text-gray-400 dark:text-gray-500': isUpcoming },
                 ]"
             >
                 <slot v-if="hasName.slot" />
@@ -52,7 +52,7 @@ const indicatorStyle = {
                 v-if="hasDescription"
                 :class="[
                     'text-sm',
-                    { 'text-gray-600': isComplete, 'text-gray-900': isCurrent, 'text-gray-400': isUpcoming },
+                    { 'text-gray-600 dark:text-gray-400': isComplete, 'text-gray-900 dark:text-white': isCurrent, 'text-gray-400 dark:text-gray-500': isUpcoming },
                 ]"
             >
                 <slot v-if="hasDescription.slot" name="description" />

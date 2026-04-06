@@ -14,13 +14,13 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
 </script>
 
 <template>
-    <tbody class="-space-y-px divide-y divide-gray-200 bg-white">
+    <tbody class="-space-y-px divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-800/50">
         <template v-if="context.props.loading">
             <RowsSkeleton :cols="context.colsArray" :slim="context.config.slim" />
         </template>
         <template v-else>
             <template v-for="(row, rowIndex) in context.rows" :key="rowIndex">
-                <tr :class="rowLink(row.data) && 'hover:bg-gray-100'">
+                <tr :class="rowLink(row.data) && 'hover:bg-gray-100 dark:hover:bg-gray-800'">
                     <td
                         v-for="col in context.colsArray"
                         :key="col.field"
@@ -43,7 +43,7 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
                             <ChevronDownIcon
                                 :class="[
                                     row.isExpanded && 'rotate-180',
-                                    'h-6 w-6 transform text-gray-400 duration-75 group-hover:scale-110 group-hover:text-gray-600',
+                                    'h-6 w-6 transform text-gray-400 duration-75 group-hover:scale-110 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300',
                                 ]"
                             />
                         </button>
@@ -82,7 +82,7 @@ const rowLink = computed(() => context.props.rowLink || (() => {}));
                 </tr>
 
                 <tr class="border-none">
-                    <td :colspan="context.colsArray.length" class="bg-gray-50 p-0">
+                    <td :colspan="context.colsArray.length" class="bg-gray-50 p-0 dark:bg-gray-800">
                         <SAccordion :open="row.isExpanded" vertical>
                             <component
                                 :is="slot"

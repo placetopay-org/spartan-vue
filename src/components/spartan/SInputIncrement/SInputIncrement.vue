@@ -1,3 +1,13 @@
+<script lang="ts">
+/**
+ * A numeric stepper input with increment and decrement buttons and optional min/max bounds.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SInputIncrement Github}.
+ */
+export default {
+    name: 'SInputIncrement',
+};
+</script>
+
 <script setup lang="ts">
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
@@ -68,7 +78,7 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
             :max
             :disabled
             :value
-            class="border-none text-center focus:ring-0"
+            class="border-none bg-transparent text-center focus:ring-0"
             @input="updateValue"
         />
         <button
