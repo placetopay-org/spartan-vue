@@ -18,8 +18,8 @@ const [blockWrapperProps, inputAmountProps] = extractWrapperProps<Partial<TInput
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
             @update:currency="(newCurrency) => $emit('update:currency', newCurrency)"
         >
-            <template #left><slot name="left" /></template>
-            <template #right><slot name="right" /></template>
+            <template v-if="$slots.left" #left><slot name="left" /></template>
+            <template v-if="$slots.right" #right><slot name="right" /></template>
         </SInputAmount>
     </BlockWrapper>
 </template>

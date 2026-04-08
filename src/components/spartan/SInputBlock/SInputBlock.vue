@@ -16,8 +16,8 @@ const [blockWrapperProps, inputProps] = extractWrapperProps<Partial<TInputProps>
             v-bind="inputProps"
             @update:model-value="(newValue) => $emit('update:modelValue', newValue)"
         >
-            <template #left><slot name="left" /></template>
-            <template #right><slot name="right" /></template>
+            <template v-if="$slots.left" #left><slot name="left" /></template>
+            <template v-if="$slots.right" #right><slot name="right" /></template>
         </SInput>
     </BlockWrapper>
 </template>
