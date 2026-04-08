@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, shallowRef, provide, markRaw, watch, onMounted, onUnmounted } from 'vue';
+import { serializeDataValue } from '~/composables/usePreview';
 import type { PreviewStore, ControlDefinition } from '~/composables/usePreview';
 
 const colorDotMap: Record<string, string> = {
@@ -38,6 +39,7 @@ const store = reactive<PreviewStore>({
     component: '',
     staticAttrs: {},
     imports: {},
+    data: {},
 });
 provide('spartan-preview', store);
 
@@ -67,13 +69,15 @@ async function loadExample(file: string) {
     store.component = '';
     store.staticAttrs = {};
     store.imports = {};
+    store.data = {};
     Object.keys(store.values).forEach((k) => delete store.values[k]);
     Object.keys(store.slotValues).forEach((k) => delete store.slotValues[k]);
+    const isServer = import.meta.server;
     const [mod, raw] = await Promise.all([
-        loader() as Promise<{ default: any }>,
+        isServer ? null : (loader() as Promise<{ default: any }>),
         rawLoader ? (rawLoader() as Promise<string>) : Promise.resolve(''),
     ]);
-    exampleComponent.value = markRaw(mod.default);
+    if (mod) exampleComponent.value = markRaw(mod.default);
     rawSource.value = typeof raw === 'string' ? raw : '';
 }
 
@@ -102,9 +106,13 @@ const liveCode = computed(() => {
         }
     }
 
-    // Append static attributes (e.g. icons, complex props)
+    // Append static attributes (e.g. icons, complex props, boolean attrs)
     for (const [attr, val] of Object.entries(store.staticAttrs)) {
-        attrParts.push(attr.startsWith(':') ? `${attr}="${val}"` : `${attr}="${val}"`);
+        if (val === '') {
+            attrParts.push(attr);
+        } else {
+            attrParts.push(`${attr}="${val}"`);
+        }
     }
 
     const attrsStr = attrParts.length ? ' ' + attrParts.join(' ') : '';
@@ -151,20 +159,7 @@ const liveCode = computed(() => {
         }
     }
 
-    // Build import lines grouped by package
-    const importEntries = Object.entries(store.imports);
-    if (importEntries.length === 0) return templateCode;
-
-    const grouped: Record<string, string[]> = {};
-    for (const [name, pkg] of importEntries) {
-        (grouped[pkg] ??= []).push(name);
-    }
-    const importLines = Object.entries(grouped)
-        .map(([pkg, names]) => `import { ${names.join(', ')} } from '${pkg}'`)
-        .join('\n');
-
-    // Use \x3C escape for '<' so the Vue SFC parser doesn't detect these as real tags
-    return `\x3Cscript setup>\n${importLines}\n\x3C/script>\n\n\x3Ctemplate>\n  ${templateCode}\n\x3C/template>`;
+    return templateCode;
 });
 
 let _codeHighlightTimer: ReturnType<typeof setTimeout> | null = null;
@@ -194,22 +189,80 @@ const _stopInitWatch = watch(
 watch(
     rawSource,
     async (src) => {
-        if (Object.keys(store.definition).length === 0 && Object.keys(store.slotDefinition).length === 0) {
+        if (
+            Object.keys(store.definition).length === 0 &&
+            Object.keys(store.slotDefinition).length === 0 &&
+            Object.keys(store.data).length === 0 &&
+            !store.component
+        ) {
             codeHtml.value = await highlight(src);
         }
     },
     { immediate: true },
 );
 
+// ─── 3b. Script code for display ────────────────────────────────────────────
+
+const scriptDisplayCode = computed(() => {
+    const importEntries = Object.entries(store.imports);
+    const grouped: Record<string, string[]> = {};
+    for (const [name, pkg] of importEntries) {
+        (grouped[pkg] ??= []).push(name);
+    }
+    const importLines = Object.entries(grouped)
+        .map(([pkg, names]) => `import { ${names.join(', ')} } from '${pkg}'`)
+        .join('\n');
+
+    const dataLines = Object.entries(store.data)
+        .map(([name, value]) => `const ${name} = ${serializeDataValue(value)}`)
+        .join('\n');
+
+    const body = [importLines, dataLines].filter(Boolean).join('\n\n');
+    if (!body) return '';
+
+    // Detect TypeScript syntax (generics like ref<string>(), type annotations)
+    const hasTS = /<\w+>/.test(body) || /:\s*\w+/.test(body);
+    const langAttr = hasTS ? ' lang="ts"' : '';
+    return `\x3Cscript setup${langAttr}>\n${body}\n\x3C/script>`;
+});
+
 // ─── 4. UI state ─────────────────────────────────────────────────────────────
 
-const showCode = ref(false);
+const showTemplate = ref(false);
+const showScript = ref(false);
+const copiedTemplate = ref(false);
+const copiedScript = ref(false);
 const copied = ref(false);
+const scriptHtml = ref('');
 const hasControls = computed(
     () => Object.keys(store.definition).length > 0 || Object.keys(store.slotDefinition).length > 0,
 );
 const hasSlots = computed(() => Object.keys(store.slotDefinition).length > 0);
 const isPlayground = computed(() => store.mode === 'playground');
+const hasScript = computed(() => scriptDisplayCode.value.length > 0);
+
+async function copyTemplate() {
+    try {
+        await navigator.clipboard.writeText(liveCode.value);
+        copiedTemplate.value = true;
+        setTimeout(() => { copiedTemplate.value = false; }, 2000);
+    } catch {}
+}
+
+async function copyScriptCode() {
+    try {
+        await navigator.clipboard.writeText(scriptDisplayCode.value);
+        copiedScript.value = true;
+        setTimeout(() => { copiedScript.value = false; }, 2000);
+    } catch {}
+}
+
+async function toggleScript() {
+    showScript.value = !showScript.value;
+    if (showScript.value && !scriptHtml.value && scriptDisplayCode.value) {
+        scriptHtml.value = await highlight(scriptDisplayCode.value);
+    }
+}
 
 async function copyCode() {
     try {
@@ -687,6 +740,12 @@ onUnmounted(() => {
                     <div class="flex w-full items-center justify-center p-8" :style="{ zoom: String(displayZoom) }">
                         <ClientOnly>
                             <component :is="exampleComponent" v-if="exampleComponent" />
+                            <template #fallback>
+                                <div class="preview-skeleton flex w-full flex-col items-center gap-3 py-2">
+                                    <div class="preview-skeleton__shimmer h-9 w-3/5 rounded-md" />
+                                    <div class="preview-skeleton__shimmer h-4 w-2/5 rounded" />
+                                </div>
+                            </template>
                         </ClientOnly>
                     </div>
                 </div>
@@ -719,11 +778,66 @@ onUnmounted(() => {
                 <div v-if="isNarrowed" class="preview-dead-space flex-1 self-stretch" />
             </div>
 
-            <!-- ── Code toggle footer ─────────────────────────────────────── -->
+            <!-- ── Loading skeleton for accordion ─────────────────────────── -->
+            <div v-if="!codeHtml" class="border-muted flex items-center gap-2 rounded-b-md border px-4 py-2.5">
+                <div class="preview-skeleton__shimmer h-3.5 w-3.5 rounded" />
+                <div class="preview-skeleton__shimmer h-3 w-16 rounded" />
+            </div>
+
+            <!-- ── Accordion: code sections (visible once highlighting is ready) ── -->
+            <template v-if="codeHtml">
+            <template v-if="hasScript">
+                <button
+                    class="code-toggle-footer group border-muted flex w-full cursor-pointer items-center justify-between border px-4 py-2.5 transition-colors"
+                    :class="showScript ? 'border-b-0' : ''"
+                    @click="toggleScript"
+                >
+                    <div class="flex items-center gap-2">
+                        <UIcon
+                            name="i-lucide-braces"
+                            class="text-muted group-hover:text-highlighted size-3.5 transition-colors"
+                        />
+                        <span class="text-muted group-hover:text-highlighted text-xs font-medium transition-colors"
+                            >Script</span
+                        >
+                    </div>
+                    <UIcon
+                        name="i-lucide-chevron-down"
+                        class="text-muted group-hover:text-highlighted size-3.5 transition-all duration-300"
+                        :class="showScript ? '-rotate-180' : ''"
+                    />
+                </button>
+
+                <Transition
+                    @enter="onCodeEnter"
+                    @after-enter="onCodeAfterEnter"
+                    @leave="onCodeLeave"
+                    @after-leave="onCodeAfterLeave"
+                >
+                    <div v-if="showScript" class="group relative">
+                        <div v-html="scriptHtml" class="shiki-block" />
+                        <UButton
+                            :icon="copiedScript ? 'i-lucide-check' : 'i-lucide-copy'"
+                            size="xs"
+                            color="neutral"
+                            variant="subtle"
+                            :aria-label="copiedScript ? 'Copied' : 'Copy script'"
+                            class="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100"
+                            :class="copiedScript ? 'text-green-500! opacity-100!' : ''"
+                            @click="copyScriptCode"
+                        />
+                    </div>
+                </Transition>
+            </template>
+
+            <!-- ── Accordion: Template section ─────────────────────────────── -->
             <button
-                class="code-toggle-footer group border-muted flex w-full items-center justify-between border px-4 py-2.5 transition-colors"
-                :class="showCode ? 'rounded-b-none border-b-0' : 'rounded-b-md'"
-                @click="showCode = !showCode"
+                class="code-toggle-footer group border-muted flex w-full cursor-pointer items-center justify-between border px-4 py-2.5 transition-colors"
+                :class="[
+                    showTemplate ? 'border-b-0' : 'rounded-b-md',
+                    hasScript ? 'border-t-0' : '',
+                ]"
+                @click="showTemplate = !showTemplate"
             >
                 <div class="flex items-center gap-2">
                     <UIcon
@@ -731,37 +845,37 @@ onUnmounted(() => {
                         class="text-muted group-hover:text-highlighted size-3.5 transition-colors"
                     />
                     <span class="text-muted group-hover:text-highlighted text-xs font-medium transition-colors"
-                        >Code</span
+                        >Template</span
                     >
                 </div>
                 <UIcon
                     name="i-lucide-chevron-down"
                     class="text-muted group-hover:text-highlighted size-3.5 transition-all duration-300"
-                    :class="showCode ? '-rotate-180' : ''"
+                    :class="showTemplate ? '-rotate-180' : ''"
                 />
             </button>
 
-            <!-- ── Code area ───────────────────────────────────────────────── -->
             <Transition
                 @enter="onCodeEnter"
                 @after-enter="onCodeAfterEnter"
                 @leave="onCodeLeave"
                 @after-leave="onCodeAfterLeave"
             >
-                <div v-if="showCode" class="group relative">
+                <div v-if="showTemplate" class="group relative rounded-b-md">
                     <div v-html="codeHtml" class="shiki-block" />
                     <UButton
-                        :icon="copied ? 'i-lucide-check' : 'i-lucide-copy'"
+                        :icon="copiedTemplate ? 'i-lucide-check' : 'i-lucide-copy'"
                         size="xs"
                         color="neutral"
                         variant="subtle"
-                        :aria-label="copied ? 'Copied' : 'Copy code'"
+                        :aria-label="copiedTemplate ? 'Copied' : 'Copy template'"
                         class="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100"
-                        :class="copied ? 'text-green-500! opacity-100!' : ''"
-                        @click="copyCode"
+                        :class="copiedTemplate ? 'text-green-500! opacity-100!' : ''"
+                        @click="copyTemplate"
                     />
                 </div>
             </Transition>
+            </template>
         </template>
     </div>
 </template>
@@ -851,6 +965,23 @@ onUnmounted(() => {
 
 :global(.dark) .pill-btn--active {
     color: var(--ui-color-primary-400);
+}
+
+/* ── Preview skeleton shimmer ────────────────────────────────────────────── */
+.preview-skeleton__shimmer {
+    background: linear-gradient(
+        90deg,
+        color-mix(in oklch, var(--ui-text-muted) 8%, transparent) 0%,
+        color-mix(in oklch, var(--ui-text-muted) 16%, transparent) 50%,
+        color-mix(in oklch, var(--ui-text-muted) 8%, transparent) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 </style>
 

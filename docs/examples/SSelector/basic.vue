@@ -22,6 +22,15 @@ const { controls } = usePreview({
         error: { type: 'boolean', default: false, label: 'error' },
         loading: { type: 'boolean', default: false, label: 'loading' },
     },
+    data: {
+        selected: { expression: "ref<string>()" },
+        options,
+    },
+    imports: { ref: 'vue' },
+    staticAttrs: {
+        'v-model': 'selected',
+        ':options': 'options',
+    },
 });
 </script>
 
