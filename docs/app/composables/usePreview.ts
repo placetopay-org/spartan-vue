@@ -2,6 +2,17 @@ import { inject, computed, type ComputedRef } from 'vue';
 
 export type ControlType = 'select' | 'boolean' | 'text' | 'number';
 
+export interface DataExpression {
+    expression: string;
+}
+
+export function serializeDataValue(value: any): string {
+    if (value && typeof value === 'object' && 'expression' in value && typeof value.expression === 'string') {
+        return value.expression;
+    }
+    return JSON.stringify(value, null, 4).replace(/"/g, "'");
+}
+
 export interface ControlDefinition {
     type: ControlType;
     /** Options array for 'select' type */
@@ -41,6 +52,12 @@ export interface PreviewDefinition {
      *  Imports from the same package are grouped into a single import line.
      */
     imports?: Record<string, string>;
+    /** Data declarations for code generation and Data tab.
+     *  - Objects with `{ expression: "..." }` are rendered as-is (for refs, computed, functions).
+     *  - All other values are serialized with JSON.stringify and single-quoted.
+     *  Keys become variable names: `{ options: [...] }` → `const options = [...]`
+     */
+    data?: Record<string, any>;
 }
 
 export interface PreviewStore {
@@ -60,6 +77,8 @@ export interface PreviewStore {
     staticAttrs: Record<string, string>;
     /** Import statements grouped by package for code generation */
     imports: Record<string, string>;
+    /** Data declarations for code generation and Data tab */
+    data: Record<string, any>;
 }
 
 export interface UsePreviewReturn {
@@ -80,6 +99,7 @@ export function usePreview(definition: PreviewDefinition): UsePreviewReturn {
         store.component = definition.component ?? '';
         store.staticAttrs = definition.staticAttrs ?? {};
         store.imports = definition.imports ?? {};
+        store.data = definition.data ?? {};
 
         // Initialise prop values with defaults
         for (const [key, ctrl] of Object.entries(definition.props ?? {})) {

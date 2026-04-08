@@ -10,7 +10,22 @@ const options = [
     { id: 4, name: 'Tom Cook' },
 ];
 
-usePreview({ component: 'SSelector' });
+usePreview({
+    component: 'SSelector',
+    data: {
+        selected: { expression: 'ref()' },
+        options,
+    },
+    imports: { ref: 'vue' },
+    staticAttrs: {
+        'v-model': 'selected',
+        ':options': 'options',
+        'option-label': 'name',
+        'option-value': 'id',
+        'placeholder': 'Select a person',
+        'clearable': '',
+    },
+});
 </script>
 
 <template>

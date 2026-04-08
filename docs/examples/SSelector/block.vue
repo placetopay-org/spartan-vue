@@ -12,6 +12,16 @@ const { controls } = usePreview({
         helpText: { type: 'text', default: 'Select one of the available options.', label: 'helpText' },
         errorText: { type: 'text', default: '', label: 'errorText' },
     },
+    data: {
+        selected: { expression: "ref<string>()" },
+        options,
+    },
+    imports: { ref: 'vue' },
+    staticAttrs: {
+        'v-model': 'selected',
+        ':options': 'options',
+        'placeholder': 'Select an option',
+    },
 });
 </script>
 

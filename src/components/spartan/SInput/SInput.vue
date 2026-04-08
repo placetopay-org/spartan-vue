@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref, useSlots, watchEffect } from 'vue';
 import { buildSideContent } from './slotBuilder';
 import type { TInputProps, TInputEmits } from './types';
 import { twMerge } from 'tailwind-merge';
@@ -7,6 +7,7 @@ import { containerStyles, inputStyles } from './styles';
 
 defineOptions({ inheritAttrs: false });
 const emit = defineEmits<TInputEmits>();
+const slots = useSlots();
 
 const props = withDefaults(defineProps<Partial<TInputProps>>(), {
     class: undefined,
@@ -35,8 +36,8 @@ const props = withDefaults(defineProps<Partial<TInputProps>>(), {
 const leftContent = computed(() => buildSideContent('left', props.leftOrderSlots, props, emit));
 const rightContent = computed(() => buildSideContent('right', props.rightOrderSlots, props, emit));
 
-const hasLeftAddon = computed(() => !!(props.leftIcon || props.prefix || props.leftOptions));
-const hasRightAddon = computed(() => !!(props.rightIcon || props.suffix || props.rightOptions));
+const hasLeftAddon = computed(() => !!(props.leftIcon || props.prefix || props.leftOptions || slots.left));
+const hasRightAddon = computed(() => !!(props.rightIcon || props.suffix || props.rightOptions || slots.right));
 
 const message = (component: string, type: string) => {
     return `The <${component} /> component should be used instead of the <SInput type="${type}"/>`;

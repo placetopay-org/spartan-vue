@@ -11,6 +11,14 @@ const { controls } = usePreview({
         helpText: { type: 'text', default: 'We will never share your email.', label: 'helpText' },
         errorText: { type: 'text', default: '', label: 'errorText' },
     },
+    data: {
+        value: { expression: "ref('')" },
+    },
+    imports: { ref: 'vue' },
+    staticAttrs: {
+        'v-model': 'value',
+        'placeholder': 'Enter your email',
+    },
 });
 </script>
 

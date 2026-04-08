@@ -11,6 +11,14 @@ const { controls } = usePreview({
         helpText: { type: 'text', default: 'Choose your preferred framework.', label: 'helpText' },
         errorText: { type: 'text', default: '', label: 'errorText' },
     },
+    data: {
+        selected: { expression: "ref('Vue')" },
+    },
+    imports: { ref: 'vue' },
+    staticAttrs: {
+        'v-model': 'selected',
+        ':display-button-text': '(v) => String(v)',
+    },
 });
 </script>
 

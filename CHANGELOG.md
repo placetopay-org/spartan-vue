@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Improve positioning of `SPaginator` component on small screens.
+
+### Fixed
+- `SInput` slot-based addons (`#right`/`#left`) now correctly trigger container padding. Components like `SInputPassword` no longer render their icons flush against the input border.
 
 ## [3.0.0-beta.8] - 2026-03-30
 ### Changed
