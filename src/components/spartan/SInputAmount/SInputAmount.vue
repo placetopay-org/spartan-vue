@@ -108,7 +108,7 @@ watch(currencyOptions, (options) => {
         :model-value="formattedValue"
         @update:right-option="(value) => updateCurrencyAndInfo(value as keyof typeof Currencies)"
     >
-        <template #left><slot name="left" /></template>
-        <template #right><slot name="right" /></template>
+        <template v-if="$slots.left" #left><slot name="left" /></template>
+        <template v-if="$slots.right" #right><slot name="right" /></template>
     </SInput>
 </template>

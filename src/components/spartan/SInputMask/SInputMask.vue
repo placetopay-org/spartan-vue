@@ -42,7 +42,7 @@ onMounted(() => {
 
 <template>
     <SInput v-bind="inputProps" ref="$input">
-        <template #left><slot name="left" /></template>
-        <template #right><slot name="right" /></template>
+        <template v-if="$slots.left" #left><slot name="left" /></template>
+        <template v-if="$slots.right" #right><slot name="right" /></template>
     </SInput>
 </template>

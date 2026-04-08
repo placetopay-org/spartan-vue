@@ -12,8 +12,8 @@ const [blockWrapperProps, inputMaskProps] = extractWrapperProps<Partial<TInputPr
 <template>
     <BlockWrapper v-slot="{ id }" v-bind="blockWrapperProps">
         <SInputMask :id class="w-full" v-bind="inputMaskProps">
-            <template #left><slot name="left" /></template>
-            <template #right><slot name="right" /></template>
+            <template v-if="$slots.left" #left><slot name="left" /></template>
+            <template v-if="$slots.right" #right><slot name="right" /></template>
         </SInputMask>
     </BlockWrapper>
 </template>
