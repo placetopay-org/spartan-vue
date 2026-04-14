@@ -296,7 +296,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17317&t=nQ0CaPW3JnnNONVn-4',
         },
-        { name: 'SSkeleton', typescript: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
+        { name: 'SSkeleton', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
         {
             name: 'SPlacetopayLogo',
             typescript: true,
