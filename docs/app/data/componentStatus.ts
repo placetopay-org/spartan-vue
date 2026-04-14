@@ -64,7 +64,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13016-16548&t=SeafmOCyazOmoll4-4',
         },
-        { name: 'SInputAmount', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 65, docs: 'partial', hasBlock: true },
+        { name: 'SInputAmount', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 65, docs: 'complete', hasBlock: true },
         { name: 'SInputDate', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 75, docs: 'complete', hasBlock: true },
         { name: 'SInputIncrement', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
         { name: 'SInputMask', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
@@ -134,11 +134,11 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
-            docs: 'partial',
+            docs: 'complete',
             hasBlock: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13097-22397',
         },
-        { name: 'SMultiSelector', typescript: true, jsdoc: true, darkMode: true, docs: 'partial' },
+        { name: 'SMultiSelector', typescript: true, jsdoc: true, darkMode: true, docs: 'complete' },
     ],
     display: [
         { name: 'SAlert', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
@@ -229,27 +229,27 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
     ],
     modals: [
-        { name: 'SModal', typescript: true, jsdoc: true, darkMode: true, tests: 76, docs: 'partial' },
-        { name: 'SModalCard', typescript: true, jsdoc: true, darkMode: true, tests: 84, docs: 'partial' },
+        { name: 'SModal', typescript: true, jsdoc: true, darkMode: true, tests: 76, docs: 'complete' },
+        { name: 'SModalCard', typescript: true, jsdoc: true, darkMode: true, tests: 84, docs: 'complete' },
         {
             name: 'SModalConfirm',
             typescript: true,
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            docs: 'partial',
+            docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12770-18720',
         },
         { name: 'SModalLeft', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
         { name: 'SModalSide', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
         { name: 'SPopover', typescript: true, jsdoc: true, darkMode: true, tests: 61, docs: 'complete' },
-        { name: 'STooltip', typescript: true, jsdoc: true, darkMode: true, tests: 70, docs: 'partial' },
+        { name: 'STooltip', typescript: true, jsdoc: true, darkMode: true, tests: 70, docs: 'complete' },
         { name: 'SDropdown', typescript: true, jsdoc: true, darkMode: true, tests: 73, docs: 'complete' },
     ],
     structure: [
         { name: 'SAccordion', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
-        { name: 'SSidebar', typescript: true, jsdoc: true, darkMode: true, tests: 65, docs: 'partial' },
+        { name: 'SSidebar', typescript: true, jsdoc: true, darkMode: true, tests: 65, docs: 'complete' },
         {
             name: 'STab',
             typescript: true,
@@ -266,7 +266,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             darkMode: true,
             responsive: true,
             tests: 73,
-            docs: 'partial',
+            docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
@@ -277,7 +277,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             darkMode: true,
             responsive: true,
             tests: 86,
-            docs: 'partial',
+            docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
@@ -324,7 +324,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             tests: 67,
-            docs: 'partial',
+            docs: 'complete',
             improvements: {
                 en: '- Optimize source code\n- Decouple reserved operators from custom ones\n- Improve multiple popovers handling',
                 es: '- Optimizar el código fuente\n- Desacomplar los operadores reservados de los personalizados\n- Mejorar el manejo de múltiples popovers',
