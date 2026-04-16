@@ -88,8 +88,28 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13102-10152&t=chH7DYdlsITfmdld-0',
         },
-        { name: 'SInputIncrement', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
-        { name: 'SInputMask', typescript: true, jsdoc: true, darkMode: true, responsive: true, docs: 'complete', hasBlock: true },
+        {
+            name: 'SInputIncrement',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            docs: 'complete',
+            hasBlock: true,
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15747-51821&t=UNarrVuzQ0KaP5NV-0',
+        },
+        {
+            name: 'SInputMask',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            docs: 'complete',
+            hasBlock: true,
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15757-53181&t=G21EOo9VQkdC8FlW-0',
+        },
         {
             name: 'SInputOtp',
             typescript: true,
@@ -207,6 +227,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             docs: 'complete',
             hasBlock: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13097-22397',
@@ -216,13 +237,14 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15398-14522&t=YejrDL8k9HOQiEjj-4',
         },
     ],
     display: [
-        { name: 'SAlert', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
+        { name: 'SAlert', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
         {
             name: 'SAvatar',
             typescript: true,
@@ -259,6 +281,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 50,
             docs: 'complete',
             figmaLink:
@@ -273,7 +296,17 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             tests: 100,
             docs: 'complete',
         },
-        { name: 'SLink', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
+        {
+            name: 'SLink',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15738-27297&t=91RrLBvDNIZDvMwA-0',
+        },
         {
             name: 'SToast',
             typescript: true,
@@ -296,7 +329,17 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17317&t=nQ0CaPW3JnnNONVn-4',
         },
-        { name: 'SSkeleton', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
+        {
+            name: 'SSkeleton',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?t=SGrVmYUPYOkyfMxN-0',
+        },
         {
             name: 'SPlacetopayLogo',
             typescript: true,
@@ -315,6 +358,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 76,
             docs: 'complete',
             figmaLink:
@@ -325,6 +369,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 84,
             docs: 'complete',
             figmaLink:
@@ -345,6 +390,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 100,
             docs: 'complete',
             figmaLink:
@@ -355,17 +401,19 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15540-8734&t=UYu9Xx4J3JNVcS7z-4',
         },
-        { name: 'SPopover', typescript: true, jsdoc: true, darkMode: true, tests: 61, docs: 'complete' },
+        { name: 'SPopover', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 61, docs: 'complete' },
         {
             name: 'STooltip',
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 70,
             docs: 'complete',
             figmaLink:
@@ -376,6 +424,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 73,
             docs: 'complete',
             figmaLink:
@@ -383,12 +432,13 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
     ],
     structure: [
-        { name: 'SAccordion', typescript: true, jsdoc: true, darkMode: true, tests: 100, docs: 'complete' },
+        { name: 'SAccordion', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
         {
             name: 'SSidebar',
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 65,
             docs: 'complete',
             figmaLink:
@@ -399,6 +449,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 43,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15389-2514',
             docs: 'complete',
@@ -440,6 +491,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15566-18679&t=LIDn51KPH0u6PwtA-4',
@@ -449,6 +501,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15571-12061&t=LIDn51KPH0u6PwtA-4',
@@ -458,11 +511,21 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15417-12539&t=LIDn51KPH0u6PwtA-4',
         },
-        { name: 'SButtonGroup', typescript: true, jsdoc: true, darkMode: true, docs: 'complete' },
+        {
+            name: 'SButtonGroup',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12897-58267&t=nUZ8Fb2zwkjutAl3-0',
+        },
     ],
     utilities: [
         {
@@ -491,6 +554,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             tests: 67,
             docs: 'complete',
             figmaLink:
@@ -506,6 +570,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             typescript: true,
             jsdoc: true,
             darkMode: true,
+            responsive: true,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15446-11314',
