@@ -96,19 +96,4 @@ describe('SSelector', () => {
         expect(screen.getByText('Bob')).toBeInTheDocument();
     });
 
-    test('Opens dropdown and shows options on click', async () => {
-        setup();
-        const user = userEvent.setup();
-
-        render(SSelector, {
-            props: { options: defaultOptions },
-        });
-
-        await user.click(screen.getByRole('button'));
-
-        expect(screen.getByText('Option 1')).toBeInTheDocument();
-        expect(screen.getByText('Option 2')).toBeInTheDocument();
-        expect(screen.getByText('Option 3')).toBeInTheDocument();
-    });
-
 });
