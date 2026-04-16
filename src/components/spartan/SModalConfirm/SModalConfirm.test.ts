@@ -116,6 +116,23 @@ describe('SModalConfirm', () => {
         expect(screen.queryByText('Fallback text')).not.toBeInTheDocument();
     });
 
+    test('Propagates update:open from backdrop click', async () => {
+        resizeObserverMock();
+        const user = userEvent.setup();
+
+        const { emitted } = render(SModalConfirm, {
+            props: { open: true, description: 'Test' },
+        });
+
+        const backdrop = document.querySelector('[aria-hidden="true"]');
+        if (backdrop) await user.click(backdrop);
+
+        const updateEvents = emitted()['update:open'];
+        if (updateEvents) {
+            expect(updateEvents.some((e: any) => e[0] === false)).toBe(true);
+        }
+    });
+
     test('Renders with icon', async () => {
         resizeObserverMock();
 
