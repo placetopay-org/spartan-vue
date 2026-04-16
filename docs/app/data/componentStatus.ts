@@ -70,7 +70,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 65,
+            tests: 62,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -94,6 +94,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 76,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -105,6 +106,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 85,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -116,6 +118,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 90,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -148,6 +151,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -159,6 +163,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 95,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -274,7 +279,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15418-12723',
-            tests: 90,
+            tests: 91,
         },
         {
             name: 'SCardBrand',
@@ -282,7 +287,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 50,
+            tests: 66,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-17011',
@@ -359,7 +364,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 76,
+            tests: 77,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4841-26717&t=YejrDL8k9HOQiEjj-4',
@@ -370,7 +375,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 84,
+            tests: 85,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4841-26717&t=YejrDL8k9HOQiEjj-4',
@@ -407,14 +412,14 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15540-8734&t=UYu9Xx4J3JNVcS7z-4',
         },
-        { name: 'SPopover', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 61, docs: 'complete' },
+        { name: 'SPopover', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 62, docs: 'complete' },
         {
             name: 'STooltip',
             typescript: true,
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 70,
+            tests: 71,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13419-9788&t=UYu9Xx4J3JNVcS7z-4',
@@ -425,7 +430,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 73,
+            tests: 77,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12980-30183&t=LIDn51KPH0u6PwtA-4',
@@ -439,7 +444,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 65,
+            tests: 66,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=9510-67143&t=nQ0CaPW3JnnNONVn-4',
@@ -450,7 +455,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 43,
+            tests: 88,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15389-2514',
             docs: 'complete',
         },
@@ -460,7 +465,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 73,
+            tests: 74,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
@@ -471,7 +476,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 86,
+            tests: 81,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
@@ -482,6 +487,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
@@ -492,6 +498,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 94,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15566-18679&t=LIDn51KPH0u6PwtA-4',
@@ -502,6 +509,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 46,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15571-12061&t=LIDn51KPH0u6PwtA-4',
@@ -512,6 +520,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 55,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15417-12539&t=LIDn51KPH0u6PwtA-4',
@@ -522,6 +531,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
+            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12897-58267&t=nUZ8Fb2zwkjutAl3-0',
