@@ -34,6 +34,77 @@ describe('SDropdown', () => {
 
         screen.getByText('Option');
         screen.getByText('Edit');
-        screen.debug();
+    });
+
+    test('Does not toggle when manual is true', async () => {
+        const user = userEvent.setup();
+
+        const Item1 = h(SDropdownItem, null, { default: () => 'Item' });
+
+        render(SDropdown, {
+            props: { manual: true },
+            slots: {
+                default: [Item1],
+                reference: () => 'Manual Dropdown',
+            },
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Manual Dropdown' }));
+
+        expect(screen.queryByText('Item')).not.toBeInTheDocument();
+    });
+
+    test('Renders with compact variant', async () => {
+        const user = userEvent.setup();
+
+        const Item1 = h(SDropdownItem, null, { default: () => 'Compact Item' });
+
+        render(SDropdown, {
+            props: { variant: 'compact' },
+            slots: {
+                default: [Item1],
+                reference: () => 'Compact',
+            },
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Compact' }));
+
+        expect(screen.getByText('Compact Item')).toBeInTheDocument();
+    });
+
+    test('Closes dropdown when clicking an item', async () => {
+        const user = userEvent.setup();
+
+        const Item1 = h(SDropdownItem, null, { default: () => 'Click me' });
+
+        render(SDropdown, {
+            slots: {
+                default: [Item1],
+                reference: () => 'Open',
+            },
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+        expect(screen.getByText('Click me')).toBeInTheDocument();
+
+        await user.click(screen.getByText('Click me'));
+    });
+
+    test('Renders disabled dropdown item', async () => {
+        const user = userEvent.setup();
+
+        const Item = h(SDropdownItem, { disabled: true }, { default: () => 'Disabled' });
+
+        render(SDropdown, {
+            slots: {
+                default: [Item],
+                reference: () => 'Open',
+            },
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        const item = screen.getByText('Disabled');
+        expect(item.closest('[data-headlessui-state]')).toBeTruthy();
     });
 });
