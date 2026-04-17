@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta.11] - 2026-04-17
+
 ### Added
 - Bilingual documentation (EN + ES) for `SDefinitionTerm`, including interactive playground and feature examples (multiple labels, slot content, `oneline` grouped layout) and registration in the Display category.
 
