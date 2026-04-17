@@ -29,4 +29,51 @@ describe('SInputMask', () => {
         // Assert
         expect(modelValue).toEqual('12/34/5678');
     });
+
+    test('Emits complete when mask is fully filled', async () => {
+        let modelValue = '';
+        const user = userEvent.setup();
+
+        const { emitted, rerender } = render(SInputMask, {
+            props: {
+                mask: '000',
+                modelValue,
+                'onUpdate:modelValue': (e: string) => {
+                    modelValue = e;
+                    rerender({ modelValue, mask: '000' });
+                },
+            },
+        });
+
+        const input = screen.getByRole('textbox');
+        await user.type(input, '123');
+
+        expect(emitted()['complete']).toBeTruthy();
+    });
+
+    test('Renders with left slot', () => {
+        render(SInputMask, {
+            props: { mask: '000', modelValue: '' },
+            slots: { left: '<span>$</span>' },
+        });
+
+        expect(screen.getByText('$')).toBeInTheDocument();
+    });
+
+    test('Renders with right slot', () => {
+        render(SInputMask, {
+            props: { mask: '000', modelValue: '' },
+            slots: { right: '<span>USD</span>' },
+        });
+
+        expect(screen.getByText('USD')).toBeInTheDocument();
+    });
+
+    test('Renders with placeholder', () => {
+        render(SInputMask, {
+            props: { mask: '00/00/0000', modelValue: '', placeholder: 'DD/MM/YYYY' },
+        });
+
+        expect(screen.getByPlaceholderText('DD/MM/YYYY')).toBeInTheDocument();
+    });
 });

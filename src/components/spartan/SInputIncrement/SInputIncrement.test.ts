@@ -70,4 +70,50 @@ describe('SInputIncrement', () => {
         await user.clear(input);
         expect(modelValue).toEqual(0);
     });
+
+    test('Sets min value when input is cleared and min is set', async () => {
+        let modelValue = 5;
+        const user = userEvent.setup();
+
+        const { rerender } = render(SInputIncrement, {
+            props: {
+                modelValue,
+                min: 1,
+                'onUpdate:modelValue': (e: number) => {
+                    modelValue = e;
+                    rerender({ modelValue, min: 1 });
+                },
+            },
+        });
+
+        const input = screen.getByRole('button', { name: 'increment' }).parentElement?.querySelector('input');
+
+        await user.clear(input);
+        expect(modelValue).toBe(1);
+    });
+
+    test('Disables decrement button when at min', () => {
+        render(SInputIncrement, {
+            props: { modelValue: 5, min: 5 },
+        });
+
+        expect(screen.getByRole('button', { name: 'decrement' })).toBeDisabled();
+    });
+
+    test('Disables increment button when at max', () => {
+        render(SInputIncrement, {
+            props: { modelValue: 10, max: 10 },
+        });
+
+        expect(screen.getByRole('button', { name: 'increment' })).toBeDisabled();
+    });
+
+    test('Renders disabled state', () => {
+        render(SInputIncrement, {
+            props: { modelValue: 5, disabled: true },
+        });
+
+        expect(screen.getByRole('button', { name: 'decrement' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'increment' })).toBeDisabled();
+    });
 });

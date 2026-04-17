@@ -6,6 +6,7 @@ import SDColumn from './SDColumn.vue';
 import userEvent from '@testing-library/user-event';
 import { table } from '@/data';
 import { h } from 'vue';
+import { createContext, useContext } from './api';
 
 describe('SDTable', () => {
     test('renders the table base', async () => {
@@ -200,5 +201,101 @@ describe('SDTable', () => {
             expect(emitted().sort[0]).toEqual([{ field: 'name', sort: 'asc' }]);
             expect(emitted().sort[1]).toEqual([{ field: 'email', sort: 'des' }]);
         });
+    });
+
+    test('renders the table with expander column', async () => {
+        const user = userEvent.setup();
+
+        const ExpanderCol = h(SDColumn, { expander: true });
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const { emitted } = render(SDTable, {
+            props: { data: [{ name: 'Alice' }, { name: 'Bob' }] },
+            slots: {
+                default: [ExpanderCol, Column1],
+                expansion: ({ row }) => h('div', `Details for ${row.name}`),
+            },
+        });
+
+        await waitFor(async () => {
+            const buttons = screen.getAllByRole('button');
+            expect(buttons.length).toBeGreaterThanOrEqual(1);
+
+            await user.click(buttons[0]);
+
+            expect(emitted().toggleExpanders).toBeTruthy();
+        });
+    });
+
+    test('renders the table with noLink column', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+        const Column2 = h(SDColumn, { field: 'action', header: 'Action', noLink: true });
+
+        render(SDTable, {
+            props: {
+                data: [{ name: 'Alice', action: 'Edit' }],
+                rowLink: () => '/users/1',
+            },
+            slots: { default: [Column1, Column2] },
+        });
+
+        await waitFor(() => {
+            const nameCell = screen.getByRole('cell', { name: 'Alice' });
+            expect(nameCell.querySelector('a')).toHaveAttribute('href', '/users/1');
+        });
+    });
+
+    test('renders loading state', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        render(SDTable, {
+            props: { data: [], loading: true },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(() => {
+            screen.getByRole('columnheader', { name: 'Name' });
+        });
+    });
+
+    test('renders slim and borderless', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const { container } = render(SDTable, {
+            props: { data: [{ name: 'Alice' }], slim: true, borderless: true },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(() => {
+            screen.getByRole('cell', { name: 'Alice' });
+        });
+    });
+});
+
+describe('SDTable API', () => {
+    test('updateCol ignores entry without field', () => {
+        const emit = (() => {}) as any;
+        const props = { data: [] } as any;
+
+        const state = createContext(props, emit, {});
+
+        state.updateCol({ header: 'No field' });
+
+        expect(Object.keys(state.cols)).toHaveLength(0);
+    });
+
+    test('useContext throws when used without provider', () => {
+        const ErrorComponent = {
+            setup() {
+                useContext('TestComponent');
+            },
+            render() {
+                return h('div');
+            },
+        };
+
+        expect(() => render(ErrorComponent)).toThrowError(
+            '<TestComponent /> is missing parent <STable /> component',
+        );
     });
 });

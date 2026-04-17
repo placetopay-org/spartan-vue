@@ -1,8 +1,18 @@
+<script lang="ts">
+/**
+ * A placeholder loading element with a shimmer animation, used while content is being fetched.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/SSkeleton Github}.
+ */
+export default {
+    name: 'SSkeleton',
+};
+</script>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge';
-defineProps<{
-    class?: string;
-}>();
+import type { TSkeletonProps } from './types';
+
+defineProps<TSkeletonProps>();
 </script>
 
 <template>

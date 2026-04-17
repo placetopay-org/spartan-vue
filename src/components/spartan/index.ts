@@ -4,8 +4,6 @@ export * from './SAccordion';
 export * from './SBadge';
 export * from './SButton';
 export * from './SCheckbox';
-export * from './SCombobox';
-export * from './SComboboxBlock';
 export * from './SDropdown';
 export * from './SFilter';
 export * from './SInput';

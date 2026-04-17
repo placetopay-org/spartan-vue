@@ -12,7 +12,7 @@ const { extractor, pt } = usePassthrough();
 const [dtClass, dtProps] = extractor(pt.value.dt);
 const [ddClass, ddProps] = extractor(pt.value.dd);
 
-const dtStyle = 'text-sm font-medium text-gray-500';
+const dtStyle = 'text-sm font-medium text-gray-500 dark:text-gray-400';
 const slots = useSlots();
 const slotLabels = computed(() => Object.keys(slots).filter((key) => key.match(/^\d+$/))) as unknown as string[];
 </script>
@@ -39,7 +39,7 @@ const slotLabels = computed(() => Object.keys(slots).filter((key) => key.match(/
             </dt>
         </template>
 
-        <dd data-s-dd v-bind="ddProps" :class="twMerge(ddClass, 'text-sm text-gray-900')">
+        <dd data-s-dd v-bind="ddProps" :class="twMerge(ddClass, 'text-sm text-gray-900 dark:text-gray-50')">
             <slot v-if="hasSlotContent($slots.description)" name="description" />
             <template v-else>{{ description }}</template>
         </dd>
