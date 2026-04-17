@@ -2,7 +2,7 @@ import { expect, test, describe, vi } from 'vitest';
 import { render, screen } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
 import SCopy from './SCopy.vue';
-import { h } from 'vue';
+import { h, defineComponent } from 'vue';
 
 describe('SCopy', () => {
     test('Can be rendered', () => {
@@ -101,5 +101,27 @@ describe('SCopy', () => {
         await user.click(container);
 
         expect(emitted().copied[0]).toEqual(['']);
+    });
+
+    test('Falls back to slot.el.innerText for non-string slot children', async () => {
+        const user = userEvent.setup();
+
+        const NestedComponent = defineComponent({
+            render() {
+                return h('div', 'Nested Text');
+            },
+        });
+
+        const { emitted } = render(SCopy, {
+            slots: {
+                default: () => [h(NestedComponent)],
+            },
+        });
+
+        const container = document.querySelector('[class*="cursor-pointer"]')!;
+        await user.click(container);
+
+        const copied = emitted().copied[0][0];
+        expect(typeof copied).toBe('string');
     });
 });
