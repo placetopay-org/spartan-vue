@@ -3,6 +3,7 @@ import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SCardBrand from './SCardBrand.vue';
 import * as assets from './assets';
+import { brandName } from './constants';
 
 const brandNames = Object.keys(assets);
 
@@ -35,6 +36,13 @@ describe('SCardBrand', () => {
 
             const svg = container.querySelector('svg');
             expect(svg).toBeTruthy();
+        });
+    });
+
+    test('Constants brandName matches assets exports', () => {
+        expect(brandName.length).toBe(brandNames.length);
+        brandName.forEach((name) => {
+            expect(brandNames).toContain(name);
         });
     });
 });

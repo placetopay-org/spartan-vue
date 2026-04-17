@@ -160,18 +160,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13110-19745&t=chH7DYdlsITfmdld-0',
         },
         {
-            name: 'SCombobox',
-            typescript: true,
-            jsdoc: true,
-            darkMode: true,
-            responsive: true,
-            tests: 95,
-            docs: 'complete',
-            hasBlock: true,
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13097-22634&t=r5bgL3BUPfSEhXZn-0',
-        },
-        {
             name: 'SSelect',
             typescript: true,
             jsdoc: true,

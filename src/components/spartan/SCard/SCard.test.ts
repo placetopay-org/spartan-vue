@@ -1,8 +1,9 @@
-import { test, describe } from 'vitest';
+import { test, describe, vi } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import SCard from './SCard.vue';
+import { defineComponent, h } from 'vue';
 
 describe('SCard', () => {
     test('Can be rendered', () => {
@@ -75,5 +76,83 @@ describe('SCard', () => {
         });
 
         expect(screen.getByText('Action')).toBeInTheDocument();
+    });
+
+    test('Renders custom FunctionalComponent icon (non-string)', () => {
+        const CustomIcon = defineComponent({
+            setup(_, { attrs }) {
+                return () => h('svg', { ...attrs, 'data-testid': 'custom-icon' });
+            },
+        });
+
+        render(SCard, {
+            props: { icon: CustomIcon, iconType: 'solid' },
+            slots: { default: 'content' },
+        });
+
+        expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+    });
+
+    test('Renders icon with overridden iconColor', () => {
+        render(SCard, {
+            props: { icon: 'danger', iconColor: 'success', iconType: 'solid' },
+            slots: { default: 'content' },
+        });
+
+        const iconContainer = document.querySelector('[data-s-iconcontainer]');
+        expect(iconContainer?.className).toContain('bg-green-100');
+    });
+
+    test('Renders icon with ping type', () => {
+        render(SCard, {
+            props: { icon: 'primary', iconType: 'ping' },
+            slots: { default: 'content' },
+        });
+
+        const iconContainer = document.querySelector('[data-s-iconcontainer]');
+        expect(iconContainer?.className).toContain('radial-gradient-primary');
+    });
+
+    test('Renders custom icon with ping type', () => {
+        const CustomIcon = defineComponent({
+            setup(_, { attrs }) {
+                return () => h('svg', { ...attrs, 'data-testid': 'ping-custom' });
+            },
+        });
+
+        render(SCard, {
+            props: { icon: CustomIcon, iconType: 'ping' },
+            slots: { default: 'content' },
+        });
+
+        expect(screen.getByTestId('ping-custom')).toBeInTheDocument();
+    });
+
+    test('Renders actions prop with TAction objects', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+
+        const TestIcon = defineComponent({
+            setup(_, { attrs }) {
+                return () => h('svg', { ...attrs, 'data-testid': 'action-icon' });
+            },
+        });
+
+        render(SCard, {
+            props: {
+                actions: [
+                    { icon: TestIcon, text: 'Confirm', onClick },
+                    { icon: TestIcon, text: 'Cancel', onClick: vi.fn() },
+                ],
+            },
+            slots: { default: 'content' },
+        });
+
+        expect(screen.getByText('Confirm')).toBeInTheDocument();
+        expect(screen.getByText('Cancel')).toBeInTheDocument();
+        expect(screen.getAllByTestId('action-icon')).toHaveLength(2);
+
+        await user.click(screen.getByText('Confirm'));
+        expect(onClick).toHaveBeenCalledOnce();
     });
 });
