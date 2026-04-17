@@ -294,6 +294,15 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             docs: 'complete',
         },
         {
+            name: 'SDefinitionTerm',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+        },
+        {
             name: 'SLink',
             typescript: true,
             jsdoc: true,

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Bilingual documentation (EN + ES) for `SDefinitionTerm`, including interactive playground and feature examples (multiple labels, slot content, `oneline` grouped layout) and registration in the Display category.
+
+### Fixed
+- `SDefinitionTerm` dark mode: `<dt>` now uses `dark:text-gray-400` and `<dd>` uses `dark:text-gray-50` so the term and description stay readable on dark backgrounds.
+
 ### Removed
 - `SCombobox` and `SComboboxBlock` components (including `SComboboxOption` and `SComboboxOptionGroup`) have been removed. Use `SSelector` / `SSelectorBlock` as the replacement.
 
