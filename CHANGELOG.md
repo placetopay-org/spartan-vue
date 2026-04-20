@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- New **Recipes** documentation section (`/es/recipes`, `/en/recipes`) with four MVP composition patterns: Selector + Input (document type + number), Selector + InputAmount (currency + amount), Date range (two `SInputDate`), and Cascading selectors (country → state → city). Each recipe ships bilingual pages with a live preview, design decisions (visual attachment via `rounded`, v-model shape, error coordination, a11y), variants, and links to the components used.
+- `ComponentPreview.vue` now splits raw `.vue` example files into `<script setup>` and `<template>` panels when the example omits `usePreview()`, so multi-component recipes show faithful script/template code separately instead of dumping the whole file into the Template panel.
+
 ## [3.0.0-beta.11] - 2026-04-17
 
 ### Added
