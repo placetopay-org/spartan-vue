@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- `SSelector` and `SMultiSelector` buttons now render at 36px height (`h-9`) to match `SInput`, so attaching them via `rounded="left"` + `rounded="right"` produces a pill without a 2px height mismatch. Height is now enforced by the shared `buttonStyles` instead of each consumer.
+
 ## [3.0.0-beta.12] - 2026-04-20
 
 ### Added

@@ -25,7 +25,7 @@ export const inputStyles = cva(
 );
 
 export type TSelectButtonStyles = VariantProps<typeof buttonStyles>;
-export const buttonStyles = cva([inputStyle.root, inputStyle.padding, 'gap-1 inline-flex items-center'], {
+export const buttonStyles = cva([inputStyle.root, inputStyle.padding, 'h-9 gap-1 inline-flex items-center'], {
     variants: {
         disabled: cbv('bg-gray-50 dark:bg-white/5 pointer-events-none'),
         error: cbv(
