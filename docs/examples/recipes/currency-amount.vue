@@ -23,7 +23,7 @@ const amount = ref<number | null>(null);
                 option-value="code"
                 placeholder="Moneda"
                 rounded="left"
-                class="h-9 w-24 shrink-0"
+                class="w-24 shrink-0"
             />
             <SInputAmount
                 id="amount"

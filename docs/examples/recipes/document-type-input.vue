@@ -26,7 +26,7 @@ const identification = ref<{ type: string | undefined; number: string }>({
                 option-value="code"
                 placeholder="Tipo"
                 rounded="left"
-                class="h-9 w-24 shrink-0"
+                class="w-24 shrink-0"
             />
             <SInput
                 id="document-number"
