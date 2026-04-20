@@ -86,7 +86,33 @@ watch(() => props.file, loadExample);
 
 // ─── 3. Live code generation ──────────────────────────────────────────────────
 
+// Raw-source fallback: when no usePreview() is called, split the .vue file into
+// its <script setup> and <template> blocks so each panel shows the right code.
+const isRawFallback = computed(
+    () =>
+        Object.keys(store.definition).length === 0 &&
+        Object.keys(store.slotDefinition).length === 0 &&
+        Object.keys(store.data).length === 0 &&
+        !store.component,
+);
+
+function extractSfcBlocks(src: string): { script: string; template: string } {
+    const scriptMatch = src.match(/<script\b[^>]*>[\s\S]*?<\/script>/);
+    const templateMatch = src.match(/<template\b[^>]*>([\s\S]*?)<\/template>\s*$/m);
+    return {
+        script: scriptMatch ? scriptMatch[0] : '',
+        template: templateMatch ? templateMatch[0] : '',
+    };
+}
+
+const rawBlocks = computed(() => extractSfcBlocks(rawSource.value));
+
 const liveCode = computed(() => {
+    // Fallback mode: show the raw <template> block verbatim (recipes, hand-written multi-component examples)
+    if (isRawFallback.value && rawBlocks.value.template) {
+        return rawBlocks.value.template;
+    }
+
     // Extract component name from store or from raw source
     const name = store.component || rawSource.value.match(/<([A-Z]\w+)/)?.[1] || 'Component';
     const attrParts: string[] = [];
@@ -185,17 +211,12 @@ const _stopInitWatch = watch(
     { immediate: false },
 );
 
-// Fallback: highlight raw source when no store definition (no usePreview call)
+// Fallback initial highlight — liveCode already returns the <template> block in fallback mode
 watch(
-    rawSource,
-    async (src) => {
-        if (
-            Object.keys(store.definition).length === 0 &&
-            Object.keys(store.slotDefinition).length === 0 &&
-            Object.keys(store.data).length === 0 &&
-            !store.component
-        ) {
-            codeHtml.value = await highlight(src);
+    [rawSource, isRawFallback],
+    async ([, fallback]) => {
+        if (fallback) {
+            codeHtml.value = await highlight(liveCode.value);
         }
     },
     { immediate: true },
@@ -204,6 +225,11 @@ watch(
 // ─── 3b. Script code for display ────────────────────────────────────────────
 
 const scriptDisplayCode = computed(() => {
+    // Fallback mode: return the raw <script setup> block so it shows up separately from the template
+    if (isRawFallback.value) {
+        return rawBlocks.value.script;
+    }
+
     const importEntries = Object.entries(store.imports);
     const grouped: Record<string, string[]> = {};
     for (const [name, pkg] of importEntries) {
