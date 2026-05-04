@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Enlaces directos a los diseños de Figma para `SDefinitionTerm`, `SCaption`, `SPopover`, `SAccordion` y `SAlert`, accesibles desde la página de cada componente.
+
 ## [3.0.0-beta.13] - 2026-04-20
 
 ### Fixed
