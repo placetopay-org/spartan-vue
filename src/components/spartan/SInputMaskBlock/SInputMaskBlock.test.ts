@@ -2,33 +2,26 @@ import { test, describe } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SInputMaskBlock from './SInputMaskBlock.vue';
+import userEvent from '@testing-library/user-event';
 
-// TODO: Add tests
 describe('SInputMaskBlock', () => {
-    // test('Can be rendered', async () => {
-    //     // Arrange
-    //     let modelValue = '';
-    //     const user = userEvent.setup();
+    test('Renders with left slot', () => {
+        render(SInputMaskBlock, {
+            props: { mask: '000' },
+            slots: { left: '<span>$</span>' },
+        });
 
-    //     // Act
-    //     const { rerender } = render(SInputMaskBlock, {
-    //         props: {
-    //             mask: '00/00/0000',
-    //             modelValue,
-    //             'onUpdate:modelValue': (e: string) => {
-    //                 modelValue = e;
-    //                 rerender({ modelValue });
-    //             },
-    //         },
-    //     });
+        expect(screen.getByText('$')).toBeInTheDocument();
+    });
 
-    //     const input = screen.getByRole('textbox');
+    test('Renders with right slot', () => {
+        render(SInputMaskBlock, {
+            props: { mask: '000' },
+            slots: { right: '<span>USD</span>' },
+        });
 
-    //     await user.type(input, '1234567890');
-
-    //     // Assert
-    //     expect(modelValue).toEqual('12/34/5678');
-    // });
+        expect(screen.getByText('USD')).toBeInTheDocument();
+    });
 
     test('Can be rendered with label', () => {
         // Act
