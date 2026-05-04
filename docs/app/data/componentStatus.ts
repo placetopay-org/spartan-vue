@@ -612,7 +612,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         {
             name: 'SCopy',
-            tests: 68,
+            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,
