@@ -5,6 +5,40 @@ import SInputMaskBlock from './SInputMaskBlock.vue';
 import userEvent from '@testing-library/user-event';
 
 describe('SInputMaskBlock', () => {
+    test('Applies mask to typed value', async () => {
+        let modelValue = '';
+        const user = userEvent.setup();
+
+        const { rerender } = render(SInputMaskBlock, {
+            props: {
+                mask: '00/00/0000',
+                modelValue,
+                'onUpdate:modelValue': (e: string) => {
+                    modelValue = e;
+                    rerender({ modelValue, mask: '00/00/0000' });
+                },
+            },
+        });
+
+        const input = screen.getByRole('textbox');
+        await user.type(input, '1234567890');
+
+        expect(modelValue).toEqual('12/34/5678');
+    });
+
+    test('Emits complete when mask is fully filled', async () => {
+        const user = userEvent.setup();
+
+        const { emitted } = render(SInputMaskBlock, {
+            props: { mask: '000', modelValue: '' },
+        });
+
+        const input = screen.getByRole('textbox');
+        await user.type(input, '123');
+
+        expect(emitted()['complete']).toBeTruthy();
+    });
+
     test('Renders with left slot', () => {
         render(SInputMaskBlock, {
             props: { mask: '000' },
