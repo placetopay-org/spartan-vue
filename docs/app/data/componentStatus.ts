@@ -130,7 +130,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 84,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -289,7 +289,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 66,
+            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-17011',
