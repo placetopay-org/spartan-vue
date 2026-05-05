@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Direct links to Figma designs for `SDefinitionTerm`, `SCaption`, `SPopover`, `SAccordion`, and `SAlert`, accessible from each component's page.
+- `SStackedList`: new test that opens the dropdown and verifies rendering of the `dropdown` slot, bringing component coverage to 100%.
+- `vue-sonner` promoted from `devDependencies` to `dependencies` so it is guaranteed to be installed in consumer projects.
+
+### Fixed
+- `SToast`/`SToaster`: the styles bundle (`@placetopay/spartan-vue/styles.css`) now includes `@import 'vue-sonner/style.css'`. Without it, `<SToaster />` rendered in the document flow (no `position: fixed`) and broke the layout in consumer projects. The regression appeared when `vue-sonner` was bumped from 1.x to 2.x in beta.3 — 2.x stopped injecting its styles via JS and moved them to a separate stylesheet that the consumer must import.
+- `SStackedList`: documentation examples (`basic.vue`, `dropdown.vue`) now include `dark:` variants on text and avatars, preventing names and emails from appearing dark on a dark background.
+- `SStackedList`: the `dropdown.vue` example used `<SDropdownItem label="..." />` (a non-existent prop) and showed empty options; fixed to use the default slot (`<SDropdownItem>Edit</SDropdownItem>`).
+
+### Removed
+- `SStackedList`: removed `styles.ts` with `inputStyles`/`iconStyles`, which was dead code (not imported anywhere).
+
 ## [3.0.0-beta.13] - 2026-04-20
 
 ### Fixed

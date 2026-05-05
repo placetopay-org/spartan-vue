@@ -70,7 +70,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 62,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -82,7 +82,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 75,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -94,7 +94,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 82,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -106,7 +106,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 95,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -118,7 +118,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 90,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -241,7 +241,17 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
     ],
     display: [
-        { name: 'SAlert', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
+        {
+            name: 'SAlert',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15399-15680&t=DcObZzVEgYYZURV0-4',
+        },
         {
             name: 'SAvatar',
             typescript: true,
@@ -292,6 +302,8 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 100,
             docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13014-16382&t=DcObZzVEgYYZURV0-4',
         },
         {
             name: 'SDefinitionTerm',
@@ -301,6 +313,8 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 100,
             docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=8742-7732&t=DcObZzVEgYYZURV0-4',
         },
         {
             name: 'SLink',
@@ -414,14 +428,24 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15540-8734&t=UYu9Xx4J3JNVcS7z-4',
         },
-        { name: 'SPopover', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 62, docs: 'complete' },
+        {
+            name: 'SPopover',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15879-56747&t=DcObZzVEgYYZURV0-4',
+        },
         {
             name: 'STooltip',
             typescript: true,
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 71,
+            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13419-9788&t=UYu9Xx4J3JNVcS7z-4',
@@ -432,14 +456,24 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 88,
+            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12980-30183&t=LIDn51KPH0u6PwtA-4',
         },
     ],
     structure: [
-        { name: 'SAccordion', typescript: true, jsdoc: true, darkMode: true, responsive: true, tests: 100, docs: 'complete' },
+        {
+            name: 'SAccordion',
+            typescript: true,
+            jsdoc: true,
+            darkMode: true,
+            responsive: true,
+            tests: 100,
+            docs: 'complete',
+            figmaLink:
+                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15836-54240&t=DcObZzVEgYYZURV0-4',
+        },
         {
             name: 'SSidebar',
             typescript: true,
@@ -457,7 +491,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 88,
+            tests: 100,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15389-2514',
             docs: 'complete',
         },
@@ -500,7 +534,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 94,
+            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15566-18679&t=LIDn51KPH0u6PwtA-4',
@@ -522,7 +556,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 66,
+            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15417-12539&t=LIDn51KPH0u6PwtA-4',
@@ -578,7 +612,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         {
             name: 'SCopy',
-            tests: 68,
+            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,

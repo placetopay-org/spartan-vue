@@ -116,4 +116,85 @@ describe('SInputIncrement', () => {
         expect(screen.getByRole('button', { name: 'decrement' })).toBeDisabled();
         expect(screen.getByRole('button', { name: 'increment' })).toBeDisabled();
     });
+
+    test('Resets input to current value when typed value is not a number', async () => {
+        let modelValue = 10;
+
+        const { rerender } = render(SInputIncrement, {
+            props: {
+                modelValue,
+                'onUpdate:modelValue': (e: number) => {
+                    modelValue = e;
+                    rerender({ modelValue });
+                },
+            },
+        });
+
+        const input = screen.getByRole('button', { name: 'increment' }).parentElement?.querySelector('input');
+        expect(input).toBeTruthy();
+
+        // jsdom strips non-numeric values from type="number" inputs, so we
+        // override the value descriptor to force the handler to read 'abc'
+        // and exercise the isNaN branch.
+        let assignedValue: string | undefined;
+        Object.defineProperty(input!, 'value', {
+            configurable: true,
+            get: () => 'abc',
+            set: (v: string) => {
+                assignedValue = v;
+            },
+        });
+        input!.dispatchEvent(new Event('input', { bubbles: true }));
+
+        expect(assignedValue).toBe('10');
+        expect(modelValue).toBe(10);
+    });
+
+    test('Clamps input to min when typed value is below min', async () => {
+        let modelValue = 10;
+
+        const { rerender } = render(SInputIncrement, {
+            props: {
+                modelValue,
+                min: 5,
+                'onUpdate:modelValue': (e: number) => {
+                    modelValue = e;
+                    rerender({ modelValue, min: 5 });
+                },
+            },
+        });
+
+        const input = screen.getByRole('button', { name: 'increment' }).parentElement?.querySelector('input');
+        expect(input).toBeTruthy();
+
+        input!.value = '2';
+        input!.dispatchEvent(new Event('input', { bubbles: true }));
+
+        expect(input!.value).toBe('5');
+        expect(modelValue).toBe(10);
+    });
+
+    test('Clamps input to max when typed value is above max', async () => {
+        let modelValue = 5;
+
+        const { rerender } = render(SInputIncrement, {
+            props: {
+                modelValue,
+                max: 10,
+                'onUpdate:modelValue': (e: number) => {
+                    modelValue = e;
+                    rerender({ modelValue, max: 10 });
+                },
+            },
+        });
+
+        const input = screen.getByRole('button', { name: 'increment' }).parentElement?.querySelector('input');
+        expect(input).toBeTruthy();
+
+        input!.value = '99';
+        input!.dispatchEvent(new Event('input', { bubbles: true }));
+
+        expect(input!.value).toBe('10');
+        expect(modelValue).toBe(5);
+    });
 });

@@ -62,7 +62,8 @@
   "dependencies": {
     "@tailwindcss/forms": "0.5.11",
     "vue": "3.5.28",
-    "vue-i18n": "11.2.8"
+    "vue-i18n": "11.2.8",
+    "vue-sonner": "2.0.9"
   },
   "peerDependencies": {
     "@tailwindcss/forms": "0.5.11",
@@ -140,7 +141,6 @@
     "vitest": "4.0.18",
     "vue-currency-input": "3.2.2",
     "vue-echarts": "8.0.1",
-    "vue-sonner": "2.0.9",
     "vue-tsc": "3.2.4",
     "wrangler": "4.66.0",
     "zod": "4.3.6"

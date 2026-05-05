@@ -60,4 +60,34 @@ describe('SInputAmountBlock', () => {
         expect(caption).toHaveTextContent('Help text');
         expect(caption).toHaveClass('text-xs font-normal text-gray-500 mt-1');
     });
+
+    test('Re-emits update:currency when the currency selector changes', async () => {
+        const user = userEvent.setup();
+        const { emitted } = render(SInputAmountBlock, {
+            props: {
+                currency: 'USD',
+                modelValue: 10,
+                currencies: ['USD', 'EUR'],
+            },
+        });
+
+        const select = screen.getByRole('combobox');
+        await user.selectOptions(select, 'EUR');
+
+        expect(emitted()['update:currency']).toBeTruthy();
+        expect(emitted()['update:currency'][0]).toEqual(['EUR']);
+    });
+
+    test('Renders left and right slot content', () => {
+        render(SInputAmountBlock, {
+            props: { currency: 'USD', modelValue: 10 },
+            slots: {
+                left: '<span data-testid="left-content">L</span>',
+                right: '<span data-testid="right-content">R</span>',
+            },
+        });
+
+        expect(screen.getByTestId('left-content')).toBeInTheDocument();
+        expect(screen.getByTestId('right-content')).toBeInTheDocument();
+    });
 });

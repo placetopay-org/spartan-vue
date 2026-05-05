@@ -76,4 +76,30 @@ describe('SInputMask', () => {
 
         expect(screen.getByPlaceholderText('DD/MM/YYYY')).toBeInTheDocument();
     });
+
+    test('Updates mask when the mask prop changes', async () => {
+        let modelValue = '';
+        const user = userEvent.setup();
+
+        const { rerender } = render(SInputMask, {
+            props: {
+                mask: '000',
+                modelValue,
+                'onUpdate:modelValue': (e: string) => {
+                    modelValue = e;
+                },
+            },
+        });
+
+        const input = screen.getByRole('textbox');
+
+        await user.type(input, '1234567890');
+        expect(modelValue).toEqual('123');
+
+        await rerender({ mask: '00/00/0000', modelValue: '' });
+        await user.clear(input);
+        await user.type(input, '1234567890');
+
+        expect(modelValue).toEqual('12/34/5678');
+    });
 });

@@ -1,4 +1,4 @@
-import { test, describe } from 'vitest';
+import { test, describe, expect } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SSteps from './SSteps.vue';
@@ -91,5 +91,28 @@ describe('SSteps', () => {
         screen.getByRole('link', { name: 'First step' });
         screen.getByRole('link', { name: 'Second steptest description' });
         screen.getByRole('link', { name: 'Third step' });
+    });
+
+    test('Reacts to variant prop changes', async () => {
+        const Item = h(SStepsItem, { href: 'link-1', status: 'current' }, { default: () => 'First step' });
+
+        const { container, rerender } = render(SSteps, {
+            props: { variant: 'circlesWithText' },
+            slots: { default: [Item] },
+        });
+
+        expect(container.querySelector('ol')?.className).toContain('overflow-hidden');
+
+        await rerender({ variant: 'simple' });
+
+        expect(container.querySelector('ol')?.className).toContain('md:flex');
+    });
+
+    test('Throws when SStepsItem is used without a parent SSteps', () => {
+        expect(() =>
+            render(SStepsItem, {
+                props: { href: 'link-1', status: 'current' },
+            }),
+        ).toThrow('<SStepsItem /> is missing parent <SSteps /> component');
     });
 });

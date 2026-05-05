@@ -1,6 +1,7 @@
-import { test, describe } from 'vitest';
+import { test, describe, vi } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
 import SInputDateBlock from './SInputDateBlock.vue';
 import PrimeVue from 'primevue/config';
 
@@ -53,5 +54,29 @@ describe('SInputDateBlock', () => {
 
         expect(caption).toHaveTextContent('Help text');
         expect(caption).toHaveClass('text-xs font-normal text-gray-500 mt-1');
+    });
+
+    test('Re-emits update:modelValue when a date is selected from the calendar', async () => {
+        const user = userEvent.setup();
+        const onUpdate = vi.fn();
+
+        render(SInputDateBlock, {
+            props: {
+                modelValue: new Date(2000, 0, 15),
+                showIcon: true,
+                'onUpdate:modelValue': onUpdate,
+            },
+            global: globalConfig,
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Choose Date' }));
+        await user.click(screen.getByText('20'));
+
+        expect(onUpdate).toHaveBeenCalledTimes(1);
+        const emitted = onUpdate.mock.calls[0][0] as Date;
+        expect(emitted).toBeInstanceOf(Date);
+        expect(emitted.getDate()).toBe(20);
+        expect(emitted.getMonth()).toBe(0);
+        expect(emitted.getFullYear()).toBe(2000);
     });
 });

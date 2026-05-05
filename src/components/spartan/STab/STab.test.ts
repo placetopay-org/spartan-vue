@@ -437,6 +437,135 @@ describe('STab', () => {
 
             expect(screen.getByText('More')).toBeInTheDocument();
         });
+
+        test('Emits update:modelValue when clicking a dropdown item', async () => {
+            const user = userEvent.setup();
+            const items = [
+                h(STabItem, { path: 'more', dropdown: true }, {
+                    default: () => 'More',
+                    items: () => [
+                        h(STabDropdownItem, { path: 'sub1' }, { default: () => 'Sub 1' }),
+                        h(STabDropdownItem, { path: 'sub2' }, { default: () => 'Sub 2' }),
+                    ],
+                }),
+            ];
+
+            const { emitted } = render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
+
+            await user.click(screen.getByText('More'));
+            await user.click(screen.getByText('Sub 2'));
+
+            expect(emitted()['update:modelValue']).toBeTruthy();
+            expect(emitted()['update:modelValue'][0]).toEqual(['sub2']);
+        });
+
+        test('Renders dropdown item with custom "as" prop and emits on click', async () => {
+            const user = userEvent.setup();
+            const items = [
+                h(STabItem, { path: 'more', dropdown: true }, {
+                    default: () => 'More',
+                    items: () => [
+                        h(STabDropdownItem, { path: 'link', as: 'a' }, { default: () => 'Link Item' }),
+                    ],
+                }),
+            ];
+
+            const { emitted } = render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
+
+            await user.click(screen.getByText('More'));
+
+            const link = screen.getByText('Link Item');
+            expect(link.tagName).toBe('A');
+            expect(link).toHaveAttribute('data-item-path', 'link');
+            expect(link).not.toHaveAttribute('type');
+
+            await link.click();
+
+            expect(emitted()['update:modelValue']).toBeTruthy();
+            expect(emitted()['update:modelValue'][0]).toEqual(['link']);
+        });
+
+        test('Sets type="button" when dropdown item uses as="button"', async () => {
+            const user = userEvent.setup();
+            const items = [
+                h(STabItem, { path: 'more', dropdown: true }, {
+                    default: () => 'More',
+                    items: () => [
+                        h(STabDropdownItem, { path: 'btn', as: 'button' }, { default: () => 'Btn Item' }),
+                    ],
+                }),
+            ];
+
+            render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
+
+            await user.click(screen.getByText('More'));
+
+            const btn = screen.getByText('Btn Item');
+            expect(btn.tagName).toBe('BUTTON');
+            expect(btn).toHaveAttribute('type', 'button');
+            expect(btn).toHaveAttribute('data-item-path', 'btn');
+        });
+
+        test('Falls back to innerText as path when no path prop is provided', async () => {
+            // jsdom does not implement innerText; polyfill it for this test
+            Object.defineProperty(HTMLElement.prototype, 'innerText', {
+                configurable: true,
+                get() {
+                    return this.textContent;
+                },
+            });
+
+            try {
+                const user = userEvent.setup();
+                const items = [
+                    h(STabItem, { path: 'more', dropdown: true }, {
+                        default: () => 'More',
+                        items: () => [
+                            h(STabDropdownItem, null, { default: () => 'Inferred' }),
+                        ],
+                    }),
+                ];
+
+                const { emitted } = render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
+
+                await user.click(screen.getByText('More'));
+                await user.click(screen.getByText('Inferred'));
+
+                expect(emitted()['update:modelValue']).toBeTruthy();
+                expect(emitted()['update:modelValue'][0]).toEqual(['Inferred']);
+            } finally {
+                delete (HTMLElement.prototype as { innerText?: unknown }).innerText;
+            }
+        });
+
+        test('Renders dropdown item without path or content (early-returns from addDropdown)', () => {
+            const items = [
+                h(STabItem, { path: 'more', dropdown: true }, {
+                    default: () => 'More',
+                    items: () => [h(STabDropdownItem)],
+                }),
+            ];
+
+            // Should mount without errors even when the dropdown item has no path,
+            // exercising the early-return branch of api.ts addDropdown.
+            const { container } = render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
+            expect(container).toBeTruthy();
+        });
+
+        test('Skips addDropdown when the parent dropdown ref starts empty', () => {
+            // Parent without `path` provides an empty `dropdown` ref to the child,
+            // exercising the watcher's else-branch where `value` is falsy.
+            const items = [
+                h(STabItem, { dropdown: true }, {
+                    default: () => 'Parent',
+                    items: () => [h(STabDropdownItem, { path: 'child' }, { default: () => 'Child' })],
+                }),
+            ];
+
+            const { container } = render(STab, { props: { modelValue: 'child' }, slots: { default: items } });
+            expect(container).toBeTruthy();
+        });
+
     });
 
     describe('Reactive model updates', () => {

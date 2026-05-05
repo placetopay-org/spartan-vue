@@ -2,33 +2,60 @@ import { test, describe } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SInputMaskBlock from './SInputMaskBlock.vue';
+import userEvent from '@testing-library/user-event';
 
-// TODO: Add tests
 describe('SInputMaskBlock', () => {
-    // test('Can be rendered', async () => {
-    //     // Arrange
-    //     let modelValue = '';
-    //     const user = userEvent.setup();
+    test('Applies mask to typed value', async () => {
+        let modelValue = '';
+        const user = userEvent.setup();
 
-    //     // Act
-    //     const { rerender } = render(SInputMaskBlock, {
-    //         props: {
-    //             mask: '00/00/0000',
-    //             modelValue,
-    //             'onUpdate:modelValue': (e: string) => {
-    //                 modelValue = e;
-    //                 rerender({ modelValue });
-    //             },
-    //         },
-    //     });
+        const { rerender } = render(SInputMaskBlock, {
+            props: {
+                mask: '00/00/0000',
+                modelValue,
+                'onUpdate:modelValue': (e: string) => {
+                    modelValue = e;
+                    rerender({ modelValue, mask: '00/00/0000' });
+                },
+            },
+        });
 
-    //     const input = screen.getByRole('textbox');
+        const input = screen.getByRole('textbox');
+        await user.type(input, '1234567890');
 
-    //     await user.type(input, '1234567890');
+        expect(modelValue).toEqual('12/34/5678');
+    });
 
-    //     // Assert
-    //     expect(modelValue).toEqual('12/34/5678');
-    // });
+    test('Emits complete when mask is fully filled', async () => {
+        const user = userEvent.setup();
+
+        const { emitted } = render(SInputMaskBlock, {
+            props: { mask: '000', modelValue: '' },
+        });
+
+        const input = screen.getByRole('textbox');
+        await user.type(input, '123');
+
+        expect(emitted()['complete']).toBeTruthy();
+    });
+
+    test('Renders with left slot', () => {
+        render(SInputMaskBlock, {
+            props: { mask: '000' },
+            slots: { left: '<span>$</span>' },
+        });
+
+        expect(screen.getByText('$')).toBeInTheDocument();
+    });
+
+    test('Renders with right slot', () => {
+        render(SInputMaskBlock, {
+            props: { mask: '000' },
+            slots: { right: '<span>USD</span>' },
+        });
+
+        expect(screen.getByText('USD')).toBeInTheDocument();
+    });
 
     test('Can be rendered with label', () => {
         // Act
