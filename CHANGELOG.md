@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta.14] - 2026-05-05
+
 ### Added
 - Direct links to Figma designs for `SDefinitionTerm`, `SCaption`, `SPopover`, `SAccordion`, and `SAlert`, accessible from each component's page.
 - `SStackedList`: new test that opens the dropdown and verifies rendering of the `dropdown` slot, bringing component coverage to 100%.
