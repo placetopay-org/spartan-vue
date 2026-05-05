@@ -279,8 +279,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             darkMode: true,
             responsive: true,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15418-12723',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15418-12723',
             tests: 100,
         },
         {
@@ -291,8 +290,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 100,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-17011',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-17011',
         },
         {
             name: 'SCaption',
@@ -357,8 +355,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 100,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?t=SGrVmYUPYOkyfMxN-0',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?t=SGrVmYUPYOkyfMxN-0',
         },
         {
             name: 'SPlacetopayLogo',
@@ -368,8 +365,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 100,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-16000',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-16000',
         },
     ],
     modals: [
@@ -503,8 +499,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 94,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
         {
             name: 'SDTable',
@@ -514,8 +509,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 81,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
         {
             name: 'STemplateHeaderTable',
@@ -525,8 +519,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             tests: 100,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
         {
             name: 'SSteps',
@@ -618,8 +611,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             darkMode: true,
             responsive: true,
             docs: 'complete',
-            figmaLink:
-                'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15446-11314',
+            figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15446-11314',
         },
         {
             name: 'SColorSwitch',

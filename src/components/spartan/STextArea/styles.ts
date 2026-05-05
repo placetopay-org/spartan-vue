@@ -6,7 +6,10 @@ export const textAreaStyles = cva(
     {
         variants: {
             disabled: cbv('opacity-50 text-gray-400 bg-gray-50 dark:bg-white/5 pointer-events-none'),
-            error: cbv('border-red-500 focus-within:s-outline-error', 'border-gray-300 dark:border-white/10 focus-within:s-outline'),
+            error: cbv(
+                'border-red-500 focus-within:s-outline-error',
+                'border-gray-300 dark:border-white/10 focus-within:s-outline',
+            ),
         },
     },
 );

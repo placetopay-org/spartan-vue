@@ -11,10 +11,7 @@ export const switchTrackStyles = cva(
     'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-[color,background-color,border-color,outline-offset,outline-color] duration-200 ease-in-out outline-2 outline-offset-0 outline-transparent focus:s-outline',
     {
         variants: {
-            active: cbv(
-                'bg-spartan-primary-600',
-                'bg-gray-200 dark:bg-gray-900',
-            ),
+            active: cbv('bg-spartan-primary-600', 'bg-gray-200 dark:bg-gray-900'),
         },
     },
 );

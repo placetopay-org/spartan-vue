@@ -77,14 +77,14 @@ const isValid = computed(() => !error.value);
 </script>
 
 <template>
-    <div class="flex max-h-96 w-[370px] flex-col gap-4 rounded-lg bg-white dark:bg-gray-800 p-4 shadow-2xl">
+    <div class="flex max-h-96 w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl dark:bg-gray-800">
         <div class="flex items-center gap-3">
             <span>{{ field.name }}</span>
 
             <SPopover :offset="8" :responsive="context.responsive">
                 <template #reference="{ toggle }">
                     <button
-                        class="flex items-center gap-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 py-1 pr-2 pl-3 text-gray-800 dark:text-gray-200"
+                        class="flex items-center gap-1.5 rounded-lg bg-gray-100 py-1 pr-2 pl-3 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
                         @click="toggle"
                     >
                         <span>{{ getOperatorLabel(tempOperator) }}</span>
@@ -93,10 +93,12 @@ const isValid = computed(() => !error.value);
                 </template>
 
                 <template #default="{ close }">
-                    <ul class="divide-y divide-gray-100 dark:divide-gray-700 rounded-lg border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-2xl">
+                    <ul
+                        class="divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white shadow-2xl dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800"
+                    >
                         <li v-for="operator in operators" :key="getOperatorId(operator)">
                             <button
-                                class="w-full p-3 text-left text-sm font-medium whitespace-nowrap text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/10"
+                                class="w-full p-3 text-left text-sm font-medium whitespace-nowrap text-gray-800 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-white/10"
                                 @click="selectOperator(operator, close)"
                             >
                                 {{ getOperatorLabel(operator) }}

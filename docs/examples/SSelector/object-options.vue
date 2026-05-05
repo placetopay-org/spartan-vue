@@ -22,8 +22,8 @@ usePreview({
         ':options': 'options',
         'option-label': 'name',
         'option-value': 'id',
-        'placeholder': 'Select a person',
-        'clearable': '',
+        placeholder: 'Select a person',
+        clearable: '',
     },
 });
 </script>

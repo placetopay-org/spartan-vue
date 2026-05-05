@@ -27,7 +27,9 @@ const headerCallback = typeof props.placetopayHeader === 'function' && props.pla
 </script>
 
 <template>
-    <aside :class="twMerge('flex h-full w-72 flex-col gap-y-6 overflow-y-auto bg-white dark:bg-gray-900 p-4', props.class)">
+    <aside
+        :class="twMerge('flex h-full w-72 flex-col gap-y-6 overflow-y-auto bg-white p-4 dark:bg-gray-900', props.class)"
+    >
         <component
             :is="headerCallback ? 'button' : 'header'"
             v-if="placetopayHeader || hasSlotContent($slots.header)"

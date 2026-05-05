@@ -4,7 +4,9 @@ import { SCN } from '@/constants';
 
 export type TSidebarStyles = VariantProps<typeof sidebarStyles>;
 export const sidebarStyles = cva(
-    ['relative bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150'],
+    [
+        'relative bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150',
+    ],
     {
         variants: {
             disabled: cbv('cursor-not-allowed opacity-50'),

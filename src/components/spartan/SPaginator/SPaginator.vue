@@ -275,11 +275,13 @@ const getLaravelAsLinksProps = (pageItem?: string | number) => {
 <template>
     <div
         v-if="!hideWhenSinglePage || (vCount && vCount > 1)"
-        :class="twMerge('flex flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8', $props.class)"
+        :class="
+            twMerge('flex flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8', $props.class)
+        "
     >
         <div
             v-if="vPageSizes"
-            class="flex w-full flex-nowrap items-center justify-center gap-1 whitespace-nowrap text-center text-sm text-gray-700 dark:text-gray-300 sm:w-auto sm:justify-start sm:text-left"
+            class="flex w-full flex-nowrap items-center justify-center gap-1 text-center text-sm whitespace-nowrap text-gray-700 sm:w-auto sm:justify-start sm:text-left dark:text-gray-300"
         >
             <span>{{ t('showing') }}</span>
 
@@ -296,7 +298,10 @@ const getLaravelAsLinksProps = (pageItem?: string | number) => {
             <span>{{ t('results') }}</span>
         </div>
         <div class="w-full sm:w-auto">
-            <SButtonGroup class="w-full flex-wrap justify-center sm:w-auto sm:flex-nowrap sm:justify-end" aria-label="pagination">
+            <SButtonGroup
+                class="w-full flex-wrap justify-center sm:w-auto sm:flex-nowrap sm:justify-end"
+                aria-label="pagination"
+            >
                 <SButtonGroupItem
                     first
                     prev

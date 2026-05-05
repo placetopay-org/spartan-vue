@@ -1,7 +1,9 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export type TColorSwitchContainerStyles = VariantProps<typeof colorSwitchContainerStyles>;
-export const colorSwitchContainerStyles = cva('flex items-center gap-0.5 rounded-full bg-gray-200 p-0.5 dark:bg-gray-700');
+export const colorSwitchContainerStyles = cva(
+    'flex items-center gap-0.5 rounded-full bg-gray-200 p-0.5 dark:bg-gray-700',
+);
 
 export type TColorSwitchButtonStyles = VariantProps<typeof colorSwitchButtonStyles>;
 export const colorSwitchButtonStyles = cva('rounded-full p-1 transition-all cursor-pointer', {

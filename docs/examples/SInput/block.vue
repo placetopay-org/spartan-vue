@@ -17,7 +17,7 @@ const { controls } = usePreview({
     imports: { ref: 'vue' },
     staticAttrs: {
         'v-model': 'value',
-        'placeholder': 'Enter your email',
+        placeholder: 'Enter your email',
     },
 });
 </script>

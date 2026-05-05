@@ -28,10 +28,18 @@ const variant = inject(dropdownVariantKey, 'default');
                 )
             "
         >
-            <component :is="icon" :class="twMerge('h-5 w-5 shrink-0 text-gray-400 dark:text-gray-500', iconClass)" aria-hidden="true" />
+            <component
+                :is="icon"
+                :class="twMerge('h-5 w-5 shrink-0 text-gray-400 dark:text-gray-500', iconClass)"
+                aria-hidden="true"
+            />
             <div class="flex flex-col items-start">
-                <span :class="twMerge('text-sm font-medium text-gray-800 dark:text-gray-200', labelClass)"><slot /></span>
-                <span v-if="hasSlotContent($slots.description)" class="text-xs font-normal text-gray-400 dark:text-gray-500"
+                <span :class="twMerge('text-sm font-medium text-gray-800 dark:text-gray-200', labelClass)"
+                    ><slot
+                /></span>
+                <span
+                    v-if="hasSlotContent($slots.description)"
+                    class="text-xs font-normal text-gray-400 dark:text-gray-500"
                     ><slot name="description"
                 /></span>
             </div>

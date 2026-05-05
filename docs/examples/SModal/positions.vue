@@ -20,7 +20,7 @@ const { controls } = usePreview({
     <SButton @click="open = true">Open Modal</SButton>
 
     <SModal :open="open" :position="controls.position" :responsive="false" @update:open="open = $event">
-        <div class="w-full rounded-xl bg-white p-6 shadow-xl dark:bg-gray-800 sm:max-w-md">
+        <div class="w-full rounded-xl bg-white p-6 shadow-xl sm:max-w-md dark:bg-gray-800">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Position: {{ controls.position }}</h3>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
                 The modal is positioned at the {{ controls.position }} of the screen.

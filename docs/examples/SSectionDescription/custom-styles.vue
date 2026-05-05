@@ -14,5 +14,7 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SSectionDescription :class="controls.class === 'none' ? undefined : controls.class">Custom styled description text.</SSectionDescription>
+    <SSectionDescription :class="controls.class === 'none' ? undefined : controls.class"
+        >Custom styled description text.</SSectionDescription
+    >
 </template>

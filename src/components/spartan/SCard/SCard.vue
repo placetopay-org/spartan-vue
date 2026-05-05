@@ -39,7 +39,7 @@ const ptIconContainer = extractor(pt.value.iconContainer);
             v-if="icon"
             :class="twMerge('mx-4 mt-6 mb-8 flex sm:mx-8 sm:mt-8', closable ? 'justify-between' : 'justify-center')"
         >
-            <VIcon v-bind="{ icon, iconColor, iconType, ptIcon, ptIconContainer }" />
+            <VIcon v-bind="{ icon, iconColor, iconType, size, ptIcon, ptIconContainer }" />
             <button v-if="closable" class="h-fit cursor-pointer" @click="$emit('close')">
                 <XMarkIcon class="h-5 w-5 text-gray-400 dark:text-gray-500" />
             </button>
@@ -64,7 +64,9 @@ const ptIconContainer = extractor(pt.value.iconContainer);
                 v-if="hasSlotContent($slots.description)"
                 data-s-description
                 v-bind="descriptionProps"
-                :class="twMerge('mt-2 text-center text-sm font-normal text-gray-500 dark:text-gray-400', descriptionClass)"
+                :class="
+                    twMerge('mt-2 text-center text-sm font-normal text-gray-500 dark:text-gray-400', descriptionClass)
+                "
             >
                 <slot name="description" />
             </p>

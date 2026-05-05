@@ -1,30 +1,30 @@
 {
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(find:*)",
-      "mcp__context7__query-docs",
-      "mcp__nuxt-ui-remote__search-components-by-category",
-      "mcp__nuxt-ui-remote__list-components",
-      "mcp__figma-desktop__get_design_context",
-      "mcp__figma-desktop__get_screenshot",
-      "mcp__figma-desktop__get_metadata",
-      "mcp__chrome-devtools__list_pages",
-      "mcp__chrome-devtools__navigate_page",
-      "mcp__chrome-devtools__take_screenshot",
-      "mcp__figma__get_design_context",
-      "Bash(xargs:*)",
-      "Bash(npx vitest run:*)",
-      "mcp__figma-desktop__get_variable_defs",
-      "mcp__chrome-devtools__wait_for",
-      "mcp__chrome-devtools__click",
-      "mcp__chrome-devtools__take_snapshot",
-      "mcp__nuxt-ui-remote__get-component",
-      "mcp__chrome-devtools__evaluate_script"
-    ]
-  },
-  "enabledPlugins": {
-    "skill-creator@claude-plugins-official": true
-  }
+    "permissions": {
+        "allow": [
+            "WebFetch(domain:github.com)",
+            "WebFetch(domain:raw.githubusercontent.com)",
+            "Bash(find:*)",
+            "mcp__context7__query-docs",
+            "mcp__nuxt-ui-remote__search-components-by-category",
+            "mcp__nuxt-ui-remote__list-components",
+            "mcp__figma-desktop__get_design_context",
+            "mcp__figma-desktop__get_screenshot",
+            "mcp__figma-desktop__get_metadata",
+            "mcp__chrome-devtools__list_pages",
+            "mcp__chrome-devtools__navigate_page",
+            "mcp__chrome-devtools__take_screenshot",
+            "mcp__figma__get_design_context",
+            "Bash(xargs:*)",
+            "Bash(npx vitest run:*)",
+            "mcp__figma-desktop__get_variable_defs",
+            "mcp__chrome-devtools__wait_for",
+            "mcp__chrome-devtools__click",
+            "mcp__chrome-devtools__take_snapshot",
+            "mcp__nuxt-ui-remote__get-component",
+            "mcp__chrome-devtools__evaluate_script"
+        ]
+    },
+    "enabledPlugins": {
+        "skill-creator@claude-plugins-official": true
+    }
 }

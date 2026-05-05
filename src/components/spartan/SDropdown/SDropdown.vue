@@ -61,11 +61,7 @@ const closeCallback = () => {
 
         <template #default>
             <Menu>
-                <MenuItems
-                    static
-                    :class="twMerge(dropdownStyles({ variant }), floatingClass)"
-                    @click="closeCallback"
-                >
+                <MenuItems static :class="twMerge(dropdownStyles({ variant }), floatingClass)" @click="closeCallback">
                     <slot />
                 </MenuItems>
             </Menu>

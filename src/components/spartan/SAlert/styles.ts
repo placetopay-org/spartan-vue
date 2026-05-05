@@ -83,31 +83,15 @@ export const alertStyles = cva('relative overflow-hidden w-full rounded-lg p-4 f
             'soft',
             'bg-spartan-primary-500/10 dark:bg-spartan-primary-400/10 text-spartan-primary-500 dark:text-spartan-primary-400',
         ),
-        compoundVariant(
-            'secondary',
-            'soft',
-            'bg-zinc-900/10 dark:bg-zinc-400/10 text-zinc-900 dark:text-zinc-400',
-        ),
-        compoundVariant(
-            'success',
-            'soft',
-            'bg-green-500/10 dark:bg-green-400/10 text-green-500 dark:text-green-400',
-        ),
-        compoundVariant(
-            'info',
-            'soft',
-            'bg-blue-500/10 dark:bg-blue-400/10 text-blue-500 dark:text-blue-400',
-        ),
+        compoundVariant('secondary', 'soft', 'bg-zinc-900/10 dark:bg-zinc-400/10 text-zinc-900 dark:text-zinc-400'),
+        compoundVariant('success', 'soft', 'bg-green-500/10 dark:bg-green-400/10 text-green-500 dark:text-green-400'),
+        compoundVariant('info', 'soft', 'bg-blue-500/10 dark:bg-blue-400/10 text-blue-500 dark:text-blue-400'),
         compoundVariant(
             'warning',
             'soft',
             'bg-yellow-500/10 dark:bg-yellow-400/10 text-yellow-500 dark:text-yellow-400',
         ),
-        compoundVariant(
-            'error',
-            'soft',
-            'bg-red-500/10 dark:bg-red-400/10 text-red-500 dark:text-red-400',
-        ),
+        compoundVariant('error', 'soft', 'bg-red-500/10 dark:bg-red-400/10 text-red-500 dark:text-red-400'),
 
         // Subtle variants
         compoundVariant(

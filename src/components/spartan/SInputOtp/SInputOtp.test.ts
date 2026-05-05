@@ -187,9 +187,7 @@ describe('SInputOtp', () => {
     });
 
     test('Throws when SInputOtpItem is used without a parent SInputOtp', () => {
-        expect(() => render(SInputOtpItem)).toThrow(
-            '<SInputOtpItem /> is missing parent <SInputOtp /> component',
-        );
+        expect(() => render(SInputOtpItem)).toThrow('<SInputOtpItem /> is missing parent <SInputOtp /> component');
     });
 
     test('Exposes a no-op updateSelection on the context', () => {

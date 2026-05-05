@@ -24,7 +24,7 @@ usePreview({
             </STableRow>
             <STableRow>
                 <STableCell highlight>Bob Smith</STableCell>
-                <STableCell :colspan="3" class="text-center italic text-gray-400">No data available</STableCell>
+                <STableCell :colspan="3" class="text-center text-gray-400 italic">No data available</STableCell>
             </STableRow>
             <STableRow>
                 <STableCell highlight>Carol Davis</STableCell>

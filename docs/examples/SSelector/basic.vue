@@ -23,7 +23,7 @@ const { controls } = usePreview({
         loading: { type: 'boolean', default: false, label: 'loading' },
     },
     data: {
-        selected: { expression: "ref<string>()" },
+        selected: { expression: 'ref<string>()' },
         options,
     },
     imports: { ref: 'vue' },

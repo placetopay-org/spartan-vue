@@ -17,9 +17,9 @@ on:
                     - prepatch
 
 permissions:
-  id-token: write
-  contents: write
-  pages: write
+    id-token: write
+    contents: write
+    pages: write
 
 jobs:
     release:

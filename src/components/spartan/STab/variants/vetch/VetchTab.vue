@@ -20,7 +20,12 @@ const [tabClass, tabProps] = extractor(pt.value.tab);
         <ul
             data-s-tab
             v-bind="tabProps"
-            :class="twMerge('flex w-fit space-x-2 rounded-xl border border-gray-300 bg-gray-100 p-2 dark:border-white/10 dark:bg-gray-800', tabClass)"
+            :class="
+                twMerge(
+                    'flex w-fit space-x-2 rounded-xl border border-gray-300 bg-gray-100 p-2 dark:border-white/10 dark:bg-gray-800',
+                    tabClass,
+                )
+            "
         >
             <slot />
         </ul>

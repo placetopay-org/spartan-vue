@@ -1,14 +1,27 @@
 <script setup lang="ts">
 import type { TColorSwitchEmits, TColorSwitchMode, TColorSwitchProps } from './types';
 import { colorSwitchContainerStyles, colorSwitchButtonStyles, colorSwitchIconStyles } from './styles';
-import { MonitorMobbileIcon as MonitorMobbileBold, Sun1Icon as Sun1Bold, MoonIcon as MoonBold } from '@placetopay/iconsax-vue/bold';
-import { MonitorMobbileIcon as MonitorMobbileLinear, Sun1Icon as Sun1Linear, MoonIcon as MoonLinear } from '@placetopay/iconsax-vue/linear';
+import {
+    MonitorMobbileIcon as MonitorMobbileBold,
+    Sun1Icon as Sun1Bold,
+    MoonIcon as MoonBold,
+} from '@placetopay/iconsax-vue/bold';
+import {
+    MonitorMobbileIcon as MonitorMobbileLinear,
+    Sun1Icon as Sun1Linear,
+    MoonIcon as MoonLinear,
+} from '@placetopay/iconsax-vue/linear';
 
 const { modelValue = 'system' } = defineProps<TColorSwitchProps>();
 
 const emit = defineEmits<TColorSwitchEmits>();
 
-const modes: { value: TColorSwitchMode; label: string; boldIcon: typeof MonitorMobbileBold; linearIcon: typeof MonitorMobbileLinear }[] = [
+const modes: {
+    value: TColorSwitchMode;
+    label: string;
+    boldIcon: typeof MonitorMobbileBold;
+    linearIcon: typeof MonitorMobbileLinear;
+}[] = [
     { value: 'system', label: 'System', boldIcon: MonitorMobbileBold, linearIcon: MonitorMobbileLinear },
     { value: 'light', label: 'Light', boldIcon: Sun1Bold, linearIcon: Sun1Linear },
     { value: 'dark', label: 'Dark', boldIcon: MoonBold, linearIcon: MoonLinear },
@@ -20,11 +33,7 @@ function select(mode: TColorSwitchMode) {
 </script>
 
 <template>
-    <div
-        role="radiogroup"
-        aria-label="Color mode"
-        :class="colorSwitchContainerStyles()"
-    >
+    <div role="radiogroup" aria-label="Color mode" :class="colorSwitchContainerStyles()">
         <button
             v-for="mode in modes"
             :key="mode.value"

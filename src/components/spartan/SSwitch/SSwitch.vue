@@ -58,11 +58,15 @@ const toggle = () => {
                         </template>
                     </span>
                     <span :class="switchIconOnStyles({ active: model })" aria-hidden="true">
-                        <component :is="iconOn" v-if="iconOff" class="h-3 w-3 text-spartan-primary-600 dark:text-gray-400" />
+                        <component
+                            :is="iconOn"
+                            v-if="iconOff"
+                            class="text-spartan-primary-600 h-3 w-3 dark:text-gray-400"
+                        />
                         <template v-if="icon">
                             <svg
                                 v-if="typeof icon === 'boolean'"
-                                class="h-3 w-3 text-spartan-primary-600 dark:text-gray-400"
+                                class="text-spartan-primary-600 h-3 w-3 dark:text-gray-400"
                                 fill="currentColor"
                                 viewBox="0 0 12 12"
                             >
@@ -70,19 +74,14 @@ const toggle = () => {
                                     d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"
                                 />
                             </svg>
-                            <component :is="icon" v-else class="h-3 w-3 text-spartan-primary-600 dark:text-gray-400" />
+                            <component :is="icon" v-else class="text-spartan-primary-600 h-3 w-3 dark:text-gray-400" />
                         </template>
                     </span>
                 </template>
             </span>
         </Switch>
         <div v-if="hasSlotContent($slots.default) || hasSlotContent($slots.description)">
-            <SwitchLabel
-                v-if="hasSlotContent($slots.default)"
-                as="span"
-                :class="switchLabelStyles()"
-                :passive
-            >
+            <SwitchLabel v-if="hasSlotContent($slots.default)" as="span" :class="switchLabelStyles()" :passive>
                 <slot />
             </SwitchLabel>
             <SwitchDescription
