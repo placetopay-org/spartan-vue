@@ -118,7 +118,7 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 90,
+            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
