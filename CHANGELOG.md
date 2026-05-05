@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Enlaces directos a los diseños de Figma para `SDefinitionTerm`, `SCaption`, `SPopover`, `SAccordion` y `SAlert`, accesibles desde la página de cada componente.
+- `SStackedList`: nuevo test que abre el dropdown y verifica el render del slot `dropdown`, llevando la cobertura del componente al 100%.
+
+### Fixed
+- `SStackedList`: ejemplos de la documentación (`basic.vue`, `dropdown.vue`) ahora incluyen variantes `dark:` en los textos y avatares, evitando que nombres y correos se vieran oscuros sobre fondo oscuro.
+- `SStackedList`: el ejemplo `dropdown.vue` usaba `<SDropdownItem label="..." />` (prop inexistente) y mostraba opciones vacías; corregido para usar el slot por defecto (`<SDropdownItem>Edit</SDropdownItem>`).
+
+### Removed
+- `SStackedList`: eliminado `styles.ts` con `inputStyles`/`iconStyles` que eran código muerto (no se importaban en ningún sitio).
 
 ## [3.0.0-beta.13] - 2026-04-20
 

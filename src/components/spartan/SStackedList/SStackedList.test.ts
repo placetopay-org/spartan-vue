@@ -1,17 +1,20 @@
 import { test, describe, vi } from 'vitest';
 import SStackedList from './SStackedList.vue';
 import SStackedListItem from './SStackedListItem.vue';
+import SDropdownItem from '../SDropdown/SDropdownItem.vue';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
 import { h } from 'vue';
 
 describe('SStackedList', () => {
     const setup = () => {
-        window.ResizeObserver = vi.fn(() => ({
-            observe: vi.fn(),
-            unobserve: vi.fn(),
-            disconnect: vi.fn(),
-        }));
+        class ResizeObserverMock {
+            observe = vi.fn();
+            unobserve = vi.fn();
+            disconnect = vi.fn();
+        }
+        window.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
         Object.defineProperty(window, 'matchMedia', {
             writable: true,
             value: vi.fn().mockImplementation((query) => ({
@@ -68,5 +71,23 @@ describe('SStackedList', () => {
         });
 
         expect(screen.getByText('Styled item')).toBeInTheDocument();
+    });
+
+    test('Renders dropdown slot content when opened', async () => {
+        setup();
+        const user = userEvent.setup();
+
+        const ItemWithDropdown = h(SStackedListItem, null, {
+            default: () => 'Profile',
+            dropdown: () => h(SDropdownItem, null, { default: () => 'Edit' }),
+        });
+
+        render(SStackedList, {
+            slots: { default: [ItemWithDropdown] },
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Open options' }));
+
+        expect(screen.getByText('Edit')).toBeInTheDocument();
     });
 });
