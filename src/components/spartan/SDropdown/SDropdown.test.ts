@@ -4,7 +4,7 @@ import { screen } from '@testing-library/dom';
 import SDropdown from './SDropdown.vue';
 import SDropdownItem from './SDropdownItem.vue';
 import userEvent from '@testing-library/user-event';
-import { h } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 
 describe('SDropdown', () => {
     test('Can be rendered', async () => {
@@ -106,5 +106,92 @@ describe('SDropdown', () => {
 
         const item = screen.getByText('Disabled');
         expect(item.closest('[data-headlessui-state]')).toBeTruthy();
+    });
+
+    test('Renders item as anchor when link prop is provided', async () => {
+        const user = userEvent.setup();
+
+        const Item = h(
+            SDropdownItem,
+            { link: 'https://example.com' },
+            { default: () => 'Go to site' },
+        );
+
+        render(SDropdown, {
+            slots: {
+                default: [Item],
+                reference: () => 'Open',
+            },
+        });
+
+        await user.click(screen.getByRole('button', { name: 'Open' }));
+
+        const anchor = screen.getByText('Go to site').closest('a');
+        expect(anchor).not.toBeNull();
+        expect(anchor).toHaveAttribute('href', 'https://example.com');
+    });
+
+    test('Does not close when clicking an item with manual prop', async () => {
+        const user = userEvent.setup();
+
+        const Wrapper = defineComponent({
+            components: { SDropdown, SDropdownItem },
+            setup() {
+                const dropdown = ref<InstanceType<typeof SDropdown>>();
+                const openDropdown = () => dropdown.value?.open();
+                return { dropdown, openDropdown };
+            },
+            template: `
+                <button data-testid="external" @click="openDropdown">External open</button>
+                <SDropdown ref="dropdown" manual>
+                    <template #reference>Manual</template>
+                    <SDropdownItem>Persistent item</SDropdownItem>
+                </SDropdown>
+            `,
+        });
+
+        render(Wrapper);
+
+        await user.click(screen.getByTestId('external'));
+        const item = await screen.findByText('Persistent item');
+        await user.click(item);
+
+        expect(screen.getByText('Persistent item')).toBeInTheDocument();
+    });
+
+    test('Exposes isOpen, close and focus methods via ref', async () => {
+        const user = userEvent.setup();
+
+        const Wrapper = defineComponent({
+            components: { SDropdown, SDropdownItem },
+            setup() {
+                const dropdown = ref<InstanceType<typeof SDropdown>>();
+                const status = ref('closed');
+                const openDropdown = () => dropdown.value?.open();
+                const closeDropdown = () => {
+                    dropdown.value?.focus();
+                    dropdown.value?.close();
+                    status.value = dropdown.value?.isOpen ? 'open' : 'closed';
+                };
+                return { dropdown, status, openDropdown, closeDropdown };
+            },
+            template: `
+                <button data-testid="open" @click="openDropdown">Open</button>
+                <button data-testid="close" @click="closeDropdown">Close</button>
+                <span data-testid="status">{{ status }}</span>
+                <SDropdown ref="dropdown">
+                    <template #reference>Trigger</template>
+                    <SDropdownItem>Exposed item</SDropdownItem>
+                </SDropdown>
+            `,
+        });
+
+        render(Wrapper);
+
+        await user.click(screen.getByTestId('open'));
+        expect(await screen.findByText('Exposed item')).toBeInTheDocument();
+
+        await user.click(screen.getByTestId('close'));
+        expect(screen.getByTestId('status')).toHaveTextContent('closed');
     });
 });
