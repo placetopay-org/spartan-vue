@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta.15] - 2026-05-12
+
 ### Added
 - `SCard`: dedicated `## Ping Style` section in docs (EN + ES) with two new live previews — `icon-ping` (single-card with `icon` control) and `icon-ping-variants` (six-card showcase covering all color palettes).
 - `SCard`: live preview for the `## Custom Icon` section (replaces the prior static code block) showing `iconColor` + `iconType` controls combined with a custom Vue icon component.
