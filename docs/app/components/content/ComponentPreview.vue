@@ -271,7 +271,9 @@ async function copyTemplate() {
     try {
         await navigator.clipboard.writeText(liveCode.value);
         copiedTemplate.value = true;
-        setTimeout(() => { copiedTemplate.value = false; }, 2000);
+        setTimeout(() => {
+            copiedTemplate.value = false;
+        }, 2000);
     } catch {}
 }
 
@@ -279,7 +281,9 @@ async function copyScriptCode() {
     try {
         await navigator.clipboard.writeText(scriptDisplayCode.value);
         copiedScript.value = true;
-        setTimeout(() => { copiedScript.value = false; }, 2000);
+        setTimeout(() => {
+            copiedScript.value = false;
+        }, 2000);
     } catch {}
 }
 
@@ -812,25 +816,69 @@ onUnmounted(() => {
 
             <!-- ── Accordion: code sections (visible once highlighting is ready) ── -->
             <template v-if="codeHtml">
-            <template v-if="hasScript">
+                <template v-if="hasScript">
+                    <button
+                        class="code-toggle-footer group border-muted flex w-full cursor-pointer items-center justify-between border px-4 py-2.5 transition-colors"
+                        :class="showScript ? 'border-b-0' : ''"
+                        @click="toggleScript"
+                    >
+                        <div class="flex items-center gap-2">
+                            <UIcon
+                                name="i-lucide-braces"
+                                class="text-muted group-hover:text-highlighted size-3.5 transition-colors"
+                            />
+                            <span class="text-muted group-hover:text-highlighted text-xs font-medium transition-colors"
+                                >Script</span
+                            >
+                        </div>
+                        <UIcon
+                            name="i-lucide-chevron-down"
+                            class="text-muted group-hover:text-highlighted size-3.5 transition-all duration-300"
+                            :class="showScript ? '-rotate-180' : ''"
+                        />
+                    </button>
+
+                    <Transition
+                        @enter="onCodeEnter"
+                        @after-enter="onCodeAfterEnter"
+                        @leave="onCodeLeave"
+                        @after-leave="onCodeAfterLeave"
+                    >
+                        <div v-if="showScript" class="group relative">
+                            <div v-html="scriptHtml" class="shiki-block" />
+                            <UButton
+                                :icon="copiedScript ? 'i-lucide-check' : 'i-lucide-copy'"
+                                size="xs"
+                                color="neutral"
+                                variant="subtle"
+                                :aria-label="copiedScript ? 'Copied' : 'Copy script'"
+                                class="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100"
+                                :class="copiedScript ? 'text-green-500! opacity-100!' : ''"
+                                @click="copyScriptCode"
+                            />
+                        </div>
+                    </Transition>
+                </template>
+
+                <!-- ── Accordion: Template section ─────────────────────────────── -->
                 <button
                     class="code-toggle-footer group border-muted flex w-full cursor-pointer items-center justify-between border px-4 py-2.5 transition-colors"
-                    :class="showScript ? 'border-b-0' : ''"
-                    @click="toggleScript"
+                    :class="[showTemplate ? 'border-b-0' : 'rounded-b-md', hasScript ? 'border-t-0' : '']"
+                    @click="showTemplate = !showTemplate"
                 >
                     <div class="flex items-center gap-2">
                         <UIcon
-                            name="i-lucide-braces"
+                            name="i-lucide-code-2"
                             class="text-muted group-hover:text-highlighted size-3.5 transition-colors"
                         />
                         <span class="text-muted group-hover:text-highlighted text-xs font-medium transition-colors"
-                            >Script</span
+                            >Template</span
                         >
                     </div>
                     <UIcon
                         name="i-lucide-chevron-down"
                         class="text-muted group-hover:text-highlighted size-3.5 transition-all duration-300"
-                        :class="showScript ? '-rotate-180' : ''"
+                        :class="showTemplate ? '-rotate-180' : ''"
                     />
                 </button>
 
@@ -840,67 +888,20 @@ onUnmounted(() => {
                     @leave="onCodeLeave"
                     @after-leave="onCodeAfterLeave"
                 >
-                    <div v-if="showScript" class="group relative">
-                        <div v-html="scriptHtml" class="shiki-block" />
+                    <div v-if="showTemplate" class="group relative rounded-b-md">
+                        <div v-html="codeHtml" class="shiki-block" />
                         <UButton
-                            :icon="copiedScript ? 'i-lucide-check' : 'i-lucide-copy'"
+                            :icon="copiedTemplate ? 'i-lucide-check' : 'i-lucide-copy'"
                             size="xs"
                             color="neutral"
                             variant="subtle"
-                            :aria-label="copiedScript ? 'Copied' : 'Copy script'"
+                            :aria-label="copiedTemplate ? 'Copied' : 'Copy template'"
                             class="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100"
-                            :class="copiedScript ? 'text-green-500! opacity-100!' : ''"
-                            @click="copyScriptCode"
+                            :class="copiedTemplate ? 'text-green-500! opacity-100!' : ''"
+                            @click="copyTemplate"
                         />
                     </div>
                 </Transition>
-            </template>
-
-            <!-- ── Accordion: Template section ─────────────────────────────── -->
-            <button
-                class="code-toggle-footer group border-muted flex w-full cursor-pointer items-center justify-between border px-4 py-2.5 transition-colors"
-                :class="[
-                    showTemplate ? 'border-b-0' : 'rounded-b-md',
-                    hasScript ? 'border-t-0' : '',
-                ]"
-                @click="showTemplate = !showTemplate"
-            >
-                <div class="flex items-center gap-2">
-                    <UIcon
-                        name="i-lucide-code-2"
-                        class="text-muted group-hover:text-highlighted size-3.5 transition-colors"
-                    />
-                    <span class="text-muted group-hover:text-highlighted text-xs font-medium transition-colors"
-                        >Template</span
-                    >
-                </div>
-                <UIcon
-                    name="i-lucide-chevron-down"
-                    class="text-muted group-hover:text-highlighted size-3.5 transition-all duration-300"
-                    :class="showTemplate ? '-rotate-180' : ''"
-                />
-            </button>
-
-            <Transition
-                @enter="onCodeEnter"
-                @after-enter="onCodeAfterEnter"
-                @leave="onCodeLeave"
-                @after-leave="onCodeAfterLeave"
-            >
-                <div v-if="showTemplate" class="group relative rounded-b-md">
-                    <div v-html="codeHtml" class="shiki-block" />
-                    <UButton
-                        :icon="copiedTemplate ? 'i-lucide-check' : 'i-lucide-copy'"
-                        size="xs"
-                        color="neutral"
-                        variant="subtle"
-                        :aria-label="copiedTemplate ? 'Copied' : 'Copy template'"
-                        class="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100"
-                        :class="copiedTemplate ? 'text-green-500! opacity-100!' : ''"
-                        @click="copyTemplate"
-                    />
-                </div>
-            </Transition>
             </template>
         </template>
     </div>
@@ -1006,8 +1007,12 @@ onUnmounted(() => {
 }
 
 @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 </style>
 

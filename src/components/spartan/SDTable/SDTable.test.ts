@@ -294,8 +294,6 @@ describe('SDTable API', () => {
             },
         };
 
-        expect(() => render(ErrorComponent)).toThrowError(
-            '<TestComponent /> is missing parent <STable /> component',
-        );
+        expect(() => render(ErrorComponent)).toThrowError('<TestComponent /> is missing parent <STable /> component');
     });
 });

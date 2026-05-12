@@ -23,7 +23,9 @@ const data = ref([
 
         <template #expansion="{ row }">
             <div class="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
-                <p><strong>Details for {{ row.name }}:</strong></p>
+                <p>
+                    <strong>Details for {{ row.name }}:</strong>
+                </p>
                 <p>Email: {{ row.email }}</p>
                 <p>Title: {{ row.title }}</p>
                 <p>Role: {{ row.role }}</p>

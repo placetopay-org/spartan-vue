@@ -5,7 +5,7 @@ const { controls } = usePreview({
     props: {
         icon: {
             type: 'select',
-            options: ['primary', 'success', 'danger', 'warning', 'info'],
+            options: ['success', 'danger', 'warning', 'info'],
             default: 'success',
             label: 'icon',
         },

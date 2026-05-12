@@ -9,14 +9,12 @@ const { controls } = usePreview({
             default: 'success',
             label: 'icon',
         },
-        iconType: { type: 'select', options: ['solid', 'ping'], default: 'solid', label: 'iconType' },
-        size: { type: 'select', options: ['sm', 'md'], default: 'md', label: 'size' },
     },
 });
 </script>
 
 <template>
-    <SCard :icon="controls.icon" :iconType="controls.iconType" :size="controls.size" title="Notification">
-        <template #description>You have a new message.</template>
+    <SCard :icon="controls.icon" iconType="ping" title="Notification">
+        <template #description>The ping treatment draws attention with a soft halo.</template>
     </SCard>
 </template>

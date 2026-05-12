@@ -2,13 +2,16 @@ import { cva } from 'class-variance-authority';
 import { createBooleanVariation as cbv, roundedClass } from '@/helpers';
 import { roundedStyle } from '@/constants';
 
-export const containerStyles = cva('relative flex items-center gap-2 bg-white border outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150', {
-    variants: {
-        disabled: cbv('opacity-50 cursor-not-allowed'),
-        error: cbv('border-red-500 focus-within:s-outline-error', 'border-gray-300 focus-within:s-outline'),
-        rounded: roundedStyle,
+export const containerStyles = cva(
+    'relative flex items-center gap-2 bg-white border outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150',
+    {
+        variants: {
+            disabled: cbv('opacity-50 cursor-not-allowed'),
+            error: cbv('border-red-500 focus-within:s-outline-error', 'border-gray-300 focus-within:s-outline'),
+            rounded: roundedStyle,
+        },
     },
-});
+);
 
 export const inputStyles = cva(
     'w-full border-none p-0 text-gray-900 outline-none placeholder:text-gray-400 focus:ring-0',

@@ -425,12 +425,14 @@ describe('STab', () => {
     describe('Dropdown', () => {
         test('Renders dropdown tab with chevron icon', () => {
             const items = [
-                h(STabItem, { path: 'more', dropdown: true }, {
-                    default: () => 'More',
-                    items: () => [
-                        h(STabDropdownItem, { path: 'sub1' }, { default: () => 'Sub 1' }),
-                    ],
-                }),
+                h(
+                    STabItem,
+                    { path: 'more', dropdown: true },
+                    {
+                        default: () => 'More',
+                        items: () => [h(STabDropdownItem, { path: 'sub1' }, { default: () => 'Sub 1' })],
+                    },
+                ),
             ];
 
             render(STab, { props: { modelValue: 'sub1' }, slots: { default: items } });
@@ -441,13 +443,17 @@ describe('STab', () => {
         test('Emits update:modelValue when clicking a dropdown item', async () => {
             const user = userEvent.setup();
             const items = [
-                h(STabItem, { path: 'more', dropdown: true }, {
-                    default: () => 'More',
-                    items: () => [
-                        h(STabDropdownItem, { path: 'sub1' }, { default: () => 'Sub 1' }),
-                        h(STabDropdownItem, { path: 'sub2' }, { default: () => 'Sub 2' }),
-                    ],
-                }),
+                h(
+                    STabItem,
+                    { path: 'more', dropdown: true },
+                    {
+                        default: () => 'More',
+                        items: () => [
+                            h(STabDropdownItem, { path: 'sub1' }, { default: () => 'Sub 1' }),
+                            h(STabDropdownItem, { path: 'sub2' }, { default: () => 'Sub 2' }),
+                        ],
+                    },
+                ),
             ];
 
             const { emitted } = render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
@@ -462,12 +468,14 @@ describe('STab', () => {
         test('Renders dropdown item with custom "as" prop and emits on click', async () => {
             const user = userEvent.setup();
             const items = [
-                h(STabItem, { path: 'more', dropdown: true }, {
-                    default: () => 'More',
-                    items: () => [
-                        h(STabDropdownItem, { path: 'link', as: 'a' }, { default: () => 'Link Item' }),
-                    ],
-                }),
+                h(
+                    STabItem,
+                    { path: 'more', dropdown: true },
+                    {
+                        default: () => 'More',
+                        items: () => [h(STabDropdownItem, { path: 'link', as: 'a' }, { default: () => 'Link Item' })],
+                    },
+                ),
             ];
 
             const { emitted } = render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
@@ -488,12 +496,16 @@ describe('STab', () => {
         test('Sets type="button" when dropdown item uses as="button"', async () => {
             const user = userEvent.setup();
             const items = [
-                h(STabItem, { path: 'more', dropdown: true }, {
-                    default: () => 'More',
-                    items: () => [
-                        h(STabDropdownItem, { path: 'btn', as: 'button' }, { default: () => 'Btn Item' }),
-                    ],
-                }),
+                h(
+                    STabItem,
+                    { path: 'more', dropdown: true },
+                    {
+                        default: () => 'More',
+                        items: () => [
+                            h(STabDropdownItem, { path: 'btn', as: 'button' }, { default: () => 'Btn Item' }),
+                        ],
+                    },
+                ),
             ];
 
             render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
@@ -518,12 +530,14 @@ describe('STab', () => {
             try {
                 const user = userEvent.setup();
                 const items = [
-                    h(STabItem, { path: 'more', dropdown: true }, {
-                        default: () => 'More',
-                        items: () => [
-                            h(STabDropdownItem, null, { default: () => 'Inferred' }),
-                        ],
-                    }),
+                    h(
+                        STabItem,
+                        { path: 'more', dropdown: true },
+                        {
+                            default: () => 'More',
+                            items: () => [h(STabDropdownItem, null, { default: () => 'Inferred' })],
+                        },
+                    ),
                 ];
 
                 const { emitted } = render(STab, { props: { modelValue: 'more' }, slots: { default: items } });
@@ -540,10 +554,14 @@ describe('STab', () => {
 
         test('Renders dropdown item without path or content (early-returns from addDropdown)', () => {
             const items = [
-                h(STabItem, { path: 'more', dropdown: true }, {
-                    default: () => 'More',
-                    items: () => [h(STabDropdownItem)],
-                }),
+                h(
+                    STabItem,
+                    { path: 'more', dropdown: true },
+                    {
+                        default: () => 'More',
+                        items: () => [h(STabDropdownItem)],
+                    },
+                ),
             ];
 
             // Should mount without errors even when the dropdown item has no path,
@@ -556,16 +574,19 @@ describe('STab', () => {
             // Parent without `path` provides an empty `dropdown` ref to the child,
             // exercising the watcher's else-branch where `value` is falsy.
             const items = [
-                h(STabItem, { dropdown: true }, {
-                    default: () => 'Parent',
-                    items: () => [h(STabDropdownItem, { path: 'child' }, { default: () => 'Child' })],
-                }),
+                h(
+                    STabItem,
+                    { dropdown: true },
+                    {
+                        default: () => 'Parent',
+                        items: () => [h(STabDropdownItem, { path: 'child' }, { default: () => 'Child' })],
+                    },
+                ),
             ];
 
             const { container } = render(STab, { props: { modelValue: 'child' }, slots: { default: items } });
             expect(container).toBeTruthy();
         });
-
     });
 
     describe('Reactive model updates', () => {
@@ -607,9 +628,7 @@ describe('STab', () => {
         });
 
         test('Active tab has aria-current=page', () => {
-            const items = [
-                h(STabItem, { path: 'tab1' }, { default: () => 'Tab 1' }),
-            ];
+            const items = [h(STabItem, { path: 'tab1' }, { default: () => 'Tab 1' })];
 
             render(STab, { props: { modelValue: 'tab1' }, slots: { default: items } });
 

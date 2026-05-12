@@ -1,26 +1,22 @@
 <script setup lang="ts">
+import { ShieldTickIcon } from '@placetopay/iconsax-vue/bold';
 import { usePreview } from '~/composables/usePreview';
 
 const { controls } = usePreview({
     props: {
-        icon: {
-            type: 'select',
-            options: ['success', 'danger', 'warning', 'info'],
-            default: 'success',
-            label: 'icon',
-        },
         iconColor: {
             type: 'select',
             options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info'],
             default: 'primary',
             label: 'iconColor',
         },
+        iconType: { type: 'select', options: ['solid', 'ping'], default: 'solid', label: 'iconType' },
     },
 });
 </script>
 
 <template>
-    <SCard :icon="controls.icon" :iconColor="controls.iconColor" title="Custom Icon Color">
-        <template #description>The status glyph keeps its shape while the color palette is overridden.</template>
+    <SCard :icon="ShieldTickIcon" :iconColor="controls.iconColor" :iconType="controls.iconType" title="Secured">
+        <template #description>Your account is protected.</template>
     </SCard>
 </template>

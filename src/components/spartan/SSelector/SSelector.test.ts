@@ -95,5 +95,4 @@ describe('SSelector', () => {
 
         expect(screen.getByText('Bob')).toBeInTheDocument();
     });
-
 });

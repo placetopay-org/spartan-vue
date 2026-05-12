@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `SCard`: dedicated `## Ping Style` section in docs (EN + ES) with two new live previews — `icon-ping` (single-card with `icon` control) and `icon-ping-variants` (six-card showcase covering all color palettes).
+- `SCard`: live preview for the `## Custom Icon` section (replaces the prior static code block) showing `iconColor` + `iconType` controls combined with a custom Vue icon component.
+- `SCard`: `iconColor` now applies its full color palette (background, glyph color, ping ring palette) when `icon` is a custom `FunctionalComponent`. Previously the override was silently discarded for custom icons, which made `'primary'` and `'secondary'` unreachable for custom-glyph cards.
+- `SCard`: 8 new tests covering the four-status ping rendering, ring-count adaptation to `size`, the absence of deprecated Tailwind v3 utilities, and `iconColor` applied to custom-component icons.
+
+### Changed
+- **BREAKING** `SCard`: the `icon` prop's string-preset union narrowed from six to four — `'primary'` and `'secondary'` are no longer valid as `icon` values because their previously-assigned default glyphs (`ElementPlusIcon`, `MessageSearchIcon`) carried no semantic meaning. They remain available as `iconColor` values. The four status presets (`'success'`, `'danger'`, `'warning'`, `'info'`) are unchanged.
+- `SCard`: the `iconColor` prop now exposes the full six-color palette (`'primary'`, `'secondary'`, `'success'`, `'danger'`, `'warning'`, `'info'`) including `'secondary'`, which previously existed in the implementation but was missing from the public type union.
+
+### Fixed
+- `SCard` `iconType="ping"`: the four concentric rings now render with the intended outward fade. The previous implementation used Tailwind v3 utilities (`border-opacity-{N}`) and `var(--tw-border-opacity)`, both removed in Tailwind v4 — borders rendered with no fade for `primary` and were entirely invisible for `success` / `danger` / `warning` / `info` because the resulting `rgb(... / )` was an invalid CSS color.
+- `SCard` `iconType="ping"` ring sizes now adapt to the card `size` prop: 4 rings (156/120/84/48 px) at `md`, 3 rings (120/84/48 px) at `sm`. Previously `sm` cards rendered the same oversized 4-ring halo as `md`.
+- `SCard` solid mode in dark theme: each variant's tinted background and glyph color apply correctly under `.dark`. The generic `dark:bg-white/10` / `dark:text-gray-400` fallback in the template was overriding every variant's color in dark mode, washing them all out to the same gray.
+- `SCard` `iconType="ping"` in dark theme: ring borders and central radial gradient use the variant's saturated `-500` shade with adjusted alpha so they remain legible against `bg-gray-800` while preserving chromatic identity.
+- `SCard` `iconType="ping"` rendering for the `primary` variant no longer depends on whichever stylesheet defines `--color-spartan-primary-200` last (`palette-evertec.css` and `plugin.css` used incompatible formats); the gradient now uses literal RGB values matching the palette token.
+
+### Removed
+- `SCard`: removed unused `ElementPlusIcon` and `MessageSearchIcon` imports (formerly the default glyphs for the now-removed `icon='primary'` / `icon='secondary'` presets).
+
 ## [3.0.0-beta.14] - 2026-05-05
 
 ### Added

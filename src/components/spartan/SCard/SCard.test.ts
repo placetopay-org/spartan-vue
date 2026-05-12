@@ -105,12 +105,12 @@ describe('SCard', () => {
 
     test('Renders icon with ping type', () => {
         render(SCard, {
-            props: { icon: 'primary', iconType: 'ping' },
+            props: { icon: 'success', iconType: 'ping' },
             slots: { default: 'content' },
         });
 
         const iconContainer = document.querySelector('[data-s-iconcontainer]');
-        expect(iconContainer?.className).toContain('radial-gradient-primary');
+        expect(iconContainer?.className).toContain('radial-gradient-green');
     });
 
     test('Renders custom icon with ping type', () => {
@@ -126,6 +126,77 @@ describe('SCard', () => {
         });
 
         expect(screen.getByTestId('ping-custom')).toBeInTheDocument();
+    });
+
+    test.each(['success', 'danger', 'warning', 'info'] as const)(
+        'Ping mode renders 4 ring divs for the %s status preset at md size',
+        (variant) => {
+            render(SCard, {
+                props: { icon: variant, iconType: 'ping' },
+                slots: { default: 'content' },
+            });
+
+            const iconContainer = document.querySelector('[data-s-iconcontainer]');
+            const ringDivs = iconContainer?.querySelectorAll(':scope > div.border');
+            expect(ringDivs?.length).toBe(4);
+        },
+    );
+
+    test('Ping mode renders 3 ring divs at size=sm (one fewer than md)', () => {
+        render(SCard, {
+            props: { icon: 'success', iconType: 'ping', size: 'sm' },
+            slots: { default: 'content' },
+        });
+
+        const iconContainer = document.querySelector('[data-s-iconcontainer]');
+        const ringDivs = iconContainer?.querySelectorAll(':scope > div.border');
+        expect(ringDivs?.length).toBe(3);
+    });
+
+    test('Ping rings do not use the deprecated Tailwind v3 border-opacity utility', () => {
+        render(SCard, {
+            props: { icon: 'success', iconType: 'ping' },
+            slots: { default: 'content' },
+        });
+
+        const iconContainer = document.querySelector('[data-s-iconcontainer]');
+        const offenders = iconContainer?.querySelectorAll('[class*="border-opacity-"]');
+        expect(offenders?.length).toBe(0);
+    });
+
+    test('iconColor applies palette to a custom FunctionalComponent icon', () => {
+        const CustomIcon = defineComponent({
+            setup(_, { attrs }) {
+                return () => h('svg', { ...attrs, 'data-testid': 'custom-shield' });
+            },
+        });
+
+        render(SCard, {
+            props: { icon: CustomIcon, iconColor: 'primary', iconType: 'solid' },
+            slots: { default: 'content' },
+        });
+
+        const iconContainer = document.querySelector('[data-s-iconcontainer]');
+        expect(iconContainer?.className).toContain('bg-spartan-primary-100');
+
+        const customIcon = screen.getByTestId('custom-shield');
+        expect(customIcon.getAttribute('class') ?? '').toContain('text-spartan-primary-600');
+    });
+
+    test('iconColor=secondary applies gray palette to a custom icon in ping mode', () => {
+        const CustomIcon = defineComponent({
+            setup(_, { attrs }) {
+                return () => h('svg', { ...attrs, 'data-testid': 'custom-secondary' });
+            },
+        });
+
+        render(SCard, {
+            props: { icon: CustomIcon, iconColor: 'secondary', iconType: 'ping' },
+            slots: { default: 'content' },
+        });
+
+        const iconContainer = document.querySelector('[data-s-iconcontainer]');
+        expect(iconContainer?.className).toContain('radial-gradient-gray');
     });
 
     test('Renders actions prop with TAction objects', async () => {

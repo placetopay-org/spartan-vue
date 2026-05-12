@@ -111,11 +111,7 @@ describe('SDropdown', () => {
     test('Renders item as anchor when link prop is provided', async () => {
         const user = userEvent.setup();
 
-        const Item = h(
-            SDropdownItem,
-            { link: 'https://example.com' },
-            { default: () => 'Go to site' },
-        );
+        const Item = h(SDropdownItem, { link: 'https://example.com' }, { default: () => 'Go to site' });
 
         render(SDropdown, {
             slots: {

@@ -23,7 +23,11 @@ const toggleAllExpanders = () => {
 </script>
 
 <template>
-    <thead data-s-thead v-bind="theadProps" :class="twMerge('border-b border-gray-300 bg-gray-50 dark:border-white/15 dark:bg-gray-800/75', theadClass)">
+    <thead
+        data-s-thead
+        v-bind="theadProps"
+        :class="twMerge('border-b border-gray-300 bg-gray-50 dark:border-white/15 dark:bg-gray-800/75', theadClass)"
+    >
         <th
             v-for="col in context.colsArray.sort((a, b) => a.pos - b.pos)"
             :key="col.field"

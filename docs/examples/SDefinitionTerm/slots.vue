@@ -10,9 +10,7 @@ usePreview({
     <SDefinitionTerm>
         <template #default>Email address</template>
         <template #description>
-            <a href="mailto:hello@placetopay.com" class="text-spartan-primary-600 underline">
-                hello@placetopay.com
-            </a>
+            <a href="mailto:hello@placetopay.com" class="text-spartan-primary-600 underline"> hello@placetopay.com </a>
         </template>
     </SDefinitionTerm>
 </template>

@@ -58,7 +58,9 @@ const copy = () => {
 
         <STooltip ref="tooltip" :title="t('copied')" color="dark" placement="top" static manual>
             <div class="relative">
-                <CopyIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300" />
+                <CopyIcon
+                    class="h-5 w-5 text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300"
+                />
                 <Transition
                     mode="out-in"
                     enter-active-class="duration-300 ease-out"
@@ -68,7 +70,10 @@ const copy = () => {
                     leave-from-class="opacity-100"
                     leave-to-class="opacity-0"
                 >
-                    <CopySuccessIcon v-if="copying" class="absolute inset-0 h-5 w-5 bg-white text-gray-900 dark:bg-gray-900 dark:text-white" />
+                    <CopySuccessIcon
+                        v-if="copying"
+                        class="absolute inset-0 h-5 w-5 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
+                    />
                 </Transition>
             </div>
         </STooltip>
