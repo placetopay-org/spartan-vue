@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta.16] - 2026-05-14
+
 ### Added
 - `SSelector`, `SSelectorBlock`: new `trigger` slot exposes `{ option, placeholder }` so consumers can fully customize the selector button content (e.g. flag + name, icon + label). `option` is the **resolved selected option object** — when `modelValue` is a primitive paired with `optionValue`, the component now looks the option up inside `options` (and `optionGroupItems` when grouped) and passes the matched object to the slot. Returns `undefined` while async options are still loading or when the value does not match any option.
 - `SMultiSelector`: same new `trigger` slot, scoped as `{ options, placeholder }` where `options` is the array of resolved selected option objects (objects when matched, raw values otherwise).
