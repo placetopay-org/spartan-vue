@@ -10,7 +10,7 @@ export default {
 
 <script setup lang="ts">
 import { translator, usePassthrough } from '@/helpers';
-import type { TMultiSelectorProps, TMultiSelectorEmits, TOption } from './types';
+import type { TMultiSelectorProps, TMultiSelectorEmits, TMultiSelectorSlots, TOption } from './types';
 import { type TPopoverProps, SBadge } from '@spartan';
 import { computed, nextTick, useTemplateRef } from 'vue';
 import isEqual from 'lodash.isequal';
@@ -24,10 +24,12 @@ import {
 } from '@internal';
 
 const emit = defineEmits<TMultiSelectorEmits>();
+defineSlots<TMultiSelectorSlots>();
 const {
     modelValue,
     optionLabel = 'label',
     optionValue,
+    optionGroupItems,
     search,
     options,
     clearable,
@@ -75,6 +77,33 @@ const getOptionKey = (option: TOption, index: number) => {
     }
     return option;
 };
+
+const flatOptions = computed<TOption[]>(() => {
+    if (!optionGroupItems) return options;
+    return options.flatMap((option) => {
+        if (typeof option === 'object' && Array.isArray(option[optionGroupItems])) {
+            return option[optionGroupItems] as TOption[];
+        }
+        return [option];
+    });
+});
+
+const resolvedSelectedOptions = computed<TOption[]>(() => {
+    if (!modelValue || !modelValue.length) return [];
+
+    return modelValue.map((value) => {
+        if (typeof value === 'object') return value;
+
+        const match = flatOptions.value.find((option) => {
+            if (typeof option === 'object') {
+                return optionValue ? isEqual(option[optionValue], value) : false;
+            }
+            return option === value;
+        });
+
+        return match ?? value;
+    });
+});
 
 const isSelected = (option: TOption) => {
     if (!modelValue) return false;
@@ -158,28 +187,33 @@ const refreshInput = () => {
                 @click="toggleOptions"
                 @clear="clear"
             >
-                <template v-if="modelValue && modelValue.length">
-                    <template v-if="compact">
-                        {{ modelValue.length }} {{ modelValue.length === 1 ? t('selection') : t('selections') }}
-                    </template>
-                    <template v-else>
-                        <div ref="$badgesContainer" class="flex gap-1 overflow-auto">
-                            <SBadge
-                                v-for="(option, index) in modelValue.slice(0, count || modelValue.length)"
-                                :key="getOptionKey(option, index)"
-                                size="sm"
-                                class="self-center whitespace-nowrap"
-                                pill
-                                :removable="removable && 'stopPropagation'"
-                                @removed="selectOption(option)"
-                            >
-                                {{ getOptionLabel(option) }}
+                <slot name="trigger" :options="resolvedSelectedOptions" :placeholder="placeholder">
+                    <template v-if="modelValue && modelValue.length">
+                        <template v-if="compact">
+                            {{ modelValue.length }}
+                            {{ modelValue.length === 1 ? t('selection') : t('selections') }}
+                        </template>
+                        <template v-else>
+                            <div ref="$badgesContainer" class="flex gap-1 overflow-auto">
+                                <SBadge
+                                    v-for="(option, index) in modelValue.slice(0, count || modelValue.length)"
+                                    :key="getOptionKey(option, index)"
+                                    size="sm"
+                                    class="self-center whitespace-nowrap"
+                                    pill
+                                    :removable="removable && 'stopPropagation'"
+                                    @removed="selectOption(option)"
+                                >
+                                    {{ getOptionLabel(option) }}
+                                </SBadge>
+                            </div>
+                            <SBadge v-if="countNumber > 0" size="sm" class="self-center" pill>
+                                +{{ countNumber }}
                             </SBadge>
-                        </div>
-                        <SBadge v-if="countNumber > 0" size="sm" class="self-center" pill> +{{ countNumber }} </SBadge>
+                        </template>
                     </template>
-                </template>
-                <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
+                    <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
+                </slot>
             </SelectorButton>
         </template>
 

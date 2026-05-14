@@ -1,25 +1,39 @@
 ---
 name: spartan-vue
 description: >-
-  Build UIs and work with Spartan Vue — a Vue 3 component library (68 components) by PlaceToPay,
-  built with TailwindCSS v4, TypeScript, and class-variance-authority (CVA). Use this skill whenever
-  the user mentions Spartan Vue components (SButton, SInput, SModal, SDTable, SAlert, SBadge, etc.),
-  asks to create/edit/test/document components following Spartan patterns, works with CVA styling,
-  usePassthrough(), or the Spartan docs site. Also trigger when the user imports from
-  '@placetopay/spartan-vue', references component files in src/components/spartan/, or asks about
-  Vue 3.5+ patterns with reactive destructuring. Even if the user just says "add a button" or
-  "create a form" in a Spartan Vue project context, use this skill.
+  Consume Spartan Vue — PlaceToPay's Vue 3 component library
+  (`@placetopay/spartan-vue`) — from any Vue 3 / Nuxt project. Built on TailwindCSS v4
+  + class-variance-authority. Use this skill when the user mentions Spartan Vue
+  components (`SButton`, `SInput`, `SSelector`, `SDTable`, `SAlert`, `SBadge`, `SModal`,
+  etc.), imports from `@placetopay/spartan-vue`, configures Spartan styles or i18n,
+  customizes a component via `pt:` (passthrough), or asks "how do I build {form |
+  modal | table} with Spartan." Even if the user only says "add a button" or "create
+  a form" while working in a project that depends on Spartan, use this skill. Skip
+  this skill when working **inside the spartan-vue repo itself** — that repo's own
+  CLAUDE.md covers contributor patterns.
 ---
 
-# Spartan Vue Component Library
+# Spartan Vue (consumer)
 
-Spartan Vue is a **Vue 3 component library** (68 components) by PlaceToPay. Package: `@placetopay/spartan-vue`.
+`@placetopay/spartan-vue` is PlaceToPay's Vue 3 component library. Stack: Vue 3.5+, TailwindCSS v4, TypeScript, class-variance-authority + tailwind-merge under the hood.
 
-**Stack**: Vue 3.5+, TailwindCSS v4, TypeScript, class-variance-authority (CVA), tailwind-merge.
+This skill helps you **consume** Spartan from another project. For working on the library itself, the spartan-vue repo has its own `CLAUDE.md`.
 
 ---
 
-## Quick Start
+## Find a component
+
+Use `references/components-index.md` to map a need (e.g. "multi-select", "side modal", "data table") to the right `S*` import name. From there:
+
+- Trust your editor's TypeScript IntelliSense — every prop has bilingual JSDoc (`@en` / `@es`).
+- Or read the shipped `.d.ts`: `node_modules/@placetopay/spartan-vue/dist/components/SXxx/types.d.ts`.
+- Or browse the live docs site (interactive playground per prop/slot).
+
+Don't guess prop names from training data — Spartan's API drifts and the published types are the source of truth.
+
+---
+
+## Quick start
 
 ```bash
 npm install -D @placetopay/spartan-vue
@@ -29,14 +43,6 @@ npm install -D @placetopay/spartan-vue
 /* styles.css */
 @import "@placetopay/spartan-vue/styles.css";
 @source '../src/**/*.{vue,js,ts}';
-```
-
-```ts
-// main.ts
-import './styles.css'
-import { createApp } from 'vue'
-import App from './App.vue'
-createApp(App).mount('#app')
 ```
 
 ```vue
@@ -49,9 +55,9 @@ import { SButton } from '@placetopay/spartan-vue'
 </template>
 ```
 
-For full installation details, read `references/consumer/installation-guide.md`.
+For the full installation walkthrough (Vite/Nuxt configs, plugin variants, font handling), read `references/installation-guide.md`.
 
-## Import Paths
+### Import paths
 
 | Path | What it provides |
 |------|-----------------|
@@ -60,88 +66,15 @@ For full installation details, read `references/consumer/installation-guide.md`.
 | `@placetopay/spartan-vue/styles/plugin.css` | Styles without Inter font |
 | `@placetopay/spartan-vue/styles/spartan-vue.css` | Component-only styles |
 | `@placetopay/spartan-vue/locales` | Translation files (es, en, pt, it, fr) |
-
-## Component Categories
-
-| Category | Components | Description |
-|----------|-----------|-------------|
-| **Data Input** | SInput, SSelect, SInputDate, SCombobox, STextarea, SInputAmount, SInputMask, SInputPassword, SInputIncrement, SInputOtp, SInputTag | Form fields for capturing user data |
-| **Selectors** | SCheckbox, SRadio, SRadioGroup, SSwitch, SSelector, SMultiSelector | Toggle and selection controls |
-| **Display** | SAlert, SBadge, SCard, SToast, SLink, SAvatar, SBreadcrumbs, SCaption, SSkeleton | Visual feedback and content display |
-| **Modals & Overlays** | SModal, SModalCard, SModalConfirm, SModalLeft, SModalSide, SPopover, STooltip, SDropdown | Overlays, dialogs, and floating UI |
-| **Structure & Layout** | SDTable, STable, SAccordion, STab, SPaginator, SSidebar, SSteps, SStackedList, SButtonGroup, STemplateHeaderTable | Page structure and data layout |
-| **Utilities** | SButton, SLabel, SFilter, SCopy, SColorSwitch | Actions, labels, and utility controls |
-| **Typography** | SPageTitle, SSectionTitle, SSectionDescription | Text heading components |
-
-**Block Variants**: Input components have `*Block` wrappers (SInputBlock, SSelectBlock, SComboboxBlock, etc.) that add label, help text, and error UI via BlockWrapper.
-
-For the complete API of every component (props, emits, slots), read `references/consumer/components-api.md`.
+| `@placetopay/spartan-vue/i18n` | i18n bootstrap helpers |
 
 ---
 
-## Customization
+## Key usage patterns
 
-### Theme Colors
+### `v-model`
 
-Override the primary palette using CSS variables in `@theme`, placed **after** the Spartan `@import`:
-
-```css
-@import "@placetopay/spartan-vue/styles.css";
-@source '../src/**/*.{vue,js,ts}';
-
-@theme {
-  --color-spartan-primary-50:  rgb(228 242 253);
-  --color-spartan-primary-100: rgb(187 222 251);
-  /* ... 50 through 900 */
-  --color-spartan-primary-900: rgb(13 42 84);
-}
-```
-
-For the default palette values and all CSS utilities, read `references/consumer/theme-customization.md`.
-
-### Passthrough (pt) — Style Internal Elements
-
-Customize internal parts of a component using `pt:` attributes:
-
-```vue
-<!-- Class shorthand -->
-<SBadge pt:body="text-red-500 font-bold" />
-
-<!-- Attribute syntax -->
-<SCard pt:title:class="text-2xl" pt:title:data-testid="card-title" />
-
-<!-- Object prop -->
-<SDTable :pt="{ thead: { class: 'bg-gray-50 dark:bg-gray-800' } }" />
-```
-
-16 components support passthrough. For the complete key reference by component, read `references/consumer/passthrough-reference.md`.
-
-### Internationalization (i18n)
-
-Components with internal text (SDTable, SFilter, SModalConfirm, etc.) use `vue-i18n`:
-
-```ts
-import { createI18n } from 'vue-i18n'
-import { es, en } from '@placetopay/spartan-vue/locales'
-
-const i18n = createI18n({
-  legacy: false,  // Required for Composition API
-  locale: 'en',
-  messages: { es, en },
-})
-
-app.use(i18n)
-```
-
-5 languages supported: es, en, pt, it, fr. For helpers and component-to-key mapping, read `references/consumer/i18n-guide.md`.
-
----
-
-## Key Patterns
-
-### v-model Binding
-
-Form components use `modelValue` + `update:modelValue`:
+Form components emit `update:modelValue`:
 
 ```vue
 <SInput v-model="name" placeholder="Enter name" />
@@ -151,48 +84,44 @@ Form components use `modelValue` + `update:modelValue`:
 </SSelect>
 ```
 
-### Polymorphic `as` Prop
+### Polymorphic `as`
 
-Components can render as different HTML elements or Vue components:
+`SButton`, `SLink`, `STabItem`, etc. accept `as` to render as a different element or component:
 
 ```vue
-<SButton>Click me</SButton>                    <!-- renders <button> -->
-<SButton as="a" href="/next">Link</SButton>     <!-- renders <a> -->
+<SButton>Click me</SButton>                     <!-- <button> -->
+<SButton as="a" href="/next">Link</SButton>     <!-- <a> -->
 <SButton :as="RouterLink" to="/dashboard">Nav</SButton>
 ```
 
-### Form States
+### Form states
 
-All form components accept `disabled` and `error` props:
+Every form component accepts `disabled` and `error`. `error` paints a red border + ring; `disabled` reduces opacity and blocks input.
 
-```vue
-<SInput v-model="email" :error="!isValid" disabled />
-```
+### Block variants
 
-`error` shows a red border and red focus ring. `disabled` applies reduced opacity.
-
-### Block Variants
-
-Block variants add label, help text, and error message UI around a form component:
+`*Block` wrappers add label / helpText / errorText UI around a base form component:
 
 ```vue
 <SInputBlock
   v-model="email"
   label="Email"
-  help="We'll never share your email"
-  error="Invalid email format"
+  help-text="We'll never share your email"
+  :error-text="errorMessage"
 />
 ```
 
-Available blocks: SInputBlock, SSelectBlock, SComboboxBlock, SInputDateBlock, STextAreaBlock, SInputAmountBlock, SInputMaskBlock, SInputPasswordBlock, SInputIncrementBlock, SInputOtpBlock, SSelectorBlock, SCustomBlock.
+The 10 blocks: `SInputBlock`, `SInputAmountBlock`, `SInputDateBlock`, `SInputIncrementBlock`, `SInputMaskBlock`, `SInputOtpBlock`, `SInputPasswordBlock`, `SSelectBlock`, `SSelectorBlock`, `STextAreaBlock`.
 
-### Dark Mode
+Block wrappers forward the base component's named scoped slots — e.g. on `SSelectorBlock` you can pass `<template #trigger="{ option }">…</template>` and `<template #option="{ option }">…</template>` exactly as you would on `SSelector`.
 
-All components support dark mode automatically. Spartan defines `@custom-variant dark (&:where(.dark, .dark *))`. Just add `class="dark"` to your root `<html>` element.
+### Dark mode
+
+Add `class="dark"` to your root `<html>` element (or toggle it dynamically). Spartan defines `@custom-variant dark (&:where(.dark, .dark *))` so every component reacts automatically — you don't need to opt in per component.
 
 ### Icons
 
-Components accepting icons use `FunctionalComponent` type props:
+Components with icon props expect a Vue `FunctionalComponent`:
 
 ```vue
 <script setup>
@@ -203,57 +132,89 @@ import { AddIcon } from '@placetopay/iconsax-vue/bold'
 <SAlert :icon="AddIcon" title="Success" color="success" />
 ```
 
+Recommended icon packs: `@placetopay/iconsax-vue` (PlaceToPay's set, with `bold` / `outline` / `linear` variants), `@heroicons/vue`. Any FunctionalComponent works — Lucide, custom SVG components, etc.
+
+### Custom slot scope (selectors)
+
+Many components expose scoped slots so you can render rich content. Common ones:
+
+```vue
+<SSelector v-model="country" :options="countries" option-label="name" option-value="id">
+  <!-- Trigger button content (gets the resolved option object, even when modelValue is the primitive id) -->
+  <template #trigger="{ option, placeholder }">
+    <span v-if="option" class="flex items-center gap-2">{{ option.flag }} {{ option.name }}</span>
+    <span v-else class="text-gray-400">{{ placeholder }}</span>
+  </template>
+
+  <!-- Each dropdown option -->
+  <template #option="{ option }">
+    <span class="flex items-center gap-2">{{ option.flag }} {{ option.name }}</span>
+  </template>
+</SSelector>
+```
+
+`SSelectorBlock` and `SMultiSelector` expose the same slots (in `SMultiSelector` the trigger scope is `{ options: TOption[], placeholder }` — an array of resolved selections).
+
 ---
 
-## For Contributors
+## Customization
 
-This section covers patterns for developing inside the Spartan Vue repository.
+### Theme colors
 
-### Repository Structure
+Override the primary palette using CSS variables in `@theme`, placed **after** the Spartan import:
 
-Every component lives in `src/components/spartan/S{Name}/`:
+```css
+@import "@placetopay/spartan-vue/styles.css";
 
+@theme {
+  --color-spartan-primary-50:  rgb(228 242 253);
+  /* ... 50 through 900 */
+  --color-spartan-primary-900: rgb(13 42 84);
+}
 ```
-SButton/
-├── SButton.vue        # Vue 3 <script setup> component
-├── SButton.test.ts    # Vitest + @testing-library/vue tests
-├── types.ts           # TypeScript props with bilingual JSDoc (@en/@es)
-├── styles.ts          # CVA variant definitions
-└── index.ts           # Re-exports
+
+For the default palette, all CSS utility classes Spartan exposes, and how to override semantic ring/focus tokens, read `references/theme-customization.md`.
+
+### Passthrough (`pt:`) — style internal elements
+
+Customize internal parts of a component without subclassing:
+
+```vue
+<SBadge pt:body="text-red-500 font-bold" />
+<SCard pt:title:class="text-2xl" pt:title:data-testid="card-title" />
+<SDTable :pt="{ thead: { class: 'bg-gray-50 dark:bg-gray-800' } }" />
 ```
 
-### Commands
+Three syntaxes:
+- `pt:key="classes"` — class shorthand
+- `pt:key:attribute="value"` — set any HTML attribute on the inner element
+- `:pt="{ key: { class, ...attrs } }"` — object form for full control
 
-| Command | Purpose |
-|---------|---------|
-| `npm run dev` | Docs dev server |
-| `npm run build` | Full library build |
-| `npm run test` | Vitest watch mode |
-| `npx vitest run src/components/spartan/SName/SName.test.ts` | Single test |
-| `npm run foli` | Format + Lint |
-| `npm run typecheck` | TypeScript type checking |
+Components that support passthrough: `SAccordion`, `SBadge`, `SButton`, `SCard`, `SDTable`, `SDefinitionTerm`, `SInputTag`, `SModal`, `SSelect`, `SSelector`, `SMultiSelector`, `SStackedListItem` (the leaf, not `SStackedList`), `STabItem` (the leaf, not `STab`).
 
-### Code Patterns
+For the per-component key reference (which inner element each `pt:` key targets), read `references/passthrough-reference.md`.
 
-- **Vue 3.5+**: Reactive destructuring with defaults for `defineProps` (no `withDefaults`)
-- **Same-name shorthand**: `:id` instead of `:id="id"` in templates
-- **CVA styling**: All variants in `styles.ts` using `class-variance-authority` + `createBooleanVariation`
-- **Bilingual JSDoc**: `@en` and `@es` tags on all prop types
+### Internationalization (i18n)
 
-For detailed contributor guides:
-- **Styling & CVA**: `references/contributor/styling-guide.md`
-- **Testing**: `references/contributor/testing-guide.md`
-- **Documentation site**: `references/contributor/docs-guide.md`
-- **Component catalog (internals)**: `references/contributor/components-catalog.md`
+Components that render internal text use `vue-i18n`. Bootstrap once:
 
-### Path Aliases
+```ts
+import { createI18n } from 'vue-i18n'
+import { es, en } from '@placetopay/spartan-vue/locales'
 
-| Alias | Path |
-|-------|------|
-| `@/*` | `./src/*` |
-| `@spartan*` | `./src/components/spartan` |
-| `@internal*` | `./src/components/internal` |
+const i18n = createI18n({
+  legacy: false,  // required for Composition API
+  locale: 'en',
+  messages: { es, en },
+})
 
-### Build Pipeline
+app.use(i18n)
+```
 
-`npm run build` = Vite (per-component) → vue-tsc (types) → Rollup (plugin) → copy locales → copy CSS → sanitize.
+5 locales ship: `en`, `es`, `pt`, `it`, `fr`.
+
+Components that need translations: `SCopy`, `SFilter`, `SModalConfirm`, `SMultiSelector`, `SPaginator`, `STemplateHeaderTable`. `SSelector` and `SInputDate` consume translations through internal sub-components.
+
+If you only use components without internal text (`SButton`, `SInput`, `SAlert`, `SBadge`, etc.), you can technically skip i18n — but installing it is recommended so you're ready when you add a component that needs it.
+
+For the `$spartan` namespace map, helpers, and dynamic locale switching, read `references/i18n-guide.md`.

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SBadge } from '@spartan';
 
-export type TOption = Record<string, any> | string;
+export type TOption = Record<string, any> | string | number;
 
 defineEmits<{
     (e: 'removed', option: TOption): void;

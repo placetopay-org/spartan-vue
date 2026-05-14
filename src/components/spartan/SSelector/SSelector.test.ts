@@ -95,4 +95,102 @@ describe('SSelector', () => {
 
         expect(screen.getByText('Bob')).toBeInTheDocument();
     });
+
+    test('Resolves primitive modelValue against options when optionValue is set', () => {
+        setup();
+
+        const options = [
+            { name: 'Alice', id: 1 },
+            { name: 'Bob', id: 2 },
+        ];
+
+        render(SSelector, {
+            props: { options, optionLabel: 'name', optionValue: 'id', modelValue: 2 },
+        });
+
+        // Default trigger should resolve `2` -> { name: 'Bob', id: 2 } and render the label
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+    });
+
+    test('trigger slot receives the resolved selected option object', () => {
+        setup();
+
+        const options = [
+            { name: 'Alice', id: 1, flag: 'A' },
+            { name: 'Bob', id: 2, flag: 'B' },
+        ];
+
+        render(SSelector, {
+            props: { options, optionLabel: 'name', optionValue: 'id', modelValue: 2 },
+            slots: {
+                trigger: `<template #trigger="{ option }"><span data-testid="custom-trigger">{{ option?.flag }} - {{ option?.name }}</span></template>`,
+            },
+        });
+
+        const trigger = screen.getByTestId('custom-trigger');
+        expect(trigger).toHaveTextContent('B - Bob');
+    });
+
+    test('trigger slot falls back to placeholder when no value is selected', () => {
+        setup();
+
+        render(SSelector, {
+            props: { options: defaultOptions, placeholder: 'Pick something' },
+            slots: {
+                trigger: `<template #trigger="{ option, placeholder }"><span data-testid="custom-trigger">{{ option ? option : placeholder }}</span></template>`,
+            },
+        });
+
+        expect(screen.getByTestId('custom-trigger')).toHaveTextContent('Pick something');
+    });
+
+    test('trigger slot receives undefined when modelValue does not match any option', () => {
+        setup();
+
+        const options = [
+            { name: 'Alice', id: 1 },
+            { name: 'Bob', id: 2 },
+        ];
+
+        render(SSelector, {
+            props: { options, optionLabel: 'name', optionValue: 'id', modelValue: 999, placeholder: 'Loading...' },
+            slots: {
+                trigger: `<template #trigger="{ option, placeholder }"><span data-testid="custom-trigger">{{ option === undefined ? 'no-match: ' + placeholder : option.name }}</span></template>`,
+            },
+        });
+
+        expect(screen.getByTestId('custom-trigger')).toHaveTextContent('no-match: Loading...');
+    });
+
+    test('Default trigger preserves current behavior when slot is omitted', () => {
+        setup();
+
+        render(SSelector, {
+            props: { options: defaultOptions, modelValue: 'Option 2' },
+        });
+
+        expect(screen.getByText('Option 2')).toBeInTheDocument();
+    });
+
+    test('Resolves primitive modelValue against grouped options', () => {
+        setup();
+
+        const options = [
+            { group: 'Fruits', items: [{ name: 'Apple', id: 1 }, { name: 'Banana', id: 2 }] },
+            { group: 'Veggies', items: [{ name: 'Carrot', id: 3 }] },
+        ];
+
+        render(SSelector, {
+            props: {
+                options,
+                optionLabel: 'name',
+                optionValue: 'id',
+                optionGroupLabel: 'group',
+                optionGroupItems: 'items',
+                modelValue: 3,
+            },
+        });
+
+        expect(screen.getByText('Carrot')).toBeInTheDocument();
+    });
 });
