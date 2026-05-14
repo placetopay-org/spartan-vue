@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { optionStyles } from '../styles';
 import { hasSlotContent, translator } from '@/helpers';
 
-type TOption = Record<string, any> | string;
+type TOption = Record<string, any> | string | number;
 
 defineEmits<{
     (e: 'select', option: TOption): void;

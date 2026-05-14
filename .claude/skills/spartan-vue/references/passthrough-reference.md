@@ -151,7 +151,7 @@ The following components do **not** use `usePassthrough()`:
 
 - **SCheckbox, SRadio, SSwitch** -- Built on HeadlessUI primitives; style via standard `class` prop or `$attrs`
 - **STooltip, SDropdown** -- Delegate rendering to SPopover; customize via SPopover's API
-- **SInput, STextarea** -- Use standard `class` and `$attrs` binding directly on the root element
+- **SInput, STextArea** -- Use standard `class` and `$attrs` binding directly on the root element
 - **SAlert, SLink, SAvatar, SBreadcrumbs** -- Style via `class` prop; no internal element decomposition
 - **SPaginator, SSidebar, SSteps, SFilter** -- No passthrough support
 

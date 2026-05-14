@@ -11,17 +11,19 @@ export default {
 
 <script setup lang="ts">
 import { usePassthrough } from '@/helpers';
-import type { TSelectorProps, TSelectorEmits, TOption } from './types';
+import type { TSelectorProps, TSelectorEmits, TSelectorSlots, TOption } from './types';
 import { type TPopoverProps } from '@spartan';
 import { computed, useTemplateRef, ref, watch } from 'vue';
 import isEqual from 'lodash.isequal';
 import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch } from '@internal';
 
 const emit = defineEmits<TSelectorEmits>();
+defineSlots<TSelectorSlots>();
 const {
     rounded = 'both',
     optionLabel = 'label',
     optionValue,
+    optionGroupItems,
     modelValue,
     search,
     clearable,
@@ -82,9 +84,33 @@ const resetOptions = () => {
     computedOptions.value = [...options];
 };
 
+const flatOptions = computed<TOption[]>(() => {
+    if (!optionGroupItems) return options;
+    return options.flatMap((option) => {
+        if (typeof option === 'object' && Array.isArray(option[optionGroupItems])) {
+            return option[optionGroupItems] as TOption[];
+        }
+        return [option];
+    });
+});
+
+const resolvedSelectedOption = computed<TOption | undefined>(() => {
+    if (modelValue === undefined || modelValue === null) return undefined;
+    if (typeof modelValue === 'object') return modelValue;
+
+    return flatOptions.value.find((option) => {
+        if (typeof option === 'object') {
+            return optionValue ? isEqual(option[optionValue], modelValue) : false;
+        }
+        return option === modelValue;
+    });
+});
+
 const label = computed(() => {
-    if (typeof modelValue === 'string') return modelValue;
-    return modelValue?.[optionLabel];
+    const option = resolvedSelectedOption.value;
+    if (option === undefined) return undefined;
+    if (typeof option !== 'object') return option;
+    return option[optionLabel];
 });
 
 const computedOptions = ref([...options]);
@@ -124,8 +150,10 @@ watch(
                 @click="toggleOptions"
                 @clear="clear"
             >
-                <span v-if="modelValue" class="text-nowrap">{{ label }}</span>
-                <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
+                <slot name="trigger" :option="resolvedSelectedOption" :placeholder="placeholder">
+                    <span v-if="label" class="text-nowrap">{{ label }}</span>
+                    <span v-else-if="placeholder" class="text-nowrap text-gray-400">{{ placeholder }}</span>
+                </slot>
             </SelectorButton>
         </template>
 

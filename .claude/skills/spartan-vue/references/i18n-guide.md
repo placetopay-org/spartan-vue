@@ -115,7 +115,7 @@ Not all components require i18n. Only those that render internal user-facing tex
 
 | Namespace                      | Components                      | Example Strings                                                    |
 |--------------------------------|---------------------------------|--------------------------------------------------------------------|
-| `$spartan.selector`            | SSelector, SMultiSelector, SCombobox | "Add", "Search", "Selection", "No results", "Loading..."          |
+| `$spartan.selector`            | SSelector, SMultiSelector       | "Add", "Search", "Selection", "No results", "Loading..."          |
 | `$spartan.copy`                | SCopy                           | "Copied!"                                                          |
 | `$spartan.dataTable`           | SDTable                         | "Page", "of", "pages", "Showing", "results", "Search all columns" |
 | `$spartan.inputDate`           | SInputDate                      | Day/month names, "Today", "Clear", "Choose Year/Month/Date"       |

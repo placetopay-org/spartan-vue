@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `SSelector`, `SSelectorBlock`: new `trigger` slot exposes `{ option, placeholder }` so consumers can fully customize the selector button content (e.g. flag + name, icon + label). `option` is the **resolved selected option object** — when `modelValue` is a primitive paired with `optionValue`, the component now looks the option up inside `options` (and `optionGroupItems` when grouped) and passes the matched object to the slot. Returns `undefined` while async options are still loading or when the value does not match any option.
+- `SMultiSelector`: same new `trigger` slot, scoped as `{ options, placeholder }` where `options` is the array of resolved selected option objects (objects when matched, raw values otherwise).
+- `SSelector`: the default trigger now also displays the resolved option's label when `modelValue` is a primitive paired with `optionValue` — previously the button rendered nothing in that case (the `label` computed dereferenced `optionLabel` directly on the primitive id).
+- `SSelector`, `SSelectorBlock`: tests for trigger-slot scope (resolved option, primitive resolution against `options` and against grouped `optionGroupItems`, undefined when no match), default-trigger fallback (regression guard), and `option`-slot scope forwarding through the dropdown.
+- `SSelectorBlock`: dedicated test file (`SSelectorBlock.test.ts`) — the component had no tests before.
+- Live preview `SSelector/custom-trigger` showing flag + country name as the trigger content (linked from a new `## Custom Trigger` / `## Trigger personalizado` section in EN + ES docs).
+- `TSelectorSlots` and `TMultiSelectorSlots` types exported from `@placetopay/spartan-vue` for external typing of the new slots.
+
+### Changed
+- **BREAKING** `SSelectorBlock`: the slot used to customize the dropdown options was renamed from `options` (plural, no scope) to `option` (singular, with `{ option }` scope) to match `SSelector`. The previous `options` slot never received the iterated option as a prop, so consumers could not render per-item content through it — passing it always rendered an empty dropdown. Migration: rename `<template #options>` to `<template #option="{ option }">` and use `option` to render the item.
+- `SSelector`, `SMultiSelector`: `TOption` widened from `Record<string, any> | string` to `Record<string, any> | string | number` so primitive numeric values (typical for `optionValue: 'id'`) no longer trigger Vue's invalid-prop warning when bound via `v-model`. Internal `SelectorOptions` and `SelectorBadgeList` widened to match.
+
 ## [3.0.0-beta.15] - 2026-05-12
 
 ### Added
