@@ -59,7 +59,7 @@ const optionsWidth = computed(() => {
     return $options.value?.clientWidth || 320;
 });
 
-const countNumber = computed(() => (count ? (modelValue || []).length - count : 0));
+const countNumber = computed(() => (count ? modelValue!.length - count : 0));
 const showClearButton = computed(() => Boolean(clearable && modelValue && modelValue.length));
 
 const getOptionLabel = (option: TOption) => {

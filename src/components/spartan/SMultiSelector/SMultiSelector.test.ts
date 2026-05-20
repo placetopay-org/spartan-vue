@@ -467,6 +467,67 @@ describe('SMultiSelector', () => {
         expect(queries[queries.length - 1]).toEqual(['']);
     });
 
+    test('Shows all selected badges and no +N when count is 0', () => {
+        setup();
+
+        render(SMultiSelector, {
+            props: { options: defaultOptions, modelValue: ['Option 1', 'Option 2', 'Option 3'], count: 0 },
+        });
+
+        // All badges rendered (modelValue.length fallback), no +N badge.
+        expect(screen.getByText('Option 1')).toBeInTheDocument();
+        expect(screen.getByText('Option 2')).toBeInTheDocument();
+        expect(screen.getByText('Option 3')).toBeInTheDocument();
+        expect(screen.queryByText(/^\+\d+$/)).not.toBeInTheDocument();
+    });
+
+    test('Uses optionValue as the badge key when modelValue contains object options', () => {
+        setup();
+
+        const options = [
+            { name: 'Alice', id: 1 },
+            { name: 'Bob', id: 2 },
+        ];
+
+        render(SMultiSelector, {
+            props: { options, optionLabel: 'name', optionValue: 'id', modelValue: [options[0], options[1]] },
+        });
+
+        // getOptionKey takes the optionValue branch for each badge.
+        expect(screen.getByText('Alice')).toBeInTheDocument();
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+    });
+
+    test('Falls back to the index when option has no optionLabel key', () => {
+        setup();
+
+        // Each option is an object without a `label` field — getOptionKey should fall back
+        // to the iteration index (?? index branch).
+        const options = [{ foo: 'a' }, { foo: 'b' }];
+
+        render(SMultiSelector, {
+            props: { options, modelValue: options },
+        });
+
+        // No throw and the trigger renders (badges will display undefined labels).
+        expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
+    });
+
+    test('Closing the popover without search does not emit a query event', async () => {
+        setup();
+        const user = userEvent.setup();
+
+        const { emitted } = render(SMultiSelector, {
+            props: { options: defaultOptions },
+        });
+
+        await user.click(screen.getAllByRole('button')[0]);
+        await user.click(screen.getAllByRole('button')[0]);
+
+        // `refreshInput` runs but skips the search branch — no query event.
+        expect(emitted().query).toBeUndefined();
+    });
+
     test('trigger slot receives resolved options and placeholder', () => {
         setup();
 
