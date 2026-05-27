@@ -16,27 +16,18 @@ const { t } = translator('filter');
 
 const context = useContext('SelectFilterDialog');
 
-if (!context.activeField) {
-    throw new Error('SelectFilterDialog requires an active field in context');
-}
-
-const field = context.activeField;
+const field = context.activeField!;
 const operators = getOperators(field);
 
 const tempOperator = ref(field.state?.operator || operators[0]);
 const tempInterface = computed<TInterfaceId>(() => {
-    if (!field.interfaces) return 'none';
-
-    const entry = Object.entries(field.interfaces).find(([, interfaceData]) =>
+    const entry = Object.entries(field.interfaces!).find(([, interfaceData]) =>
         interfaceData.operators.some((o) => o === tempOperator.value),
     );
 
     return (entry?.[0] as TInterfaceId) || 'none';
 });
-const tempInterfaceConfig = computed(() => {
-    if (!field.interfaces || !tempInterface.value) return {};
-    return (field.interfaces as any)[tempInterface.value];
-});
+const tempInterfaceConfig = computed(() => (field.interfaces as any)[tempInterface.value]);
 
 const selectOperator = (newOperator: TOperator, close: () => void) => {
     tempOperator.value = newOperator;
@@ -48,7 +39,6 @@ const value = ref(field.state?.value);
 const error = ref();
 
 const add = () => {
-    if (!tempOperator.value) return;
     field.state = {
         operator: tempOperator.value,
         value: value.value,

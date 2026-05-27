@@ -18,7 +18,7 @@ const { t } = translator('filter');
 // For date range, use a single value that contains both dates
 const dateRangeValue = computed({
     get: (): Date[] | null => {
-        if (props.config.type !== 'date' || !props.modelValue) return null;
+        if (!props.modelValue) return null;
         return (props.modelValue as (string | Date)[]).map((v) => (v instanceof Date ? v : new Date(v as string)));
     },
     set: (newValue: Date | Date[] | null) => {
@@ -36,9 +36,7 @@ const value1 = ref(props.modelValue?.[0]);
 const value2 = ref(props.modelValue?.[1]);
 
 watch([value1, value2], () => {
-    if (props.config.type !== 'date') {
-        emit('update:modelValue', [value1.value, value2.value]);
-    }
+    emit('update:modelValue', [value1.value, value2.value]);
 });
 
 const updateCurrency = (currency?: string) => {

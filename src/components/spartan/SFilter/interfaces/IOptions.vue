@@ -38,7 +38,6 @@ const filteredOptions = computed(() => {
 });
 
 const removeCheck = (option: string) => {
-    if (checked.value === false) return;
     checked.value = (checked.value as string[]).filter((item) => item !== option);
 };
 

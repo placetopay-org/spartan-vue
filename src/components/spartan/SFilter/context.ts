@@ -17,11 +17,7 @@ type TState = {
     getOperatorLabel: (field: TField) => string | undefined;
 };
 
-const getFieldValue = (field: TField) => {
-    if (!field.state) return undefined;
-
-    return field.state?.value;
-};
+const getFieldValue = (field: TField) => field.state?.value;
 
 export const { createContext, useContext } = buildContext<TState, TFilterProps, TFilterEmits>({
     name: 'SFilter',
@@ -46,7 +42,7 @@ export const { createContext, useContext } = buildContext<TState, TFilterProps, 
             },
 
             saveFilter: (name: string, filters: TField[]) => {
-                emit('save', [...(props.saved || []), { name, filters }]);
+                emit('save', [...(props.saved as TSaveData[]), { name, filters }]);
             },
 
             loadFilter: (filters: TSaveData['filters']) => {
@@ -61,10 +57,7 @@ export const { createContext, useContext } = buildContext<TState, TFilterProps, 
             },
 
             getOperatorLabel: (field: TField) => {
-                const fieldState = field.state;
-                if (!fieldState) return;
-
-                const operator = fieldState.operator;
+                const operator = field.state!.operator;
                 let value = getFieldValue(field);
 
                 // Resolve option IDs to labels if field has options interface
