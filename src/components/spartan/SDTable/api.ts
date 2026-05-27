@@ -70,7 +70,7 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
 
     watch(
         () => state.rows.map((row) => row.isExpanded),
-        (newExpandedState, previousExpandedState = []) => {
+        (newExpandedState, previousExpandedState) => {
             newExpandedState.forEach((isExpanded, index) => {
                 const expandedRow = state.rows[index];
 
