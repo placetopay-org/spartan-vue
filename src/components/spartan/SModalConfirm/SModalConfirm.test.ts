@@ -124,13 +124,13 @@ describe('SModalConfirm', () => {
             props: { open: true, description: 'Test' },
         });
 
-        const backdrop = document.querySelector('[aria-hidden="true"]');
-        if (backdrop) await user.click(backdrop);
+        const overlays = document.querySelectorAll('.fixed.inset-0.z-40');
+        const clickableOverlay = overlays[overlays.length - 1];
+        if (clickableOverlay) await user.click(clickableOverlay as HTMLElement);
 
         const updateEvents = emitted()['update:open'];
-        if (updateEvents) {
-            expect(updateEvents.some((e: any) => e[0] === false)).toBe(true);
-        }
+        expect(updateEvents).toBeTruthy();
+        expect(updateEvents.some((e: any) => e[0] === false)).toBe(true);
     });
 
     test('Renders with icon', async () => {
@@ -141,5 +141,25 @@ describe('SModalConfirm', () => {
         });
 
         expect(screen.getByText('$spartan.modalConfirm.title')).toBeInTheDocument();
+    });
+
+    test('Renders with responsive false', async () => {
+        resizeObserverMock();
+
+        render(SModalConfirm, {
+            props: { open: true, description: 'Test', responsive: false },
+        });
+
+        expect(screen.getByText('Test')).toBeInTheDocument();
+    });
+
+    test('Renders with closable true', async () => {
+        resizeObserverMock();
+
+        render(SModalConfirm, {
+            props: { open: true, description: 'Test', closable: true, title: 'Confirm' },
+        });
+
+        expect(screen.getByText('Confirm')).toBeInTheDocument();
     });
 });
