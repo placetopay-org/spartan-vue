@@ -134,23 +134,19 @@ const vPages = computed(() => {
     if (vCount.value <= vQuantity.value * 2 + 5) return vCount.value;
 
     if (vPage.value - vQuantity.value < 4) {
-        arr = Array.apply(null, Array(vQuantity.value * 2 + 3)).map((_, i) => i + 1);
+        arr = Array.from({ length: vQuantity.value * 2 + 3 }, (_, i) => i + 1);
         arr.push('...');
         arr.push(vCount.value);
     } else if (vCount.value - vPage.value - vQuantity.value < 3) {
         arr.push(1);
         arr.push('...');
         arr = arr.concat(
-            Array.apply(null, Array(vQuantity.value * 2 + 3)).map(
-                (_, i) => vCount.value! - vQuantity.value * 2 - 2 + i,
-            ),
+            Array.from({ length: vQuantity.value * 2 + 3 }, (_, i) => vCount.value! - vQuantity.value * 2 - 2 + i),
         );
     } else {
         arr.push(1);
         arr.push('...');
-        arr = arr.concat(
-            Array.apply(null, Array(1 + vQuantity.value * 2)).map((_, i) => vPage.value! - vQuantity.value + i),
-        );
+        arr = arr.concat(Array.from({ length: 1 + vQuantity.value * 2 }, (_, i) => vPage.value! - vQuantity.value + i));
         arr.push('...');
         arr.push(vCount.value);
     }

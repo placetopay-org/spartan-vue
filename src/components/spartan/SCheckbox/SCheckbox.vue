@@ -22,7 +22,7 @@ const updateModelValue = (event: Event) => {
     let isChecked = (event.target as HTMLInputElement).checked;
     let value = (event.target as HTMLInputElement).value;
 
-    if (modelValue instanceof Array) {
+    if (Array.isArray(modelValue)) {
         let newValue = [...modelValue];
         if (isChecked) newValue.push(value);
         else newValue.splice(newValue.indexOf(value), 1);

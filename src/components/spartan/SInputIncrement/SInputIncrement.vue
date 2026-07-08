@@ -38,7 +38,7 @@ const updateValue = (event: Event) => {
         return;
     }
 
-    if (isNaN(Number($input.value))) {
+    if (Number.isNaN(Number($input.value))) {
         $input.value = String(value.value);
         return;
     }
