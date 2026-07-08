@@ -50,7 +50,7 @@ const initials = computed(() => {
     if (!name) return '?';
     if (name.length < 3) return name.toUpperCase().trim();
 
-    const [first, last] = name.split(/ |-|_|\.|,|;|:|\||\\/g);
+    const [first, last] = name.split(/[ \-_.,;:|\\]/g);
 
     return `${first?.[0] ?? ''}${last ? last[0] : ''}`.toUpperCase();
 });
