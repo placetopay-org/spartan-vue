@@ -1102,7 +1102,7 @@ describe('IOptions', () => {
                 modelValue: ['A'],
             },
         });
-        const inputArea = document.querySelector('#input-search')!.parentElement!.parentElement!;
+        const inputArea = document.querySelector('[data-s-filter-search]')!.parentElement!.parentElement!;
         const clearBtn = inputArea.children[inputArea.children.length - 1].querySelector('button')!;
         await user.click(clearBtn);
         const events = (emitted()['update:modelValue'] || []) as any[];
@@ -1123,6 +1123,25 @@ describe('IOptions', () => {
         expect(events.length).toBeGreaterThan(0);
     });
 
+    test('the search input has an accessible name and no hard-coded id', () => {
+        // It used to carry `id="input-search"`: a constant, referenced by no
+        // `<label for>`, so two option fields on a page produced duplicate DOM ids and
+        // neither input had an accessible name.
+        const field = { type: 'options', label: 'X', choices: ['A'], multiple: true } as SFilterField;
+
+        render(IOptions as any, { props: { field, modelValue: [] } });
+        render(IOptions as any, { props: { field, modelValue: [] } });
+
+        const inputs = document.querySelectorAll('[data-s-filter-search]');
+        expect(inputs).toHaveLength(2);
+        expect(document.querySelectorAll('#input-search')).toHaveLength(0);
+
+        for (const input of inputs) {
+            expect(input).not.toHaveAttribute('id');
+            expect(input).toHaveAttribute('aria-label', '$spartan.filter.optionsSelectorPlaceholder');
+        }
+    });
+
     test('focus on the wrapper delegates focus to the inner input', () => {
         render(IOptions as any, {
             props: {
@@ -1130,7 +1149,7 @@ describe('IOptions', () => {
                 modelValue: [],
             },
         });
-        const input = document.querySelector('#input-search') as HTMLInputElement;
+        const input = document.querySelector('[data-s-filter-search]') as HTMLInputElement;
         const wrapper = input.parentElement!.parentElement!;
         const focusSpy = vi.spyOn(input, 'focus');
         wrapper.dispatchEvent(new FocusEvent('focus', { bubbles: false }));
@@ -1162,7 +1181,7 @@ describe('IOptions', () => {
                 modelValue: ['A'],
             },
         });
-        const input = document.querySelector('#input-search') as HTMLInputElement;
+        const input = document.querySelector('[data-s-filter-search]') as HTMLInputElement;
         expect(input.placeholder).toBe('');
     });
 });
@@ -1382,7 +1401,7 @@ describe('coverage gaps', () => {
                 modelValue: [],
             },
         });
-        const search = document.querySelector('#input-search') as HTMLInputElement;
+        const search = document.querySelector('[data-s-filter-search]') as HTMLInputElement;
         await user.type(search, 'nik');
         expect(search.value).toBe('nik');
     });

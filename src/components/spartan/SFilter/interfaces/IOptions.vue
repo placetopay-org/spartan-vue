@@ -74,10 +74,20 @@ const clear = () => {
                         {{ getOptionLabel(option) }}
                     </SBadge>
                 </template>
+                <!--
+                    `id="input-search"` used to live here. It labelled nothing — no
+                    `<label for>` referenced it — and it was a constant, so two option
+                    fields on a page produced duplicate DOM ids. It only ever served as
+                    a test hook, which `data-s-filter-search` now does honestly.
+
+                    The placeholder disappears once something is selected, so it cannot
+                    be the accessible name either.
+                -->
                 <input
-                    id="input-search"
                     v-model="search"
+                    data-s-filter-search
                     type="text"
+                    :aria-label="t('optionsSelectorPlaceholder')"
                     :placeholder="(checked as string[]).length ? '' : t('optionsSelectorPlaceholder')"
                     class="w-full border-0 bg-transparent p-0 text-sm placeholder:text-gray-400 focus:ring-0 focus:outline-0"
                 />
