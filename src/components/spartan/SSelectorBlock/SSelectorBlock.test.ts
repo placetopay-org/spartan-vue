@@ -98,6 +98,50 @@ describe('SSelectorBlock', () => {
         expect(screen.getByText('Choose…')).toBeInTheDocument();
     });
 
+    test('Renders help and error text through the wrapper', () => {
+        setup();
+
+        const { unmount } = render(SSelectorBlock, {
+            props: { options: defaultOptions, helpText: 'Pick one' },
+        });
+        expect(screen.getByRole('caption')).toHaveTextContent('Pick one');
+        unmount();
+
+        render(SSelectorBlock, { props: { options: defaultOptions, errorText: 'Required' } });
+        expect(screen.getByRole('caption')).toHaveTextContent('Required');
+    });
+
+    // The wrapper re-emits through inline arrow handlers. Nothing else invokes them.
+    test('Re-emits update:modelValue when an option is selected', async () => {
+        setup();
+        const user = userEvent.setup();
+        const onUpdate = vi.fn();
+
+        render(SSelectorBlock, {
+            props: { options: defaultOptions, 'onUpdate:modelValue': onUpdate },
+        });
+
+        await user.click(screen.getByRole('button'));
+        await user.click(screen.getByText('Option 2'));
+
+        expect(onUpdate).toHaveBeenCalledWith('Option 2');
+    });
+
+    test('Re-emits query when the search input changes', async () => {
+        setup();
+        const user = userEvent.setup();
+        const onQuery = vi.fn();
+
+        render(SSelectorBlock, {
+            props: { options: defaultOptions, search: true, onQuery },
+        });
+
+        await user.click(screen.getByRole('button'));
+        await user.type(screen.getByRole('textbox'), 'Opt');
+
+        expect(onQuery).toHaveBeenLastCalledWith('Opt');
+    });
+
     test('option slot receives the iterated option in the dropdown', async () => {
         setup();
         const user = userEvent.setup();

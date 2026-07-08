@@ -115,6 +115,32 @@ describe('SInputBlock', () => {
         expect(modelValue).toEqual('test value');
     });
 
+    test('Forwards the left and right slots to the inner input', () => {
+        // The wrapper only renders these templates when the slot is provided, so an
+        // unconditional pass-through would not be caught by the other tests.
+        render(SInputBlock, {
+            props: { label: 'Amount' },
+            slots: {
+                left: '<span data-testid="left">$</span>',
+                right: '<span data-testid="right">USD</span>',
+            },
+        });
+
+        // Assert
+        expect(screen.getByTestId('left')).toHaveTextContent('$');
+        expect(screen.getByTestId('right')).toHaveTextContent('USD');
+    });
+
+    test('Omits the left and right slots when none are provided', () => {
+        // Act
+        render(SInputBlock, { props: { label: 'Amount' } });
+
+        // Assert
+        expect(screen.queryByTestId('left')).toBeNull();
+        expect(screen.queryByTestId('right')).toBeNull();
+        expect(screen.getByRole('textbox', { name: 'Amount' })).toBeInTheDocument();
+    });
+
     test('Can recomend SCheckbox/SRadio', async () => {
         // Arrange
         const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
