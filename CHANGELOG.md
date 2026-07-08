@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **Published type declarations were structurally incomplete.** `scripts/sanitizeBuild.js` copied only `index.d.ts`, `<Component>.vue.d.ts` and `types.d.ts` per component, dropping all 24 `styles.d.ts` and both `constants.d.ts`. Because every component's props type dereferences its CVA styles (e.g. `TButtonProps['variant']` resolves through `TButtonStyles` in `./styles`), consumers with `skipLibCheck: true` silently lost every variant union — `<SButton variant="anything" />` type-checked. With `skipLibCheck: false` the package produced 59 `TS2307` errors. The whole declaration tree is now shipped.
+- Published `.d.ts` files leaked unresolved path aliases (`@internal`, `@spartan`, `@/helpers`, `@/constants`) and relative specifiers that escaped `dist/` after the build flattened `components/spartan/X` to `components/X`. All module specifiers are now resolved against the emitted tree and re-pointed at the published layout, with explicit `.js` extensions so both `bundler` and `node16` resolution succeed.
+- `dist/components/index.js` was a renamed `.d.ts` file whose extensionless re-exports (`export * from './SAlert'`) could not be resolved by Node ESM. It is now generated as real JavaScript with explicit `./SAlert/index.js` specifiers.
+- `dist/locales/index.js` re-exported `.json` files without import attributes, throwing `ERR_IMPORT_ATTRIBUTE_MISSING` under Node ESM. Messages are now inlined into the entrypoint.
+- `vue` and `vue-i18n` were declared in **both** `dependencies` and `peerDependencies` while being externalized by the build. Under pnpm this installed a nested copy, giving consumers two Vue runtimes — breaking `provide`/`inject` across the boundary, returning `null` from `getCurrentInstance()`, and preventing `vue-i18n` from resolving its injection symbol. They are now peer-only.
+- `peerDependencies` pinned exact versions (`vue: 3.5.28`), so any consumer on a different Vue patch hit `ERESOLVE` on npm/yarn. Widened to `vue: ^3.5.0` and `vue-i18n: ^11.0.0`.
+- `package.json` `module` and `types` pointed at `dist/spartan-vue.js` and `dist/types/index.d.ts`, neither of which exists after a build (`dist/types` is deleted by the sanitize step). Both now point at the real entrypoints.
+- `exports` conditions listed `import` before `types`; `types` must come first to be matched.
+- The build now fails if any published declaration contains a dangling module specifier, or if any path referenced by `exports` is missing.
+- `README.md` linked to a `MIGRATION.md` in the repository root that has never existed. It now points at the actual migration guide under `docs/content/en/1.getting-started/8.migration.md`.
+
+### Removed
+- **BREAKING** The `@placetopay/spartan-vue/plugin` subpath export. It pointed at `dist/plugin.mjs`, `dist/plugin.cjs` and `dist/types/expose/plugin.d.ts` — none of which have been generated since the legacy Tailwind JS plugin source was deleted in `3.0.0-beta.2`, so importing it always failed to resolve. The corresponding "Configuration for Tailwind CSS v3 (Legacy)" section was removed from the README; Spartan 3.x requires TailwindCSS v4 and is configured entirely in CSS.
+- `SCardBrand`'s asset barrel declarations, which re-exported `*.svg` modules that are inlined into the bundle and never shipped.
+
+### Changed
+- `@floating-ui/vue`, `class-variance-authority`, `imask` and `tailwind-merge` moved from `devDependencies` to `dependencies`: they appear in the public type declarations and must resolve in consumer projects.
+
 ## [3.0.0-beta.16] - 2026-05-14
 
 ### Added
