@@ -1,125 +1,184 @@
-import {
-    predefinedOperators,
-    comparisonOperators,
-    textOperators,
-    rangeOperators,
-    dateOperators,
-    existenceOperators,
-} from './constants';
 import { Currencies } from '@/constants';
 
-// Operator types
-export type TComparisonOperator = (typeof comparisonOperators)[number];
-export type TTextOperator = (typeof textOperators)[number];
-export type TRangeOperator = (typeof rangeOperators)[number];
-export type TDateOperator = (typeof dateOperators)[number];
-export type TExistenceOperator = (typeof existenceOperators)[number];
-export type TOperatorId = (typeof predefinedOperators)[number];
+// ── Per-type operator unions ───────────────────────────────────────────────
 
-// Interface types
-export type TInterfaceId = 'none' | 'oneInput' | 'twoInputs' | 'options' | 'selection';
-export type TOption = { id: string; label: string } | string;
-export type TOptions = TOption[];
+export type SFilterTextOperator =
+    | 'contains'
+    | 'notContains'
+    | 'startsWith'
+    | 'endsWith'
+    | 'equal'
+    | 'notEqual'
+    | 'exist'
+    | 'notExist';
 
-// Custom operator type
-export type TCustomOperator = {
+export type SFilterNumberOperator =
+    | 'equal'
+    | 'notEqual'
+    | 'greaterThan'
+    | 'greaterThanOrEqual'
+    | 'lessThan'
+    | 'lessThanOrEqual'
+    | 'between'
+    | 'notBetween'
+    | 'exist'
+    | 'notExist';
+
+export type SFilterAmountOperator = SFilterNumberOperator;
+
+export type SFilterDateOperator =
+    | 'equal'
+    | 'before'
+    | 'after'
+    | 'today'
+    | 'yesterday'
+    | 'lastWeek'
+    | 'lastMonth'
+    | 'lastYear'
+    | 'exist'
+    | 'notExist';
+
+export type SFilterDateRangeOperator =
+    | 'between'
+    | 'notBetween'
+    | 'lastWeek'
+    | 'lastMonth'
+    | 'lastYear'
+    | 'exist'
+    | 'notExist';
+
+export type SFilterOptionsOperator = 'equal' | 'notEqual' | 'exist' | 'notExist';
+
+export type SFilterSelectionOperator = 'equal' | 'notEqual' | 'exist' | 'notExist';
+
+// Operators with no value input.
+export type SFilterExistenceOperator = 'exist' | 'notExist';
+
+// Union of every predefined operator id (used by SFilterValue.operator).
+export type SFilterOperatorId =
+    | SFilterTextOperator
+    | SFilterNumberOperator
+    | SFilterDateOperator
+    | SFilterDateRangeOperator
+    | SFilterOptionsOperator
+    | SFilterSelectionOperator;
+
+// ── Custom operator ────────────────────────────────────────────────────────
+
+export type SFilterCustomOperator = {
     id: string;
-    label?: string;
-    tag?: string | ((value: any) => string);
+    label: string;
+    /**
+     * Number of value inputs to render when this operator is active.
+     * Defaults to the field type's natural count (`0` for existence operators,
+     * `1` for text/number/amount/date/options/selection, `2` for dateRange).
+     */
+    inputs?: 0 | 1 | 2;
+    /** Badge tag — literal string, function of the value, or absent (uses the raw value). */
+    tag?: string | ((value: unknown) => string);
 };
 
-// Combined operator type (predefined or custom)
-export type TOperator = TOperatorId | TCustomOperator;
+// ── Field type id and choice helper ────────────────────────────────────────
 
-// Value types
-export type TValue = string | number | Date;
-export type TInputType = 'number' | 'date' | 'amount' | 'text';
+export type SFilterFieldType = 'text' | 'number' | 'amount' | 'date' | 'dateRange' | 'options' | 'selection';
 
-// Base interfaces
-export type TField = {
-    id: string;
-    name: string;
-    interfaces?: TInterfaces;
+export type SFilterChoice = string | { id: string; label: string };
+export type SFilterChoices = SFilterChoice[];
+
+// ── Shared field shape ─────────────────────────────────────────────────────
+
+type SFilterBase = {
+    label: string;
     permanent?: boolean;
-    state?: {
-        operator: TOperator;
-        value: any;
-    };
-    validate?: (value: any, operator: TOperator) => string | null | Promise<string | null>;
+    customOperators?: SFilterCustomOperator[];
+    validate?: (value: any, operator: string) => string | null | Promise<string | null>;
 };
 
-export type TInterfaces = {
-    none?: TNoneInterface;
-    oneInput?: TOneInputInterface;
-    twoInputs?: TTwoInputsInterface;
-    options?: TOptionsInterface;
-    selection?: TSelectionInterface;
+// ── Per-type field shapes ──────────────────────────────────────────────────
+
+export type SFilterTextField = SFilterBase & {
+    type: 'text';
+    operators?: SFilterTextOperator[];
 };
 
-// Specific interfaces
-type TNoneInterface = {
-    operators: (TExistenceOperator | TCustomOperator)[];
+export type SFilterNumberField = SFilterBase & {
+    type: 'number';
+    operators?: SFilterNumberOperator[];
 };
 
-type TOneInputInterface = {
-    type?: TInputType;
-    minorUnitMode?: boolean;
+export type SFilterAmountField = SFilterBase & {
+    type: 'amount';
+    operators?: SFilterAmountOperator[];
     currency?: keyof typeof Currencies;
     currencies?: (keyof typeof Currencies)[];
-    operators: (TComparisonOperator | TTextOperator | TDateOperator | TExistenceOperator | TCustomOperator)[];
-};
-
-type TTwoInputsInterface = {
-    type?: Exclude<TInputType, 'text'>;
     minorUnitMode?: boolean;
-    currency?: keyof typeof Currencies;
-    currencies?: (keyof typeof Currencies)[];
-    operators: (TRangeOperator | TDateOperator | TExistenceOperator | TCustomOperator)[];
 };
 
-type TOptionsInterface = {
-    options: TOptions;
+export type SFilterDateField = SFilterBase & {
+    type: 'date';
+    operators?: SFilterDateOperator[];
+};
+
+export type SFilterDateRangeField = SFilterBase & {
+    type: 'dateRange';
+    operators?: SFilterDateRangeOperator[];
+};
+
+export type SFilterOptionsField = SFilterBase & {
+    type: 'options';
+    choices: SFilterChoices;
     multiple?: boolean;
-    operators: (
-        | TComparisonOperator
-        | Extract<TTextOperator, 'contains' | 'notContains'>
-        | TExistenceOperator
-        | TCustomOperator
-    )[];
+    operators?: SFilterOptionsOperator[];
 };
 
-type TSelectionInterface = {
-    operators: (TComparisonOperator | TExistenceOperator | TCustomOperator)[];
+export type SFilterSelectionField = SFilterBase & {
+    type: 'selection';
+    operators?: SFilterSelectionOperator[];
 };
 
-// Operator data type
-export type TOperatorData = Record<
-    string,
-    {
-        operators: (TOperatorId | TCustomOperator)[];
-        interfaces: Record<string, TInterfaceId>;
-    }
->;
+export type SFilterField =
+    | SFilterTextField
+    | SFilterNumberField
+    | SFilterAmountField
+    | SFilterDateField
+    | SFilterDateRangeField
+    | SFilterOptionsField
+    | SFilterSelectionField;
 
-// Props and Emits
-export type TFilterProps = {
-    fields: TField[];
+// ── Applied value (v-model shape) ──────────────────────────────────────────
+
+export type SFilterEntry = {
+    operator: string;
+    value: any;
+};
+
+export type SFilterValue = Record<string, SFilterEntry>;
+
+// ── Saved filters ──────────────────────────────────────────────────────────
+
+export type SFilterSaved = {
+    name: string;
+    snapshot: SFilterValue;
+};
+
+// ── Props and emits ────────────────────────────────────────────────────────
+
+export type SFilterProps = {
+    filters: Record<string, SFilterField>;
+    modelValue?: SFilterValue;
+    saved?: SFilterSaved[];
     hideApplyButton?: boolean;
     hideClearButton?: boolean;
     applyWhenClear?: boolean;
     immediateApply?: boolean;
     responsive?: boolean;
-    saved?: TSaveData[];
 };
 
-export type TFilterEmits = {
-    (event: 'apply', fields: TField[]): void;
-    (event: 'save', data: TSaveData[]): void;
-    (event: 'load', data: TSaveData['filters']): void;
-    (event: 'clear', fields: TField[]): void;
-};
-
-export type TSaveData = {
-    name: string;
-    filters: TField[];
+export type SFilterEmits = {
+    (event: 'update:modelValue', value: SFilterValue): void;
+    (event: 'apply', value: SFilterValue): void;
+    (event: 'clear', value: SFilterValue): void;
+    (event: 'save', name: string, snapshot: SFilterValue): void;
+    (event: 'load', snapshot: SFilterValue): void;
+    (event: 'delete', name: string): void;
 };

@@ -1,64 +1,84 @@
 <script setup lang="ts">
 import { SBadge, SPopover } from '../..';
 import SelectFilterDialog from './SelectFilterDialog.vue';
-import type { TField } from '../types';
+import type { SFilterEntry, SFilterField } from '../types';
 import { useContext } from '../context';
-import { ref } from 'vue';
+import { buildLabel } from '../helpers';
+import { computed, onScopeDispose, ref } from 'vue';
 
 const props = defineProps<{
-    field: TField;
+    id: string;
+    field: SFilterField;
+    entry: SFilterEntry;
 }>();
 
 const context = useContext('FieldBadge');
 const popover = ref<InstanceType<typeof SPopover>>();
-const pendingRemove = ref(false);
+const handleId = Symbol('FieldBadge');
 
-const togglePopover = () => {
-    // If a remove action is pending, handle it instead of toggling
-    if (pendingRemove.value) {
-        removeField();
-        return;
-    }
+context.popoverManager.register({
+    id: handleId,
+    close: () => popover.value?.close(),
+});
 
+onScopeDispose(() => context.popoverManager.unregister(handleId));
+
+const label = computed(() => buildLabel(props.entry.operator, props.entry.value, props.field));
+
+const openEditor = () => {
     if (popover.value?.isOpen) {
         popover.value.close();
-    } else {
-        context.switchPopover(popover.value);
-        context.selectField(props.field.id);
+        return;
     }
+    context.popoverManager.open(handleId);
+    context.selectField(props.id);
+    popover.value?.open();
 };
 
-const handleRemoveClick = () => {
-    // Mark removal as pending - will be processed in togglePopover
-    // This is needed because the remove button is inside the main button
-    pendingRemove.value = true;
-};
-
-const removeField = () => {
-    delete props.field.state;
-    pendingRemove.value = false;
+const remove = () => {
+    // popover.close() is idempotent — call it unconditionally so we never
+    // leave a stale-open popover for a filter that no longer exists.
+    popover.value?.close();
+    context.removeFilter(props.id);
 };
 </script>
 
 <template>
-    <SPopover ref="popover" :responsive="context.responsive" :offset="8" prevent-close>
+    <SPopover
+        ref="popover"
+        :responsive="context.responsive"
+        :offset="8"
+        prevent-close
+        @close="context.popoverManager.notifyClosed(handleId)"
+    >
         <template #reference>
-            <button @click="togglePopover">
+            <!--
+                role=button on a <span> instead of a real <button> so we can host
+                SBadge's own remove <button> inside without nesting two buttons.
+            -->
+            <span
+                role="button"
+                tabindex="0"
+                class="focus-visible:s-outline inline-flex rounded-full outline-2 outline-offset-2 outline-transparent"
+                @click="openEditor"
+                @keydown.enter.prevent="openEditor"
+                @keydown.space.prevent="openEditor"
+            >
                 <SBadge
                     color="white"
                     class="whitespace-nowrap"
                     pt:content="flex"
                     pill
                     outline
-                    :removable="!field.permanent"
-                    @removed="handleRemoveClick"
+                    :removable="!field.permanent ? 'stopPropagation' : false"
+                    @removed="remove"
                 >
-                    <div class="max-w-[144px] font-bold">{{ `${field.name} |&nbsp;` }}</div>
+                    <div class="max-w-[144px] font-bold">{{ `${field.label} |&nbsp;` }}</div>
                     <div class="max-w-[220px] truncate">
-                        {{ context.getOperatorLabel(field) }}
+                        {{ label }}
                     </div>
                 </SBadge>
-            </button>
+            </span>
         </template>
 
         <template #default="{ close }">

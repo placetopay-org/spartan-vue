@@ -12,51 +12,60 @@ export default {
 import FieldBadge from './elements/FieldBadge.vue';
 import SavedButton from './elements/SavedButton.vue';
 import AddFilterButton from './elements/AddFilterButton.vue';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { SButton } from '../SButton';
 import { createContext } from './context';
+import { getDuplicateOperatorIds } from './helpers';
 import { translator } from '@/helpers';
-import type { TFilterProps, TFilterEmits, TField } from './types';
+import type { SFilterEmits, SFilterProps, SFilterValue } from './types';
 
-// Emits
-const emit = defineEmits<TFilterEmits>();
-
-// Props and Defaults
-const props = withDefaults(defineProps<TFilterProps>(), {
-    responsive: true,
-});
+const emit = defineEmits<SFilterEmits>();
 
 const { t } = translator('filter');
 
-const context = createContext(props, emit);
+const props = withDefaults(defineProps<SFilterProps>(), {
+    modelValue: () => ({}),
+    responsive: true,
+});
+
+createContext(props, emit);
+
+const value = computed<SFilterValue>(() => props.modelValue);
+
+const appliedEntries = computed(() =>
+    Object.entries(value.value).filter(([id]) => id in props.filters),
+);
 
 const apply = () => {
-    const fields: TField[] = [];
-    props.fields?.forEach((field) => {
-        if (field.state) {
-            fields.push({ ...field });
-        }
-    });
-    emit('apply', fields);
+    emit('apply', { ...value.value });
 };
 
 const clear = () => {
-    props.fields?.forEach((filter) => {
-        if (filter.permanent) return;
-        delete filter.state;
-    });
-    emit('clear', props.fields);
+    const next: SFilterValue = {};
+    // Permanent fields keep their applied entry on clear.
+    for (const [id, entry] of Object.entries(value.value)) {
+        if (props.filters[id]?.permanent) next[id] = entry;
+    }
+    emit('update:modelValue', next);
+    emit('clear', { ...next });
 
     if (props.applyWhenClear) {
-        apply();
+        emit('apply', { ...next });
     }
 };
 
 onMounted(() => {
+    for (const [id, field] of Object.entries(props.filters)) {
+        const dupes = getDuplicateOperatorIds(field);
+        if (dupes.length > 0) {
+            const ids = dupes.map((d) => `'${d}'`).join(', ');
+            throw new Error(`SFilter: duplicate operator id(s) ${ids} in field '${id}'`);
+        }
+    }
+
     if (props.immediateApply) apply();
 });
 
-// Expose
 defineExpose({
     apply,
     clear,
@@ -68,16 +77,28 @@ defineExpose({
     <div class="flex justify-between gap-3">
         <!-- field badges -->
         <div class="flex w-full flex-wrap gap-3">
-            <FieldBadge v-for="field in context.activeFields" :key="field.id" :field="field" />
+            <FieldBadge
+                v-for="[id, entry] in appliedEntries"
+                :id="id"
+                :key="id"
+                :field="props.filters[id]!"
+                :entry="entry"
+            />
 
             <AddFilterButton />
         </div>
 
         <!-- action buttons -->
-        <div v-if="!hideApplyButton || !hideClearButton || saved" class="flex gap-3">
-            <SavedButton v-if="saved" />
+        <div v-if="!hideApplyButton || !hideClearButton || saved !== undefined" class="flex gap-3">
+            <SavedButton v-if="saved !== undefined" />
 
-            <SButton v-if="!hideApplyButton" class="h-[26px] whitespace-nowrap" size="sm" rounded="full" @click="apply">
+            <SButton
+                v-if="!hideApplyButton"
+                class="h-[26px] whitespace-nowrap"
+                size="sm"
+                rounded="full"
+                @click="apply"
+            >
                 {{ t('applyBtn') }}
             </SButton>
 

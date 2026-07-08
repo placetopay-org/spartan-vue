@@ -598,10 +598,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12902-79715&t=YejrDL8k9HOQiEjj-4',
-            improvements: {
-                en: '- Optimize source code\n- Decouple reserved operators from custom ones\n- Improve multiple popovers handling',
-                es: '- Optimizar el código fuente\n- Desacomplar los operadores reservados de los personalizados\n- Mejorar el manejo de múltiples popovers',
-            },
         },
         {
             name: 'SCopy',

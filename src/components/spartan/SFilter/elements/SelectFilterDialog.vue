@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { translator } from '@/helpers';
 import { SButton, SPopover } from '../..';
 import { useContext } from '../context';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 import { computed, ref, watch } from 'vue';
-import { interfaceComponents } from '../constants';
-import { getOperatorId, getOperatorLabel, getOperators } from '../helpers';
-import type { TField, TInterfaceId, TOperator } from '../types';
+import { resolveInputComponent } from '../constants';
+import {
+    getOperators,
+    getOperatorId,
+    getOperatorLabel,
+    getOperatorInputCount,
+    type CombinedOperator,
+} from '../helpers';
+import { translator } from '@/helpers';
+import type { SFilterField } from '../types';
 
 const emit = defineEmits<{
     (event: 'close'): void;
@@ -16,45 +22,42 @@ const { t } = translator('filter');
 
 const context = useContext('SelectFilterDialog');
 
-const field = context.activeField!;
+const fieldId = context.activeFieldId!;
+const field = context.filters[fieldId] as SFilterField;
 const operators = getOperators(field);
+const initialEntry = context.value[fieldId];
 
-const tempOperator = ref(field.state?.operator || operators[0]);
-const tempInterface = computed<TInterfaceId>(() => {
-    const entry = Object.entries(field.interfaces!).find(([, interfaceData]) =>
-        interfaceData.operators.some((o) => o === tempOperator.value),
-    );
+const tempOperator = ref<CombinedOperator>(
+    (initialEntry && operators.find((op) => getOperatorId(op) === initialEntry.operator)) || operators[0]!,
+);
+const value = ref<any>(initialEntry?.value);
+const error = ref<string | null>(null);
 
-    return (entry?.[0] as TInterfaceId) || 'none';
-});
-const tempInterfaceConfig = computed(() => (field.interfaces as any)[tempInterface.value]);
+const tempOperatorId = computed(() => getOperatorId(tempOperator.value));
+const inputCount = computed(() => getOperatorInputCount(tempOperatorId.value, field));
+const inputComponent = computed(() => resolveInputComponent(field, inputCount.value));
 
-const selectOperator = (newOperator: TOperator, close: () => void) => {
+const selectOperator = (newOperator: CombinedOperator, close: () => void) => {
     tempOperator.value = newOperator;
     close();
 };
 
-const value = ref(field.state?.value);
-
-const error = ref();
-
-const add = () => {
-    field.state = {
-        operator: tempOperator.value,
-        value: value.value,
-    } as TField['state'];
-    emit('close');
+const isEmpty = (v: any): boolean => {
+    if (v === undefined || v === null || v === '') return true;
+    if (Array.isArray(v)) return v.length === 0;
+    return false;
 };
 
-const disabled = computed(() => (!value.value || value.value.length === 0) && tempInterface.value !== 'none');
+const requiresValue = computed(() => inputCount.value > 0);
+const disabled = computed(() => requiresValue.value && isEmpty(value.value));
+const isValid = computed(() => !error.value);
 
-const validate = async (value: any) => {
-    const empty = Array.isArray(value) ? value.length === 0 : [undefined, null, ''].includes(value);
-    if (!field.validate || empty) {
+const validate = async (raw: any) => {
+    if (!field.validate || !requiresValue.value || isEmpty(raw)) {
         error.value = null;
         return;
     }
-    error.value = await field.validate(value, tempOperator.value!);
+    error.value = await field.validate(raw, tempOperatorId.value);
 };
 
 watch(
@@ -63,13 +66,25 @@ watch(
         validate(newValue);
     },
 );
-const isValid = computed(() => !error.value);
+
+watch(
+    () => tempOperatorId.value,
+    () => {
+        // re-validate when operator changes (e.g. operator switches from one-input to zero-input)
+        validate(value.value);
+    },
+);
+
+const add = () => {
+    context.applyFilter(fieldId, tempOperatorId.value, requiresValue.value ? value.value : undefined);
+    emit('close');
+};
 </script>
 
 <template>
     <div class="flex max-h-96 w-[370px] flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl dark:bg-gray-800">
         <div class="flex items-center gap-3">
-            <span>{{ field.name }}</span>
+            <span>{{ field.label }}</span>
 
             <SPopover :offset="8" :responsive="context.responsive">
                 <template #reference="{ toggle }">
@@ -100,9 +115,10 @@ const isValid = computed(() => !error.value);
         </div>
 
         <component
-            :is="interfaceComponents[tempInterface]"
+            :is="inputComponent"
+            v-if="requiresValue"
             v-model="value"
-            :config="tempInterfaceConfig"
+            :field="field"
             :error-text="error"
         />
 

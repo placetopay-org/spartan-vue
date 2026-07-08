@@ -2,24 +2,28 @@
 import { ref, watch, computed } from 'vue';
 import { SInputAmount, SInput, SInputDate } from '@spartan';
 import { BlockWrapper } from '@internal';
-import type { IInputConfig } from './types';
 import { translator } from '@/helpers';
+import type { SFilterAmountField, SFilterDateRangeField, SFilterNumberField } from '../types';
+
+type TwoInputsField = SFilterDateRangeField | SFilterNumberField | SFilterAmountField;
+
+const { t } = translator('filter');
 
 const emit = defineEmits(['update:modelValue', 'update:currency']);
 
 const props = defineProps<{
     modelValue?: string[] | number[];
-    config: IInputConfig;
+    field: TwoInputsField;
     errorText?: string;
 }>();
-
-const { t } = translator('filter');
 
 // For date range, use a single value that contains both dates
 const dateRangeValue = computed({
     get: (): Date[] | null => {
         if (!props.modelValue) return null;
-        return (props.modelValue as (string | Date)[]).map((v) => (v instanceof Date ? v : new Date(v as string)));
+        return (props.modelValue as (string | Date)[]).map((v) =>
+            v instanceof Date ? v : new Date(v as string),
+        );
     },
     set: (newValue: Date | Date[] | null) => {
         if (Array.isArray(newValue)) {
@@ -43,14 +47,18 @@ const updateCurrency = (currency?: string) => {
     emit('update:currency', currency);
 };
 
-const amountCurrency = computed(() => props.config.currency ?? props.config.currencies?.[0]);
+// Only evaluated under `v-else-if="field.type === 'amount'"`, so we can read amount-specific fields safely.
+const amountCurrency = computed(() => {
+    const amountField = props.field as Extract<TwoInputsField, { type: 'amount' }>;
+    return amountField.currency ?? amountField.currencies?.[0];
+});
 </script>
 
 <template>
     <BlockWrapper :error-text="errorText">
         <!-- Date range picker -->
         <SInputDate
-            v-if="config.type === 'date'"
+            v-if="field.type === 'dateRange'"
             v-model="dateRangeValue"
             selection-mode="range"
             :placeholder="t('dateRangePlaceholder')"
@@ -59,22 +67,22 @@ const amountCurrency = computed(() => props.config.currency ?? props.config.curr
         />
 
         <!-- Amount inputs -->
-        <div v-else-if="config.type === 'amount'" class="flex gap-4">
+        <div v-else-if="field.type === 'amount'" class="flex gap-4">
             <SInputAmount
                 v-model="value1 as number"
                 :currency="amountCurrency!"
-                :currencies="config.currencies"
+                :currencies="field.currencies"
                 :placeholder="t('inputSelectorPlaceholder')"
-                :minor-unit-mode="config.minorUnitMode"
+                :minor-unit-mode="field.minorUnitMode"
                 :error="!!errorText"
                 @update:currency="updateCurrency"
             />
             <SInputAmount
                 v-model="value2 as number"
                 :currency="amountCurrency!"
-                :currencies="config.currencies"
+                :currencies="field.currencies"
                 :placeholder="t('inputSelectorPlaceholder')"
-                :minor-unit-mode="config.minorUnitMode"
+                :minor-unit-mode="field.minorUnitMode"
                 :error="!!errorText"
                 @update:currency="updateCurrency"
             />
@@ -85,14 +93,14 @@ const amountCurrency = computed(() => props.config.currency ?? props.config.curr
             <SInput
                 v-model="value1"
                 class="w-48"
-                :type="config.type"
+                type="number"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :error="!!errorText"
             />
             <SInput
                 v-model="value2"
                 class="w-48"
-                :type="config.type"
+                type="number"
                 :placeholder="t('inputSelectorPlaceholder')"
                 :error="!!errorText"
             />

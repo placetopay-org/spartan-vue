@@ -1,71 +1,107 @@
-import { reactive, computed } from 'vue';
-import { SPopover } from '..';
-import type { TFilterProps, TFilterEmits, TField, TSaveData } from './types';
-import { buildLabel, resolveOptionLabels } from './helpers';
+import { computed, reactive } from 'vue';
+import type { SFilterEmits, SFilterProps, SFilterSaved, SFilterValue } from './types';
 import { buildContext } from '@/helpers';
 
-type TState = {
-    fields?: TField[];
-    activeFields?: TField[];
-    saved?: TSaveData[];
-    activeField?: TField;
-    responsive: boolean;
-    switchPopover: (popover?: InstanceType<typeof SPopover>) => void;
-    saveFilter: (name: string, filters: TField[]) => void;
-    loadFilter: (filters: TSaveData['filters']) => void;
-    selectField: (id: string) => void;
-    getOperatorLabel: (field: TField) => string | undefined;
+// ── Popover manager ────────────────────────────────────────────────────────
+
+export type PopoverHandle = {
+    id: symbol;
+    close: () => void;
 };
 
-const getFieldValue = (field: TField) => field.state?.value;
+export type PopoverManager = {
+    register: (handle: PopoverHandle) => void;
+    unregister: (id: symbol) => void;
+    open: (id: symbol) => void;
+    notifyClosed: (id: symbol) => void;
+};
 
-export const { createContext, useContext } = buildContext<TState, TFilterProps, TFilterEmits>({
+const createPopoverManager = (): PopoverManager => {
+    const handles = new Map<symbol, PopoverHandle>();
+    // `current` is intentionally a closure variable rather than a Ref — only the
+    // manager's own methods need to inspect it. Mutations happen synchronously
+    // when popovers open or close.
+    let current: symbol | null = null;
+
+    return {
+        register: (handle) => {
+            handles.set(handle.id, handle);
+        },
+        unregister: (id) => {
+            handles.delete(id);
+            if (current === id) current = null;
+        },
+        open: (id) => {
+            // Close the previously open popover (if any) before promoting this one.
+            if (current && current !== id) {
+                handles.get(current)?.close();
+            }
+            current = id;
+        },
+        notifyClosed: (id) => {
+            if (current === id) current = null;
+        },
+    };
+};
+
+// ── Filter context ─────────────────────────────────────────────────────────
+
+type TState = {
+    filters: SFilterProps['filters'];
+    value: SFilterValue;
+    saved?: SFilterSaved[];
+    responsive: boolean;
+    activeFieldId: string | undefined;
+    popoverManager: PopoverManager;
+    selectField: (id: string) => void;
+    applyFilter: (id: string, operator: string, value: any) => void;
+    removeFilter: (id: string) => void;
+    loadSnapshot: (snapshot: SFilterValue) => void;
+    saveCurrent: (name: string) => void;
+    deleteSaved: (name: string) => void;
+};
+
+export const { createContext, useContext } = buildContext<TState, SFilterProps, SFilterEmits>({
     name: 'SFilter',
     state: (props, emit) => {
-        let currentPopover: InstanceType<typeof SPopover> | undefined;
+        const popoverManager = createPopoverManager();
 
         const state: TState = reactive({
-            fields: props.fields,
-            activeFields: computed(() => state.fields?.filter((field) => field.state)),
-            saved: computed(() => props.saved),
-            activeField: undefined,
-            responsive: !!props.responsive,
-
-            switchPopover: (popover?: InstanceType<typeof SPopover>) => {
-                currentPopover?.close();
-                currentPopover = popover;
-                currentPopover?.open();
-            },
+            filters: computed(() => props.filters) as unknown as SFilterProps['filters'],
+            // SFilter.vue applies a `withDefaults` for `modelValue`, so by the time the
+            // context reads it the value is guaranteed to be an object.
+            value: computed(() => props.modelValue as SFilterValue) as unknown as SFilterValue,
+            saved: computed(() => props.saved) as unknown as SFilterSaved[] | undefined,
+            responsive: computed(() => props.responsive !== false) as unknown as boolean,
+            activeFieldId: undefined,
+            popoverManager,
 
             selectField: (id: string) => {
-                state.activeField = state.fields?.find((field) => field.id === id);
+                state.activeFieldId = id;
             },
 
-            saveFilter: (name: string, filters: TField[]) => {
-                emit('save', [...(props.saved as TSaveData[]), { name, filters }]);
+            applyFilter: (id: string, operator: string, value: any) => {
+                const next: SFilterValue = { ...state.value, [id]: { operator, value } };
+                emit('update:modelValue', next);
             },
 
-            loadFilter: (filters: TSaveData['filters']) => {
-                filters.forEach((newField) => {
-                    state.fields?.forEach((field) => {
-                        if (newField.id === field.id) {
-                            field.state = newField.state;
-                        }
-                    });
-                });
-                emit('load', filters);
+            removeFilter: (id: string) => {
+                const next: SFilterValue = { ...state.value };
+                delete next[id];
+                emit('update:modelValue', next);
             },
 
-            getOperatorLabel: (field: TField) => {
-                const operator = field.state!.operator;
-                let value = getFieldValue(field);
+            loadSnapshot: (snapshot: SFilterValue) => {
+                emit('update:modelValue', { ...snapshot });
+                emit('load', { ...snapshot });
+            },
 
-                // Resolve option IDs to labels if field has options interface
-                if (field.interfaces?.options) {
-                    value = resolveOptionLabels(value, field.interfaces.options.options);
-                }
+            saveCurrent: (name: string) => {
+                emit('save', name, { ...state.value });
+            },
 
-                return buildLabel(operator, value);
+            deleteSaved: (name: string) => {
+                emit('delete', name);
             },
         });
 

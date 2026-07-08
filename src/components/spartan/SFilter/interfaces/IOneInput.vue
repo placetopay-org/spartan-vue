@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SInputAmountBlock, SInputBlock } from '@spartan';
-import type { IInputConfig } from './types';
 import { translator } from '@/helpers';
+import type {
+    SFilterAmountField,
+    SFilterDateField,
+    SFilterNumberField,
+    SFilterTextField,
+} from '../types';
+
+type SingleInputField = SFilterTextField | SFilterNumberField | SFilterAmountField | SFilterDateField;
+
+const { t } = translator('filter');
 
 const emit = defineEmits(['update:modelValue', 'update:currency']);
 
 const props = defineProps<{
     modelValue?: string | number;
-    config: IInputConfig;
+    field: SingleInputField;
     errorText?: string;
 }>();
-
-const { t } = translator('filter');
 
 const value = computed({
     get() {
@@ -27,25 +34,29 @@ const updateCurrency = (currency?: string) => {
     emit('update:currency', currency);
 };
 
-const amountCurrency = computed(() => props.config.currency ?? props.config.currencies?.[0]);
+// Only evaluated under `v-if="field.type === 'amount'"`, so we can read amount-specific fields safely.
+const amountCurrency = computed(() => {
+    const amountField = props.field as Extract<SingleInputField, { type: 'amount' }>;
+    return amountField.currency ?? amountField.currencies?.[0];
+});
 </script>
 
 <template>
     <SInputAmountBlock
-        v-if="config.type === 'amount'"
+        v-if="field.type === 'amount'"
         v-model="value as number"
         :currency="amountCurrency!"
-        :currencies="config.currencies"
-        :type="config.type"
+        :currencies="field.currencies"
+        type="amount"
         :placeholder="t('inputSelectorPlaceholder')"
-        :minor-unit-mode="config.minorUnitMode"
+        :minor-unit-mode="field.minorUnitMode"
         :error-text="errorText"
         @update:currency="updateCurrency"
     />
     <SInputBlock
         v-else
         v-model="value"
-        :type="config.type"
+        :type="field.type"
         :placeholder="t('inputSelectorPlaceholder')"
         :error-text="errorText"
     />
