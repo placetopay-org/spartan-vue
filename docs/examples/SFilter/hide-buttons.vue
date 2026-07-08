@@ -1,25 +1,22 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SFilter' });
-
-const fields = [
-    {
-        id: 'name',
-        name: 'Name',
-        interfaces: {
-            oneInput: {
-                operators: ['equal', 'contains'],
-            },
-        },
-        state: {
-            operator: 'contains',
-            value: 'John',
-        },
+const filters = {
+    name: {
+        type: 'text',
+        label: 'Name',
+        operators: ['equal', 'contains'],
     },
-];
+} as const;
+
+const value = ref({
+    name: { operator: 'contains', value: 'John' },
+});
+
+usePreview({ component: 'SFilter' });
 </script>
 
 <template>
-    <SFilter :fields="fields" :hideApplyButton="false" :hideClearButton="false" />
+    <SFilter v-model="value" :filters="filters" :hideApplyButton="false" :hideClearButton="false" />
 </template>

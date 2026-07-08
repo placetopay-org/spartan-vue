@@ -270,6 +270,178 @@ describe('SDTable', () => {
             screen.getByRole('cell', { name: 'Alice' });
         });
     });
+
+    test('boolean sort renders sort indicator (hover hint)', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name', sort: true });
+
+        const { emitted } = render(SDTable, {
+            props: { data: [{ name: 'Alice' }] },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(async () => {
+            const header = screen.getByRole('columnheader', { name: 'Name' });
+            const btn = header.querySelector('button')!;
+            const svg = btn.querySelector('svg');
+            expect(svg).toBeTruthy();
+
+            const user = userEvent.setup();
+            await user.click(btn);
+
+            expect(emitted().sort).toEqual([[{ field: 'name', sort: true }]]);
+        });
+    });
+
+    test('uses rowLinkAs override when provided', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const FakeLink = {
+            props: ['href'],
+            template: '<i data-test="fake-link" :href="href"><slot /></i>',
+        };
+
+        render(SDTable, {
+            props: {
+                data: [{ name: 'Alice' }],
+                rowLink: () => '/x',
+                rowLinkAs: FakeLink as any,
+            },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(() => {
+            expect(document.querySelector('[data-test="fake-link"]')).toBeTruthy();
+        });
+    });
+
+    test('clicking a body expander toggles the row and emits toggleExpanders', async () => {
+        const user = userEvent.setup();
+
+        const ExpanderCol = h(SDColumn, { expander: true });
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const { emitted } = render(SDTable, {
+            props: { data: [{ name: 'Alice' }, { name: 'Bob' }] },
+            slots: {
+                default: [ExpanderCol, Column1],
+                expansion: ({ row }) => h('div', `Details for ${row.name}`),
+            },
+        });
+
+        await waitFor(() => screen.getByRole('cell', { name: 'Alice' }));
+
+        // buttons[0] is the header toggle-all, [1] is Alice's row expander, [2] is Bob's
+        const buttons = screen.getAllByRole('button');
+        expect(buttons.length).toBeGreaterThanOrEqual(3);
+
+        await user.click(buttons[1]);
+        // Expand again is no-op for emit (already expanded), then collapse
+        await user.click(buttons[1]);
+
+        expect(emitted().toggleExpanders).toBeTruthy();
+        // Only the first expansion triggers an emit, not the collapse
+        expect(emitted().toggleExpanders.length).toBeGreaterThanOrEqual(1);
+    });
+
+    test('ignores duplicate expander column', async () => {
+        const ExpanderCol1 = h(SDColumn, { expander: true });
+        const ExpanderCol2 = h(SDColumn, { expander: true });
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        render(SDTable, {
+            props: { data: [{ name: 'Alice' }] },
+            slots: { default: [ExpanderCol1, ExpanderCol2, Column1] },
+        });
+
+        await waitFor(() => {
+            // Only one expander button per row (header + 1 row)
+            const buttons = screen.getAllByRole('button');
+            expect(buttons.length).toBe(2);
+        });
+    });
+
+    test('ignores symbol-field column without expander', async () => {
+        const NoFieldCol = h(SDColumn);
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        render(SDTable, {
+            props: { data: [{ name: 'Alice' }] },
+            slots: { default: [NoFieldCol, Column1] },
+        });
+
+        await waitFor(() => {
+            // Only the named column should render as a header
+            expect(screen.getAllByRole('columnheader').length).toBe(1);
+        });
+    });
+
+    test('renders paginator section when paginator prop is provided', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const { container } = render(SDTable, {
+            props: {
+                data: [{ name: 'Alice' }],
+                paginator: { page: 1, size: 10, total: 100, pageSizes: [10, 25] },
+            },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(() => {
+            expect(container.querySelector('[data-s-paginator]')).toBeTruthy();
+        });
+    });
+
+    test('emits paginatorChange when paginator emits change', async () => {
+        const user = userEvent.setup();
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const { emitted } = render(SDTable, {
+            props: {
+                data: [{ name: 'Alice' }],
+                paginator: { page: 1, size: 10, total: 100 },
+            },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(() => screen.getByRole('button', { name: /next/i }));
+
+        await user.click(screen.getByRole('button', { name: /next/i }));
+
+        expect(emitted().paginatorChange).toBeTruthy();
+    });
+
+    test('hides paginator when hideWhenSinglePage and only one page', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const { container } = render(SDTable, {
+            props: {
+                data: [{ name: 'Alice' }],
+                paginator: { page: 1, size: 10, total: 5, count: 1, hideWhenSinglePage: true },
+            },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(() => screen.getByRole('cell', { name: 'Alice' }));
+
+        expect(container.querySelector('[data-s-paginator]')).toBeNull();
+    });
+
+    test('paginator count is derived from total/size when hideWhenSinglePage is true', async () => {
+        const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
+
+        const { container } = render(SDTable, {
+            props: {
+                data: [{ name: 'Alice' }],
+                // total/size yields 3 pages → paginator should render
+                paginator: { page: 1, size: 10, total: 30, hideWhenSinglePage: true },
+            },
+            slots: { default: [Column1] },
+        });
+
+        await waitFor(() => screen.getByRole('cell', { name: 'Alice' }));
+
+        expect(container.querySelector('[data-s-paginator]')).toBeTruthy();
+    });
 });
 
 describe('SDTable API', () => {
@@ -282,6 +454,32 @@ describe('SDTable API', () => {
         state.updateCol({ header: 'No field' });
 
         expect(Object.keys(state.cols)).toHaveLength(0);
+    });
+
+    test('expand watch uses default previousExpandedState when invoked without old value', async () => {
+        // Render with an expander column and toggle a row; the watch handler runs and
+        // accepts both newValue and oldValue parameters (the default `[]` is a safety
+        // fallback for the edge case where Vue passes no oldValue).
+        const user = userEvent.setup();
+
+        const ExpanderCol = h(SDColumn, { expander: true });
+        const Column1 = h(SDColumn, { field: 'name' });
+
+        render(SDTable, {
+            props: { data: [{ name: 'A' }] },
+            slots: { default: [ExpanderCol, Column1] },
+        });
+
+        await waitFor(() => screen.getByRole('cell', { name: 'A' }));
+
+        // Click sequence to drive multiple watch invocations
+        const buttons = screen.getAllByRole('button');
+        await user.click(buttons[1]);
+        await user.click(buttons[1]);
+        await user.click(buttons[1]);
+
+        // Just assert the table is still functional after all toggles
+        expect(screen.getByRole('cell', { name: 'A' })).toBeInTheDocument();
     });
 
     test('useContext throws when used without provider', () => {

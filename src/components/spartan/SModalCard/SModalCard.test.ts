@@ -106,6 +106,28 @@ describe('SModalCard', () => {
         expect(screen.getByText('Save')).toBeInTheDocument();
     });
 
+    test('Re-emits update:open when SModal backdrop is clicked', async () => {
+        window.ResizeObserver = vi.fn(() => ({
+            observe: vi.fn(),
+            unobserve: vi.fn(),
+            disconnect: vi.fn(),
+        }));
+        const user = userEvent.setup();
+
+        const { emitted } = render(SModalCard, {
+            props: { open: true },
+            slots: { default: 'Content' },
+        });
+
+        const overlays = document.querySelectorAll('.fixed.inset-0.z-40');
+        const clickableOverlay = overlays[overlays.length - 1];
+        if (clickableOverlay) await user.click(clickableOverlay as HTMLElement);
+
+        const events = emitted()['update:open'];
+        expect(events).toBeTruthy();
+        expect(events.some((e: any) => e[0] === false)).toBe(true);
+    });
+
     // test('Can be rendered with slots', async () => {
     //     // Arrange
     //     window.ResizeObserver = vi.fn(() => ({

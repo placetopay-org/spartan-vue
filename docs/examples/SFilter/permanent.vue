@@ -1,43 +1,36 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SFilter' });
-
-const fields = [
-    {
-        id: 'tenant',
-        name: 'Tenant',
+const filters = {
+    tenant: {
+        type: 'options',
+        label: 'Tenant',
         permanent: true,
-        interfaces: {
-            options: {
-                options: [
-                    { id: '1', label: 'Main Tenant' },
-                    { id: '2', label: 'Secondary' },
-                ],
-                operators: ['equal'],
-            },
-        },
-        state: {
-            operator: 'equal',
-            value: '1',
-        },
+        choices: [
+            { id: '1', label: 'Main Tenant' },
+            { id: '2', label: 'Secondary' },
+        ],
+        operators: ['equal'],
     },
-    {
-        id: 'status',
-        name: 'Status',
-        interfaces: {
-            options: {
-                options: [
-                    { id: 'active', label: 'Active' },
-                    { id: 'inactive', label: 'Inactive' },
-                ],
-                operators: ['equal', 'notEqual'],
-            },
-        },
+    status: {
+        type: 'options',
+        label: 'Status',
+        choices: [
+            { id: 'active', label: 'Active' },
+            { id: 'inactive', label: 'Inactive' },
+        ],
+        operators: ['equal', 'notEqual'],
     },
-];
+} as const;
+
+const value = ref({
+    tenant: { operator: 'equal', value: '1' },
+});
+
+usePreview({ component: 'SFilter' });
 </script>
 
 <template>
-    <SFilter :fields="fields" />
+    <SFilter v-model="value" :filters="filters" />
 </template>

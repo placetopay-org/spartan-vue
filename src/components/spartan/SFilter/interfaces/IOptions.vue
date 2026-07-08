@@ -2,43 +2,43 @@
 import { computed, ref } from 'vue';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { SRadio, SCheckbox } from '../../';
+import { getChoices } from '../helpers';
 import { translator } from '@/helpers';
 import { SBadge, SInput } from '@spartan';
-import type { IOptionsConfig } from './types';
-import { getOptions } from '../helpers';
+import type { SFilterOptionsField } from '../types';
 
 const emit = defineEmits(['update:modelValue']);
 
+const { t } = translator('filter');
+
 const props = defineProps<{
     modelValue?: string | string[];
-    config: IOptionsConfig;
+    field: SFilterOptionsField;
 }>();
-
-const { t } = translator('filter');
 
 const search = ref('');
 
-const options = computed(() => getOptions(props.config.options));
+const normalizedChoices = computed(() => getChoices(props.field.choices));
 
 const checked = computed({
     get() {
-        return props.modelValue || (props.config.multiple ? [] : false);
+        return props.modelValue || (props.field.multiple ? [] : false);
     },
     set(value) {
         emit('update:modelValue', value);
     },
 });
 
-const getOptionLabel = (optionId: string) => {
-    return options.value.find((option) => option.id === optionId)?.label;
-};
+const getOptionLabel = (optionId: string) =>
+    normalizedChoices.value.find((option) => option.id === optionId)?.label;
 
-const filteredOptions = computed(() => {
-    return options.value.filter((option) => option.label.toLowerCase().includes(search.value.toLowerCase()));
-});
+const filteredChoices = computed(() =>
+    normalizedChoices.value.filter((option) =>
+        option.label.toLowerCase().includes(search.value.toLowerCase()),
+    ),
+);
 
 const removeCheck = (option: string) => {
-    if (checked.value === false) return;
     checked.value = (checked.value as string[]).filter((item) => item !== option);
 };
 
@@ -51,12 +51,12 @@ const clear = () => {
 <template>
     <div class="flex flex-col gap-4">
         <SInput
-            v-if="!config.multiple && config.options.length > 5"
+            v-if="!field.multiple && field.choices.length > 5"
             v-model="search"
             :placeholder="t('inputSelectorPlaceholder')"
         />
         <div
-            v-if="config.multiple"
+            v-if="field.multiple"
             :tabindex="-1"
             class="focus-within:border-spartan-primary-300 focus-within:ring-spartan-primary-100 flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 transition focus-within:ring dark:border-white/10 dark:bg-white/5"
             @focus="
@@ -94,9 +94,9 @@ const clear = () => {
             </div>
         </div>
         <div class="flex max-h-32 flex-col gap-2 overflow-y-auto py-1.5 pl-1.5">
-            <div v-for="option in filteredOptions" :key="option.id" class="flex items-center gap-2">
+            <div v-for="option in filteredChoices" :key="option.id" class="flex items-center gap-2">
                 <!-- @vue-ignore -->
-                <component :is="config.multiple ? SCheckbox : SRadio" v-model="checked" :value="option.id">
+                <component :is="field.multiple ? SCheckbox : SRadio" v-model="checked" :value="option.id">
                     {{ option.label }}
                 </component>
             </div>
@@ -105,7 +105,6 @@ const clear = () => {
 </template>
 
 <style scoped>
-/* width */
 ::-webkit-scrollbar {
     width: 0;
 }

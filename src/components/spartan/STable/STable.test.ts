@@ -1,4 +1,4 @@
-import { test, describe } from 'vitest';
+import { test, describe, vi } from 'vitest';
 import STable from './STable.vue';
 import STableHead from './STableHead.vue';
 import STableHeadCell from './STableHeadCell.vue';
@@ -103,5 +103,15 @@ describe('STable', () => {
 
         const cell = screen.getByRole('cell', { name: 'Bold' });
         expect(cell.className).toContain('font-medium');
+    });
+
+    test('Child components throw when used without parent STable', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+        expect(() => render(STableRow)).toThrow(/missing parent <STable/);
+
+        warn.mockRestore();
+        error.mockRestore();
     });
 });

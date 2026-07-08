@@ -62,7 +62,10 @@
             "dateRangePlaceholder": "Sélectionnez une plage de dates",
             "no": "Non",
             "notFoundFieldText": "Aucun filtre enregistré trouvé",
+            "deleteSavedBtn": "Supprimer le filtre enregistré",
             "operator": {
+                "after": "Est après",
+                "before": "Est avant",
                 "between": "Entre",
                 "contains": "Contient",
                 "endsWith": "Se termine par",
@@ -85,6 +88,7 @@
             },
             "optionsSelectorPlaceholder": "Sélectionnez une ou plusieurs options",
             "saveBtn": "Enregistrer",
+            "savedFilterNameLabel": "Nom du filtre",
             "savedFiltersText": "Mes filtres enregistrés",
             "yes": "Oui"
         }

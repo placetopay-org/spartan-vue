@@ -2,34 +2,56 @@
 import { AddIcon } from '@placetopay/iconsax-vue/linear';
 import { SPopover, SInput } from '../..';
 import { useContext } from '../context';
-import { computed, ref } from 'vue';
-import { translator } from '@/helpers';
+import { computed, onScopeDispose, ref } from 'vue';
+
 import { FadeTransition } from '@internal';
 import SelectFilterDialog from './SelectFilterDialog.vue';
-
-const { t } = translator('filter');
+import { translator } from '@/helpers';
 
 const context = useContext('AddFilterButton');
 
+const { t } = translator('filter');
+
 const refPopover = ref<InstanceType<typeof SPopover>>();
+const handleId = Symbol('AddFilterButton');
 
-const query = ref('');
-
-const options = computed(() => {
-    const filteredOptions = context.fields?.filter(
-        (field) => field.name.toLowerCase().includes(query.value.toLowerCase()) && !field.state,
-    );
-    return filteredOptions?.map((field) => ({ id: field.id, name: field.name }));
+context.popoverManager.register({
+    id: handleId,
+    close: () => refPopover.value?.close(),
 });
 
+onScopeDispose(() => context.popoverManager.unregister(handleId));
+
+const query = ref('');
 const selectFieldStep = ref(true);
 
+// Available fields = filters not currently in v-model value.
+const options = computed(() => {
+    const applied = new Set(Object.keys(context.value));
+    return Object.entries(context.filters)
+        .filter(
+            ([id, field]) =>
+                !applied.has(id) && field.label.toLowerCase().includes(query.value.toLowerCase()),
+        )
+        .map(([id, field]) => ({ id, label: field.label }));
+});
+
 const openPopover = () => {
-    if (refPopover.value?.isOpen) refPopover.value?.close();
-    else context.switchPopover(refPopover.value);
+    if (refPopover.value?.isOpen) {
+        refPopover.value.close();
+        return;
+    }
+    context.popoverManager.open(handleId);
+    refPopover.value?.open();
 };
 
-const selectField = (id: string) => {
+const onPopoverClose = () => {
+    context.popoverManager.notifyClosed(handleId);
+    selectFieldStep.value = true;
+    query.value = '';
+};
+
+const pickField = (id: string) => {
     context.selectField(id);
     selectFieldStep.value = false;
 };
@@ -41,11 +63,11 @@ const selectField = (id: string) => {
         :responsive="context.responsive"
         :offset="8"
         :prevent-close="!selectFieldStep"
-        @close="selectFieldStep = true"
+        @close="onPopoverClose"
     >
         <template #reference>
             <button
-                :disabled="!options?.length"
+                :disabled="!options.length"
                 class="group focus:s-outline flex items-center gap-2 rounded-full border border-dashed border-gray-400 px-3 py-0.5 text-sm whitespace-nowrap text-gray-400 outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150 hover:border-gray-500 hover:text-gray-600 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-500 dark:text-gray-500 dark:hover:border-gray-400 dark:hover:text-gray-300"
                 @click="openPopover"
             >
@@ -63,7 +85,7 @@ const selectField = (id: string) => {
                     <SInput v-model="query" :placeholder="t('fieldSelectorPlaceholder')" />
                 </div>
                 <ul class="w-full">
-                    <li v-if="!options?.length" class="px-4 py-2 text-gray-400">
+                    <li v-if="!options.length" class="px-4 py-2 text-gray-400">
                         {{ t('fieldSelectorNotResults') }}
                     </li>
                     <li
@@ -72,8 +94,8 @@ const selectField = (id: string) => {
                         :key="item.id"
                         class="hover:text-spartan-primary-600 rounded-lg hover:bg-gray-50 dark:hover:bg-white/10"
                     >
-                        <button class="w-full px-4 py-2 text-left" @click="selectField(item.id)">
-                            {{ item.name }}
+                        <button class="w-full px-4 py-2 text-left" @click="pickField(item.id)">
+                            {{ item.label }}
                         </button>
                     </li>
                 </ul>
@@ -85,22 +107,16 @@ const selectField = (id: string) => {
 </template>
 
 <style scoped>
-/* width */
 ::-webkit-scrollbar {
     width: 4px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 16px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }

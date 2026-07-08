@@ -1,149 +1,92 @@
 import { translator } from '@/helpers';
-import type { TCustomOperator, TField, TOperator, TOptions } from './types';
+import type { SFilterChoices, SFilterCustomOperator, SFilterField } from './types';
+import { DEFAULT_OPERATOR_BY_TYPE, FIELD_TYPE_INPUT_COUNT, OPERATOR_INPUT_COUNT } from './constants';
 
-export const buildLabel = (operator: string | TOperator, value?: any) => {
-    const { t } = translator('filter.operator');
+// `translator()` calls `useI18n()` under the hood, which requires an active Vue
+// component setup context. We cannot hoist the call to module scope — instead,
+// each helper that needs the operator namespace calls `translator()` itself
+// inside its invocation (which happens during setup or render).
 
-    if (typeof operator === 'object') {
-        return getOperatorTag(operator, value);
-    }
+export type CombinedOperator = string | SFilterCustomOperator;
 
-    if (!value) {
-        return t(operator);
-    }
-
-    if (Array.isArray(value)) {
-        return `${t(operator)} ${value.join(', ')}`;
-    }
-
-    return `${t(operator)} ${value}`;
+/** Returns the merged list of predefined + custom operators for a field. */
+export const getOperators = (field: SFilterField): CombinedOperator[] => {
+    const predefined: string[] = field.operators ?? [DEFAULT_OPERATOR_BY_TYPE[field.type]];
+    const custom = field.customOperators ?? [];
+    return [...predefined, ...custom];
 };
 
-export const getOptions = (options: TOptions) => {
-    return options.map((option) => {
-        return typeof option === 'object' ? option : { id: option, label: option };
-    });
+/** Returns the id of either a predefined string operator or a custom operator object. */
+export const getOperatorId = (operator: CombinedOperator): string =>
+    typeof operator === 'string' ? operator : operator.id;
+
+/** Returns the translated/custom label for an operator, or empty string for undefined. */
+export const getOperatorLabel = (operator?: CombinedOperator): string => {
+    if (operator === undefined) return '';
+    if (typeof operator === 'string') return translator('filter.operator').t(operator);
+    return operator.label;
+};
+
+/** Looks up a custom operator on the field by id. */
+export const findCustomOperator = (
+    field: SFilterField,
+    operatorId: string,
+): SFilterCustomOperator | undefined => field.customOperators?.find((c) => c.id === operatorId);
+
+/** How many value inputs to render for the current operator on this field. */
+export const getOperatorInputCount = (operatorId: string, field: SFilterField): 0 | 1 | 2 => {
+    const custom = findCustomOperator(field, operatorId);
+    if (custom) return custom.inputs ?? FIELD_TYPE_INPUT_COUNT[field.type];
+    return OPERATOR_INPUT_COUNT[operatorId] ?? FIELD_TYPE_INPUT_COUNT[field.type];
+};
+
+/** Normalizes string-or-object choices into a consistent `{id, label}[]` shape. */
+export const getChoices = (choices: SFilterChoices) =>
+    choices.map((c) => (typeof c === 'object' ? c : { id: c, label: c }));
+
+/** Resolves option-choice ids to their labels (for `options` field badge rendering). */
+export const resolveChoiceLabels = (value: any, choices: SFilterChoices): any => {
+    if (value === undefined || value === null) return value;
+    const resolve = (id: string): string => {
+        const found = choices.find((c) => (typeof c === 'string' ? c : c.id) === id);
+        if (!found) return id;
+        return typeof found === 'string' ? found : found.label;
+    };
+    return Array.isArray(value) ? value.map(resolve) : resolve(value);
+};
+
+/** Reports duplicate operator ids across `operators` and `customOperators` for dev-mode assertions. */
+export const getDuplicateOperatorIds = (field: SFilterField): string[] => {
+    const seen = new Set<string>(field.operators ?? []);
+    const dupes: string[] = [];
+    for (const c of field.customOperators ?? []) {
+        if (seen.has(c.id)) dupes.push(c.id);
+        seen.add(c.id);
+    }
+    return dupes;
 };
 
 /**
- * Resolves option IDs to their labels.
- * If the value is an array, resolves each ID to its label.
- * If the ID is not found in options, returns the ID as-is.
+ * Renders the badge label "<operator-label> <value>" with proper formatting.
+ * Custom operators with a `tag` use that; otherwise we format `value` against the field's
+ * choice labels (for `options`) and join arrays with commas.
  */
-export const resolveOptionLabels = (value: any, options?: TOptions): any => {
-    if (!options || value === undefined || value === null) return value;
+export const buildLabel = (operatorId: string, value: any, field: SFilterField): string => {
+    const custom = findCustomOperator(field, operatorId);
 
-    const normalizedOptions = getOptions(options);
-
-    const resolveId = (id: string): string => {
-        const option = normalizedOptions.find((opt) => opt.id === id);
-        return option?.label ?? id;
-    };
-
-    if (Array.isArray(value)) {
-        return value.map(resolveId);
+    if (custom) {
+        if (typeof custom.tag === 'function') return custom.tag(value);
+        if (typeof custom.tag === 'string') return custom.tag;
+        if (value === undefined || value === null || value === '') return custom.label;
+        if (Array.isArray(value)) return value.join(', ');
+        return String(value);
     }
 
-    return resolveId(value);
-};
+    const label = translator('filter.operator').t(operatorId);
+    const inputs = OPERATOR_INPUT_COUNT[operatorId] ?? FIELD_TYPE_INPUT_COUNT[field.type];
+    if (inputs === 0 || value === undefined || value === null || value === '') return label;
 
-export const getOperators = (field: TField): TOperator[] => {
-    return Object.keys(field.interfaces || {}).reduce((acc, key) => {
-        // @ts-expect-error - accessing dynamic interface keys
-        acc.push(...field.interfaces[key].operators);
-        return acc;
-    }, []);
-};
-
-export const getOperatorId = (operator: TOperator) => {
-    return typeof operator === 'object' ? operator.id : operator;
-};
-
-export const getOperatorLabel = (operator?: TOperator) => {
-    if (!operator) return '';
-
-    const { t } = translator('filter.operator');
-    return typeof operator === 'object' ? operator.label : t(getOperatorId(operator));
-};
-
-export const getOperatorTag = (operator: TCustomOperator, value?: any) => {
-    if (typeof operator.tag === 'function') return operator.tag(value);
-    return operator.tag || value || '';
-};
-
-/**
- * Creates a clean copy of a field with only the necessary properties for saving.
- * Removes any extra properties that shouldn't be persisted.
- */
-export const cleanFieldForSave = (field: TField): TField | null => {
-    if (!field.state || !field.interfaces) return null;
-
-    const baseField = {
-        id: field.id,
-        name: field.name,
-        state: field.state,
-    };
-
-    if (field.interfaces.none) {
-        return {
-            ...baseField,
-            interfaces: {
-                none: { operators: field.interfaces.none.operators },
-            },
-        };
-    }
-
-    if (field.interfaces.oneInput) {
-        return {
-            ...baseField,
-            interfaces: {
-                oneInput: {
-                    type: field.interfaces.oneInput.type,
-                    minorUnitMode: field.interfaces.oneInput.minorUnitMode,
-                    currency: field.interfaces.oneInput.currency,
-                    currencies: field.interfaces.oneInput.currencies,
-                    operators: field.interfaces.oneInput.operators,
-                },
-            },
-        };
-    }
-
-    if (field.interfaces.twoInputs) {
-        return {
-            ...baseField,
-            interfaces: {
-                twoInputs: {
-                    type: field.interfaces.twoInputs.type,
-                    minorUnitMode: field.interfaces.twoInputs.minorUnitMode,
-                    currency: field.interfaces.twoInputs.currency,
-                    currencies: field.interfaces.twoInputs.currencies,
-                    operators: field.interfaces.twoInputs.operators,
-                },
-            },
-        };
-    }
-
-    if (field.interfaces.options) {
-        return {
-            ...baseField,
-            interfaces: {
-                options: {
-                    options: field.interfaces.options.options,
-                    multiple: field.interfaces.options.multiple,
-                    operators: field.interfaces.options.operators,
-                },
-            },
-        };
-    }
-
-    if (field.interfaces.selection) {
-        return {
-            ...baseField,
-            interfaces: {
-                selection: { operators: field.interfaces.selection.operators },
-            },
-        };
-    }
-
-    return null;
+    const resolved = field.type === 'options' ? resolveChoiceLabels(value, field.choices) : value;
+    if (Array.isArray(resolved)) return `${label} ${resolved.join(', ')}`;
+    return `${label} ${resolved}`;
 };

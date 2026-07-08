@@ -66,8 +66,12 @@
             "optionsSelectorPlaceholder": "Seleziona una o più opzioni",
             "saveBtn": "Salva",
             "savedFiltersText": "I miei filtri salvati",
+            "savedFilterNameLabel": "Nome del filtro",
+            "deleteSavedBtn": "Elimina filtro salvato",
 
             "operator": {
+                "after": "È dopo",
+                "before": "È prima",
                 "between": "È tra",
                 "contains": "Contiene",
                 "endsWith": "Finisce con",

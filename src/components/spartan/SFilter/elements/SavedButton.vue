@@ -3,26 +3,45 @@ import { SButton } from '../../SButton';
 import { SPopover } from '../../SPopover';
 import { SInput } from '../../SInput';
 import { SCard } from '../../SCard';
-import { translator } from '@/helpers';
+import { TrashIcon } from '@heroicons/vue/24/outline';
 import { useContext } from '../context';
-import { cleanFieldForSave } from '../helpers';
+import { translator } from '@/helpers';
+
 import { FilterIcon, InfoCircleIcon } from '@placetopay/iconsax-vue/outline';
 import { InboxArrowDownIcon } from '@heroicons/vue/20/solid';
-import { computed, ref } from 'vue';
-import type { TField, TSaveData } from '../types';
+import { computed, onScopeDispose, ref } from 'vue';
+import type { SFilterSaved } from '../types';
 import { FadeTransition } from '@internal';
 
-const { t } = translator('filter');
-
 const context = useContext('SavedButton');
+const { t } = translator('filter');
 const popover = ref<InstanceType<typeof SPopover>>();
 const savedFilterName = ref('');
-
 const activeSaving = ref(false);
-const enableSaving = computed(() => context.fields?.filter((field) => field.state).length);
+const handleId = Symbol('SavedButton');
 
-const openSaveModal = () => {
-    popover.value?.toggle();
+context.popoverManager.register({
+    id: handleId,
+    close: () => popover.value?.close(),
+});
+
+onScopeDispose(() => context.popoverManager.unregister(handleId));
+
+const enableSaving = computed(() => Object.keys(context.value).length > 0);
+
+const togglePanel = () => {
+    if (popover.value?.isOpen) {
+        popover.value.close();
+        return;
+    }
+    context.popoverManager.open(handleId);
+    popover.value?.open();
+};
+
+const onPopoverClose = () => {
+    context.popoverManager.notifyClosed(handleId);
+    activeSaving.value = false;
+    savedFilterName.value = '';
 };
 
 const resetAndClose = () => {
@@ -35,28 +54,31 @@ const saveNewFilter = () => {
     const trimmedName = savedFilterName.value.trim();
     if (!trimmedName) return;
 
-    const fields: TField[] = [];
-    context.fields?.forEach((field) => {
-        const cleanField = cleanFieldForSave(field);
-        if (cleanField) {
-            fields.push(cleanField);
-        }
-    });
-
-    context.saveFilter(trimmedName, fields);
+    context.saveCurrent(trimmedName);
     resetAndClose();
 };
 
-const selectFilter = (filter: TSaveData) => {
-    context.loadFilter(filter.filters);
+const loadSavedFilter = (entry: SFilterSaved) => {
+    context.loadSnapshot(entry.snapshot);
     popover.value?.close();
+};
+
+const deleteSavedFilter = (event: Event, name: string) => {
+    event.stopPropagation();
+    context.deleteSaved(name);
 };
 </script>
 
 <template>
-    <SPopover ref="popover" :responsive="context.responsive" :prevent-close="activeSaving" :offset="8">
+    <SPopover
+        ref="popover"
+        :responsive="context.responsive"
+        :prevent-close="activeSaving"
+        :offset="8"
+        @close="onPopoverClose"
+    >
         <template #reference>
-            <SButton class="h-[26px] whitespace-nowrap" size="sm" rounded="full" outline @click="openSaveModal">
+            <SButton class="h-[26px] whitespace-nowrap" size="sm" rounded="full" outline @click="togglePanel">
                 <FilterIcon class="h-5 w-5" />
             </SButton>
         </template>
@@ -76,10 +98,17 @@ const selectFilter = (filter: TSaveData) => {
                     <li
                         v-for="item in context.saved"
                         :key="item.name"
-                        class="hover:text-spartan-primary-600 rounded-lg hover:bg-gray-50 dark:hover:bg-white/10"
+                        class="hover:text-spartan-primary-600 group flex items-center rounded-lg hover:bg-gray-50 dark:hover:bg-white/10"
                     >
-                        <button class="w-full px-4 py-2 text-left" @click="selectFilter(item)">
+                        <button class="flex-1 px-4 py-2 text-left" @click="loadSavedFilter(item)">
                             {{ item.name }}
+                        </button>
+                        <button
+                            class="px-3 py-2 text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400"
+                            :aria-label="`${t('deleteSavedBtn')}: ${item.name}`"
+                            @click="(e) => deleteSavedFilter(e, item.name)"
+                        >
+                            <TrashIcon class="h-4 w-4" />
                         </button>
                     </li>
                     <li
@@ -108,7 +137,7 @@ const selectFilter = (filter: TSaveData) => {
                 v-else
                 class="w-80 overflow-hidden rounded-lg border border-gray-100 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-800"
             >
-                <SInput id="filterName" v-model="savedFilterName" label="Nombre del filtro" />
+                <SInput id="filterName" v-model="savedFilterName" :label="t('savedFilterNameLabel')" />
                 <div class="mt-4 flex gap-3">
                     <SButton class="w-full" variant="secondary" @click="resetAndClose">
                         {{ t('cancelBtn') }}
