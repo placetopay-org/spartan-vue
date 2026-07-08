@@ -1,3 +1,4 @@
+[![CI](https://github.com/placetopay-org/spartan-vue/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/placetopay-org/spartan-vue/actions/workflows/ci.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=placetopay_spartan-vue&metric=alert_status&token=fb77dbc4368cf6758b6ed36b978beb2deb53a824)](https://sonarcloud.io/summary/new_code?id=placetopay_spartan-vue)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=placetopay_spartan-vue&metric=coverage&token=fb77dbc4368cf6758b6ed36b978beb2deb53a824)](https://sonarcloud.io/summary/new_code?id=placetopay_spartan-vue)
 
