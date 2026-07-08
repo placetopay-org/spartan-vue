@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `SInputPasswordBlock`: test suite. The component was exported from the public barrel with zero tests and 0% coverage — the only component in the library in that state. Now at 100%, covering label/id wiring, help and error captions, the `errorText` → `error` derivation, forwarding of `update:modelValue`, `state`, `isValid`, `focus` and `blur`, and prop pass-through to the inner input.
+
 ## [3.0.0-beta.17] - 2026-07-08
 
 ### Added
