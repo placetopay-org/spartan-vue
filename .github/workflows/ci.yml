@@ -41,6 +41,9 @@ jobs:
             - name: Typecheck
               run: pnpm run typecheck
 
+            - name: Phantom dependencies
+              run: pnpm run check:deps
+
             - name: Lint
               run: pnpm run lint:check
 

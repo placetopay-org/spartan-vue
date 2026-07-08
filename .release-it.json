@@ -22,6 +22,7 @@
     "hooks": {
         "before:init": [
             "pnpm run typecheck",
+            "pnpm run check:deps",
             "pnpm run lint:check",
             "pnpm run format:check",
             "pnpm run test:ci",
