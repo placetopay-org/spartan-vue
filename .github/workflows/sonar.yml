@@ -43,9 +43,16 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            # Emits coverage/lcov.info, which sonar-project.properties points at.
+            # Emits coverage/lcov.info, which sonar-project.properties points at, and
+            # coverage/coverage-summary.json, which the next step reads.
             - name: Test with coverage
               run: pnpm run test:ci
+
+            # This is the only job that runs coverage on a pull request, so it is the
+            # only place the `tests` field of componentStatus.ts can be verified there.
+            # ci.yml runs the same check, but without coverage it validates structure only.
+            - name: Component status
+              run: pnpm run check:status
 
             # SONAR_HOST_URL is only needed for self-hosted SonarQube Server, not for
             # SonarQube Cloud (formerly SonarCloud), which is what this project uses.

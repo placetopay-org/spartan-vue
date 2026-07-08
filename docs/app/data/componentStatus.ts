@@ -20,6 +20,12 @@ export interface ComponentStatusEntry {
     jsdoc?: boolean;
     darkMode?: boolean;
     responsive?: boolean;
+    /**
+     * Statement coverage. MEASURED, not claimed: written by `pnpm run status:sync`
+     * and enforced by `pnpm run check:status`. Never edit it by hand.
+     *
+     * Every other field on this interface is a human claim with no measured source.
+     */
     tests?: number;
     docs?: 'complete' | 'partial' | 'minimal';
     figmaLink?: string;

@@ -2,8 +2,8 @@
  * Validates `docs/app/data/componentStatus.ts` against the source tree.
  *
  * That file drives the badges and the "production ready" summary on the public
- * documentation site, and every field in it is written by hand. The ones that
- * are derivable from `src/` should never be able to drift:
+ * documentation site. Whatever can be derived from `src/` should never be able to
+ * drift from it:
  *
  *   - `name` must be a real component directory.
  *   - every public non-`*Block` component must have an entry.
@@ -11,7 +11,7 @@
  *   - each entry's slug must be unique and must resolve to a documentation page
  *     in both languages, under the category directory the entry declares.
  *   - `tests` must be the coverage actually measured for the component, whenever
- *     a coverage run is available.
+ *     a coverage run is available. `pnpm run status:sync` writes it; this asserts it.
  *
  * The remaining fields (`docs`, `darkMode`, `responsive`, `jsdoc`, `typescript`)
  * are still claims rather than facts. They have no measured source yet.
@@ -19,10 +19,9 @@
 import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
+import { measuredCoverage, SPARTAN, COVERAGE } from './coverage.js';
 
-const SPARTAN = 'src/components/spartan';
 const STATUS = 'docs/app/data/componentStatus.ts';
-const COVERAGE = 'coverage/coverage-summary.json';
 const DOCS = (lang) => `docs/content/${lang}/2.components`;
 
 /** Runs the real module rather than pattern-matching its source. */
@@ -52,38 +51,6 @@ const docSlugs = (lang) => {
             if (file.endsWith('.md'))
                 slugs.set(file.replace(/^\d+\./, '').replace(/\.md$/, ''), category.replace(/^\d+\./, ''));
     return slugs;
-};
-
-/**
- * Statement coverage per component, aggregated over every file in its directory.
- * Truncated rather than rounded: 99.6% must not be advertised as 100.
- * Returns null when no coverage run is available.
- */
-const measuredCoverage = () => {
-    if (!fs.existsSync(COVERAGE)) return null;
-
-    const summary = JSON.parse(fs.readFileSync(COVERAGE, 'utf8'));
-    const root = path.resolve(SPARTAN);
-    const totals = new Map();
-
-    for (const [file, data] of Object.entries(summary)) {
-        if (file === 'total') continue;
-        const relative = path.relative(root, file);
-        if (relative.startsWith('..')) continue;
-
-        const component = relative.split(path.sep)[0];
-        const running = totals.get(component) ?? { covered: 0, total: 0 };
-        running.covered += data.statements.covered;
-        running.total += data.statements.total;
-        totals.set(component, running);
-    }
-
-    return new Map(
-        [...totals].map(([component, { covered, total }]) => [
-            component,
-            total === 0 ? 100 : Math.floor((covered / total) * 100),
-        ]),
-    );
 };
 
 const problems = [];
@@ -145,7 +112,9 @@ if (coverage) {
         if (measured === undefined) {
             fail(`entry "${name}" has no coverage data; was it excluded from the run?`);
         } else if (tests !== measured) {
-            fail(`entry "${name}" declares tests: ${tests}, but measured coverage is ${measured}`);
+            fail(
+                `entry "${name}" declares tests: ${tests}, but measured coverage is ${measured}. Run \`pnpm run status:sync\``,
+            );
         }
     }
 }
