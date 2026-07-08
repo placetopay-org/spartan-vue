@@ -34,7 +34,8 @@ const walk = (dir, acc = []) => {
     if (!fs.existsSync(dir)) return acc;
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, entry.name);
-        entry.isDirectory() ? walk(full, acc) : acc.push(full);
+        if (entry.isDirectory()) walk(full, acc);
+        else acc.push(full);
     }
     return acc;
 };

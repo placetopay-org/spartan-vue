@@ -144,6 +144,9 @@ describe('SPopover', () => {
             setup() {
                 return {};
             },
+            methods: {
+                onClose,
+            },
             template: `
                 <SPopover @close="onClose">
                     <template #reference="{ open }">
@@ -153,9 +156,6 @@ describe('SPopover', () => {
                 </SPopover>
                 <button data-testid="outside">Outside</button>
             `,
-            methods: {
-                onClose,
-            },
         });
 
         render(Wrapper);
@@ -176,6 +176,9 @@ describe('SPopover', () => {
 
         const Wrapper = defineComponent({
             components: { SPopover },
+            methods: {
+                onClose,
+            },
             template: `
                 <SPopover prevent-close @close="onClose">
                     <template #reference="{ open }">
@@ -185,9 +188,6 @@ describe('SPopover', () => {
                 </SPopover>
                 <button data-testid="outside">Outside</button>
             `,
-            methods: {
-                onClose,
-            },
         });
 
         render(Wrapper);
@@ -209,6 +209,9 @@ describe('SPopover', () => {
 
         const Wrapper = defineComponent({
             components: { SPopover },
+            methods: {
+                onClose,
+            },
             template: `
                 <SPopover @close="onClose">
                     <template #reference="{ open }">
@@ -218,9 +221,6 @@ describe('SPopover', () => {
                     <button data-testid="inner-b">B</button>
                 </SPopover>
             `,
-            methods: {
-                onClose,
-            },
         });
 
         render(Wrapper);
@@ -414,6 +414,9 @@ describe('SPopover', () => {
             mounted() {
                 popoverRef.value = this.popover as never;
             },
+            methods: {
+                onClose,
+            },
             template: `
                 <SPopover ref="popover" @close="onClose">
                     <template #reference="{ open }">
@@ -422,9 +425,6 @@ describe('SPopover', () => {
                     <span>Floating focused content</span>
                 </SPopover>
             `,
-            methods: {
-                onClose,
-            },
         });
 
         render(Wrapper);

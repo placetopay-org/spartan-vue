@@ -29,10 +29,7 @@ const selectFieldStep = ref(true);
 const options = computed(() => {
     const applied = new Set(Object.keys(context.value));
     return Object.entries(context.filters)
-        .filter(
-            ([id, field]) =>
-                !applied.has(id) && field.label.toLowerCase().includes(query.value.toLowerCase()),
-        )
+        .filter(([id, field]) => !applied.has(id) && field.label.toLowerCase().includes(query.value.toLowerCase()))
         .map(([id, field]) => ({ id, label: field.label }));
 });
 

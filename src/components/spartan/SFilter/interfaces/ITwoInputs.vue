@@ -21,9 +21,7 @@ const props = defineProps<{
 const dateRangeValue = computed({
     get: (): Date[] | null => {
         if (!props.modelValue) return null;
-        return (props.modelValue as (string | Date)[]).map((v) =>
-            v instanceof Date ? v : new Date(v as string),
-        );
+        return (props.modelValue as (string | Date)[]).map((v) => (v instanceof Date ? v : new Date(v as string)));
     },
     set: (newValue: Date | Date[] | null) => {
         if (Array.isArray(newValue)) {

@@ -16,7 +16,7 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SCard :icon="controls.icon" :iconType="controls.iconType" :size="controls.size" title="Notification">
+    <SCard :icon="controls.icon" :icon-type="controls.iconType" :size="controls.size" title="Notification">
         <template #description>You have a new message.</template>
     </SCard>
 </template>

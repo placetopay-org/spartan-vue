@@ -169,7 +169,7 @@ describe('SSwitch', () => {
 
     test('Track styles change when active', () => {
         // Act
-        let modelValue = true;
+        const modelValue = true;
         render(SSwitch, {
             props: { modelValue },
             slots: { default: 'Label' },

@@ -20,6 +20,6 @@ const { controls } = usePreview({
         :title="controls.title"
         :description="controls.description"
         :closeable="controls.closeable"
-        :leftBorder="controls.leftBorder"
+        :left-border="controls.leftBorder"
     />
 </template>

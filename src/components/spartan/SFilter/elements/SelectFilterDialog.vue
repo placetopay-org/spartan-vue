@@ -114,13 +114,7 @@ const add = () => {
             </SPopover>
         </div>
 
-        <component
-            :is="inputComponent"
-            v-if="requiresValue"
-            v-model="value"
-            :field="field"
-            :error-text="error"
-        />
+        <component :is="inputComponent" v-if="requiresValue" v-model="value" :field="field" :error-text="error" />
 
         <div class="flex gap-3">
             <SButton class="w-full" variant="secondary" @click="$emit('close')">{{ t('cancelBtn') }}</SButton>

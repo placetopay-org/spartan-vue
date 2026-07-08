@@ -17,7 +17,16 @@ import { IOneInput, ITwoInputs, IOptions, ISelection } from './interfaces';
  * Exported publicly so consumers can build their own UIs against the same set.
  */
 export const OPERATORS_BY_TYPE = {
-    text: ['contains', 'notContains', 'startsWith', 'endsWith', 'equal', 'notEqual', 'exist', 'notExist'] as SFilterTextOperator[],
+    text: [
+        'contains',
+        'notContains',
+        'startsWith',
+        'endsWith',
+        'equal',
+        'notEqual',
+        'exist',
+        'notExist',
+    ] as SFilterTextOperator[],
     number: [
         'equal',
         'notEqual',
@@ -54,7 +63,15 @@ export const OPERATORS_BY_TYPE = {
         'exist',
         'notExist',
     ] as SFilterDateOperator[],
-    dateRange: ['between', 'notBetween', 'lastWeek', 'lastMonth', 'lastYear', 'exist', 'notExist'] as SFilterDateRangeOperator[],
+    dateRange: [
+        'between',
+        'notBetween',
+        'lastWeek',
+        'lastMonth',
+        'lastYear',
+        'exist',
+        'notExist',
+    ] as SFilterDateRangeOperator[],
     options: ['equal', 'notEqual', 'exist', 'notExist'] as SFilterOptionsOperator[],
     selection: ['equal', 'notEqual', 'exist', 'notExist'] as SFilterSelectionOperator[],
 } as const;
@@ -133,10 +150,7 @@ export const FIELD_TYPE_INPUT_COUNT: Record<SFilterFieldType, 0 | 1 | 2> = {
  *   but switch to two-input when the active operator has `inputs: 2`
  *   (e.g. `between` on a `number` field).
  */
-export const resolveInputComponent = (
-    field: SFilterField,
-    operatorInputCount: 0 | 1 | 2,
-): Component | null => {
+export const resolveInputComponent = (field: SFilterField, operatorInputCount: 0 | 1 | 2): Component | null => {
     if (operatorInputCount === 0) return null;
     if (field.type === 'options') return IOptions;
     if (field.type === 'selection') return ISelection;

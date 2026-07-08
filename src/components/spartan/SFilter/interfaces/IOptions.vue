@@ -29,13 +29,10 @@ const checked = computed({
     },
 });
 
-const getOptionLabel = (optionId: string) =>
-    normalizedChoices.value.find((option) => option.id === optionId)?.label;
+const getOptionLabel = (optionId: string) => normalizedChoices.value.find((option) => option.id === optionId)?.label;
 
 const filteredChoices = computed(() =>
-    normalizedChoices.value.filter((option) =>
-        option.label.toLowerCase().includes(search.value.toLowerCase()),
-    ),
+    normalizedChoices.value.filter((option) => option.label.toLowerCase().includes(search.value.toLowerCase())),
 );
 
 const removeCheck = (option: string) => {

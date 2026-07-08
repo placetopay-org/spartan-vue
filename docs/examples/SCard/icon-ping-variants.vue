@@ -4,22 +4,22 @@ import { ShieldTickIcon } from '@placetopay/iconsax-vue/bold';
 
 <template>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <SCard icon="success" iconType="ping" title="Success">
+        <SCard icon="success" icon-type="ping" title="Success">
             <template #description>Operation completed.</template>
         </SCard>
-        <SCard icon="danger" iconType="ping" title="Danger">
+        <SCard icon="danger" icon-type="ping" title="Danger">
             <template #description>Critical issue detected.</template>
         </SCard>
-        <SCard icon="warning" iconType="ping" title="Warning">
+        <SCard icon="warning" icon-type="ping" title="Warning">
             <template #description>Proceed with caution.</template>
         </SCard>
-        <SCard icon="info" iconType="ping" title="Info">
+        <SCard icon="info" icon-type="ping" title="Info">
             <template #description>Useful context for the user.</template>
         </SCard>
-        <SCard :icon="ShieldTickIcon" iconColor="primary" iconType="ping" title="Primary">
+        <SCard :icon="ShieldTickIcon" icon-color="primary" icon-type="ping" title="Primary">
             <template #description>Brand-colored highlight via iconColor.</template>
         </SCard>
-        <SCard :icon="ShieldTickIcon" iconColor="secondary" iconType="ping" title="Secondary">
+        <SCard :icon="ShieldTickIcon" icon-color="secondary" icon-type="ping" title="Secondary">
             <template #description>Neutral highlight via iconColor.</template>
         </SCard>
     </div>

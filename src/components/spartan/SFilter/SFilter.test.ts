@@ -34,14 +34,25 @@ const filtersWith = (extra: Record<string, SFilterField> = {}) => ({
     ...extra,
 });
 
-const renderHarness = (overrides: {
-    filters?: Record<string, SFilterField>;
-    initialValue?: SFilterValue;
-    saved?: SFilterSaved[];
-    props?: Record<string, any>;
-} = {}) => {
+const renderHarness = (
+    overrides: {
+        filters?: Record<string, SFilterField>;
+        initialValue?: SFilterValue;
+        saved?: SFilterSaved[];
+        props?: Record<string, any>;
+    } = {},
+) => {
     const Wrapper = defineComponent({
         components: { SFilter },
+        props: {
+            filters: { type: Object, required: true },
+            props: { type: Object, default: () => ({}) },
+            onApply: { type: Function, default: () => {} },
+            onClear: { type: Function, default: () => {} },
+            onSave: { type: Function, default: () => {} },
+            onLoad: { type: Function, default: () => {} },
+            onDelete: { type: Function, default: () => {} },
+        },
         setup() {
             const value = ref<SFilterValue>(overrides.initialValue ?? {});
             const saved = ref<SFilterSaved[] | undefined>(overrides.saved);
@@ -60,15 +71,6 @@ const renderHarness = (overrides: {
                 @delete="onDelete"
             />
         `,
-        props: {
-            filters: { type: Object, required: true },
-            props: { type: Object, default: () => ({}) },
-            onApply: { type: Function, default: () => {} },
-            onClear: { type: Function, default: () => {} },
-            onSave: { type: Function, default: () => {} },
-            onLoad: { type: Function, default: () => {} },
-            onDelete: { type: Function, default: () => {} },
-        },
     });
 
     const { emitted } = render(Wrapper as any, {
@@ -175,7 +177,10 @@ describe('helpers', () => {
                 type: 'text',
                 label: 'X',
                 operators: ['equal'],
-                customOperators: [{ id: 'equal', label: 'Equals' }, { id: 'other', label: 'O' }],
+                customOperators: [
+                    { id: 'equal', label: 'Equals' },
+                    { id: 'other', label: 'O' },
+                ],
             } as SFilterField),
         ).toEqual(['equal']);
 
@@ -947,9 +952,7 @@ describe('custom operators', () => {
             },
         } as Record<string, SFilterField>;
 
-        expect(() =>
-            render(SFilter as any, { props: { filters, modelValue: {} } }),
-        ).toThrow(/duplicate operator id/);
+        expect(() => render(SFilter as any, { props: { filters, modelValue: {} } })).toThrow(/duplicate operator id/);
 
         warn.mockRestore();
         error.mockRestore();
@@ -1273,9 +1276,7 @@ describe('coverage gaps', () => {
             },
         } as Record<string, SFilterField>;
 
-        expect(() => render(SFilter as any, { props: { filters, modelValue: {} } })).toThrow(
-            /'equal', 'contains'/,
-        );
+        expect(() => render(SFilter as any, { props: { filters, modelValue: {} } })).toThrow(/'equal', 'contains'/);
 
         warn.mockRestore();
         error.mockRestore();
@@ -1478,9 +1479,7 @@ describe('coverage gaps', () => {
         expect(screen.getByText('$spartan.filter.savedFiltersText')).toBeInTheDocument();
         // Click again to close (covers the toggle-close branch)
         await user.click(trigger);
-        await waitFor(() =>
-            expect(screen.queryByText('$spartan.filter.savedFiltersText')).not.toBeInTheDocument(),
-        );
+        await waitFor(() => expect(screen.queryByText('$spartan.filter.savedFiltersText')).not.toBeInTheDocument());
     });
 
     test('SavedButton manager-close callback fires when another popover opens', async () => {
@@ -1490,9 +1489,7 @@ describe('coverage gaps', () => {
         await user.click(path.closest('button')!);
         // Now open Add filter — manager should call savedButton's close()
         await user.click(screen.getByRole('button', { name: '$spartan.filter.addFilterBtn' }));
-        await waitFor(() =>
-            expect(screen.queryByText('$spartan.filter.savedFiltersText')).not.toBeInTheDocument(),
-        );
+        await waitFor(() => expect(screen.queryByText('$spartan.filter.savedFiltersText')).not.toBeInTheDocument());
     });
 
     test('SelectFilterDialog isEmpty handles array values when validator runs', async () => {

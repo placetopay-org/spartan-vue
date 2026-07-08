@@ -592,6 +592,7 @@ describe('STab', () => {
     describe('Reactive model updates', () => {
         test('Updates active tab when modelValue changes', async () => {
             const Wrapper = defineComponent({
+                components: { STab, STabItem },
                 setup() {
                     const activeTab = ref('tab1');
                     return { activeTab };
@@ -603,7 +604,6 @@ describe('STab', () => {
                     </STab>
                     <button data-testid="switch" @click="activeTab = 'tab2'">Switch</button>
                 `,
-                components: { STab, STabItem },
             });
 
             const user = userEvent.setup();

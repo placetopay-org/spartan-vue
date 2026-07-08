@@ -3,7 +3,7 @@
         v-bind="$attrs"
         unstyled
         :pt="theme"
-        :ptOptions="{
+        :pt-options="{
             mergeProps: ptViewMerge,
         }"
     >

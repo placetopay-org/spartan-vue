@@ -7,9 +7,7 @@ const filters = {
         type: 'text',
         label: 'Reference',
         operators: ['equal'],
-        customOperators: [
-            { id: 'customSearch', label: 'Search by ref', tag: (v: any) => `Ref: ${v}` },
-        ],
+        customOperators: [{ id: 'customSearch', label: 'Search by ref', tag: (v: any) => `Ref: ${v}` }],
     },
 } as const;
 

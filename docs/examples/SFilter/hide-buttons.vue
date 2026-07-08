@@ -18,5 +18,5 @@ usePreview({ component: 'SFilter' });
 </script>
 
 <template>
-    <SFilter v-model="value" :filters="filters" :hideApplyButton="false" :hideClearButton="false" />
+    <SFilter v-model="value" :filters="filters" :hide-apply-button="false" :hide-clear-button="false" />
 </template>

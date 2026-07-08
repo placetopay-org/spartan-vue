@@ -19,7 +19,6 @@ const emit = defineEmits<TInputMaskEmits>();
 const props = defineProps<Partial<TInputProps> & TInputMaskProps>();
 
 const inputProps = computed<Partial<TInputProps>>(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { mask, ...rest } = props;
 
     return { ...rest };

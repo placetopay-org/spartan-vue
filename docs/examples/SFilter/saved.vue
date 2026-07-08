@@ -17,9 +17,7 @@ const filters = {
 } as const;
 
 const value = ref({});
-const saved = ref([
-    { name: 'Active only', snapshot: { status: { operator: 'equal', value: 'active' } } },
-]);
+const saved = ref([{ name: 'Active only', snapshot: { status: { operator: 'equal', value: 'active' } } }]);
 
 const onSave = (name: string, snapshot: Record<string, { operator: string; value: any }>) => {
     saved.value = [...saved.value, { name, snapshot }];

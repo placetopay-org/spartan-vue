@@ -134,7 +134,7 @@ describe('SInputOtp', () => {
         // Arrange — values like '1e2' satisfy Number.isInteger(Number(v)) yet
         // fail the /^[0-9]+$/ check inside the context, exercising the false
         // branch of the regex emit guard.
-        let emitted: string[] = [];
+        const emitted: string[] = [];
         const item1 = h(SInputOtpItem);
         const item2 = h(SInputOtpItem);
         const item3 = h(SInputOtpItem);

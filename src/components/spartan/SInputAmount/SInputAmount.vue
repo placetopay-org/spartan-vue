@@ -20,7 +20,6 @@ const emit = defineEmits<TInputAmountEmits>();
 const props = defineProps<TInputAmountProps & Partial<TInputProps>>();
 
 const inputProps = computed<Partial<TInputProps>>(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { currencies, locale, symbol, currency, suffixCurrency, modelValue, minorUnitMode, ...rest } = props;
 
     return {

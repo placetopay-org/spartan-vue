@@ -20,7 +20,7 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SCard :icon="controls.icon" :iconColor="controls.iconColor" title="Custom Icon Color">
+    <SCard :icon="controls.icon" :icon-color="controls.iconColor" title="Custom Icon Color">
         <template #description>The status glyph keeps its shape while the color palette is overridden.</template>
     </SCard>
 </template>
