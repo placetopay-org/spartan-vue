@@ -48,11 +48,10 @@ jobs:
             - name: Test with coverage
               run: pnpm run test:ci
 
-            # This is the only job that runs coverage on a pull request, so it is the
-            # only place the `tests` field of componentStatus.ts can be verified there.
-            # ci.yml runs the same check, but without coverage it validates structure only.
-            - name: Component status
-              run: pnpm run check:status
+            # The only job that runs instrumentation on a pull request, so the only place
+            # `componentCoverage.ts` can be checked against a fresh measurement.
+            - name: Generated coverage is current
+              run: pnpm run status:check
 
             # SONAR_HOST_URL is only needed for self-hosted SonarQube Server, not for
             # SonarQube Cloud (formerly SonarCloud), which is what this project uses.

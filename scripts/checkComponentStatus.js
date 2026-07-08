@@ -10,27 +10,56 @@
  *   - `hasBlock` must agree with the existence of `<Name>Block/`.
  *   - each entry's slug must be unique and must resolve to a documentation page
  *     in both languages, under the category directory the entry declares.
- *   - `tests` must be the coverage actually measured for the component, whenever
- *     a coverage run is available. `pnpm run status:sync` writes it; this asserts it.
+ *   - every entry must appear in the generated `componentCoverage.ts`.
+ *
+ * Whether those generated numbers are current is `pnpm run status:sync --check`'s
+ * job. Re-deriving them here, with the same function that writes them, would only
+ * prove that function agrees with itself.
  *
  * The remaining fields (`docs`, `darkMode`, `responsive`, `jsdoc`, `typescript`)
- * are still claims rather than facts. They have no measured source yet.
+ * are claims rather than facts. They have no measured source yet.
  */
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
+import { pathToFileURL } from 'url';
 import ts from 'typescript';
-import { measuredCoverage, SPARTAN, COVERAGE } from './coverage.js';
+import { SPARTAN } from './coverage.js';
 
-const STATUS = 'docs/app/data/componentStatus.ts';
+const DATA = 'docs/app/data';
+const STATUS = `${DATA}/componentStatus.ts`;
 const DOCS = (lang) => `docs/content/${lang}/2.components`;
 
-/** Runs the real module rather than pattern-matching its source. */
+/**
+ * Runs the real modules rather than pattern-matching their source, so `nameToSlug`,
+ * the defaults and the `slug` override are exercised exactly as the site does.
+ *
+ * Transpiled output is written to a temp directory rather than imported from a
+ * `data:` URL, because a data URL has no base against which to resolve
+ * `./componentCoverage` — and the extension has to be added, because Node ESM does
+ * not resolve extensionless specifiers.
+ */
 const loadStatus = async () => {
-    const source = fs.readFileSync(STATUS, 'utf8');
-    const { outputText } = ts.transpileModule(source, {
-        compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ESNext },
-    });
-    return import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'spartan-status-'));
+
+    const emit = (name, rewrite = (source) => source) => {
+        const { outputText } = ts.transpileModule(fs.readFileSync(`${DATA}/${name}.ts`, 'utf8'), {
+            compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ESNext },
+        });
+        fs.writeFileSync(path.join(directory, `${name}.mjs`), rewrite(outputText));
+    };
+
+    emit('componentCoverage');
+    emit('componentStatus', (source) => source.replace("'./componentCoverage'", "'./componentCoverage.mjs'"));
+
+    const load = (name) => import(pathToFileURL(path.join(directory, `${name}.mjs`)).href);
+
+    try {
+        const [status, coverage] = await Promise.all([load('componentStatus'), load('componentCoverage')]);
+        return { components: status.components, componentCoverage: coverage.componentCoverage };
+    } finally {
+        fs.rmSync(directory, { recursive: true, force: true });
+    }
 };
 
 const directories = (dir) =>
@@ -56,7 +85,7 @@ const docSlugs = (lang) => {
 const problems = [];
 const fail = (message) => problems.push(message);
 
-const { components } = await loadStatus();
+const { components, componentCoverage } = await loadStatus();
 
 const componentDirs = new Set(directories(SPARTAN));
 const blockDirs = new Set([...componentDirs].filter((name) => name.endsWith('Block')));
@@ -103,27 +132,20 @@ for (const { name, slug, category } of components) {
     }
 }
 
-// G. `tests` is the measured coverage, not a number somebody typed. Skipped when
-//    no coverage run is present, so the check stays usable before the suite runs.
-const coverage = measuredCoverage();
-if (coverage) {
-    for (const { name, tests } of components) {
-        const measured = coverage.get(name);
-        if (measured === undefined) {
-            fail(`entry "${name}" has no coverage data; was it excluded from the run?`);
-        } else if (tests !== measured) {
-            fail(
-                `entry "${name}" declares tests: ${tests}, but measured coverage is ${measured}. Run \`pnpm run status:sync\``,
-            );
-        }
-    }
+// G. Every entry appears in the generated coverage. An absent one silently reads as
+//    0, which would look like a component with no tests rather than a broken merge.
+//    Whether the generated numbers are current is `status:sync --check`'s job, not
+//    this script's — asserting them here with the same function that writes them
+//    would only prove the function agrees with itself.
+for (const { name } of components) {
+    if (!(name in componentCoverage))
+        fail(`entry "${name}" is missing from ${DATA}/componentCoverage.ts; run \`pnpm run status:sync\``);
 }
 
 if (problems.length === 0) {
     const blocks = components.filter((c) => c.hasBlock).length;
-    const source = coverage ? 'coverage measured' : `coverage unverified, no ${COVERAGE}`;
     console.log(
-        `✓ componentStatus.ts agrees with src/ (${components.length} components, ${blocks} with a Block variant; ${source})`,
+        `✓ componentStatus.ts agrees with src/ (${components.length} components, ${blocks} with a Block variant)`,
     );
     process.exit(0);
 }

@@ -1,21 +1,37 @@
 /**
- * Writes the measured coverage into the `tests` field of every entry in
- * `docs/app/data/componentStatus.ts`. Nobody should ever type that number.
+ * Generates `docs/app/data/componentCoverage.ts` from the coverage report.
  *
- * The value is kept inside componentStatus.ts rather than in a generated JSON the
- * file imports, because `checkComponentStatus.js` executes the real module to
- * validate it, and Node ESM cannot import JSON without an import attribute that
- * `ts.transpileModule` does not emit — `ERR_IMPORT_ATTRIBUTE_MISSING`. The same
- * defect this repository shipped in `dist/locales/index.js`.
+ *   pnpm run test:ci             # produces coverage/coverage-summary.json
+ *   pnpm run status:sync         # writes the generated file
+ *   pnpm run status:sync --check # fails if the committed file is stale
  *
- *   pnpm run test:ci      # produces coverage/coverage-summary.json
- *   pnpm run status:sync  # writes the numbers
- *   pnpm run check:status # fails if they drifted
+ * The generated file is the only place a coverage number lives. `componentStatus.ts`
+ * holds the human judgements — `docs`, `darkMode`, `responsive`, `figmaLink` — and
+ * imports the measurements. Nobody edits a number by hand, and `--check` is what
+ * catches a commit where somebody forgot to regenerate.
  */
 import fs from 'fs';
 import { measuredCoverage, COVERAGE } from './coverage.js';
 
-const STATUS = 'docs/app/data/componentStatus.ts';
+const GENERATED = 'docs/app/data/componentCoverage.ts';
+
+const render = (coverage) => {
+    const entries = [...coverage]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([component, percentage]) => `    ${component}: ${percentage},`)
+        .join('\n');
+
+    return [
+        '// GENERATED FILE — do not edit.',
+        '// Statement coverage per component, truncated. Run `pnpm run status:sync` to refresh,',
+        '// after `pnpm run test:ci` has produced the coverage report.',
+        '',
+        'export const componentCoverage: Record<string, number> = {',
+        entries,
+        '};',
+        '',
+    ].join('\n');
+};
 
 const coverage = measuredCoverage();
 if (!coverage) {
@@ -23,35 +39,22 @@ if (!coverage) {
     process.exit(1);
 }
 
-let source = fs.readFileSync(STATUS, 'utf8');
-const changes = [];
-const missing = [];
+const generated = render(coverage);
+const committed = fs.existsSync(GENERATED) ? fs.readFileSync(GENERATED, 'utf8') : null;
 
-// Rewrite the `tests:` that belongs to each entry: the first one after its `name:`
-// and before the next entry begins.
-source = source.replace(
-    /(name: '(S\w+)',(?:(?!\bname:)[\s\S])*?tests: )(\d+)(,)/g,
-    (match, head, name, current, tail) => {
-        const measured = coverage.get(name);
-        if (measured === undefined) {
-            missing.push(name);
-            return match;
-        }
-        if (Number(current) !== measured) changes.push(`${name}: ${current} -> ${measured}`);
-        return `${head}${measured}${tail}`;
-    },
-);
-
-if (missing.length) {
-    console.error(`\nNo coverage data for: ${missing.join(', ')}\n`);
+if (process.argv.includes('--check')) {
+    if (committed === generated) {
+        console.log(`✓ ${GENERATED} matches the measured coverage`);
+        process.exit(0);
+    }
+    console.error(`\n${GENERATED} is stale. Run \`pnpm run status:sync\`.\n`);
     process.exit(1);
 }
 
-if (changes.length === 0) {
-    console.log('✓ componentStatus.ts already matches the measured coverage');
+if (committed === generated) {
+    console.log(`✓ ${GENERATED} already matches the measured coverage`);
     process.exit(0);
 }
 
-fs.writeFileSync(STATUS, source);
-console.log(`✓ updated ${changes.length} entr${changes.length === 1 ? 'y' : 'ies'} in ${STATUS}`);
-for (const change of changes) console.log(`    ${change}`);
+fs.writeFileSync(GENERATED, generated);
+console.log(`✓ wrote ${GENERATED} (${coverage.size} components)`);

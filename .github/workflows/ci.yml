@@ -52,6 +52,11 @@ jobs:
             - name: Phantom dependencies
               run: pnpm run check:deps
 
+            # Structural only — no coverage needed. Whether the generated coverage is
+            # current is checked in sonar.yml, the one job that runs instrumentation.
+            - name: Component status
+              run: pnpm run check:status
+
             - name: Lint
               run: pnpm run lint:check
 
@@ -65,12 +70,6 @@ jobs:
             # for the branches it is read from.
             - name: Test
               run: ${{ github.event_name == 'pull_request' && 'pnpm run test:quick' || 'pnpm run test:ci' }}
-
-            # After the tests: the `tests` field of componentStatus.ts is asserted against
-            # coverage/coverage-summary.json. Pull requests skip coverage, so there the
-            # check verifies structure only and says so.
-            - name: Component status
-              run: pnpm run check:status
 
             - name: Build
               run: pnpm run build
