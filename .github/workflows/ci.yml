@@ -63,13 +63,12 @@ jobs:
             - name: Format
               run: pnpm run format:check
 
-            # Istanbul instrumentation is the single most expensive thing in this
-            # workflow, and nothing consumes the lcov it produces — no job uploads it
-            # to Sonar or anywhere else. Pull requests run the same 1009 tests without
-            # it; pushes and the release gate keep coverage so the report still exists
-            # for the branches it is read from.
+            # No coverage here, on any event. Istanbul instrumentation is the most
+            # expensive thing in this workflow and nothing in it reads the report:
+            # `check:status` is structural, and the measurement is produced and consumed
+            # by sonar.yml, which runs in parallel. Same 1028 tests either way.
             - name: Test
-              run: ${{ github.event_name == 'pull_request' && 'pnpm run test:quick' || 'pnpm run test:ci' }}
+              run: pnpm run test:quick
 
             - name: Build
               run: pnpm run build
