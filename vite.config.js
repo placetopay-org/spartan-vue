@@ -55,7 +55,10 @@ export default defineConfig({
         setupFiles: './src/vitest-setup.ts',
         environment: 'jsdom',
         coverage: {
-            reporter: ['lcov', 'html'],
+            // `json-summary` feeds `scripts/checkComponentStatus.js`, which asserts that
+            // the `tests` field of each entry in componentStatus.ts is the measured
+            // coverage rather than a number somebody typed.
+            reporter: ['lcov', 'html', 'json-summary'],
             provider: 'istanbul',
             extension: ['.vue'],
             include: ['src/components/spartan/'],

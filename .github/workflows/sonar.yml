@@ -1,0 +1,61 @@
+name: Sonar
+
+# Runs alongside CI rather than inside it. The analysis needs instrumented
+# coverage, which the pull-request path of ci.yml deliberately skips; keeping it
+# in its own workflow means the fast feedback job stays fast and this one runs in
+# parallel.
+on:
+    push:
+        branches:
+            - main
+            - develop
+            - 2.x
+    pull_request:
+    workflow_dispatch:
+
+concurrency:
+    group: sonar-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    analyse:
+        name: Analyse
+        runs-on: ubuntu-latest
+        # Forks cannot read SONAR_TOKEN. Without this the job fails on every
+        # community pull request with an authentication error rather than skipping.
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  # Sonar needs the full history to attribute new code to a commit.
+                  fetch-depth: 0
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            # Emits coverage/lcov.info, which sonar-project.properties points at, and
+            # coverage/coverage-summary.json, which the next step reads.
+            - name: Test with coverage
+              run: pnpm run test:ci
+
+            # The only job that runs instrumentation on a pull request, so the only place
+            # `componentCoverage.ts` can be checked against a fresh measurement.
+            - name: Generated coverage is current
+              run: pnpm run status:check
+
+            # SONAR_HOST_URL is only needed for self-hosted SonarQube Server, not for
+            # SonarQube Cloud (formerly SonarCloud), which is what this project uses.
+            - name: SonarQube scan
+              uses: SonarSource/sonarqube-scan-action@v8
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

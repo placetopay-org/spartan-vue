@@ -1,3 +1,14 @@
+/**
+ * Human judgements about each component: how complete its documentation is, whether
+ * it supports dark mode, where its Figma design lives.
+ *
+ * Nothing measurable belongs here. Statement coverage is generated into
+ * `componentCoverage.ts` by `pnpm run status:sync` and merged in below, so no one
+ * can type a coverage number into this file — which is exactly how it came to claim
+ * `tests: 100` for components at 78%.
+ */
+import { componentCoverage } from './componentCoverage';
+
 export type ComponentCategory =
     | 'dataInput'
     | 'selectors'
@@ -14,11 +25,12 @@ export interface ComponentImprovements {
 
 export interface ComponentStatusEntry {
     name: string;
+    /** Overrides `nameToSlug(name)` when the documentation route diverges from the component name. */
+    slug?: string;
     typescript?: boolean;
     jsdoc?: boolean;
     darkMode?: boolean;
     responsive?: boolean;
-    tests?: number;
     docs?: 'complete' | 'partial' | 'minimal';
     figmaLink?: string;
     improvements?: ComponentImprovements;
@@ -28,6 +40,8 @@ export interface ComponentStatusEntry {
 export interface ComponentStatusData extends Required<ComponentStatusEntry> {
     slug: string;
     category: ComponentCategory;
+    /** Statement coverage. Measured, not declared — see `componentCoverage.ts`. */
+    tests: number;
 }
 
 /** Converts component name (e.g. 'SInputAmount') to route slug (e.g. 'input-amount') */
@@ -38,12 +52,11 @@ function nameToSlug(name: string): string {
         .toLowerCase();
 }
 
-const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
+const defaults: Required<Omit<ComponentStatusEntry, 'name' | 'slug'>> = {
     typescript: false,
     jsdoc: false,
     darkMode: false,
     responsive: false,
-    tests: 0,
     docs: 'minimal',
     figmaLink: '',
     improvements: { en: '', es: '' },
@@ -56,7 +69,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             name: 'SInput',
             typescript: true,
             jsdoc: true,
-            tests: 100,
             docs: 'complete',
             darkMode: true,
             responsive: true,
@@ -70,7 +82,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -82,7 +93,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -94,7 +104,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -106,7 +115,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -118,7 +126,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -130,7 +137,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -142,18 +148,20 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13134-8958&t=chH7DYdlsITfmdld-0',
         },
         {
-            name: 'STextarea',
+            // The component is `STextArea`; the route has always been `/textarea`.
+            // `nameToSlug` would derive `text-area`, so the slug is pinned here rather
+            // than by misspelling the name.
+            name: 'STextArea',
+            slug: 'textarea',
             typescript: true,
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink:
@@ -163,7 +171,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             name: 'SSelect',
             typescript: true,
             jsdoc: true,
-            tests: 100,
             docs: 'complete',
             darkMode: true,
             responsive: true,
@@ -179,7 +186,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12935-3756&t=SeafmOCyazOmoll4-4',
@@ -190,7 +196,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12949-10115&t=SeafmOCyazOmoll4-4',
@@ -201,7 +206,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15428-10742&t=YejrDL8k9HOQiEjj-4',
@@ -212,7 +216,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15423-19904&t=YejrDL8k9HOQiEjj-4',
@@ -223,7 +226,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             hasBlock: true,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13097-22397',
@@ -234,7 +236,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15398-14522&t=YejrDL8k9HOQiEjj-4',
@@ -247,7 +248,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15399-15680&t=DcObZzVEgYYZURV0-4',
@@ -258,7 +258,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=200-1795&p=f',
         },
@@ -268,7 +267,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=220-2083&p=f',
-            tests: 100,
             darkMode: true,
             responsive: true,
         },
@@ -280,7 +278,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15418-12723',
-            tests: 100,
         },
         {
             name: 'SCardBrand',
@@ -288,7 +285,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-17011',
         },
@@ -298,7 +294,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13014-16382&t=DcObZzVEgYYZURV0-4',
@@ -309,7 +304,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=8742-7732&t=DcObZzVEgYYZURV0-4',
@@ -320,7 +314,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15738-27297&t=91RrLBvDNIZDvMwA-0',
@@ -331,7 +324,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15399-15680&t=YejrDL8k9HOQiEjj-4',
@@ -342,7 +334,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17317&t=nQ0CaPW3JnnNONVn-4',
@@ -353,7 +344,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?t=SGrVmYUPYOkyfMxN-0',
         },
@@ -363,7 +353,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4713-16000',
         },
@@ -375,7 +364,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4841-26717&t=YejrDL8k9HOQiEjj-4',
@@ -386,7 +374,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4841-26717&t=YejrDL8k9HOQiEjj-4',
@@ -397,7 +384,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4841-26717&t=YejrDL8k9HOQiEjj-4',
@@ -408,7 +394,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15540-8734&t=UYu9Xx4J3JNVcS7z-4',
@@ -419,7 +404,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15540-8734&t=UYu9Xx4J3JNVcS7z-4',
@@ -430,7 +414,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15879-56747&t=DcObZzVEgYYZURV0-4',
@@ -441,7 +424,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13419-9788&t=UYu9Xx4J3JNVcS7z-4',
@@ -452,7 +434,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12980-30183&t=LIDn51KPH0u6PwtA-4',
@@ -465,7 +446,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15836-54240&t=DcObZzVEgYYZURV0-4',
@@ -476,7 +456,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=9510-67143&t=nQ0CaPW3JnnNONVn-4',
@@ -487,7 +466,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15389-2514',
             docs: 'complete',
         },
@@ -497,7 +475,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
@@ -507,7 +484,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
@@ -517,7 +493,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink: 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=4809-17871',
         },
@@ -527,7 +502,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15566-18679&t=LIDn51KPH0u6PwtA-4',
@@ -538,7 +512,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15571-12061&t=LIDn51KPH0u6PwtA-4',
@@ -549,7 +522,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=15417-12539&t=LIDn51KPH0u6PwtA-4',
@@ -560,7 +532,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12897-58267&t=nUZ8Fb2zwkjutAl3-0',
@@ -569,7 +540,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
     utilities: [
         {
             name: 'SButton',
-            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,
@@ -579,7 +549,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         {
             name: 'SLabel',
-            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,
@@ -594,14 +563,12 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             jsdoc: true,
             darkMode: true,
             responsive: true,
-            tests: 100,
             docs: 'complete',
             figmaLink:
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=12902-79715&t=YejrDL8k9HOQiEjj-4',
         },
         {
             name: 'SCopy',
-            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,
@@ -611,7 +578,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         {
             name: 'SColorSwitch',
-            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,
@@ -626,7 +592,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
             responsive: true,
             typescript: true,
             jsdoc: true,
-            tests: 100,
             docs: 'complete',
             darkMode: true,
             figmaLink:
@@ -634,7 +599,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         {
             name: 'SSectionTitle',
-            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,
@@ -645,7 +609,6 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
         },
         {
             name: 'SSectionDescription',
-            tests: 100,
             typescript: true,
             jsdoc: true,
             darkMode: true,
@@ -661,7 +624,9 @@ export const components: ComponentStatusData[] = Object.entries(componentsByCate
     entries.map((entry) => ({
         ...defaults,
         ...entry,
-        slug: nameToSlug(entry.name),
+        // Generated. A component absent from the report has no tests at all.
+        tests: componentCoverage[entry.name] ?? 0,
+        slug: entry.slug ?? nameToSlug(entry.name),
         category: category as ComponentCategory,
     })),
 );
