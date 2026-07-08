@@ -10,9 +10,11 @@
  *   - `hasBlock` must agree with the existence of `<Name>Block/`.
  *   - each entry's slug must be unique and must resolve to a documentation page
  *     in both languages, under the category directory the entry declares.
+ *   - `tests` must be the coverage actually measured for the component, whenever
+ *     a coverage run is available.
  *
- * Fields that are claims rather than facts (`tests`, `docs`, `darkMode`, …) are
- * out of scope here — they need a measured source, not a consistency check.
+ * The remaining fields (`docs`, `darkMode`, `responsive`, `jsdoc`, `typescript`)
+ * are still claims rather than facts. They have no measured source yet.
  */
 import fs from 'fs';
 import path from 'path';
@@ -20,6 +22,7 @@ import ts from 'typescript';
 
 const SPARTAN = 'src/components/spartan';
 const STATUS = 'docs/app/data/componentStatus.ts';
+const COVERAGE = 'coverage/coverage-summary.json';
 const DOCS = (lang) => `docs/content/${lang}/2.components`;
 
 /** Runs the real module rather than pattern-matching its source. */
@@ -49,6 +52,38 @@ const docSlugs = (lang) => {
             if (file.endsWith('.md'))
                 slugs.set(file.replace(/^\d+\./, '').replace(/\.md$/, ''), category.replace(/^\d+\./, ''));
     return slugs;
+};
+
+/**
+ * Statement coverage per component, aggregated over every file in its directory.
+ * Truncated rather than rounded: 99.6% must not be advertised as 100.
+ * Returns null when no coverage run is available.
+ */
+const measuredCoverage = () => {
+    if (!fs.existsSync(COVERAGE)) return null;
+
+    const summary = JSON.parse(fs.readFileSync(COVERAGE, 'utf8'));
+    const root = path.resolve(SPARTAN);
+    const totals = new Map();
+
+    for (const [file, data] of Object.entries(summary)) {
+        if (file === 'total') continue;
+        const relative = path.relative(root, file);
+        if (relative.startsWith('..')) continue;
+
+        const component = relative.split(path.sep)[0];
+        const running = totals.get(component) ?? { covered: 0, total: 0 };
+        running.covered += data.statements.covered;
+        running.total += data.statements.total;
+        totals.set(component, running);
+    }
+
+    return new Map(
+        [...totals].map(([component, { covered, total }]) => [
+            component,
+            total === 0 ? 100 : Math.floor((covered / total) * 100),
+        ]),
+    );
 };
 
 const problems = [];
@@ -101,10 +136,25 @@ for (const { name, slug, category } of components) {
     }
 }
 
+// G. `tests` is the measured coverage, not a number somebody typed. Skipped when
+//    no coverage run is present, so the check stays usable before the suite runs.
+const coverage = measuredCoverage();
+if (coverage) {
+    for (const { name, tests } of components) {
+        const measured = coverage.get(name);
+        if (measured === undefined) {
+            fail(`entry "${name}" has no coverage data; was it excluded from the run?`);
+        } else if (tests !== measured) {
+            fail(`entry "${name}" declares tests: ${tests}, but measured coverage is ${measured}`);
+        }
+    }
+}
+
 if (problems.length === 0) {
     const blocks = components.filter((c) => c.hasBlock).length;
+    const source = coverage ? 'coverage measured' : `coverage unverified, no ${COVERAGE}`;
     console.log(
-        `✓ componentStatus.ts agrees with src/ (${components.length} components, ${blocks} with a Block variant)`,
+        `✓ componentStatus.ts agrees with src/ (${components.length} components, ${blocks} with a Block variant; ${source})`,
     );
     process.exit(0);
 }
