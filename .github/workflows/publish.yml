@@ -57,25 +57,12 @@ jobs:
                   git config --global user.email "${{ github.actor }}@users.noreply.github.com"
                   git config --global user.name "${{ github.actor }}"
 
-            # Diagnostic, non-blocking. release-it's own pre-flight aborts with
-            # "Not authenticated with npm" on this token, even though the token
-            # publishes fine. Two candidate causes: the token cannot reach the
-            # user-level /-/whoami endpoint (granular tokens cannot), or it never
-            # reaches the `npm` that release-it spawns underneath `pnpm`.
-            # Running whoami directly, with and without pnpm in between, tells
-            # them apart. Remove this step once the answer is recorded.
-            - name: Diagnose npm authentication
-              continue-on-error: true
-              run: |
-                  echo "--- npm whoami (direct) ---"
-                  npm whoami || echo "exit=$?"
-                  echo "--- npm whoami (through pnpm, as release-it runs it) ---"
-                  pnpm exec npm whoami || echo "exit=$?"
-                  echo "--- token can read the package's collaborators? ---"
-                  npm access list collaborators @placetopay/spartan-vue || echo "exit=$?"
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN_PLACETOPAY_DEV }}
-
+            # `.release-it.json` keeps `npm.skipChecks: true`. NPM_ACCESS_TOKEN is a
+            # granular access token: it can publish, but the registry returns E401 for
+            # `/-/whoami`, which is the only check release-it hard-fails on. Turning the
+            # checks back on aborts every release. Nothing is lost by skipping them —
+            # release-it publishes to npm before it commits, tags and pushes, so a
+            # failing publish cannot leave a tag behind.
             - name: Release (pre-release)
               if: startsWith(github.event.inputs.release-type, 'pre')
               run: pnpm release-it ${{ github.event.inputs.release-type }} --preRelease=beta --npm.tag=beta --ci
