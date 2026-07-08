@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `MIT` license. The package had no `license` field and no `LICENSE` file, so npm published it as `UNLICENSED`.
+- `SFilter`: `v-model` support. The component no longer mutates the array it receives; filter state is owned by the consumer through `modelValue` / `update:modelValue`.
+- `SFilter`: `OPERATORS_BY_TYPE` is exported as a value, so consumers can inspect or extend the operator set available per field type.
+- `SFilter`: `before` and `after` date operators, plus the `$spartan.filter.operator.before`, `$spartan.filter.operator.after`, `$spartan.filter.deleteSavedBtn` and `$spartan.filter.savedFilterNameLabel` message keys in all five locales.
+- `SFilter`: duplicate operator ids within a field now throw on mount instead of silently rendering a broken operator list.
+- `SMultiSelector`: `trigger` slot, scoped as `{ options, placeholder }`, mirroring `SSelector`. (The `3.0.0-beta.16` entry below announced this slot, but the implementation landed after that tag — it ships here.)
+- `SMultiSelector`: live preview `SMultiSelector/custom-trigger`, and `SFilter` previews for `i18n` and `initial-state`.
+- CI workflow (`.github/workflows/ci.yml`) running typecheck, lint, format, tests, build and `publint` on pull requests and pushes to `main`, `develop` and `2.x`, across Node 20 and 24. The repository previously had no workflow validating pull requests.
+- `npm` provenance (`publishConfig.provenance`). The publish workflow already granted `id-token: write` without using it.
+- `CHANGELOG.md` is now included in the published tarball.
+
 ### Fixed
 - **Published type declarations were structurally incomplete.** `scripts/sanitizeBuild.js` copied only `index.d.ts`, `<Component>.vue.d.ts` and `types.d.ts` per component, dropping all 24 `styles.d.ts` and both `constants.d.ts`. Because every component's props type dereferences its CVA styles (e.g. `TButtonProps['variant']` resolves through `TButtonStyles` in `./styles`), consumers with `skipLibCheck: true` silently lost every variant union — `<SButton variant="anything" />` type-checked. With `skipLibCheck: false` the package produced 59 `TS2307` errors. The whole declaration tree is now shipped.
 - Published `.d.ts` files leaked unresolved path aliases (`@internal`, `@spartan`, `@/helpers`, `@/constants`) and relative specifiers that escaped `dist/` after the build flattened `components/spartan/X` to `components/X`. All module specifiers are now resolved against the emitted tree and re-pointed at the published layout, with explicit `.js` extensions so both `bundler` and `node16` resolution succeed.
@@ -20,11 +32,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `README.md` linked to a `MIGRATION.md` in the repository root that has never existed. It now points at the actual migration guide under `docs/content/en/1.getting-started/8.migration.md`.
 
 ### Removed
+- **BREAKING** `SFilter`: the `TFilterProps`, `TFilterEmits`, `TField`, `TInterfaces`, `TOperator`, `TCustomOperator`, `TOperatorId`, `TInterfaceId`, `TSaveData`, `TInputType` and `TOptions` types are no longer exported. They are replaced by the `SFilter*` type family (see **Changed**).
+- **BREAKING** `SSelector` and `SMultiSelector`: `styles.ts` deleted from both components; styling now lives in the shared `internal/Selectors/styles.ts`. These modules were never part of the public barrel, so only consumers reaching into `dist/` internals are affected.
 - **BREAKING** The `@placetopay/spartan-vue/plugin` subpath export. It pointed at `dist/plugin.mjs`, `dist/plugin.cjs` and `dist/types/expose/plugin.d.ts` — none of which have been generated since the legacy Tailwind JS plugin source was deleted in `3.0.0-beta.2`, so importing it always failed to resolve. The corresponding "Configuration for Tailwind CSS v3 (Legacy)" section was removed from the README; Spartan 3.x requires TailwindCSS v4 and is configured entirely in CSS.
 - `SCardBrand`'s asset barrel declarations, which re-exported `*.svg` modules that are inlined into the bundle and never shipped.
 
 ### Changed
+- **BREAKING** `SFilter` was rewritten around a declarative, typed field map and `v-model`. See the [migration guide](./docs/content/en/1.getting-started/8.migration.md) for a full before/after.
+  - `fields: TField[]` (an array the component mutated in place) becomes `filters: Record<string, SFilterField>` (a static definition) plus `modelValue: SFilterValue` (the state, owned by the consumer).
+  - Each field is now discriminated by `type` (`'text' | 'number' | 'amount' | 'date' | 'dateRange' | 'options' | 'selection'`) instead of carrying an `interfaces` object. The valid `operators` for a field are constrained by its `type`.
+  - `TField.name` becomes `SFilterField.label`; `TField.id` becomes the record key; `TField.state` becomes the corresponding entry in `modelValue`.
+  - `apply` and `clear` now emit `SFilterValue` (`Record<string, { operator, value }>`) instead of `TField[]`.
+  - `save` emits `(name: string, snapshot: SFilterValue)` instead of `TSaveData[]`; `load` emits `SFilterValue`; a new `delete` event emits the saved filter's `name`.
+  - `saved` takes `SFilterSaved[]` (`{ name, snapshot }`) instead of `TSaveData[]` (`{ name, filters }`).
+  - `validate` receives the operator as a `string` rather than a `TOperator` object.
+- `SDTable`: the expanded-rows watcher no longer defaults its `previousExpandedState` argument to `[]`. On the watcher's first run the argument is now `undefined` rather than an empty array.
 - `@floating-ui/vue`, `class-variance-authority`, `imask` and `tailwind-merge` moved from `devDependencies` to `dependencies`: they appear in the public type declarations and must resolve in consumer projects.
+- `.release-it.json`: `typecheck`, `lint:check`, `format:check` and `build` now run in `before:init`, so a failing build aborts the release instead of leaving behind a version-bump commit for a release that never published. `publint` runs after the bump.
+- ESLint migrated to flat config (`eslint.config.js`). The project still carried a `.eslintrc.json`, which ESLint 10 ignores — `pnpm run lint` had been failing to start, so no rule was being enforced.
 
 ## [3.0.0-beta.16] - 2026-05-14
 
