@@ -24,8 +24,12 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                # Lowest version allowed by `engines.node`, plus the one used to publish.
-                node: [20, 24]
+                # Node 20 is the floor declared by `engines.node`; 24 is what publishes.
+                # Pull requests only exercise 24 — the prediction run is about whether the
+                # merge is sound, not about Node compatibility. The floor is still verified
+                # on every push to a long-lived branch and in the release gate, which is
+                # where a Node 20 regression would actually matter.
+                node: ${{ github.event_name == 'pull_request' && fromJSON('[24]') || fromJSON('[20, 24]') }}
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -54,8 +58,13 @@ jobs:
             - name: Format
               run: pnpm run format:check
 
+            # Istanbul instrumentation is the single most expensive thing in this
+            # workflow, and nothing consumes the lcov it produces — no job uploads it
+            # to Sonar or anywhere else. Pull requests run the same 1009 tests without
+            # it; pushes and the release gate keep coverage so the report still exists
+            # for the branches it is read from.
             - name: Test
-              run: pnpm run test:ci
+              run: ${{ github.event_name == 'pull_request' && 'pnpm run test:quick' || 'pnpm run test:ci' }}
 
             - name: Build
               run: pnpm run build
