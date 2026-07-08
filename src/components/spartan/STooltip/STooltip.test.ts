@@ -64,7 +64,14 @@ describe('STooltip', () => {
     });
 
     test('exposes open, close, toggle, focus and isOpen via ref', async () => {
-        const user = userEvent.setup();
+        // `delay: null` dispatches the whole click gesture in one task, as a browser does.
+        // The default `delay: 0` awaits between pointerdown and click, and once the panel
+        // holds focus, the `focusout` handler in SPopover schedules its close through
+        // `requestAnimationFrame`. Given a >16ms gap that close lands *before* the click
+        // handler, so `toggle()` sees a closed popover and reopens it. Under `--coverage`
+        // the instrumented code is slow enough to hit that window, which made this test
+        // fail in roughly 3 of 5 full-suite runs.
+        const user = userEvent.setup({ delay: null });
 
         const Wrapper = defineComponent({
             components: { STooltip },
