@@ -4,11 +4,13 @@
   "type": "module",
   "packageManager": "pnpm@10.17.1",
   "description": "spartan vue lib",
+  "license": "MIT",
   "module": "./dist/components/index.js",
   "types": "./dist/components/index.d.ts",
   "sideEffects": false,
   "files": [
-    "dist/*"
+    "dist/*",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
