@@ -55,7 +55,7 @@ export const createContext = (props: TInputOtpProps, emit: TInputOtpEmits) => {
 
             deactivate(state);
 
-            if (!value || /^[0-9]+$/.test(value)) emit('update:modelValue', value);
+            if (!value || /^\d+$/.test(value)) emit('update:modelValue', value);
 
             activate({ ...state, value });
         },

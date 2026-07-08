@@ -15,8 +15,6 @@ const props = defineProps<{
     field?: SFilterSelectionField;
 }>();
 
-void props;
-
 const value = computed({
     get() {
         if (Array.isArray(props.modelValue)) return props.modelValue;

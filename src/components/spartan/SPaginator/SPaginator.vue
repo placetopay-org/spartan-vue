@@ -244,11 +244,15 @@ const updateSize = (value?: string | number) => {
     emit('update:page', 1);
 };
 
+const getPageItemHandler = (pageItem?: string | number) => {
+    if (pageItem === 'prev') return prev;
+    if (pageItem === 'next') return next;
+    return () => selectPage(Number(pageItem));
+};
+
 const getLaravelAsLinksProps = (pageItem?: string | number) => {
     if (!laravel?.asLinks) {
-        return {
-            onClick: pageItem === 'prev' ? prev : pageItem === 'next' ? next : () => selectPage(Number(pageItem)),
-        };
+        return { onClick: getPageItemHandler(pageItem) };
     }
 
     const data: any = {};

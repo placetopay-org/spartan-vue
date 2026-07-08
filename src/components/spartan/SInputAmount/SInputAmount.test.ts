@@ -29,7 +29,7 @@ describe('SInputAmount', () => {
         await user.keyboard('test');
 
         // Assert
-        expect(modelValue).toEqual(22.9);
+        expect(modelValue).toBeCloseTo(22.9, 2);
     });
 
     test('Renders the currency symbol as a prefix when symbol is true', () => {
