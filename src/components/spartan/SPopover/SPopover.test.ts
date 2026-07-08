@@ -399,6 +399,44 @@ describe('SPopover', () => {
         expect(screen.getByText('Static content')).toBeInTheDocument();
     });
 
+    describe('offset', () => {
+        // The offset used to be registered as two separate `offset()` middlewares,
+        // which floating-ui accumulates: `offset(8)` twice positions like `offset(16)`.
+        const openAndReadTop = async (props: Record<string, unknown>) => {
+            const user = userEvent.setup();
+            const { unmount } = render(SPopover, {
+                // `responsive` short-circuits the floating styles on small screens,
+                // and jsdom's mocked matchMedia always reports a small screen.
+                props: { responsive: false, ...props },
+                slots: {
+                    default: 'Offset content',
+                    reference: ({ open }) => h('button', { onClick: () => open() }, 'Open offset'),
+                },
+            });
+
+            await user.click(screen.getByRole('button', { name: 'Open offset' }));
+            await flushRaf();
+
+            const floating = screen.getByText('Offset content').closest('[tabindex="-1"]') as HTMLElement;
+            const { top } = floating.style;
+            unmount();
+            return top;
+        };
+
+        test('Applies the offset prop exactly once', async () => {
+            expect(await openAndReadTop({ offset: 0 })).toBe('0px');
+            expect(await openAndReadTop({ offset: 8 })).toBe('8px');
+            expect(await openAndReadTop({ offset: 16 })).toBe('16px');
+        });
+
+        test('Adds arrow clearance on top of the offset', async () => {
+            // Half the diagonal of the rotated 12x12 arrow: sqrt(288) / 2 ~= 8.49.
+            expect(await openAndReadTop({ offset: 0, arrow: 'white' })).toBe('8px');
+            expect(await openAndReadTop({ offset: 8, arrow: 'white' })).toBe('16px');
+            expect(await openAndReadTop({ offset: 16, arrow: 'white' })).toBe('24px');
+        });
+    });
+
     test('focusout does not close when the floating panel itself has focus', async () => {
         const onClose = vi.fn();
         const popoverRef: { value: { open: () => void; focus: () => void; focusout: () => void } | null } = {

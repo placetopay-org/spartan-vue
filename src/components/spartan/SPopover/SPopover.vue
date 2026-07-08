@@ -36,11 +36,13 @@ const reference = ref<HTMLElement | null>(null);
 const floating = ref<HTMLElement | null>(null);
 const arrowRef = ref<HTMLElement | null>(null);
 
+// Half the diagonal of the 12x12 arrow, which is rotated 45deg.
+const ARROW_CLEARANCE = Math.sqrt(288) / 2;
+
 const middleware = computed(() => {
     const group = [];
     !props.static && group.push(flip());
-    group.push(setOffset(props.offset));
-    group.push(setOffset(props.offset || 0 + (props.arrow ? Math.sqrt(288) / 2 : 0)));
+    group.push(setOffset(props.offset + (props.arrow ? ARROW_CLEARANCE : 0)));
     props.arrow && group.push(setArrow({ element: arrowRef, padding: 16 }));
 
     return group;
