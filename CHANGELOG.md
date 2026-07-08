@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta.17] - 2026-07-08
+
 ### Added
 - `MIT` license. The package had no `license` field and no `LICENSE` file, so npm published it as `UNLICENSED`.
 - `SFilter`: `v-model` support. The component no longer mutates the array it receives; filter state is owned by the consumer through `modelValue` / `update:modelValue`.
