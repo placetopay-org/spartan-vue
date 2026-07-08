@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI workflow (`.github/workflows/ci.yml`) running typecheck, phantom-dependency check, lint, format, tests, build and `publint` on pull requests and pushes to `main`, `develop` and `2.x`, across Node 20 and 24. The repository previously had no workflow validating pull requests.
 - `pnpm run check:deps` (`scripts/checkPhantomDeps.js`) fails when `src/` imports a package that `package.json` does not declare, so `shamefully-hoist=true` can no longer hide a phantom dependency from the published package.
 - `pnpm run verify` runs the full gate (typecheck, `check:deps`, lint, format, tests, build) in one command.
+- `pnpm run test:quick` runs the suite without coverage instrumentation. Pull-request CI uses it, and runs a single Node version, since the prediction run exists to check that the merge is sound rather than to re-verify Node compatibility. Pushes to long-lived branches and the release gate still run the full matrix with coverage.
 - `npm` provenance (`publishConfig.provenance`). The publish workflow already granted `id-token: write` without using it.
 - `CHANGELOG.md` is now included in the published tarball.
 
