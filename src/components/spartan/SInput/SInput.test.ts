@@ -355,6 +355,28 @@ describe('SInput', () => {
             expect(select).toBeInTheDocument();
         });
 
+        // The `<select>` is built by `slotBuilder`, so a consumer cannot reach it with an
+        // `aria-label` of their own — these props are the only way to name it.
+        test('Names the right selector when rightOptionsLabel is given', () => {
+            render(SInput, { props: { rightOptions: options, rightOption: '1', rightOptionsLabel: 'Currency' } });
+
+            expect(screen.getByRole('combobox', { name: 'Currency' })).toBeInTheDocument();
+        });
+
+        test('Names the left selector when leftOptionsLabel is given', () => {
+            render(SInput, { props: { leftOptions: options, leftOption: '1', leftOptionsLabel: 'Document type' } });
+
+            expect(screen.getByRole('combobox', { name: 'Document type' })).toBeInTheDocument();
+        });
+
+        test('Renders no aria-label when the selector is left unnamed', () => {
+            // Deliberate: the library has nothing meaningful to default to, and an empty
+            // or invented `aria-label` would be worse than none.
+            render(SInput, { props: { rightOptions: options, rightOption: '1' } });
+
+            expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-label');
+        });
+
         test('Right selector emits update:rightOption on change', async () => {
             const user = userEvent.setup();
             const { emitted } = render(SInput, {

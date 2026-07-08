@@ -19,7 +19,8 @@ const leftComponents: Record<string, any> = {
     selector: {
         component: SelectorSlot,
         getProps: (props: Partial<TInputProps>) => {
-            if (props.leftOptions) return { options: props.leftOptions, modelValue: props.leftOption };
+            if (props.leftOptions)
+                return { options: props.leftOptions, modelValue: props.leftOption, ariaLabel: props.leftOptionsLabel };
             return undefined;
         },
         getEmits: (props: Partial<TInputProps>, emit: TInputEmits) => {
@@ -49,7 +50,12 @@ const rightComponents: Record<string, any> = {
     selector: {
         component: SelectorSlot,
         getProps: (props: Partial<TInputProps>) => {
-            if (props.rightOptions) return { options: props.rightOptions, modelValue: props.rightOption };
+            if (props.rightOptions)
+                return {
+                    options: props.rightOptions,
+                    modelValue: props.rightOption,
+                    ariaLabel: props.rightOptionsLabel,
+                };
             return undefined;
         },
         getEmits: (props: Partial<TInputProps>, emit: TInputEmits) => {

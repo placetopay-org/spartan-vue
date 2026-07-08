@@ -13,11 +13,18 @@ usePreview({
     component: 'SInput',
     staticAttrs: {
         ':left-options': 'leftOptions',
+        'left-options-label': 'Country code',
         placeholder: 'Phone number',
     },
 });
 </script>
 
 <template>
-    <SInput v-model="value" v-model:left-option="leftOption" :left-options="leftOptions" placeholder="Phone number" />
+    <SInput
+        v-model="value"
+        v-model:left-option="leftOption"
+        :left-options="leftOptions"
+        left-options-label="Country code"
+        placeholder="Phone number"
+    />
 </template>
