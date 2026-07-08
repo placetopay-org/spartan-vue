@@ -122,7 +122,7 @@ describe('SPaginator', () => {
     test('Emits change with dir when on first page', async () => {
         const user = userEvent.setup();
 
-        const { emitted } = render(SPaginator, {
+        render(SPaginator, {
             props: { page: 1, size: 10, total: 50 },
         });
 

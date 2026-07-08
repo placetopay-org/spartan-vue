@@ -345,9 +345,7 @@ describe('SSidebar', () => {
         const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
         const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
-        expect(() => render(SSidebarItem, { slots: { default: 'orphan' } })).toThrow(
-            /missing parent <SSidebar/,
-        );
+        expect(() => render(SSidebarItem, { slots: { default: 'orphan' } })).toThrow(/missing parent <SSidebar/);
 
         warn.mockRestore();
         error.mockRestore();

@@ -317,7 +317,8 @@ describe('SMultiSelector', () => {
         const buttons = screen.getAllByRole('button');
         // Pick a button that lives inside a badge containing 'Option 1' text.
         const removeButton = buttons.find(
-            (btn) => btn.querySelector('svg') && btn.closest('[class*="badge"], span')?.textContent?.includes('Option 1'),
+            (btn) =>
+                btn.querySelector('svg') && btn.closest('[class*="badge"], span')?.textContent?.includes('Option 1'),
         );
 
         if (removeButton) {

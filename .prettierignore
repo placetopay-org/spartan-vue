@@ -2,8 +2,11 @@
 public
 
 # Dependencies
+# pnpm rewrites the lockfile with its own formatting on every install; letting
+# Prettier reindent it produces a multi-thousand-line diff on the next install.
 package.json
 package-lock.json
+pnpm-lock.yaml
 
 # Node artifact files
 node_modules/

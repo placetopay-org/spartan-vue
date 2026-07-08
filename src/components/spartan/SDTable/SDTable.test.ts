@@ -261,7 +261,7 @@ describe('SDTable', () => {
     test('renders slim and borderless', async () => {
         const Column1 = h(SDColumn, { field: 'name', header: 'Name' });
 
-        const { container } = render(SDTable, {
+        render(SDTable, {
             props: { data: [{ name: 'Alice' }], slim: true, borderless: true },
             slots: { default: [Column1] },
         });

@@ -14,7 +14,7 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SCard :icon="controls.icon" iconType="ping" title="Notification">
+    <SCard :icon="controls.icon" icon-type="ping" title="Notification">
         <template #description>The ping treatment draws attention with a soft halo.</template>
     </SCard>
 </template>

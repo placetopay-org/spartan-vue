@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `MIT` license. The package had no `license` field and no `LICENSE` file, so npm published it as `UNLICENSED`.
+- `SFilter`: `v-model` support. The component no longer mutates the array it receives; filter state is owned by the consumer through `modelValue` / `update:modelValue`.
+- `SFilter`: `OPERATORS_BY_TYPE` is exported as a value, so consumers can inspect or extend the operator set available per field type.
+- `SFilter`: `before` and `after` date operators, plus the `$spartan.filter.operator.before`, `$spartan.filter.operator.after`, `$spartan.filter.deleteSavedBtn` and `$spartan.filter.savedFilterNameLabel` message keys in all five locales.
+- `SFilter`: duplicate operator ids within a field now throw on mount instead of silently rendering a broken operator list.
+- `SMultiSelector`: `trigger` slot, scoped as `{ options, placeholder }`, mirroring `SSelector`. (The `3.0.0-beta.16` entry below announced this slot, but the implementation landed after that tag — it ships here.)
+- `SMultiSelector`: live preview `SMultiSelector/custom-trigger`, and `SFilter` previews for `i18n` and `initial-state`.
+- CI workflow (`.github/workflows/ci.yml`) running typecheck, phantom-dependency check, lint, format, tests, build and `publint` on pull requests and pushes to `main`, `develop` and `2.x`, across Node 20 and 24. The repository previously had no workflow validating pull requests.
+- `pnpm run check:deps` (`scripts/checkPhantomDeps.js`) fails when `src/` imports a package that `package.json` does not declare, so `shamefully-hoist=true` can no longer hide a phantom dependency from the published package.
+- `pnpm run verify` runs the full gate (typecheck, `check:deps`, lint, format, tests, build) in one command.
+- `npm` provenance (`publishConfig.provenance`). The publish workflow already granted `id-token: write` without using it.
+- `CHANGELOG.md` is now included in the published tarball.
+
+### Fixed
+- `@primevue/icons` was a phantom dependency: `internal/VoltDatePicker/DatePicker.vue` imports five icons from it, but only `primevue` was declared — `@primevue/icons` is one of its transitive dependencies, and resolved solely because `.npmrc` sets `shamefully-hoist=true`. Any package manager that isolates dependencies would fail to build the library. It is now declared explicitly, alongside `@testing-library/dom` (imported directly by the test suite) and `@nuxt/ui` (imported directly by the docs stylesheet).
+- `primevue` was the only bundled dependency on a floating range (`^4.5.4`) while being inlined into `dist/`, making the published output non-deterministic. Pinned to `4.5.4`, matching `@primevue/icons`.
+- `SPopover` (and `STooltip`, which forwards the prop): a non-zero `offset` was applied **twice**. The middleware registered two separate `offset()` entries, and floating-ui accumulates them — `:offset="8"` positioned the panel 16px away, `:offset="16"` 32px. On top of that, `props.offset || 0 + (props.arrow ? … : 0)` parses as `props.offset || (0 + …)` because `+` binds tighter than `||`, so the arrow clearance was silently dropped for every non-zero offset. Both are now a single `offset(props.offset + arrowClearance)`. The default (`offset: 0`) is unchanged, which is why this went unnoticed.
+- **Published type declarations were structurally incomplete.** `scripts/sanitizeBuild.js` copied only `index.d.ts`, `<Component>.vue.d.ts` and `types.d.ts` per component, dropping all 24 `styles.d.ts` and both `constants.d.ts`. Because every component's props type dereferences its CVA styles (e.g. `TButtonProps['variant']` resolves through `TButtonStyles` in `./styles`), consumers with `skipLibCheck: true` silently lost every variant union — `<SButton variant="anything" />` type-checked. With `skipLibCheck: false` the package produced 59 `TS2307` errors. The whole declaration tree is now shipped.
+- Published `.d.ts` files leaked unresolved path aliases (`@internal`, `@spartan`, `@/helpers`, `@/constants`) and relative specifiers that escaped `dist/` after the build flattened `components/spartan/X` to `components/X`. All module specifiers are now resolved against the emitted tree and re-pointed at the published layout, with explicit `.js` extensions so both `bundler` and `node16` resolution succeed.
+- `dist/components/index.js` was a renamed `.d.ts` file whose extensionless re-exports (`export * from './SAlert'`) could not be resolved by Node ESM. It is now generated as real JavaScript with explicit `./SAlert/index.js` specifiers.
+- `dist/locales/index.js` re-exported `.json` files without import attributes, throwing `ERR_IMPORT_ATTRIBUTE_MISSING` under Node ESM. Messages are now inlined into the entrypoint.
+- `vue` and `vue-i18n` were declared in **both** `dependencies` and `peerDependencies` while being externalized by the build. Under pnpm this installed a nested copy, giving consumers two Vue runtimes — breaking `provide`/`inject` across the boundary, returning `null` from `getCurrentInstance()`, and preventing `vue-i18n` from resolving its injection symbol. They are now peer-only.
+- `peerDependencies` pinned exact versions (`vue: 3.5.28`), so any consumer on a different Vue patch hit `ERESOLVE` on npm/yarn. Widened to `vue: ^3.5.0` and `vue-i18n: ^11.0.0`.
+- `package.json` `module` and `types` pointed at `dist/spartan-vue.js` and `dist/types/index.d.ts`, neither of which exists after a build (`dist/types` is deleted by the sanitize step). Both now point at the real entrypoints.
+- `exports` conditions listed `import` before `types`; `types` must come first to be matched.
+- The build now fails if any published declaration contains a dangling module specifier, or if any path referenced by `exports` is missing.
+- `README.md` linked to a `MIGRATION.md` in the repository root that has never existed. It now points at the actual migration guide under `docs/content/en/1.getting-started/8.migration.md`.
+
+### Removed
+- **BREAKING** `SFilter`: the `TFilterProps`, `TFilterEmits`, `TField`, `TInterfaces`, `TOperator`, `TCustomOperator`, `TOperatorId`, `TInterfaceId`, `TSaveData`, `TInputType` and `TOptions` types are no longer exported. They are replaced by the `SFilter*` type family (see **Changed**).
+- **BREAKING** `SSelector` and `SMultiSelector`: `styles.ts` deleted from both components; styling now lives in the shared `internal/Selectors/styles.ts`. These modules were never part of the public barrel, so only consumers reaching into `dist/` internals are affected.
+- **BREAKING** The `@placetopay/spartan-vue/plugin` subpath export. It pointed at `dist/plugin.mjs`, `dist/plugin.cjs` and `dist/types/expose/plugin.d.ts` — none of which have been generated since the legacy Tailwind JS plugin source was deleted in `3.0.0-beta.2`, so importing it always failed to resolve. The corresponding "Configuration for Tailwind CSS v3 (Legacy)" section was removed from the README; Spartan 3.x requires TailwindCSS v4 and is configured entirely in CSS.
+- `SCardBrand`'s asset barrel declarations, which re-exported `*.svg` modules that are inlined into the bundle and never shipped.
+
+### Changed
+- **BREAKING** `SFilter` was rewritten around a declarative, typed field map and `v-model`. See the [migration guide](./docs/content/en/1.getting-started/8.migration.md) for a full before/after.
+  - `fields: TField[]` (an array the component mutated in place) becomes `filters: Record<string, SFilterField>` (a static definition) plus `modelValue: SFilterValue` (the state, owned by the consumer).
+  - Each field is now discriminated by `type` (`'text' | 'number' | 'amount' | 'date' | 'dateRange' | 'options' | 'selection'`) instead of carrying an `interfaces` object. The valid `operators` for a field are constrained by its `type`.
+  - `TField.name` becomes `SFilterField.label`; `TField.id` becomes the record key; `TField.state` becomes the corresponding entry in `modelValue`.
+  - `apply` and `clear` now emit `SFilterValue` (`Record<string, { operator, value }>`) instead of `TField[]`.
+  - `save` emits `(name: string, snapshot: SFilterValue)` instead of `TSaveData[]`; `load` emits `SFilterValue`; a new `delete` event emits the saved filter's `name`.
+  - `saved` takes `SFilterSaved[]` (`{ name, snapshot }`) instead of `TSaveData[]` (`{ name, filters }`).
+  - `validate` receives the operator as a `string` rather than a `TOperator` object.
+- `SDTable`: the expanded-rows watcher no longer defaults its `previousExpandedState` argument to `[]`. On the watcher's first run the argument is now `undefined` rather than an empty array.
+- `@floating-ui/vue`, `class-variance-authority`, `imask` and `tailwind-merge` moved from `devDependencies` to `dependencies`: they appear in the public type declarations and must resolve in consumer projects.
+- `publish.yml` now calls `ci.yml` as a reusable workflow and gates the release job on it (`needs: verify`). `workflow_dispatch` can be fired from any commit on the release branch, including one whose CI never ran or ran red, so the release job can no longer assume a green tree. Previously nothing verified the commit being published beyond a single `test:ci` hook.
+- `.release-it.json`: dropped `npm.skipChecks`, which disabled release-it's pre-flight checks against the registry. Those run in `init`, before the version bump and before any git mutation, so an expired `NPM_ACCESS_TOKEN` used to surface only at `npm publish` — after the `chore(release): vX` commit and tag had already been created and pushed, leaving a version that was tagged but never published. Of the four checks only `npm whoami` fails hard; `npm ping`, `npm access` and the registry-version comparison degrade to warnings.
+- `deploy-docs.yml`: removed the `push` trigger on `feature/nuxt-docs`, a branch that no longer exists on the remote. The workflow only ever ran through `publish.yml` or by hand; the trigger could not fire.
+- `.release-it.json`: `before:init` runs the full `verify` gate — typecheck, `check:deps`, lint, format, tests and build — but skips it when `$CI` is set, because the publish workflow has already run exactly those checks in its `verify` job. Previously only `test:ci` ran there, and the build ran in `after:bump`, so a failing build left behind a `chore(release): vX` commit for a version that never published. The build still runs in `after:bump` as well, to produce the `dist/` that npm packs. `publint` validates the result.
+- ESLint migrated to flat config (`eslint.config.js`). The project still carried a `.eslintrc.json`, which ESLint 10 ignores — `pnpm run lint` had been failing to start, so no rule was being enforced.
+
 ## [3.0.0-beta.16] - 2026-05-14
 
 ### Added

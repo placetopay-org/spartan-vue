@@ -2,12 +2,7 @@
 import { computed } from 'vue';
 import { SInputAmountBlock, SInputBlock } from '@spartan';
 import { translator } from '@/helpers';
-import type {
-    SFilterAmountField,
-    SFilterDateField,
-    SFilterNumberField,
-    SFilterTextField,
-} from '../types';
+import type { SFilterAmountField, SFilterDateField, SFilterNumberField, SFilterTextField } from '../types';
 
 type SingleInputField = SFilterTextField | SFilterNumberField | SFilterAmountField | SFilterDateField;
 

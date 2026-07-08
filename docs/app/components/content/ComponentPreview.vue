@@ -258,7 +258,6 @@ const showTemplate = ref(false);
 const showScript = ref(false);
 const copiedTemplate = ref(false);
 const copiedScript = ref(false);
-const copied = ref(false);
 const scriptHtml = ref('');
 const hasControls = computed(
     () => Object.keys(store.definition).length > 0 || Object.keys(store.slotDefinition).length > 0,
@@ -292,16 +291,6 @@ async function toggleScript() {
     if (showScript.value && !scriptHtml.value && scriptDisplayCode.value) {
         scriptHtml.value = await highlight(scriptDisplayCode.value);
     }
-}
-
-async function copyCode() {
-    try {
-        await navigator.clipboard.writeText(liveCode.value);
-        copied.value = true;
-        setTimeout(() => {
-            copied.value = false;
-        }, 2000);
-    } catch {}
 }
 
 // ─── 5. Preview resize ───────────────────────────────────────────────────────
@@ -845,7 +834,7 @@ onUnmounted(() => {
                         @after-leave="onCodeAfterLeave"
                     >
                         <div v-if="showScript" class="group relative">
-                            <div v-html="scriptHtml" class="shiki-block" />
+                            <div class="shiki-block" v-html="scriptHtml" />
                             <UButton
                                 :icon="copiedScript ? 'i-lucide-check' : 'i-lucide-copy'"
                                 size="xs"
@@ -889,7 +878,7 @@ onUnmounted(() => {
                     @after-leave="onCodeAfterLeave"
                 >
                     <div v-if="showTemplate" class="group relative rounded-b-md">
-                        <div v-html="codeHtml" class="shiki-block" />
+                        <div class="shiki-block" v-html="codeHtml" />
                         <UButton
                             :icon="copiedTemplate ? 'i-lucide-check' : 'i-lucide-copy'"
                             size="xs"

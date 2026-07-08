@@ -16,7 +16,7 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SCard :icon="ShieldTickIcon" :iconColor="controls.iconColor" :iconType="controls.iconType" title="Secured">
+    <SCard :icon="ShieldTickIcon" :icon-color="controls.iconColor" :icon-type="controls.iconType" title="Secured">
         <template #description>Your account is protected.</template>
     </SCard>
 </template>

@@ -6,8 +6,7 @@
         "requireBranch": ["main", "2.x"]
     },
     "npm": {
-        "publish": true,
-        "skipChecks": true
+        "publish": true
     },
     "github": {
         "release": true,
@@ -20,7 +19,9 @@
         }
     },
     "hooks": {
-        "before:init": ["pnpm run test:ci"],
-        "after:bump": ["pnpm run build"]
+        "before:init": [
+            "sh -c 'if [ \"$CI\" = \"true\" ]; then echo \"Verified by the CI workflow; skipping local checks.\"; else pnpm run verify; fi'"
+        ],
+        "after:bump": ["pnpm run build", "pnpm dlx publint"]
     }
 }

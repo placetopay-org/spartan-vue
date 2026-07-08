@@ -28,10 +28,8 @@ export const getOperatorLabel = (operator?: CombinedOperator): string => {
 };
 
 /** Looks up a custom operator on the field by id. */
-export const findCustomOperator = (
-    field: SFilterField,
-    operatorId: string,
-): SFilterCustomOperator | undefined => field.customOperators?.find((c) => c.id === operatorId);
+export const findCustomOperator = (field: SFilterField, operatorId: string): SFilterCustomOperator | undefined =>
+    field.customOperators?.find((c) => c.id === operatorId);
 
 /** How many value inputs to render for the current operator on this field. */
 export const getOperatorInputCount = (operatorId: string, field: SFilterField): 0 | 1 | 2 => {

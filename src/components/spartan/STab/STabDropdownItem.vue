@@ -34,8 +34,8 @@ watch(
             <slot />
         </SDropdownItem>
         <component
-            v-else
             :is="as"
+            v-else
             v-bind="$attrs"
             :type="as === 'button' ? 'button' : undefined"
             :data-item-path="vPath"

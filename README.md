@@ -4,7 +4,7 @@
 # Spartan Vue
 Spartan Vue is a vue component library that contains the components used in the PlacetoPay web applications based in [TailwindCSS](https://tailwindcss.com/).
 
-> **Migrating from v2.x?** Check out the [Migration Guide](./MIGRATION.md) for step-by-step instructions.
+> **Migrating from v2.x?** Check out the [Migration Guide](./docs/content/en/1.getting-started/8.migration.md) for step-by-step instructions.
 
 ## Desing system
 You can find the documentation and components of this design system by clicking [here.](https://develop--646e732a14dfaa707ad59b33.chromatic.com/)
@@ -75,61 +75,9 @@ To exclude the Inter font, import the plugin directly instead of the full styles
 @source '../src/**/*.{vue,js,ts,jsx,tsx}';
 ```
 
----
-
-<details>
-<summary><strong>Configuration for Tailwind CSS v3 (Legacy)</strong></summary>
-
-1. Configure your `tailwind.config.js` file:
-
-   ```javascript
-   content: [
-      //...
-      "node_modules/@placetopay/spartan-vue/dist/**/*.js",
-   ],
-   plugins: [
-      //...
-      require('@placetopay/spartan-vue/plugin'),
-   ],
-   ```
-
-2. Import the styles in your main file:
-
-   ```javascript
-   import '@placetopay/spartan-vue/styles/spartan-vue.css';
-   import './my-styles.css'; // your styles with tailwindcss directives
-   ```
-
-#### Plugin configuration (v3)
-
-Custom primary color:
-
-```javascript
-require('@placetopay/spartan-vue/plugin')({
-   primary: {
-      50: '228 242 253',
-      100: '187 222 251',
-      200: '144 202 249',
-      300: '100 181 246',
-      400: '66 165 245',
-      500: '33 150 243',
-      600: '30 132 229',
-      700: '25 103 196',
-      800: '21 78 148',
-      900: '13 42 84',
-   }
-}),
-```
-
-Disable Inter font:
-
-```javascript
-require('@placetopay/spartan-vue/plugin')({
-   includeFont: false,
-}),
-```
-
-</details>
+> Spartan Vue 3.x requires TailwindCSS v4. The legacy JavaScript Tailwind plugin
+> (`@placetopay/spartan-vue/plugin`) was removed in 3.0 — all configuration now
+> happens in CSS. See the [Migration Guide](./docs/content/en/1.getting-started/8.migration.md).
 
 ## Usage
 ```html

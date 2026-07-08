@@ -2,7 +2,7 @@
     <Button
         unstyled
         :pt="theme"
-        :ptOptions="{
+        :pt-options="{
             mergeProps: ptViewMerge,
         }"
     >
@@ -17,6 +17,7 @@ import Button, { type ButtonPassThroughOptions, type ButtonProps } from 'primevu
 import { ref } from 'vue';
 import { ptViewMerge } from './utils';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- `defineProps` needs a named interface for the `@vue-ignore` hint to apply.
 interface Props extends /* @vue-ignore */ ButtonProps {}
 defineProps<Props>();
 

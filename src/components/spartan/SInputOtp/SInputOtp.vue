@@ -32,7 +32,7 @@ const updateValue = (event: Event) => {
 };
 
 // TODO: Implement arrow keys navigation
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const showCaret = (_event: Event) => {
     // const $input = _event.target as HTMLInputElement;
     // console.log('selectionStart', $input.selectionStart);

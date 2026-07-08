@@ -32,9 +32,7 @@ createContext(props, emit);
 
 const value = computed<SFilterValue>(() => props.modelValue);
 
-const appliedEntries = computed(() =>
-    Object.entries(value.value).filter(([id]) => id in props.filters),
-);
+const appliedEntries = computed(() => Object.entries(value.value).filter(([id]) => id in props.filters));
 
 const apply = () => {
     emit('apply', { ...value.value });
@@ -92,13 +90,7 @@ defineExpose({
         <div v-if="!hideApplyButton || !hideClearButton || saved !== undefined" class="flex gap-3">
             <SavedButton v-if="saved !== undefined" />
 
-            <SButton
-                v-if="!hideApplyButton"
-                class="h-[26px] whitespace-nowrap"
-                size="sm"
-                rounded="full"
-                @click="apply"
-            >
+            <SButton v-if="!hideApplyButton" class="h-[26px] whitespace-nowrap" size="sm" rounded="full" @click="apply">
                 {{ t('applyBtn') }}
             </SButton>
 

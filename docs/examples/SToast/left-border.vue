@@ -9,5 +9,5 @@ const { controls } = usePreview({
 </script>
 
 <template>
-    <SToast :leftBorder="controls.leftBorder" type="success" title="Changes saved" />
+    <SToast :left-border="controls.leftBorder" type="success" title="Changes saved" />
 </template>

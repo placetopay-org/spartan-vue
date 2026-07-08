@@ -92,9 +92,9 @@ defineExpose({ refButton });
 
             <!-- rightIcon -->
             <component
-                v-if="!circular"
                 v-bind="rightIconProps"
                 :is="rightIcon"
+                v-if="!circular"
                 data-s-right-icon
                 :class="twMerge('h-5 w-5', $slots.default?.()?.[0]?.children && '-mr-0.5', rightIconClass)"
             />
