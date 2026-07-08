@@ -21,12 +21,7 @@
     },
     "hooks": {
         "before:init": [
-            "pnpm run typecheck",
-            "pnpm run check:deps",
-            "pnpm run lint:check",
-            "pnpm run format:check",
-            "pnpm run test:ci",
-            "pnpm run build"
+            "sh -c 'if [ \"$CI\" = \"true\" ]; then echo \"Verified by the CI workflow; skipping local checks.\"; else pnpm run verify; fi'"
         ],
         "after:bump": ["pnpm run build", "pnpm dlx publint"]
     }

@@ -22,8 +22,16 @@ permissions:
     pages: write
 
 jobs:
+    # Gate. `workflow_dispatch` can be fired from any commit on the release
+    # branch, including one whose CI never ran or ran red, so the release job
+    # must depend on a green run rather than assume one happened.
+    verify:
+        name: Verify
+        uses: ./.github/workflows/ci.yml
+
     release:
         name: Release
+        needs: verify
         runs-on: ubuntu-latest
         steps:
             - name: Checkout

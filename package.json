@@ -49,6 +49,7 @@
     "test:ci": "vitest run --coverage",
     "typecheck": "vue-tsc --noEmit",
     "check:deps": "node scripts/checkPhantomDeps.js",
+    "verify": "pnpm run typecheck && pnpm run check:deps && pnpm run lint:check && pnpm run format:check && pnpm run test:ci && pnpm run build",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint --fix .",

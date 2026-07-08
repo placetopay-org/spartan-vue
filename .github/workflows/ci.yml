@@ -8,8 +8,12 @@ on:
             - develop
             - 2.x
     workflow_dispatch:
+    # Called by publish.yml, so a release can never run against a red tree.
+    workflow_call:
 
 concurrency:
+    # `github.workflow` resolves to the *caller* on workflow_call, so a release
+    # does not cancel the CI run already in flight for the same commit.
     group: ci-${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 

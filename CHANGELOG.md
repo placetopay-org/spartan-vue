@@ -15,8 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SFilter`: duplicate operator ids within a field now throw on mount instead of silently rendering a broken operator list.
 - `SMultiSelector`: `trigger` slot, scoped as `{ options, placeholder }`, mirroring `SSelector`. (The `3.0.0-beta.16` entry below announced this slot, but the implementation landed after that tag — it ships here.)
 - `SMultiSelector`: live preview `SMultiSelector/custom-trigger`, and `SFilter` previews for `i18n` and `initial-state`.
-- CI workflow (`.github/workflows/ci.yml`) running typecheck, lint, format, tests, build and `publint` on pull requests and pushes to `main`, `develop` and `2.x`, across Node 20 and 24. The repository previously had no workflow validating pull requests.
-- `pnpm run check:deps` (`scripts/checkPhantomDeps.js`) fails when `src/` imports a package that `package.json` does not declare. Wired into CI and into the release hooks, so `shamefully-hoist=true` can no longer hide a phantom dependency from the published package.
+- CI workflow (`.github/workflows/ci.yml`) running typecheck, phantom-dependency check, lint, format, tests, build and `publint` on pull requests and pushes to `main`, `develop` and `2.x`, across Node 20 and 24. The repository previously had no workflow validating pull requests.
+- `pnpm run check:deps` (`scripts/checkPhantomDeps.js`) fails when `src/` imports a package that `package.json` does not declare, so `shamefully-hoist=true` can no longer hide a phantom dependency from the published package.
+- `pnpm run verify` runs the full gate (typecheck, `check:deps`, lint, format, tests, build) in one command.
 - `npm` provenance (`publishConfig.provenance`). The publish workflow already granted `id-token: write` without using it.
 - `CHANGELOG.md` is now included in the published tarball.
 
@@ -52,7 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `validate` receives the operator as a `string` rather than a `TOperator` object.
 - `SDTable`: the expanded-rows watcher no longer defaults its `previousExpandedState` argument to `[]`. On the watcher's first run the argument is now `undefined` rather than an empty array.
 - `@floating-ui/vue`, `class-variance-authority`, `imask` and `tailwind-merge` moved from `devDependencies` to `dependencies`: they appear in the public type declarations and must resolve in consumer projects.
-- `.release-it.json`: `typecheck`, `lint:check`, `format:check` and `build` now run in `before:init`, so a failing build aborts the release instead of leaving behind a version-bump commit for a release that never published. `publint` runs after the bump.
+- `publish.yml` now calls `ci.yml` as a reusable workflow and gates the release job on it (`needs: verify`). `workflow_dispatch` can be fired from any commit on the release branch, including one whose CI never ran or ran red, so the release job can no longer assume a green tree. Previously nothing verified the commit being published beyond a single `test:ci` hook.
+- `.release-it.json`: `before:init` runs the full `verify` gate — typecheck, `check:deps`, lint, format, tests and build — but skips it when `$CI` is set, because the publish workflow has already run exactly those checks in its `verify` job. Previously only `test:ci` ran there, and the build ran in `after:bump`, so a failing build left behind a `chore(release): vX` commit for a version that never published. The build still runs in `after:bump` as well, to produce the `dist/` that npm packs. `publint` validates the result.
 - ESLint migrated to flat config (`eslint.config.js`). The project still carried a `.eslintrc.json`, which ESLint 10 ignores — `pnpm run lint` had been failing to start, so no rule was being enforced.
 
 ## [3.0.0-beta.16] - 2026-05-14
