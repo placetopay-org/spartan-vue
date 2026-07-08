@@ -6,8 +6,7 @@
         "requireBranch": ["main", "2.x"]
     },
     "npm": {
-        "publish": true,
-        "skipChecks": true
+        "publish": true
     },
     "github": {
         "release": true,

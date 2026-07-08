@@ -1,9 +1,10 @@
 name: Deploy Docs to GitHub Pages
 
 on:
-    push:
-        branches:
-            - feature/nuxt-docs
+    # Called by publish.yml after a successful release, or run by hand.
+    # There is deliberately no `push` trigger: the docs render the version and
+    # the component reference of whatever is on disk, so they are published with
+    # a release rather than on every commit.
     workflow_dispatch:
     workflow_call:
 
