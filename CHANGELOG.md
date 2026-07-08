@@ -8,7 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `pnpm run check:status` (`scripts/checkComponentStatus.js`) validates `docs/app/data/componentStatus.ts` against the source tree: every entry must name a real component, every non-`*Block` component must have an entry, `hasBlock` must agree with the existence of `<Name>Block/`, and each slug must be unique and resolve to a documentation page in both languages, under the category the entry declares. Wired into CI and the `verify` gate. The claim-shaped fields (`tests`, `docs`, `darkMode`, …) are still hand-written and out of its scope.
+- `ComponentStatusEntry.slug`, which overrides the slug derived from the component name.
 - `SInputPasswordBlock`: test suite. The component was exported from the public barrel with zero tests and 0% coverage — the only component in the library in that state. Now at 100%, covering label/id wiring, help and error captions, the `errorText` → `error` derivation, forwarding of `update:modelValue`, `state`, `isValid`, `focus` and `blur`, and prop pass-through to the inner input.
+
+### Fixed
+- `componentStatus.ts` declared the textarea component as `STextarea`. The real component is `STextArea`; the name was misspelled so that `nameToSlug` would derive `textarea` instead of `text-area`. Correcting the name would have broken `getStatusBySlug('textarea')` in silence. The entry now carries the right name and pins `slug: 'textarea'` explicitly.
+- The component index (`1.getting-started/6.components.md`, EN + ES) linked `SPageTitle`, `SSectionTitle` and `SSectionDescription` to `/components/display/…` and `/components/utilities/…`. Those pages live under `typography/`, so six routes returned `Page not found` and were never prerendered — `pnpm docs:generate` reported 18 fatal errors, now zero.
 
 ## [3.0.0-beta.17] - 2026-07-08
 

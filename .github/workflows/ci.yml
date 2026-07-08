@@ -52,6 +52,9 @@ jobs:
             - name: Phantom dependencies
               run: pnpm run check:deps
 
+            - name: Component status
+              run: pnpm run check:status
+
             - name: Lint
               run: pnpm run lint:check
 

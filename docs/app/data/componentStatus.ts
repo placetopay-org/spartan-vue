@@ -14,6 +14,8 @@ export interface ComponentImprovements {
 
 export interface ComponentStatusEntry {
     name: string;
+    /** Overrides `nameToSlug(name)` when the documentation route diverges from the component name. */
+    slug?: string;
     typescript?: boolean;
     jsdoc?: boolean;
     darkMode?: boolean;
@@ -38,7 +40,7 @@ function nameToSlug(name: string): string {
         .toLowerCase();
 }
 
-const defaults: Required<Omit<ComponentStatusEntry, 'name'>> = {
+const defaults: Required<Omit<ComponentStatusEntry, 'name' | 'slug'>> = {
     typescript: false,
     jsdoc: false,
     darkMode: false,
@@ -148,7 +150,11 @@ const componentsByCategory: Record<ComponentCategory, ComponentStatusEntry[]> = 
                 'https://www.figma.com/design/hRypwsAfjK2e0g9DOKLROV/Spartan-V2?node-id=13134-8958&t=chH7DYdlsITfmdld-0',
         },
         {
-            name: 'STextarea',
+            // The component is `STextArea`; the route has always been `/textarea`.
+            // `nameToSlug` would derive `text-area`, so the slug is pinned here rather
+            // than by misspelling the name.
+            name: 'STextArea',
+            slug: 'textarea',
             typescript: true,
             jsdoc: true,
             darkMode: true,
@@ -661,7 +667,7 @@ export const components: ComponentStatusData[] = Object.entries(componentsByCate
     entries.map((entry) => ({
         ...defaults,
         ...entry,
-        slug: nameToSlug(entry.name),
+        slug: entry.slug ?? nameToSlug(entry.name),
         category: category as ComponentCategory,
     })),
 );
