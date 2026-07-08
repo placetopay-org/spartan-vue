@@ -112,6 +112,16 @@ export type TInputProps = {
     rightOptions: TOption[];
 
     /**
+     * @en Accessible name for the right dropdown selector, exposed as its `aria-label`.
+     * Only you know what it selects — a currency, a document type — so nothing sensible
+     * can be defaulted. Omitting it leaves the selector unnamed for screen readers.
+     * @es Nombre accesible del selector desplegable derecho, expuesto como su `aria-label`.
+     * Solo tú sabes qué selecciona — una moneda, un tipo de documento — así que no hay
+     * valor por defecto razonable. Omitirlo deja el selector sin nombre para lectores de pantalla.
+     */
+    rightOptionsLabel: string;
+
+    /**
      * @en The currently selected value of the left dropdown selector.
      * @es El valor actualmente seleccionado del selector desplegable izquierdo.
      */
@@ -122,6 +132,16 @@ export type TInputProps = {
      * @es Opciones para el selector desplegable izquierdo. Cada opción tiene una etiqueta y un valor.
      */
     leftOptions: TOption[];
+
+    /**
+     * @en Accessible name for the left dropdown selector, exposed as its `aria-label`.
+     * Only you know what it selects — a currency, a document type — so nothing sensible
+     * can be defaulted. Omitting it leaves the selector unnamed for screen readers.
+     * @es Nombre accesible del selector desplegable izquierdo, expuesto como su `aria-label`.
+     * Solo tú sabes qué selecciona — una moneda, un tipo de documento — así que no hay
+     * valor por defecto razonable. Omitirlo deja el selector sin nombre para lectores de pantalla.
+     */
+    leftOptionsLabel: string;
 
     /**
      * @en Comma-separated order of right-side slots: 'slot', 'icon', 'text', 'selector'.
