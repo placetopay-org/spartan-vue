@@ -1,7 +1,7 @@
 ---
 seo:
   title: Spartan - Vue 3 Component Library for PlaceToPay
-  description: Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, i18n support and 65 ready-to-use components.
+  description: Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, i18n support, 54 main components and 10 Block variants.
 ---
 
 ::u-page-hero
@@ -101,58 +101,13 @@ Built with Vue 3 and TailwindCSS, with native internationalization support.
     class: col-span-2
     target: _blank
     ---
-      :::::tabs
-        ::::::tabs-item{.mt-5 icon="i-lucide-eye" label="Preview"}
-          :::::::div{.flex.flex-col.gap-4}
-            ::::::::note{.my-0}
-            Here's some additional information for you.
-            ::::::::
-
-            ::::::::tip{.my-0}
-            Here's a helpful suggestion.
-            ::::::::
-
-            ::::::::warning{.my-0}
-            Be careful with this action as it might have unexpected results.
-            ::::::::
-
-            ::::::::caution{.my-0}
-            This action cannot be undone.
-            ::::::::
-          :::::::
-        ::::::
-
-        ::::::tabs-item
-        ---
-        class: mt-5 mb-2 text-xs overflow-x-auto
-        icon: i-lucide-code
-        label: Code
-        ---
-        ```vue
-        <note>
-        Here's some additional information.
-        </note>
-
-        <tip>
-        Here's a helpful suggestion.
-        </tip>
-
-        <warning>
-        Be careful with this action as it might have unexpected results.
-        </warning>
-
-        <caution>
-        This action cannot be undone.
-        </caution>
-        ```
-        ::::::
-      :::::
+    :landing-components-showcase
 
     #title
-    [65 components]{.text-primary} ready to use
+    [54 main components]{.text-primary} and [10 Block variants]{.text-primary}
 
     #description
-    From buttons and cards to modals and tables, Spartan offers a wide range of customizable components for your development needs.
+    From buttons and inputs to modals and tables, Spartan offers real, reusable, and customizable components for product workflows.
     ::::
 
     ::::u-page-card
@@ -193,7 +148,7 @@ Built with Vue 3 and TailwindCSS, with native internationalization support.
     spotlight: true
     class: col-span-2 lg:col-span-2
     target: _blank
-    to: /es/getting-started/i18n
+    to: /en/getting-started/i18n
     ---
       :::::u-color-mode-image
       ---

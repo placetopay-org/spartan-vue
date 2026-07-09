@@ -41,23 +41,45 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
         props: computed(() => props),
         slots,
         rows: [],
-        config: { slim: !!props.slim, expander: false, totalCols },
+        config: { slim: computed(() => !!props.slim), expander: false, totalCols },
         cols: {},
-        colsArray: computed(() => Reflect.ownKeys(state.cols).map((field) => ({ ...state.cols[field]!, field }))),
+        colsArray: computed(() =>
+            Reflect.ownKeys(state.cols)
+                .map((field) => ({ ...state.cols[field]!, field }))
+                .sort((a, b) => a.pos - b.pos),
+        ),
         updateCol: ({ field, expander, ...rest }: TUpdateColData) => {
             if (!field) return;
 
+            const nextPosition = () =>
+                Math.max(0, ...Reflect.ownKeys(state.cols).map((key) => state.cols[key]?.pos ?? 0)) + 1;
+
             if (typeof field !== 'symbol') {
-                totalCols.value++;
-                state.cols[field] = { ...rest, pos: totalCols.value };
-            } else if (expander && !state.config.expander) {
+                const existing = state.cols[field];
+                if (!existing) totalCols.value++;
+                state.cols[field] = {
+                    ...existing,
+                    ...rest,
+                    ...(expander ? { expander } : {}),
+                    pos: existing?.pos ?? nextPosition(),
+                };
+            } else if (expander) {
+                const existing = state.cols[field];
+                if (existing) {
+                    state.cols[field] = { ...existing, ...rest, pos: existing.pos, expander };
+                    return;
+                }
+                if (state.config.expander) return;
                 state.config.expander = true;
                 totalCols.value++;
-                state.cols[field] = { ...rest, pos: totalCols.value, expander };
+                state.cols[field] = { ...rest, pos: nextPosition(), expander };
             }
         },
         removeCol: (field: string | symbol) => {
+            const existing = state.cols[field];
+            if (!existing) return;
             delete state.cols[field];
+            if (existing.expander) state.config.expander = false;
             totalCols.value--;
         },
     });

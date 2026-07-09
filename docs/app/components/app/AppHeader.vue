@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import WelcomeConfetti from './WelcomeConfetti.vue';
+
 const appConfig = useAppConfig();
 const site = useSiteConfig();
 const {
@@ -15,9 +17,12 @@ const links = computed(() =>
 );
 
 const npmUrl = computed(() => `https://www.npmjs.com/package/@placetopay/spartan-vue/v/${version}`);
+const versionLabel = computed(() => `v${version}`);
 </script>
 
 <template>
+    <WelcomeConfetti />
+
     <UHeader :ui="{ center: 'flex-1' }" :to="localePath('/')" :title="appConfig.header?.title || site.name">
         <AppHeaderCenter />
 
@@ -64,12 +69,14 @@ const npmUrl = computed(() => `https://www.npmjs.com/package/@placetopay/spartan
 
             <UButton
                 icon="i-simple-icons-npm"
+                :label="versionLabel"
                 :to="npmUrl"
                 target="_blank"
-                aria-label="npm"
+                :aria-label="`npm package ${versionLabel}`"
                 color="neutral"
-                variant="ghost"
-                class="text-[#CB3837]!"
+                variant="soft"
+                size="xs"
+                class="font-mono text-[#CB3837]!"
             />
         </template>
 

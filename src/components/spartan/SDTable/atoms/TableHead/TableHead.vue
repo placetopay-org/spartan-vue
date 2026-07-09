@@ -29,7 +29,7 @@ const toggleAllExpanders = () => {
         :class="twMerge('border-b border-gray-300 bg-gray-50 dark:border-white/15 dark:bg-gray-800/75', theadClass)"
     >
         <th
-            v-for="col in context.colsArray.sort((a, b) => a.pos - b.pos)"
+            v-for="col in context.colsArray"
             :key="col.field"
             scope="col"
             :class="twMerge(cellStyles({ head: true, unstyled: Boolean(col.expander) }))"

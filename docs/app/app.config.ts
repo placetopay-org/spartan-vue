@@ -2,7 +2,7 @@ export default defineAppConfig({
     seo: {
         title: 'Spartan Documentation',
         description:
-            'Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, with i18n support and 68 components.',
+            'Unified Vue 3 component library for PlaceToPay web applications. Built with TailwindCSS, i18n support, 54 main components and 10 Block variants.',
     },
     ui: {
         pageHero: {
