@@ -77,28 +77,16 @@ describe('SSectionDescription', () => {
             expect(element).toHaveClass('font-normal');
         });
 
-        test('allows overriding default text color via tailwind-merge', () => {
-            render(SSectionDescription, { props: { class: 'text-red-500' }, slots: { default: 'Description' } });
+        test.each([
+            ['text-red-500', 'text-gray-500'],
+            ['font-medium', 'font-normal'],
+            ['text-base', 'text-sm'],
+        ])('overrides the default %s via tailwind-merge', (override, base) => {
+            render(SSectionDescription, { props: { class: override }, slots: { default: 'Description' } });
 
             const element = screen.getByText('Description');
-            expect(element).toHaveClass('text-red-500');
-            expect(element).not.toHaveClass('text-gray-500');
-        });
-
-        test('allows overriding default font weight via tailwind-merge', () => {
-            render(SSectionDescription, { props: { class: 'font-medium' }, slots: { default: 'Description' } });
-
-            const element = screen.getByText('Description');
-            expect(element).toHaveClass('font-medium');
-            expect(element).not.toHaveClass('font-normal');
-        });
-
-        test('allows overriding default text size via tailwind-merge', () => {
-            render(SSectionDescription, { props: { class: 'text-base' }, slots: { default: 'Description' } });
-
-            const element = screen.getByText('Description');
-            expect(element).toHaveClass('text-base');
-            expect(element).not.toHaveClass('text-sm');
+            expect(element).toHaveClass(override);
+            expect(element).not.toHaveClass(base);
         });
     });
 

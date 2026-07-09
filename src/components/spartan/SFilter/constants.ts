@@ -90,14 +90,19 @@ export const DEFAULT_OPERATOR_BY_TYPE: Record<SFilterFieldType, string> = {
 };
 
 /**
- * Default value-input count per predefined operator id.
- * Custom operators may override via `inputs: 0 | 1 | 2`.
+ * Number of value inputs an operator renders.
  *
  * - `0` → no value input (existence-style operators and predefined date shortcuts).
  * - `1` → one value input (the default for almost everything).
  * - `2` → two value inputs (range operators).
  */
-export const OPERATOR_INPUT_COUNT: Record<string, 0 | 1 | 2> = {
+export type InputCount = 0 | 1 | 2;
+
+/**
+ * Default value-input count per predefined operator id.
+ * Custom operators may override via `inputs: InputCount`.
+ */
+export const OPERATOR_INPUT_COUNT: Record<string, InputCount> = {
     // existence
     exist: 0,
     notExist: 0,
@@ -129,7 +134,7 @@ export const OPERATOR_INPUT_COUNT: Record<string, 0 | 1 | 2> = {
  * Natural input count for a field type (used as the default when a custom
  * operator does not specify `inputs`).
  */
-export const FIELD_TYPE_INPUT_COUNT: Record<SFilterFieldType, 0 | 1 | 2> = {
+export const FIELD_TYPE_INPUT_COUNT: Record<SFilterFieldType, InputCount> = {
     text: 1,
     number: 1,
     amount: 1,
@@ -150,7 +155,7 @@ export const FIELD_TYPE_INPUT_COUNT: Record<SFilterFieldType, 0 | 1 | 2> = {
  *   but switch to two-input when the active operator has `inputs: 2`
  *   (e.g. `between` on a `number` field).
  */
-export const resolveInputComponent = (field: SFilterField, operatorInputCount: 0 | 1 | 2): Component | null => {
+export const resolveInputComponent = (field: SFilterField, operatorInputCount: InputCount): Component | null => {
     if (operatorInputCount === 0) return null;
     if (field.type === 'options') return IOptions;
     if (field.type === 'selection') return ISelection;

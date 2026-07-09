@@ -61,28 +61,16 @@ describe('SPageTitle', () => {
             expect(heading).toHaveClass('font-semibold');
         });
 
-        test('allows overriding default text size via tailwind-merge', () => {
-            render(SPageTitle, { props: { class: 'text-3xl' }, slots: { default: 'Title' } });
+        test.each([
+            ['text-3xl', 'text-2xl'],
+            ['text-blue-600', 'text-gray-900'],
+            ['font-bold', 'font-semibold'],
+        ])('overrides the default %s via tailwind-merge', (override, base) => {
+            render(SPageTitle, { props: { class: override }, slots: { default: 'Title' } });
 
             const heading = screen.getByRole('heading', { name: 'Title' });
-            expect(heading).toHaveClass('text-3xl');
-            expect(heading).not.toHaveClass('text-2xl');
-        });
-
-        test('allows overriding default text color via tailwind-merge', () => {
-            render(SPageTitle, { props: { class: 'text-blue-600' }, slots: { default: 'Title' } });
-
-            const heading = screen.getByRole('heading', { name: 'Title' });
-            expect(heading).toHaveClass('text-blue-600');
-            expect(heading).not.toHaveClass('text-gray-900');
-        });
-
-        test('allows overriding default font weight via tailwind-merge', () => {
-            render(SPageTitle, { props: { class: 'font-bold' }, slots: { default: 'Title' } });
-
-            const heading = screen.getByRole('heading', { name: 'Title' });
-            expect(heading).toHaveClass('font-bold');
-            expect(heading).not.toHaveClass('font-semibold');
+            expect(heading).toHaveClass(override);
+            expect(heading).not.toHaveClass(base);
         });
     });
 
