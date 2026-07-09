@@ -162,4 +162,11 @@ describe('SModalConfirm', () => {
 
         expect(screen.getByText('Confirm')).toBeInTheDocument();
     });
+
+    test('Renders the responsive layout by default', () => {
+        render(SModalConfirm, { props: { open: true } });
+
+        const containers = document.querySelectorAll('[data-s-container]');
+        expect(containers[containers.length - 1]?.className).toContain('bottom-4');
+    });
 });

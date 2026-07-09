@@ -19,24 +19,40 @@ defineEmits<TModalCardEmits>();
 
 const attrs = useAttrs();
 
-const props = defineProps<TModalProps & TCardProps>();
+// `responsive = true` lives in the destructure because Vue casts an absent
+// boolean prop to `false`: without it, SModalCard forwarded an explicit `false`
+// to SModal and silently disabled the responsive layout the docs promise.
+const {
+    open,
+    preventClose,
+    responsive = true,
+    position,
+    class: className,
+    size,
+    icon,
+    actions,
+    title,
+    iconType,
+    iconColor,
+    closable,
+} = defineProps<TModalProps & TCardProps>();
 
 const modalBind = computed(() => ({
-    open: props.open,
-    preventClose: props.preventClose,
-    responsive: props.responsive,
-    position: props.position,
+    open,
+    preventClose,
+    responsive,
+    position,
 }));
 
 const cardBind = computed(() => ({
-    class: twMerge('w-full sm:max-w-lg', props.class),
-    size: props.size,
-    icon: props.icon,
-    actions: props.actions,
-    title: props.title,
-    iconType: props.iconType,
-    iconColor: props.iconColor,
-    closable: props.closable,
+    class: twMerge('w-full sm:max-w-lg', className),
+    size,
+    icon,
+    actions,
+    title,
+    iconType,
+    iconColor,
+    closable,
     'pt:title': attrs['pt:title'],
     'pt:icon': attrs['pt:icon'],
     'pt:iconContainer': attrs['pt:iconContainer'],
