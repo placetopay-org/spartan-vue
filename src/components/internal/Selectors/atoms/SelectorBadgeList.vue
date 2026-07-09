@@ -7,7 +7,12 @@ defineEmits<{
     (e: 'removed', option: TOption): void;
 }>();
 
-const { optionLabel = 'label', optionValue } = defineProps<{
+const {
+    optionLabel = 'label',
+    optionValue = undefined,
+    options = [],
+    width = undefined,
+} = defineProps<{
     options?: TOption[];
     optionLabel?: string;
     optionValue?: string;

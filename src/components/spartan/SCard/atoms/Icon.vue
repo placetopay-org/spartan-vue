@@ -11,8 +11,8 @@ import type { TCardProps } from '../types';
 import { twMerge } from 'tailwind-merge';
 
 const {
-    icon,
-    iconColor,
+    icon = undefined,
+    iconColor = undefined,
     size = 'md',
     ptIcon,
     ptIconContainer,

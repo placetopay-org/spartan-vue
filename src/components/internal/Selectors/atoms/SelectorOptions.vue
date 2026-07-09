@@ -13,7 +13,9 @@ defineEmits<{
 const {
     optionLabel = 'label',
     options,
-    optionValue,
+    optionValue = undefined,
+    optionGroupLabel = undefined,
+    optionGroupItems = undefined,
 } = defineProps<{
     options: TOption[];
     optionLabel?: string;

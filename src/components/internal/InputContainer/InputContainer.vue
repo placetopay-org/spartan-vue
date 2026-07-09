@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { containerStyles } from './styles';
 import type { TRounded } from '@/constants';
 
-const { rounded = 'both' } = defineProps<{
+const { rounded = 'both', class: propClass = '' } = defineProps<{
     button?: boolean;
     class?: string;
     disabled?: boolean;
@@ -13,7 +13,7 @@ const { rounded = 'both' } = defineProps<{
 </script>
 
 <template>
-    <div :class="twMerge(containerStyles({ disabled, error, rounded }), $props.class)">
+    <div :class="twMerge(containerStyles({ disabled, error, rounded }), propClass)">
         <slot />
     </div>
 </template>
