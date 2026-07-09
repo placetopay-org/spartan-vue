@@ -19,25 +19,20 @@ import { computed } from 'vue';
 defineOptions({ inheritAttrs: false });
 defineEmits<TModalSideEmits>();
 
-const props = withDefaults(defineProps<Partial<TModalSideProps>>(), {
-    backdropClass: '',
-    open: false,
-    side: 'left',
-    breakpoint: undefined,
-});
+const { backdropClass = '', open = false, side = 'left', breakpoint } = defineProps<Partial<TModalSideProps>>();
 
-const transitionEnterFrom = computed(() => (props.side === 'left' ? '-translate-x-full' : 'translate-x-full'));
+const transitionEnterFrom = computed(() => (side === 'left' ? '-translate-x-full' : 'translate-x-full'));
 
-const transitionLeaveTo = computed(() => (props.side === 'left' ? '-translate-x-full' : 'translate-x-full'));
+const transitionLeaveTo = computed(() => (side === 'left' ? '-translate-x-full' : 'translate-x-full'));
 
-const flexJustify = computed(() => (props.side === 'left' ? 'justify-start' : 'justify-end'));
+const flexJustify = computed(() => (side === 'left' ? 'justify-start' : 'justify-end'));
 
-const closeButtonPosition = computed(() => (props.side === 'left' ? 'right-4' : 'left-4'));
+const closeButtonPosition = computed(() => (side === 'left' ? 'right-4' : 'left-4'));
 </script>
 
 <template>
     <ModalBackdropWrapper
-        :breakpoint="breakpoint"
+        :breakpoint
         :show="open"
         :class="$props.class"
         :backdrop-class="twMerge('bg-gray-900/80', backdropClass)"

@@ -17,12 +17,7 @@ import placetopayLogoDark from './assets/placetopay_logo_dark.svg';
 import placetopayLogoBw from './assets/placetopay_logo_bw.svg';
 import type { TPlacetopayLogoProps } from './types';
 
-const props = withDefaults(defineProps<Partial<TPlacetopayLogoProps>>(), {
-    width: undefined,
-    height: undefined,
-    mode: 'base',
-    class: '',
-});
+const { width, height, size, mode = 'base', class: propClass = '' } = defineProps<Partial<TPlacetopayLogoProps>>();
 
 const assets = {
     base: placetopayLogo,
@@ -31,18 +26,13 @@ const assets = {
 };
 
 const computedWidth = computed(() => {
-    if (props.width) return props.width;
+    if (width) return width;
 
-    if (props.size === 'md') return 202;
+    if (size === 'md') return 202;
     return undefined;
 });
 </script>
 
 <template>
-    <component
-        :is="assets[mode]"
-        :width="computedWidth"
-        :height="props.height"
-        :class="twMerge('aspect-[202/45]', props.class)"
-    />
+    <component :is="assets[mode]" :width="computedWidth" :height :class="twMerge('aspect-[202/45]', propClass)" />
 </template>

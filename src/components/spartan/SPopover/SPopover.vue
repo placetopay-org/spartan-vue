@@ -21,14 +21,15 @@ defineOptions({ inheritAttrs: false });
 
 const emit = defineEmits<TPopoverEmits>();
 
-const props = withDefaults(defineProps<TPopoverProps>(), {
-    static: false,
-    offset: 0,
-    placement: 'bottom-start',
-    preventClose: false,
-    preventFocus: false,
-    responsive: true,
-});
+const {
+    static: isStatic = false,
+    offset = 0,
+    placement = 'bottom-start',
+    preventClose = false,
+    preventFocus = false,
+    responsive = true,
+    arrow,
+} = defineProps<TPopoverProps>();
 
 const isOpen = ref(false);
 const isLargeScreen = useMediaQuery('(min-width: 768px)');
@@ -41,22 +42,22 @@ const ARROW_CLEARANCE = Math.sqrt(288) / 2;
 
 const middleware = computed(() => {
     const group = [];
-    !props.static && group.push(flip());
-    group.push(setOffset(props.offset + (props.arrow ? ARROW_CLEARANCE : 0)));
-    props.arrow && group.push(setArrow({ element: arrowRef, padding: 16 }));
+    !isStatic && group.push(flip());
+    group.push(setOffset(offset + (arrow ? ARROW_CLEARANCE : 0)));
+    arrow && group.push(setArrow({ element: arrowRef, padding: 16 }));
 
     return group;
 });
 
 const { floatingStyles, middlewareData } = useFloating(reference, floating, {
     transform: false,
-    placement: computed(() => props.placement),
+    placement: computed(() => placement),
     middleware: middleware,
     whileElementsMounted: autoUpdate,
 });
 
 const styles = computed(() => {
-    if (props.responsive && !isLargeScreen.value) {
+    if (responsive && !isLargeScreen.value) {
         return {
             left: '0',
             right: '0',
@@ -72,7 +73,7 @@ const focus = () => {
 
 const open = () => {
     isOpen.value = true;
-    if (props.preventFocus) return;
+    if (preventFocus) return;
     nextTick(() => {
         // prevent jumping
         setTimeout(() => {
@@ -99,7 +100,7 @@ const focusout = () => {
         if (reference.value?.contains(document.activeElement)) return;
         if (floating.value?.contains(document.activeElement)) return;
 
-        if (!props.preventClose) close();
+        if (!preventClose) close();
     });
 };
 
@@ -115,7 +116,7 @@ const handlers = {
 defineExpose(handlers);
 
 const arrowPosition = computed(() => {
-    const side = props.placement.split('-')[0];
+    const side = placement.split('-')[0];
 
     const staticSide = {
         top: 'bottom',
