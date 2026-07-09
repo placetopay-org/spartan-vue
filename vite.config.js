@@ -22,27 +22,13 @@ export default defineConfig({
         lib: { entry: componentsEntryMap, formats: ['es'] },
         name: 'SpartanVue',
         rollupOptions: {
-            external: [
-                'vue',
-                'vue-i18n',
-                // '@floating-ui/vue',
-                // '@headlessui/vue',
-                // '@heroicons/vue',
-                // '@tanstack/vue-table',
-                // 'lodash',  TODO: Review this package and use tree-shaking
-                // 'vue-currency-input',
-                // 'vue-imask',
-            ],
+            // Only vue and vue-i18n are externalized (peer dependencies);
+            // every other runtime library is bundled into the package.
+            external: ['vue', 'vue-i18n'],
             output: {
                 globals: {
                     vue: 'Vue',
                     'vue-i18n': 'VueI18n',
-                    // '@floating-ui/vue': 'FloatingUI',
-                    // '@headlessui/vue': 'HeadlessUI',
-                    // '@heroicons/vue': 'Heroicons',
-                    // '@tanstack/vue-table': 'VueTable',
-                    // 'vue-currency-input': 'VueCurrencyInput',
-                    // 'vue-imask': 'VueIMask',
                 },
                 entryFileNames: 'components/[name]/index.js',
                 chunkFileNames: 'shared/[name].js',
@@ -63,6 +49,14 @@ export default defineConfig({
             extension: ['.vue'],
             include: ['src/components/spartan/'],
             clean: false,
+            // The library advertises 100% coverage; make the guarantee
+            // enforceable locally instead of relying only on SonarQube.
+            thresholds: {
+                statements: 100,
+                branches: 100,
+                functions: 100,
+                lines: 100,
+            },
         },
     },
 });

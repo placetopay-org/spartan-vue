@@ -19,7 +19,10 @@ import fs from 'fs';
             fs.cpSync(srcPath, destPath);
             console.log(`  ✓ copied ${file}`);
         } else {
-            console.warn(`  ⚠ ${file} not found, skipping`);
+            // Every file here backs a `./styles/*.css` entry in package.json
+            // "exports" — skipping one would publish a dead export.
+            console.error(`  ✗ ${file} not found`);
+            process.exit(1);
         }
     });
 
