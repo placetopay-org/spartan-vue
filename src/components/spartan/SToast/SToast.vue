@@ -8,7 +8,7 @@ import { twMerge } from 'tailwind-merge';
 
 defineEmits<TToastEmits>();
 
-const { type = 'success', leftBorder, class: className } = defineProps<TToastProps>();
+const { type = 'success', leftBorder = false, class: className } = defineProps<TToastProps>();
 
 const typeIcons = {
     success: CheckCircleIcon,
@@ -20,7 +20,7 @@ const icon = computed(() => typeIcons[type]);
 </script>
 
 <template>
-    <div aria-live="assertive" :class="twMerge(toastStyles({ type, leftBorder: leftBorder ?? false }), className)">
+    <div aria-live="assertive" :class="twMerge(toastStyles({ type, leftBorder }), className)">
         <div class="flex flex-col justify-center">
             <div class="flex items-center gap-1.5">
                 <component :is="icon" :class="toastIconStyles({ type })" aria-hidden="true" />

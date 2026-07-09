@@ -22,12 +22,14 @@ const { pt, extractor } = usePassthrough();
 
 const [containerClass, containerProps] = extractor(pt.value.container);
 
-const props = defineProps<TModalProps>();
-
-const responsive = computed(() => props.responsive !== false);
+// Reactive destructure so the boolean default is declared where Vue honors it.
+// `props.responsive !== false` could never see the documented default: an absent
+// boolean prop is cast to `false`, not `undefined`, so every SModal without an
+// explicit `responsive` rendered the centered (non-responsive) layout.
+const { open, responsive = true, preventClose } = defineProps<TModalProps>();
 
 watchEffect(() => {
-    if (props.open) {
+    if (open) {
         document.documentElement.style.overflow = 'hidden';
     } else {
         setTimeout(() => {
@@ -37,13 +39,11 @@ watchEffect(() => {
 });
 
 const containerStyles = computed(() =>
-    responsive.value
-        ? 'bottom-4 px-4 w-full sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto'
-        : 'top-1/2 -translate-y-1/2',
+    responsive ? 'bottom-4 px-4 w-full sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto' : 'top-1/2 -translate-y-1/2',
 );
 
 const closeModal = () => {
-    if (props.preventClose) return;
+    if (preventClose) return;
     emit('update:open', false);
 };
 </script>

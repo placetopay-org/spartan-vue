@@ -317,4 +317,26 @@ describe('SButton', () => {
             expect(icon).not.toHaveClass('-ml-0.5');
         });
     });
+
+    describe('Loading spinner palette', () => {
+        test('uses the alternative track colors when outline', () => {
+            const { container } = render(SButton, {
+                props: { loading: true, outline: true },
+                slots: { default: 'Save' },
+            });
+
+            const track = container.querySelector('circle');
+            expect(track).toHaveAttribute('stroke', 'var(--color-spartan-primary-200)');
+        });
+
+        test('uses the solid track colors by default', () => {
+            const { container } = render(SButton, {
+                props: { loading: true },
+                slots: { default: 'Save' },
+            });
+
+            const track = container.querySelector('circle');
+            expect(track).not.toHaveAttribute('stroke', 'var(--color-spartan-primary-200)');
+        });
+    });
 });

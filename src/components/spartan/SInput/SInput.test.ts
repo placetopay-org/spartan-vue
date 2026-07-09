@@ -3,6 +3,7 @@ import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import SInput from './SInput.vue';
+import IconSlot from './slots/IconSlot.vue';
 import { h } from 'vue';
 
 const icon = (props: any, { attrs }: any) => h('svg', { 'data-testid': 'test-icon', ...attrs });
@@ -552,6 +553,17 @@ describe('SInput', () => {
             expect(wrapper.className).toContain('border-0');
             // The focus ring is part of the error:false variant, so it's always present
             expect(wrapper.className).toContain('s-outline');
+        });
+    });
+
+    describe('IconSlot', () => {
+        test('renders nothing when no icon is given', () => {
+            // slotBuilder never mounts it without an icon; the branch is the
+            // component's own contract.
+            const { container } = render(IconSlot);
+
+            expect(container.querySelector('svg')).toBeNull();
+            expect(container.firstElementChild?.childElementCount).toBe(0);
         });
     });
 });

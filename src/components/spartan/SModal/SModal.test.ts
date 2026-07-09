@@ -102,4 +102,15 @@ describe('SModal', () => {
         const container = document.querySelector('[data-s-container]');
         expect(container?.className).toContain('-translate-y-1/2');
     });
+
+    test('Renders with the responsive container by default', () => {
+        resizeObserverMock();
+        render(SModal, { props: { open: true }, slots: { default: 'Responsive' } });
+
+        // Teleported containers from earlier tests linger in <body>; assert on the
+        // one this render produced.
+        const containers = document.querySelectorAll('[data-s-container]');
+        const container = containers[containers.length - 1];
+        expect(container?.className).toContain('bottom-4');
+    });
 });

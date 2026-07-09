@@ -149,4 +149,13 @@ describe('SModalCard', () => {
     //     screen.getByText('Test content');
     //     screen.getByText('Test actions');
     // });
+
+    test('Forwards the responsive default down to SModal', () => {
+        // Vue casts an absent boolean prop to false, so before declaring the
+        // default in the destructure this rendered the centered layout.
+        render(SModalCard, { props: { open: true, title: 'T' } });
+
+        const containers = document.querySelectorAll('[data-s-container]');
+        expect(containers[containers.length - 1]?.className).toContain('bottom-4');
+    });
 });

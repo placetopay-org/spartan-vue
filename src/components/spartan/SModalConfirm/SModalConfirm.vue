@@ -18,15 +18,27 @@ import type { TModalConfirmEmits, TModalConfirmProps } from './types';
 
 const emit = defineEmits<TModalConfirmEmits>();
 
-const props = defineProps<TModalConfirmProps & TModalProps & TCardProps>();
+// `responsive = true` must live in the destructure: Vue casts an absent boolean
+// prop to `false`, so the previous `props.responsive !== false` never saw the
+// documented default and every SModalConfirm rendered non-responsive.
+const {
+    open,
+    closable,
+    preventClose,
+    description,
+    responsive = true,
+    title: titleProp,
+    confirmText: confirmTextProp,
+    cancelText: cancelTextProp,
+    icon: iconProp,
+} = defineProps<TModalConfirmProps & TModalProps & TCardProps>();
 
 const { t } = translator('modalConfirm');
 
-const title = computed(() => props.title || t('title'));
-const confirmText = computed(() => props.confirmText || t('confirmText'));
-const cancelText = computed(() => props.cancelText || t('cancelText'));
-const icon = computed(() => props.icon || 'danger');
-const responsive = computed(() => props.responsive !== false);
+const title = computed(() => titleProp || t('title'));
+const confirmText = computed(() => confirmTextProp || t('confirmText'));
+const cancelText = computed(() => cancelTextProp || t('cancelText'));
+const icon = computed(() => iconProp || 'danger');
 
 const confirm = () => {
     emit('confirm');

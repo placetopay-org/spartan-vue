@@ -226,4 +226,10 @@ describe('SCard', () => {
         await user.click(screen.getByText('Confirm'));
         expect(onClick).toHaveBeenCalledOnce();
     });
+
+    test('Renders the title through the title slot', () => {
+        render(SCard, { slots: { title: 'Slotted title' } });
+
+        expect(screen.getByRole('heading', { name: 'Slotted title' })).toBeInTheDocument();
+    });
 });

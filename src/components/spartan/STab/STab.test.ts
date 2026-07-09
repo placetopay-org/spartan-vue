@@ -655,4 +655,154 @@ describe('STab', () => {
             expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
         });
     });
+
+    // Arms the variant components leave unexercised elsewhere.
+    describe('Variant branch coverage', () => {
+        // jsdom does not implement innerText, so the text-content path fallback
+        // never runs under the default environment. Shimming it onto textContent
+        // lets these tests exercise the branch exactly as a browser would.
+        beforeAll(() => {
+            Object.defineProperty(HTMLElement.prototype, 'innerText', {
+                configurable: true,
+                get() {
+                    return this.textContent ?? '';
+                },
+            });
+        });
+        afterAll(() => {
+            delete (HTMLElement.prototype as { innerText?: string }).innerText;
+        });
+
+        const FaceIcon = defineComponent({
+            setup() {
+                return () => h('svg', { 'data-testid': 'face-icon' });
+            },
+        });
+
+        test('pills: a pathless item derives its path from the text and emits it on click', async () => {
+            const user = userEvent.setup();
+            const items = [h(STabItem, {}, { default: () => 'Pilly' })];
+
+            const { emitted } = render(STab, {
+                props: { modelValue: 'x', variant: 'pills' },
+                slots: { default: items },
+            });
+            await user.click(screen.getByText('Pilly'));
+
+            expect(emitted()['update:modelValue']).toEqual([['Pilly']]);
+        });
+
+        test('underline: a pathless item derives its path from the text and emits it on click', async () => {
+            const user = userEvent.setup();
+            const items = [h(STabItem, {}, { default: () => 'Undy' })];
+
+            const { emitted } = render(STab, { props: { modelValue: 'x' }, slots: { default: items } });
+            await user.click(screen.getByText('Undy'));
+
+            expect(emitted()['update:modelValue']).toEqual([['Undy']]);
+        });
+
+        test('pills: renders as anchor with icons on active and inactive items', () => {
+            const items = [
+                h(STabItem, { path: 'one', as: 'a', icon: FaceIcon }, { default: () => 'One' }),
+                h(STabItem, { path: 'two', as: 'a', icon: FaceIcon }, { default: () => 'Two' }),
+            ];
+
+            render(STab, { props: { modelValue: 'one', variant: 'pills' }, slots: { default: items } });
+
+            expect(screen.getByText('One').tagName).toBe('A');
+            expect(screen.getByText('One')).not.toHaveAttribute('type');
+
+            const icons = screen.getAllByTestId('face-icon');
+            expect(icons[0]).toHaveClass('text-spartan-primary-500');
+            expect(icons[1]).toHaveClass('text-gray-400');
+        });
+
+        test('underline: the icon palette follows the active state', () => {
+            const items = [
+                h(STabItem, { path: 'act', icon: FaceIcon }, { default: () => 'Act' }),
+                h(STabItem, { path: 'idle', icon: FaceIcon }, { default: () => 'Idle' }),
+            ];
+
+            render(STab, { props: { modelValue: 'act' }, slots: { default: items } });
+
+            expect(screen.getByText('Act').querySelector('[data-testid="face-icon"]')).toHaveClass(
+                'text-spartan-primary-500',
+            );
+            expect(screen.getByText('Idle').querySelector('[data-testid="face-icon"]')).toHaveClass('text-gray-400');
+        });
+
+        test('underline: tolerates an item with neither path nor text content', () => {
+            const items = [
+                h(STabItem, {}, { default: () => '' }),
+                h(STabItem, { path: 'real' }, { default: () => 'Real' }),
+            ];
+
+            render(STab, { props: { modelValue: 'real' }, slots: { default: items } });
+
+            expect(screen.getByText('Real')).toBeInTheDocument();
+        });
+
+        test('dropdown: stays inactive when no registered child matches, including tabs with no children', async () => {
+            // Children only mount — and only register their regex — once the dropdown
+            // has been opened, so both panels are opened first.
+            const user = userEvent.setup();
+            const items = [
+                h(
+                    STabItem,
+                    { path: 'menuA', dropdown: true },
+                    {
+                        default: () => 'Menu A',
+                        items: () => [h(STabDropdownItem, { path: 'a1' }, { default: () => 'A1' })],
+                    },
+                ),
+                // Its key never lands in `dropdowns`: exercises the `?? []` arm while
+                // the registry is non-empty thanks to menuA.
+                h(STabItem, { path: 'menuB', dropdown: true }, { default: () => 'Menu B', items: () => [] }),
+            ];
+
+            render(STab, { props: { modelValue: 'elsewhere' }, slots: { default: items } });
+            await user.click(screen.getByText('Menu A'));
+            await user.click(screen.getByText('Menu B'));
+
+            expect(screen.getByText('Menu A').closest('button')).not.toHaveClass('border-spartan-primary-500');
+            expect(screen.getByText('Menu B').closest('button')).not.toHaveClass('border-spartan-primary-500');
+        });
+
+        test('dropdown: the reference renders as anchor with an icon in both states', async () => {
+            const items = [
+                h(
+                    STabItem,
+                    { path: 'menuA', dropdown: true, as: 'a', icon: FaceIcon },
+                    {
+                        default: () => 'Menu A',
+                        items: () => [h(STabDropdownItem, { path: 'a1' }, { default: () => 'A1' })],
+                    },
+                ),
+                h(
+                    STabItem,
+                    { path: 'menuB', dropdown: true, as: 'a', icon: FaceIcon },
+                    {
+                        default: () => 'Menu B',
+                        items: () => [h(STabDropdownItem, { path: 'b1' }, { default: () => 'B1' })],
+                    },
+                ),
+            ];
+
+            // a1 matches once the child has mounted and registered, so the panel is
+            // opened first; Menu B stays closed and therefore inactive.
+            render(STab, { props: { modelValue: 'a1' }, slots: { default: items } });
+            const user = userEvent.setup();
+            await user.click(screen.getByText('Menu A'));
+
+            const menuA = screen.getByText('Menu A');
+            expect(menuA.tagName).toBe('A');
+            expect(menuA).not.toHaveAttribute('type');
+
+            // Scope each icon to its own reference: teleported dropdown panels make
+            // global DOM order unreliable.
+            expect(menuA.querySelector('[data-testid="face-icon"]')).toHaveClass('text-spartan-primary-500');
+            expect(screen.getByText('Menu B').querySelector('[data-testid="face-icon"]')).toHaveClass('text-gray-400');
+        });
+    });
 });

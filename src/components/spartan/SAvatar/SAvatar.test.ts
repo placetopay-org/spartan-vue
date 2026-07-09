@@ -170,4 +170,20 @@ describe('SAvatar', () => {
             expect(container.querySelector('[data-s-avatar]')).toBeInTheDocument();
         });
     });
+
+    test('renders only the last initial when the name starts with a separator', () => {
+        // A leading separator splits into an empty first token, exercising the
+        // `?? ''` fallback for the first initial.
+        render(SAvatar, { props: { name: '-Ana' } });
+
+        expect(screen.getByText('A')).toBeInTheDocument();
+    });
+
+    test('renders a single initial for a one-word name', () => {
+        // No separator in the name means `last` is undefined and only the first
+        // initial renders.
+        render(SAvatar, { props: { name: 'Madonna' } });
+
+        expect(screen.getByText('M')).toBeInTheDocument();
+    });
 });
