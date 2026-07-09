@@ -218,7 +218,7 @@ describe('SToast', () => {
             });
 
             // Assert
-            expect(screen.getByText('Close')).toHaveClass('sr-only');
+            expect(screen.getByText('$spartan.common.close')).toHaveClass('sr-only');
         });
 
         test('Icon has aria-hidden attribute', () => {

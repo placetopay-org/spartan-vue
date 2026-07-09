@@ -11,23 +11,21 @@ export default {
 <script setup lang="ts">
 import { twMerge as tm } from 'tailwind-merge';
 import { XMarkIcon } from '@heroicons/vue/20/solid';
-import { hasSlotContent } from '@/helpers';
+import { hasSlotContent, translator } from '@/helpers';
 import type { TAlertProps } from './types';
 import { alertStyles } from './styles';
 
 // Emits
 defineEmits<{ (e: 'close'): void }>();
 
+const { t } = translator('common');
+
 // Props and Defaults
-const props = withDefaults(defineProps<TAlertProps>(), {
-    color: 'neutral',
-    variant: 'solid',
-    closeable: false,
-});
+const { color = 'neutral', variant = 'solid', closeable = false } = defineProps<TAlertProps>();
 </script>
 
 <template>
-    <div role="alert" :class="tm(alertStyles({ color: props.color, variant: props.variant }), $props.class)">
+    <div role="alert" :class="tm(alertStyles({ color, variant }), $props.class)">
         <!-- Icon -->
         <component :is="icon" v-if="icon" class="h-5 w-5" />
 
@@ -53,7 +51,7 @@ const props = withDefaults(defineProps<TAlertProps>(), {
 
         <!-- Close button -->
         <button v-if="closeable" type="button" @click="$emit('close')">
-            <span class="sr-only">Close</span>
+            <span class="sr-only">{{ t('close') }}</span>
             <component :is="closeIcon || XMarkIcon" class="size-5" aria-hidden="true" />
         </button>
     </div>

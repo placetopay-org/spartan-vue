@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { TBadgeProps, TBadgeEmits } from './types';
 import { badgeStyles, dotStyles, tagStyles, bodyStyles } from './styles';
-import { usePassthrough, hasSlotContent } from '@/helpers';
+import { usePassthrough, hasSlotContent, translator } from '@/helpers';
 import { useSlots } from 'vue';
 import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TBadgeEmits>();
+const { t } = translator('badge');
 const slots = useSlots();
 const tagSlot = hasSlotContent(slots.tag);
 
@@ -68,7 +69,7 @@ const remove = (e: Event) => {
             :class="twMerge('-mx-1 cursor-pointer rounded-sm active:scale-90', crossClass)"
             @click="remove"
         >
-            <span class="sr-only">Remove</span>
+            <span class="sr-only">{{ t('remove') }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
                 <path
                     d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
