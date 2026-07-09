@@ -52,7 +52,7 @@ export const createContext = (props: TDTableProps, emit: TDTableEmits, slots: an
             if (!field) return;
 
             const nextPosition = () =>
-                Math.max(0, ...Reflect.ownKeys(state.cols).map((key) => state.cols[key]?.pos ?? 0)) + 1;
+                Math.max(0, ...Reflect.ownKeys(state.cols).map((key) => state.cols[key]!.pos)) + 1;
 
             if (typeof field !== 'symbol') {
                 const existing = state.cols[field];
