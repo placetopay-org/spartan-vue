@@ -478,6 +478,19 @@ describe('SDTable API', () => {
         expect(state.cols.name.sort).toBe('asc');
     });
 
+    test('updateCol keeps expander flag on named columns', () => {
+        const emit = (() => {}) as any;
+        const props = { data: [] } as any;
+
+        const state = createContext(props, emit, {});
+
+        state.updateCol({ field: 'toggle', header: 'Toggle', expander: true });
+
+        expect(state.cols.toggle.expander).toBe(true);
+        expect(state.cols.toggle.pos).toBe(1);
+        expect(state.config.totalCols).toBe(1);
+    });
+
     test('removeCol ignores missing fields and clears expander state', () => {
         const emit = (() => {}) as any;
         const props = { data: [] } as any;
