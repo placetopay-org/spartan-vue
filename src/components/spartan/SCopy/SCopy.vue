@@ -11,7 +11,7 @@ export default {
 
 <script setup lang="ts">
 import type { TCopyProps, TCopyEmits } from './types';
-import { ref, useSlots } from 'vue';
+import { onUnmounted, ref, useSlots } from 'vue';
 import { STooltip } from '../STooltip';
 import { CopyIcon, CopySuccessIcon } from '@placetopay/iconsax-vue/bulk';
 import { translator } from '@/helpers';
@@ -23,6 +23,7 @@ const { value } = defineProps<TCopyProps>();
 const { t } = translator('copy');
 
 const copying = ref<ReturnType<typeof setTimeout>>();
+onUnmounted(() => clearTimeout(copying.value));
 
 const tooltip = ref<InstanceType<typeof STooltip>>();
 
