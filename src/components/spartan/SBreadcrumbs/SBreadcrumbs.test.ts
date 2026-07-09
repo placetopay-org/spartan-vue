@@ -23,7 +23,7 @@ describe('SBreadcrumbs', () => {
         render(SBreadcrumbs);
 
         // Assert
-        screen.getByRole('navigation', { name: 'Breadcrumb' });
+        expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toBeInTheDocument();
     });
 
     test('Renders with semantic HTML structure', () => {

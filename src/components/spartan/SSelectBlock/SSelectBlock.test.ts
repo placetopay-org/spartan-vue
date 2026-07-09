@@ -11,7 +11,7 @@ describe('SSelectBlock', () => {
         render(SSelectBlock);
 
         // Assert
-        screen.getByRole('combobox');
+        expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
 
     test('Can be rendered with label', () => {

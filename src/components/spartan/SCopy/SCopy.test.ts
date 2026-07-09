@@ -14,7 +14,7 @@ describe('SCopy', () => {
         });
 
         // Assert
-        screen.getByText('Test Content');
+        expect(screen.getByText('Test Content')).toBeInTheDocument();
     });
 
     test('Can copy a value from slot', async () => {

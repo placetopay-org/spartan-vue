@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 describe('SCheckbox', () => {
     test('Can be rendered', () => {
         render(SCheckbox);
-        screen.getByRole('checkbox');
+        expect(screen.getByRole('checkbox')).toBeInTheDocument();
     });
 
     test('Can be checked', async () => {

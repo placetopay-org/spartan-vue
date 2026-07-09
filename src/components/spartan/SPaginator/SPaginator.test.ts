@@ -12,11 +12,11 @@ describe('SPaginator', () => {
         });
 
         // Assert
-        screen.getByRole('button', { name: '1' });
-        screen.getByRole('button', { name: '2' });
-        screen.getByRole('button', { name: '3' });
-        screen.getByRole('button', { name: '...' });
-        screen.getByRole('button', { name: '25' });
+        expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '2' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '3' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '...' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '25' })).toBeInTheDocument();
     });
 
     test('Can be emit events', async () => {
@@ -39,17 +39,17 @@ describe('SPaginator', () => {
 
         // Assert
         expect(screen.getAllByRole('button', { name: '...' })).toHaveLength(2);
-        screen.getByRole('button', { name: '1' });
+        expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
 
-        screen.getByRole('button', { name: '13' });
-        screen.getByRole('button', { name: '14' });
-        screen.getByRole('button', { name: '15' });
-        screen.getByRole('button', { name: '16' });
-        screen.getByRole('button', { name: '17' });
-        screen.getByRole('button', { name: '18' });
-        screen.getByRole('button', { name: '19' });
+        expect(screen.getByRole('button', { name: '13' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '14' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '15' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '16' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '17' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '18' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '19' })).toBeInTheDocument();
 
-        screen.getByRole('button', { name: '25' });
+        expect(screen.getByRole('button', { name: '25' })).toBeInTheDocument();
 
         await user.click(nextButton);
         await user.click(nextButton);
@@ -57,17 +57,17 @@ describe('SPaginator', () => {
         await user.click(nextButton);
 
         expect(screen.getAllByRole('button', { name: '...' })).toHaveLength(1);
-        screen.getByRole('button', { name: '1' });
+        expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
 
-        screen.getByRole('button', { name: '17' });
-        screen.getByRole('button', { name: '18' });
-        screen.getByRole('button', { name: '19' });
-        screen.getByRole('button', { name: '20' });
-        screen.getByRole('button', { name: '21' });
-        screen.getByRole('button', { name: '22' });
-        screen.getByRole('button', { name: '23' });
-        screen.getByRole('button', { name: '24' });
-        screen.getByRole('button', { name: '25' });
+        expect(screen.getByRole('button', { name: '17' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '18' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '19' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '20' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '21' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '22' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '23' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '24' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '25' })).toBeInTheDocument();
     });
 
     test('Can be render fully', async () => {
@@ -91,12 +91,12 @@ describe('SPaginator', () => {
         await user.click(button);
 
         // Assert
-        screen.getByRole('button', { name: '1' });
-        screen.getByRole('button', { name: '2' });
-        screen.getByRole('button', { name: '3' });
-        screen.getByRole('button', { name: '4' });
-        screen.getByRole('button', { name: '5' });
-        screen.getByRole('button', { name: '6' });
+        expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '2' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '3' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '4' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '5' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '6' })).toBeInTheDocument();
     });
 
     test('Navigates to previous page', async () => {

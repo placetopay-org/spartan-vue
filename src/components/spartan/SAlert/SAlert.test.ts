@@ -21,7 +21,7 @@ describe('SAlert', () => {
         render(SAlert, { slots: { default: 'This is an alert message' } });
 
         // Assert
-        screen.getByText('This is an alert message');
+        expect(screen.getByText('This is an alert message')).toBeInTheDocument();
     });
 
     test('Can be rendered with title', () => {
@@ -39,7 +39,7 @@ describe('SAlert', () => {
         render(SAlert, { props: { description: 'Alert description text' } });
 
         // Assert
-        screen.getByText('Alert description text');
+        expect(screen.getByText('Alert description text')).toBeInTheDocument();
     });
 
     test('Can be rendered with title and description', () => {
@@ -52,8 +52,8 @@ describe('SAlert', () => {
         });
 
         // Assert
-        screen.getByRole('heading', { level: 3, name: 'Alert Title' });
-        screen.getByText('Alert description text');
+        expect(screen.getByRole('heading', { level: 3, name: 'Alert Title' })).toBeInTheDocument();
+        expect(screen.getByText('Alert description text')).toBeInTheDocument();
     });
 
     test('Can be rendered with icon', () => {
@@ -196,8 +196,9 @@ describe('SAlert', () => {
         });
 
         // Assert
-        screen.getByText('Description text');
-        screen.queryByText('Slot content'); // Should not render slot when description exists
+        expect(screen.getByText('Description text')).toBeInTheDocument();
+        // The default slot is not rendered while a description is present.
+        expect(screen.queryByText('Slot content')).not.toBeInTheDocument();
     });
 
     test('Can render slot content when title is provided but not description', () => {
@@ -208,7 +209,7 @@ describe('SAlert', () => {
         });
 
         // Assert
-        screen.getByRole('heading', { level: 3, name: 'Alert Title' });
+        expect(screen.getByRole('heading', { level: 3, name: 'Alert Title' })).toBeInTheDocument();
         const slotContent = screen.getByText('Slot content instead of description');
         expect(slotContent.parentElement).toHaveClass('min-w-0 flex-1');
     });
