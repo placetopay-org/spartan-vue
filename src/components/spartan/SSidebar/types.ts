@@ -1,8 +1,6 @@
 import type { Component, FunctionalComponent } from 'vue';
 
-export type TSidebarEmits = {
-    (event: 'update:modelValue', value?: string): void;
-};
+export type TSidebarEmits = (event: 'update:modelValue', value?: string) => void;
 
 export type TSidebarProps = {
     modelValue: string;

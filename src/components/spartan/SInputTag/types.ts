@@ -55,10 +55,8 @@ export type TInputTagProps = {
     type?: string;
 };
 
-export type TInputTagEmits = {
-    /**
-     * @en Emitted when the tags array changes (tag added or removed).
-     * @es Se emite cuando el arreglo de etiquetas cambia (etiqueta agregada o eliminada).
-     */
-    (event: 'update:modelValue', value: string[]): void;
-};
+/**
+ * @en Emitted when the tags array changes (tag added or removed).
+ * @es Se emite cuando el arreglo de etiquetas cambia (etiqueta agregada o eliminada).
+ */
+export type TInputTagEmits = (event: 'update:modelValue', value: string[]) => void;

@@ -1,9 +1,7 @@
 import type { HTMLAttributes } from 'vue';
 import type { TBadgeStyles } from './styles';
 
-export type TBadgeEmits = {
-    (event: 'removed'): void;
-};
+export type TBadgeEmits = (event: 'removed') => void;
 
 export type TBadgeProps = {
     /**

@@ -116,10 +116,8 @@ export type TInputDateProps = {
     showWeek?: boolean;
 };
 
-export type TInputDateEmits = {
-    /**
-     * @en Emitted when the selected date value changes.
-     * @es Se emite cuando el valor de la fecha seleccionada cambia.
-     */
-    (event: 'update:modelValue', value: TDateValue): void;
-};
+/**
+ * @en Emitted when the selected date value changes.
+ * @es Se emite cuando el valor de la fecha seleccionada cambia.
+ */
+export type TInputDateEmits = (event: 'update:modelValue', value: TDateValue) => void;

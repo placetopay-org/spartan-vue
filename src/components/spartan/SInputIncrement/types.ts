@@ -1,12 +1,10 @@
 import type { HTMLAttributes } from 'vue';
 
-export type TInputIncrementEmits = {
-    /**
-     * @en Emitted when the numeric value changes.
-     * @es Se emite cuando el valor numérico cambia.
-     */
-    (event: 'update:modelValue', value: number): void;
-};
+/**
+ * @en Emitted when the numeric value changes.
+ * @es Se emite cuando el valor numérico cambia.
+ */
+export type TInputIncrementEmits = (event: 'update:modelValue', value: number) => void;
 
 export type TInputIncrementProps = {
     /**

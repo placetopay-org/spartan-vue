@@ -126,32 +126,26 @@ const vPage = computed(() => {
     return undefined;
 });
 
-const vPages = computed(() => {
+const vPages = computed<(string | number)[] | number>(() => {
     if (!vCount.value || !vPage.value) return [];
-
-    let arr: (string | number)[] = [];
 
     if (vCount.value <= vQuantity.value * 2 + 5) return vCount.value;
 
     if (vPage.value - vQuantity.value < 4) {
-        arr = Array.from({ length: vQuantity.value * 2 + 3 }, (_, i) => i + 1);
-        arr.push('...');
-        arr.push(vCount.value);
-    } else if (vCount.value - vPage.value - vQuantity.value < 3) {
-        arr.push(1);
-        arr.push('...');
-        arr = arr.concat(
-            Array.from({ length: vQuantity.value * 2 + 3 }, (_, i) => vCount.value! - vQuantity.value * 2 - 2 + i),
-        );
-    } else {
-        arr.push(1);
-        arr.push('...');
-        arr = arr.concat(Array.from({ length: 1 + vQuantity.value * 2 }, (_, i) => vPage.value! - vQuantity.value + i));
-        arr.push('...');
-        arr.push(vCount.value);
+        const head = Array.from({ length: vQuantity.value * 2 + 3 }, (_, i) => i + 1);
+        return [...head, '...', vCount.value];
     }
 
-    return arr;
+    if (vCount.value - vPage.value - vQuantity.value < 3) {
+        const tail = Array.from(
+            { length: vQuantity.value * 2 + 3 },
+            (_, i) => vCount.value! - vQuantity.value * 2 - 2 + i,
+        );
+        return [1, '...', ...tail];
+    }
+
+    const middle = Array.from({ length: 1 + vQuantity.value * 2 }, (_, i) => vPage.value! - vQuantity.value + i);
+    return [1, '...', ...middle, '...', vCount.value];
 });
 
 const vCanGoPrev = computed(() => {

@@ -19,7 +19,7 @@ export type TTooltipProps = {
      * @es Posición preferida del tooltip relativa al disparador.
      * @default 'bottom'
      */
-    placement?: TPopoverProps['placement'];
+    placement?: NonNullable<TPopoverProps['placement']>;
 
     /**
      * @en Whether to display an arrow pointing to the trigger.
@@ -32,7 +32,7 @@ export type TTooltipProps = {
      * @en Distance in pixels between the trigger and the tooltip.
      * @es Distancia en píxeles entre el disparador y el tooltip.
      */
-    offset?: TPopoverProps['offset'];
+    offset?: NonNullable<TPopoverProps['offset']>;
 
     /**
      * @en Disables automatic flip positioning.

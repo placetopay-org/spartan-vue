@@ -38,7 +38,7 @@ describe('SPaginator', () => {
         const nextButton = screen.getByRole('button', { name: /next/i });
 
         // Assert
-        expect(screen.getAllByRole('button', { name: '...' }).length).toBe(2);
+        expect(screen.getAllByRole('button', { name: '...' })).toHaveLength(2);
         screen.getByRole('button', { name: '1' });
 
         screen.getByRole('button', { name: '13' });
@@ -56,7 +56,7 @@ describe('SPaginator', () => {
         await user.click(nextButton);
         await user.click(nextButton);
 
-        expect(screen.getAllByRole('button', { name: '...' }).length).toBe(1);
+        expect(screen.getAllByRole('button', { name: '...' })).toHaveLength(1);
         screen.getByRole('button', { name: '1' });
 
         screen.getByRole('button', { name: '17' });

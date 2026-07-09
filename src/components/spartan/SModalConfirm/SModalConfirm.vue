@@ -13,9 +13,8 @@ export default {
 import { SButton, SModalCard } from '@spartan';
 import type { TModalProps, TCardProps } from '@spartan';
 import { computed } from 'vue';
-import { translator } from '@/helpers';
+import { translator, hasSlotContent } from '@/helpers';
 import type { TModalConfirmEmits, TModalConfirmProps } from './types';
-import { hasSlotContent } from '@/helpers';
 
 const emit = defineEmits<TModalConfirmEmits>();
 
