@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { v4 as uuidv4 } from 'uuid';
+import { computed, useId } from 'vue';
 import { hasSlotContent } from '@/helpers';
 import { checkboxContainerStyles, checkboxInputStyles, checkboxLabelStyles, checkboxDescriptionStyles } from './styles';
 import type { TCheckboxProps } from './types';
@@ -12,7 +11,8 @@ const emit = defineEmits<{
 }>();
 
 const { disabled, id, inline, modelValue, name, reverse, value } = defineProps<TCheckboxProps>();
-const computedId = computed(() => id ?? uuidv4());
+const uid = useId();
+const computedId = computed(() => id ?? uid);
 const isChecked = computed(() => {
     if (Array.isArray(modelValue)) return modelValue.includes(value as string);
     return modelValue;

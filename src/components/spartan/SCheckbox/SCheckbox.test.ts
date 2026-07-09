@@ -1,6 +1,7 @@
 import { test, describe } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
+import { h } from 'vue';
 import SCheckbox from './SCheckbox.vue';
 import userEvent from '@testing-library/user-event';
 
@@ -22,11 +23,15 @@ describe('SCheckbox', () => {
 
     test('Can be checked with group', async () => {
         const user = userEvent.setup();
-        render(SCheckbox, {
-            slots: { default: 'first' },
-            props: { value: 'first', modelValue: [] },
+        // Render both boxes in one app (as a real form would) so useId() assigns
+        // each a distinct id; two separate render() calls reset the id counter.
+        render({
+            render: () =>
+                h('div', [
+                    h(SCheckbox, { value: 'first', modelValue: [] }, { default: () => 'first' }),
+                    h(SCheckbox, { value: 'second', modelValue: [] }, { default: () => 'second' }),
+                ]),
         });
-        render(SCheckbox, { slots: { default: 'second' }, props: { value: 'second', modelValue: [] } });
 
         const firstCheckbox = screen.getByRole('checkbox', { name: 'first' });
         const secondCheckbox = screen.getByRole('checkbox', { name: 'second' });

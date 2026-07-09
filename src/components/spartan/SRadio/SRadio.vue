@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { v4 as uuidv4 } from 'uuid';
+import { computed, ref, useId } from 'vue';
 import { hasSlotContent } from '@/helpers';
 import { radioContainerStyles, radioInputStyles, radioLabelStyles, radioDescriptionStyles } from './styles';
 import type { TRadioProps } from './types';
@@ -24,7 +23,8 @@ const model = computed({
     },
 });
 
-const computedId = computed(() => id ?? uuidv4());
+const uid = useId();
+const computedId = computed(() => id ?? uid);
 </script>
 
 <template>
