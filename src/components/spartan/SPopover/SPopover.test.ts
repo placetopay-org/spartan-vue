@@ -33,7 +33,7 @@ describe('SPopover', () => {
         const button = screen.getByRole('button', { name: 'Reference element' });
         await user.click(button);
 
-        screen.getByText('Hello World!');
+        expect(screen.getByText('Hello World!')).toBeInTheDocument();
     });
 
     test('Toggles via the exposed toggle handler', async () => {

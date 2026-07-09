@@ -17,7 +17,7 @@ describe('SRadio', () => {
 
     test('Can be rendered', () => {
         render(SRadio);
-        screen.getByRole('radio');
+        expect(screen.getByRole('radio')).toBeInTheDocument();
     });
 
     test('Can be checked', async () => {

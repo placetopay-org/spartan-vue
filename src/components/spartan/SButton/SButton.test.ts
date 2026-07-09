@@ -15,7 +15,7 @@ describe('SButton', () => {
     test('Can be rendered with slot content', () => {
         render(SButton, { slots: { default: 'Click me' } });
 
-        screen.getByRole('button', { name: 'Click me' });
+        expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument();
     });
 
     test('Can be polymorphic', () => {

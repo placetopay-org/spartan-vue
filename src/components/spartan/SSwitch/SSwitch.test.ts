@@ -29,7 +29,7 @@ describe('SSwitch', () => {
         render(SSwitch);
 
         // Assert
-        screen.getByRole('switch');
+        expect(screen.getByRole('switch')).toBeInTheDocument();
     });
 
     test('Can be rendered with label', () => {
@@ -202,7 +202,7 @@ describe('SSwitch', () => {
         });
 
         // Assert
-        screen.getByTestId('icon-off');
-        screen.getByTestId('icon-on');
+        expect(screen.getByTestId('icon-off')).toBeInTheDocument();
+        expect(screen.getByTestId('icon-on')).toBeInTheDocument();
     });
 });

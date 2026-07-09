@@ -9,7 +9,7 @@ describe('SDefinitionTerm', () => {
         render(SDefinitionTerm);
 
         // Assert
-        screen.getByRole('definition');
+        expect(screen.getByRole('definition')).toBeInTheDocument();
     });
 
     test('Can be rendered with label and descriptions by props', () => {

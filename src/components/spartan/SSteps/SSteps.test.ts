@@ -27,10 +27,10 @@ describe('SSteps', () => {
         });
 
         // Assert
-        screen.getByRole('navigation', { name: 'Progress' });
-        screen.getByRole('link', { name: 'First step' });
-        screen.getByRole('link', { name: 'Second steptest description' });
-        screen.getByRole('link', { name: 'Third step' });
+        expect(screen.getByRole('navigation', { name: 'Progress' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'First step' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Second steptest description' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Third step' })).toBeInTheDocument();
     });
 
     test('Can be rendered with array', async () => {
@@ -59,10 +59,10 @@ describe('SSteps', () => {
         });
 
         // Assert
-        screen.getByRole('navigation', { name: 'Progress' });
-        screen.getByRole('link', { name: 'First step' });
-        screen.getByRole('link', { name: 'Second steptest description' });
-        screen.getByRole('link', { name: '' });
+        expect(screen.getByRole('navigation', { name: 'Progress' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'First step' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Second steptest description' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: '' })).toBeInTheDocument();
     });
 
     test('Can be rendered with simple variant', async () => {
@@ -87,10 +87,10 @@ describe('SSteps', () => {
         });
 
         // Assert
-        screen.getByRole('navigation', { name: 'Progress' });
-        screen.getByRole('link', { name: 'First step' });
-        screen.getByRole('link', { name: 'Second steptest description' });
-        screen.getByRole('link', { name: 'Third step' });
+        expect(screen.getByRole('navigation', { name: 'Progress' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'First step' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Second steptest description' })).toBeInTheDocument();
+        expect(screen.getByRole('link', { name: 'Third step' })).toBeInTheDocument();
     });
 
     test('Reacts to variant prop changes', async () => {

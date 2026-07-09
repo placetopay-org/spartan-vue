@@ -26,7 +26,7 @@ describe('SSidebar', () => {
         render(SSidebar);
 
         // Assert
-        screen.getByRole('complementary');
+        expect(screen.getByRole('complementary')).toBeInTheDocument();
     });
 
     test('Can be rendered with items', () => {
@@ -43,13 +43,13 @@ describe('SSidebar', () => {
         });
 
         // Assert
-        screen.getByRole('complementary');
-        screen.getByRole('navigation');
-        screen.getByRole('list');
+        expect(screen.getByRole('complementary')).toBeInTheDocument();
+        expect(screen.getByRole('navigation')).toBeInTheDocument();
+        expect(screen.getByRole('list')).toBeInTheDocument();
         expect(screen.getAllByRole('listitem')).toHaveLength(3);
-        screen.getByRole('button', { name: 'FirstLink' });
-        screen.getByRole('button', { name: 'SecondLink' });
-        screen.getByRole('button', { name: 'ThirdLink' });
+        expect(screen.getByRole('button', { name: 'FirstLink' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'SecondLink' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'ThirdLink' })).toBeInTheDocument();
     });
 
     test('Can be rendered with groups', () => {
@@ -69,11 +69,11 @@ describe('SSidebar', () => {
 
         // Assert
         screen.debug();
-        screen.getByRole('complementary');
-        screen.getByRole('navigation');
-        screen.getByRole('list');
+        expect(screen.getByRole('complementary')).toBeInTheDocument();
+        expect(screen.getByRole('navigation')).toBeInTheDocument();
+        expect(screen.getByRole('list')).toBeInTheDocument();
         expect(screen.getAllByRole('listitem')).toHaveLength(4);
-        screen.getByRole('button', { name: 'ThirdLink' });
+        expect(screen.getByRole('button', { name: 'ThirdLink' })).toBeInTheDocument();
     });
 
     test('Can be rendered a header', () => {
@@ -91,7 +91,7 @@ describe('SSidebar', () => {
         });
 
         // Assert
-        screen.getByRole('banner');
+        expect(screen.getByRole('banner')).toBeInTheDocument();
     });
 
     test('Can be rendered a footer', () => {
@@ -109,7 +109,7 @@ describe('SSidebar', () => {
         });
 
         // Assert
-        screen.getByText('Footer');
+        expect(screen.getByText('Footer')).toBeInTheDocument();
     });
 
     test('Renders custom header slot', () => {

@@ -26,14 +26,14 @@ describe('SDropdown', () => {
         await user.click(screen.getByRole('button', { name: 'Dropdown Button' }));
 
         // Assert
-        screen.getByText('Title');
-        screen.getByText('Description');
+        expect(screen.getByText('Title')).toBeInTheDocument();
+        expect(screen.getByText('Description')).toBeInTheDocument();
 
-        screen.getByText('Option');
-        screen.getByText('Device');
+        expect(screen.getByText('Option')).toBeInTheDocument();
+        expect(screen.getByText('Device')).toBeInTheDocument();
 
-        screen.getByText('Option');
-        screen.getByText('Edit');
+        expect(screen.getByText('Option')).toBeInTheDocument();
+        expect(screen.getByText('Edit')).toBeInTheDocument();
     });
 
     test('Does not toggle when manual is true', async () => {

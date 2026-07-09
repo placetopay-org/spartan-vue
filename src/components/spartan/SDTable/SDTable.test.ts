@@ -28,15 +28,21 @@ describe('SDTable', () => {
 
         // Assert
         await waitFor(() => {
-            screen.getByRole('columnheader', { name: 'Nombre' });
-            screen.getByRole('columnheader', { name: 'Correo' });
-            screen.getByRole('columnheader', { name: 'Titulo' });
-            screen.getByRole('columnheader', { name: 'Rol' });
+            expect(screen.getByRole('columnheader', { name: 'Nombre' })).toBeInTheDocument();
+            expect(screen.getByRole('columnheader', { name: 'Correo' })).toBeInTheDocument();
+            expect(screen.getByRole('columnheader', { name: 'Titulo' })).toBeInTheDocument();
+            expect(screen.getByRole('columnheader', { name: 'Rol' })).toBeInTheDocument();
 
-            screen.getByRole('cell', { name: 'Lindsay Walton' });
+            expect(screen.getByRole('cell', { name: 'Lindsay Walton' })).toBeInTheDocument();
 
-            screen.getByRole('row', { name: 'Lindsay Walton lindsay.walton@example.com Front-end Developer Member' });
-            screen.getByRole('row', { name: 'Jhon Connor jhon.connor@example.com Back-end Developer Member' });
+            expect(
+                screen.getByRole('row', {
+                    name: 'Lindsay Walton lindsay.walton@example.com Front-end Developer Member',
+                }),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole('row', { name: 'Jhon Connor jhon.connor@example.com Back-end Developer Member' }),
+            ).toBeInTheDocument();
         });
     });
 
@@ -254,7 +260,7 @@ describe('SDTable', () => {
         });
 
         await waitFor(() => {
-            screen.getByRole('columnheader', { name: 'Name' });
+            expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
         });
     });
 
@@ -267,7 +273,7 @@ describe('SDTable', () => {
         });
 
         await waitFor(() => {
-            screen.getByRole('cell', { name: 'Alice' });
+            expect(screen.getByRole('cell', { name: 'Alice' })).toBeInTheDocument();
         });
     });
 

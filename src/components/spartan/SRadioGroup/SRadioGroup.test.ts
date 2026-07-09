@@ -33,7 +33,7 @@ describe('SRadioGroup', () => {
             slots: { default: [option1, option2] },
         });
 
-        screen.getByRole('radiogroup');
+        expect(screen.getByRole('radiogroup')).toBeInTheDocument();
     });
 
     test('Can be checked', async () => {

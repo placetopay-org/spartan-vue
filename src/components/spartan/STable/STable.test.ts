@@ -31,11 +31,11 @@ describe('STable', () => {
         render(STable, { slots: { default: [Head, Body] } });
 
         // Assert
-        screen.getByRole('table');
-        screen.getByRole('columnheader', { name: 'Name' });
-        screen.getByRole('columnheader', { name: 'Email' });
-        screen.getByRole('cell', { name: 'John Doe' });
-        screen.getByRole('cell', { name: 'john.doe@email.com' });
+        expect(screen.getByRole('table')).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: 'Email' })).toBeInTheDocument();
+        expect(screen.getByRole('cell', { name: 'John Doe' })).toBeInTheDocument();
+        expect(screen.getByRole('cell', { name: 'john.doe@email.com' })).toBeInTheDocument();
     });
 
     test('Auto-generates table from cols and rows', () => {
@@ -49,11 +49,11 @@ describe('STable', () => {
             },
         });
 
-        screen.getByRole('table');
-        screen.getByRole('columnheader', { name: 'Name' });
-        screen.getByRole('columnheader', { name: 'Email' });
-        screen.getByRole('cell', { name: 'Alice' });
-        screen.getByRole('cell', { name: 'bob@test.com' });
+        expect(screen.getByRole('table')).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: 'Name' })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: 'Email' })).toBeInTheDocument();
+        expect(screen.getByRole('cell', { name: 'Alice' })).toBeInTheDocument();
+        expect(screen.getByRole('cell', { name: 'bob@test.com' })).toBeInTheDocument();
     });
 
     test('Auto-generates table with highlight', () => {
