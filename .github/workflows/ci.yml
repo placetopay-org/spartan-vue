@@ -52,6 +52,9 @@ jobs:
             - name: Phantom dependencies
               run: pnpm run check:deps
 
+            - name: Locale parity
+              run: pnpm run check:locales
+
             # Structural only — no coverage needed. Whether the generated coverage is
             # current is checked in sonar.yml, the one job that runs instrumentation.
             - name: Component status
@@ -75,3 +78,28 @@ jobs:
 
             - name: Validate published package
               run: pnpm dlx publint
+
+    docs:
+        name: Docs build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            # Prerenders every page. Catches broken component-preview references and
+            # dead internal links that only surface at generate time — the class of
+            # failure that silently shipped 18 broken routes before this job existed.
+            - name: Generate docs site
+              run: pnpm run docs:generate
