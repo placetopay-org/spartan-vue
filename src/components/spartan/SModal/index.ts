@@ -1,3 +1,3 @@
 export { default as SModal } from './SModal.vue';
 
-export type { TModalProps } from './types';
+export type { TModalEmits, TModalProps } from './types';

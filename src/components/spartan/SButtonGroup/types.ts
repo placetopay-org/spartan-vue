@@ -1,4 +1,4 @@
-import { type FunctionalComponent } from 'vue';
+import { type Component, type FunctionalComponent } from 'vue';
 
 export type TButtonGroupItemProps = {
     /**
@@ -59,5 +59,5 @@ export type TButtonGroupItemProps = {
      * @en Custom element or component to render instead of a button.
      * @es Elemento o componente personalizado para renderizar en lugar de un botón.
      */
-    as?: any;
+    as?: string | Component;
 };

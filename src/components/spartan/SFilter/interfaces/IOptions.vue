@@ -7,7 +7,9 @@ import { translator } from '@/helpers';
 import { SBadge, SInput } from '@spartan';
 import type { SFilterOptionsField } from '../types';
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+    (event: 'update:modelValue', value: string | string[] | boolean): void;
+}>();
 
 const { t } = translator('filter');
 

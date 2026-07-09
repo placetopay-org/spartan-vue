@@ -9,14 +9,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-import type { TModalProps } from './types';
+import type { TModalEmits, TModalProps } from './types';
 import { twMerge } from 'tailwind-merge';
 import { computed, watchEffect } from 'vue';
 import { TranStyle } from '@/constants';
 import { usePassthrough } from '@/helpers';
 
 defineOptions({ inheritAttrs: false });
-const emit = defineEmits(['update:open']);
+const emit = defineEmits<TModalEmits>();
 
 const { pt, extractor } = usePassthrough();
 

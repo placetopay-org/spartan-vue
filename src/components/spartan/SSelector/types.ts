@@ -1,3 +1,4 @@
+import type { VNodeChild } from 'vue';
 import type { TRounded } from '@/constants';
 
 export type TOption = Record<string, any> | string | number;
@@ -9,13 +10,13 @@ export type TSelectorSlots = {
      * @en Replaces the selector button content. Receives the resolved selected option object (or `undefined` when no value is selected or while options are loading) and the `placeholder` prop.
      * @es Reemplaza el contenido del botón del selector. Recibe el objeto del option seleccionado ya resuelto (o `undefined` cuando no hay valor o mientras cargan las options) y el prop `placeholder`.
      */
-    trigger?(props: { option: TOption | undefined; placeholder: string | undefined }): any;
+    trigger?(props: { option: TOption | undefined; placeholder: string | undefined }): VNodeChild;
 
     /**
      * @en Replaces the rendering of each option inside the dropdown. Receives the iterated option.
      * @es Reemplaza la renderización de cada option dentro del dropdown. Recibe la option iterada.
      */
-    option?(props: { option: TOption }): any;
+    option?(props: { option: TOption }): VNodeChild;
 };
 
 export type TSelectorEmits = {

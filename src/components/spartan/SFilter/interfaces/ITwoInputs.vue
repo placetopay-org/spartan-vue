@@ -9,7 +9,10 @@ type TwoInputsField = SFilterDateRangeField | SFilterNumberField | SFilterAmount
 
 const { t } = translator('filter');
 
-const emit = defineEmits(['update:modelValue', 'update:currency']);
+const emit = defineEmits<{
+    (event: 'update:modelValue', value: (string | number | undefined)[]): void;
+    (event: 'update:currency', value?: string): void;
+}>();
 
 const props = defineProps<{
     modelValue?: string[] | number[];
