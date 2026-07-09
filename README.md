@@ -7,8 +7,8 @@ Spartan Vue is a vue component library that contains the components used in the 
 
 > **Migrating from v2.x?** Check out the [Migration Guide](./docs/content/en/1.getting-started/8.migration.md) for step-by-step instructions.
 
-## Desing system
-You can find the documentation and components of this design system by clicking [here.](https://develop--646e732a14dfaa707ad59b33.chromatic.com/)
+## Design system
+The documentation and interactive component playground live in the `docs/` site of this repository. Run it locally with `npm run docs:dev`.
 
 ## Installing
 
@@ -92,7 +92,7 @@ import { SButton } from '@placetopay/spartan-vue';
 ```
 
 ## Using Components with Translation
-Some components come with integrated texts. For these components, Spartan-vue provides translations in four languages:
+Some components come with integrated texts. For these components, Spartan-vue provides translations in five languages:
 - Spanish
 - English
 - Italian

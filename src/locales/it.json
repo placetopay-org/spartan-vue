@@ -1,5 +1,11 @@
 {
     "$spartan": {
+        "badge": {
+            "remove": "Rimuovi"
+        },
+        "common": {
+            "close": "Chiudi"
+        },
         "templateHeaderTable": {
             "search": "Cercare"
         },

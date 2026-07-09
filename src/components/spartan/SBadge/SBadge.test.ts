@@ -268,7 +268,7 @@ describe('SBadge', () => {
             const srOnly = container.querySelector('.sr-only');
 
             expect(srOnly).toBeInTheDocument();
-            expect(srOnly?.textContent).toBe('Remove');
+            expect(srOnly?.textContent).toBe('$spartan.badge.remove');
         });
 
         test('Emits removed event on click', async () => {

@@ -7,25 +7,20 @@ import type { TSidebarItemProps } from './types';
 
 defineOptions({ inheritAttrs: false });
 
-const props = withDefaults(defineProps<Partial<TSidebarItemProps>>(), {
-    as: 'button',
-    path: undefined,
-    icon: undefined,
-    active: false,
-});
+const { as = 'button', path, icon, active = false } = defineProps<Partial<TSidebarItemProps>>();
 
 const el = ref<HTMLElement | null>(null);
-const updatedPath = ref(props.path);
+const updatedPath = ref(path);
 
 const store = useContext('SSidebarItem');
 
-const isActive = ref(props.active);
-const setActive = (value: boolean) => (isActive.value = value || props.active);
+const isActive = ref(active);
+const setActive = (value: boolean) => (isActive.value = value || active);
 
 const isChild = ref(false);
 
 watch(
-    () => props.active,
+    () => active,
     (value) => {
         isActive.value = value;
     },

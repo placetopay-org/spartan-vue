@@ -363,7 +363,7 @@ describe('v-model ownership', () => {
         renderHarness({ filters: filtersRef, initialValue: { status: { operator: 'equal', value: 'active' } } });
 
         // Trigger a remove
-        const remove = screen.getByRole('button', { name: 'Remove' });
+        const remove = screen.getByRole('button', { name: '$spartan.badge.remove' });
         await user.click(remove);
 
         // filters reference is unchanged
@@ -484,7 +484,7 @@ describe('events', () => {
         });
         render(Wrapper as any);
 
-        await user.click(screen.getByRole('button', { name: 'Remove' }));
+        await user.click(screen.getByRole('button', { name: '$spartan.badge.remove' }));
         await waitFor(() => {
             const dump = document.querySelector('[data-test="dump"]')!.textContent!;
             expect(JSON.parse(dump)).toEqual({});
@@ -704,7 +704,7 @@ describe('permanent fields', () => {
             filters: { x: { type: 'text', label: 'X', permanent: true, operators: ['contains'] } },
             initialValue: { x: { operator: 'contains', value: 'pin' } },
         });
-        expect(screen.queryByRole('button', { name: 'Remove' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: '$spartan.badge.remove' })).not.toBeInTheDocument();
     });
 });
 
@@ -1117,7 +1117,7 @@ describe('IOptions', () => {
                 modelValue: ['A', 'B'],
             },
         });
-        const removes = screen.getAllByRole('button', { name: 'Remove' });
+        const removes = screen.getAllByRole('button', { name: '$spartan.badge.remove' });
         await user.click(removes[0]);
         const events = (emitted()['update:modelValue'] || []) as any[];
         expect(events.length).toBeGreaterThan(0);
@@ -1426,7 +1426,7 @@ describe('coverage gaps', () => {
             props: { modelValue: ['x'], field: { type: 'selection', label: 'X' } as SFilterField },
         });
         // Find the SInputTag inner field and remove the existing chip (which forwards update:modelValue)
-        const removes = screen.queryAllByRole('button', { name: 'Remove' });
+        const removes = screen.queryAllByRole('button', { name: '$spartan.badge.remove' });
         if (removes.length > 0) {
             await user.click(removes[0]);
             expect(emitted()['update:modelValue']).toBeTruthy();

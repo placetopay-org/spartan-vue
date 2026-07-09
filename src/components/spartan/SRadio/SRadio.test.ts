@@ -1,6 +1,7 @@
 import { test, describe } from 'vitest';
 import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
+import { h } from 'vue';
 import SRadio from './SRadio.vue';
 import userEvent from '@testing-library/user-event';
 
@@ -32,8 +33,15 @@ describe('SRadio', () => {
 
     test('Can be checked with group', async () => {
         const user = userEvent.setup();
-        render(SRadio, { slots: { default: 'first' }, props: { value: 'first', modelValue: '', name: 'group' } });
-        render(SRadio, { slots: { default: 'second' }, props: { value: 'second', modelValue: '', name: 'group' } });
+        // Render both radios in one app (as a real form would) so useId() assigns
+        // each a distinct id; two separate render() calls reset the id counter.
+        render({
+            render: () =>
+                h('div', [
+                    h(SRadio, { value: 'first', modelValue: '', name: 'group' }, { default: () => 'first' }),
+                    h(SRadio, { value: 'second', modelValue: '', name: 'group' }, { default: () => 'second' }),
+                ]),
+        });
 
         const firstRadio = screen.getByRole('radio', { name: 'first' });
         const secondRadio = screen.getByRole('radio', { name: 'second' });

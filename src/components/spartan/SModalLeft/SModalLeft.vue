@@ -18,16 +18,12 @@ import { twMerge } from 'tailwind-merge';
 defineOptions({ inheritAttrs: false });
 defineEmits<TModalLeftEmits>();
 
-withDefaults(defineProps<Partial<TModalLeftProps>>(), {
-    backdropClass: '',
-    open: false,
-    breakpoint: undefined,
-});
+const { backdropClass = '', open = false, breakpoint } = defineProps<Partial<TModalLeftProps>>();
 </script>
 
 <template>
     <ModalBackdropWrapper
-        :breakpoint="breakpoint"
+        :breakpoint
         :show="open"
         :class="$props.class"
         :backdrop-class="twMerge('bg-gray-900/80', backdropClass)"

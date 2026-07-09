@@ -6,7 +6,7 @@ const value = ref('');
 
 const { controls } = usePreview({
     mode: 'playground',
-    component: 'STextarea',
+    component: 'STextArea',
     props: {
         placeholder: { type: 'text', default: 'Enter text...', label: 'placeholder' },
         disabled: { type: 'boolean', default: false, label: 'disabled' },

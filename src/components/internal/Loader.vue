@@ -1,18 +1,15 @@
 <script setup lang="ts">
-withDefaults(
-    defineProps<{
-        variant?: 'spartan' | 'simple';
-        size?: number;
-        color?: string;
-        backgroundColor?: string;
-    }>(),
-    {
-        variant: 'spartan',
-        size: 150,
-        color: '#FF7E29',
-        backgroundColor: '#ff7f29a1',
-    },
-);
+const {
+    variant = 'spartan',
+    size = 150,
+    color = '#FF7E29',
+    backgroundColor = '#ff7f29a1',
+} = defineProps<{
+    variant?: 'spartan' | 'simple';
+    size?: number;
+    color?: string;
+    backgroundColor?: string;
+}>();
 
 defineOptions({ inheritAttrs: false });
 </script>

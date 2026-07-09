@@ -4,7 +4,9 @@ import { SInputTag } from '@spartan';
 import { translator } from '@/helpers';
 import type { SFilterSelectionField } from '../types';
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+    (event: 'update:modelValue', value: string[]): void;
+}>();
 
 const { t } = translator('filter');
 

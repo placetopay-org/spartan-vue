@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog } from '@headlessui/vue';
 import { twMerge } from 'tailwind-merge';
-import { ref } from 'vue';
+import { onUnmounted, ref } from 'vue';
 
-defineEmits(['close']);
+defineEmits<{
+    (event: 'close'): void;
+}>();
 
 const props = defineProps<{
     show: boolean;
@@ -14,7 +16,9 @@ const props = defineProps<{
 
 const mediaShow = ref(true);
 
-if (props.breakpoint) {
+// Guard `window` so a breakpoint-aware modal can render on the server (Nuxt/SSR)
+// instead of throwing; the query is evaluated again on the client during setup.
+if (props.breakpoint && typeof window !== 'undefined') {
     const widths = {
         sm: 640,
         md: 768,
@@ -25,7 +29,9 @@ if (props.breakpoint) {
 
     const minWidth = typeof props.breakpoint === 'number' ? props.breakpoint : widths[props.breakpoint];
     const mediaQuery = window.matchMedia(`(min-width: ${minWidth}px)`);
-    mediaQuery.addEventListener('change', (e) => (mediaShow.value = !e.matches));
+    const onMediaChange = (e: MediaQueryListEvent) => (mediaShow.value = !e.matches);
+    mediaQuery.addEventListener('change', onMediaChange);
+    onUnmounted(() => mediaQuery.removeEventListener('change', onMediaChange));
     mediaShow.value = !mediaQuery.matches;
 }
 </script>

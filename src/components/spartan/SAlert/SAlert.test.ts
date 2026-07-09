@@ -229,7 +229,7 @@ describe('SAlert', () => {
 
         const closeButton = screen.getByRole('button');
         const srOnly = closeButton.querySelector('.sr-only');
-        expect(srOnly).toHaveTextContent('Close');
+        expect(srOnly).toHaveTextContent('$spartan.common.close');
 
         const closeIcon = closeButton.querySelector('svg');
         expect(closeIcon).toHaveAttribute('aria-hidden', 'true');

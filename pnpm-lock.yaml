@@ -8,21 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@floating-ui/vue':
-        specifier: 1.1.10
-        version: 1.1.10(vue@3.5.28(typescript@5.9.3))
       '@tailwindcss/forms':
         specifier: 0.5.11
         version: 0.5.11(tailwindcss@4.1.18)
-      class-variance-authority:
-        specifier: 0.7.1
-        version: 0.7.1
-      imask:
-        specifier: 7.6.1
-        version: 7.6.1
-      tailwind-merge:
-        specifier: 3.4.1
-        version: 3.4.1
       vue-sonner:
         specifier: 2.0.9
         version: 2.0.9(@nuxt/kit@4.3.1(magicast@0.5.2))(@nuxt/schema@4.3.1)(nuxt@4.3.1(@parcel/watcher@2.5.6)(@types/node@25.2.3)(@vue/compiler-sfc@3.5.28)(better-sqlite3@12.6.2)(cac@6.7.14)(db0@0.3.4(better-sqlite3@12.6.2))(eslint@10.0.0(jiti@2.6.1))(ioredis@5.9.3)(lightningcss@1.31.1)(magicast@0.5.2)(optionator@0.9.4)(rollup@4.57.1)(terser@5.46.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2))(vue-tsc@3.2.4(typescript@5.9.3))(yaml@2.8.2))
@@ -33,6 +21,9 @@ importers:
       '@eslint/js':
         specifier: 10.0.1
         version: 10.0.1(eslint@10.0.0(jiti@2.6.1))
+      '@floating-ui/vue':
+        specifier: 1.1.10
+        version: 1.1.10(vue@3.5.28(typescript@5.9.3))
       '@headlessui/vue':
         specifier: 1.7.23
         version: 1.7.23(vue@3.5.28(typescript@5.9.3))
@@ -93,15 +84,9 @@ importers:
       '@types/big.js':
         specifier: 6.2.2
         version: 6.2.2
-      '@types/lodash':
-        specifier: 4.17.23
-        version: 4.17.23
       '@types/lodash.isequal':
         specifier: 4.5.8
         version: 4.5.8
-      '@types/lodash.some':
-        specifier: 4.6.9
-        version: 4.6.9
       '@types/node':
         specifier: 25.2.3
         version: 25.2.3
@@ -132,9 +117,9 @@ importers:
       big.js:
         specifier: 7.0.1
         version: 7.0.1
-      clsx:
-        specifier: 2.1.1
-        version: 2.1.1
+      class-variance-authority:
+        specifier: 0.7.1
+        version: 0.7.1
       dayjs:
         specifier: 1.11.19
         version: 1.11.19
@@ -159,18 +144,15 @@ importers:
       globals:
         specifier: 17.7.0
         version: 17.7.0
+      imask:
+        specifier: 7.6.1
+        version: 7.6.1
       jsdom:
         specifier: 28.1.0
         version: 28.1.0
-      lodash:
-        specifier: 4.17.23
-        version: 4.17.23
       lodash.isequal:
         specifier: 4.5.0
         version: 4.5.0
-      lodash.some:
-        specifier: 4.6.0
-        version: 4.6.0
       motion-v:
         specifier: 1.10.3
         version: 1.10.3(@vueuse/core@14.2.1(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3))
@@ -207,6 +189,9 @@ importers:
       rollup-plugin-vue:
         specifier: 6.0.0
         version: 6.0.0(@vue/compiler-sfc@3.5.28)
+      tailwind-merge:
+        specifier: 3.4.1
+        version: 3.4.1
       tailwindcss:
         specifier: 4.1.18
         version: 4.1.18
@@ -219,9 +204,6 @@ importers:
       typescript-eslint:
         specifier: 8.63.0
         version: 8.63.0(eslint@10.0.0(jiti@2.6.1))(typescript@5.9.3)
-      uuid:
-        specifier: 13.0.0
-        version: 13.0.0
       vite:
         specifier: 7.3.1
         version: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2)
@@ -249,9 +231,6 @@ importers:
       wrangler:
         specifier: 4.66.0
         version: 4.66.0
-      zod:
-        specifier: 4.3.6
-        version: 4.3.6
 
 packages:
 
@@ -3107,9 +3086,6 @@ packages:
   '@types/lodash.isequal@4.5.8':
     resolution: {integrity: sha512-uput6pg4E/tj2LGxCZo9+y27JNyB2OZuuI/T5F+ylVDYuqICLG2/ktjxx0v6GvVntAf8TvEzeQLcV0ffRirXuA==}
 
-  '@types/lodash.some@4.6.9':
-    resolution: {integrity: sha512-ns1kdADcRQeqVCgmbFs4cMSsfRisSpg0YGgTg9A3UsRcS30UbqQZ2cDKDkMqwP4qPaO3FAakobGnU+clulhnlA==}
-
   '@types/lodash@4.17.23':
     resolution: {integrity: sha512-RDvF6wTulMPjrNdCoYRC8gNR880JNGT8uB+REUpC2Ns4pRqQJhGz90wh7rgdXDPpCczF3VGktDuFGVnz8zP7HA==}
 
@@ -5678,9 +5654,6 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
-  lodash.some@4.6.0:
-    resolution: {integrity: sha512-j7MJE+TuT51q9ggt4fSgVqro163BEFjAt3u97IqU+JA2DkWl80nFTrowzLpZ/BnpN7rrl0JA/593NAdd8p/scQ==}
-
   lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
 
@@ -8028,10 +8001,6 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  uuid@13.0.0:
-    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
-    hasBin: true
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -11509,10 +11478,6 @@ snapshots:
     dependencies:
       '@types/lodash': 4.17.23
 
-  '@types/lodash.some@4.6.9':
-    dependencies:
-      '@types/lodash': 4.17.23
-
   '@types/lodash@4.17.23': {}
 
   '@types/markdown-it@14.1.2':
@@ -14495,8 +14460,6 @@ snapshots:
   lodash.memoize@4.1.2: {}
 
   lodash.merge@4.6.2: {}
-
-  lodash.some@4.6.0: {}
 
   lodash.uniq@4.5.0: {}
 
@@ -17595,8 +17558,6 @@ snapshots:
   url-join@5.0.0: {}
 
   util-deprecate@1.0.2: {}
-
-  uuid@13.0.0: {}
 
   vary@1.1.2: {}
 

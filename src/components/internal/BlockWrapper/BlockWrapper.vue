@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { SCaption, SLabel } from '@spartan';
-import { v4 as uuidv4 } from 'uuid';
 import type { TBlockWrapperProps } from './types';
-import { computed } from 'vue';
+import { computed, useId } from 'vue';
 
 const props = defineProps<TBlockWrapperProps>();
-const computedId = computed(() => props.id || uuidv4());
+const uid = useId();
+const computedId = computed(() => props.id || uid);
 </script>
 
 <template>

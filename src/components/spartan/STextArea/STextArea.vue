@@ -1,10 +1,10 @@
 <script lang="ts">
 /**
  * A multi-line text input with error and disabled states.
- * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/STextarea Github}.
+ * @see {@link https://github.com/placetopay-org/spartan-vue/tree/main/src/components/spartan/STextArea Github}.
  */
 export default {
-    name: 'STextarea',
+    name: 'STextArea',
 };
 </script>
 

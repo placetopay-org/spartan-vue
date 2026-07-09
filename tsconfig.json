@@ -8,8 +8,10 @@
         "moduleResolution": "Bundler",
         "paths": {
             "@/*": ["./src/*"],
-            "@spartan*": ["./src/components/spartan"],
-            "@internal*": ["./src/components/internal"],
+            "@spartan": ["./src/components/spartan"],
+            "@spartan/*": ["./src/components/spartan/*"],
+            "@internal": ["./src/components/internal"],
+            "@internal/*": ["./src/components/internal/*"],
             "vue-i18n": ["./node_modules/vue-i18n/dist/vue-i18n.d.ts"]
         }
     },

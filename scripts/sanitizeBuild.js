@@ -196,6 +196,10 @@ const ASSET_IMPORT = /(?:from\s*|import\s*\(\s*)['"][^'"]+\.(?:svg|png|jpe?g|web
         `${DIST}/expose/i18n.js`,
         `${DIST}/expose/i18n.d.ts`,
         `${DIST}/styles.css`,
+        `${DIST}/styles/spartan-vue.css`,
+        `${DIST}/styles/main.css`,
+        `${DIST}/styles/fonts.css`,
+        `${DIST}/styles/plugin.css`,
     ];
     const missing = required.filter((file) => !fs.existsSync(file));
     if (missing.length) {

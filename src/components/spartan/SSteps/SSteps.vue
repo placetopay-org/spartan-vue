@@ -9,26 +9,29 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { reactive } from 'vue';
 import SStepsItem from './SStepsItem.vue';
 import type { TStepsProps } from './types';
 import { createContext } from './api';
+import { stepsStyles } from './styles';
 
-const props = withDefaults(defineProps<TStepsProps>(), {
-    variant: 'circlesWithText',
-    steps: () => [],
-});
+const { variant = 'circlesWithText', steps = [] } = defineProps<TStepsProps>();
 
-createContext(props);
-
-const containerStyle = {
-    simple: 'space-y-4 md:flex md:space-x-8 md:space-y-0',
-    circlesWithText: 'overflow-hidden',
-};
+createContext(
+    reactive({
+        get variant() {
+            return variant;
+        },
+        get steps() {
+            return steps;
+        },
+    }),
+);
 </script>
 
 <template>
     <nav aria-label="Progress">
-        <ol :class="containerStyle[variant]">
+        <ol :class="stepsStyles({ variant })">
             <slot />
             <SStepsItem
                 v-for="(step, stepIdx) in steps"

@@ -28,7 +28,7 @@ export type TRules = {
 };
 
 export type TState = {
-    [K in keyof TRules]?: { isValid: boolean; value: any };
+    [K in keyof TRules]?: { isValid: boolean; value: TRules[keyof TRules] };
 };
 
 export type TInputPasswordProps = {

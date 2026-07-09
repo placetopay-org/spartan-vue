@@ -39,6 +39,9 @@ export default tseslint.config(
         languageOptions: {
             globals: { ...globals.node, ...globals.vitest },
         },
+        // Tests define inline wrapper components with `defineComponent` to
+        // exercise slots and context; the one-per-file rule targets SFC sources.
+        rules: { 'vue/one-component-per-file': 'off' },
     },
 
     {

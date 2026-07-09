@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { CheckCircleIcon, XCircleIcon, ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
-import { hasSlotContent } from '@/helpers';
+import { hasSlotContent, translator } from '@/helpers';
 import type { TToastProps, TToastEmits } from './types';
 import { toastStyles, toastIconStyles } from './styles';
 import { twMerge } from 'tailwind-merge';
 
 defineEmits<TToastEmits>();
+const { t } = translator('common');
 
 const { type = 'success', leftBorder = false, class: className } = defineProps<TToastProps>();
 
@@ -43,7 +44,7 @@ const icon = computed(() => typeIcons[type]);
                 class="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:ring-0 focus:outline-none dark:text-gray-500 dark:hover:text-gray-300"
                 @click="$emit('closeToast')"
             >
-                <span class="sr-only">Close</span>
+                <span class="sr-only">{{ t('close') }}</span>
                 <XMarkIcon class="h-5 w-5 text-gray-900 dark:text-gray-400" aria-hidden="true" />
             </button>
         </div>

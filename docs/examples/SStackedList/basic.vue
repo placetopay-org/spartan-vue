@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { usePreview } from '~/composables/usePreview';
 
-usePreview({ component: 'SStackedList' });
+usePreview({
+    mode: 'playground',
+    component: 'SStackedList',
+});
 </script>
 
 <template>

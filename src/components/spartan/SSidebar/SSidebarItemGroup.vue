@@ -12,17 +12,13 @@ import {
 } from './styles';
 import type { TSidebarItemGroupProps } from './types';
 
-const props = withDefaults(defineProps<Partial<TSidebarItemGroupProps>>(), {
-    path: undefined,
-    icon: undefined,
-    accordion: true,
-});
+const { path, icon, accordion = true } = defineProps<Partial<TSidebarItemGroupProps>>();
 
 const slots = useSlots();
 const store = useContext('SSidebarItemGroup');
 
 const innerText = slots.title?.()?.[0]?.children;
-const updatedPath = ref(props.path || String(innerText));
+const updatedPath = ref(path || String(innerText));
 
 const open = ref(false);
 const isActive = ref(false);
@@ -32,7 +28,7 @@ const setActive = (value: boolean) => {
             () => {
                 open.value = true;
             },
-            props.accordion ? 150 : 0,
+            accordion ? 150 : 0,
         );
     }
     isActive.value = value;
@@ -44,7 +40,7 @@ const accordionProps = computed(() => {
         class: 'space-y-1',
     };
 
-    if (props.accordion) {
+    if (accordion) {
         baseProps.open = open.value;
         baseProps.vertical = true;
         baseProps['pt:body'] = 'p-1 space-y-1';
