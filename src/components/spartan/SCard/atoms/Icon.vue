@@ -76,13 +76,12 @@ const ringConfig = computed(() => {
     const count = dimensions.length;
     return dimensions.map((d, i) => ({
         dimensions: d,
-        alpha: count === 1 ? 0.8 : 0.1 + (0.7 * i) / (count - 1),
+        alpha: 0.1 + (0.7 * i) / (count - 1),
     }));
 });
 
+// Only evaluated from the template, which guards everything behind v-if="icon".
 const computedIcon = computed(() => {
-    if (!icon) return null;
-
     const stringIcon = typeof icon === 'string' ? icon : null;
     const colorKey = iconColor ?? stringIcon;
 
@@ -104,16 +103,16 @@ const computedIcon = computed(() => {
             :class="
                 twMerge(
                     'flex justify-center rounded-full bg-gray-100 p-3 dark:bg-white/10',
-                    computedIcon?.background,
+                    computedIcon.background,
                     iconContainerClass,
                 )
             "
         >
             <component
                 v-bind="iconProps"
-                :is="computedIcon?.glyph?.normal ?? icon"
+                :is="computedIcon.glyph?.normal ?? icon"
                 data-s-icon
-                :class="twMerge('h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon?.color, iconClass)"
+                :class="twMerge('h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon.color, iconClass)"
                 aria-hidden="true"
             />
         </div>
@@ -122,7 +121,7 @@ const computedIcon = computed(() => {
             v-if="iconType === 'ping'"
             data-s-iconContainer
             v-bind="iconContainerProps"
-            :class="twMerge('relative -mb-1', computedIcon?.radial, iconContainerClass)"
+            :class="twMerge('relative -mb-1', computedIcon.radial, iconContainerClass)"
         >
             <div
                 v-for="(ring, index) in ringConfig"
@@ -135,10 +134,10 @@ const computedIcon = computed(() => {
             />
             <component
                 v-bind="iconProps"
-                :is="computedIcon?.glyph?.ping ?? icon"
+                :is="computedIcon.glyph?.ping ?? icon"
                 data-s-icon
                 :class="
-                    twMerge('relative mx-auto h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon?.color, iconClass)
+                    twMerge('relative mx-auto h-6 w-6 text-gray-600 dark:text-gray-400', computedIcon.color, iconClass)
                 "
                 aria-hidden="true"
             />

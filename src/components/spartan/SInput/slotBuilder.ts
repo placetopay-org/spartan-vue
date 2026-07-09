@@ -23,12 +23,9 @@ const leftComponents: Record<string, any> = {
                 return { options: props.leftOptions, modelValue: props.leftOption, ariaLabel: props.leftOptionsLabel };
             return undefined;
         },
-        getEmits: (props: Partial<TInputProps>, emit: TInputEmits) => {
-            if (props.leftOptions) {
-                return { 'update:modelValue': (value: string) => emit('update:leftOption', value) };
-            }
-            return undefined;
-        },
+        // Only invoked when getProps returned truthy (see buildSideContent), so the
+        // options are guaranteed to exist here.
+        getEmits: (emit: TInputEmits) => ({ 'update:modelValue': (value: string) => emit('update:leftOption', value) }),
     },
 };
 
@@ -58,12 +55,9 @@ const rightComponents: Record<string, any> = {
                 };
             return undefined;
         },
-        getEmits: (props: Partial<TInputProps>, emit: TInputEmits) => {
-            if (props.rightOptions) {
-                return { 'update:modelValue': (value: string) => emit('update:rightOption', value) };
-            }
-            return {};
-        },
+        getEmits: (emit: TInputEmits) => ({
+            'update:modelValue': (value: string) => emit('update:rightOption', value),
+        }),
     },
 };
 
@@ -83,7 +77,7 @@ export const buildSideContent = (
                     key: `${side}-${slot}`,
                     component: component.component,
                     props: componentProps,
-                    emits: component.getEmits?.(props, emit) || {},
+                    emits: component.getEmits?.(emit) || {},
                 };
             }
 
