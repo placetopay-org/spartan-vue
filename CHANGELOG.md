@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta.18] - 2026-07-09
+
 ### Added
 - Statement **and branch** coverage at 100% across all 64 published components (1058 tests). Beyond new tests, the audit removed defensive branches that could never execute — `slotBuilder`'s `getEmits` guards (only called after `getProps` already returned truthy), `SCard/atoms/Icon`'s `!icon` guard (the template evaluates it only under `v-if="icon"`) and its `count === 1` ring arm (ring arrays are fixed at 3 or 4) — and shimmed `innerText` onto `textContent` in the STab variant tests, since jsdom does not implement it and the tabs' text-fallback path was untestable otherwise.
 - `SColorSwitch`: full WAI-ARIA radio-group keyboard support. The component declared `role="radiogroup"`/`role="radio"` but implemented none of the keyboard contract those roles promise: all three buttons were tab stops and the arrow keys did nothing. Now only the checked option sits in the tab order (roving tabindex) and the arrow keys move both selection and focus, wrapping at the ends.
