@@ -38,7 +38,7 @@ export type TTooltipProps = {
      * @en Disables automatic flip positioning.
      * @es Deshabilita el reposicionamiento automático.
      */
-    static?: TPopoverProps['static'];
+    static?: NonNullable<TPopoverProps['static']>;
 
     /**
      * @en Disables automatic open/close on hover. Use exposed methods instead.
