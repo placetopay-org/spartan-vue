@@ -86,28 +86,16 @@ describe('SLabel', () => {
             expect(label).toHaveClass('font-medium');
         });
 
-        test('allows overriding default text color via tailwind-merge', () => {
-            render(SLabel, { props: { class: 'text-red-500' }, slots: { default: 'Label' } });
+        test.each([
+            ['text-red-500', 'text-gray-700'],
+            ['font-bold', 'font-medium'],
+            ['text-lg', 'text-sm'],
+        ])('overrides the default %s via tailwind-merge', (override, base) => {
+            render(SLabel, { props: { class: override }, slots: { default: 'Label' } });
 
             const label = screen.getByText('Label');
-            expect(label).toHaveClass('text-red-500');
-            expect(label).not.toHaveClass('text-gray-700');
-        });
-
-        test('allows overriding default font weight via tailwind-merge', () => {
-            render(SLabel, { props: { class: 'font-bold' }, slots: { default: 'Label' } });
-
-            const label = screen.getByText('Label');
-            expect(label).toHaveClass('font-bold');
-            expect(label).not.toHaveClass('font-medium');
-        });
-
-        test('allows overriding default text size via tailwind-merge', () => {
-            render(SLabel, { props: { class: 'text-lg' }, slots: { default: 'Label' } });
-
-            const label = screen.getByText('Label');
-            expect(label).toHaveClass('text-lg');
-            expect(label).not.toHaveClass('text-sm');
+            expect(label).toHaveClass(override);
+            expect(label).not.toHaveClass(base);
         });
     });
 
