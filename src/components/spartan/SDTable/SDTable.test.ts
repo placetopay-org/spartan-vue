@@ -496,6 +496,23 @@ describe('SDTable API', () => {
         expect(state.colsArray[0].field).toBe(secondExpander);
     });
 
+    test('updateCol preserves expander position when props change', () => {
+        const emit = (() => {}) as any;
+        const props = { data: [] } as any;
+
+        const state = createContext(props, emit, {});
+        const expander = Symbol('expander');
+
+        state.updateCol({ field: expander, expander: true });
+        state.updateCol({ field: 'name', header: 'Name' });
+        state.updateCol({ field: expander, expander: true, header: 'Toggle' });
+
+        expect(state.colsArray.map((col) => col.field)).toEqual([expander, 'name']);
+        expect(state.cols[expander].pos).toBe(1);
+        expect(state.cols[expander].header).toBe('Toggle');
+        expect(state.config.totalCols).toBe(2);
+    });
+
     test('expand watch uses default previousExpandedState when invoked without old value', async () => {
         // Render with an expander column and toggle a row; the watch handler runs and
         // accepts both newValue and oldValue parameters (the default `[]` is a safety
