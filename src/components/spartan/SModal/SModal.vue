@@ -16,7 +16,7 @@ import { TranStyle } from '@/constants';
 import { usePassthrough } from '@/helpers';
 
 defineOptions({ inheritAttrs: false });
-const emit = defineEmits(['close', 'update:open']);
+const emit = defineEmits(['update:open']);
 
 const { pt, extractor } = usePassthrough();
 
@@ -44,7 +44,6 @@ const containerStyles = computed(() =>
 
 const closeModal = () => {
     if (props.preventClose) return;
-    emit('close'); // TODO: remove this
     emit('update:open', false);
 };
 </script>

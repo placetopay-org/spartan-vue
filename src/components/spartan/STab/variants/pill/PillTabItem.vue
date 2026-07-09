@@ -1,50 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
 import type { TTabItemProps } from '../../types';
-import { useContext } from '../../api';
+import ChipTabItem from '../ChipTabItem.vue';
 
-const { as = 'button', path, active, regex } = defineProps<TTabItemProps>();
-
-const context = useContext('STabItem');
-
-const el = ref<HTMLElement>();
-const vPath = ref(path || '');
-const vRegex = computed(() => regex || new RegExp(`^${vPath.value}$`));
-const vActive = computed(() => active || vRegex.value.test(context.modelValue));
-
-onMounted(() => {
-    const elInnerText = el.value?.innerText;
-    if (!vPath.value && elInnerText) vPath.value = elInnerText;
-});
+const props = defineProps<TTabItemProps>();
 </script>
 
 <template>
-    <component
-        :is="as"
-        v-if="as"
-        ref="el"
-        :type="as === 'button' ? 'button' : undefined"
-        :class="[
-            vActive
-                ? 'bg-spartan-primary-100 text-spartan-primary-700 dark:bg-spartan-primary-400/10 dark:text-spartan-primary-400'
-                : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-200',
-            'group inline-flex items-center rounded-md px-3 py-2 text-sm font-medium',
-            $props.class,
-        ]"
-        :aria-current="vActive ? 'page' : undefined"
-        @click="() => context.updateModelValue(vPath)"
+    <ChipTabItem
+        v-bind="props"
+        active-class="bg-spartan-primary-100 text-spartan-primary-700 dark:bg-spartan-primary-400/10 dark:text-spartan-primary-400"
+        inactive-class="text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-200"
     >
-        <component
-            :is="icon"
-            v-if="icon"
-            :class="[
-                vActive
-                    ? 'text-spartan-primary-500'
-                    : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300',
-                'mr-2 -ml-0.5 h-5 w-5',
-            ]"
-            aria-hidden="true"
-        />
         <slot />
-    </component>
+    </ChipTabItem>
 </template>

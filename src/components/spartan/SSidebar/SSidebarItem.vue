@@ -34,7 +34,11 @@ watch(
 onMounted(() => {
     const groupName = el.value?.parentElement?.parentElement?.dataset.groupName;
     if (groupName) isChild.value = true;
-    // TODO: ModalLeft compatible? -> const elInnerText = el.value?.innerText;
+    // The registration path falls back to the slot's static text, read from the
+    // vnode rather than `el.innerText`: the vnode does not depend on rendered DOM
+    // state (hidden or teleported containers such as SModalLeft), at the cost of
+    // only working for plain-text labels. Items whose label is element content
+    // should pass the `path` prop explicitly.
     const elInnerText = useSlots().default?.()?.[0]?.children as string;
     if (!updatedPath.value) {
         if (elInnerText) updatedPath.value = elInnerText;

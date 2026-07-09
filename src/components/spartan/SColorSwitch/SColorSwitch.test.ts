@@ -86,4 +86,77 @@ describe('SColorSwitch', () => {
         expect(systemButton.className).not.toContain('bg-white');
         expect(systemButton.className).not.toContain('shadow-sm');
     });
+
+    // WAI-ARIA APG radio group keyboard contract.
+    describe('keyboard', () => {
+        test('only the checked option is in the tab order (roving tabindex)', () => {
+            render(SColorSwitch, { props: { modelValue: 'light' } });
+
+            expect(screen.getByRole('radio', { name: 'Light' })).toHaveAttribute('tabindex', '0');
+            expect(screen.getByRole('radio', { name: 'System' })).toHaveAttribute('tabindex', '-1');
+            expect(screen.getByRole('radio', { name: 'Dark' })).toHaveAttribute('tabindex', '-1');
+        });
+
+        test('Tab lands on the checked option', async () => {
+            const user = userEvent.setup();
+            render(SColorSwitch, { props: { modelValue: 'dark' } });
+
+            await user.tab();
+
+            expect(screen.getByRole('radio', { name: 'Dark' })).toHaveFocus();
+        });
+
+        test.each([
+            ['{ArrowRight}', 'system', 'System', 'light', 'Light'],
+            ['{ArrowDown}', 'system', 'System', 'light', 'Light'],
+            ['{ArrowLeft}', 'light', 'Light', 'system', 'System'],
+            ['{ArrowUp}', 'light', 'Light', 'system', 'System'],
+        ])(
+            '%s from %s selects and focuses the adjacent mode',
+            async (key, from, fromLabel, expected, expectedLabel) => {
+                const user = userEvent.setup();
+                const { emitted } = render(SColorSwitch, { props: { modelValue: from } });
+
+                screen.getByRole('radio', { name: fromLabel }).focus();
+                await user.keyboard(key);
+
+                expect(emitted()['update:modelValue']).toEqual([[expected]]);
+                expect(screen.getByRole('radio', { name: expectedLabel })).toHaveFocus();
+            },
+        );
+
+        test.each([
+            ['{ArrowRight}', 'dark', 'Dark', 'system'],
+            ['{ArrowLeft}', 'system', 'System', 'dark'],
+        ])('%s wraps around from %s', async (key, from, fromLabel, expected) => {
+            const user = userEvent.setup();
+            const { emitted } = render(SColorSwitch, { props: { modelValue: from } });
+
+            screen.getByRole('radio', { name: fromLabel }).focus();
+            await user.keyboard(key);
+
+            expect(emitted()['update:modelValue']).toEqual([[expected]]);
+        });
+
+        test('the roving tabindex follows the selection when controlled', async () => {
+            const user = userEvent.setup();
+            let modelValue = 'system';
+            const { rerender } = render(SColorSwitch, {
+                props: {
+                    modelValue,
+                    'onUpdate:modelValue': (value: string) => {
+                        modelValue = value;
+                        rerender({ modelValue });
+                    },
+                },
+            });
+
+            screen.getByRole('radio', { name: 'System' }).focus();
+            await user.keyboard('{ArrowRight}');
+
+            expect(screen.getByRole('radio', { name: 'Light' })).toHaveAttribute('tabindex', '0');
+            expect(screen.getByRole('radio', { name: 'System' })).toHaveAttribute('tabindex', '-1');
+            expect(screen.getByRole('radio', { name: 'Light' })).toHaveFocus();
+        });
+    });
 });

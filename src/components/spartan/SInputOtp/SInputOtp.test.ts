@@ -3,9 +3,8 @@ import { render, fireEvent } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SInputOtp from './SInputOtp.vue';
 import SInputOtpItem from './SInputOtpItem.vue';
-import { createContext } from './api';
 import userEvent from '@testing-library/user-event';
-import { defineComponent, h } from 'vue';
+import { h } from 'vue';
 
 describe('SInputOtp', () => {
     test('Can be rendered', () => {
@@ -188,19 +187,5 @@ describe('SInputOtp', () => {
 
     test('Throws when SInputOtpItem is used without a parent SInputOtp', () => {
         expect(() => render(SInputOtpItem)).toThrow('<SInputOtpItem /> is missing parent <SInputOtp /> component');
-    });
-
-    test('Exposes a no-op updateSelection on the context', () => {
-        // The selection stub is a TODO placeholder for arrow-key navigation;
-        // invoke it through createContext so the function body is exercised.
-        const Wrapper = defineComponent({
-            setup() {
-                const ctx = createContext({}, (() => {}) as never);
-                ctx.updateSelection(0, 1);
-                return () => null;
-            },
-        });
-
-        expect(() => render(Wrapper)).not.toThrow();
     });
 });

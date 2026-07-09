@@ -60,7 +60,7 @@ export const componentCoverage: Record<string, number> = {
     SStackedList: 100,
     SSteps: 100,
     SSwitch: 100,
-    STab: 95,
+    STab: 97,
     STable: 100,
     STemplateHeaderTable: 100,
     STextArea: 100,

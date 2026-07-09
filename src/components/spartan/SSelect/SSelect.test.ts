@@ -19,12 +19,15 @@ describe('SSelect', () => {
             expect(screen.getByRole('combobox')).toBeInTheDocument();
         });
 
-        test('Renders with base background class', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
+        test.each(['bg-white', 'border-gray-300', 'rounded-lg', 'appearance-none', 'h-9'])(
+            'Renders with the base %s class',
+            (className) => {
+                render(SSelect);
+                const select = screen.getByRole('combobox');
 
-            expect(select.className).toContain('bg-white');
-        });
+                expect(select.className).toContain(className);
+            },
+        );
 
         test('Renders with base text class when value is selected', () => {
             render(SSelect, {
@@ -35,57 +38,18 @@ describe('SSelect', () => {
 
             expect(select.className).toContain('text-gray-900');
         });
-
-        test('Renders with base border class', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('border-gray-300');
-        });
-
-        test('Renders with rounded-lg by default', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('rounded-lg');
-        });
-
-        test('Renders with appearance-none', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('appearance-none');
-        });
-
-        test('Renders with h-9 height', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('h-9');
-        });
     });
 
     describe('Dark mode', () => {
-        test('Renders with dark mode background class', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
+        test.each(['dark:bg-white/5', 'dark:text-gray-50', 'dark:border-white/10'])(
+            'Renders with the %s class',
+            (className) => {
+                render(SSelect);
+                const select = screen.getByRole('combobox');
 
-            expect(select.className).toContain('dark:bg-white/5');
-        });
-
-        test('Renders with dark mode text class', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('dark:text-gray-50');
-        });
-
-        test('Renders with dark mode border class', () => {
-            render(SSelect);
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('dark:border-white/10');
-        });
+                expect(select.className).toContain(className);
+            },
+        );
     });
 
     describe('v-model', () => {
@@ -197,18 +161,15 @@ describe('SSelect', () => {
             expect(select.className).toContain('rounded-lg');
         });
 
-        test('Applies rounded-l-lg for left', () => {
-            render(SSelect, { props: { rounded: 'left' } });
+        test.each([
+            ['left', 'rounded-l-lg'],
+            ['right', 'rounded-r-lg'],
+            ['full', 'rounded-full'],
+        ])('Applies %s rounding as %s', (rounded, className) => {
+            render(SSelect, { props: { rounded } });
             const select = screen.getByRole('combobox');
 
-            expect(select.className).toContain('rounded-l-lg');
-        });
-
-        test('Applies rounded-r-lg for right', () => {
-            render(SSelect, { props: { rounded: 'right' } });
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('rounded-r-lg');
+            expect(select.className).toContain(className);
         });
 
         test('Applies no rounded class for none', () => {
@@ -219,13 +180,6 @@ describe('SSelect', () => {
             expect(select.className).not.toContain('rounded-l-lg');
             expect(select.className).not.toContain('rounded-r-lg');
             expect(select.className).not.toContain('rounded-full');
-        });
-
-        test('Applies rounded-full for full', () => {
-            render(SSelect, { props: { rounded: 'full' } });
-            const select = screen.getByRole('combobox');
-
-            expect(select.className).toContain('rounded-full');
         });
     });
 
