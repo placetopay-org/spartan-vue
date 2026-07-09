@@ -16,7 +16,9 @@ const props = defineProps<{
 
 const mediaShow = ref(true);
 
-if (props.breakpoint) {
+// Guard `window` so a breakpoint-aware modal can render on the server (Nuxt/SSR)
+// instead of throwing; the query is evaluated again on the client during setup.
+if (props.breakpoint && typeof window !== 'undefined') {
     const widths = {
         sm: 640,
         md: 768,
