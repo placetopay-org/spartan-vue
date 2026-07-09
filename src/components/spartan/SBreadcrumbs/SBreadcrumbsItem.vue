@@ -2,6 +2,7 @@
 import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import type { TBreadcrumbsItemProps } from './types';
 import { hasSlotContent } from '@/helpers';
+import { breadcrumbsItemStyles } from './styles';
 
 const { as = 'a' } = defineProps<TBreadcrumbsItemProps>();
 </script>
@@ -20,8 +21,7 @@ const { as = 'a' } = defineProps<TBreadcrumbsItemProps>();
             <component
                 :is="as"
                 :href="href"
-                class="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-800 dark:text-gray-50 dark:hover:text-white"
-                :class="[active ? 'text-gray-800 dark:text-gray-50' : undefined]"
+                :class="breadcrumbsItemStyles({ active })"
                 :aria-current="active ? 'page' : undefined"
             >
                 <component :is="icon" v-if="icon" class="h-5 w-5 flex-shrink-0 dark:text-gray-400" aria-hidden="true" />

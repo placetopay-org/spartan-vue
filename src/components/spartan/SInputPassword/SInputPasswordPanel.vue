@@ -4,21 +4,21 @@ import { SAccordion } from '@spartan';
 import { CheckCircleIcon } from '@heroicons/vue/24/solid';
 import { translator } from '@/helpers';
 import { twMerge } from 'tailwind-merge';
+import { panelIconStyles } from './styles';
 
-const { open = true } = defineProps<{ class?: string; state: TState; open?: boolean }>();
+const { open = true, class: propClass = '' } = defineProps<{ class?: string; state: TState; open?: boolean }>();
 
 const { t } = translator('inputPasswordPanel');
 </script>
 
 <template>
     <SAccordion :open="open" vertical>
-        <div :class="twMerge('space-y-2', $props.class)">
+        <div :class="twMerge('space-y-2', propClass)">
             <div v-for="(value, key) of state" :key="key" class="flex items-center gap-2">
-                <CheckCircleIcon
-                    :class="value?.isValid ? 'text-emerald-400' : 'text-gray-300 dark:text-gray-600'"
-                    class="h-6 w-6 shrink-0"
-                />
-                <span class="text-sm text-gray-600 dark:text-gray-400">{{ t(key, { value: value?.value }) }}</span>
+                <CheckCircleIcon :class="panelIconStyles({ valid: value?.isValid })" />
+                <span class="text-sm text-gray-600 dark:text-gray-400">{{
+                    t(key, { value: String(value?.value) })
+                }}</span>
             </div>
         </div>
     </SAccordion>

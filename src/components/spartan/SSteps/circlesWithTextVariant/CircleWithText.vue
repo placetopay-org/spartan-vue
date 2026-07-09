@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TStepsItemsProps } from '../types';
 import { CheckIcon } from '@heroicons/vue/20/solid';
+import { stepDotStyles } from '../styles';
 
 defineProps<
     TStepsItemsProps & {
@@ -29,15 +30,7 @@ const indicatorStyle = {
                 :class="['relative z-10 flex h-8 w-8 items-center justify-center rounded-full', indicatorStyle[status]]"
             >
                 <CheckIcon v-if="isComplete" class="h-5 w-5 text-white" aria-hidden="true" />
-                <span
-                    v-else
-                    :class="[
-                        'bg-spartan-primary-500 h-2.5 w-2.5 rounded-full',
-                        isCurrent
-                            ? 'bg-spartan-primary-500'
-                            : 'bg-transparent group-hover:bg-gray-300 dark:group-hover:bg-gray-600',
-                    ]"
-                />
+                <span v-else :class="stepDotStyles({ current: isCurrent })" />
             </span>
         </span>
         <span :class="['ml-4 flex min-w-0 flex-col', hasOnlyOneSlot && 'self-center']">
