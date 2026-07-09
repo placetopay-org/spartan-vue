@@ -115,4 +115,19 @@ describe('SSteps', () => {
             }),
         ).toThrow('<SStepsItem /> is missing parent <SSteps /> component');
     });
+
+    test('Simple variant renders name and description from props', () => {
+        // The other tests feed both through slots; these are the prop fallbacks.
+        const item = h(SStepsItem, {
+            href: 'link-1',
+            status: 'current',
+            name: 'Step name',
+            description: 'Step description',
+        });
+
+        render(SSteps, { props: { variant: 'simple' }, slots: { default: [item] } });
+
+        expect(screen.getByText('Step name')).toBeInTheDocument();
+        expect(screen.getByText('Step description')).toBeInTheDocument();
+    });
 });

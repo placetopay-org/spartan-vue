@@ -3,6 +3,7 @@ import { render } from '@testing-library/vue';
 import { screen } from '@testing-library/dom';
 import SSwitch from './SSwitch.vue';
 import userEvent from '@testing-library/user-event';
+import { defineComponent, h } from 'vue';
 import {
     switchContainerStyles,
     switchTrackStyles,
@@ -204,5 +205,19 @@ describe('SSwitch', () => {
         // Assert
         expect(screen.getByTestId('icon-off')).toBeInTheDocument();
         expect(screen.getByTestId('icon-on')).toBeInTheDocument();
+    });
+
+    test('Renders a custom component through the icon prop on both faces', () => {
+        const CustomIcon = defineComponent({
+            setup() {
+                return () => h('svg', { 'data-testid': 'custom-face' });
+            },
+        });
+
+        render(SSwitch, { props: { modelValue: false, icon: CustomIcon } });
+
+        // Both faces (on and off) exist in the DOM at once; the boolean-icon svg
+        // is replaced by the custom component in each.
+        expect(screen.getAllByTestId('custom-face')).toHaveLength(2);
     });
 });
