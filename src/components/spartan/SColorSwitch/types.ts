@@ -5,7 +5,5 @@ export type TColorSwitchProps = {
     modelValue?: TColorSwitchMode;
 };
 
-export type TColorSwitchEmits = {
-    /** @en Emitted when the color mode changes. @es Se emite cuando el modo de color cambia. */
-    (e: 'update:modelValue', value: TColorSwitchMode): void;
-};
+/** @en Emitted when the color mode changes. @es Se emite cuando el modo de color cambia. */
+export type TColorSwitchEmits = (e: 'update:modelValue', value: TColorSwitchMode) => void;

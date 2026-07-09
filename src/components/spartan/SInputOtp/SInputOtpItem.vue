@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useContext } from './api';
 import { inputOtpItemStyles, inputOtpItemTextStyles } from './styles';
 import { twMerge } from 'tailwind-merge';
 import type { TInputOtpItemProps } from './types';
-import { computed } from 'vue';
 
 defineProps<TInputOtpItemProps>();
 

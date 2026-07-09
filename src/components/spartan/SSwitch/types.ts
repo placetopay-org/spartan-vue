@@ -1,8 +1,6 @@
 import type { FunctionalComponent } from 'vue';
 
-export type TSwitchEmits = {
-    (event: 'update:modelValue', value: boolean): void;
-};
+export type TSwitchEmits = (event: 'update:modelValue', value: boolean) => void;
 
 export type TSwitchProps = {
     /**

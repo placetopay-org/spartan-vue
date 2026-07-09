@@ -43,7 +43,7 @@ export type TButtonProps = {
      * @en Defines the border radius of the button.
      * @es Define el radio de borde del botón.
      */
-    rounded?: TButtonStyles['rounded'];
+    rounded?: NonNullable<TButtonStyles['rounded']>;
 
     /**
      * @en Defines the size of the button.

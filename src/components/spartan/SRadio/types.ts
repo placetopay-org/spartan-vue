@@ -1,6 +1,4 @@
-export type TRadioEmits = {
-    (event: 'update:modelValue', value: boolean | string): void;
-};
+export type TRadioEmits = (event: 'update:modelValue', value: boolean | string) => void;
 
 export type TRadioProps = {
     /**

@@ -46,9 +46,7 @@ export type TTabProps = {
     class?: string;
 };
 
-export type TTabEmits = {
-    (event: 'update:modelValue', value?: string): void;
-};
+export type TTabEmits = (event: 'update:modelValue', value?: string) => void;
 
 export type TTabItemProps = {
     /**

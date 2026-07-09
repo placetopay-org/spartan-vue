@@ -1,8 +1,6 @@
 import type { HTMLAttributes } from 'vue';
 
-export type TToastEmits = {
-    (event: 'closeToast'): void;
-};
+export type TToastEmits = (event: 'closeToast') => void;
 
 export type TToastProps = {
     /**

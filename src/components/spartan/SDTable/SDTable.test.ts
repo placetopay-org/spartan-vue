@@ -356,7 +356,7 @@ describe('SDTable', () => {
         await waitFor(() => {
             // Only one expander button per row (header + 1 row)
             const buttons = screen.getAllByRole('button');
-            expect(buttons.length).toBe(2);
+            expect(buttons).toHaveLength(2);
         });
     });
 
@@ -371,7 +371,7 @@ describe('SDTable', () => {
 
         await waitFor(() => {
             // Only the named column should render as a header
-            expect(screen.getAllByRole('columnheader').length).toBe(1);
+            expect(screen.getAllByRole('columnheader')).toHaveLength(1);
         });
     });
 

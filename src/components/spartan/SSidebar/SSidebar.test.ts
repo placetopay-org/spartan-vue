@@ -46,7 +46,7 @@ describe('SSidebar', () => {
         screen.getByRole('complementary');
         screen.getByRole('navigation');
         screen.getByRole('list');
-        expect(screen.getAllByRole('listitem').length).toBe(3);
+        expect(screen.getAllByRole('listitem')).toHaveLength(3);
         screen.getByRole('button', { name: 'FirstLink' });
         screen.getByRole('button', { name: 'SecondLink' });
         screen.getByRole('button', { name: 'ThirdLink' });
@@ -72,7 +72,7 @@ describe('SSidebar', () => {
         screen.getByRole('complementary');
         screen.getByRole('navigation');
         screen.getByRole('list');
-        expect(screen.getAllByRole('listitem').length).toBe(4);
+        expect(screen.getAllByRole('listitem')).toHaveLength(4);
         screen.getByRole('button', { name: 'ThirdLink' });
     });
 

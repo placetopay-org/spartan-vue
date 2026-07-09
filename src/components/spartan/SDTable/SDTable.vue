@@ -40,10 +40,6 @@ const ptPaginator = extractor(pt.value.paginator);
             <table data-s-table v-bind="tableProps" :class="twMerge('w-full', tableClass)">
                 <TableHead v-bind="{ ptThead }" />
                 <TableBody />
-                <!-- <template #expansion="{ row }">
-                        <slot name="expansion" v-bind="{ row }" />
-                    </template>
-                </TableBody> -->
             </table>
         </div>
 

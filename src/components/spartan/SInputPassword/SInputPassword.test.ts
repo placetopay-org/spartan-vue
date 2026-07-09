@@ -44,7 +44,7 @@ describe('SInputPassword', () => {
         await user.type(input, 'abc');
 
         expect(emitted()['update:modelValue']).toBeTruthy();
-        expect(emitted()['update:modelValue'].length).toBe(3);
+        expect(emitted()['update:modelValue']).toHaveLength(3);
     });
 
     test('Emits isValid and state when rules are provided', async () => {
@@ -224,7 +224,7 @@ describe('SInputPasswordPanel', () => {
         });
 
         const items = container.querySelectorAll('.flex.items-center.gap-2');
-        expect(items.length).toBe(3);
+        expect(items).toHaveLength(3);
     });
 
     test('Applies valid color when rule passes', () => {

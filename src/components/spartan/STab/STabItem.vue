@@ -14,7 +14,6 @@ const [itemClass, itemProps] = extractor(pt.value.item);
 </script>
 
 <template>
-    <!-- <li :class="context.full ? 'w-full' : ''"> -->
     <li data-s-item v-bind="itemProps" :class="twMerge(itemClass)">
         <component
             :is="context.variant.item"

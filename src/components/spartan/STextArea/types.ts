@@ -26,10 +26,8 @@ export type TTextAreaProps = {
     disabled?: boolean;
 };
 
-export type TTextAreaEmits = {
-    /**
-     * @en Emitted when the textarea content changes.
-     * @es Se emite cuando el contenido del textarea cambia.
-     */
-    (e: 'update:modelValue', value: string): void;
-};
+/**
+ * @en Emitted when the textarea content changes.
+ * @es Se emite cuando el contenido del textarea cambia.
+ */
+export type TTextAreaEmits = (e: 'update:modelValue', value: string) => void;

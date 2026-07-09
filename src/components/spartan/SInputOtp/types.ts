@@ -1,12 +1,10 @@
 import type { HTMLAttributes } from 'vue';
 
-export type TInputOtpEmits = {
-    /**
-     * @en Emitted when the OTP value changes.
-     * @es Se emite cuando el valor OTP cambia.
-     */
-    (event: 'update:modelValue', value: string): void;
-};
+/**
+ * @en Emitted when the OTP value changes.
+ * @es Se emite cuando el valor OTP cambia.
+ */
+export type TInputOtpEmits = (event: 'update:modelValue', value: string) => void;
 
 export type TInputOtpProps = {
     /**

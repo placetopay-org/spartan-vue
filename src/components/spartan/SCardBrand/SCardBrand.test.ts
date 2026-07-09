@@ -40,7 +40,7 @@ describe('SCardBrand', () => {
     });
 
     test('Constants brandName matches assets exports', () => {
-        expect(brandName.length).toBe(brandNames.length);
+        expect(brandName).toHaveLength(brandNames.length);
         brandName.forEach((name) => {
             expect(brandNames).toContain(name);
         });

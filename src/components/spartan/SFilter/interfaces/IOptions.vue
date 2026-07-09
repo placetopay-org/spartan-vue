@@ -74,15 +74,8 @@ const clear = () => {
                         {{ getOptionLabel(option) }}
                     </SBadge>
                 </template>
-                <!--
-                    `id="input-search"` used to live here. It labelled nothing — no
-                    `<label for>` referenced it — and it was a constant, so two option
-                    fields on a page produced duplicate DOM ids. It only ever served as
-                    a test hook, which `data-s-filter-search` now does honestly.
-
-                    The placeholder disappears once something is selected, so it cannot
-                    be the accessible name either.
-                -->
+                <!-- Named for screen readers via aria-label, since the placeholder is -->
+                <!-- cleared on selection. Tests target the data-s-filter-search hook. -->
                 <input
                     v-model="search"
                     data-s-filter-search

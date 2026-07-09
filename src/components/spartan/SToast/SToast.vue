@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { CheckCircleIcon, XCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline';
-import { XMarkIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon, ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
 import { hasSlotContent } from '@/helpers';
 import type { TToastProps, TToastEmits } from './types';

@@ -6,10 +6,8 @@ export type TTemplateHeaderTableProps = {
     title: string;
 };
 
-export type TTemplateHeaderTableEmits = {
-    /**
-     * @en Emitted when the user submits a search query.
-     * @es Se emite cuando el usuario envía una consulta de búsqueda.
-     */
-    (e: 'search', query: string): void;
-};
+/**
+ * @en Emitted when the user submits a search query.
+ * @es Se emite cuando el usuario envía una consulta de búsqueda.
+ */
+export type TTemplateHeaderTableEmits = (e: 'search', query: string) => void;

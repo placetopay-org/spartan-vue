@@ -1,13 +1,11 @@
 import type { TRounded } from '@/helpers';
 import type { HTMLAttributes } from 'vue';
 
-export type TSelectEmits = {
-    /**
-     * @en Emitted when the selected value changes.
-     * @es Se emite cuando el valor seleccionado cambia.
-     */
-    (e: 'update:modelValue', value: string | number | undefined): void;
-};
+/**
+ * @en Emitted when the selected value changes.
+ * @es Se emite cuando el valor seleccionado cambia.
+ */
+export type TSelectEmits = (e: 'update:modelValue', value: string | number | undefined) => void;
 
 export type TSelectProps = {
     /**
