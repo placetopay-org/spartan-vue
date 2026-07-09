@@ -1,8 +1,14 @@
 import { fileURLToPath } from 'node:url';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import svgLoader from 'vite-svg-loader';
 
 const { version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf-8'));
+const componentDirectories = readdirSync(new URL('../src/components/spartan', import.meta.url), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && entry.name.startsWith('S'))
+    .map((entry) => entry.name);
+const blockComponentCount = componentDirectories.filter((name) => name.endsWith('Block')).length;
+const mainComponentCount = componentDirectories.length - blockComponentCount;
+const componentDescription = `Unified Vue 3 component library for PlaceToPay with ${mainComponentCount} main components, ${blockComponentCount} Block variants, TailwindCSS and i18n support.`;
 
 export default defineNuxtConfig({
     extends: ['docus'],
@@ -55,8 +61,7 @@ export default defineNuxtConfig({
                 { property: 'og:title', content: 'Spartan - Vue 3 Component Library for PlaceToPay' },
                 {
                     property: 'og:description',
-                    content:
-                        'Unified Vue 3 component library for PlaceToPay with 68 components, TailwindCSS and i18n support.',
+                    content: componentDescription,
                 },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:site_name', content: 'Spartan' },
@@ -68,8 +73,7 @@ export default defineNuxtConfig({
                 { name: 'twitter:title', content: 'Spartan - Vue 3 Component Library for PlaceToPay' },
                 {
                     name: 'twitter:description',
-                    content:
-                        'Unified Vue 3 component library for PlaceToPay with 68 components, TailwindCSS and i18n support.',
+                    content: componentDescription,
                 },
                 { name: 'twitter:image', content: 'https://placetopay-org.github.io/spartan-vue/og-image.png' },
             ],
@@ -100,6 +104,9 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             version,
+            componentCount: componentDirectories.length,
+            mainComponentCount,
+            blockComponentCount,
         },
     },
 

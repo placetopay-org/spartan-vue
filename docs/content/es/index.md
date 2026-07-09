@@ -1,7 +1,7 @@
 ---
 seo:
   title: Spartan - Biblioteca de Componentes Vue 3 para PlaceToPay
-  description: Biblioteca de componentes Vue 3 unificada para aplicaciones web de PlaceToPay. Construida con TailwindCSS, soporte i18n y 65 componentes listos para usar.
+  description: Biblioteca de componentes Vue 3 unificada para aplicaciones web de PlaceToPay. Construida con TailwindCSS, soporte i18n, 54 componentes principales y 10 variantes Block.
 ---
 
 ::u-page-hero
@@ -101,58 +101,13 @@ Construido con Vue 3 y TailwindCSS, con soporte nativo de internacionalización.
     class: col-span-2
     target: _blank
     ---
-      :::::tabs
-        ::::::tabs-item{.mt-5 icon="i-lucide-eye" label="Preview"}
-          :::::::div{.flex.flex-col.gap-4}
-            ::::::::note{.my-0}
-            Here's some additional information for you.
-            ::::::::
-
-            ::::::::tip{.my-0}
-            Here's a helpful suggestion.
-            ::::::::
-
-            ::::::::warning{.my-0}
-            Be careful with this action as it might have unexpected results.
-            ::::::::
-
-            ::::::::caution{.my-0}
-            This action cannot be undone.
-            ::::::::
-          :::::::
-        ::::::
-
-        ::::::tabs-item
-        ---
-        class: mt-5 mb-2 text-xs overflow-x-auto
-        icon: i-lucide-code
-        label: Code
-        ---
-        ```vue
-        <note>
-        Here's some additional information.
-        </note>
-
-        <tip>
-        Here's a helpful suggestion.
-        </tip>
-
-        <warning>
-        Be careful with this action as it might have unexpected results.
-        </warning>
-
-        <caution>
-        This action cannot be undone.
-        </caution>
-        ```
-        ::::::
-      :::::
+    :landing-components-showcase
 
     #title
-    [65 componentes]{.text-primary} listos para usar
+    [54 componentes]{.text-primary} principales y [10 variantes Block]{.text-primary}
 
     #description
-    Desde botones y tarjetas hasta modales y tablas, Spartan ofrece una amplia gama de componentes personalizables para tus necesidades de desarrollo.
+    Desde botones e inputs hasta modales y tablas, Spartan ofrece componentes reales, reutilizables y personalizables para tus flujos de producto.
     ::::
 
     ::::u-page-card

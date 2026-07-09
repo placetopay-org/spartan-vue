@@ -462,6 +462,40 @@ describe('SDTable API', () => {
         expect(Object.keys(state.cols)).toHaveLength(0);
     });
 
+    test('updateCol preserves column position when props change', () => {
+        const emit = (() => {}) as any;
+        const props = { data: [] } as any;
+
+        const state = createContext(props, emit, {});
+
+        state.updateCol({ field: 'name', header: 'Name', sort: true });
+        state.updateCol({ field: 'email', header: 'Email' });
+        state.updateCol({ field: 'name', header: 'Name', sort: 'asc' });
+
+        expect(state.colsArray.map((col) => col.field)).toEqual(['name', 'email']);
+        expect(state.cols.name.pos).toBe(1);
+        expect(state.cols.email.pos).toBe(2);
+        expect(state.cols.name.sort).toBe('asc');
+    });
+
+    test('removeCol ignores missing fields and clears expander state', () => {
+        const emit = (() => {}) as any;
+        const props = { data: [] } as any;
+
+        const state = createContext(props, emit, {});
+        const firstExpander = Symbol('first-expander');
+        const secondExpander = Symbol('second-expander');
+
+        state.updateCol({ field: firstExpander, expander: true });
+        state.removeCol(Symbol('missing'));
+        state.removeCol(firstExpander);
+        state.updateCol({ field: secondExpander, expander: true });
+
+        expect(state.config.expander).toBe(true);
+        expect(state.colsArray).toHaveLength(1);
+        expect(state.colsArray[0].field).toBe(secondExpander);
+    });
+
     test('expand watch uses default previousExpandedState when invoked without old value', async () => {
         // Render with an expander column and toggle a row; the watch handler runs and
         // accepts both newValue and oldValue parameters (the default `[]` is a safety
