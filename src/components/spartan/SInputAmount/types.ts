@@ -78,13 +78,3 @@ export type TInputAmountProps = {
      */
     minorUnitMode?: boolean;
 };
-
-// TODO: vite plugin prevents splitting types
-// export type TInputAmountPropsFull = Partial<TInputProps> & {
-//     modelValue: number | null;
-//     currency: keyof typeof Currencies;
-//     locale?: string;
-//     symbol?: boolean;
-//     suffixCurrency?: boolean;
-//     currencies?: Array<keyof typeof Currencies>;
-// };

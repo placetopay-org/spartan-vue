@@ -162,16 +162,3 @@ export const resolveInputComponent = (field: SFilterField, operatorInputCount: I
     if (field.type === 'dateRange') return ITwoInputs;
     return operatorInputCount === 2 ? ITwoInputs : IOneInput;
 };
-
-/**
- * @deprecated internal mapping — kept for reference. Use {@link resolveInputComponent}.
- */
-export const INPUT_COMPONENTS = {
-    text: IOneInput,
-    number: IOneInput,
-    amount: IOneInput,
-    date: IOneInput,
-    dateRange: ITwoInputs,
-    options: IOptions,
-    selection: ISelection,
-} satisfies Record<SFilterFieldType, Component>;

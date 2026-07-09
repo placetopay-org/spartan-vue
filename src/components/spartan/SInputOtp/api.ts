@@ -17,7 +17,6 @@ type TState = {
     focusInput: () => void;
     focusoutInput: () => void;
     selectAll: () => void;
-    updateSelection: (start: number, end: number) => void;
 };
 
 const contextKey = Symbol('STabContext') as InjectionKey<TState>;
@@ -64,12 +63,6 @@ export const createContext = (props: TInputOtpProps, emit: TInputOtpEmits) => {
         selectAll: () => {
             state.isFocusedAll = true;
             state.items.forEach(({ setActive }) => setActive(true));
-        },
-        // TODO: Implement arrow keys navigation
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        updateSelection: (_start: number, _end: number) => {
-            // console.log('updateSelection', _start, _end, state.items.slice(_start, _end).length);
-            // state.items.slice(_start, _end + 1).forEach(({ setActive }) => setActive(true));
         },
     });
 

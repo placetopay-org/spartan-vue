@@ -31,15 +31,11 @@ const updateValue = (event: Event) => {
     $input.value = context.value;
 };
 
-// TODO: Implement arrow keys navigation
-
-const showCaret = (_event: Event) => {
-    // const $input = _event.target as HTMLInputElement;
-    // console.log('selectionStart', $input.selectionStart);
-    // console.log('selectionEnd', $input.selectionEnd);
-    // context.updateSelection($input.selectionStart, $input.selectionEnd);
-};
-
+// Interaction model: the caret stays pinned to the end of the hidden input, so
+// typing always appends and Backspace always deletes the last digit. Moving the
+// caret with the arrow keys (editing a middle digit in place) is deliberately
+// unsupported — it would require caret-to-cell highlighting and insert/overwrite
+// semantics that no OTP flow in the design system needs.
 const avoidMoveCaret = (e: Event) => {
     (e.target as HTMLInputElement).setSelectionRange(-1, -1);
 };
@@ -58,8 +54,6 @@ const avoidMoveCaret = (e: Event) => {
             @focus="context.focusInput"
             @focusout="context.focusoutInput"
             @dblclick="context.selectAll"
-            @click="showCaret"
-            @keyup="showCaret"
             @keyup.up="avoidMoveCaret"
             @keyup.left="avoidMoveCaret"
         />
