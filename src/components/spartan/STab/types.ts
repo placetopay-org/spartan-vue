@@ -23,7 +23,7 @@ export type TTabProps = {
 
     /**
      * @en Makes the tabs stretch to fill the full available width.
-     * @es Hace que las pestañas se expandan para llenar todo el ancho disponible.
+     * @es Hace que las pestañas se expandan para ocupar el ancho disponible completo.
      */
     full?: boolean;
 

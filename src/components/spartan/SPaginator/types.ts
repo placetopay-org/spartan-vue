@@ -103,7 +103,7 @@ export type TPaginatorProps = {
 
     /**
      * @en Hides the whole paginator when there is only a single page.
-     * @es Oculta todo el paginador cuando solo hay una página.
+     * @es Oculta el paginador por completo cuando solo hay una página.
      */
     hideWhenSinglePage?: boolean;
 
