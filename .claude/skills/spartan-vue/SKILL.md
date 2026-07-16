@@ -33,6 +33,19 @@ Don't guess prop names from training data — Spartan's API drifts and the publi
 
 ---
 
+## 3.x gotchas (stale training data / migrating from 2.x)
+
+- `SModal` no longer emits `close` — listen to `@update:open` instead.
+- The modal family's `responsive` default (`true`) is honored since 3.0.0 — modals without an explicit `responsive` render the responsive layout; pass `:responsive="false"` for the old centered one.
+- `class` props accept **strings and nested arrays only** (`TClassProp`). Vue's object syntax (`:class="{ foo: cond }"`) never worked on Spartan class props (they run through `twMerge`, which ignores objects) and now fails typecheck — use `cond && 'foo'` instead.
+- `SCombobox` / `SComboboxBlock` were removed — use `SSelector` / `SSelectorBlock`.
+- `SFilter` was rewritten: `filters: Record<string, SFilterField>` + `v-model` replace the mutable `fields` array, and the exported type family is `SFilter*`.
+- `SButton`: `outline` and `link` are boolean modifiers, not `variant` values.
+
+Full before/after: docs site → Getting Started → Migration.
+
+---
+
 ## Quick start
 
 ```bash
@@ -61,12 +74,14 @@ For the full installation walkthrough (Vite/Nuxt configs, plugin variants, font 
 
 | Path | What it provides |
 |------|-----------------|
-| `@placetopay/spartan-vue` | All components + i18n helpers |
-| `@placetopay/spartan-vue/styles.css` | Complete styles (includes Inter font) |
-| `@placetopay/spartan-vue/styles/plugin.css` | Styles without Inter font |
-| `@placetopay/spartan-vue/styles/spartan-vue.css` | Component-only styles |
+| `@placetopay/spartan-vue` | All components |
+| `@placetopay/spartan-vue/i18n` | i18n merge helpers (`addSpartan*Messages`) — they are **not** re-exported from the main path |
 | `@placetopay/spartan-vue/locales` | Translation files (es, en, pt, it, fr) |
-| `@placetopay/spartan-vue/i18n` | i18n bootstrap helpers |
+| `@placetopay/spartan-vue/styles.css` | Complete styles (Inter font + theme + components + vue-sonner) |
+| `@placetopay/spartan-vue/styles/main.css` | Fonts + theme + vue-sonner, without component CSS |
+| `@placetopay/spartan-vue/styles/plugin.css` | Theme layer only (no font, no vue-sonner) |
+| `@placetopay/spartan-vue/styles/spartan-vue.css` | Component-only styles |
+| `@placetopay/spartan-vue/styles/fonts.css` | Inter font only |
 
 ---
 
