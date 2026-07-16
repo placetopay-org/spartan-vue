@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-07-16
+
 ### Added
 - Migration guide (EN + ES): a note that the `SModal` family's `responsive` default now applies. The fix below under **Fixed** in this release is also a visible change for 2.x upgraders — 2.x carried the same bug — so the guide now says what changes on screen and that `:responsive="false"` restores the old centered layout.
 - `TClassProp` (exported from the shipped declarations): the accurate type of every customizable `class` prop — Tailwind class strings or nested arrays of them. See **Changed** for why.
