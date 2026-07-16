@@ -10,7 +10,7 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid';
 
 const context = useContext('TableBody');
 
-const rowLink = computed(() => context.props.rowLink || (() => {}));
+const rowLink = computed(() => context.props.rowLink || (() => undefined));
 </script>
 
 <template>

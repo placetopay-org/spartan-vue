@@ -1,11 +1,11 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 export type TAvatarProps = {
     /**
      * @en Additional CSS classes to customize the appearance of the avatar.
      * @es Clases CSS adicionales para personalizar la apariencia del avatar.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 
     /**
      * @en Removes the outline border around the avatar.

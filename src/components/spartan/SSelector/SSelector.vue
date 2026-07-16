@@ -14,7 +14,7 @@ import { usePassthrough } from '@/helpers';
 import type { TSelectorProps, TSelectorEmits, TSelectorSlots, TOption } from './types';
 import { type TPopoverProps } from '@spartan';
 import { computed, useTemplateRef, ref, watch } from 'vue';
-import isEqual from 'lodash.isequal';
+import { isEqual } from '@/helpers';
 import { SelectorLayout, SelectorButton, SelectorOptions, SelectorInputSearch } from '@internal';
 
 const emit = defineEmits<TSelectorEmits>();

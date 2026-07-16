@@ -1,4 +1,5 @@
-import type { FunctionalComponent, HTMLAttributes } from 'vue';
+import type { FunctionalComponent } from 'vue';
+import type { TClassProp } from '@/constants';
 
 export type TAlertProps = {
     /**
@@ -48,5 +49,5 @@ export type TAlertProps = {
      * @en Additional CSS classes for the alert container.
      * @es Clases CSS adicionales para el contenedor del alert.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };

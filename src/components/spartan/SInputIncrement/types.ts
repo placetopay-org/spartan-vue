@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 /**
  * @en Emitted when the numeric value changes.
@@ -11,7 +11,7 @@ export type TInputIncrementProps = {
      * @en Custom CSS classes for the container element.
      * @es Clases CSS personalizadas para el elemento contenedor.
      */
-    containerClass?: HTMLAttributes['class'];
+    containerClass?: TClassProp;
 
     /**
      * @en Disables the input and both increment/decrement buttons.

@@ -1,4 +1,5 @@
 export * from './i18n';
+export * from './isEqual';
 export * from './slotContent';
 export * from './styles';
 export * from './sanitizer';

@@ -1,5 +1,6 @@
 import type { TRounded } from '@/helpers';
-import type { FunctionalComponent, HTMLAttributes } from 'vue';
+import type { FunctionalComponent } from 'vue';
+import type { TClassProp } from '@/constants';
 
 type TOption = {
     label: string;
@@ -17,7 +18,7 @@ export type TInputProps = {
      * @en Additional CSS classes for the input container.
      * @es Clases CSS adicionales para el contenedor del input.
      */
-    class: HTMLAttributes['class'];
+    class: TClassProp;
 
     /**
      * @en Disables the input when true, preventing user interaction.

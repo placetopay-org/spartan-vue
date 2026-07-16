@@ -1,4 +1,5 @@
-import type { Component, FunctionalComponent, HTMLAttributes } from 'vue';
+import type { Component, FunctionalComponent } from 'vue';
+import type { TClassProp } from '@/constants';
 import type { TButtonStyles } from './styles';
 
 export type TButtonProps = {
@@ -85,5 +86,5 @@ export type TButtonProps = {
      * @en Additional CSS classes for the button.
      * @es Clases CSS adicionales para el botón.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };

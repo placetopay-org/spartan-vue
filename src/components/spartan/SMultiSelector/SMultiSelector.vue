@@ -13,7 +13,7 @@ import { translator, usePassthrough } from '@/helpers';
 import type { TMultiSelectorProps, TMultiSelectorEmits, TMultiSelectorSlots, TOption } from './types';
 import { type TPopoverProps, SBadge } from '@spartan';
 import { computed, nextTick, useTemplateRef } from 'vue';
-import isEqual from 'lodash.isequal';
+import { isEqual } from '@/helpers';
 import {
     SelectorLayout,
     SelectorButton,

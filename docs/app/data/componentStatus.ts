@@ -10,13 +10,7 @@
 import { componentCoverage } from './componentCoverage';
 
 export type ComponentCategory =
-    | 'dataInput'
-    | 'selectors'
-    | 'display'
-    | 'modals'
-    | 'structure'
-    | 'utilities'
-    | 'typography';
+    'dataInput' | 'selectors' | 'display' | 'modals' | 'structure' | 'utilities' | 'typography';
 
 export interface ComponentImprovements {
     en: string;

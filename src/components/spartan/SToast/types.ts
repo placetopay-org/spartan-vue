@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 export type TToastEmits = (event: 'closeToast') => void;
 
@@ -40,5 +40,5 @@ export type TToastProps = {
      * @en Additional CSS classes to apply to the toast container.
      * @es Clases CSS adicionales para aplicar al contenedor del toast.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };

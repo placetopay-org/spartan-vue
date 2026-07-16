@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 export type TSectionDescriptionProps = {
     /**
@@ -12,5 +12,5 @@ export type TSectionDescriptionProps = {
      * @en Additional CSS classes to customize the appearance of the section description.
      * @es Clases CSS adicionales para personalizar la apariencia de la descripción de sección.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };

@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 /**
  * @en Emitted when the OTP value changes.
@@ -17,7 +17,7 @@ export type TInputOtpProps = {
      * @en Custom CSS classes to apply to the OTP container.
      * @es Clases CSS personalizadas para aplicar al contenedor OTP.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 
     /**
      * @en Disables the OTP input.
@@ -46,5 +46,5 @@ export type TInputOtpItemProps = {
      * @en Custom CSS classes to apply to an individual OTP cell.
      * @es Clases CSS personalizadas para aplicar a una celda OTP individual.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };
