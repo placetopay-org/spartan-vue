@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 export type TSectionTitleProps = {
     /**
@@ -12,5 +12,5 @@ export type TSectionTitleProps = {
      * @en Additional CSS classes to customize the appearance of the section title.
      * @es Clases CSS adicionales para personalizar la apariencia del título de sección.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };

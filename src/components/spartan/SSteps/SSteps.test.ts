@@ -130,4 +130,17 @@ describe('SSteps', () => {
         expect(screen.getByText('Step name')).toBeInTheDocument();
         expect(screen.getByText('Step description')).toBeInTheDocument();
     });
+
+    test('Simple variant renders a step with no name at all', () => {
+        // No default slot and no `name` prop: only the description span renders.
+        const item = h(SStepsItem, {
+            href: 'link-1',
+            status: 'current',
+            description: 'Only description',
+        });
+
+        render(SSteps, { props: { variant: 'simple' }, slots: { default: [item] } });
+
+        expect(screen.getByRole('link', { name: 'Only description' })).toBeInTheDocument();
+    });
 });

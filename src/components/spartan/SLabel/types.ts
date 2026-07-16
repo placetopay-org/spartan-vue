@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 export type TLabelProps = {
     /**
@@ -18,5 +18,5 @@ export type TLabelProps = {
      * @en Additional CSS classes to customize the appearance of the label.
      * @es Clases CSS adicionales para personalizar la apariencia de la etiqueta.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };

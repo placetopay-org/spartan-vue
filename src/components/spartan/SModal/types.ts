@@ -1,10 +1,8 @@
-export type TModalEmits = {
-    /**
-     * @en Emitted when the modal open state changes.
-     * @es Se emite cuando cambia el estado de apertura del modal.
-     */
-    (event: 'update:open', value: boolean): void;
-};
+/**
+ * @en Emitted when the modal open state changes.
+ * @es Se emite cuando cambia el estado de apertura del modal.
+ */
+export type TModalEmits = (event: 'update:open', value: boolean) => void;
 
 export type TModalProps = {
     /**

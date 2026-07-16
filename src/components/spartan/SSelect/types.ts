@@ -1,5 +1,5 @@
 import type { TRounded } from '@/helpers';
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 
 /**
  * @en Emitted when the selected value changes.
@@ -55,5 +55,5 @@ export type TSelectProps = {
      * @en Additional CSS classes for the select element.
      * @es Clases CSS adicionales para el elemento select.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };

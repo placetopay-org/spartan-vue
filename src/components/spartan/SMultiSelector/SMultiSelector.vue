@@ -9,11 +9,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { translator, usePassthrough } from '@/helpers';
+import { translator, usePassthrough, isEqual } from '@/helpers';
 import type { TMultiSelectorProps, TMultiSelectorEmits, TMultiSelectorSlots, TOption } from './types';
 import { type TPopoverProps, SBadge } from '@spartan';
 import { computed, nextTick, useTemplateRef } from 'vue';
-import isEqual from 'lodash.isequal';
 import {
     SelectorLayout,
     SelectorButton,

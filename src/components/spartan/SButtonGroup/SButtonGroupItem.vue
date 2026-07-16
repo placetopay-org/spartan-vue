@@ -24,12 +24,12 @@ const rootClass = computed(() => twMerge(buttonGroupItemStyles({ active, endIcon
 
 const navIconClass = computed(() => [buttonGroupItemIconStyles({ active }), 'duration-75 group-active:scale-125']);
 
-const iconClass = computed(() =>
-    buttonGroupItemIconStyles({
-        active,
-        margin: slots.default?.()?.[0]?.children ? (endIcon ? 'end' : 'start') : 'none',
-    }),
-);
+const iconMargin = computed(() => {
+    if (!slots.default?.()?.[0]?.children) return 'none';
+    return endIcon ? 'end' : 'start';
+});
+
+const iconClass = computed(() => buttonGroupItemIconStyles({ active, margin: iconMargin.value }));
 </script>
 
 <template>

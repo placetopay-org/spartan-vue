@@ -14,7 +14,7 @@ The documentation and interactive component playground live in the `docs/` site 
 
 ### Requirements
 
-- [NodeJs](https://nodejs.org/es/) 20.19 | ^22.12
+- [NodeJs](https://nodejs.org/es/) ^20.19 || >=22.12 (CI runs 20 and 24)
 - [NPM](https://www.npmjs.com/) ^10
 - [TailwindCSS](https://tailwindcss.com/) ^4
 

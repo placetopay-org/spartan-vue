@@ -101,6 +101,15 @@ export default defineNuxtConfig({
         preset: 'static',
     },
 
+    // Nuxt UI ≥4.5 joins `app.baseURL` into every image src (resolveBaseURL in
+    // UColorModeImage / prose Img) assuming a plain <img>. With the IPX provider
+    // that prefixed src is treated as a file path under public/, which does not
+    // exist — every landing image 404s. IPX adds nothing here (SVGs pass through
+    // untransformed and cover.webp is 131 KB), so render plain <img> tags.
+    image: {
+        provider: 'none',
+    },
+
     runtimeConfig: {
         public: {
             version,

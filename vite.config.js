@@ -37,7 +37,7 @@ export default defineConfig({
     },
     test: {
         globals: true,
-        include: ['./src/components/spartan/**/*.test.ts'],
+        include: ['./src/**/*.test.ts'],
         setupFiles: './src/vitest-setup.ts',
         environment: 'jsdom',
         coverage: {

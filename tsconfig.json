@@ -3,6 +3,7 @@
     "compilerOptions": {
         "allowJs": true,
         "outDir": "dist",
+        "rootDir": "./src",
         "types": ["vitest/globals"],
         "module": "ESNext",
         "moduleResolution": "Bundler",

@@ -3,14 +3,7 @@ import { Currencies } from '@/constants';
 // ── Per-type operator unions ───────────────────────────────────────────────
 
 export type SFilterTextOperator =
-    | 'contains'
-    | 'notContains'
-    | 'startsWith'
-    | 'endsWith'
-    | 'equal'
-    | 'notEqual'
-    | 'exist'
-    | 'notExist';
+    'contains' | 'notContains' | 'startsWith' | 'endsWith' | 'equal' | 'notEqual' | 'exist' | 'notExist';
 
 export type SFilterNumberOperator =
     | 'equal'
@@ -27,25 +20,10 @@ export type SFilterNumberOperator =
 export type SFilterAmountOperator = SFilterNumberOperator;
 
 export type SFilterDateOperator =
-    | 'equal'
-    | 'before'
-    | 'after'
-    | 'today'
-    | 'yesterday'
-    | 'lastWeek'
-    | 'lastMonth'
-    | 'lastYear'
-    | 'exist'
-    | 'notExist';
+    'equal' | 'before' | 'after' | 'today' | 'yesterday' | 'lastWeek' | 'lastMonth' | 'lastYear' | 'exist' | 'notExist';
 
 export type SFilterDateRangeOperator =
-    | 'between'
-    | 'notBetween'
-    | 'lastWeek'
-    | 'lastMonth'
-    | 'lastYear'
-    | 'exist'
-    | 'notExist';
+    'between' | 'notBetween' | 'lastWeek' | 'lastMonth' | 'lastYear' | 'exist' | 'notExist';
 
 export type SFilterOptionsOperator = 'equal' | 'notEqual' | 'exist' | 'notExist';
 

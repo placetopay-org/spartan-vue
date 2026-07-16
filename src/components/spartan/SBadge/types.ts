@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'vue';
+import type { TClassProp } from '@/constants';
 import type { TBadgeStyles } from './styles';
 
 export type TBadgeEmits = (event: 'removed') => void;
@@ -52,5 +52,5 @@ export type TBadgeProps = {
      * @en Additional CSS classes for the badge.
      * @es Clases CSS adicionales para el badge.
      */
-    class?: HTMLAttributes['class'];
+    class?: TClassProp;
 };
