@@ -26,7 +26,7 @@ npm install vue-i18n
 
 ```ts
 // main.ts
-import '@placetopay/spartan-vue/style.css'
+import './styles.css' // your stylesheet — it @imports Spartan (see installation-guide.md)
 
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
@@ -70,7 +70,7 @@ const i18n = createI18n({ locale: 'en', legacy: false, messages })
 
 ## Helper Functions
 
-Spartan exports convenience helpers that deep-merge its locale messages with yours using lodash `merge`. Import them from the main package:
+Spartan ships convenience helpers that deep-merge its locale messages with yours (the merge never mutates its inputs). They live in the dedicated `/i18n` entry — **not** in the main package:
 
 ```ts
 import {
@@ -78,8 +78,9 @@ import {
   addSpartanEsMessages,
   addSpartanPtMessages,
   addSpartanItMessages,
+  addSpartanFrMessages,
   addSpartanAllMessages,
-} from '@placetopay/spartan-vue'
+} from '@placetopay/spartan-vue/i18n'
 ```
 
 ### Per-locale helpers
@@ -91,23 +92,19 @@ const enMessages = addSpartanEnMessages({ app: { title: 'My App' } })
 const esMessages = addSpartanEsMessages({ app: { title: 'Mi App' } })
 ```
 
-Signature: `addSpartan{En|Es|Pt|It}Messages(baseMessages, variantMessages?)`
+Signature: `addSpartan{En|Es|Pt|It|Fr}Messages(baseMessages, variantMessages?)`
 
 ### All-at-once helper
 
-`addSpartanAllMessages` merges every locale in a single call. It returns an object with `en`, `es`, `pt`, and `it` keys:
+`addSpartanAllMessages` merges every locale in a single call. It returns an object with `en`, `es`, `pt`, `it`, and `fr` keys (all five shipped locales):
 
 ```ts
 const messages = addSpartanAllMessages(
   { en: { app: { title: 'My App' } }, es: { app: { title: 'Mi App' } } },
   { variants: { en: myEnOverrides, es: myEsOverrides } },
 )
-// messages.en, messages.es, messages.pt, messages.it are all merged
+// messages.en, messages.es, messages.pt, messages.it, messages.fr are all merged
 ```
-
-> **Note:** The `fr` (French) locale is available from `@placetopay/spartan-vue/locales` but does not have a dedicated helper function. Merge it manually with spread: `{ ...fr, ...yourFrMessages }`.
-
-> **Note:** `addSpartanAllMessages` returns `en`, `es`, `pt`, and `it` only. If you need `fr`, add it separately.
 
 ## Components That Use i18n
 

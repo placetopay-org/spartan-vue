@@ -6,10 +6,10 @@ Reference for AI assistants helping consumers install and configure `@placetopay
 
 | Dependency     | Version          |
 |----------------|------------------|
-| Node.js        | `20.19` or `^22.12` |
+| Node.js        | `^20.19 \|\| >=22.12` |
 | NPM            | `^10`            |
 | TailwindCSS    | `^4`             |
-| Vue            | `3`              |
+| Vue            | `^3.5`           |
 
 The consumer must have a working Vue 3 project with TailwindCSS v4 already configured before installing Spartan.
 
@@ -28,16 +28,7 @@ pnpm add -D @placetopay/spartan-vue
 yarn add --dev @placetopay/spartan-vue
 ```
 
-### pnpm users
-
-pnpm requires flat hoisting for Spartan to resolve correctly. Create or update `.npmrc` in the project root:
-
-```ini
-# .npmrc
-shamefully-hoist=true
-```
-
-Then reinstall dependencies (`pnpm install`).
+pnpm's strict (isolated) `node_modules` works out of the box since `3.0.0-beta.17` — every dependency the package touches is declared, so **do not** add `shamefully-hoist=true` for Spartan. (Only 2.x and betas earlier than `.17` had phantom dependencies that required it.)
 
 ## Configure TailwindCSS v4
 
@@ -93,10 +84,13 @@ No plugin registration or `app.use()` call is needed. Components are used direct
 | What          | Import Path                                    |
 |---------------|------------------------------------------------|
 | Components    | `@placetopay/spartan-vue`                      |
-| Main styles   | `@placetopay/spartan-vue/styles.css`           |
+| i18n helpers  | `@placetopay/spartan-vue/i18n`                 |
 | Locales (i18n)| `@placetopay/spartan-vue/locales`              |
-| Plugin CSS    | `@placetopay/spartan-vue/styles/plugin.css`    |
+| Main styles (everything) | `@placetopay/spartan-vue/styles.css` |
+| Base styles (fonts + plugin + vue-sonner, no component CSS) | `@placetopay/spartan-vue/styles/main.css` |
+| Plugin CSS (theme layer, no font) | `@placetopay/spartan-vue/styles/plugin.css` |
 | Component CSS | `@placetopay/spartan-vue/styles/spartan-vue.css` |
+| Inter font only | `@placetopay/spartan-vue/styles/fonts.css`  |
 
 ## Theme Customization (Optional)
 
@@ -131,11 +125,14 @@ Spartan bundles the Inter font by default. If the consumer already uses a differ
 @import "tailwindcss";
 @import "@placetopay/spartan-vue/styles/plugin.css";
 @import "@placetopay/spartan-vue/styles/spartan-vue.css";
+@import "vue-sonner/style.css";
 
 @source '../src/**/*.{vue,js,ts}';
 ```
 
 This replaces the single `@import "@placetopay/spartan-vue/styles.css"` line. Use this approach only when the Inter font is unwanted.
+
+**Do not drop the `vue-sonner/style.css` import** — the bundled `styles.css` includes it, and without it `<SToaster />` loses its `position: fixed` and renders in the document flow, breaking the page layout. (`vue-sonner` is a direct dependency of Spartan, so the specifier resolves.)
 
 ## Common Issues
 
@@ -162,9 +159,9 @@ This replaces the single `@import "@placetopay/spartan-vue/styles.css"` line. Us
 
 ### pnpm module resolution errors
 
-**Cause:** pnpm's strict node_modules structure.
+**Cause:** Spartan version older than `3.0.0-beta.17` — those releases had phantom dependencies that pnpm's strict `node_modules` cannot resolve.
 
-**Fix:** Add `shamefully-hoist=true` to `.npmrc` and run `pnpm install`.
+**Fix:** Upgrade Spartan. Only if pinned to an older version, add `shamefully-hoist=true` to `.npmrc` and run `pnpm install`.
 
 ### Component internal texts not translating
 
