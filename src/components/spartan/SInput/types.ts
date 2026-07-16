@@ -18,7 +18,7 @@ export type TInputProps = {
      * @en Additional CSS classes for the input container.
      * @es Clases CSS adicionales para el contenedor del input.
      */
-    class: TClassProp;
+    class?: TClassProp;
 
     /**
      * @en Disables the input when true, preventing user interaction.
