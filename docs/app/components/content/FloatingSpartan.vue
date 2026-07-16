@@ -1,19 +1,15 @@
-<script setup lang="ts">
-const colorMode = useColorMode();
-
-const assets = {
-    light: '/landing/light/spartan.svg',
-    dark: '/landing/dark/spartan.svg',
-};
-
-const src = computed(() => {
-    return colorMode.value === 'light' ? assets.light : assets.dark;
-});
-</script>
-
 <template>
     <div class="flex flex-1 items-center justify-center">
-        <NuxtImg :src class="floating-logo h-42" alt="Spartan Colored Logo" />
+        <!-- UColorModeImage swaps the variants with CSS (dark:hidden), so the server
+             does not need to guess the theme — the previous colorMode branch rendered
+             the dark logo on the server and hydration-mismatched for light-mode visitors.
+             It also joins app.baseURL, which a bare <NuxtImg src="/landing/..."> misses. -->
+        <UColorModeImage
+            light="/landing/light/spartan.svg"
+            dark="/landing/dark/spartan.svg"
+            class="floating-logo h-42"
+            alt="Spartan Colored Logo"
+        />
     </div>
 </template>
 
