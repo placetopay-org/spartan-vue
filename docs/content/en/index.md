@@ -74,8 +74,6 @@ Built with Vue 3 and TailwindCSS, with native internationalization support.
     ---
     spotlight: true
     class: col-span-2
-    target: _blank
-    to: https://ui.nuxt.com
     ---
       :::::u-color-mode-image
       ---
