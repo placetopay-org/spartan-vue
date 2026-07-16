@@ -22,8 +22,15 @@ jobs:
         name: Build documentation
         runs-on: ubuntu-latest
         steps:
+            # `ref` matters: without it, checkout pins to the SHA the workflow run
+            # was dispatched on — which predates the `chore(release)` commit that
+            # release-it pushes during publish.yml's release job. The docs then
+            # render the previous version. Resolving the branch ref at checkout
+            # time picks up the release commit.
             - name: Checkout
               uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.ref }}
 
             - name: Install pnpm
               uses: pnpm/action-setup@v4
