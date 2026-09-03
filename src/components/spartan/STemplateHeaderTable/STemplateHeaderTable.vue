@@ -11,9 +11,8 @@ export default {
 
 <script setup lang="ts">
 import type { TTemplateHeaderTableProps, TTemplateHeaderTableEmits } from './types';
-import { translator } from '@/helpers';
+import { mergeClasses, translator } from '@/helpers';
 import { ref } from 'vue';
-import { twMerge } from 'tailwind-merge';
 import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
 import { SInput, SButton } from '@spartan';
 
@@ -31,7 +30,7 @@ const search = () => {
 </script>
 
 <template>
-    <div :class="twMerge('flex flex-col gap-4', $props.class)">
+    <div :class="mergeClasses('flex flex-col gap-4', $props.class)">
         <div class="flex items-center justify-between gap-4">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ title }}</h1>
 

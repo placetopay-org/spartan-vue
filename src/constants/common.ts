@@ -1,13 +1,15 @@
+import type { HTMLAttributes } from 'vue';
+
 export type ComponentSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 /**
- * @en Value accepted by Spartan `class` props: Tailwind class strings, or nested arrays of them.
- *     These props are merged with the component's own classes via `twMerge`, which ignores the
- *     object syntax (`{ 'foo': true }`) at runtime — so objects are excluded from the type on purpose.
- *     `undefined` is only allowed inside arrays; at the top level it comes from the prop being optional.
- * @es Valor aceptado por las props `class` de Spartan: cadenas de clases de Tailwind, o arreglos anidados de ellas.
- *     Estas props se combinan con las clases propias del componente vía `twMerge`, que ignora la
- *     sintaxis de objeto (`{ 'foo': true }`) en tiempo de ejecución — por eso el tipo excluye objetos.
- *     `undefined` solo se permite dentro de arreglos; en el nivel superior proviene de que la prop es opcional.
+ * @en Value accepted by Vue's special `class` attribute.
+ * @es Valor aceptado por el atributo especial `class` de Vue.
  */
-export type TClassProp = string | false | null | (TClassProp | undefined)[];
+export type TClassProp = HTMLAttributes['class'];
+
+/**
+ * @en Value accepted by custom class props passed directly to `twMerge`.
+ * @es Valor aceptado por props de clase personalizadas que se pasan directamente a `twMerge`.
+ */
+export type TClassMergeProp = string | false | null | (TClassMergeProp | undefined)[];

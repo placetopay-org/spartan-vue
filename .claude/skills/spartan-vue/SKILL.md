@@ -37,7 +37,7 @@ Don't guess prop names from training data — Spartan's API drifts and the publi
 
 - `SModal` no longer emits `close` — listen to `@update:open` instead.
 - The modal family's `responsive` default (`true`) is honored since 3.0.0 — modals without an explicit `responsive` render the responsive layout; pass `:responsive="false"` for the old centered one.
-- `class` props accept **strings and nested arrays only** (`TClassProp`). Vue's object syntax (`:class="{ foo: cond }"`) never worked on Spartan class props (they run through `twMerge`, which ignores objects) and now fails typecheck — use `cond && 'foo'` instead.
+- `class` props use Vue's standard `HTMLAttributes['class']` contract through `TClassProp`, so strings, arrays and object syntax (`:class="{ foo: cond }"`) are supported. Custom class-like props that Vue does not normalize use `TClassMergeProp` and accept only values that can be passed directly to `twMerge`.
 - `SCombobox` / `SComboboxBlock` were removed — use `SSelector` / `SSelectorBlock`.
 - `SFilter` was rewritten: `filters: Record<string, SFilterField>` + `v-model` replace the mutable `fields` array, and the exported type family is `SFilter*`.
 - `SButton`: `outline` and `link` are boolean modifiers, not `variant` values.

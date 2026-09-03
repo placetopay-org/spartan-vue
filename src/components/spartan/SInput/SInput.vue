@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { mergeClasses } from '@/helpers';
 import { computed, ref, useSlots, watchEffect } from 'vue';
 import { buildSideContent } from './slotBuilder';
 import type { TInputProps, TInputEmits } from './types';
-import { twMerge } from 'tailwind-merge';
 import { containerStyles, inputStyles } from './styles';
 
 defineOptions({ inheritAttrs: false });
@@ -57,7 +57,7 @@ defineExpose({ inputElement });
 <template>
     <div
         :class="
-            twMerge(
+            mergeClasses(
                 containerStyles({
                     error,
                     disabled,
@@ -85,7 +85,7 @@ defineExpose({ inputElement });
             :id
             ref="inputElement"
             :value="modelValue"
-            :class="twMerge(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
+            :class="mergeClasses(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"

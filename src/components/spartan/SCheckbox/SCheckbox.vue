@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue';
-import { twMerge } from 'tailwind-merge';
-import { hasSlotContent } from '@/helpers';
+import { mergeClasses, hasSlotContent } from '@/helpers';
 import { checkboxContainerStyles, checkboxInputStyles, checkboxLabelStyles, checkboxDescriptionStyles } from './styles';
 import type { TCheckboxProps } from './types';
 
@@ -40,7 +39,7 @@ const updateModelValue = (event: Event) => {
             :id="computedId"
             v-bind="$attrs"
             :checked="isChecked"
-            :class="twMerge(checkboxInputStyles(), $props.class)"
+            :class="mergeClasses(checkboxInputStyles(), $props.class)"
             type="checkbox"
             :disabled
             :name

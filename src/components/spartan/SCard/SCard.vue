@@ -10,8 +10,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
-import { hasSlotContent, usePassthrough } from '@/helpers';
+import { mergeClasses, hasSlotContent, usePassthrough } from '@/helpers';
 import { bodyStyles, containerStyles } from './styles';
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import type { TCardProps } from './types';
@@ -34,10 +33,12 @@ const ptIconContainer = extractor(pt.value.iconContainer);
 </script>
 
 <template>
-    <article :class="twMerge(containerStyles({ size }), $props.class)">
+    <article :class="mergeClasses(containerStyles({ size }), $props.class)">
         <header
             v-if="icon"
-            :class="twMerge('mx-4 mt-6 mb-8 flex sm:mx-8 sm:mt-8', closable ? 'justify-between' : 'justify-center')"
+            :class="
+                mergeClasses('mx-4 mt-6 mb-8 flex sm:mx-8 sm:mt-8', closable ? 'justify-between' : 'justify-center')
+            "
         >
             <VIcon v-bind="{ icon, iconColor, iconType, size, ptIcon, ptIconContainer }" />
             <button v-if="closable" class="h-fit cursor-pointer" @click="$emit('close')">
@@ -48,13 +49,13 @@ const ptIconContainer = extractor(pt.value.iconContainer);
         <main
             data-s-body
             v-bind="bodyProps"
-            :class="twMerge(bodyStyles({ size }), icon ? 'pt-0 sm:pt-0' : '', bodyClass)"
+            :class="mergeClasses(bodyStyles({ size }), icon ? 'pt-0 sm:pt-0' : '', bodyClass)"
         >
             <h3
                 v-if="hasSlotContent($slots.title) || title"
                 data-s-title
                 v-bind="titleProps"
-                :class="twMerge('text-center text-base font-semibold text-gray-900 dark:text-white', titleClass)"
+                :class="mergeClasses('text-center text-base font-semibold text-gray-900 dark:text-white', titleClass)"
             >
                 <slot v-if="hasSlotContent($slots.title)" name="title" />
                 <template v-else>{{ title }}</template>
@@ -65,7 +66,10 @@ const ptIconContainer = extractor(pt.value.iconContainer);
                 data-s-description
                 v-bind="descriptionProps"
                 :class="
-                    twMerge('mt-2 text-center text-sm font-normal text-gray-500 dark:text-gray-400', descriptionClass)
+                    mergeClasses(
+                        'mt-2 text-center text-sm font-normal text-gray-500 dark:text-gray-400',
+                        descriptionClass,
+                    )
                 "
             >
                 <slot name="description" />
@@ -79,7 +83,7 @@ const ptIconContainer = extractor(pt.value.iconContainer);
                 v-if="hasSlotContent($slots.actions)"
                 data-s-actions
                 v-bind="actionsProps"
-                :class="twMerge('mt-6 flex flex-col gap-3 sm:flex-row-reverse', actionsClass)"
+                :class="mergeClasses('mt-6 flex flex-col gap-3 sm:flex-row-reverse', actionsClass)"
             >
                 <slot name="actions" />
             </section>

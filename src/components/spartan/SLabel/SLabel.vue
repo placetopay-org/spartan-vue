@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { mergeClasses } from '@/helpers';
 import type { TLabelProps } from './types';
 
 const { srOnly = false } = defineProps<TLabelProps>();
@@ -10,7 +10,7 @@ const { srOnly = false } = defineProps<TLabelProps>();
         data-s-label
         :for
         :class="
-            twMerge(
+            mergeClasses(
                 'mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200',
                 srOnly && 'sr-only',
                 $props.class,

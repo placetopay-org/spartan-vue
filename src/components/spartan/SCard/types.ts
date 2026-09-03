@@ -1,4 +1,5 @@
 import type { FunctionalComponent } from 'vue';
+import type { TClassProp } from '@/constants';
 
 type TAction = {
     /**
@@ -25,7 +26,7 @@ export type TCardProps = {
      * @en Additional CSS classes for the card container.
      * @es Clases CSS adicionales para el contenedor de la tarjeta.
      */
-    class?: string;
+    class?: TClassProp;
 
     /**
      * @en Title text displayed in the card body.

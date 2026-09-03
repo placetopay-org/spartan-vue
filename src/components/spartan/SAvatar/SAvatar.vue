@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { mergeClasses } from '@/helpers';
 import { computed } from 'vue';
 import type { TAvatarProps } from './types';
 
@@ -56,7 +56,7 @@ const initials = computed(() => {
 });
 
 const baseClasses = computed(() =>
-    twMerge([
+    mergeClasses([
         'rounded-full',
         sizeClass[size],
         !borderless && 'outline outline-1 outline-gray-800/20 dark:outline-white/20 -outline-offset-1',
@@ -66,11 +66,11 @@ const baseClasses = computed(() =>
 
 <template>
     <div data-s-avatar class="group relative focus-visible:outline-none">
-        <img v-if="src" :class="twMerge(baseClasses, 'object-cover', $props.class)" :src :alt="initials" />
+        <img v-if="src" :class="mergeClasses(baseClasses, 'object-cover', $props.class)" :src :alt="initials" />
         <div
             v-else
             :class="
-                twMerge(
+                mergeClasses(
                     baseClasses,
                     'relative bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300',
                     $props.class,

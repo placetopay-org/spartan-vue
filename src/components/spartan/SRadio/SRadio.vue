@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, useId } from 'vue';
-import { twMerge } from 'tailwind-merge';
-import { hasSlotContent } from '@/helpers';
+import { mergeClasses, hasSlotContent } from '@/helpers';
 import { radioContainerStyles, radioInputStyles, radioLabelStyles, radioDescriptionStyles } from './styles';
 import type { TRadioProps } from './types';
 
@@ -34,7 +33,7 @@ const computedId = computed(() => id ?? uid);
             :id="computedId"
             v-bind="$attrs"
             v-model="model"
-            :class="twMerge(radioInputStyles(), $props.class)"
+            :class="mergeClasses(radioInputStyles(), $props.class)"
             type="radio"
             :disabled
             :name

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
-import { hasSlotContent } from '@/helpers';
+import { mergeClasses, hasSlotContent } from '@/helpers';
 import type { TCaptionProps } from './types';
 
 const { variant = 'error', text } = defineProps<TCaptionProps>();
@@ -12,7 +11,7 @@ const captionClass = {
 </script>
 
 <template>
-    <p data-s-caption :class="twMerge('text-xs font-normal', captionClass[variant], $props.class)" role="caption">
+    <p data-s-caption :class="mergeClasses('text-xs font-normal', captionClass[variant], $props.class)" role="caption">
         <slot v-if="hasSlotContent($slots.default)" />
         <template v-else>{{ text }}</template>
     </p>

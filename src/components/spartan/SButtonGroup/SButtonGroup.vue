@@ -9,14 +9,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { mergeClasses } from '@/helpers';
 import type { TClassProp } from '@/constants';
 
 defineProps<{ class?: TClassProp }>();
 </script>
 
 <template>
-    <div :class="twMerge('isolate inline-flex -space-x-px', $props.class)">
+    <div :class="mergeClasses('isolate inline-flex -space-x-px', $props.class)">
         <slot />
     </div>
 </template>

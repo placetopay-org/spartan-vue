@@ -10,10 +10,9 @@ export default {
 
 <script setup lang="ts">
 import type { TModalEmits, TModalProps } from './types';
-import { twMerge } from 'tailwind-merge';
 import { computed, watchEffect } from 'vue';
 import { TranStyle } from '@/constants';
-import { usePassthrough } from '@/helpers';
+import { mergeClasses, usePassthrough } from '@/helpers';
 
 defineOptions({ inheritAttrs: false });
 const emit = defineEmits<TModalEmits>();
@@ -62,7 +61,7 @@ const closeModal = () => {
                     data-s-container
                     v-bind="containerProps"
                     :class="
-                        twMerge(
+                        mergeClasses(
                             'absolute z-40 flex w-full justify-center',
                             containerStyles,
                             $props.class,

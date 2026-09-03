@@ -9,9 +9,9 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { mergeClasses } from '@/helpers';
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
-import { twMerge } from 'tailwind-merge';
 import { inputStyles, iconStyles } from './styles';
 import type { TInputIncrementProps, TInputIncrementEmits } from './types';
 
@@ -61,7 +61,7 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
 </script>
 
 <template>
-    <div :class="twMerge(inputStyles({ error, disabled }), containerClass)">
+    <div :class="mergeClasses(inputStyles({ error, disabled }), containerClass)">
         <button
             aria-label="decrement"
             type="button"
@@ -69,7 +69,7 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
             class="group p-2 pr-3 focus-visible:outline-none"
             @click="value--"
         >
-            <MinusCircleIcon :class="twMerge(iconStyles({ disabled: decrementDisabled }))" />
+            <MinusCircleIcon :class="mergeClasses(iconStyles({ disabled: decrementDisabled }))" />
         </button>
         <input
             v-bind="$attrs"
@@ -78,7 +78,7 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
             :max
             :disabled
             :value
-            :class="twMerge('border-none bg-transparent text-center focus:ring-0', props.class)"
+            :class="mergeClasses('border-none bg-transparent text-center focus:ring-0', props.class)"
             @input="updateValue"
         />
         <button
@@ -88,7 +88,7 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
             class="group p-2 pl-3 focus-visible:outline-none"
             @click="value++"
         >
-            <PlusCircleIcon :class="twMerge(iconStyles({ disabled: incrementDisabled }))" />
+            <PlusCircleIcon :class="mergeClasses(iconStyles({ disabled: incrementDisabled }))" />
         </button>
     </div>
 </template>
