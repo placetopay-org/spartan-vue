@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CheckCircleIcon, XCircleIcon, ExclamationCircleIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
-import { mergeClasses, hasSlotContent, translator } from '@/helpers';
+import { tm, hasSlotContent, translator } from '@/helpers';
 import type { TToastProps, TToastEmits } from './types';
 import { toastStyles, toastIconStyles } from './styles';
 
@@ -20,7 +20,7 @@ const icon = computed(() => typeIcons[type]);
 </script>
 
 <template>
-    <div aria-live="assertive" :class="mergeClasses(toastStyles({ type, leftBorder }), className)">
+    <div aria-live="assertive" :class="tm(toastStyles({ type, leftBorder }), className)">
         <div class="flex flex-col justify-center">
             <div class="flex items-center gap-1.5">
                 <component :is="icon" :class="toastIconStyles({ type })" aria-hidden="true" />

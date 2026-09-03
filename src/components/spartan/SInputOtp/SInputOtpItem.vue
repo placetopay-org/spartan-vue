@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import { ref, computed } from 'vue';
 import { useContext } from './api';
 import { inputOtpItemStyles, inputOtpItemTextStyles } from './styles';
@@ -21,9 +21,7 @@ ctx.register(
 </script>
 
 <template>
-    <div tabindex="-1" :class="mergeClasses(inputOtpItemStyles({ active, success, error }), $props.class)">
-        <span :class="mergeClasses(inputOtpItemTextStyles({ value: !!value, success, error }))">{{
-            value || '-'
-        }}</span>
+    <div tabindex="-1" :class="tm(inputOtpItemStyles({ active, success, error }), $props.class)">
+        <span :class="tm(inputOtpItemTextStyles({ value: !!value, success, error }))">{{ value || '-' }}</span>
     </div>
 </template>

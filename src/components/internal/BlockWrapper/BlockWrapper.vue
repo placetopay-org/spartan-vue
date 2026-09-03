@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import { SCaption, SLabel } from '@spartan';
 import type { TBlockWrapperProps } from './types';
 import { computed, useId } from 'vue';
@@ -10,7 +10,7 @@ const computedId = computed(() => props.id || uid);
 </script>
 
 <template>
-    <div :class="mergeClasses('w-full', props.class)">
+    <div :class="tm('w-full', props.class)">
         <SLabel v-if="label" :for="computedId">{{ label }}</SLabel>
         <slot :id="computedId" />
         <div v-if="helpText || errorText" class="flex flex-col">

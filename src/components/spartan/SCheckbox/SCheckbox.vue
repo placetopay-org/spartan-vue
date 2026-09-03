@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue';
-import { mergeClasses, hasSlotContent } from '@/helpers';
+import { tm, hasSlotContent } from '@/helpers';
 import { checkboxContainerStyles, checkboxInputStyles, checkboxLabelStyles, checkboxDescriptionStyles } from './styles';
 import type { TCheckboxProps } from './types';
 
@@ -39,7 +39,7 @@ const updateModelValue = (event: Event) => {
             :id="computedId"
             v-bind="$attrs"
             :checked="isChecked"
-            :class="mergeClasses(checkboxInputStyles(), $props.class)"
+            :class="tm(checkboxInputStyles(), $props.class)"
             type="checkbox"
             :disabled
             :name

@@ -9,14 +9,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import type { TClassProp } from '@/constants';
 
 defineProps<{ class?: TClassProp }>();
 </script>
 
 <template>
-    <div :class="mergeClasses('isolate inline-flex -space-x-px', $props.class)">
+    <div :class="tm('isolate inline-flex -space-x-px', $props.class)">
         <slot />
     </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import { computed, ref, useSlots, watchEffect } from 'vue';
 import { buildSideContent } from './slotBuilder';
 import type { TInputProps, TInputEmits } from './types';
@@ -57,7 +57,7 @@ defineExpose({ inputElement });
 <template>
     <div
         :class="
-            mergeClasses(
+            tm(
                 containerStyles({
                     error,
                     disabled,
@@ -85,7 +85,7 @@ defineExpose({ inputElement });
             :id
             ref="inputElement"
             :value="modelValue"
-            :class="mergeClasses(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
+            :class="tm(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"

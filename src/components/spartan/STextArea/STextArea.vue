@@ -9,7 +9,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import { textAreaStyles } from './styles';
 import type { TTextAreaProps, TTextAreaEmits } from './types';
 
@@ -23,7 +23,7 @@ defineProps<TTextAreaProps>();
         :value="modelValue"
         v-bind="$attrs"
         :disabled="disabled"
-        :class="mergeClasses(textAreaStyles({ error, disabled }), $props.class)"
+        :class="tm(textAreaStyles({ error, disabled }), $props.class)"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
 </template>

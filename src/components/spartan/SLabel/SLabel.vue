@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import type { TLabelProps } from './types';
 
 const { srOnly = false } = defineProps<TLabelProps>();
@@ -10,11 +10,7 @@ const { srOnly = false } = defineProps<TLabelProps>();
         data-s-label
         :for
         :class="
-            mergeClasses(
-                'mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200',
-                srOnly && 'sr-only',
-                $props.class,
-            )
+            tm('mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200', srOnly && 'sr-only', $props.class)
         "
     >
         <slot />

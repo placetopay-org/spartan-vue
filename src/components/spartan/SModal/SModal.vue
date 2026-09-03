@@ -12,7 +12,7 @@ export default {
 import type { TModalEmits, TModalProps } from './types';
 import { computed, watchEffect } from 'vue';
 import { TranStyle } from '@/constants';
-import { mergeClasses, usePassthrough } from '@/helpers';
+import { tm, usePassthrough } from '@/helpers';
 
 defineOptions({ inheritAttrs: false });
 const emit = defineEmits<TModalEmits>();
@@ -61,12 +61,7 @@ const closeModal = () => {
                     data-s-container
                     v-bind="containerProps"
                     :class="
-                        mergeClasses(
-                            'absolute z-40 flex w-full justify-center',
-                            containerStyles,
-                            $props.class,
-                            containerClass,
-                        )
+                        tm('absolute z-40 flex w-full justify-center', containerStyles, $props.class, containerClass)
                     "
                     @click.stop
                 >

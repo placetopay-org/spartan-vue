@@ -9,7 +9,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import { inputOtpStyles } from './styles';
 import { createContext } from './api';
 import type { TInputOtpProps, TInputOtpEmits } from './types';
@@ -42,7 +42,7 @@ const avoidMoveCaret = (e: Event) => {
 </script>
 
 <template>
-    <div :class="mergeClasses(inputOtpStyles({ disabled }), $props.class)">
+    <div :class="tm(inputOtpStyles({ disabled }), $props.class)">
         <input
             :value="context.value"
             type="text"

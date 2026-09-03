@@ -10,7 +10,7 @@ export default {
 
 <script setup lang="ts">
 import { XMarkIcon } from '@heroicons/vue/20/solid';
-import { mergeClasses, hasSlotContent, translator } from '@/helpers';
+import { tm, hasSlotContent, translator } from '@/helpers';
 import type { TAlertProps } from './types';
 import { alertStyles } from './styles';
 
@@ -24,7 +24,7 @@ const { color = 'neutral', variant = 'solid', closeable = false } = defineProps<
 </script>
 
 <template>
-    <div role="alert" :class="mergeClasses(alertStyles({ color, variant }), $props.class)">
+    <div role="alert" :class="tm(alertStyles({ color, variant }), $props.class)">
         <!-- Icon -->
         <component :is="icon" v-if="icon" class="h-5 w-5" />
 

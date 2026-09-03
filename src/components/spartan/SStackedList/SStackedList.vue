@@ -9,7 +9,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import type { TStackedListProps } from './types';
 
 defineProps<TStackedListProps>();
@@ -20,9 +20,7 @@ defineOptions({ inheritAttrs: false });
     <ul
         role="list"
         v-bind="$attrs"
-        :class="
-            mergeClasses('divide-y divide-gray-100 bg-white shadow dark:divide-gray-700 dark:bg-gray-800', $props.class)
-        "
+        :class="tm('divide-y divide-gray-100 bg-white shadow dark:divide-gray-700 dark:bg-gray-800', $props.class)"
     >
         <slot />
     </ul>

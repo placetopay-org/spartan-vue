@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { XCircleIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
 import { inputStyle, type TClassProp } from '@/constants';
-import { mergeClasses, translator } from '@/helpers';
+import { tm, translator } from '@/helpers';
 import { ref, useTemplateRef, type ShallowRef } from 'vue';
 
 const emit = defineEmits<{
@@ -34,17 +34,13 @@ defineExpose<{
 </script>
 
 <template>
-    <div
-        :class="
-            mergeClasses('flex items-center gap-2.5 border-b border-gray-300 p-3 dark:border-white/10', $props.class)
-        "
-    >
+    <div :class="tm('flex items-center gap-2.5 border-b border-gray-300 p-3 dark:border-white/10', $props.class)">
         <MagnifyingGlassIcon class="h-5 w-5 shrink-0 text-gray-400" />
         <input
             ref="input"
             :placeholder="t('search')"
             :class="
-                mergeClasses(
+                tm(
                     `${inputStyle.root} ${inputStyle.text} ${inputStyle.placeholder} w-full border-none p-0 outline-none focus:ring-0 dark:bg-transparent`,
                 )
             "

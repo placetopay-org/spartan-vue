@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeClasses } from '@/helpers';
+import { tm } from '@/helpers';
 import { ref } from 'vue';
 import type { TColorSwitchEmits, TColorSwitchMode, TColorSwitchProps } from './types';
 import { colorSwitchContainerStyles, colorSwitchButtonStyles, colorSwitchIconStyles } from './styles';
@@ -49,7 +49,7 @@ function moveSelection(offset: 1 | -1) {
 </script>
 
 <template>
-    <div role="radiogroup" aria-label="Color mode" :class="mergeClasses(colorSwitchContainerStyles(), $props.class)">
+    <div role="radiogroup" aria-label="Color mode" :class="tm(colorSwitchContainerStyles(), $props.class)">
         <button
             v-for="(mode, index) in modes"
             :key="mode.value"
