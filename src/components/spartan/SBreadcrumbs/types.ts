@@ -1,6 +1,21 @@
 import type { Component, FunctionalComponent } from 'vue';
+import type { TClassProp } from '@/constants';
+
+export type TBreadcrumbsProps = {
+    /**
+     * @en Additional CSS classes for the breadcrumbs navigation element.
+     * @es Clases CSS adicionales para el elemento de navegación del breadcrumb.
+     */
+    class?: TClassProp;
+};
 
 export type TBreadcrumbsItemProps = {
+    /**
+     * @en Additional CSS classes for the breadcrumb item link.
+     * @es Clases CSS adicionales para el enlace del elemento del breadcrumb.
+     */
+    class?: TClassProp;
+
     /**
      * @en Whether this is the first item in the breadcrumb trail. Hides the chevron separator.
      * @es Indica si este es el primer elemento del breadcrumb. Oculta el separador de chevron.

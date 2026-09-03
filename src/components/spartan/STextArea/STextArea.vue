@@ -23,7 +23,7 @@ defineProps<TTextAreaProps>();
         :value="modelValue"
         v-bind="$attrs"
         :disabled="disabled"
-        :class="twMerge(textAreaStyles({ error, disabled }))"
+        :class="twMerge(textAreaStyles({ error, disabled }), $props.class)"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
 </template>

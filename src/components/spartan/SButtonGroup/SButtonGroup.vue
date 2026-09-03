@@ -8,8 +8,15 @@ export default {
 };
 </script>
 
+<script setup lang="ts">
+import { twMerge } from 'tailwind-merge';
+import type { TClassProp } from '@/constants';
+
+defineProps<{ class?: TClassProp }>();
+</script>
+
 <template>
-    <div class="isolate inline-flex -space-x-px">
+    <div :class="twMerge('isolate inline-flex -space-x-px', $props.class)">
         <slot />
     </div>
 </template>

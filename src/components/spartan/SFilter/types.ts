@@ -1,4 +1,4 @@
-import { Currencies } from '@/constants';
+import { Currencies, type TClassProp } from '@/constants';
 
 // ── Per-type operator unions ───────────────────────────────────────────────
 
@@ -282,6 +282,12 @@ export type SFilterSaved = {
 // ── Props and emits ────────────────────────────────────────────────────────
 
 export type SFilterProps = {
+    /**
+     * @en Additional CSS classes for the filter container.
+     * @es Clases CSS adicionales para el contenedor del filtro.
+     */
+    class?: TClassProp;
+
     /**
      * @en Available filter fields, keyed by the field id used in the v-model value.
      * @es Campos de filtro disponibles, indexados por el id de campo usado en el valor del v-model.

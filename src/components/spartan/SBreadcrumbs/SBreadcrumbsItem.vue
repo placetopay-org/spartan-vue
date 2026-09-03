@@ -3,6 +3,7 @@ import { ChevronRightIcon } from '@heroicons/vue/24/solid';
 import type { TBreadcrumbsItemProps } from './types';
 import { hasSlotContent } from '@/helpers';
 import { breadcrumbsItemStyles } from './styles';
+import { twMerge } from 'tailwind-merge';
 
 const { as = 'a' } = defineProps<TBreadcrumbsItemProps>();
 </script>
@@ -21,7 +22,7 @@ const { as = 'a' } = defineProps<TBreadcrumbsItemProps>();
             <component
                 :is="as"
                 :href="href"
-                :class="breadcrumbsItemStyles({ active })"
+                :class="twMerge(breadcrumbsItemStyles({ active }), $props.class)"
                 :aria-current="active ? 'page' : undefined"
             >
                 <component :is="icon" v-if="icon" class="h-5 w-5 flex-shrink-0 dark:text-gray-400" aria-hidden="true" />

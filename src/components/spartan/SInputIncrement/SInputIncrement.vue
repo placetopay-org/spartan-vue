@@ -78,7 +78,7 @@ const incrementDisabled = computed(() => props.disabled || Boolean(props.max && 
             :max
             :disabled
             :value
-            class="border-none bg-transparent text-center focus:ring-0"
+            :class="twMerge('border-none bg-transparent text-center focus:ring-0', props.class)"
             @input="updateValue"
         />
         <button

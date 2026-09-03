@@ -8,6 +8,12 @@ export type TInputIncrementEmits = (event: 'update:modelValue', value: number) =
 
 export type TInputIncrementProps = {
     /**
+     * @en Additional CSS classes for the inner number input.
+     * @es Clases CSS adicionales para el input numérico interno.
+     */
+    class?: TClassProp;
+
+    /**
      * @en Custom CSS classes for the container element.
      * @es Clases CSS personalizadas para el elemento contenedor.
      */

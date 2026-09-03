@@ -9,6 +9,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge';
 import type { TLinkProps } from './types';
 
 defineProps<TLinkProps>();
@@ -19,7 +20,12 @@ defineProps<TLinkProps>();
         :href="href"
         :target="target"
         v-bind="$attrs"
-        class="cursor-pointer font-medium hover:text-gray-700 hover:underline dark:hover:text-gray-300"
+        :class="
+            twMerge(
+                'cursor-pointer font-medium hover:text-gray-700 hover:underline dark:hover:text-gray-300',
+                $props.class,
+            )
+        "
     >
         <slot />
     </a>

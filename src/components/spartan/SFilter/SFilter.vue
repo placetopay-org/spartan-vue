@@ -13,6 +13,7 @@ import FieldBadge from './elements/FieldBadge.vue';
 import SavedButton from './elements/SavedButton.vue';
 import AddFilterButton from './elements/AddFilterButton.vue';
 import { computed, onMounted } from 'vue';
+import { twMerge } from 'tailwind-merge';
 import { SButton } from '../SButton';
 import { createContext } from './context';
 import { getDuplicateOperatorIds } from './helpers';
@@ -72,7 +73,7 @@ defineExpose({
 
 <template>
     <!-- root -->
-    <div class="flex justify-between gap-3">
+    <div :class="twMerge('flex justify-between gap-3', props.class)">
         <!-- field badges -->
         <div class="flex w-full flex-wrap gap-3">
             <FieldBadge

@@ -1,6 +1,14 @@
+import type { TClassProp } from '@/constants';
+
 export type TRadioGroupEmits = (event: 'update:modelValue', value: string) => void;
 
 export type TRadioGroupProps = {
+    /**
+     * @en Additional CSS classes for the radio group container.
+     * @es Clases CSS adicionales para el contenedor del grupo de radio.
+     */
+    class?: TClassProp;
+
     /**
      * @en Disables all radio group items, preventing user interaction.
      * @es Deshabilita todos los elementos del grupo de radio, impidiendo la interacción del usuario.

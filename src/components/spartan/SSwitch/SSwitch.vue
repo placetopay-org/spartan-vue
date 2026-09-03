@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { twMerge } from 'tailwind-merge';
 import { Switch, SwitchGroup, SwitchLabel, SwitchDescription } from '@headlessui/vue';
 import { hasSlotContent } from '@/helpers';
 import {
@@ -33,7 +34,7 @@ const toggle = () => {
 </script>
 
 <template>
-    <SwitchGroup as="div" :class="switchContainerStyles({ reverse })">
+    <SwitchGroup as="div" :class="twMerge(switchContainerStyles({ reverse }), props.class)">
         <Switch v-model="model" :class="switchTrackStyles({ active: model })">
             <span aria-hidden="true" :class="switchKnobStyles({ active: model })">
                 <template v-if="icon || iconOff || iconOn">

@@ -1,3 +1,5 @@
+import type { TClassProp } from '@/constants';
+
 /**
  * @en Emitted when the modal open state changes.
  * @es Se emite cuando cambia el estado de apertura del modal.
@@ -10,6 +12,12 @@ export type TModalProps = {
      * @es Si el modal está actualmente visible.
      */
     open: boolean;
+
+    /**
+     * @en Additional CSS classes for the modal container.
+     * @es Clases CSS adicionales para el contenedor del modal.
+     */
+    class?: TClassProp;
 
     /**
      * @en The vertical position of the modal on screen.

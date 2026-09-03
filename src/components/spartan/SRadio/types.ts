@@ -1,6 +1,14 @@
+import type { TClassProp } from '@/constants';
+
 export type TRadioEmits = (event: 'update:modelValue', value: boolean | string) => void;
 
 export type TRadioProps = {
+    /**
+     * @en Additional CSS classes for the radio input.
+     * @es Clases CSS adicionales para el input del radio.
+     */
+    class?: TClassProp;
+
     /**
      * @en Disables the radio when true, preventing user interaction.
      * @es Deshabilita el radio cuando es true, impidiendo la interacción del usuario.

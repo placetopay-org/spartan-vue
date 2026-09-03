@@ -19,6 +19,7 @@ defineOptions({ inheritAttrs: false });
 <template>
     <ul
         role="list"
+        v-bind="$attrs"
         :class="twMerge('divide-y divide-gray-100 bg-white shadow dark:divide-gray-700 dark:bg-gray-800', $props.class)"
     >
         <slot />

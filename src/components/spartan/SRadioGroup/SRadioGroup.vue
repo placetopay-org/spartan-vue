@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, provide } from 'vue';
+import { twMerge } from 'tailwind-merge';
 import { RadioGroup } from '@headlessui/vue';
 import { radioGroupStyles } from './styles';
 import type { TRadioGroupEmits, TRadioGroupProps } from './types';
@@ -23,7 +24,7 @@ const model = computed({
 </script>
 
 <template>
-    <RadioGroup v-model="model" :class="radioGroupStyles()" :disabled>
+    <RadioGroup v-model="model" :class="twMerge(radioGroupStyles(), $props.class)" :disabled>
         <slot />
     </RadioGroup>
 </template>
