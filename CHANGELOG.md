@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-09-04
+
 ### Added
 - Laravel + Inertia integration guide (EN + ES), `docs/content/{en,es}/1.getting-started/3.laravel.md`: where the stylesheet belongs and where the i18n plugin is registered in a project whose Vue lives under `resources/js` and whose assets Vite compiles — Laravel 11/12, the `@inertiajs/vue3` adapter, Vue 3.5, TailwindCSS v4 through `@tailwindcss/vite`, Node 20.19/22.12. The section's existing pages were renumbered to make room (`2.introduction` → `1.introduction`, `3.installation` → `2.installation`).
 - `TClassMergeProp` (exported from the shipped declarations) and the `tm` class-merge helper — neither shipped in `3.0.0`. `TClassMergeProp` types the custom class-like props Vue does not normalize, such as `SInputIncrement.containerClass`, which reach `twMerge` directly; see **Fixed** for why `TClassProp` no longer covers them.
