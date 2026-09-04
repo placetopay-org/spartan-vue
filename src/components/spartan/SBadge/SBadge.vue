@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { TBadgeProps, TBadgeEmits } from './types';
 import { badgeStyles, dotStyles, tagStyles, bodyStyles } from './styles';
-import { usePassthrough, hasSlotContent, translator } from '@/helpers';
+import { tm, usePassthrough, hasSlotContent, translator } from '@/helpers';
 import { useSlots } from 'vue';
-import { twMerge } from 'tailwind-merge';
 
 const emit = defineEmits<TBadgeEmits>();
 const { t } = translator('badge');
@@ -29,7 +28,7 @@ const remove = (e: Event) => {
 <template>
     <span
         :class="
-            twMerge(
+            tm(
                 badgeStyles({ color, size, outline, pill, dot, removable: Boolean(removable), reverse, tag: tagSlot }),
                 $props.class,
             )
@@ -39,24 +38,19 @@ const remove = (e: Event) => {
             v-if="dot"
             v-bind="dotProps"
             data-s-dot
-            :class="twMerge(dotStyles({ color }), dotClass)"
+            :class="tm(dotStyles({ color }), dotClass)"
             viewBox="0 0 6 6"
             aria-hidden="true"
         >
             <circle cx="3" cy="3" r="3" />
         </svg>
 
-        <div data-s-body v-bind="bodyProps" :class="twMerge(bodyStyles({ reverse }), bodyClass)">
-            <div
-                v-if="tagSlot"
-                v-bind="tagProps"
-                data-s-tag
-                :class="twMerge(tagStyles({ color, pill, outline }), tagClass)"
-            >
+        <div data-s-body v-bind="bodyProps" :class="tm(bodyStyles({ reverse }), bodyClass)">
+            <div v-if="tagSlot" v-bind="tagProps" data-s-tag :class="tm(tagStyles({ color, pill, outline }), tagClass)">
                 <slot name="tag" />
             </div>
 
-            <div data-s-content v-bind="contentProps" :class="twMerge(contentClass)">
+            <div data-s-content v-bind="contentProps" :class="tm(contentClass)">
                 <slot />
             </div>
         </div>
@@ -66,7 +60,7 @@ const remove = (e: Event) => {
             v-bind="crossProps"
             data-s-cross
             type="button"
-            :class="twMerge('-mx-1 cursor-pointer rounded-sm active:scale-90', crossClass)"
+            :class="tm('-mx-1 cursor-pointer rounded-sm active:scale-90', crossClass)"
             @click="remove"
         >
             <span class="sr-only">{{ t('remove') }}</span>

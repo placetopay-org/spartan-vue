@@ -9,9 +9,8 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { twMerge as tm } from 'tailwind-merge';
 import { XMarkIcon } from '@heroicons/vue/20/solid';
-import { hasSlotContent, translator } from '@/helpers';
+import { tm, hasSlotContent, translator } from '@/helpers';
 import type { TAlertProps } from './types';
 import { alertStyles } from './styles';
 

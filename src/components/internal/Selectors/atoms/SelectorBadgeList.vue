@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { tm } from '@/helpers';
 import { SBadge } from '@spartan';
+import type { TClassProp } from '@/constants';
 
 export type TOption = Record<string, any> | string | number;
 
@@ -12,11 +14,13 @@ const {
     optionValue = undefined,
     options = [],
     width = undefined,
+    class: propClass = undefined,
 } = defineProps<{
     options?: TOption[];
     optionLabel?: string;
     optionValue?: string;
     width?: number;
+    class?: TClassProp;
 }>();
 
 const getOptionLabel = (option: TOption) => {
@@ -35,7 +39,7 @@ const getOptionKey = (option: TOption, index: number) => {
 <template>
     <div
         v-if="options && options.length"
-        class="overflow-auto border-b border-gray-300 p-3 pt-0 dark:border-white/10"
+        :class="tm('overflow-auto border-b border-gray-300 p-3 pt-0 dark:border-white/10', propClass)"
         :style="{ maxWidth: `${String(width)}px`, maxHeight: '74px' }"
     >
         <div class="flex flex-wrap gap-2 pt-3">

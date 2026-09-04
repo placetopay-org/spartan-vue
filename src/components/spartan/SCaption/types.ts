@@ -1,4 +1,12 @@
+import type { TClassProp } from '@/constants';
+
 export type TCaptionProps = {
+    /**
+     * @en Additional CSS classes for the caption element.
+     * @es Clases CSS adicionales para el elemento caption.
+     */
+    class?: TClassProp;
+
     /**
      * @en The text content to display in the caption. Ignored when the default slot is used.
      * @es El contenido de texto a mostrar en el caption. Se ignora cuando se usa el slot default.

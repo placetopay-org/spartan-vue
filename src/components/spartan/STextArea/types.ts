@@ -1,3 +1,5 @@
+import type { TClassProp } from '@/constants';
+
 export type TTextAreaProps = {
     /**
      * @en The text content of the textarea.
@@ -9,7 +11,7 @@ export type TTextAreaProps = {
      * @en Custom CSS classes to apply to the textarea.
      * @es Clases CSS personalizadas para aplicar al textarea.
      */
-    class?: string;
+    class?: TClassProp;
 
     /**
      * @en Displays the textarea in an error state with red border.

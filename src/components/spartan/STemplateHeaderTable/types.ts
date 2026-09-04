@@ -1,4 +1,12 @@
+import type { TClassProp } from '@/constants';
+
 export type TTemplateHeaderTableProps = {
+    /**
+     * @en Additional CSS classes for the header container.
+     * @es Clases CSS adicionales para el contenedor del encabezado.
+     */
+    class?: TClassProp;
+
     /**
      * @en The title displayed at the top of the table header section.
      * @es El título que se muestra en la parte superior de la sección de encabezado de la tabla.

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { tm } from '@/helpers';
 import { computed, provide } from 'vue';
 import { RadioGroup } from '@headlessui/vue';
 import { radioGroupStyles } from './styles';
@@ -23,7 +24,7 @@ const model = computed({
 </script>
 
 <template>
-    <RadioGroup v-model="model" :class="radioGroupStyles()" :disabled>
+    <RadioGroup v-model="model" :class="tm(radioGroupStyles(), $props.class)" :disabled>
         <slot />
     </RadioGroup>
 </template>

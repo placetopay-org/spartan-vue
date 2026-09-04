@@ -9,9 +9,9 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { tm } from '@/helpers';
 import { textAreaStyles } from './styles';
 import type { TTextAreaProps, TTextAreaEmits } from './types';
-import { twMerge } from 'tailwind-merge';
 
 defineEmits<TTextAreaEmits>();
 
@@ -23,7 +23,7 @@ defineProps<TTextAreaProps>();
         :value="modelValue"
         v-bind="$attrs"
         :disabled="disabled"
-        :class="twMerge(textAreaStyles({ error, disabled }))"
+        :class="tm(textAreaStyles({ error, disabled }), $props.class)"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
 </template>

@@ -9,7 +9,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { tm } from '@/helpers';
 import { computed, useAttrs } from 'vue';
 import { SCard, type TCardProps } from '../SCard';
 import { SModal, type TModalProps } from '../SModal';
@@ -45,7 +45,7 @@ const modalBind = computed(() => ({
 }));
 
 const cardBind = computed(() => ({
-    class: twMerge('w-full sm:max-w-lg', className),
+    class: tm('w-full sm:max-w-lg', className),
     size,
     icon,
     actions,

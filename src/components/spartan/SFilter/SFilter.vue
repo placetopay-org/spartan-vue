@@ -16,7 +16,7 @@ import { computed, onMounted } from 'vue';
 import { SButton } from '../SButton';
 import { createContext } from './context';
 import { getDuplicateOperatorIds } from './helpers';
-import { translator } from '@/helpers';
+import { tm, translator } from '@/helpers';
 import type { SFilterEmits, SFilterProps, SFilterValue } from './types';
 
 const emit = defineEmits<SFilterEmits>();
@@ -72,7 +72,7 @@ defineExpose({
 
 <template>
     <!-- root -->
-    <div class="flex justify-between gap-3">
+    <div :class="tm('flex justify-between gap-3', props.class)">
         <!-- field badges -->
         <div class="flex w-full flex-wrap gap-3">
             <FieldBadge

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { tm } from '@/helpers';
 import { computed, ref, useSlots, watchEffect } from 'vue';
 import { buildSideContent } from './slotBuilder';
 import type { TInputProps, TInputEmits } from './types';
-import { twMerge } from 'tailwind-merge';
 import { containerStyles, inputStyles } from './styles';
 
 defineOptions({ inheritAttrs: false });
@@ -57,7 +57,7 @@ defineExpose({ inputElement });
 <template>
     <div
         :class="
-            twMerge(
+            tm(
                 containerStyles({
                     error,
                     disabled,
@@ -85,7 +85,7 @@ defineExpose({ inputElement });
             :id
             ref="inputElement"
             :value="modelValue"
-            :class="twMerge(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
+            :class="tm(inputStyles({ rounded, hasLeftAddon, hasRightAddon }), $props.inputClass)"
             :disabled="disabled"
             :name="name"
             :placeholder="placeholder"
@@ -112,15 +112,6 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
     -webkit-text-fill-color: #111827;
     -webkit-box-shadow: 0 0 0px 40rem #ffff inset;
-}
-
-@media (prefers-color-scheme: dark) {
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus {
-        -webkit-text-fill-color: #f3f4f6;
-        -webkit-box-shadow: 0 0 0px 40rem #111827 inset;
-    }
 }
 
 :is(.dark) input:-webkit-autofill,
