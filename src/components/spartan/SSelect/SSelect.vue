@@ -10,9 +10,8 @@ export default {
 
 <script setup lang="ts">
 import { computed, useTemplateRef } from 'vue';
-import { usePassthrough } from '@/helpers';
+import { tm, usePassthrough } from '@/helpers';
 import type { TSelectEmits, TSelectProps } from './types';
-import { twMerge } from 'tailwind-merge';
 import { selectStyles } from './styles';
 
 defineEmits<TSelectEmits>();
@@ -35,7 +34,7 @@ defineExpose({ refSelect });
         :value="modelValue"
         :disabled
         :name
-        :class="twMerge(selectStyles({ rounded, error, disabled }), $props.class, placeholderClass)"
+        :class="tm(selectStyles({ rounded, error, disabled }), $props.class, placeholderClass)"
         style="
             background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e&quot;);
             background-position: right 0.5rem center;

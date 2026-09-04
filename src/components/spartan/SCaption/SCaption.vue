@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { hasSlotContent } from '@/helpers';
+import { tm, hasSlotContent } from '@/helpers';
 import type { TCaptionProps } from './types';
 
 const { variant = 'error', text } = defineProps<TCaptionProps>();
@@ -11,7 +11,7 @@ const captionClass = {
 </script>
 
 <template>
-    <p data-s-caption :class="['text-xs font-normal', captionClass[variant]]" role="caption">
+    <p data-s-caption :class="tm('text-xs font-normal', captionClass[variant], $props.class)" role="caption">
         <slot v-if="hasSlotContent($slots.default)" />
         <template v-else>{{ text }}</template>
     </p>

@@ -1,8 +1,15 @@
 import type { FunctionalComponent } from 'vue';
+import type { TClassProp } from '@/constants';
 
 export type TSwitchEmits = (event: 'update:modelValue', value: boolean) => void;
 
 export type TSwitchProps = {
+    /**
+     * @en Additional CSS classes for the switch container.
+     * @es Clases CSS adicionales para el contenedor del switch.
+     */
+    class?: TClassProp;
+
     /**
      * @en Displays an icon inside the switch knob. When `true`, shows default check/cross icons. When a component is passed, it is used for both states.
      * @es Muestra un ícono dentro del botón del switch. Cuando es `true`, muestra íconos predeterminados de check/cruz. Cuando se pasa un componente, se usa para ambos estados.

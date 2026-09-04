@@ -9,6 +9,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { tm } from '@/helpers';
 import type { TLinkProps } from './types';
 
 defineProps<TLinkProps>();
@@ -19,7 +20,9 @@ defineProps<TLinkProps>();
         :href="href"
         :target="target"
         v-bind="$attrs"
-        class="cursor-pointer font-medium hover:text-gray-700 hover:underline dark:hover:text-gray-300"
+        :class="
+            tm('cursor-pointer font-medium hover:text-gray-700 hover:underline dark:hover:text-gray-300', $props.class)
+        "
     >
         <slot />
     </a>

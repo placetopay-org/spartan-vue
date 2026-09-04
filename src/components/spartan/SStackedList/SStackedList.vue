@@ -9,7 +9,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
+import { tm } from '@/helpers';
 import type { TStackedListProps } from './types';
 
 defineProps<TStackedListProps>();
@@ -19,7 +19,8 @@ defineOptions({ inheritAttrs: false });
 <template>
     <ul
         role="list"
-        :class="twMerge('divide-y divide-gray-100 bg-white shadow dark:divide-gray-700 dark:bg-gray-800', $props.class)"
+        v-bind="$attrs"
+        :class="tm('divide-y divide-gray-100 bg-white shadow dark:divide-gray-700 dark:bg-gray-800', $props.class)"
     >
         <slot />
     </ul>

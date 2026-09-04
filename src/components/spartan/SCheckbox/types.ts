@@ -1,4 +1,12 @@
+import type { TClassProp } from '@/constants';
+
 export type TCheckboxProps = {
+    /**
+     * @en Additional CSS classes for the checkbox input.
+     * @es Clases CSS adicionales para el input del checkbox.
+     */
+    class?: TClassProp;
+
     /**
      * @en Disables the checkbox when true, preventing user interaction.
      * @es Deshabilita el checkbox cuando es true, impidiendo la interacción del usuario.

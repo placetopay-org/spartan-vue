@@ -51,6 +51,7 @@ const confirm = () => {
         :open="open"
         :icon
         :title
+        :class="$props.class"
         :pt:title="closable ? 'text-left' : ''"
         :pt:description="closable ? 'text-left' : ''"
         :responsive

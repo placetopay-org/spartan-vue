@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { tm } from '@/helpers';
 import { SCaption, SLabel } from '@spartan';
 import type { TBlockWrapperProps } from './types';
 import { computed, useId } from 'vue';
@@ -9,7 +10,7 @@ const computedId = computed(() => props.id || uid);
 </script>
 
 <template>
-    <div class="w-full">
+    <div :class="tm('w-full', props.class)">
         <SLabel v-if="label" :for="computedId">{{ label }}</SLabel>
         <slot :id="computedId" />
         <div v-if="helpText || errorText" class="flex flex-col">

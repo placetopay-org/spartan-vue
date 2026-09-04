@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, useId } from 'vue';
-import { hasSlotContent } from '@/helpers';
+import { tm, hasSlotContent } from '@/helpers';
 import { radioContainerStyles, radioInputStyles, radioLabelStyles, radioDescriptionStyles } from './styles';
 import type { TRadioProps } from './types';
 
@@ -33,7 +33,7 @@ const computedId = computed(() => id ?? uid);
             :id="computedId"
             v-bind="$attrs"
             v-model="model"
-            :class="radioInputStyles()"
+            :class="tm(radioInputStyles(), $props.class)"
             type="radio"
             :disabled
             :name

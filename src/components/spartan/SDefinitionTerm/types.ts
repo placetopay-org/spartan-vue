@@ -1,11 +1,11 @@
-import type { ClassNameValue } from 'tailwind-merge';
+import type { TClassProp } from '@/constants';
 
 export type TDefinitionTermProps = {
     /**
      * @en Additional classes applied to the root element.
      * @es Clases adicionales aplicadas al elemento raíz.
      */
-    class?: ClassNameValue;
+    class?: TClassProp;
 
     /**
      * @en The label (or labels) rendered as `<dt>` element(s). Pass a string for a single label or an array of strings for multiple labels. Ignored when the `default` slot or numbered slots are used.

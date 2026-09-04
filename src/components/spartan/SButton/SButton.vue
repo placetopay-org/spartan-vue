@@ -11,9 +11,8 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
 import { buttonStyles } from './styles';
-import { usePassthrough } from '@/helpers';
+import { tm, usePassthrough } from '@/helpers';
 import { computed, useSlots, useTemplateRef } from 'vue';
 import type { TButtonProps } from './types';
 import Spinner from './Spinner.vue';
@@ -44,7 +43,7 @@ const refButton = useTemplateRef<HTMLButtonElement>('ref_button');
 const buttonType = computed(() => (as !== 'button' || type ? type : 'button'));
 const rootClass = computed(() => {
     const hasText = !circular && slots.default?.()?.[0]?.children;
-    return twMerge(
+    return tm(
         buttonStyles({
             variant,
             rounded: circular ? 'full' : rounded,
@@ -84,7 +83,7 @@ defineExpose({ refButton });
                 v-bind="leftIconProps"
                 :is="leftIcon || icon"
                 data-s-left-icon
-                :class="twMerge('h-5 w-5', !circular && $slots.default?.()?.[0]?.children && '-ml-0.5', leftIconClass)"
+                :class="tm('h-5 w-5', !circular && $slots.default?.()?.[0]?.children && '-ml-0.5', leftIconClass)"
             />
 
             <!-- slot (suppressed in circular mode) -->
@@ -96,7 +95,7 @@ defineExpose({ refButton });
                 :is="rightIcon"
                 v-if="!circular"
                 data-s-right-icon
-                :class="twMerge('h-5 w-5', $slots.default?.()?.[0]?.children && '-mr-0.5', rightIconClass)"
+                :class="tm('h-5 w-5', $slots.default?.()?.[0]?.children && '-mr-0.5', rightIconClass)"
             />
         </component>
 
