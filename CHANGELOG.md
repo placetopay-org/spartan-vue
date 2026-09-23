@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 1.2.3 - 2026-09-18
 ### Removed
 - External Inter font import (`@import url('https://rsms.me/inter/inter.css')`) from `src/styles/fonts.css`. The published `dist/style.css` no longer issues a runtime request to `rsms.me`; consuming applications are now responsible for providing the Inter font. `:root` still declares `font-family: Inter, sans-serif`, so apps that already serve Inter are unaffected. Mirrors the change released upstream in 3.1.0.
 
