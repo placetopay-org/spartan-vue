@@ -8,3 +8,15 @@ storybook-static
 build-storybook.log
 .env
 coverage
+coverage copy/
+
+# Nuxt generated files
+.nuxt/
+.output/
+.data/
+
+# Local specifications
+/openspec/
+
+# npm packages
+*.tgz
