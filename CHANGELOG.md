@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **`SInputDate`'s button bar ignored the configured language.** With `showButtonBar`, the *Today* and *Clear* buttons always read in English: the internal `VoltDatePicker` replaces PrimeVue's `todaybutton`/`clearbutton` slots to style them, and those slots hard-coded `label="Today"`/`label="Clear"`. The component already copies `$spartan.inputDate.today`/`.clear` into PrimeVue's locale — day and month names were translated — but the overriding buttons never read it. They now take their labels from that same reactive locale, so they show the active language (*Hoy*/*Limpiar*, *Hoje*/*Limpar*, *Oggi*/*Cancella*, *Aujourd'hui*/*Effacer*), follow locale changes, and keep PrimeVue's *Today*/*Clear* when vue-i18n or Spartan's messages are not available. Styling and actions are unchanged.
+
 ## [3.1.0] - 2026-09-04
 
 ### Added

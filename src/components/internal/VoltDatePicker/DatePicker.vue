@@ -24,7 +24,7 @@
         <template #todaybutton="{ actionCallback, keydownCallback }">
             <SecondaryButton
                 variant="text"
-                label="Today"
+                :label="primeVueLocale?.today"
                 size="small"
                 @click="actionCallback"
                 @keydown="keydownCallback"
@@ -33,7 +33,7 @@
         <template #clearbutton="{ actionCallback, keydownCallback }">
             <SecondaryButton
                 variant="text"
-                label="Clear"
+                :label="primeVueLocale?.clear"
                 size="small"
                 @click="actionCallback"
                 @keydown="keydownCallback"
@@ -117,7 +117,7 @@ import ChevronRightIcon from '@primevue/icons/chevronright';
 import ChevronUpIcon from '@primevue/icons/chevronup';
 import DatePicker from 'primevue/datepicker';
 import PrimeVueConfig from 'primevue/config';
-import { getCurrentInstance, ref, watchEffect } from 'vue';
+import { computed, getCurrentInstance, ref, watchEffect } from 'vue';
 import { translator } from '@/helpers/i18n';
 import SecondaryButton from './SecondaryButton.vue';
 import { ptViewMerge } from './utils';
@@ -127,6 +127,11 @@ const app = instance?.appContext.app;
 if (app && !app.config.globalProperties.$primevue) {
     app.use(PrimeVueConfig, { unstyled: true });
 }
+
+// The button bar slots replace PrimeVue's default buttons, so their labels must come from the
+// same reactive locale PrimeVue reads: translated below when vue-i18n is present, PrimeVue's
+// own `Today`/`Clear` otherwise.
+const primeVueLocale = computed(() => app?.config.globalProperties.$primevue?.config?.locale);
 
 try {
     const { t } = translator('inputDate');
