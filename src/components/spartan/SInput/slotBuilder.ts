@@ -20,7 +20,13 @@ const leftComponents: Record<string, any> = {
         component: SelectorSlot,
         getProps: (props: Partial<TInputProps>) => {
             if (props.leftOptions)
-                return { options: props.leftOptions, modelValue: props.leftOption, ariaLabel: props.leftOptionsLabel };
+                return {
+                    options: props.leftOptions,
+                    modelValue: props.leftOption,
+                    ariaLabel: props.leftOptionsLabel,
+                    disabled: props.disabled,
+                    error: props.error,
+                };
             return undefined;
         },
         // Only invoked when getProps returned truthy (see buildSideContent), so the
@@ -52,6 +58,8 @@ const rightComponents: Record<string, any> = {
                     options: props.rightOptions,
                     modelValue: props.rightOption,
                     ariaLabel: props.rightOptionsLabel,
+                    disabled: props.disabled,
+                    error: props.error,
                 };
             return undefined;
         },
