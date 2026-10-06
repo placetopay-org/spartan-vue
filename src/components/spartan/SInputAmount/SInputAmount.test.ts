@@ -72,6 +72,31 @@ describe('SInputAmount', () => {
         expect(screen.getByRole('option', { name: 'COP' })).toBeInTheDocument();
     });
 
+    // PT-21468: the currency selector reaches `SInput` through `rightOptions`, so it inherits
+    // the single field outline and the field's disabled state.
+    test('Draws a single field outline when the currency selector is focused', async () => {
+        const user = userEvent.setup();
+        const { container } = render(SInputAmount, {
+            props: { currency: 'USD', modelValue: 10, currencies: ['USD', 'EUR'] },
+        });
+        const select = screen.getByRole('combobox');
+
+        await user.click(select);
+
+        expect(select).toHaveFocus();
+        expect(select).toHaveClass('focus:bg-spartan-primary-50');
+        expect(container.querySelectorAll('[class*="s-outline"]')).toHaveLength(1);
+    });
+
+    test('Disables the currency selector when the field is disabled', () => {
+        render(SInputAmount, {
+            props: { currency: 'USD', modelValue: 10, currencies: ['USD', 'EUR'], disabled: true },
+        });
+
+        expect(screen.getByRole('combobox')).toBeDisabled();
+        expect(screen.getByRole('textbox')).toBeDisabled();
+    });
+
     test('Emits update:currency and info when currency selector changes', async () => {
         const user = userEvent.setup();
         const { emitted } = render(SInputAmount, {
