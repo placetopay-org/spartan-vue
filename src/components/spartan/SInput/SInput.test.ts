@@ -428,6 +428,83 @@ describe('SInput', () => {
 
             expect(select.className).toContain('dark:text-gray-400');
         });
+
+        // PT-21468: the selector's wrapper used to add its own `focus-within` outline on top of
+        // the container's, so focusing it drew two outlines.
+        test.each([
+            ['left', { leftOptions: options, leftOption: '1' }],
+            ['right', { rightOptions: options, rightOption: '1' }],
+        ])('Draws a single field outline when the %s selector is focused', async (_, props) => {
+            const user = userEvent.setup();
+            const { container } = render(SInput, { props });
+            const select = screen.getByRole('combobox');
+
+            await user.click(select);
+
+            expect(select).toHaveFocus();
+            expect(container.firstElementChild!.className).toContain('focus-within:s-outline');
+            expect(container.querySelectorAll('[class*="s-outline"]')).toHaveLength(1);
+        });
+
+        test('Tints the focused selector with the primary palette', () => {
+            render(SInput, { props: { rightOptions: options, rightOption: '1' } });
+            const select = screen.getByRole('combobox');
+
+            expect(select).toHaveClass(
+                'focus:bg-spartan-primary-50',
+                'focus:text-spartan-primary-800',
+                'dark:focus:bg-spartan-primary-600/10',
+                'dark:focus:text-spartan-primary-400',
+            );
+        });
+
+        test('Tints the focused selector red when the field has an error', () => {
+            const { container } = render(SInput, { props: { error: true, leftOptions: options, leftOption: '1' } });
+            const select = screen.getByRole('combobox');
+
+            expect(select).toHaveClass(
+                'focus:bg-red-50',
+                'focus:text-red-700',
+                'dark:focus:bg-red-400/10',
+                'dark:focus:text-red-400',
+            );
+            expect(select.className).not.toContain('spartan-primary');
+            expect(container.firstElementChild!.className).toContain('focus-within:s-outline-error');
+            expect(container.querySelectorAll('[class*="s-outline"]')).toHaveLength(1);
+        });
+
+        test('Disables both selectors when the field is disabled', () => {
+            render(SInput, {
+                props: {
+                    disabled: true,
+                    leftOptions: options,
+                    leftOption: '1',
+                    rightOptions: options,
+                    rightOption: '2',
+                },
+            });
+
+            const selects = screen.getAllByRole('combobox');
+            expect(selects).toHaveLength(2);
+            selects.forEach((select) => expect(select).toBeDisabled());
+        });
+
+        test('Keeps both selectors enabled when the field is enabled', () => {
+            render(SInput, {
+                props: { leftOptions: options, leftOption: '1', rightOptions: options, rightOption: '2' },
+            });
+
+            screen.getAllByRole('combobox').forEach((select) => expect(select).toBeEnabled());
+        });
+
+        test('Skips the selector in the tab order when the field is disabled', async () => {
+            const user = userEvent.setup();
+            render(SInput, { props: { disabled: true, leftOptions: options, leftOption: '1' } });
+
+            await user.tab();
+
+            expect(document.body).toHaveFocus();
+        });
     });
 
     describe('Slots', () => {

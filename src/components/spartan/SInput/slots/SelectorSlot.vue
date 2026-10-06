@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { selectorStyles } from '../styles';
+
 defineEmits<{
     (event: 'update:modelValue', value: string | undefined): void;
 }>();
@@ -16,17 +18,20 @@ defineProps<{
      * consumer's call, and the library has nothing meaningful to invent.
      */
     ariaLabel?: string;
+    /** Forwarded from `SInput`, so a disabled field cannot be changed through its selector. */
+    disabled?: boolean;
+    /** Forwarded from `SInput`, so the focus tint follows the field's error state. */
+    error?: boolean;
 }>();
 </script>
 
 <template>
-    <div
-        class="focus-within:s-outline flex items-center rounded-lg border border-transparent outline-2 outline-offset-0 outline-transparent transition-[outline-offset,outline-color] duration-150"
-    >
+    <div class="flex items-center rounded-lg border border-transparent">
         <select
             :value="modelValue"
             :aria-label="ariaLabel"
-            class="rounded-lg border-none bg-transparent py-1.5 pr-8 text-sm text-gray-500 focus:ring-0 dark:text-gray-400"
+            :disabled
+            :class="selectorStyles({ error })"
             @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
         >
             <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
