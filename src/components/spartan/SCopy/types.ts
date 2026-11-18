@@ -1,8 +1,16 @@
-/**
- * @en Emitted when the text is copied to the clipboard.
- * @es Se emite cuando el texto se copia al portapapeles.
- */
-export type TCopyEmits = (event: 'copied', value: string) => void;
+export type TCopyEmits = {
+    /**
+     * @en Emitted when the text is copied to the clipboard.
+     * @es Se emite cuando el texto se copia al portapapeles.
+     */
+    (event: 'copied', value: string): void;
+
+    /**
+     * @en Emitted when the text could not be copied to the clipboard.
+     * @es Se emite cuando el texto no se pudo copiar al portapapeles.
+     */
+    (event: 'failed', error: Error): void;
+};
 
 export type TCopyProps = {
     /**
