@@ -27,14 +27,58 @@ onUnmounted(() => clearTimeout(copying.value));
 
 const tooltip = ref<InstanceType<typeof STooltip>>();
 
-const copy = () => {
-    tooltip.value?.open();
-    clearTimeout(copying.value);
-    copying.value = setTimeout(() => {
-        copying.value = undefined;
-        tooltip.value?.close();
-    }, 3000);
+const legacyCopy = (text: string): boolean => {
+    if (typeof document.execCommand !== 'function') return false;
 
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    textarea.style.opacity = '0';
+
+    try {
+        document.body.appendChild(textarea);
+        textarea.select();
+        textarea.setSelectionRange(0, text.length);
+
+        return document.execCommand('copy');
+    } catch {
+        return false;
+    } finally {
+        textarea.remove();
+    }
+};
+
+const toError = (error: unknown): Error => {
+    if (error instanceof Error) return error;
+
+    if (typeof error === 'object' && error !== null && 'message' in error) {
+        return new Error(String(error.message));
+    }
+
+    return new Error('Clipboard write failed');
+};
+
+type TClipboardResult = { success: true } | { success: false; error: Error };
+
+const writeClipboard = async (text: string): Promise<TClipboardResult> => {
+    try {
+        if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+
+            return { success: true };
+        }
+    } catch (error) {
+        return legacyCopy(text) ? { success: true } : { success: false, error: toError(error) };
+    }
+
+    return legacyCopy(text)
+        ? { success: true }
+        : { success: false, error: new Error('Clipboard API is not available') };
+};
+
+const copy = async () => {
     let valueToCopy = value || '';
 
     if (!valueToCopy) {
@@ -45,7 +89,24 @@ const copy = () => {
         }
     }
 
-    navigator.clipboard.writeText(valueToCopy);
+    const result = await writeClipboard(valueToCopy);
+
+    if (!result.success) {
+        clearTimeout(copying.value);
+        copying.value = undefined;
+        tooltip.value?.close();
+        emit('failed', result.error);
+
+        return;
+    }
+
+    tooltip.value?.open();
+    clearTimeout(copying.value);
+    copying.value = setTimeout(() => {
+        copying.value = undefined;
+        tooltip.value?.close();
+    }, 3000);
+
     emit('copied', valueToCopy);
 };
 </script>
